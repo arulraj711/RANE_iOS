@@ -1,0 +1,177 @@
+{
+  "code": 100,
+  "Message": "Influencer Info",
+  "InfluencerArray": [
+    {
+      "ArticleId": "1",
+      "title": "Apple takes top spot in Chinese smartphone market - data firm",
+      "desc": "Apple Inc (AAPL.O) has shipped the most number of smartphones in China in the fourth quarter, overtaking Samsung Electronics Co Ltd (005930.KS) and homegrown companies such as Xiaomi [XTC.UL] for the first time, according to data firm Canalys. Xiaomi [XTC.UL] for the first time, according to data firm Canalys.Apple Inc (AAPL.O) has shipped the most number of smartphones in China in the fourth quarter, overtaking Samsung Electronics Co Ltd (005930.KS) and homegrown companies such as Xiaomi [XTC.UL] for the first time, according to data firm Canalys. Xiaomi [XTC.UL] for the first time, according to data firm Canalys Apple Inc (AAPL.O) has shipped the most number of smartphones in China in the fourth quarter, overtaking Samsung Electronics Co Ltd (005930.KS) and homegrown companies such as Xiaomi [XTC.UL] for the first time, according to data firm Canalys. Xiaomi [XTC.UL] for the first time, according to data firm Canalys Apple Inc (AAPL.O) has shipped the most number of smartphones in China in the fourth quarter, overtaking Samsung Electronics Co Ltd (005930.KS) and homegrown companies such as Xiaomi [XTC.UL] for the first time, according to data firm Canalys. Xiaomi [XTC.UL] for the first time, according to data firm Canalys",
+      "outlet": "MacRumors",
+      "date": "Jan 27, 2015",
+      "image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6",
+      "author": [
+        {
+          "name": "Brad Reed",
+          "title": "Editor",
+          "infl_type": "sm",
+          "image": "http://s9.postimg.org/dufyh9oln/Brad_Reed.jpg",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "image": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "image": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "image": ""
+        },
+        {
+          "name": "video",
+          "flag": "yes",
+          "image": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "image": ""
+        },
+        {
+          "name": "stock",
+          "flag": "yes",
+          "image": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "ArticleId": "2",
+      "title": "Apple Inc. (AAPL) Is Still a ‘Buy’",
+      "desc": "Following the recent 7-to-1 stock split, the stock price of Apple Inc. (NASDAQ:AAPL), its stock price declined to around $93 per share, from around $650 price tag it had before. While the current investors of Apple are unaffected by the stock split, the stock has become more affordable for other retail investors. In a recent interview on CNBC, Timothy Arcuri, the Managing Director of Cowen and Company said that the stock split, combined with the launch of new products is a good thing for Apple’s stock and might send it higher.",
+      "outlet": "Insider",
+      "date": "Jan 8, 2015",
+      "image": "",
+      "author": [
+        {
+          "name": "Timothy Arcuri",
+          "title": "Finance Analyst",
+          "infl_type": "fin",
+          "image": "https://media.licdn.com/media/p/8/005/036/3c8/1111659.jpg",
+          "success_rate": "71%",
+          "avg_return": "16.9%",
+          "stock_projection": "$119.5",
+          "stock_status": "buy"
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "image": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "image": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "no",
+          "image": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "image": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "image": ""
+        },
+        {
+          "name": "stock",
+          "flag": "yes",
+          "image": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "ArticleId": "3",
+      "title": "Apple impacts future of mobile with iPhone 6 and Apple Watch",
+      "desc": "When it comes to mobile computing and smartphones, no company has had a bigger impact than Apple. Their iPhone redefined the world of mobile communication and, while subsequent releases may not have had the same level of impact each new Apple release is a signpost to the future of mobile.",
+      "outlet": "Gigaom Research",
+      "date": "Jan 25, 2015",
+      "image": "http://s28.postimg.org/7zd5kpj3x/Capture.png",
+      "author": [
+        {
+          "name": "Michael Wolf",
+          "title": "Chief Analyst",
+          "infl_type": "biz",
+          "image": "http://research.gigaom.com/wp-content/uploads/sites/4/2013/05/Wolf-130x130.jpg",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "no",
+          "image": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "image": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "no",
+          "image": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "image": ""
+        },
+        {
+          "name": "charts",
+          "flag": "yes",
+          "image": ""
+        },
+        {
+          "name": "stock",
+          "flag": "no",
+          "image": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "image": ""
+        }
+      ]
+    }
+  ]
+}

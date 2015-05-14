@@ -1,0 +1,103 @@
+{
+  "contentList": [
+    {
+      "name": "Curated News",
+      "image": "http://staging.mediawales.co.uk/_files/images//jun_10/mw__1276511479_News_Image.jpg",
+      "innerList": [
+        {
+          "name": "Apple",
+          "image": "http://www.macforensicslab.com/ProductsAndServices/images/icon_apple.jpg",
+          "isSeleted": "false",
+          "innerList": [
+            {
+              "name": "iPhone6",
+              "image": "https://recodetech.files.wordpress.com/2014/09/iphone6_pf_spgry_iphone6_pb_spgry_iphone6_psl_spgry_homescreen-print6-e1413838796953.jpg?quality=80&strip=info&w=256&h=256&crop=1",
+              "isSelected": "false",
+              "innerList": [
+                {
+                  "name": "North America",
+                  "image": "http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i3!2i1!3i2!2m3!1e0!2sm!3i293000000!3m9!2sen-US!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0",
+                  "isSelected": "false",
+                  "innerList": []
+                },
+                {
+                  "name": "Europe",
+                  "image": "https://mts0.googleapis.com/vt?pb=!1m4!1m3!1i3!2i4!3i2!2m3!1e0!2sm!3i293000000!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0",
+                  "isSelected": "false",
+                  "innerList": []
+                },
+                {
+                  "name": "Asia",
+                  "image": "http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i2!2i2!3i1!2m3!1e0!2sm!3i293000000!3m14!2sen-US!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjMzfHMuZTpsfHAudjpvZmY!4e0",
+                  "isSelected": "false",
+                  "innerList": []
+                }
+              ]
+            },
+            {
+              "name": "iPhone5",
+              "image": "https://www.officialiphoneunlock.co.uk/images/iphones/iphone5.png",
+              "isSelected": "false",
+              "innerList": []
+            },
+            {
+              "name": "Macbook",
+              "image": "http://www.macforensicslab.com/ProductsAndServices/images/icon_MacBookAir.jpg",
+              "isSelected": "false",
+              "innerList": []
+            }
+          ]
+        },
+        {
+          "name": "Samsung",
+          "image": "https://ucell2us.com/assets/img/brands/Samsung.png",
+          "isSeleted": "false",
+          "innerList": []
+        },
+        {
+          "name": "Google",
+          "image": "http://www.jobvine.co.za/Content/images/ig/google_logo.jpg",
+          "isSeleted": "false",
+          "innerList": []
+        },
+        {
+          "name": "Cisco",
+          "image": "http://3cnetworks.com/wp-content/uploads/2014/06/image005.png",
+          "isSeleted": "false",
+          "innerList": []
+        },
+        {
+          "name": "Microsoft",
+          "image": "http://2013.playandmake.com/content/06-partners/01-platinum/01-microsoft/microsoft.png",
+          "isSeleted": "false",
+          "innerList": []
+        }
+      ]
+    },
+    {
+      "name": "Influencer Comments",
+      "image": "http://www.sundoginteractive.com/images/uploads/channel_images/influencer.jpg",
+      "innerList": []
+    },
+    {
+      "name": "Executive Moves",
+      "image": "http://davidould.net/wp-content/uploads/2012/08/Ladder1600.jpg",
+      "innerList": []
+    },
+    {
+      "name": "Stock Watch",
+      "image": "http://www.hbsdealer.com/sites/hbsdealer.com/files/field_main_image/2015-01/Stocks4.jpg",
+      "innerList": []
+    },
+    {
+      "name": "IP & :Legal",
+      "image": "http://www.skrupalaw.com/wp-content/uploads/revslider/homeslider/law.jpg",
+      "innerList": []
+    },
+    {
+      "name": "Deals",
+      "image": "http://biobm.com/images/handshake-life_science_business_deals.jpg",
+      "innerList": []
+    }
+  ]
+}

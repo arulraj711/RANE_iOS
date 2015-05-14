@@ -1,0 +1,528 @@
+{
+  "code": "",
+  "message": "Influencer Details",
+  "article": [
+    {
+      "id": "1",
+      "title": "After setting iPhone record, what does Apple do next?",
+      "desc": "SAN FRANCISCO (AP) -- Apple CEO Tim Cook says consumer demand for new iPhones has been \"staggering\" and \"hard to comprehend.\" That helped the company report record-smashing earnings for its latest quarter and sent the stock climbing more than 7 percent on Wednesday.",
+      "outlet": "Yahoo fianace",
+      "date": "Jan 28, 2015",
+      "read": "no",
+      "image": "http://l1.yimg.com/bt/api/res/1.2/0pjoXhE3PmUiLz.C8zNlYw--/YXBwaWQ9eW5ld3M7Zmk9ZmlsbDtoPTM3NztpbD1wbGFuZTtweG9mZj01MDtweW9mZj0wO3E9NzU7dz02NzA-/http://globalfinance.zenfs.com/images/US_AHTTP_AP_HighTechNews/8b38aa41597465046c0f6a7067006043_original.jpg",
+      "author": [
+        {
+          "name": "Gene Munster",
+          "title": "Senior Analyst",
+          "infl_type": "fin",
+          "img": "https://dl.dropboxusercontent.com/u/90350613/fi_backend/the-apple-influencers-15-analysts-and-writers-you-should-be-following.jpg",
+          "success_rate": "74%",
+          "avg_return": "+30.3%",
+          "stock_projection": "$135.12",
+          "stock_status": "Buy"
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Argus Research Believes This Stock Won’t Stop Here",
+      "desc": "Argus Research analyst Jim Kelleher reiterated a Buy rating on Apple (NASDAQ: AAPL) today and set a price target of $135. The company’s shares closed yesterday at $115.31, close to its 52-week high of $119.75.",
+      "outlet": "Analyst Ratings",
+      "date": "Jan 29, 2015",
+      "read": "no",
+      "image": "http://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/v2_article_large/public/2015/03/05/apple-iphone-waterproofing.jpg?itok=GoISGvkL",
+      "author": [
+        {
+          "name": "Jim Kelleher",
+          "title": "Analyst",
+          "infl_type": "fin",
+          "img": "https://az712682.vo.msecnd.net/expert-pictures/222_JDBCDDCJB_tsqr.jpg",
+          "success_rate": "78%",
+          "avg_return": "+17.9%",
+          "stock_projection": "$135.12",
+          "stock_status": "Buy"
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Top Trends in Retail Payments: A Year in Review, 2015 Edition",
+      "desc": "This report reflects on the key retail payments issues which kept Celent analysts busy in 2014 and that Celent believes are set to shape the industry in 2015.",
+      "outlet": "Celent",
+      "date": "Jan 26, 2015",
+      "read": "no",
+      "image": "http://celent.com/system/files/applepay.gif",
+      "author": [
+        {
+          "name": "Zilvinas Bareisis",
+          "title": "Senior Analyst",
+          "infl_type": "biz",
+          "img": "http://www.celent.com/system/files/imagecache/portrait_analyst/zilbareisis_whiteback.png",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "no",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Apple's former CEO says Samsung's marketing power can't match Apple's",
+      "desc": "John Sculley may have been the one who pushed out Steve Jobs from Apple, but he also ushered in one of the most famous commercials. Sculley talks to CNET about Samsung's marketing efforts, Apple Watch, Tim Cook and more.",
+      "outlet": "CNET",
+      "date": "Feb 14, 2015",
+      "read": "yes",
+      "image": "http://cnet4.cbsistatic.com/hub/i/r/2015/02/13/d3342682-5486-4a98-89f3-38c6fb401b4b/resize/370xauto/acd9a49f7c14324b0ff585f3d7f2c46c/john-headshot-large.jpg",
+      "author": [
+        {
+          "name": "Shara Tibken",
+          "title": "CNET senior writer",
+          "infl_type": "sm",
+          "img": "https://pbs.twimg.com/profile_images/558906252470661120/oRT13na4_400x400.jpeg",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Apple stock closes at all time high as company aims for future growth",
+      "desc": "Apple shares closed Tuesday at an all time high of $106.74, following the market's digesting of recent earnings reports, the well received launches of a series of new products and new details outlined in the company's 10-K report yesterday.",
+      "outlet": "AppleInsider",
+      "date": "Oct 28, 2014",
+      "read": "no",
+      "image": "",
+      "author": [
+        {
+          "name": "Daniel Eran",
+          "title": "Writer",
+          "infl_type": "sm",
+          "img": "https://pbs.twimg.com/profile_images/3751518476/6695369d508aed81954aa2a8e3587987_400x400.jpeg",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Apple hires Zane Lowe, one of UK's biggest-name DJs",
+      "desc": "After a decade at the BBC, the distinctive Kiwi tones of the DJ, producer and influential music industry personality will be heard at Apple.Apple has hired one of the most recognisable names in the UK's music scene, recruiting former MTV and BBC DJ and producer Zane Lowe to the company's music team.",
+      "outlet": "CNET",
+      "date": "Feb 16, 2015",
+      "read": "no",
+      "image": "http://cnet2.cbsistatic.com/hub/i/r/2015/02/16/2d55f59b-3b4c-4e41-aad2-4dfc4c17b936/resize/770x578/f3f74cd96b7d8ad622e69b083d2d8d3f/zane-lowe-smoke.jpg",
+      "author": [
+        {
+          "name": "Rich Trenholm",
+          "title": "Senior Editor",
+          "infl_type": "sm",
+          "img": "https://pbs.twimg.com/profile_images/477372971397312512/pz-siO5P_200x200.jpeg",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "no",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Cantor Reiterates Buy On Apple On The Back Of Auto Market Opportunity",
+      "desc": "Cantor Fitzgerald analyst Brian White reiterated a Buy rating on Apple (NASDAQ:AAPL) with a price target of $160, following the release of Wall Street Journal article, reporting that Apple is working on a designing a “minivan like” electric vehicle under a project that is codenamed “Titan”.",
+      "outlet": "SmarterAnalyst",
+      "date": "Feb 17, 2015",
+      "read": "yes",
+      "image": "http://media.ycharts.com/charts/21e342ad9fee0b0e441381bff6161837.png",
+      "author": [
+        {
+          "name": "Brian White",
+          "title": "Finance Analyst",
+          "infl_type": "fin",
+          "img": "https://az712682.vo.msecnd.net/expert-pictures/2208_JGCECGHDDB_tsqr.jpg",
+          "success_rate": "75%",
+          "avg_return": "+20.9%",
+          "stock_projection": "$130.81",
+          "stock_status": "Buy"
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Two Scenarios for the Smart Watch Market",
+      "desc": "At this years International CES, we had the honor of moderating the smart watch super session. We dove into a range of subjects but also offered the audience to download our latest smart watch report highlighting our high level thoughts on the market as it stands. Below is a highlight from the report where we outline two scenarios we could see happening with the market.",
+      "outlet": "Creative Strategies",
+      "date": "Jan 6, 2015",
+      "read": "no",
+      "image": "http://creativestrategies.com/wp-content/uploads/2015/01/apple-watches-1200x400.png",
+      "author": [
+        {
+          "name": "Ben Bajarin",
+          "title": "Industry Analyst",
+          "infl_type": "biz",
+          "img": "https://pbs.twimg.com/profile_images/531591364056600576/zNC_7sXX_400x400.jpeg",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "title": "J.P. Morgan's Top 2 IT Stocks",
+      "desc": "J.P Morgan analyst Rod Hall commented on several telecom and networking equipment stocks Friday in the February \"Hall Monitor\" report.",
+      "outlet": "Benzinga",
+      "date": "Feb 13, 2015",
+      "read": "no",
+      "image": "http://cdn4.benzinga.com/files/imagecache/story_image_680x375C/images/story/2012/186525285_4.jpg",
+      "author": [
+        {
+          "name": "Rod Hall",
+          "title": "Analyst",
+          "infl_type": "fin",
+          "img": "https://az712682.vo.msecnd.net/expert-pictures/1276_JCDFBDJAB_tsqr.jpg",
+          "success_rate": "45%",
+          "avg_return": "+1.3%",
+          "stock_projection": "$145",
+          "stock_status": "Buy"
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "url": ""
+        }
+      ]
+    }
+  ]
+}

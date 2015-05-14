@@ -1,0 +1,360 @@
+{
+  "code": "100",
+  "message": "Corporate News Details",
+  "aricle": [
+    {
+      "id": "1",
+      "title": "Apple Watch will be pricey, says friends who might know",
+      "desc": "Apple’s Watch will cost as much as $US20,000 when it comes out in April, a well-regarded Apple pundit has claimed, citing “friends who might know”.",
+      "outlet": "The Australian Financial Review",
+      "date": "Feb 23, 2015",
+      "image": "http://cdn2.knowyourmobile.com/sites/knowyourmobilecom/files/Array/apple-watch-6_1.jpg",
+      "url": "http://www.afr.com/p/technology/digitallife/apple_watch_will_be_pricey_says_kuBnV5iHPIUHTW7YRNcrHP",
+      "read": "no",
+      "author": [
+        {
+          "name": "JOHN DAVIDSON",
+          "title": "sketch writer in charge of Australia's pre-eminent Digital Life Laboratories",
+          "infl_type": "sm",
+          "img": "http://www.afr.com/rw/SysConfig/WebPortal/afr/_files/images/reporter/john_davidson.jpg",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Samsung Gear Watch Apps to Play on the Go",
+      "desc": "Samsung has released six smartwatches in over a year. The latest one, the Samsung Gear S, allows you to make calls without your smartphone.",
+      "outlet": "The WSJ",
+      "date": "Mar 12, 2015",
+      "image": "http://cdn.macrumors.com/article-new/2013/09/galaxygear.jpg",
+      "url": "",
+      "read": "no",
+      "author": [
+        {
+          "name": "EVA TAM",
+          "title": "Multimedia producer",
+          "infl_type": "sm",
+          "img": "https://pbs.twimg.com/profile_images/2814318208/33a1d335b090227a96f8d50f664788b3_400x400.jpeg",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "no",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Rivals Google and Apple Fight for the Dashboard",
+      "desc": "MOUNTAIN VIEW, Calif. — When Google hosted a boot camp here this month for its Android operating system, there were some new faces in the room: auto manufacturers.",
+      "outlet": "The New York Times",
+      "date": "Feb 22, 2015",
+      "image": "http://static01.nyt.com/images/2015/02/23/business/23autojp2/23autojp2-articleLarge.jpg",
+      "url": "http://www.nytimes.com/2015/02/23/technology/rivals-google-and-apple-fight-for-the-dashboard.html",
+      "read": "no",
+      "author": [
+        {
+          "name": "AARON M. KESSLER and BRIAN X. CHEN",
+          "title": "Technology reporter for The New York Times",
+          "infl_type": "sm",
+          "img": "http://static01.nyt.com/images/2012/11/14/technology/topics-chen-pic/topics-chen-pic-articleInline.jpg",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "no",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Samsung Galaxy Win 2 Duos With 4G LTE, 4.5-Inch Display Launched",
+      "desc": "Samsung at an event in Sao Paulo on Tuesday announced the successor of the Galaxy Win Duos, the Galaxy Win 2 Duos with 4G LTE support. The smartphone is available in the Brazilian market for BRL 729 (approximately Rs. 14,500). Another model with support for digital TV is priced at BRL 779 (approximately Rs. 15,500).",
+      "outlet": "NDTV Gadgets",
+      "date": "Mar 12, 2015",
+      "image": "http://cdn.ndtv.com/tech/images/gadgets/samsung_galaxy_win_2_duos_brazilofficial.jpg",
+      "url": "http://www.afr.com/p/technology/digitallife/apple_watch_will_be_pricey_says_kuBnV5iHPIUHTW7YRNcrHP",
+      "read": "yes",
+      "author": [
+        {
+          "name": "Hitesh Arora",
+          "title": "Engineering graduate and a Tech enthusiast",
+          "infl_type": "sm",
+          "img": "http://drop.ndtv.com/TECH/product_database/images/39201570409PM_09-03-2015-19-04-09_hitesharora.jpg",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Apple Planning Public iOS Betas Starting With iOS 8.3 and iOS 9: Report",
+      "desc": "Apple is reportedly planning to publicly test future iOS builds with a limited number of participants, similar to what Cupertino did with OS X last year. The iPhone-maker will kick off its plans by opening the iOS 8.3 beta in mid-March, and the iOS 9 beta in the summer, ahead of a fall release with the next iPhone.",
+      "outlet": "NDTV Gadgets",
+      "date": "Feb 23, 2015",
+      "image": "http://cdn.ndtv.com/tech/images/ios_8.jpg",
+      "url": "http://gadgets.ndtv.com/mobiles/news/apple-planning-public-ios-betas-starting-with-ios-83-and-ios-9-report-663476",
+      "read": "no",
+      "author": [
+        {
+          "name": "NDTV Correspondent",
+          "title": "",
+          "infl_type": "sm",
+          "img": "",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "no",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Will Samsung Wave Merchant Fees in the U.S. When It Rolls Out Samsung Pay?",
+      "desc": "Samsung won't be charging anyone, including both card issuing banks and payment processors, for Samsung Pay when it rolls out its mobile payment system in Korea. And this may just be possibly setting the stage for a free U.S. version, as well, once it brings Samsung Pay to the U.S. this summer.",
+      "outlet": "The Science Times",
+      "date": "Mar 10, 2015",
+      "image": "http://images.sciencetimes.com/data/images/full/1779/people-walk-at-the-main-office-building-of-samsung-electronics-in-seoul-april-6-2012.jpg?w=600",
+      "url": "",
+      "read": "no",
+      "author": [
+        {
+          "name": "",
+          "title": "",
+          "infl_type": "sm",
+          "img": "",
+          "success_rate": "",
+          "avg_return": "",
+          "stock_projection": "",
+          "stock_status": ""
+        }
+      ],
+      "legends": [
+        {
+          "name": "personality",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "product",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "twitter",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "video",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "charts",
+          "flag": "no",
+          "url": ""
+        },
+        {
+          "name": "stock",
+          "flag": "yes",
+          "url": ""
+        },
+        {
+          "name": "value",
+          "flag": "yes",
+          "url": ""
+        }
+      ]
+    }
+  ]
+}

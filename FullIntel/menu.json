@@ -1,0 +1,129 @@
+{
+    "string": "Menu Listing",
+    "menu_list": [
+                  {
+                  "Name": "MARKED IMPORTANT",
+                  "List": []
+                  },
+                  {
+                  "Name": "SAVED FOR LATER",
+                  "List": []
+                  },
+                  {
+                  "Name": "CURATED NEWS",
+                  "List": [
+                           {
+                           "Name": "APPLE",
+                           "List": [
+                                    {
+                                    "Name": "IPHONE",
+                                    "List": [
+                                             {
+                                             "Name": "IPHONE 8",
+                                             "List": [
+                                                      {
+                                                      "Name": "CONCEPT",
+                                                      "List": []
+                                                      },
+                                                      {
+                                                      "Name": "MANUFACTURE",
+                                                      "List": []
+                                                      },
+                                                      {
+                                                      "Name": "RELEASE",
+                                                      "List": []
+                                                      }
+                                                      ]
+                                             },
+                                             {
+                                             "Name": "IPHONE 6",
+                                             "List": []
+                                             },
+                                             {
+                                             "Name": "IPHONE 5",
+                                             "List": []
+                                             }
+                                             ]
+                                    },
+                                    {
+                                    "Name": "WATCH",
+                                    "List": []
+                                    },
+                                    {
+                                    "Name": "STORE",
+                                    "List": []
+                                    }
+                                    ]
+                           },
+                           {
+                           "Name": "MICROSOFT",
+                           "List": [
+                                    {
+                                    "Name": "WORD",
+                                    "List": []
+                                    },
+                                    {
+                                    "Name": "EXCEL",
+                                    "List": []
+                                    },
+                                    {
+                                    "Name": "POWERPOINT",
+                                    "List": []
+                                    }
+                                    ]
+                           },
+                           {
+                           "Name": "HCL",
+                           "List": []
+                           }
+                           ]
+                  },
+                  {
+                  "Name": "INFLUENCER COMMENTS",
+                  "List": [
+                           {
+                           "Name": "APPLE",
+                           "List": [
+                                    {
+                                    "Name": "IPHONE",
+                                    "List": []
+                                    },
+                                    {
+                                    "Name": "WATCH",
+                                    "List": []
+                                    }
+                                    ]
+                           },
+                           {
+                           "Name": "MICROSOFT",
+                           "List": [
+                                    {
+                                    "Name": "WORD",
+                                    "List": []
+                                    },
+                                    {
+                                    "Name": "EXCEL",
+                                    "List": []
+                                    }
+                                    ]
+                           }
+                           ]
+                  },
+                  {
+                  "Name": "STOCK WATCH",
+                  "List": []
+                  },
+                  {
+                  "Name": "EXECUTIVE MOVES",
+                  "List": []
+                  },
+                  {
+                  "Name": "IP & LEGAL",
+                  "List": []
+                  },
+                  {
+                  "Name": "DEALS",
+                  "List": []
+                  }
+                  ]
+}
