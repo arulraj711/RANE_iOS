@@ -396,7 +396,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DPI-mC-pre">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="600"/>
-                                <color key="backgroundColor" red="0.96078431369999995" green="0.33333333329999998" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="axE-ih-zPn">
                                     <size key="itemSize" width="1000" height="600"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -416,8 +416,8 @@
                                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfz-n6-GN5">
                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="520"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1b2-ck-3kV">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="2000"/>
+                                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1b2-ck-3kV">
+                                                                    <rect key="frame" x="0.0" y="-500" width="1000" height="2000"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZE1-Jw-cYe">
                                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="426"/>
@@ -549,7 +549,7 @@
                                                                         </label>
                                                                         <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lbz-nL-F1Q">
                                                                             <rect key="frame" x="44" y="469" width="598" height="1140"/>
-                                                                            <color key="backgroundColor" red="0.96078431369999995" green="0.33333333329999998" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <connections>
                                                                                 <outlet property="delegate" destination="uxY-MW-fJH" id="lFk-qP-GDr"/>
                                                                             </connections>
@@ -565,8 +565,8 @@
                                                                             </collectionViewFlowLayout>
                                                                             <cells/>
                                                                             <connections>
-                                                                                <outlet property="dataSource" destination="uxY-MW-fJH" id="eVg-r1-xIa"/>
-                                                                                <outlet property="delegate" destination="uxY-MW-fJH" id="8BY-sU-zIB"/>
+                                                                                <outlet property="dataSource" destination="1bm-hV-Nnm" id="OvW-07-xeH"/>
+                                                                                <outlet property="delegate" destination="1bm-hV-Nnm" id="1Wv-Mb-of7"/>
                                                                             </connections>
                                                                         </collectionView>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="hBl-Sj-wYq">
@@ -684,7 +684,7 @@
                                                                     </constraints>
                                                                 </view>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="0.96078431369999995" green="0.33333333329999998" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="bottom" secondItem="1b2-ck-3kV" secondAttribute="bottom" id="68f-kQ-K9C"/>
                                                                 <constraint firstItem="1b2-ck-3kV" firstAttribute="top" secondItem="mfz-n6-GN5" secondAttribute="top" id="AoE-a0-hgR"/>
@@ -824,9 +824,17 @@
                                             <constraint firstItem="3kC-bG-fJf" firstAttribute="leading" secondItem="1bm-hV-Nnm" secondAttribute="leading" id="Uft-1y-yMb"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="articleAuthor" destination="E7c-36-38e" id="rRt-j4-cI4"/>
+                                            <outlet property="articleDate" destination="32O-3c-wCT" id="Mc3-So-QCV"/>
                                             <outlet property="articleImageView" destination="ZE1-Jw-cYe" id="CBD-Vc-XuV"/>
+                                            <outlet property="articleOutlet" destination="RVc-oi-urW" id="Mrm-Zy-8xV"/>
                                             <outlet property="articleTitle" destination="zui-NU-4GL" id="yUT-N7-zAH"/>
+                                            <outlet property="articleWebview" destination="Lbz-nL-F1Q" id="Rjx-nv-2rR"/>
+                                            <outlet property="authorImageView" destination="Sd2-Ce-KFN" id="2Md-Ir-QMA"/>
+                                            <outlet property="authorName" destination="M8R-EL-eaz" id="W5p-8a-jh0"/>
+                                            <outlet property="authorWorkTitle" destination="vOf-Sp-o9Z" id="f5t-r4-eY6"/>
                                             <outlet property="scrollView" destination="mfz-n6-GN5" id="GlX-2f-vIw"/>
+                                            <outlet property="widgetCollectionView" destination="v4N-Oa-kJn" id="zdK-YT-0G9"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

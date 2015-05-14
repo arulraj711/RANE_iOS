@@ -10,7 +10,6 @@
 		3BA3145765EFD5E9465E072A /* libPods-FullIntel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39AF10A475C726FDFCE5E99E /* libPods-FullIntel.a */; };
 		A0066EEC1B03082D008B4623 /* CorporateNewsDetailsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsTest.m */; };
 		A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */; };
-		A0066EF21B030B41008B4623 /* CorporateDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0066EF01B030B41008B4623 /* CorporateDetailCell.xib */; };
 		A02C54C61AEF5E0000E65011 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02C54C51AEF5E0000E65011 /* Social.framework */; };
 		A053F5231AF896B8002EDC46 /* ShowDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = A053F5221AF896B8002EDC46 /* ShowDetailView.m */; };
 		A053F5251AF9F090002EDC46 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A053F5241AF9F090002EDC46 /* Accounts.framework */; };
@@ -188,7 +187,6 @@
 		A0066EEB1B03082D008B4623 /* CorporateNewsDetailsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateNewsDetailsTest.m; sourceTree = "<group>"; };
 		A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorporateDetailCell.h; sourceTree = "<group>"; };
 		A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateDetailCell.m; sourceTree = "<group>"; };
-		A0066EF01B030B41008B4623 /* CorporateDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CorporateDetailCell.xib; sourceTree = "<group>"; };
 		A02C54C51AEF5E0000E65011 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		A053F5211AF896B8002EDC46 /* ShowDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowDetailView.h; sourceTree = "<group>"; };
 		A053F5221AF896B8002EDC46 /* ShowDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowDetailView.m; sourceTree = "<group>"; };
@@ -468,7 +466,6 @@
 			children = (
 				A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */,
 				A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */,
-				A0066EF01B030B41008B4623 /* CorporateDetailCell.xib */,
 			);
 			name = CorporateDetailCell;
 			sourceTree = "<group>";
@@ -1072,7 +1069,6 @@
 				F7F876B51AB976B00042404D /* influ_drillin.json in Resources */,
 				A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */,
 				F7F3C05B1AA42CC700E653CB /* menu.json in Resources */,
-				A0066EF21B030B41008B4623 /* CorporateDetailCell.xib in Resources */,
 				F7E368831ABC18F70083F38E /* MailPopoverView.xib in Resources */,
 				F7E81FBD1A97057100F9A8D4 /* sam_img.png in Resources */,
 				F7E81FB31A97057100F9A8D4 /* microsoft.png in Resources */,
