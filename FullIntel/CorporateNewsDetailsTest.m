@@ -11,6 +11,8 @@
 #import "FISharedResources.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FIUtils.h"
+#import "SocialWebView.h"
+#import "MZFormSheetController.h"
 
 @interface CorporateNewsDetailsTest ()
 
@@ -23,6 +25,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails) name:@"CuratedNewsDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails) name:@"CuratedNewsAuthorDetails" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailButtonClick:) name:@"mailButtonClick" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globeButtonClick:) name:@"globeButtonClick" object:nil];
     
     oneSecondTicker = [[NSTimer alloc] init];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -35,6 +40,9 @@
     
    // self.collectionView.contentOffset = CGPointMake(self.collectionView.frame.size.width*2, 0);
     
+    innerWebView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)];
+    
+    self.navigationItem.rightBarButtonItem =nil;
     
     [self getArticleIdListFromDB];
     
@@ -72,6 +80,9 @@
         curatedNews = [newPerson objectAtIndex:0];
         curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
     }
+    NSLog(@"curated news author:%@",curatedNewsAuthorDetail);
+    
+    
     [self.collectionView reloadData];
 }
 -(void)getArticleIdListFromDB {
@@ -140,7 +151,28 @@
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
         [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"image"]] placeholderImage:nil];
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
+        cell.cachedImageViewSize = cell.articleImageView.frame;
         cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
+        
+        NSString *outletString = [curatedNews valueForKey:@"outlet"];
+        
+        CGFloat width =  [outletString sizeWithFont:[UIFont fontWithName:@"OpenSans" size:14 ]].width;
+        NSLog(@"outlet text width:%f",width);
+        if(width == 0) {
+            
+        }
+        else if(width < 59) {
+            
+            CGFloat value = width;
+            cell.outletTextWidthConstraint.constant = value;
+           // self.outletHorizontalConstraint.constant = value+10;
+        }else {
+            
+            CGFloat value = width;
+            cell.outletTextWidthConstraint.constant = value;
+          //  self.outletHorizontalConstraint.constant = value+10;
+        }
+        
         cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
         
         NSSet *authorSet = [curatedNews valueForKey:@"author"];
@@ -157,6 +189,10 @@
         
         curatedNewsDetail = [curatedNews valueForKey:@"details"];
         curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
+        cell.curatedNewsDetail = curatedNewsDetail;
+        cell.selectedIndexPath = indexPath;
+        cell.articleDesc = [curatedNews valueForKey:@"desc"];
+        
         if(curatedNewsDetail == nil) {
             // NSLog(@"details is null");
            
@@ -168,14 +204,7 @@
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
-        } else {
-            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
-            [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
-        }
-        
-        
-        
-        if(curatedNewsAuthorDetail == nil) {
+            
             NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
             [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
             [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
@@ -184,16 +213,159 @@
             NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
         } else {
-            NSSet *authorSet = [curatedNewsAuthorDetail valueForKey:@"authorDetails"];
+            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+            [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+        }
+        
+        
+        
+        if(curatedNewsAuthorDetail == nil) {
+            
+        } else {
+            
+            
+            
+            NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
             NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
             NSManagedObject *author;
             if(legendsArray.count != 0) {
                 author  = [legendsArray objectAtIndex:0];
             }
+          //  NSLog(@"single author:%@",author);
+            
             self.socialLinksArray = [[NSMutableArray alloc]init];
-            NSSet *socialLinkSet = [author valueForKey:@"authorSocialMedia"];
-            self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialLinkSet allObjects]];
-            cell.socialLinksArray = self.socialLinksArray;
+            NSSet *socialMediaSet = [author valueForKey:@"authorSocialMedia"];
+            self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialMediaSet allObjects]];
+            NSLog(@"social list:%d",self.socialLinksArray.count);
+           
+            
+            
+            if(self.socialLinksArray.count == 0) {
+                cell.socialLinkLabel.hidden = YES;
+                cell.socialLinkDivider.hidden = YES;
+                cell.socialLinkCollectionView.hidden = YES;
+            } else {
+                cell.socialLinksArray = self.socialLinksArray;
+                cell.socialLinkLabel.hidden = NO;
+                cell.socialLinkDivider.hidden = NO;
+                cell.socialLinkCollectionView.hidden = NO;
+                
+                [cell.socialLinkCollectionView reloadData];
+            }
+            
+            [cell.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
+            [cell.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
+            
+            NSString *authorName = [NSString stringWithFormat:@"%@ %@",[author valueForKey:@"firstName"],[author valueForKey:@"lastName"]];
+            cell.aboutAuthorName.text = authorName;
+            cell.authorNameStr = [author valueForKey:@"firstName"];
+            
+            if([[author valueForKey:@"starRating"] integerValue] == 0) {
+                cell.ratingControl.hidden = YES;
+            } else {
+                cell.ratingControl.hidden = NO;
+                cell.starRating.rating = [[author valueForKey:@"starRating"] integerValue];
+            }
+            
+            
+            NSSet *workTitleSet = [author valueForKey:@"authorWorkTitle"];
+            NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
+            if(workTitleArray.count != 0) {
+                NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
+                cell.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
+            } else {
+//                self.authorWorkTitleImageView.hidden = YES;
+//                self.workTitleHeightConstraint.constant = 0;
+//                self.workTitleImageHeightConstraint.constant = 0;
+//                self.workTitleTop.constant = 0;
+//                self.workTitleLabelTop.constant = 0;
+            }
+            
+            
+            NSSet *outletSet = [author valueForKey:@"authorOutlet"];
+            NSMutableArray *outletArray = [[NSMutableArray alloc]initWithArray:[outletSet allObjects]];
+            if(outletArray.count != 0) {
+                NSManagedObject *outlet = [outletArray objectAtIndex:0];
+                cell.authorOutletName.text = [outlet valueForKey:@"outletname"];
+            }else {
+//                self.authorOutletImageView.hidden = YES;
+//                self.outletHeightConstraint.constant = 0;
+//                self.outletImageViewHeightConstraint.constant = 0;
+//                self.outletTop.constant = 0;
+//                self.outletLabelTop.constant = 0;
+            }
+            
+            
+            NSString *city = [author valueForKey:@"city"];
+            NSString *country = [author valueForKey:@"country"];
+            NSString *authorPlace;
+            if(city.length == 0) {
+                authorPlace = [NSString stringWithFormat:@"%@",country];
+            } else if(country.length == 0) {
+                authorPlace = [NSString stringWithFormat:@"%@",city];
+            } else {
+                authorPlace = [NSString stringWithFormat:@"%@, %@",city,country];
+            }
+            if(authorPlace.length !=0 ){
+                cell.authorLocationLabel.text = authorPlace;
+            } else {
+//                self.authorLocationImageView.hidden = YES;
+//                self.locationImageViewHeightConstraint.constant = 0;
+//                self.locationLabelHeightConstraint.constant = 0;
+//                self.locationTop.constant = 0;
+//                self.locationLabelTop.constant = 0;
+            }
+            
+            NSSet *beatSet = [author valueForKey:@"authorBeat"];
+            NSMutableArray *beatsArray = [[NSMutableArray alloc]initWithArray:[beatSet allObjects]];
+            NSMutableArray *beats = [[NSMutableArray alloc]init];
+            for(NSManagedObject *beat in beatsArray) {
+                [beats addObject:[NSString stringWithFormat:@"#%@",[beat valueForKey:@"name"]]];
+            }
+            NSString *beatString = [beats componentsJoinedByString:@" "];
+            if(beatString.length != 0){
+                cell.authorTagLabel.text = beatString;
+            } else {
+//                self.authorTagImageView.hidden = YES;
+//                self.tagImageViewHeightConstraint.constant = 0;
+//                self.tagLabelHeightConstraint.constant = 0;
+//                self.tagTop.constant = 0;
+//                self.tagLabelTop.constant = 0;
+            }
+            
+            cell.bioLabel.text = [author valueForKey:@"bibliography"];
+            
+//            NSLog(@"author detail:%@",curatedNewsAuthorDetail);
+//            NSLog(@"second set:%@",[curatedNewsAuthorDetail valueForKey:@"authorDetails"]);
+            
+//            NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
+//            NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
+//            NSManagedObject *author;
+//            if(legendsArray.count != 0) {
+//                author  = [legendsArray objectAtIndex:0];
+//            }
+//            self.socialLinksArray = [[NSMutableArray alloc]init];
+//            NSSet *socialLinkSet = [curatedNewsAuthorDetail valueForKey:@"authorSocialMedia"];
+//            
+//            self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialLinkSet allObjects]];
+//            NSLog(@"social link array:%@",self.socialLinksArray);
+////            NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
+//            for(NSManagedObject *social in self.socialLinksArray) {
+//                NSLog(@"single social object:%@",social);
+//            }
+            //cell.socialLinksArray = self.socialLinksArray;
+//            
+//            //curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
+//            NSLog(@"author set:%@",self.socialLinksArray);
+//            NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
+//            NSManagedObject *author;
+//            if(legendsArray.count != 0) {
+//                author  = [legendsArray objectAtIndex:0];
+//            }
+//            self.socialLinksArray = [[NSMutableArray alloc]init];
+//            NSSet *socialLinkSet = [author valueForKey:@"authorSocialMedia"];
+//            self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialLinkSet allObjects]];
+//            cell.socialLinksArray = self.socialLinksArray;
 //            if(self.socialLinksArray.count == 0) {
 //                self.socialLinkLabel.hidden = YES;
 //                self.socialLinkDivider.hidden = YES;
@@ -331,6 +503,132 @@
     
 }
 
+
+- (void)socialLinkSelected:(id)sender
+{
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *title = [userInfo objectForKey:@"name"];
+    NSString *link = [userInfo objectForKey:@"link"];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    
+    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+    // UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"modal"];
+    
+    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+    
+    formSheet.presentedFormSheetSize = CGSizeMake(850, 700);
+    //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
+    formSheet.shadowRadius = 2.0;
+    formSheet.shadowOpacity = 0.3;
+    formSheet.shouldDismissOnBackgroundViewTap = YES;
+    formSheet.shouldCenterVertically = YES;
+    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
+    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
+    // formSheet.landscapeTopInset = 50;
+    // formSheet.portraitTopInset = 100;
+    
+    __weak MZFormSheetController *weakFormSheet = formSheet;
+    
+    
+    // If you want to animate status bar use this code
+    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
+        if ([navController.topViewController isKindOfClass:[SocialWebView class]]) {
+            SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
+            mzvc.urlString = link;
+            //  mzvc.showStatusBar = NO;
+        }
+        
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+            }
+        }];
+    };
+    
+    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+        // Passing data
+        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
+        
+        navController.topViewController.title = title;
+        
+        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+        SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
+        mzvc.urlString = link;
+    };
+    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+    
+    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
+    
+    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        
+    }];
+    
+}
+
+-(void)mailButtonClick:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *title = [userInfo objectForKey:@"title"];
+    NSString *body = [userInfo objectForKey:@"body"];
+    mailComposer = [[MFMailComposeViewController alloc]init];
+    mailComposer.mailComposeDelegate = self;
+    [mailComposer setSubject:title];
+    [mailComposer setMessageBody:body isHTML:NO];
+    [self presentViewController:mailComposer animated:YES completion:nil];
+}
+
+#pragma mark - mail compose delegate
+-(void)mailComposeController:(MFMailComposeViewController *)controller
+         didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    if (result) {
+        NSLog(@"Result : %d",result);
+    }
+    if (error) {
+        NSLog(@"Error : %@",error);
+    }
+    //[self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+-(void)globeButtonClick:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *articleUrl = [userInfo objectForKey:@"url"];
+    
+    [UIView animateWithDuration:0.2
+                          delay:0.1
+                        options: UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         innerWebView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-80);
+                         
+                         
+                         UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, innerWebView.frame.size.width, innerWebView.frame.size.height)];
+                         webView.backgroundColor = [UIColor whiteColor];
+                         NSURL *url = [NSURL URLWithString:articleUrl];
+                         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+                         [webView loadRequest:requestObj];
+                         [innerWebView addSubview:webView];
+                         innerWebView.backgroundColor = [UIColor whiteColor];
+                         self.navigationItem.hidesBackButton = YES;
+                         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                         [button addTarget:self action:@selector(closeWebView)
+                          forControlEvents:UIControlEventTouchUpInside];
+                         [button setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+                         // [button setTitle:@"Show View" forState:UIControlStateNormal];
+                         button.frame = CGRectMake(0, 10, 28, 28);
+                         UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+                         self.navigationItem.rightBarButtonItem = customBarItem;
+                     }
+                     completion:^(BOOL finished){
+                     }];
+    [self.view addSubview:innerWebView];
+}
+
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
     int lastCount = self.articleIdArray.count-1;
@@ -352,5 +650,19 @@
     }
 }
 
+-(void)closeWebView {
+    [UIView animateWithDuration:0.2
+                          delay:0.1
+                        options: UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         innerWebView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80);
+                     }
+                     completion:^(BOOL finished){
+                         if (finished)
+                             [innerWebView removeFromSuperview];
+                         self.navigationItem.hidesBackButton = NO;
+                         self.navigationItem.rightBarButtonItem = nil;
+                     }];
+}
 
 @end

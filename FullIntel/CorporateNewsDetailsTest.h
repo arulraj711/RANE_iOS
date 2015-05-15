@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "FISharedResources.h"
+#import <MessageUI/MessageUI.h>
 
-@interface CorporateNewsDetailsTest : UIViewController {
+@interface CorporateNewsDetailsTest : UIViewController<MFMailComposeViewControllerDelegate> {
     NSTimer *oneSecondTicker;
     NSManagedObject *curatedNewsDetail;
     NSManagedObject *curatedNewsAuthorDetail;
+     MFMailComposeViewController *mailComposer;
+    UIView *innerWebView;
 }
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;

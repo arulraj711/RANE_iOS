@@ -11,6 +11,7 @@
 		A0066EEC1B03082D008B4623 /* CorporateNewsDetailsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsTest.m */; };
 		A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */; };
 		A02C54C61AEF5E0000E65011 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02C54C51AEF5E0000E65011 /* Social.framework */; };
+		A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0406BA01B05CE5F00985CF8 /* TweetsCell.m */; };
 		A053F5231AF896B8002EDC46 /* ShowDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = A053F5221AF896B8002EDC46 /* ShowDetailView.m */; };
 		A053F5251AF9F090002EDC46 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A053F5241AF9F090002EDC46 /* Accounts.framework */; };
 		A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B41AF74CE60016AD46 /* FIContentCategory.m */; };
@@ -188,6 +189,8 @@
 		A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorporateDetailCell.h; sourceTree = "<group>"; };
 		A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateDetailCell.m; sourceTree = "<group>"; };
 		A02C54C51AEF5E0000E65011 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		A0406B9F1B05CE5F00985CF8 /* TweetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsCell.h; sourceTree = "<group>"; };
+		A0406BA01B05CE5F00985CF8 /* TweetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsCell.m; sourceTree = "<group>"; };
 		A053F5211AF896B8002EDC46 /* ShowDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowDetailView.h; sourceTree = "<group>"; };
 		A053F5221AF896B8002EDC46 /* ShowDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowDetailView.m; sourceTree = "<group>"; };
 		A053F5241AF9F090002EDC46 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -636,6 +639,8 @@
 				A053F5221AF896B8002EDC46 /* ShowDetailView.m */,
 				A0066EEA1B03082D008B4623 /* CorporateNewsDetailsTest.h */,
 				A0066EEB1B03082D008B4623 /* CorporateNewsDetailsTest.m */,
+				A0406B9F1B05CE5F00985CF8 /* TweetsCell.h */,
+				A0406BA01B05CE5F00985CF8 /* TweetsCell.m */,
 			);
 			name = Corporate_News;
 			sourceTree = "<group>";
@@ -1233,6 +1238,7 @@
 				F7E368941ABC1DB80083F38E /* MorePopoverView.m in Sources */,
 				F7CE36E91A95E9490005AA0A /* RATreeView+TableViewDelegate.m in Sources */,
 				F7E6ACF31AD66DAF002B5169 /* MarkedImportantCell.m in Sources */,
+				A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */,
 				A07A05BE1AF78EBC0016AD46 /* AddContentThirdLevelView.m in Sources */,
 				F7CE36E41A95E9490005AA0A /* RATreeNodeItem.m in Sources */,
 				F7AE10881AC022CD0091E1C7 /* InfluencerCell.m in Sources */,

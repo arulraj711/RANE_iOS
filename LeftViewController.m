@@ -440,7 +440,7 @@
         [[FISharedResources sharedResourceManager] logoutUserWithDetails:resultStr withFlag:[NSNumber numberWithInt:1]];
         [FIUtils deleteExistingData];
         
-       
+       [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
         [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];

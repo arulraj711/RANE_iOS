@@ -794,13 +794,6 @@
 - (IBAction)globeButtonClick:(UIButton *)sender {
     NSLog(@"globe button click");
     
-//    innerWebView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)];
-    
-    
-    
-    
-    
-    
     [UIView animateWithDuration:0.2
                           delay:0.1
                         options: UIViewAnimationOptionCurveEaseIn

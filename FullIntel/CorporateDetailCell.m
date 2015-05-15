@@ -11,6 +11,12 @@
 #import "StockWidgetCell.h"
 #import "ProductWidgetCell.h"
 #import "SocialLinkCell.h"
+#import "TweetsCell.h"
+#import "MZFormSheetController.h"
+#import "SocialWebView.h"
+#import "ResearchRequestPopoverView.h"
+#import "UIView+Toast.h"
+#import "CommentsPopoverView.h"
 
 @implementation CorporateDetailCell
 
@@ -18,6 +24,7 @@
     // Initialization code
     self.authorImageView.layer.masksToBounds = YES;
     self.authorImageView.layer.cornerRadius = 25.0f;
+   // self.socialLinksArray = [[NSMutableArray alloc]init];
 }
 
 
@@ -37,6 +44,8 @@
     }
     else if(collectionView == self.socialLinkCollectionView) {
         return CGSizeMake(50, 50);
+    } else if(collectionView == self.tweetsCollectionView) {
+        return CGSizeMake(320, 300);
     }
     return CGSizeMake(30, 30);
 }
@@ -50,13 +59,15 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    // NSLog(@"imp collection view");
+     NSLog(@"imp collection view:%d",self.socialLinksArray.count);
     NSInteger itemCount;
 //    if(view == self.legendsCollectionView) {
 //        itemCount = self.legendsArray.count;
 //    }else
     if(view == self.socialLinkCollectionView){
         itemCount = self.socialLinksArray.count;
+    }else if(view == self.tweetsCollectionView) {
+        itemCount = 10;
     }else {
         itemCount = 3;
     }
@@ -89,6 +100,7 @@
 //    } else
     
     if(cv == self.socialLinkCollectionView) {
+        NSLog(@"inside social link collectionview cellfor item");
         NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
         
         SocialLinkCell *socialCell =(SocialLinkCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
@@ -117,7 +129,12 @@
         //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
         collectionCell = socialCell;
         
-    } else {
+    } else if(cv == self.tweetsCollectionView) {
+        TweetsCell *tweetCell =(TweetsCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+        tweetCell.contentView.layer.borderWidth = 1.0f;
+        tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+        collectionCell = tweetCell;
+    }else {
         if(indexPath.row == 0) {
             [self.widgetCollectionView registerClass:[PersonalityWidgetCell class]
                           forCellWithReuseIdentifier:@"Personality"];
@@ -156,70 +173,161 @@
 }
 
 
-//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    NSLog(@"did select social link");
-//    if(collectionView == self.socialLinkCollectionView) {
-//        
-//        NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
-//        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-//        
-//        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-//        // UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"modal"];
-//        
-//        MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
-//        
-//        formSheet.presentedFormSheetSize = CGSizeMake(850, 700);
-//        //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
-//        formSheet.shadowRadius = 2.0;
-//        formSheet.shadowOpacity = 0.3;
-//        formSheet.shouldDismissOnBackgroundViewTap = YES;
-//        formSheet.shouldCenterVertically = YES;
-//        formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
-//        // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
-//        // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
-//        // formSheet.landscapeTopInset = 50;
-//        // formSheet.portraitTopInset = 100;
-//        
-//        __weak MZFormSheetController *weakFormSheet = formSheet;
-//        
-//        
-//        // If you want to animate status bar use this code
-//        formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
-//            UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
-//            if ([navController.topViewController isKindOfClass:[SocialWebView class]]) {
-//                SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
-//                mzvc.urlString = [socialLink valueForKey:@"url"];
-//                //  mzvc.showStatusBar = NO;
-//            }
-//            
-//            
-//            [UIView animateWithDuration:0.3 animations:^{
-//                if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-//                    [weakFormSheet setNeedsStatusBarAppearanceUpdate];
-//                }
-//            }];
-//        };
-//        
-//        formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
-//            // Passing data
-//            UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-//            NSString *titleStr = [NSString stringWithFormat:@"%@ in %@",self.authorNameStr,[socialLink valueForKey:@"mediatype"]];
-//            navController.topViewController.title = titleStr;
-//            
-//            navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-//            SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
-//            mzvc.urlString = [socialLink valueForKey:@"url"];
-//        };
-//        formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
-//        
-//        [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
-//        
-//        [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-//            
-//        }];
-//        
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"did select social link");
+
+    if(collectionView == self.socialLinkCollectionView) {
+        
+        NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
+        NSString *titleStr = [NSString stringWithFormat:@"%@ in %@",self.authorNameStr,[socialLink valueForKey:@"mediatype"]];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"socialLinkSelected" object:nil userInfo:@{@"name":titleStr,@"link":[socialLink valueForKey:@"url"]}];
+    }
+}
+
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    
+    
+    CGSize mWebViewTextSize = [webView sizeThatFits:CGSizeMake(1.0f, 1.0f)];  // Pass about any size
+    CGRect mWebViewFrame = webView.frame;
+    mWebViewFrame.size.height = mWebViewTextSize.height;
+    webView.frame = mWebViewFrame;
+    //Disable bouncing in webview
+    for (id subview in webView.subviews)
+    {
+        if ([[subview class] isSubclassOfClass: [UIScrollView class]])
+        {
+            [subview setBounces:NO];
+        }
+    }
+    self.webViewHeightConstraint.constant = webView.frame.size.height;
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1500);
+    self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];
+    self.starRating.userInteractionEnabled = NO;
+    [self.ratingControl addSubview:self.starRating];
+}
+
+
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    
+//    CGFloat y = -scrollView.contentOffset.y;
+//    NSLog(@"scroll y value:%f",y);
+//    if (y > 64) {
+//        self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
+//        self.articleImageView.center = CGPointMake(self.center.x, self.articleImageView.center.y);
 //    }
+//    
 //}
+
+
+- (IBAction)researchRequestButtonClick:(UIButton *)sender {
+    ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+    popOverView.articleId = [self.curatedNewsDetail valueForKey:@"articleId"];
+    popOverView.articleTitle = [self.curatedNewsDetail valueForKey:@"articleHeading"];
+    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+    self.popOver.popoverContentSize=CGSizeMake(400, 260);
+    //self.popOver.delegate = self;
+    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+
+- (IBAction)saveButtonClick:(UIButton *)sender {
+    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [resultDic setObject:[self.curatedNewsDetail valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+    [resultDic setObject:@"3" forKey:@"status"];
+    
+    
+    
+    if(sender.selected) {
+        [sender setSelected:NO];
+        [resultDic setObject:@"false" forKey:@"isSelected"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        
+        [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+        
+        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
+        [self.contentView makeToast:@"Removed from Saved List!" duration:1.5 position:CSToastPositionCenter];
+    }else {
+        [sender setSelected:YES];
+        [resultDic setObject:@"true" forKey:@"isSelected"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+        
+        [self.curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
+        [self.contentView makeToast:@"Saved Successfully!" duration:1.5 position:CSToastPositionCenter];
+    }
+}
+
+
+- (IBAction)mailButtonClick:(UIButton *)sender {
+    NSString *mailBodyStr = [NSString stringWithFormat:@"%@\n\n%@",self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"title":[self.curatedNewsDetail valueForKey:@"articleHeading"],@"body":mailBodyStr}];
+
+}
+
+- (IBAction)commentsButtonClick:(UIButton *)sender {
+    CommentsPopoverView *popOverView = [[CommentsPopoverView alloc]initWithNibName:@"CommentsPopoverView" bundle:nil];
+    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+    self.popOver.popoverContentSize=CGSizeMake(400, 300);
+    //self.popOver.delegate = self;
+    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+
+- (IBAction)markedImpButtonClick:(UIButton *)sender {
+    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [resultDic setObject:[self.curatedNewsDetail valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+    [resultDic setObject:@"2" forKey:@"status"];
+    
+    
+    
+    if(sender.selected) {
+        [sender setSelected:NO];
+        [resultDic setObject:@"false" forKey:@"isSelected"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        
+        [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+        
+        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
+        [self.contentView makeToast:@"Unchecked from Important List!" duration:1.5 position:CSToastPositionCenter];
+    }else {
+        [sender setSelected:YES];
+        [resultDic setObject:@"true" forKey:@"isSelected"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+        
+        [self.curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
+        [self.contentView makeToast:@"Marked Important!" duration:1.5 position:CSToastPositionCenter];
+    }
+    
+}
+
+- (IBAction)globeButtonClick:(UIButton *)sender {
+    NSLog(@"globe button click");
+    
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"globeButtonClick" object:nil userInfo:@{@"url":[self.curatedNewsDetail valueForKey:@"articleUrl"]}];
+    
+    
+    
+    
+}
+
 
 
 @end
