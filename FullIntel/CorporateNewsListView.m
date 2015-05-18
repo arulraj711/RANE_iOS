@@ -16,6 +16,7 @@
 #import "CorporateNewsDetailsView.h"
 #import "CorporateNewsDetailsTest.h"
 #import "FIUtils.h"
+#import "AddContentFirstLevelView.h"
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface CorporateNewsListView ()
@@ -47,36 +48,35 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
     [self.navigationItem setLeftBarButtonItem:addButton];
     
-    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
+    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
     addBtnView.backgroundColor = [UIColor clearColor];
     
     UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     [addBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
     [addBtn setBackgroundImage:[UIImage imageNamed:@"addcontent"]  forState:UIControlStateNormal];
-    [addBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [addBtn addTarget:self action:@selector(addContentView) forControlEvents:UIControlEventTouchUpInside];
     [addBtnView addSubview:addBtn];
     UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
     
-    UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
-    searchBtnView.backgroundColor = [UIColor clearColor];
-    
-    UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    [searchBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    [searchBtn setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
-    [searchBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [searchBtnView addSubview:searchBtn];
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
-    
-    UIView *settingsBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
-    settingsBtnView.backgroundColor = [UIColor clearColor];
-    UIButton *settingsBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    [settingsBtn setFrame:CGRectMake(0.0f,0.0f,15.0f,15.0f)];
-    [settingsBtn setBackgroundImage:[UIImage imageNamed:@"settings"]  forState:UIControlStateNormal];
-    [settingsBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [settingsBtnView addSubview:settingsBtn];
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithCustomView:settingsBtnView];
+//    UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
+//    searchBtnView.backgroundColor = [UIColor clearColor];
+//    UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//    [searchBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+//    [searchBtn setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
+//    [searchBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+//    [searchBtnView addSubview:searchBtn];
+//    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
+//    
+//    UIView *settingsBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
+//    settingsBtnView.backgroundColor = [UIColor clearColor];
+//    UIButton *settingsBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//    [settingsBtn setFrame:CGRectMake(0.0f,0.0f,15.0f,15.0f)];
+//    [settingsBtn setBackgroundImage:[UIImage imageNamed:@"settings"]  forState:UIControlStateNormal];
+//    [settingsBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+//    [settingsBtnView addSubview:settingsBtn];
+//    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithCustomView:settingsBtnView];
 
-    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:settingsButton,searchButton,addContentButton,  nil]];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,  nil]];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     label.backgroundColor = [UIColor clearColor];
@@ -168,6 +168,51 @@
 //    [self.influencerTableView reloadData];
 }
 
+
+-(void)addContentView {
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+    
+    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
+    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+    formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
+    formSheet.shadowRadius = 2.0;
+    formSheet.shadowOpacity = 0.3;
+    formSheet.shouldDismissOnBackgroundViewTap = YES;
+    formSheet.shouldCenterVertically = YES;
+    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+    __weak MZFormSheetController *weakFormSheet = formSheet;
+    
+    
+    // If you want to animate status bar use this code
+    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
+        if ([navController.topViewController isKindOfClass:[AddContentFirstLevelView class]]) {
+            //AddContentFirstLevelView *mzvc = (AddContentFirstLevelView *)navController.topViewController;
+            //  mzvc.showStatusBar = NO;
+        }
+        
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+            }
+        }];
+    };
+    
+    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+        // Passing data
+        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
+        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+        navController.topViewController.title = @"Add Content";
+    };
+    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+    
+    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
+    
+    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        
+    }];
+}
 
 - (void)markedImportantUpdate:(id)sender
 {

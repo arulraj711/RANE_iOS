@@ -92,12 +92,24 @@
     BOOL testFlag = [[NSUserDefaults standardUserDefaults]boolForKey:@"Test"];
     if(testFlag) {
         NSLog(@"test flag is TRUE");
+        
+        NSInteger categoryId = [[[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"] integerValue];
+        NSLog(@"category id in curated news:%d",categoryId);
+        
         self.collectionView.scrollEnabled = YES;
         NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
-        
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"categoryId == %d",categoryId];
+        [fetchRequest setPredicate:predicate];
         [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+        
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
+        [fetchRequest setSortDescriptors:sortDescriptors];
+        
+        
         NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
         
         NSMutableArray *elementsFromColumn = [[NSMutableArray alloc] init];
@@ -267,53 +279,77 @@
                 cell.starRating.rating = [[author valueForKey:@"starRating"] integerValue];
             }
             
+            if([[author valueForKey:@"isInfluencer"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                cell.influencerIconImage.hidden = NO;
+            } else {
+                cell.influencerIconImage.hidden = YES;
+            }
+            
             
             NSSet *workTitleSet = [author valueForKey:@"authorWorkTitle"];
             NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
             if(workTitleArray.count != 0) {
+                cell.workTitleIcon.hidden = NO;
+                cell.workTitleIconHeightConstraint.constant = 15;
+                cell.workTitleLabelHeightConstraint.constant = 21;
+                cell.outletImageTopConstraint.constant = 10;
+                cell.outletLabelTopConstraint.constant = 4;
                 NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
                 cell.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
             } else {
-//                self.authorWorkTitleImageView.hidden = YES;
-//                self.workTitleHeightConstraint.constant = 0;
-//                self.workTitleImageHeightConstraint.constant = 0;
-//                self.workTitleTop.constant = 0;
-//                self.workTitleLabelTop.constant = 0;
+                cell.workTitleIcon.hidden = YES;
+                cell.workTitleIconHeightConstraint.constant = 0;
+                cell.workTitleLabelHeightConstraint.constant = 0;
+                cell.outletImageTopConstraint.constant = 0;
+                cell.outletLabelTopConstraint.constant = 0;
             }
             
             
             NSSet *outletSet = [author valueForKey:@"authorOutlet"];
             NSMutableArray *outletArray = [[NSMutableArray alloc]initWithArray:[outletSet allObjects]];
             if(outletArray.count != 0) {
+                cell.outletIcon.hidden = NO;
+                cell.locationImageTopConstarint.constant = 10;
+                cell.outletIconHeightConstraint.constant = 15;
+                cell.locationLabelTopConstraint.constant = 4;
+                cell.outletLabelHeightConstraint.constant = 21;
                 NSManagedObject *outlet = [outletArray objectAtIndex:0];
                 cell.authorOutletName.text = [outlet valueForKey:@"outletname"];
             }else {
-//                self.authorOutletImageView.hidden = YES;
-//                self.outletHeightConstraint.constant = 0;
-//                self.outletImageViewHeightConstraint.constant = 0;
-//                self.outletTop.constant = 0;
-//                self.outletLabelTop.constant = 0;
+                cell.outletIcon.hidden = YES;
+                cell.outletIconHeightConstraint.constant = 0;
+                cell.locationImageTopConstarint.constant = 0;
+                cell.locationLabelTopConstraint.constant = 0;
+                cell.outletLabelHeightConstraint.constant = 0;
             }
             
             
             NSString *city = [author valueForKey:@"city"];
             NSString *country = [author valueForKey:@"country"];
             NSString *authorPlace;
-            if(city.length == 0) {
+            if(city.length == 0 && country.length == 0) {
+                authorPlace = @"";
+            } else if(city.length == 0) {
                 authorPlace = [NSString stringWithFormat:@"%@",country];
             } else if(country.length == 0) {
                 authorPlace = [NSString stringWithFormat:@"%@",city];
             } else {
                 authorPlace = [NSString stringWithFormat:@"%@, %@",city,country];
             }
+            
             if(authorPlace.length !=0 ){
+                cell.locationIcon.hidden = NO;
+                cell.locationIconHeightConstraint.constant = 15;
+                cell.locationLabelHeightConstraint.constant = 21;
+                cell.beatsImageTopConstraint.constant = 10;
+                cell.beatsLabelTopConstraint.constant = 4;
                 cell.authorLocationLabel.text = authorPlace;
             } else {
-//                self.authorLocationImageView.hidden = YES;
-//                self.locationImageViewHeightConstraint.constant = 0;
-//                self.locationLabelHeightConstraint.constant = 0;
-//                self.locationTop.constant = 0;
-//                self.locationLabelTop.constant = 0;
+                cell.locationIcon.hidden = YES;
+                cell.locationIconHeightConstraint.constant = 0;
+                cell.locationLabelHeightConstraint.constant = 0;
+                cell.beatsImageTopConstraint.constant = 0;
+                cell.beatsLabelTopConstraint.constant = 0;
             }
             
             NSSet *beatSet = [author valueForKey:@"authorBeat"];
@@ -324,13 +360,14 @@
             }
             NSString *beatString = [beats componentsJoinedByString:@" "];
             if(beatString.length != 0){
+                cell.beatsIcon.hidden = NO;
+                cell.beatsIconHeightConstraint.constant = 15;
+                cell.beatsLabelHeightConstraint.constant = 21;
                 cell.authorTagLabel.text = beatString;
             } else {
-//                self.authorTagImageView.hidden = YES;
-//                self.tagImageViewHeightConstraint.constant = 0;
-//                self.tagLabelHeightConstraint.constant = 0;
-//                self.tagTop.constant = 0;
-//                self.tagLabelTop.constant = 0;
+                cell.beatsIcon.hidden = YES;
+                cell.beatsIconHeightConstraint.constant = 0;
+                cell.beatsLabelHeightConstraint.constant = 0;
             }
             
             cell.bioLabel.text = [author valueForKey:@"bibliography"];

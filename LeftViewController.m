@@ -467,28 +467,16 @@
 
 - (IBAction)addContentButtonClick:(id)sender {
     
-    
-    
-    
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
     
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
-   // UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"modal"];
-    
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
-    
     formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
-    //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
     formSheet.shadowRadius = 2.0;
     formSheet.shadowOpacity = 0.3;
     formSheet.shouldDismissOnBackgroundViewTap = YES;
     formSheet.shouldCenterVertically = YES;
     formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
-    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
-    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
-    // formSheet.landscapeTopInset = 50;
-    // formSheet.portraitTopInset = 100;
-    
     __weak MZFormSheetController *weakFormSheet = formSheet;
     
     

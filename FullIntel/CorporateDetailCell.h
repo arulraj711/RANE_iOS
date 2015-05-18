@@ -40,6 +40,33 @@
 @property (nonatomic,strong) IBOutlet UIButton *markedImpButton;
 @property (weak, nonatomic) IBOutlet UILabel *socialLinkLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *socialLinkDivider;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *outletIconHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *outletLabelHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *outletIcon;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *locationImageTopConstarint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *locationLabelTopConstraint;
+@property (nonatomic,strong) IBOutlet UIImageView *influencerIconImage;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *workTitleIcon;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *outletImageTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *outletLabelTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *workTitleIconHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *workTitleLabelHeightConstraint;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *locationIcon;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *beatsImageTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *beatsLabelTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *locationIconHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *locationLabelHeightConstraint;
+
+@property (weak, nonatomic) IBOutlet UIImageView *beatsIcon;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *beatsIconHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *beatsLabelHeightConstraint;
+
+
+
 
 @property (nonatomic,strong) AMRatingControl *starRating;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;

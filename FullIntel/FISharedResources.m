@@ -181,6 +181,13 @@
        // [self clearEntity:@"CuratedNews"];
         [self hideProgressView];
         NSArray *influencerArray = [responseObject objectForKey:@"articleList"];
+            
+            if(influencerArray.count == 0) {
+                UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                [window makeToast:@"No more articles to read" duration:2 position:CSToastPositionCenter];
+            }
+            
+            
             if(categoryId == -2 || categoryId == -3) {
                 [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
             }

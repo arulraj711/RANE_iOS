@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "FISharedResources.h"
-@interface CorporateNewsListView : UIViewController {
+#import "MZFormSheetController.h"
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate> {
     NSMutableArray *legendsList;
     NSManagedObject *author;
     UIRefreshControl *refreshControl;
