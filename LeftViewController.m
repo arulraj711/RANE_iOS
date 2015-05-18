@@ -94,6 +94,10 @@
 //        self.treeView.contentOffset = CGPointMake(0.0, -heightPadding);
 //    }
     
+    
+    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
+    [self.view setBackgroundColor: [FIUtils colorWithHexString:menuBackgroundColor]];
+    
     self.treeView.frame = self.treeBackView.bounds;
     NSString *companyLogoImageStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyLogo"];
     NSString *companyNameStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"];

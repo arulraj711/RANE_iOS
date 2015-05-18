@@ -150,7 +150,7 @@
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-
+    cell.cachedImageViewSize = cell.articleImageView.frame;
     
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
@@ -371,133 +371,6 @@
             }
             
             cell.bioLabel.text = [author valueForKey:@"bibliography"];
-            
-//            NSLog(@"author detail:%@",curatedNewsAuthorDetail);
-//            NSLog(@"second set:%@",[curatedNewsAuthorDetail valueForKey:@"authorDetails"]);
-            
-//            NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
-//            NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
-//            NSManagedObject *author;
-//            if(legendsArray.count != 0) {
-//                author  = [legendsArray objectAtIndex:0];
-//            }
-//            self.socialLinksArray = [[NSMutableArray alloc]init];
-//            NSSet *socialLinkSet = [curatedNewsAuthorDetail valueForKey:@"authorSocialMedia"];
-//            
-//            self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialLinkSet allObjects]];
-//            NSLog(@"social link array:%@",self.socialLinksArray);
-////            NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
-//            for(NSManagedObject *social in self.socialLinksArray) {
-//                NSLog(@"single social object:%@",social);
-//            }
-            //cell.socialLinksArray = self.socialLinksArray;
-//            
-//            //curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
-//            NSLog(@"author set:%@",self.socialLinksArray);
-//            NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
-//            NSManagedObject *author;
-//            if(legendsArray.count != 0) {
-//                author  = [legendsArray objectAtIndex:0];
-//            }
-//            self.socialLinksArray = [[NSMutableArray alloc]init];
-//            NSSet *socialLinkSet = [author valueForKey:@"authorSocialMedia"];
-//            self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialLinkSet allObjects]];
-//            cell.socialLinksArray = self.socialLinksArray;
-//            if(self.socialLinksArray.count == 0) {
-//                self.socialLinkLabel.hidden = YES;
-//                self.socialLinkDivider.hidden = YES;
-//                self.socialLinkCollectionView.hidden = YES;
-//            } else {
-//                self.socialLinkLabel.hidden = NO;
-//                self.socialLinkDivider.hidden = NO;
-//                self.socialLinkCollectionView.hidden = NO;
-//                self.socialLinkCollectionView.delegate = self;
-//                self.socialLinkCollectionView.dataSource = self;
-//                [self.socialLinkCollectionView reloadData];
-//            }
-//            NSString *authorName = [NSString stringWithFormat:@"%@ %@",[author valueForKey:@"firstName"],[author valueForKey:@"lastName"]];
-//            self.aboutAuthorName.text = authorName;
-//            self.bioLabel.text = [author valueForKey:@"bibliography"];
-//            
-//            if([[author valueForKey:@"isInfluencer"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-//                self.influencerIconImage.hidden = NO;
-//            } else {
-//                self.influencerIconImage.hidden = YES;
-//            }
-//            
-//            [self.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
-//            [self.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
-//            
-//            NSSet *workTitleSet = [author valueForKey:@"authorWorkTitle"];
-//            NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
-//            if(workTitleArray.count != 0) {
-//                NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
-//                self.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
-//            } else {
-//                self.authorWorkTitleImageView.hidden = YES;
-//                self.workTitleHeightConstraint.constant = 0;
-//                self.workTitleImageHeightConstraint.constant = 0;
-//                self.workTitleTop.constant = 0;
-//                self.workTitleLabelTop.constant = 0;
-//            }
-//            
-//            NSSet *outletSet = [author valueForKey:@"authorOutlet"];
-//            NSMutableArray *outletArray = [[NSMutableArray alloc]initWithArray:[outletSet allObjects]];
-//            if(outletArray.count != 0) {
-//                NSManagedObject *outlet = [outletArray objectAtIndex:0];
-//                self.authorOutletName.text = [outlet valueForKey:@"outletname"];
-//            }else {
-//                self.authorOutletImageView.hidden = YES;
-//                self.outletHeightConstraint.constant = 0;
-//                self.outletImageViewHeightConstraint.constant = 0;
-//                self.outletTop.constant = 0;
-//                self.outletLabelTop.constant = 0;
-//            }
-//            if([[author valueForKey:@"starRating"] integerValue] == 0) {
-//                self.ratingControl.hidden = YES;
-//            } else {
-//                self.ratingControl.hidden = NO;
-//                self.starRating.rating = [[author valueForKey:@"starRating"] integerValue];
-//            }
-//            
-//            
-//            NSString *city = [author valueForKey:@"city"];
-//            NSString *country = [author valueForKey:@"country"];
-//            NSString *authorPlace;
-//            if(city.length == 0) {
-//                authorPlace = [NSString stringWithFormat:@"%@",country];
-//            } else if(country.length == 0) {
-//                authorPlace = [NSString stringWithFormat:@"%@",city];
-//            } else {
-//                authorPlace = [NSString stringWithFormat:@"%@, %@",city,country];
-//            }
-//            
-//            
-//            if(authorPlace.length !=0 ){
-//                self.authorLocationLabel.text = authorPlace;
-//            } else {
-//                self.authorLocationImageView.hidden = YES;
-//                self.locationImageViewHeightConstraint.constant = 0;
-//                self.locationLabelHeightConstraint.constant = 0;
-//                self.locationTop.constant = 0;
-//                self.locationLabelTop.constant = 0;
-//            }
-//            NSSet *beatSet = [author valueForKey:@"authorBeat"];
-//            NSMutableArray *beatsArray = [[NSMutableArray alloc]initWithArray:[beatSet allObjects]];
-//            NSMutableArray *beats = [[NSMutableArray alloc]init];
-//            for(NSManagedObject *beat in beatsArray) {
-//                [beats addObject:[NSString stringWithFormat:@"#%@",[beat valueForKey:@"name"]]];
-//            }
-//            NSString *beatString = [beats componentsJoinedByString:@" "];
-//            if(beatString.length != 0){
-//                self.authorTagLabel.text = beatString;
-//            } else {
-//                self.authorTagImageView.hidden = YES;
-//                self.tagImageViewHeightConstraint.constant = 0;
-//                self.tagLabelHeightConstraint.constant = 0;
-//                self.tagTop.constant = 0;
-//                self.tagLabelTop.constant = 0;
-//            }
         }
     }
     
@@ -701,5 +574,8 @@
                          self.navigationItem.rightBarButtonItem = nil;
                      }];
 }
+
+
+
 
 @end

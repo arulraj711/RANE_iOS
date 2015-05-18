@@ -322,12 +322,17 @@
     
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"globeButtonClick" object:nil userInfo:@{@"url":[self.curatedNewsDetail valueForKey:@"articleUrl"]}];
-    
-    
-    
-    
 }
 
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat y = -scrollView.contentOffset.y;
+    //NSLog(@"scroll y value:%f",y);
+    if (y > 0) {
+        self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
+        self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
+    }
+    
+}
 
 @end

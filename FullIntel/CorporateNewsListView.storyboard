@@ -391,7 +391,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DPI-mC-pre">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DPI-mC-pre">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="axE-ih-zPn">
@@ -410,7 +410,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3kC-bG-fJf">
                                                     <rect key="frame" x="0.0" y="0.0" width="1000" height="600"/>
                                                     <subviews>
-                                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfz-n6-GN5">
+                                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfz-n6-GN5">
                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="520"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1b2-ck-3kV">
@@ -979,7 +979,7 @@
                                                                 <constraint firstItem="1b2-ck-3kV" firstAttribute="leading" secondItem="mfz-n6-GN5" secondAttribute="leading" id="myv-12-HZb"/>
                                                             </constraints>
                                                             <connections>
-                                                                <outlet property="delegate" destination="1bm-hV-Nnm" id="QKo-FX-W3n"/>
+                                                                <outlet property="delegate" destination="1bm-hV-Nnm" id="ijN-4h-mrC"/>
                                                             </connections>
                                                         </scrollView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AV8-EY-XbN">

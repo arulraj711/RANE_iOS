@@ -56,6 +56,12 @@
         [FIWebService loginProcessWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 //            if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
             
+            
+            NSDictionary *preferenceDic = [responseObject objectForKey:@"preferences"];
+            
+            [[NSUserDefaults standardUserDefaults]setObject:[preferenceDic objectForKey:@"headerColor"] forKey:@"headerColor"];
+            [[NSUserDefaults standardUserDefaults]setObject:[preferenceDic objectForKey:@"highlightColor"] forKey:@"highlightColor"];
+            [[NSUserDefaults standardUserDefaults]setObject:[preferenceDic objectForKey:@"menuBgColor"] forKey:@"menuBgColor"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject objectForKey:@"securityToken"] forKey:@"accesstoken"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"companyLogoURL"] forKey:@"companyLogo"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"companyName"] forKey:@"companyName"];
