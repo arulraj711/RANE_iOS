@@ -19,6 +19,16 @@
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Comments" syncable="YES">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdDate" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="likeCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parentId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unLikeCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Company_Widget" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -57,6 +67,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="author" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CuratedAuthor" syncable="YES"/>
         <relationship name="authorDetails" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CuratedNewsDetailAuthor" syncable="YES"/>
+        <relationship name="comments" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserComments" syncable="YES"/>
         <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuratedNewsDetail" syncable="YES"/>
         <relationship name="legends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CuratedLegends" syncable="YES"/>
     </entity>
@@ -242,6 +253,13 @@
         <attribute name="widget_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="widget_type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="UserComments" syncable="YES">
+        <attribute name="customerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="securityToken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Comments" syncable="YES"/>
+    </entity>
     <entity name="Value_Widget" syncable="YES">
         <attribute name="more_info" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="smart_sub_title" optional="YES" attributeType="String" syncable="YES"/>
@@ -258,7 +276,7 @@
         <element name="Company_Widget" positionX="-171" positionY="9" width="128" height="120"/>
         <element name="CuratedAuthor" positionX="-846" positionY="-1404" width="128" height="163"/>
         <element name="CuratedLegends" positionX="-153" positionY="-306" width="128" height="88"/>
-        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="300"/>
+        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="313"/>
         <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="223"/>
         <element name="CuratedNewsDetailAuthor" positionX="-2423" positionY="-1269" width="128" height="238"/>
         <element name="Influ_Drillin" positionX="-479" positionY="-18" width="128" height="268"/>
@@ -277,5 +295,7 @@
         <element name="Product_Widget" positionX="-137" positionY="216" width="128" height="133"/>
         <element name="Stock_Widget" positionX="-234" positionY="-99" width="128" height="180"/>
         <element name="Value_Widget" positionX="-110" positionY="-153" width="128" height="135"/>
+        <element name="Comments" positionX="-1989" positionY="-1260" width="128" height="163"/>
+        <element name="UserComments" positionX="-1863" positionY="-1431" width="128" height="118"/>
     </elements>
 </model>

@@ -49,9 +49,6 @@
     layout.minimumLineSpacing = 1.0;
     self.legendsCollectionView.collectionViewLayout = layout;
     
-    
-    
-
     //Author ImageView Code
     _authorImageView.layer.masksToBounds = YES;
     _authorImageView.layer.cornerRadius = 25.0f;
@@ -71,13 +68,8 @@
     
     
     innerWebView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)];
-    
     self.navigationItem.rightBarButtonItem =nil;
     self.cachedImageViewSize = self.articleImageView.frame;
-    
-    
-    
-    
     [self fetchDetailsFromList];
     [self setValuesFromExistingData];
 }

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommentsPopoverView : UIViewController
+@interface CommentsPopoverView : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong) NSMutableArray *commentsArray;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
+@property (nonatomic,strong) IBOutlet UITableView *commentsTableView;
+@property (nonatomic,strong) NSString *articleId;
 @end

@@ -10,6 +10,7 @@
 
 @interface ResearchRequestPopoverView : UIViewController
 @property (nonatomic,strong) NSString *articleId;
+@property (nonatomic,strong) NSString *articleUrl;
 - (IBAction)send:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextView *articleDesc;
 @property (nonatomic,strong) NSString *articleTitle;

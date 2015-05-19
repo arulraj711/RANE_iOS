@@ -17,6 +17,7 @@
 #import "ResearchRequestPopoverView.h"
 #import "UIView+Toast.h"
 #import "CommentsPopoverView.h"
+#import "FISharedResources.h"
 
 @implementation CorporateDetailCell
 
@@ -224,6 +225,7 @@
     ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
     popOverView.articleId = [self.curatedNewsDetail valueForKey:@"articleId"];
     popOverView.articleTitle = [self.curatedNewsDetail valueForKey:@"articleHeading"];
+    popOverView.articleUrl = [self.curatedNewsDetail valueForKey:@"articleUrl"];
     self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
     self.popOver.popoverContentSize=CGSizeMake(400, 260);
     //self.popOver.delegate = self;
@@ -274,7 +276,36 @@
 }
 
 - (IBAction)commentsButtonClick:(UIButton *)sender {
-    CommentsPopoverView *popOverView = [[CommentsPopoverView alloc]initWithNibName:@"CommentsPopoverView" bundle:nil];
+    
+    NSMutableDictionary *commentsDic = [[NSMutableDictionary alloc] init];
+    [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [commentsDic setObject:[self.curatedNewsDetail valueForKey:@"articleId"] forKey:@"articleId"];
+    [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"] forKey:@"userId"];
+    [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"] forKey:@"customerId"];
+    [commentsDic setObject:@"1" forKey:@"version"];
+    NSData *commentsJsondata = [NSJSONSerialization dataWithJSONObject:commentsDic options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *commentsResultStr = [[NSString alloc]initWithData:commentsJsondata encoding:NSUTF8StringEncoding];
+    
+    
+    
+    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.curatedNewsDetail valueForKey:@"articleId"]];
+    [fetchRequest setPredicate:predicate];
+    NSArray *filterArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    if(filterArray.count != 0) {
+        NSManagedObject *curatedNews = [filterArray objectAtIndex:0];
+        NSLog(@"comments:%@",[curatedNews valueForKey:@"comments"]);
+        NSManagedObject *userComments = [curatedNews valueForKey:@"comments"];
+        if(userComments == nil) {
+            [[FISharedResources sharedResourceManager]getCommentsWithDetails:commentsResultStr withArticleId:[self.curatedNewsDetail valueForKey:@"articleId"]];
+        }
+    }
+
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
+    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
+    popOverView.articleId = [self.curatedNewsDetail valueForKey:@"articleId"];
     self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
     self.popOver.popoverContentSize=CGSizeMake(400, 300);
     //self.popOver.delegate = self;

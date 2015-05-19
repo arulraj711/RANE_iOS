@@ -51,13 +51,16 @@
         else
             objectArray = [[NSMutableArray alloc] init];
     }
+    
+    
     treeView = [[RATreeView alloc] initWithFrame:self.treeBackView.bounds];
     treeView.delegate = self;
     treeView.dataSource = self;
     treeView.separatorStyle = RATreeViewCellSeparatorStyleNone;
-    [treeView reloadData];
+   // [treeView reloadData];
     [treeView setBackgroundColor:[UIColor clearColor]];
     self.treeView = treeView;
+    [self.treeView registerNib:[UINib nibWithNibName:NSStringFromClass([RATableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RATableViewCell class])];
     [self.treeBackView addSubview:self.treeView];
    // NSLog(@"menu array count in viewdidload:%lu",(unsigned long)objectArray.count);
     
@@ -65,7 +68,7 @@
     self.isFirstTime = YES;
     
     
-    [self.treeView registerNib:[UINib nibWithNibName:NSStringFromClass([RATableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RATableViewCell class])];
+   
     
     //[self.treeBackView insertSubview:treeView atIndex:0];
     
@@ -93,10 +96,11 @@
 //        self.treeView.contentInset = UIEdgeInsetsMake(heightPadding, 0.0, 0.0, 0.0);
 //        self.treeView.contentOffset = CGPointMake(0.0, -heightPadding);
 //    }
-    
-    
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
-    [self.view setBackgroundColor: [FIUtils colorWithHexString:menuBackgroundColor]];
+    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
+    
+    
     
     self.treeView.frame = self.treeBackView.bounds;
     NSString *companyLogoImageStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyLogo"];
@@ -105,9 +109,13 @@
     [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:companyLogoImageStr] placeholderImage:nil];
     self.companyName.text = [companyNameStr uppercaseString];
     
+    
 }
 
 -(void)loadMenus {
+    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
+    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
     self.menus = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].menuList];
     [self test:self.menus];
     [treeView reloadData];
@@ -268,11 +276,13 @@
     BOOL expanded = [self.treeView isCellForItemExpanded:item];
    
     RATableViewCell *cell = [self.treeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
-    
+    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
+    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    cell.backgroundColor = [FIUtils colorWithHexString:stringWithoutSpaces];
     [cell setupWithTitle:dataObject.name detailText:detailText level:level additionButtonHidden:!expanded];
     UIView *selectionColor = [[UIView alloc] init];
     selectionColor.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1];
-    cell.selectedBackgroundView = selectionColor;
+    //cell.selectedBackgroundView = selectionColor;
     if(![[dataObject.name uppercaseString] isEqualToString:@"MARKED IMPORTANT"]) {
         UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
         separatorLineView.backgroundColor = [UIColor colorWithRed:(220/255.0) green:(223/255.0) blue:(224/255.0) alpha:1];
@@ -378,14 +388,20 @@
         [cell.expandButton setSelected:YES];
     }
     if([data.name isEqualToString:@"LOGOUT"]) {
+
         cell.customTitleLabel.textColor = UIColorFromRGB(0x666E73);
         cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
         cell.iconImage.tintColor = UIColorFromRGB(0x666E73);
     } else {
-        cell.customTitleLabel.textColor = UIColorFromRGB(0x1e8cd4);
+        
+        NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor/"];
+        NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        
+        
+        cell.customTitleLabel.textColor = [FIUtils colorWithHexString:stringWithoutSpaces];
         cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        cell.iconImage.tintColor = UIColorFromRGB(0x1e8cd4);
+        cell.iconImage.tintColor = [FIUtils colorWithHexString:stringWithoutSpaces];
     }
     
     if([data.nodeId integerValue] == 9) {
@@ -448,8 +464,8 @@
         [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-        [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-        navCtlr.navigationBar.tintColor = [UIColor whiteColor];
+       // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+       // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
         [self.revealController setFrontViewController:navCtlr];
         [self.revealController showViewController:self.revealController.frontViewController];
     }

@@ -87,7 +87,8 @@
     label.textColor = [UIColor whiteColor]; // change this color
     self.navigationItem.titleView = label;
     
-       
+    
+   
     refreshControl = [[UIRefreshControl alloc]init];
     [self.articlesTableView addSubview:refreshControl];
     [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];

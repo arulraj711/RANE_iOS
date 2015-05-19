@@ -3,6 +3,7 @@
 
 target 'FullIntel' do
 pod 'UICollectionViewRightAlignedLayout'
+pod "UIImageView-Letters"
 pod 'Toast', '~> 2.4'
 pod 'SDWebImage', '~>3.6'
 pod "AFNetworking", "~> 2.0"

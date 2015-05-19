@@ -18,7 +18,7 @@
     
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/",BARTRIVIA_URL,urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
-    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:60];
+    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
     [requestURL setHTTPMethod:@"POST"];
     [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
     [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -125,6 +125,31 @@
     }];
 }
 
+
++(void)getCommentsWithDetails:(NSString*)details
+                    onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    [self getResultsForFunctionName:@"useractivity/article/getcomment" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
+
++(void)addCommentsWithDetails:(NSString*)details
+                    onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    [self getResultsForFunctionName:@"useractivity/article/addcomment" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
 
 +(void)sendResearchRequestWithDetails:(NSString*)details
                             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

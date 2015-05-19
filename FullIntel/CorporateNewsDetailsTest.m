@@ -28,7 +28,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailButtonClick:) name:@"mailButtonClick" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globeButtonClick:) name:@"globeButtonClick" object:nil];
-    
+    [self addCustomNavRightButton];
     oneSecondTicker = [[NSTimer alloc] init];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -42,17 +42,31 @@
     
     innerWebView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)];
     
-    self.navigationItem.rightBarButtonItem =nil;
+   // self.navigationItem.rightBarButtonItem =nil;
     
     [self getArticleIdListFromDB];
     
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;
     [self.collectionView setContentOffset:CGPointMake(offset, 0)];
     
+}
+
+-(void)addCustomNavRightButton {
+    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 25, 25)];
+    addBtnView.backgroundColor = [UIColor clearColor];
+    
+    UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    [addBtn setFrame:CGRectMake(0.0f,0.0f,25.0f,25.0f)];
+    [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_globe"]  forState:UIControlStateNormal];
+    [addBtn addTarget:self action:@selector(globeButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [addBtnView addSubview:addBtn];
+    UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,  nil]];
 }
 
 
@@ -505,10 +519,10 @@
     
 }
 
--(void)globeButtonClick:(id)sender {
-    NSNotification *notification = sender;
-    NSDictionary *userInfo = notification.userInfo;
-    NSString *articleUrl = [userInfo objectForKey:@"url"];
+-(void)globeButtonClick {
+    //NSNotification *notification = sender;
+   // NSDictionary *userInfo = notification.userInfo;
+    NSString *articleUrl = [curatedNewsDetail valueForKey:@"articleUrl"];
     
     [UIView animateWithDuration:0.2
                           delay:0.1
@@ -528,7 +542,7 @@
                          UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                          [button addTarget:self action:@selector(closeWebView)
                           forControlEvents:UIControlEventTouchUpInside];
-                         [button setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+                         [button setImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
                          // [button setTitle:@"Show View" forState:UIControlStateNormal];
                          button.frame = CGRectMake(0, 10, 28, 28);
                          UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -571,7 +585,7 @@
                          if (finished)
                              [innerWebView removeFromSuperview];
                          self.navigationItem.hidesBackButton = NO;
-                         self.navigationItem.rightBarButtonItem = nil;
+                         [self addCustomNavRightButton];
                      }];
 }
 

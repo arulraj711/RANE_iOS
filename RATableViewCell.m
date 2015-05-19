@@ -37,15 +37,16 @@
 {
   [super awakeFromNib];
   
-  self.selectedBackgroundView = [UIView new];
-  self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+ // self.selectedBackgroundView = [UIView new];
+ // self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
     
     self.countLabel.layer.masksToBounds = YES;
     self.countLabel.layer.cornerRadius = 13;
+    //self.contentView.backgroundColor = [UIColor clearColor];
     
-    
-    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
-    [self.contentView setBackgroundColor: [FIUtils colorWithHexString:menuBackgroundColor]];
+//    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
+//    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+//    [self.contentView setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
 }
 
 - (void)prepareForReuse
@@ -74,13 +75,13 @@
     self.detailTextLabel.textColor = [UIColor blackColor];
   }
   
-  if (level == 0) {
-    self.backgroundColor = UIColorFromRGB(0xF7F7F7);
-  } else if (level == 1) {
-    self.backgroundColor = UIColorFromRGB(0xD1EEFC);
-  } else if (level >= 2) {
-    self.backgroundColor = UIColorFromRGB(0xE0F8D8);
-  }
+//  if (level == 0) {
+//    self.backgroundColor = UIColorFromRGB(0xF7F7F7);
+//  } else if (level == 1) {
+//    self.backgroundColor = UIColorFromRGB(0xD1EEFC);
+//  } else if (level >= 2) {
+//    self.backgroundColor = UIColorFromRGB(0xE0F8D8);
+//  }
   
     
     CGFloat left;

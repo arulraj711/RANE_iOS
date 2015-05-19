@@ -10,6 +10,7 @@
 #import "FISharedResources.h"
 #import "UIView+Toast.h"
 #import "FIUtils.h"
+#import "LeftViewController.h"
 //#import "WToast.h"
 //#import "UIImageView+AnimationImages.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -22,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
-    
     
     [self animateImages];
     self.usernameTextField.layer.borderWidth = 1.0f;
@@ -43,8 +43,8 @@
     
     
     
-    //self.usernameTextField.text = @"smith@adobe.com";
-    //self.passwordTextField.text = @"start";
+    self.usernameTextField.text = @"mark@adobe.com";
+    self.passwordTextField.text = @"start";
 }
 - (void)animateImages
 {
@@ -167,7 +167,9 @@
        
        [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
        // NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[notification.object objectForKey:@"securityToken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInteger:-1]];
-        
+        NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
+        NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        [[UINavigationBar appearance] setBarTintColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
         NSMutableDictionary *menuDic = [[NSMutableDictionary alloc] init];
         [menuDic setObject:[notification.object objectForKey:@"securityToken"] forKey:@"securityToken"];
         NSData *menuJsondata = [NSJSONSerialization dataWithJSONObject:menuDic options:NSJSONWritingPrettyPrinted error:nil];

@@ -28,6 +28,8 @@
 -(void)setUserActivitiesOnArticlesWithDetails:(NSString *)details;
 -(void)manageContentCategoryWithDetails:(NSString *)details withFlag:(NSInteger)flag;
 -(void)sendResearchRequestWithDetails:(NSString *)details;
+-(void)getCommentsWithDetails:(NSString *)details withArticleId:(NSString *)articleId;
+-(void)addCommentsWithDetails:(NSString *)details;
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)showProgressView;
 - (void)hideProgressView;

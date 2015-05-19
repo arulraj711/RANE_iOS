@@ -12,6 +12,7 @@
 #import "LeftViewController.h"
 #import <Crashlytics/Crashlytics.h>
 #import "FISharedResources.h"
+#import "FIUtils.h"
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
@@ -30,7 +31,11 @@
     
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-    [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:97/255.0 green:98/255.0 blue:100/255.0 alpha:1.0]];
+    
+    NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
+    NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [[UINavigationBar appearance] setBarTintColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
+    //[[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:97/255.0 green:98/255.0 blue:100/255.0 alpha:1.0]];
     navCtlr.navigationBar.tintColor = [UIColor whiteColor];
     navCtlr.navigationBar.barStyle = UIBarStyleBlack;
     UIStoryboard *leftStoryBoard = [UIStoryboard storyboardWithName:@"LeftView" bundle:nil];

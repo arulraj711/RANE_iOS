@@ -48,30 +48,23 @@
 }
 
 -(void)checkLoginUserWithDetails:(NSString *)details{
-    //_loginDetailsStr = details;
-    //[_tickerView removeFromSuperview];
-    //[self removeTicker];
     if([self serviceIsReachable]) {
        // [self showProgressHUDForView];
         [FIWebService loginProcessWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            
-            
+
             NSDictionary *preferenceDic = [responseObject objectForKey:@"preferences"];
-            
             [[NSUserDefaults standardUserDefaults]setObject:[preferenceDic objectForKey:@"headerColor"] forKey:@"headerColor"];
             [[NSUserDefaults standardUserDefaults]setObject:[preferenceDic objectForKey:@"highlightColor"] forKey:@"highlightColor"];
             [[NSUserDefaults standardUserDefaults]setObject:[preferenceDic objectForKey:@"menuBgColor"] forKey:@"menuBgColor"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject objectForKey:@"securityToken"] forKey:@"accesstoken"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"companyLogoURL"] forKey:@"companyLogo"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"companyName"] forKey:@"companyName"];
+            [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"customerid"] forKey:@"customerId"];
+            [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"userid"] forKey:@"userId"];
+            NSString *username = [NSString stringWithFormat:@"%@ %@",[responseObject valueForKey:@"firstName"],[responseObject valueForKey:@"lastName"]];
+            [[NSUserDefaults standardUserDefaults]setObject:username forKey:@"username"];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"Login" object:responseObject];
-//            } else {
-//                [self hideProgressView];
-//                [self showLoginView];
-//            }
-            
-            //[self hideProgressHUDForView];
+
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [FIUtils showErrorToast];
             //[self hideProgressHUDForView];
@@ -88,25 +81,17 @@
 -(void)logoutUserWithDetails:(NSString *)details withFlag:(NSNumber*)authenticationFlag {
     
     if([self serviceIsReachable]) {
-        // [self showProgressHUDForView];
-        NSLog(@"authentication flag in logout:%@",authenticationFlag);
+        
         [FIWebService logoutWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([authenticationFlag isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                
                 
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
                 
-//                UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"FullIntel" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//                [alert show];
             }else {
                 
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:@"Seems like your session expired. This could also happen if same login is used in another device. Please login again to continue." duration:2 position:CSToastPositionCenter];
-                
-                
-//                UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"FullIntel" message:@"Seems like your session expired. This could also happen if same login is used in another device. Please login again to continue." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//                [alert show];
             }
             
             
@@ -126,8 +111,6 @@
         [FIWebService validateUserOnResumeWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
             } else {
-//                UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"FullIntel" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//                [alert show];
                 [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
             }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -240,17 +223,7 @@
             NSMutableArray *authorList = [[NSMutableArray alloc]init];
             for(NSDictionary *dict in authorArray) {
                 NSManagedObject *author;
-//                NSFetchRequest *authorFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedAuthor"];
-//                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@",[dict objectForKey:@"name"]];
-//                [authorFetchRequest setPredicate:predicate];
-//                NSArray *existingAuthorArray = [[context executeFetchRequest:authorFetchRequest error:nil] mutableCopy];
-//                if(existingAuthorArray.count != 0) {
-//                    author = [existingAuthorArray objectAtIndex:0];
-//                    [authorList removeObject:author];
-//                } else {
-                    author = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedAuthor" inManagedObjectContext:context];
-               // }
-                
+                author = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedAuthor" inManagedObjectContext:context];
                 [author setValue:[dict objectForKey:@"name"] forKey:@"name"];
                 [author setValue:[dict objectForKey:@"title"] forKey:@"title"];
                 [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
@@ -262,9 +235,7 @@
             [influencer setValue:Obj forKey:@"author"];
           
             NSSet *legendsSet1 = [influencer valueForKey:@"legends"];
-            NSLog(@"before setting count:%d",legendsSet1.count);
             if(legendsSet1.count == 0) {
-                NSLog(@"inside zero");
                 NSArray *legendsArray = [dic objectForKey:@"legendList"];
                 NSMutableArray *legendsList = [[NSMutableArray alloc]init];
                 //[self clearEntity:@"CuratedLegends"];
@@ -279,9 +250,7 @@
                     [legendsList addObject:legends];
                     
                 }
-                NSLog(@"legends list count:%d",legendsList.count);
                 NSSet *legendsSet = [NSSet setWithArray:legendsList];
-                NSLog(@"final legend list count:%d",legendsSet.count);
                 [influencer setValue:legendsSet forKey:@"legends"];
             }
             
@@ -328,8 +297,6 @@
             [influencer setValue:[dic objectForKey:@"articleId"] forKey:@"articleId"];
             [influencer setValue:[dic objectForKey:@"title"] forKey:@"title"];
             [influencer setValue:[dic objectForKey:@"desc"] forKey:@"desc"];
-            //[influencer setValue:[dic objectForKey:@"outlet"] forKey:@"outlet"];
-           // [influencer setValue:[dic objectForKey:@"date"] forKey:@"date"];
             [influencer setValue:[dic objectForKey:@"image"] forKey:@"image"];
             NSArray *authorArray = [dic objectForKey:@"author"];
             NSMutableArray *authorList = [[NSMutableArray alloc]init];
@@ -495,17 +462,8 @@
         NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
         NSFetchRequest *fetchRequest;
         NSManagedObject *curatedNewsDrillIn;
-      //  NSManagedObject *author;
-//        if([activeType isEqualToString:@"2"]) {
-//            fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MarkedImportant"];
-//            curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"MarkedImportantDetail" inManagedObjectContext:managedObjectContext];
-//            author = [NSEntityDescription insertNewObjectForEntityForName:@"MarkedImportantDetailAuthor" inManagedObjectContext:managedObjectContext];
-//        }else {
             fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
             curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:managedObjectContext];
-           // author = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetailAuthor" inManagedObjectContext:managedObjectContext];
-       // }
-        
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@", [[responseObject objectForKey:@"articleDetail"] objectForKey:@"id"]];
         [fetchRequest setPredicate:predicate];
         NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
@@ -532,18 +490,6 @@
         
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"readStatus"] forKey:@"readStatus"];
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"saveForLater"] forKey:@"saveForLater"];
-//        NSArray *authorArray = [[responseObject objectForKey:@"articleDetail"] objectForKey:@"contacts"];
-//        NSMutableArray *authorList = [[NSMutableArray alloc]init];
-//        for(NSDictionary *dict in authorArray) {
-//            
-//            [author setValue:[dict objectForKey:@"authorname"] forKey:@"name"];
-//            [author setValue:[dict objectForKey:@"title"] forKey:@"title"];
-//            [author setValue:[dict objectForKey:@"imageUrl"] forKey:@"image"];
-//            [authorList addObject:author];
-//            
-//        }
-//        NSSet *Obj = [NSSet setWithArray:authorList];
-//        [curatedNewsDrillIn setValue:Obj forKey:@"author"];
         [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
         NSError *error = nil;
         // Save the object to persistent store
@@ -554,89 +500,6 @@
         }
         
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetails" object:nil];
-//
-//        //Set drillin legends list
-//        NSArray *legendsArray = [responseObject objectForKey:@"legends"];
-//        NSMutableArray *legendsList = [[NSMutableArray alloc]init];
-//        for(NSDictionary *dict in legendsArray) {
-//            NSManagedObject *legends = [NSEntityDescription insertNewObjectForEntityForName:@"Legends" inManagedObjectContext:context];
-//            [legends setValue:[dict objectForKey:@"name"] forKey:@"name"];
-//            [legends setValue:[dict objectForKey:@"flag"] forKey:@"flag"];
-//            [legends setValue:[dict objectForKey:@"image"] forKey:@"url"];
-//            [legendsList addObject:legends];
-//            
-//        }
-//        NSSet *legendsSet = [NSSet setWithArray:legendsList];
-//        [influencerDrillIn setValue:legendsSet forKey:@"legends"];
-//        
-//        //Set drillin author list
-//        NSArray *authorArray = [responseObject objectForKey:@"author"];
-//        NSMutableArray *authorList = [[NSMutableArray alloc]init];
-//        for(NSDictionary *dict in authorArray) {
-//            NSManagedObject *author = [NSEntityDescription insertNewObjectForEntityForName:@"Author" inManagedObjectContext:context];
-//            [author setValue:[dict objectForKey:@"name"] forKey:@"name"];
-//            [author setValue:[dict objectForKey:@"title"] forKey:@"title"];
-//            [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
-//            [authorList addObject:author];
-//            
-//        }
-//        NSSet *Obj = [NSSet setWithArray:authorList];
-//        [influencerDrillIn setValue:Obj forKey:@"influencer_author"];
-//        
-//        NSArray *widgetsArray = [responseObject objectForKey:@"widgets"];
-//        for(NSDictionary *dic in widgetsArray) {
-//            NSString *widgetType = [responseObject objectForKey:@"widget_type"];
-//            if([widgetType isEqualToString:@"stock"]) {
-//                NSManagedObject *stockWidget = [NSEntityDescription insertNewObjectForEntityForName:@"Stock_Widget" inManagedObjectContext:context];
-//                [stockWidget setValue:[dic objectForKey:@"down"] forKey:@"down"];
-//                [stockWidget setValue:[dic objectForKey:@"favour"] forKey:@"favour"];
-//                [stockWidget setValue:[dic objectForKey:@"listing"] forKey:@"listing"];
-//                [stockWidget setValue:[dic objectForKey:@"name"] forKey:@"name"];
-//                [stockWidget setValue:[dic objectForKey:@"ticker"] forKey:@"ticker"];
-//                [stockWidget setValue:[dic objectForKey:@"up"] forKey:@"up"];
-//                [stockWidget setValue:[dic objectForKey:@"value"] forKey:@"value"];
-//                [stockWidget setValue:[dic objectForKey:@"widget_id"] forKey:@"widget_id"];
-//                [stockWidget setValue:[dic objectForKey:@"widget_type"] forKey:@"widget_type"];
-//                [influencerDrillIn setValue:stockWidget forKey:@""];
-//            }else if([widgetType isEqualToString:@"company"]) {
-//                 NSManagedObject *companyWidget = [NSEntityDescription insertNewObjectForEntityForName:@"Company_Widget" inManagedObjectContext:context];
-//                [companyWidget setValue:[dic objectForKey:@"desc"] forKey:@"desc"];
-//                [companyWidget setValue:[dic objectForKey:@"name"] forKey:@"name"];
-//                [companyWidget setValue:[dic objectForKey:@"widget_id"] forKey:@"widget_id"];
-//                [companyWidget setValue:[dic objectForKey:@"widget_type"] forKey:@"widget_type"];
-//                [companyWidget setValue:[dic objectForKey:@"wiki_link"] forKey:@"wiki_link"];
-//                [influencerDrillIn setValue:companyWidget forKey:@""];
-//            } else if([widgetType isEqualToString:@"product"]) {
-//                 NSManagedObject *productWidget = [NSEntityDescription insertNewObjectForEntityForName:@"Product_Widget" inManagedObjectContext:context];
-//                [productWidget setValue:[dic objectForKey:@"desc"] forKey:@"desc"];
-//                [productWidget setValue:[dic objectForKey:@"image"] forKey:@"image"];
-//                [productWidget setValue:[dic objectForKey:@"product"] forKey:@"product"];
-//                [productWidget setValue:[dic objectForKey:@"widget_id"] forKey:@"widget_id"];
-//                [productWidget setValue:[dic objectForKey:@"widget_type"] forKey:@"widget_type"];
-//                [productWidget setValue:[dic objectForKey:@"wiki_link"] forKey:@"wiki_link"];
-//                [influencerDrillIn setValue:productWidget forKey:@""];
-//            } else if([widgetType isEqualToString:@"personality"]) {
-//                 NSManagedObject *personalityWidget = [NSEntityDescription insertNewObjectForEntityForName:@"Personality_Widget" inManagedObjectContext:context];
-//                [personalityWidget setValue:[dic objectForKey:@"about"] forKey:@"about"];
-//                [personalityWidget setValue:[dic objectForKey:@"company"] forKey:@"company"];
-//                [personalityWidget setValue:[dic objectForKey:@"image"] forKey:@"image"];
-//                [personalityWidget setValue:[dic objectForKey:@"linkedin"] forKey:@"linkedin"];
-//                [personalityWidget setValue:[dic objectForKey:@"name"] forKey:@"name"];
-//                [personalityWidget setValue:[dic objectForKey:@"title"] forKey:@"title"];
-//                [personalityWidget setValue:[dic objectForKey:@"widget_id"] forKey:@"widget_id"];
-//                [personalityWidget setValue:[dic objectForKey:@"widget_type"] forKey:@"widget_type"];
-//                [influencerDrillIn setValue:personalityWidget forKey:@""];
-//            } else if([widgetType isEqualToString:@"value"]) {
-//                 NSManagedObject *valueWidget = [NSEntityDescription insertNewObjectForEntityForName:@"Value_Widget" inManagedObjectContext:context];
-//                [valueWidget setValue:[dic objectForKey:@"more_info"] forKey:@"more_info"];
-//                [valueWidget setValue:[dic objectForKey:@"smart_sub_title"] forKey:@"smart_sub_title"];
-//                [valueWidget setValue:[dic objectForKey:@"smart_title"] forKey:@"smart_title"];
-//                [valueWidget setValue:[dic objectForKey:@"value"] forKey:@"value"];
-//                [valueWidget setValue:[dic objectForKey:@"widget_id"] forKey:@"widget_id"];
-//                [valueWidget setValue:[dic objectForKey:@"widget_type"] forKey:@"widget_type"];
-//                [influencerDrillIn setValue:valueWidget forKey:@""];
-//            }
-//        }
         } else {
             [self hideProgressView];
             [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
@@ -644,6 +507,60 @@
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [FIUtils showErrorToast];
     }];
+    } else {
+        [FIUtils showNoNetworkToast];
+    }
+}
+
+-(void)getCommentsWithDetails:(NSString *)details withArticleId:(NSString *)articleId {
+    if([self serviceIsReachable]) {
+        [FIWebService getCommentsWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if([[responseObject objectForKey:@"success"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                //need to write code
+                NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+                NSFetchRequest *fetchRequest;
+                NSManagedObject *userComments;
+                fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                userComments = [NSEntityDescription insertNewObjectForEntityForName:@"UserComments" inManagedObjectContext:managedObjectContext];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@", articleId];
+                [fetchRequest setPredicate:predicate];
+                NSArray *filterArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                NSManagedObject *curatedNews;
+                if(filterArray.count != 0) {
+                    curatedNews = [filterArray objectAtIndex:0];
+                }
+                [userComments setValue:[responseObject valueForKey:@"customerId"] forKey:@"customerId"];
+                [userComments setValue:[responseObject valueForKey:@"securityToken"] forKey:@"securityToken"];
+                [userComments setValue:[responseObject valueForKey:@"userId"] forKey:@"userId"];
+                [userComments setValue:[responseObject valueForKey:@"version"] forKey:@"version"];
+                
+                NSArray *commentsArray = [responseObject valueForKey:@"commentList"];
+                NSMutableArray *userCommentsArray = [[NSMutableArray alloc]init];
+                for(NSDictionary *commentsDic in commentsArray) {
+                    NSManagedObject *comments = [NSEntityDescription insertNewObjectForEntityForName:@"Comments" inManagedObjectContext:managedObjectContext];
+                    [comments setValue:[commentsDic valueForKey:@"comment"] forKey:@"comment"];
+                   // [comments setValue:[commentsDic valueForKey:@"createdDate"] forKey:@"createdDate"];
+                    [comments setValue:[commentsDic valueForKey:@"id"] forKey:@"id"];
+                    [comments setValue:[commentsDic valueForKey:@"likeCount"] forKey:@"likeCount"];
+                    [comments setValue:[commentsDic valueForKey:@"parentId"] forKey:@"parentId"];
+                    [comments setValue:[commentsDic valueForKey:@"unLikeCount"] forKey:@"unLikeCount"];
+                    [comments setValue:[commentsDic valueForKey:@"userId"] forKey:@"userId"];
+                    [comments setValue:[commentsDic valueForKey:@"userName"] forKey:@"userName"];
+                    [userCommentsArray addObject:comments];
+                }
+                NSOrderedSet *commentsObj = [[NSOrderedSet alloc]initWithArray:userCommentsArray];
+                [userComments setValue:commentsObj forKey:@"comments"];
+                [curatedNews setValue:userComments forKey:@"comments"];
+                
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"FetchingComments" object:nil];
+                
+            } else {
+                [self hideProgressView];
+                [self showLoginView:[responseObject objectForKey:@"success"]];
+            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
     } else {
         [FIUtils showNoNetworkToast];
     }
@@ -660,7 +577,11 @@
         [fetchRequest setPredicate:predicate];
         NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
        // NSLog(@"resulting person details:%@",newPerson);
-        NSManagedObject *influencer = [newPerson objectAtIndex:0];
+            NSManagedObject *influencer;
+            if(newPerson.count != 0) {
+               influencer  = [newPerson objectAtIndex:0];
+            }
+        
        // NSLog(@"curated result:%@",[influencer valueForKey:@"details"]);
         NSManagedObject *influencerDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"InfluencerDetail" inManagedObjectContext:managedObjectContext];
         [influencerDrillIn setValue:[[responseObject objectForKey:@"influencerdetails"] objectForKey:@"articleId"] forKey:@"articleId"];
@@ -799,6 +720,26 @@
         [FIUtils showNoNetworkToast];
     }
 }
+
+
+-(void)addCommentsWithDetails:(NSString *)details {
+    if([self serviceIsReachable]) {
+        [FIWebService addCommentsWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if([[responseObject objectForKey:@"success"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+            } else {
+                [self hideProgressView];
+                [self showLoginView:[responseObject objectForKey:@"success"]];
+            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    } else {
+        [FIUtils showNoNetworkToast];
+    }
+}
+
 
 -(NSManagedObject *)recursiveMenuWithDictionary:(NSDictionary *)dic {
     NSManagedObjectContext *context = [self managedObjectContext];

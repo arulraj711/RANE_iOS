@@ -18,6 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.articleDesc.text = self.articleUrl;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,9 +40,9 @@
 - (IBAction)send:(id)sender {
     
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-    [gradedetails setObject:@"3" forKey:@"userId"];
+    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"] forKey:@"userId"];
     [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    [gradedetails setObject:@"1" forKey:@"customerId"];
+    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"] forKey:@"customerId"];
     [gradedetails setObject:self.articleId forKey:@"articleId"];
     [gradedetails setObject:self.articleDesc.text forKey:@"description"];
     [gradedetails setObject:self.articleTitle forKey:@"headLine"];
