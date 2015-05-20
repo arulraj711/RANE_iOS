@@ -26,6 +26,7 @@
 #import "MZFormSheetController.h"
 #import "AddContentFirstLevelView.h"
 #import "ShowDetailView.h"
+
 @interface CorporateNewsDetailsView ()
 
 @end

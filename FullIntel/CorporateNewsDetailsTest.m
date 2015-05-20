@@ -13,6 +13,7 @@
 #import "FIUtils.h"
 #import "SocialWebView.h"
 #import "MZFormSheetController.h"
+#import <TwitterKit/TwitterKit.h>
 
 @interface CorporateNewsDetailsTest ()
 
@@ -53,6 +54,18 @@
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;
     [self.collectionView setContentOffset:CGPointMake(offset, 0)];
+    
+    
+    NSArray *tweetIds=@[@"20",@"21"];
+    
+    [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
+        [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
+
+            NSLog(@"Tweet array:%@",tweet);
+            
+        }];
+    }];
+
     
 }
 

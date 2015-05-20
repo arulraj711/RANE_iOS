@@ -10,8 +10,10 @@
 #import "CenterViewController.h"
 #import "CorporateNewsListView.h"
 #import "LeftViewController.h"
-#import <Crashlytics/Crashlytics.h>
 #import "FISharedResources.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+#import <TwitterKit/TwitterKit.h>
 #import "FIUtils.h"
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
@@ -23,7 +25,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Crashlytics startWithAPIKey:@"c2277e37646d9edc0b0ccd4da52ac04f8a45e6cb"];
+
+    
+    [Fabric with:@[CrashlyticsKit,TwitterKit]];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

@@ -22,6 +22,11 @@
 		A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A087980C1ADFE47D00D93114 /* FirstLevelCell.m */; };
 		A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */; };
 		A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D591ADF848000A43CCA /* OpenSans-Semibold.ttf */; };
+		A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D956791B0C4C0100DB013F /* Fabric.framework */; };
+		A0D9567C1B0C4C0200DB013F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */; };
+		A0D956801B0C4D9100DB013F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */; };
+		A0D956811B0C4D9100DB013F /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0D9567E1B0C4D9100DB013F /* TwitterKitResources.bundle */; };
+		A0D956821B0C4D9100DB013F /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567F1B0C4D9100DB013F /* TwitterCore.framework */; };
 		A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0DB6FC01B0AF40C00F6E2F4 /* Comments.storyboard */; };
 		A0DB6FC41B0B2BB400F6E2F4 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB6FC31B0B2BB400F6E2F4 /* CommentCell.m */; };
 		A0DEC3DE1AE8E31D0046E8BB /* SocialLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEC3DD1AE8E31D0046E8BB /* SocialLinkCell.m */; };
@@ -172,7 +177,6 @@
 		F7E85EA61A9F28B60022B4D5 /* FISharedResources.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E85EA51A9F28B60022B4D5 /* FISharedResources.m */; };
 		F7E85EA91A9F3B710022B4D5 /* Influencer.json in Resources */ = {isa = PBXBuildFile; fileRef = F7E85EA81A9F3B710022B4D5 /* Influencer.json */; };
 		F7EBB2671ACA763F008C90DF /* FIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F7EBB2661ACA763F008C90DF /* FIUtils.m */; };
-		F7EC59141AA6C1E900CED53F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EC59131AA6C1E900CED53F /* Crashlytics.framework */; };
 		F7EC59171AA7084B00CED53F /* NHAlignmentFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F7EC59161AA7084B00CED53F /* NHAlignmentFlowLayout.m */; };
 		F7EC6D5D1ADFB38D00A43CCA /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F7EC6D5C1ADFB38D00A43CCA /* MBProgressHUD.m */; };
 		F7ECACCB1AB0730000B57AB6 /* StockWidgetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ECACC91AB0730000B57AB6 /* StockWidgetCell.m */; };
@@ -208,6 +212,11 @@
 		A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFourthLevelView.m; sourceTree = "<group>"; };
 		A087980B1ADFE47D00D93114 /* FirstLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLevelCell.h; sourceTree = "<group>"; };
 		A087980C1ADFE47D00D93114 /* FirstLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLevelCell.m; sourceTree = "<group>"; };
+		A0D956791B0C4C0100DB013F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
+		A0D9567E1B0C4D9100DB013F /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
+		A0D9567F1B0C4D9100DB013F /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 		A0DB6FC01B0AF40C00F6E2F4 /* Comments.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Comments.storyboard; sourceTree = "<group>"; };
 		A0DB6FC21B0B2BB400F6E2F4 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		A0DB6FC31B0B2BB400F6E2F4 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
@@ -418,7 +427,6 @@
 		F7E85EA81A9F3B710022B4D5 /* Influencer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Influencer.json; sourceTree = "<group>"; };
 		F7EBB2651ACA763F008C90DF /* FIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIUtils.h; sourceTree = "<group>"; };
 		F7EBB2661ACA763F008C90DF /* FIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIUtils.m; sourceTree = "<group>"; };
-		F7EC59131AA6C1E900CED53F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F7EC59151AA7084B00CED53F /* NHAlignmentFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHAlignmentFlowLayout.h; sourceTree = "<group>"; };
 		F7EC59161AA7084B00CED53F /* NHAlignmentFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHAlignmentFlowLayout.m; sourceTree = "<group>"; };
 		F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -441,10 +449,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A053F5251AF9F090002EDC46 /* Accounts.framework in Frameworks */,
+				A0D956801B0C4D9100DB013F /* TwitterKit.framework in Frameworks */,
+				A0D9567C1B0C4C0200DB013F /* Crashlytics.framework in Frameworks */,
 				A02C54C61AEF5E0000E65011 /* Social.framework in Frameworks */,
 				A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */,
+				A0D956821B0C4D9100DB013F /* TwitterCore.framework in Frameworks */,
+				A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */,
 				F75295781A933F2100CD9087 /* CoreImage.framework in Frameworks */,
-				F7EC59141AA6C1E900CED53F /* Crashlytics.framework in Frameworks */,
 				F75295761A933EB700CD9087 /* CoreGraphics.framework in Frameworks */,
 				F75295741A933E9A00CD9087 /* UIKit.framework in Frameworks */,
 				3BA3145765EFD5E9465E072A /* libPods-FullIntel.a in Frameworks */,
@@ -457,10 +468,14 @@
 		40CF193F5A4A47D98E563735 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */,
+				A0D9567E1B0C4D9100DB013F /* TwitterKitResources.bundle */,
+				A0D9567F1B0C4D9100DB013F /* TwitterCore.framework */,
+				A0D956791B0C4C0100DB013F /* Fabric.framework */,
+				A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */,
 				A053F5241AF9F090002EDC46 /* Accounts.framework */,
 				A02C54C51AEF5E0000E65011 /* Social.framework */,
 				A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */,
-				F7EC59131AA6C1E900CED53F /* Crashlytics.framework */,
 				F75295771A933F2100CD9087 /* CoreImage.framework */,
 				F75295751A933EB700CD9087 /* CoreGraphics.framework */,
 				F75295731A933E9A00CD9087 /* UIKit.framework */,
@@ -1019,7 +1034,7 @@
 				A0E2234A1A91C2F00073814A /* Frameworks */,
 				A0E2234B1A91C2F00073814A /* Resources */,
 				DC2A263F479918F594F3222B /* Copy Pods Resources */,
-				F7EC59121AA6C1A400CED53F /* ShellScript */,
+				A0D956781B0C4B5C00DB013F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1145,6 +1160,7 @@
 				F79BC0901A9EBECF00A36D75 /* InfluencersTableViewCell.xib in Resources */,
 				F7E81FA01A97057100F9A8D4 /* Ed.jpeg in Resources */,
 				A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */,
+				A0D956811B0C4D9100DB013F /* TwitterKitResources.bundle in Resources */,
 				F7E81F911A97057100F9A8D4 /* 5.jpg in Resources */,
 				F7C1AB5E1ABFEFB100D8588A /* MorePopoverView.storyboard in Resources */,
 				F7CE36F21A95E99D0005AA0A /* RATableViewCell.xib in Resources */,
@@ -1189,6 +1205,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		A0D956781B0C4B5C00DB013F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 4b499ab54eb88d08284c6ef1d1ea8e4723d13c67 d1123e3945dfb9d5ff60e3568a138317846f9e8247b87376259f680cf14d5308";
+		};
 		DC2A263F479918F594F3222B /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1203,19 +1232,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		F7EC59121AA6C1A400CED53F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run c2277e37646d9edc0b0ccd4da52ac04f8a45e6cb 92960752ffaafd587fab1b08ace6158bb86c6c99f685a38791e3b640c510877c";
 		};
 /* End PBXShellScriptBuildPhase section */
 
