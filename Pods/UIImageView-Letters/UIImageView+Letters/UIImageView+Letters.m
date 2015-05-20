@@ -25,7 +25,7 @@
 #import "UIImageView+Letters.h"
 
 // This multiplier sets the font size based on the view bounds
-static const CGFloat kFontResizingProportion = 0.48f;
+static const CGFloat kFontResizingProportion = 0.28f;
 
 @interface UIImageView (LettersPrivate)
 
