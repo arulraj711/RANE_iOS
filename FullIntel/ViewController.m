@@ -21,6 +21,7 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    self.isAnimated = YES;
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
     
@@ -34,20 +35,20 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    self.isAnimated = YES;
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.usernameTextField.leftView = paddingView;
     self.usernameTextField.leftViewMode = UITextFieldViewModeAlways;
     UIView *rPaddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
-    
-    
-    
     self.usernameTextField.text = @"mark@adobe.com";
     self.passwordTextField.text = @"start";
 }
 - (void)animateImages
 {
+    if(self.isAnimated) {
+        NSLog(@"animated images");
     static int count = 0;
     NSArray *animationImages = @[[UIImage imageNamed:@"NYSE.jpg"],[UIImage imageNamed:@"ebola_new.jpeg"],[UIImage imageNamed:@"new-york-city-wallpaper.jpg"],[UIImage imageNamed:@"o-NEW-YORK-facebook.jpg"]];
     UIImage *image = [animationImages objectAtIndex:(count % [animationImages count])];
@@ -64,30 +65,14 @@
                         [self animateImages]; // once finished, repeat again
                         count++; // this is to keep the reference of which image should be loaded next
                     }];
-//    CGRect oldFrame = self.backgroundImageView.frame;
-//    CGRect newframe = CGRectMake(0, 0, 600, self.view.frame.size.height);
-//    [UIView transitionWithView:self.backgroundImageView
-//                      duration:2.5f // animation duration
-//                       options:UIViewAnimationOptionTransitionCrossDissolve
-//                    animations:^{
-//                        // change to other image
-//                        self.backgroundImageView.image = image;
-//                        self.backgroundImageView.frame = newframe;
-//                    } completion:^(BOOL finished) {
-//                        //[self animateImages];
-//                        count++;
-//                    }];
+    }
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    self.isAnimated = NO;
 }
 
 - (void)crossfade {
-    
-//    [UIView animateWithDuration:1.0 animations:^{
-//        self.backgroundImageView.alpha = 0.3;
-//    }];
-//    [UIView animateWithDuration:3.0 animations:^{
-//        self.backgroundImageView.alpha = 1.0;
-//    }];
-    
     [UIView animateWithDuration:3.0
                           delay:0.0
                         options:UIViewAnimationOptionTransitionCurlUp
@@ -102,13 +87,6 @@
                           ];
                      }
      ];
-    
-    
-//    [UIView animateWithDuration:2.0 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        self.backgroundImageView.alpha = !self.backgroundImageView.alpha;
-//    }completion:^(BOOL done){
-//        //
-//    }];
 }
 
 

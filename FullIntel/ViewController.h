@@ -15,6 +15,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (nonatomic,strong)  IBOutlet UIView *outerView;
 - (IBAction)signInButtonClicked:(id)sender;
-
+@property BOOL isAnimated;
 @end
 
