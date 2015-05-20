@@ -514,6 +514,8 @@
 
 -(void)getCommentsWithDetails:(NSString *)details withArticleId:(NSString *)articleId {
     if([self serviceIsReachable]) {
+        self.getCommentArticleId = articleId;
+        self.getCommentDetailString = details;
         [FIWebService getCommentsWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([[responseObject objectForKey:@"success"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 //need to write code
@@ -728,6 +730,9 @@
             if([[responseObject objectForKey:@"success"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+                [self getCommentsWithDetails:self.getCommentDetailString withArticleId:self.getCommentArticleId];
+                
+                
             } else {
                 [self hideProgressView];
                 [self showLoginView:[responseObject objectForKey:@"success"]];
