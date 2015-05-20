@@ -18,6 +18,7 @@
 #import "UIView+Toast.h"
 #import "CommentsPopoverView.h"
 #import "FISharedResources.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation CorporateDetailCell
 
@@ -26,6 +27,9 @@
     self.authorImageView.layer.masksToBounds = YES;
     self.authorImageView.layer.cornerRadius = 25.0f;
    // self.socialLinksArray = [[NSMutableArray alloc]init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails:) name:@"CuratedNewsDetails" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails:) name:@"CuratedNewsAuthorDetails" object:nil];
 }
 
 
@@ -355,6 +359,182 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"globeButtonClick" object:nil userInfo:@{@"url":[self.curatedNewsDetail valueForKey:@"articleUrl"]}];
 }
 
+-(void)loadCuratedNewsDetails:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[userInfo objectForKey:@"articleId"]];
+        [fetchRequest setPredicate:predicate];
+        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        if(newPerson.count != 0) {
+            NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+            NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
+            NSLog(@"cell post notification is working:%@",curatedNewsDetail);
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+                [self.articleWebview loadHTMLString:htmlString baseURL:nil];
+            });
+        }
+}
+
+
+-(void)loadCuratedNewsAuthorDetails:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[userInfo objectForKey:@"articleId"]];
+        [fetchRequest setPredicate:predicate];
+        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        NSManagedObject *curatedNews;
+        if(newPerson.count != 0) {
+            curatedNews = [newPerson objectAtIndex:0];
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                
+                NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
+                NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
+                NSManagedObject *author;
+                if(legendsArray.count != 0) {
+                    author  = [legendsArray objectAtIndex:0];
+                }
+                //  NSLog(@"single author:%@",author);
+                
+                self.socialLinksArray = [[NSMutableArray alloc]init];
+                NSSet *socialMediaSet = [author valueForKey:@"authorSocialMedia"];
+                self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialMediaSet allObjects]];
+                NSLog(@"social list:%d",self.socialLinksArray.count);
+                
+                
+                
+                if(self.socialLinksArray.count == 0) {
+                    self.socialLinkLabel.hidden = YES;
+                    self.socialLinkDivider.hidden = YES;
+                    self.socialLinkCollectionView.hidden = YES;
+                } else {
+                    self.socialLinksArray = self.socialLinksArray;
+                    self.socialLinkLabel.hidden = NO;
+                    self.socialLinkDivider.hidden = NO;
+                    self.socialLinkCollectionView.hidden = NO;
+                    
+                    [self.socialLinkCollectionView reloadData];
+                }
+                
+                [self.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
+                [self.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
+                
+                NSString *authorName = [NSString stringWithFormat:@"%@ %@",[author valueForKey:@"firstName"],[author valueForKey:@"lastName"]];
+                self.aboutAuthorName.text = authorName;
+                self.authorNameStr = [author valueForKey:@"firstName"];
+                
+                if([[author valueForKey:@"starRating"] integerValue] == 0) {
+                    self.ratingControl.hidden = YES;
+                } else {
+                    self.ratingControl.hidden = NO;
+                    self.starRating.rating = [[author valueForKey:@"starRating"] integerValue];
+                }
+                
+                if([[author valueForKey:@"isInfluencer"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    self.influencerIconImage.hidden = NO;
+                } else {
+                    self.influencerIconImage.hidden = YES;
+                }
+                
+                
+                NSSet *workTitleSet = [author valueForKey:@"authorWorkTitle"];
+                NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
+                if(workTitleArray.count != 0) {
+                    self.workTitleIcon.hidden = NO;
+                    self.workTitleIconHeightConstraint.constant = 15;
+                    self.workTitleLabelHeightConstraint.constant = 21;
+                    self.outletImageTopConstraint.constant = 10;
+                    self.outletLabelTopConstraint.constant = 4;
+                    NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
+                    self.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
+                } else {
+                    self.workTitleIcon.hidden = YES;
+                    self.workTitleIconHeightConstraint.constant = 0;
+                    self.workTitleLabelHeightConstraint.constant = 0;
+                    self.outletImageTopConstraint.constant = 0;
+                    self.outletLabelTopConstraint.constant = 0;
+                }
+                
+                
+                NSSet *outletSet = [author valueForKey:@"authorOutlet"];
+                NSMutableArray *outletArray = [[NSMutableArray alloc]initWithArray:[outletSet allObjects]];
+                if(outletArray.count != 0) {
+                    self.outletIcon.hidden = NO;
+                    self.locationImageTopConstarint.constant = 10;
+                    self.outletIconHeightConstraint.constant = 15;
+                    self.locationLabelTopConstraint.constant = 4;
+                    self.outletLabelHeightConstraint.constant = 21;
+                    NSManagedObject *outlet = [outletArray objectAtIndex:0];
+                    self.authorOutletName.text = [outlet valueForKey:@"outletname"];
+                }else {
+                    self.outletIcon.hidden = YES;
+                    self.outletIconHeightConstraint.constant = 0;
+                    self.locationImageTopConstarint.constant = 0;
+                    self.locationLabelTopConstraint.constant = 0;
+                    self.outletLabelHeightConstraint.constant = 0;
+                }
+                
+                
+                NSString *city = [author valueForKey:@"city"];
+                NSString *country = [author valueForKey:@"country"];
+                NSString *authorPlace;
+                if(city.length == 0 && country.length == 0) {
+                    authorPlace = @"";
+                } else if(city.length == 0) {
+                    authorPlace = [NSString stringWithFormat:@"%@",country];
+                } else if(country.length == 0) {
+                    authorPlace = [NSString stringWithFormat:@"%@",city];
+                } else {
+                    authorPlace = [NSString stringWithFormat:@"%@, %@",city,country];
+                }
+                
+                if(authorPlace.length !=0 ){
+                    self.locationIcon.hidden = NO;
+                    self.locationIconHeightConstraint.constant = 15;
+                    self.locationLabelHeightConstraint.constant = 21;
+                    self.beatsImageTopConstraint.constant = 10;
+                    self.beatsLabelTopConstraint.constant = 4;
+                    self.authorLocationLabel.text = authorPlace;
+                } else {
+                    self.locationIcon.hidden = YES;
+                    self.locationIconHeightConstraint.constant = 0;
+                    self.locationLabelHeightConstraint.constant = 0;
+                    self.beatsImageTopConstraint.constant = 0;
+                    self.beatsLabelTopConstraint.constant = 0;
+                }
+                
+                NSSet *beatSet = [author valueForKey:@"authorBeat"];
+                NSMutableArray *beatsArray = [[NSMutableArray alloc]initWithArray:[beatSet allObjects]];
+                NSMutableArray *beats = [[NSMutableArray alloc]init];
+                for(NSManagedObject *beat in beatsArray) {
+                    [beats addObject:[NSString stringWithFormat:@"#%@",[beat valueForKey:@"name"]]];
+                }
+                NSString *beatString = [beats componentsJoinedByString:@" "];
+                if(beatString.length != 0){
+                    self.beatsIcon.hidden = NO;
+                    self.beatsIconHeightConstraint.constant = 15;
+                    self.beatsLabelHeightConstraint.constant = 21;
+                    self.authorTagLabel.text = beatString;
+                } else {
+                    self.beatsIcon.hidden = YES;
+                    self.beatsIconHeightConstraint.constant = 0;
+                    self.beatsLabelHeightConstraint.constant = 0;
+                }
+                
+                self.bioLabel.text = [author valueForKey:@"bibliography"];
+            });
+        }
+    
+    
+    
+}
+
+
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat y = -scrollView.contentOffset.y;
@@ -362,6 +542,10 @@
     if (y > 0) {
         self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
         self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
+    } else {
+       // NSLog(@"collection view cell scroll");
+        
+
     }
     
 }

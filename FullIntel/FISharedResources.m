@@ -438,7 +438,7 @@
         }else {
             //  NSLog(@"else part:%@",error);
         }
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsAuthorDetails" object:nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsAuthorDetails" object:nil userInfo:@{@"articleId":articleId}];
         
 //        } else {
 //            [self hideProgressView];
@@ -499,7 +499,7 @@
             //  NSLog(@"else part:%@",error);
         }
         
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetails" object:nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetails" object:nil userInfo:@{@"articleId":[[responseObject objectForKey:@"articleDetail"] objectForKey:@"id"]}];
         } else {
             [self hideProgressView];
             [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];

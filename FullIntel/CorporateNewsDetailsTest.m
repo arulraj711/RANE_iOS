@@ -24,11 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails) name:@"CuratedNewsDetails" object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails) name:@"CuratedNewsAuthorDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailButtonClick:) name:@"mailButtonClick" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globeButtonClick:) name:@"globeButtonClick" object:nil];
+   
     [self addCustomNavRightButton];
     oneSecondTicker = [[NSTimer alloc] init];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -60,9 +59,9 @@
     
     [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
         [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
-
             NSLog(@"Tweet array:%@",tweet);
-            
+            TWTRTweet *tweetObj = [tweet objectAtIndex:0];
+            NSLog(@"twitter object:%@",tweetObj);
         }];
     }];
 
@@ -82,36 +81,6 @@
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,  nil]];
 }
 
-
--(void)loadCuratedNewsDetails {
-    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:self.selectedIndex]];
-    [fetchRequest setPredicate:predicate];
-    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    if(newPerson.count != 0) {
-        NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-        curatedNewsDetail = [curatedNews valueForKey:@"details"];
-    }
-    [self.collectionView reloadData];
-}
-
--(void)loadCuratedNewsAuthorDetails {
-    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:self.selectedIndex]];
-    [fetchRequest setPredicate:predicate];
-    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    NSManagedObject *curatedNews;
-    if(newPerson.count != 0) {
-        curatedNews = [newPerson objectAtIndex:0];
-        curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
-    }
-    NSLog(@"curated news author:%@",curatedNewsAuthorDetail);
-    
-    
-    [self.collectionView reloadData];
-}
 -(void)getArticleIdListFromDB {
     //[oneSecondTicker invalidate];
     
@@ -577,9 +546,13 @@
 
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
+  //  NSLog(@"collection view scroll");
     int lastCount = self.articleIdArray.count-1;
     float scrollOffset = self.collectionView.contentOffset.x;
-    //NSLog(@"scrollview offset:%f and collectionview width:%f",scrollOffset,self.collectionView.frame.size.width*lastCount);
+    
+    
+    
+    
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
        // NSLog(@"reached end");
         self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
