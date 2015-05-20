@@ -19,6 +19,7 @@
 #import "CommentsPopoverView.h"
 #import "FISharedResources.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <TwitterKit/TwitterKit.h>
 
 @implementation CorporateDetailCell
 
@@ -30,6 +31,37 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails:) name:@"CuratedNewsDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails:) name:@"CuratedNewsAuthorDetails" object:nil];
+}
+
+
+-(void)loadTweetsFromPost {
+    NSMutableArray *tweetIds = [[NSMutableArray alloc]init];
+    
+    for(NSManagedObject *relatedPost in self.relatedPostArray) {
+        [tweetIds addObject:[relatedPost valueForKey:@"postId"]];
+    }
+    
+   // NSArray *tweetIds=@[@"20",@"21"];
+    
+    [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
+        [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
+            //NSLog(@"Tweet array:%@",tweet);
+            tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
+            if(tweetArray.count == 0) {
+                self.tweetCollectionViewHeightConstraint.constant = 0;
+                self.tweetLabelHeightConstraint.constant = 0;
+                self.tweetLabel.hidden = YES;
+                self.tweetDividerImageView.hidden = YES;
+                //self.aboutAuthorVerticalConstraint.constant = self.aboutAuthorVerticalConstraint.constant - 300;
+            }else {
+               // self.aboutAuthorVerticalConstraint.constant = self.aboutAuthorVerticalConstraint.constant;
+                self.tweetLabel.hidden = NO;
+                self.tweetDividerImageView.hidden = NO;
+                [self.tweetsCollectionView reloadData];
+            }
+            
+        }];
+    }];
 }
 
 
@@ -72,7 +104,7 @@
     if(view == self.socialLinkCollectionView){
         itemCount = self.socialLinksArray.count;
     }else if(view == self.tweetsCollectionView) {
-        itemCount = 10;
+        itemCount = tweetArray.count;
     }else {
         itemCount = 3;
     }
@@ -136,6 +168,17 @@
         
     } else if(cv == self.tweetsCollectionView) {
         TweetsCell *tweetCell =(TweetsCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+        TWTRTweet *tweetObj = [tweetArray objectAtIndex:0];
+        TWTRUser *author = tweetObj.author;
+        NSLog(@"twitter authro:%@",author.name);
+        NSLog(@"twitter text:%@",tweetObj.text);
+        NSLog(@"twitter retweet cnt:%lld",tweetObj.retweetCount);
+        NSLog(@"twitter favourate cnt:%lld",tweetObj.favoriteCount);
+        tweetCell.author.text = author.name;
+        tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.name];
+        tweetCell.twitterText.text = tweetObj.text;
+        tweetCell.retweet.text = [NSString stringWithFormat:@"%lld",tweetObj.retweetCount];
+        tweetCell.favourate.text = [NSString stringWithFormat:@"%lld",tweetObj.favoriteCount];
         tweetCell.contentView.layer.borderWidth = 1.0f;
         tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
         collectionCell = tweetCell;
@@ -227,9 +270,9 @@
 
 - (IBAction)researchRequestButtonClick:(UIButton *)sender {
     ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
-    popOverView.articleId = [self.curatedNewsDetail valueForKey:@"articleId"];
-    popOverView.articleTitle = [self.curatedNewsDetail valueForKey:@"articleHeading"];
-    popOverView.articleUrl = [self.curatedNewsDetail valueForKey:@"articleUrl"];
+    popOverView.articleId = self.selectedArticleId;
+    popOverView.articleTitle = self.selectedArticleTitle;
+    popOverView.articleUrl = self.selectedArticleUrl;
     self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
     self.popOver.popoverContentSize=CGSizeMake(400, 260);
     //self.popOver.delegate = self;
@@ -240,7 +283,7 @@
 - (IBAction)saveButtonClick:(UIButton *)sender {
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    [resultDic setObject:[self.curatedNewsDetail valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+    [resultDic setObject:self.selectedArticleId forKey:@"selectedArticleId"];
     [resultDic setObject:@"3" forKey:@"status"];
     
     
@@ -280,10 +323,10 @@
 }
 
 - (IBAction)commentsButtonClick:(UIButton *)sender {
-    
+    NSLog(@"selected article id for comment:%@",self.selectedArticleId);
     NSMutableDictionary *commentsDic = [[NSMutableDictionary alloc] init];
     [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    [commentsDic setObject:[self.curatedNewsDetail valueForKey:@"articleId"] forKey:@"articleId"];
+    [commentsDic setObject:self.selectedArticleId forKey:@"articleId"];
     [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"] forKey:@"userId"];
     [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"] forKey:@"customerId"];
     [commentsDic setObject:@"1" forKey:@"version"];
@@ -295,7 +338,7 @@
     
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.curatedNewsDetail valueForKey:@"articleId"]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
     [fetchRequest setPredicate:predicate];
     NSArray *filterArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if(filterArray.count != 0) {
@@ -303,13 +346,13 @@
         NSLog(@"comments:%@",[curatedNews valueForKey:@"comments"]);
         NSManagedObject *userComments = [curatedNews valueForKey:@"comments"];
         if(userComments == nil) {
-            [[FISharedResources sharedResourceManager]getCommentsWithDetails:commentsResultStr withArticleId:[self.curatedNewsDetail valueForKey:@"articleId"]];
+            [[FISharedResources sharedResourceManager]getCommentsWithDetails:commentsResultStr withArticleId:self.selectedArticleId];
         }
     }
 
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
     CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
-    popOverView.articleId = [self.curatedNewsDetail valueForKey:@"articleId"];
+    popOverView.articleId = self.selectedArticleId;
     self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
     self.popOver.popoverContentSize=CGSizeMake(400, 300);
     //self.popOver.delegate = self;
@@ -320,7 +363,7 @@
 - (IBAction)markedImpButtonClick:(UIButton *)sender {
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    [resultDic setObject:[self.curatedNewsDetail valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+    [resultDic setObject:self.selectedArticleId forKey:@"selectedArticleId"];
     [resultDic setObject:@"2" forKey:@"status"];
     
     
@@ -362,6 +405,7 @@
 -(void)loadCuratedNewsDetails:(id)sender {
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
+    //self.selectedArticleId = [userInfo objectForKey:@"articleId"];
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[userInfo objectForKey:@"articleId"]];
@@ -374,6 +418,11 @@
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
                 [self.articleWebview loadHTMLString:htmlString baseURL:nil];
+                
+                NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
+                NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
+                self.relatedPostArray = postArray;
+                [self loadTweetsFromPost];
             });
         }
 }

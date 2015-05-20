@@ -413,8 +413,8 @@
                                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfz-n6-GN5">
                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="520"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1b2-ck-3kV">
-                                                                    <rect key="frame" x="0.0" y="-2000" width="1000" height="3000"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1b2-ck-3kV">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="3000"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZE1-Jw-cYe">
                                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="426"/>
@@ -539,7 +539,7 @@
                                                                                 <outlet property="delegate" destination="1bm-hV-Nnm" id="1Wv-Mb-of7"/>
                                                                             </connections>
                                                                         </collectionView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Related Tweets" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMq-Mp-3VR">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Influencer Tweets" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMq-Mp-3VR">
                                                                             <rect key="frame" x="44" y="1645" width="512" height="41"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                             <constraints>
@@ -601,10 +601,9 @@
                                                                                                 <rect key="frame" x="0.0" y="248" width="320" height="1"/>
                                                                                                 <color key="backgroundColor" red="0.86274509799999999" green="0.87450980389999999" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                             </imageView>
-                                                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9o2-2s-MwP">
+                                                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9o2-2s-MwP">
                                                                                                 <rect key="frame" x="11" y="115" width="296" height="112"/>
                                                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                                             </textView>
@@ -638,6 +637,14 @@
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                                     </view>
+                                                                                    <connections>
+                                                                                        <outlet property="auhtor2" destination="sLB-mc-kdY" id="f5O-hy-Jat"/>
+                                                                                        <outlet property="author" destination="0DH-iC-Ggz" id="HWG-cD-Gwl"/>
+                                                                                        <outlet property="favourate" destination="hXu-2H-yCh" id="lsh-aE-7PI"/>
+                                                                                        <outlet property="followers" destination="fPt-mi-U0A" id="SWB-rF-W0p"/>
+                                                                                        <outlet property="retweet" destination="df7-pD-Dsl" id="VQj-cg-hRb"/>
+                                                                                        <outlet property="twitterText" destination="9o2-2s-MwP" id="muU-5d-D54"/>
+                                                                                    </connections>
                                                                                 </collectionViewCell>
                                                                             </cells>
                                                                             <connections>
@@ -1139,6 +1146,7 @@
                                         <connections>
                                             <outlet property="aboutAuthorImageView" destination="K8w-Fr-YdD" id="axu-tW-zz6"/>
                                             <outlet property="aboutAuthorName" destination="MOu-cI-dBu" id="fF5-Hc-51f"/>
+                                            <outlet property="aboutAuthorVerticalConstraint" destination="f1Q-fM-UZN" id="WJk-jT-enf"/>
                                             <outlet property="articleAuthor" destination="E7c-36-38e" id="rRt-j4-cI4"/>
                                             <outlet property="articleDate" destination="32O-3c-wCT" id="Mc3-So-QCV"/>
                                             <outlet property="articleImageView" destination="ZE1-Jw-cYe" id="CBD-Vc-XuV"/>
@@ -1152,6 +1160,7 @@
                                             <outlet property="authorTagLabel" destination="UiW-Lc-8t2" id="e1e-88-Bwc"/>
                                             <outlet property="authorWorkTitle" destination="vOf-Sp-o9Z" id="f5t-r4-eY6"/>
                                             <outlet property="authorWorkTitleLabel" destination="mLC-KW-a9C" id="8BU-dw-Uqh"/>
+                                            <outlet property="bannerImageViewHeightConstraint" destination="ygg-QI-nKr" id="uYN-wv-9hP"/>
                                             <outlet property="beatsIcon" destination="swC-lZ-GoS" id="ERu-3h-KmG"/>
                                             <outlet property="beatsIconHeightConstraint" destination="XBf-Ez-xXg" id="iCa-NV-j38"/>
                                             <outlet property="beatsImageTopConstraint" destination="2dC-K6-POj" id="KaQ-8s-neL"/>
@@ -1177,6 +1186,10 @@
                                             <outlet property="socialLinkCollectionView" destination="FnE-DD-78R" id="dio-gF-1V6"/>
                                             <outlet property="socialLinkDivider" destination="nOg-Vo-586" id="8gN-ZS-Yn2"/>
                                             <outlet property="socialLinkLabel" destination="Qo9-MY-8Pl" id="3dM-Ul-y6e"/>
+                                            <outlet property="tweetCollectionViewHeightConstraint" destination="3qJ-rR-xbA" id="yF0-fu-uSL"/>
+                                            <outlet property="tweetDividerImageView" destination="dNf-Ep-kzD" id="XOl-Nr-WO4"/>
+                                            <outlet property="tweetLabel" destination="vMq-Mp-3VR" id="yhN-nJ-w0D"/>
+                                            <outlet property="tweetLabelHeightConstraint" destination="xzQ-rn-sKY" id="nIJ-nn-GBW"/>
                                             <outlet property="tweetsCollectionView" destination="Eyu-oP-MRa" id="iwO-Rk-mrb"/>
                                             <outlet property="webViewHeightConstraint" destination="rMK-g8-G01" id="hvG-lo-hSi"/>
                                             <outlet property="widgetCollectionView" destination="v4N-Oa-kJn" id="zdK-YT-0G9"/>

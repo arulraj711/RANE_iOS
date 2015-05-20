@@ -177,9 +177,9 @@
             }
             
             
-            if(categoryId == -2 || categoryId == -3) {
-                [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
-            }
+//            if(categoryId == -2 || categoryId == -3) {
+//                [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
+//            }
         for(NSDictionary *dic in influencerArray) {
             
             NSManagedObjectContext *context;
@@ -490,6 +490,19 @@
         
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"readStatus"] forKey:@"readStatus"];
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"saveForLater"] forKey:@"saveForLater"];
+            
+            NSArray *relatedPostArray = [[responseObject objectForKey:@"articleDetail"] objectForKey:@"articleRelatedPosts"];
+            NSMutableArray *postArray = [[NSMutableArray alloc]init];
+            for(NSDictionary *postDic in relatedPostArray) {
+                NSManagedObject *relatedPost = [NSEntityDescription insertNewObjectForEntityForName:@"RelatedPost" inManagedObjectContext:managedObjectContext];
+                [relatedPost setValue:[postDic valueForKey:@"postId"] forKey:@"postId"];
+                [relatedPost setValue:[postDic valueForKey:@"socialMediaUsername"] forKey:@"socialMediaUsername"];
+                [relatedPost setValue:[postDic valueForKey:@"tweetURL"] forKey:@"tweetURL"];
+                [postArray addObject:relatedPost];
+            }
+            
+            NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:postArray];
+            [curatedNewsDrillIn setValue:outletObj forKey:@"relatedPost"];
         [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
         NSError *error = nil;
         // Save the object to persistent store

@@ -84,6 +84,7 @@
         <attribute name="outletname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="readStatus" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="saveForLater" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="relatedPost" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="RelatedPost" syncable="YES"/>
     </entity>
     <entity name="CuratedNewsDetailAuthor" syncable="YES">
         <attribute name="bibliography" optional="YES" attributeType="String" syncable="YES"/>
@@ -242,6 +243,11 @@
         <attribute name="widget_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wiki_link" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="RelatedPost" syncable="YES">
+        <attribute name="postId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="socialMediaUsername" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tweetURL" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Stock_Widget" syncable="YES">
         <attribute name="down" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="favour" optional="YES" attributeType="String" syncable="YES"/>
@@ -273,11 +279,12 @@
         <element name="AuthorOutlet" positionX="-2079" positionY="-1440" width="128" height="75"/>
         <element name="AuthorSocialMedia" positionX="-2270" positionY="-1452" width="128" height="118"/>
         <element name="AuthorWorkTitle" positionX="-2187" positionY="-1260" width="128" height="73"/>
+        <element name="Comments" positionX="-1989" positionY="-1260" width="128" height="163"/>
         <element name="Company_Widget" positionX="-171" positionY="9" width="128" height="120"/>
         <element name="CuratedAuthor" positionX="-846" positionY="-1404" width="128" height="163"/>
         <element name="CuratedLegends" positionX="-153" positionY="-306" width="128" height="88"/>
         <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="313"/>
-        <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="223"/>
+        <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="238"/>
         <element name="CuratedNewsDetailAuthor" positionX="-2423" positionY="-1269" width="128" height="238"/>
         <element name="Influ_Drillin" positionX="-479" positionY="-18" width="128" height="268"/>
         <element name="Influencer" positionX="-1098" positionY="-225" width="128" height="193"/>
@@ -294,8 +301,8 @@
         <element name="Personality_Widget" positionX="-153" positionY="27" width="128" height="163"/>
         <element name="Product_Widget" positionX="-137" positionY="216" width="128" height="133"/>
         <element name="Stock_Widget" positionX="-234" positionY="-99" width="128" height="180"/>
-        <element name="Value_Widget" positionX="-110" positionY="-153" width="128" height="135"/>
-        <element name="Comments" positionX="-1989" positionY="-1260" width="128" height="163"/>
         <element name="UserComments" positionX="-1863" positionY="-1431" width="128" height="118"/>
+        <element name="Value_Widget" positionX="-110" positionY="-153" width="128" height="135"/>
+        <element name="RelatedPost" positionX="-2691" positionY="-1476" width="128" height="90"/>
     </elements>
 </model>

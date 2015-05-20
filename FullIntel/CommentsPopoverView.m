@@ -52,18 +52,31 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if(self.commentsArray.count == 0) {
+        return 1;
+    }
     return self.commentsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    NSManagedObject *comment = [self.commentsArray objectAtIndex:indexPath.row];
-    cell.userName.text = [comment valueForKey:@"userName"];
-    cell.message.text = [comment valueForKey:@"comment"];
-    NSString *name = [comment valueForKey:@"userName"];
-    [cell.userImage setImageWithString:name color:[UIColor lightGrayColor] circular:true fontName:@"Open Sans"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+    UITableViewCell *tableCell;
+    if(self.commentsArray.count == 0) {
+        tableCell = [[UITableViewCell alloc] init];
+        tableCell.textLabel.text = @"No comments to display";
+        tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
+        tableCell.textLabel.font = [UIFont fontWithName:@"OpenSans" size:18];
+        tableCell.textLabel.textColor = [UIColor lightGrayColor];
+    } else {
+        CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        NSManagedObject *comment = [self.commentsArray objectAtIndex:indexPath.row];
+        cell.userName.text = [comment valueForKey:@"userName"];
+        cell.message.text = [comment valueForKey:@"comment"];
+        NSString *name = [comment valueForKey:@"userName"];
+        [cell.userImage setImageWithString:name color:[UIColor lightGrayColor] circular:true fontName:@"Open Sans"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        tableCell = cell;
+    }
+    return tableCell;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

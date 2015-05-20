@@ -13,7 +13,7 @@
 #import "FIUtils.h"
 #import "SocialWebView.h"
 #import "MZFormSheetController.h"
-#import <TwitterKit/TwitterKit.h>
+
 
 @interface CorporateNewsDetailsTest ()
 
@@ -53,18 +53,6 @@
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;
     [self.collectionView setContentOffset:CGPointMake(offset, 0)];
-    
-    
-    NSArray *tweetIds=@[@"20",@"21"];
-    
-    [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
-        [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
-            NSLog(@"Tweet array:%@",tweet);
-            TWTRTweet *tweetObj = [tweet objectAtIndex:0];
-            NSLog(@"twitter object:%@",tweetObj);
-        }];
-    }];
-
     
 }
 
@@ -116,7 +104,10 @@
         NSLog(@"elementsfrom column:%@",elementsFromColumn);
         self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
         NSLog(@"article id array:%@",self.articleIdArray);
-        [self.collectionView reloadData];
+        if(self.articleIdArray.count != 0) {
+            [self.collectionView reloadData];
+        }
+        
         [self.activityIndicator stopAnimating];
         [oneSecondTicker invalidate];
     } else {
@@ -157,7 +148,9 @@
         NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
        // NSLog(@"selected curated news:%@",curatedNews);
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
-        [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"image"]] placeholderImage:nil];
+        
+        NSString *articleImageStr = [curatedNews valueForKey:@"image"];
+        [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:nil];
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
         cell.cachedImageViewSize = cell.articleImageView.frame;
         cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
@@ -200,7 +193,9 @@
         cell.curatedNewsDetail = curatedNewsDetail;
         cell.selectedIndexPath = indexPath;
         cell.articleDesc = [curatedNews valueForKey:@"desc"];
-        
+        cell.selectedArticleTitle = [curatedNews valueForKey:@"title"];
+        cell.selectedArticleUrl = [curatedNews valueForKey:@"articleUrl"];
+        cell.selectedArticleId = [curatedNews valueForKey:@"articleId"];
         if(curatedNewsDetail == nil) {
             // NSLog(@"details is null");
            
@@ -230,6 +225,11 @@
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
                 [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+                
+                NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
+                NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
+                cell.relatedPostArray = postArray;
+                [cell loadTweetsFromPost];
             });
         }
         
@@ -555,12 +555,14 @@
     
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
        // NSLog(@"reached end");
-        self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        [self.view addSubview:self.activityIndicator];
-        self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
-        [self.activityIndicator startAnimating];
         
-        self.collectionView.scrollEnabled = NO;
+        if(self.articleIdArray.count != 0) {
+            self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            [self.view addSubview:self.activityIndicator];
+            self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
+            [self.activityIndicator startAnimating];
+            
+            self.collectionView.scrollEnabled = NO;
         NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[self.articleIdArray lastObject] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
         dispatch_async(dispatch_get_main_queue(), ^(void){
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] integerValue] withFlag:@""];
@@ -568,6 +570,7 @@
                                        selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
         });
+        }
     }
 }
 

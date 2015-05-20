@@ -12,7 +12,10 @@
 #import "AMRatingControl.h"
 #import "MZFormSheetController.h"
 
-@interface CorporateDetailCell : UICollectionViewCell
+@interface CorporateDetailCell : UICollectionViewCell {
+    NSMutableArray *tweetArray;
+}
+
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,strong) IBOutlet UILabel *articleTitle;
 @property (nonatomic,strong) IBOutlet UIImageView *articleImageView;
@@ -65,6 +68,13 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *beatsIconHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *beatsLabelHeightConstraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *aboutAuthorVerticalConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tweetCollectionViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *tweetLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *tweetDividerImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tweetLabelHeightConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bannerImageViewHeightConstraint;
 
 
 
@@ -76,11 +86,17 @@
 @property (nonatomic,strong) UIPopoverController *popOver;
 @property NSManagedObject *curatedNewsDetail;
 @property (nonatomic,strong) NSString *articleDesc;
-
+@property (nonatomic,strong) NSString *selectedArticleId;
+@property (nonatomic,strong) NSString *selectedArticleTitle;
+@property (nonatomic,strong) NSString *selectedArticleUrl;
+@property (nonatomic,strong) NSMutableArray *relatedPostArray;
 - (IBAction)researchRequestButtonClick:(UIButton *)sender;
 - (IBAction)saveButtonClick:(UIButton *)sender;
 - (IBAction)mailButtonClick:(UIButton *)sender;
 - (IBAction)commentsButtonClick:(UIButton *)sender;
 - (IBAction)markedImpButtonClick:(UIButton *)sender;
 - (IBAction)globeButtonClick:(UIButton *)sender;
+
+-(void)loadTweetsFromPost;
+
 @end
