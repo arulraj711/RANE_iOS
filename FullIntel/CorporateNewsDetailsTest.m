@@ -223,8 +223,25 @@
             
         } else {
             dispatch_async(dispatch_get_main_queue(), ^(void){
+                cell.webViewHeightConstraint.constant = 940;
                 NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
                 [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+                
+                
+                NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
+                if(markImpStatus == [NSNumber numberWithInt:1]) {
+                    NSLog(@"mark selected");
+                    [cell.markedImpButton setSelected:YES];
+                } else {
+                    NSLog(@"mark not selected");
+                    [cell.markedImpButton setSelected:NO];
+                }
+                
+                if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    [cell.savedForLaterButton setSelected:YES];
+                } else {
+                    [cell.savedForLaterButton setSelected:NO];
+                }
                 
                 NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
                 NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];

@@ -41,6 +41,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *outletTextWidthConstraint;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (nonatomic,strong) IBOutlet UIButton *markedImpButton;
+@property (weak, nonatomic) IBOutlet UIButton *savedForLaterButton;
 @property (weak, nonatomic) IBOutlet UILabel *socialLinkLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *socialLinkDivider;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *outletIconHeightConstraint;

@@ -25,7 +25,7 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
     
-    [self animateImages];
+    
     self.usernameTextField.layer.borderWidth = 1.0f;
     self.usernameTextField.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
     self.passwordTextField.layer.borderWidth = 1.0f;
@@ -36,14 +36,15 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     self.isAnimated = YES;
+    [self animateImages];
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.usernameTextField.leftView = paddingView;
     self.usernameTextField.leftViewMode = UITextFieldViewModeAlways;
     UIView *rPaddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
-    self.usernameTextField.text = @"mark@adobe.com";
-    self.passwordTextField.text = @"start";
+    //self.usernameTextField.text = @"mark@adobe.com";
+    //self.passwordTextField.text = @"start";
 }
 - (void)animateImages
 {

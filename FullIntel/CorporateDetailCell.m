@@ -40,26 +40,28 @@
     for(NSManagedObject *relatedPost in self.relatedPostArray) {
         [tweetIds addObject:[relatedPost valueForKey:@"postId"]];
     }
-    
+    NSLog(@"tweet ids:%@",tweetIds);
    // NSArray *tweetIds=@[@"20",@"21"];
     
     [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
         [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
-            //NSLog(@"Tweet array:%@",tweet);
+            NSLog(@"Tweet array:%@",tweet);
             tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
             if(tweetArray.count == 0) {
                 self.tweetCollectionViewHeightConstraint.constant = 0;
                 self.tweetLabelHeightConstraint.constant = 0;
                 self.tweetLabel.hidden = YES;
                 self.tweetDividerImageView.hidden = YES;
-                //self.aboutAuthorVerticalConstraint.constant = self.aboutAuthorVerticalConstraint.constant - 300;
+               // self.aboutAuthorVerticalConstraint.constant = 0;
             }else {
-               // self.aboutAuthorVerticalConstraint.constant = self.aboutAuthorVerticalConstraint.constant;
+                self.tweetCollectionViewHeightConstraint.constant = 300;
+                self.tweetLabelHeightConstraint.constant = 41;
                 self.tweetLabel.hidden = NO;
                 self.tweetDividerImageView.hidden = NO;
-                [self.tweetsCollectionView reloadData];
+               // self.aboutAuthorVerticalConstraint.constant = 44;
+                
             }
-            
+            [self.tweetsCollectionView reloadData];
         }];
     }];
 }
@@ -89,14 +91,14 @@
 
 #pragma mark - UICollectionView Datasource
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    
-    return UIEdgeInsetsMake(0, 0, 0, 0);
-}
+//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+//{
+//    
+//    return UIEdgeInsetsMake(0, 0, 0, 0);
+//}
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-     NSLog(@"imp collection view:%d",self.socialLinksArray.count);
+    // NSLog(@"imp collection view:%d",self.socialLinksArray.count);
     NSInteger itemCount;
 //    if(view == self.legendsCollectionView) {
 //        itemCount = self.legendsArray.count;
@@ -137,7 +139,7 @@
 //    } else
     
     if(cv == self.socialLinkCollectionView) {
-        NSLog(@"inside social link collectionview cellfor item");
+       // NSLog(@"inside social link collectionview cellfor item");
         NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
         
         SocialLinkCell *socialCell =(SocialLinkCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
@@ -168,7 +170,7 @@
         
     } else if(cv == self.tweetsCollectionView) {
         TweetsCell *tweetCell =(TweetsCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-        TWTRTweet *tweetObj = [tweetArray objectAtIndex:0];
+        TWTRTweet *tweetObj = [tweetArray objectAtIndex:indexPath.row];
         TWTRUser *author = tweetObj.author;
         NSLog(@"twitter authro:%@",author.name);
         NSLog(@"twitter text:%@",tweetObj.text);
@@ -180,7 +182,7 @@
         tweetCell.retweet.text = [NSString stringWithFormat:@"%lld",tweetObj.retweetCount];
         tweetCell.favourate.text = [NSString stringWithFormat:@"%lld",tweetObj.favoriteCount];
         tweetCell.contentView.layer.borderWidth = 1.0f;
-        tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+        tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:237.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1] CGColor];
         collectionCell = tweetCell;
     }else {
         if(indexPath.row == 0) {
@@ -235,7 +237,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     
-    
+   // NSLog(@"heihgt:%f",webView.scrollView.contentSize.height);
     CGSize mWebViewTextSize = [webView sizeThatFits:CGSizeMake(1.0f, 1.0f)];  // Pass about any size
     CGRect mWebViewFrame = webView.frame;
     mWebViewFrame.size.height = mWebViewTextSize.height;
@@ -248,8 +250,14 @@
             [subview setBounces:NO];
         }
     }
-    self.webViewHeightConstraint.constant = webView.frame.size.height;
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1500);
+   // NSLog(@"webview height:%f",webView.frame.size.height);
+//    if(webView.frame.size.height > 1000) {
+        self.webViewHeightConstraint.constant = webView.frame.size.height;
+//    } else {
+//        self.webViewHeightConstraint.constant = 1000;
+//    }
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
     self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];
     self.starRating.userInteractionEnabled = NO;
     [self.ratingControl addSubview:self.starRating];
@@ -416,8 +424,26 @@
             NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
             NSLog(@"cell post notification is working:%@",curatedNewsDetail);
             dispatch_async(dispatch_get_main_queue(), ^(void){
+                self.webViewHeightConstraint.constant = 940;
                 NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
                 [self.articleWebview loadHTMLString:htmlString baseURL:nil];
+                
+                
+                NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
+                if(markImpStatus == [NSNumber numberWithInt:1]) {
+                    NSLog(@"mark selected");
+                    [self.markedImpButton setSelected:YES];
+                } else {
+                    NSLog(@"mark not selected");
+                    [self.markedImpButton setSelected:NO];
+                }
+                
+                    if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                        [self.savedForLaterButton setSelected:YES];
+                    } else {
+                        [self.savedForLaterButton setSelected:NO];
+                    }
+                
                 
                 NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
                 NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
@@ -589,7 +615,7 @@
     CGFloat y = -scrollView.contentOffset.y;
     //NSLog(@"scroll y value:%f",y);
     if (y > 0) {
-        self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
+        self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+50, self.cachedImageViewSize.size.height+y);
         self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
     } else {
        // NSLog(@"collection view cell scroll");

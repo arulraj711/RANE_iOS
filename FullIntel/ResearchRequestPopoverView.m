@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.articleDesc.text = self.articleUrl;
+    self.articleDesc.text = [NSString stringWithFormat:@"\n\n--------\n%@",self.articleUrl];
 }
 
 - (void)didReceiveMemoryWarning {

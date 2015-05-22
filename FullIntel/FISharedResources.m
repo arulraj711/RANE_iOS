@@ -176,10 +176,12 @@
                 [window makeToast:@"No more articles to read" duration:2 position:CSToastPositionCenter];
             }
             
+            if([updownFlag isEqualToString:@"up"]) {
+                if(categoryId == -2 || categoryId == -3) {
+                    [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
+                }
+            }
             
-//            if(categoryId == -2 || categoryId == -3) {
-//                [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
-//            }
         for(NSDictionary *dic in influencerArray) {
             
             NSManagedObjectContext *context;
@@ -663,7 +665,7 @@
             if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 if(flag == 1) {
                     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                    [window makeToast:@"Content types and Content categoriesupdated successfully" duration:2 position:CSToastPositionCenter];
+                    [window makeToast:@"Content types and Content categories are updated successfully" duration:2 position:CSToastPositionCenter];
                     NSMutableDictionary *menuDic = [[NSMutableDictionary alloc] init];
                     [menuDic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] forKey:@"securityToken"];
                     NSData *menuJsondata = [NSJSONSerialization dataWithJSONObject:menuDic options:NSJSONWritingPrettyPrinted error:nil];
