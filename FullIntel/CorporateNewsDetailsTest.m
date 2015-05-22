@@ -183,6 +183,7 @@
             authors = [authorArray objectAtIndex:0];
         }
         cell.articleAuthor.text = [authors valueForKey:@"name"];
+        cell.aboutAuthorName.text = [authors valueForKey:@"name"];
         cell.authorName.text = [authors valueForKey:@"name"];
         cell.authorWorkTitle.text = [authors valueForKey:@"title"];
         [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[authors valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
@@ -289,8 +290,8 @@
             [cell.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
             [cell.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
             
-            NSString *authorName = [NSString stringWithFormat:@"%@ %@",[author valueForKey:@"firstName"],[author valueForKey:@"lastName"]];
-            cell.aboutAuthorName.text = authorName;
+          //  NSString *authorName = [NSString stringWithFormat:@"%@ %@",[author valueForKey:@"firstName"],[author valueForKey:@"lastName"]];
+            //cell.aboutAuthorName.text = authorName;
             cell.authorNameStr = [author valueForKey:@"firstName"];
             
             if([[author valueForKey:@"starRating"] integerValue] == 0) {
@@ -390,8 +391,21 @@
                 cell.beatsIconHeightConstraint.constant = 0;
                 cell.beatsLabelHeightConstraint.constant = 0;
             }
+                
+                NSString *bioString = [author valueForKey:@"bibliography"];
             
-            cell.bioLabel.text = [author valueForKey:@"bibliography"];
+                if(bioString.length != 0) {
+                    
+                    cell.bioTitleLabel.hidden = NO;
+                    cell.bioDivider.hidden = NO;
+                    cell.bioLabel.hidden = NO;
+                    cell.bioLabel.text = bioString;
+                } else {
+                    cell.bioTitleLabel.hidden = YES;
+                    cell.bioDivider.hidden = YES;
+                    cell.bioLabel.hidden = YES;
+                }
+            
                 });
         }
     }

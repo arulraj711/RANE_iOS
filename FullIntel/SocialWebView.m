@@ -9,6 +9,8 @@
 #import "SocialWebView.h"
 #import "MZFormSheetController.h"
 #import "FISharedResources.h"
+#import "FIUtils.h"
+#import "UIView+Toast.h"
 @interface SocialWebView ()
 
 @end
@@ -54,8 +56,12 @@
     
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [timer invalidate];
+}
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
+    timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
     progressView = [[UCZProgressView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-50, self.view.frame.size.height/2-50, 100, 100)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
     progressView.backgroundColor = [UIColor clearColor];
@@ -63,17 +69,20 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [timer invalidate];
     [progressView removeFromSuperview];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)cancelWeb
+{
+    [FIUtils showRequestTimeOutError];
+   // UIWindow *window = [[UIApplication sharedApplication]windows][0];
+   // [self.view makeToast:@"Request Time out" duration:1 position:CSToastPositionCenter];
+   [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-*/
+
+
+
 
 - (IBAction)closeAction:(id)sender {
     [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];

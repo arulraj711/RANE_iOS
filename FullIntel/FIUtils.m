@@ -96,12 +96,17 @@
 
 +(void)showErrorToast {
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-    [window makeToast:@"Oops..! Please try again later" duration:2 position:CSToastPositionCenter];
+    [window makeToast:@"Oops..! Something is wrong.Please try again later." duration:1 position:CSToastPositionCenter];
 }
 
 +(void)showNoNetworkToast {
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-    [window makeToast:@"Please check your internet connection" duration:2 position:CSToastPositionCenter];
+    [window makeToast:@"￼Oops..! Please check your internet connection." duration:1 position:CSToastPositionCenter];
+}
+
++(void)showRequestTimeOutError {
+    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+    [window makeToast:@"Request Time out" duration:1 position:CSToastPositionCenter];
 }
 
 @end

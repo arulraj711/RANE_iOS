@@ -43,8 +43,8 @@
     UIView *rPaddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
-    //self.usernameTextField.text = @"mark@adobe.com";
-    //self.passwordTextField.text = @"start";
+    self.usernameTextField.text = @"mark@foradobe.com";
+    self.passwordTextField.text = @"start";
 }
 - (void)animateImages
 {
@@ -121,11 +121,11 @@
     [_usernameTextField resignFirstResponder];
     [_passwordTextField resignFirstResponder];
     if([_usernameTextField.text length] == 0) {
-        [self.view makeToast:@"Please check your login info and try again" duration:2 position:CSToastPositionBottom];
+        [self.view makeToast:@"Please check your login info and try again." duration:2 position:CSToastPositionCenter];
     } else if(![self NSStringIsValidEmail:_usernameTextField.text]) {
-        [self.view makeToast:@"Please check your login info and try again" duration:2 position:CSToastPositionBottom];
+        [self.view makeToast:@"Please check your login info and try again." duration:2 position:CSToastPositionCenter];
     }else if([_passwordTextField.text length] == 0) {
-        [self.view makeToast:@"Please check your login info and try again" duration:2 position:CSToastPositionBottom];
+        [self.view makeToast:@"Please check your login info and try again." duration:2 position:CSToastPositionCenter];
     }else {
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
     [gradedetails setObject:_usernameTextField.text forKey:@"email"];

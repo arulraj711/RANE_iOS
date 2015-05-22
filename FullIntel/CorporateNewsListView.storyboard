@@ -880,12 +880,11 @@
                                                                                 <constraint firstAttribute="height" constant="1" id="HoM-Rp-4aS"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJe-FV-vkh">
-                                                                            <rect key="frame" x="44" y="2177" width="907" height="51"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJe-FV-vkh">
+                                                                            <rect key="frame" x="44" y="2161" width="907" height="51"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="51" id="lc5-Jm-Tgf"/>
                                                                             </constraints>
-                                                                            <string key="text">Writes for the Financial Review. Head technician at Digital Life Labs.Our motto: Everything you always wanted to know, but not enough to ask</string>
                                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -929,7 +928,7 @@
                                                                         <constraint firstItem="RVc-oi-urW" firstAttribute="leading" secondItem="ZBC-gU-uJJ" secondAttribute="trailing" constant="2" id="W5G-KB-nyF"/>
                                                                         <constraint firstItem="K8w-Fr-YdD" firstAttribute="top" secondItem="ieZ-a0-N82" secondAttribute="bottom" constant="20" id="WN9-QJ-dqp"/>
                                                                         <constraint firstAttribute="trailing" secondItem="B0Z-se-wQ2" secondAttribute="trailing" id="XV0-gT-VEF"/>
-                                                                        <constraint firstItem="CJe-FV-vkh" firstAttribute="top" secondItem="1zg-dv-uMv" secondAttribute="bottom" constant="20" id="XZm-y1-yEO"/>
+                                                                        <constraint firstItem="CJe-FV-vkh" firstAttribute="top" secondItem="1zg-dv-uMv" secondAttribute="bottom" constant="4" id="XZm-y1-yEO"/>
                                                                         <constraint firstItem="mLC-KW-a9C" firstAttribute="top" secondItem="MOu-cI-dBu" secondAttribute="bottom" constant="6" id="YjN-3y-uV1"/>
                                                                         <constraint firstItem="NQA-7c-dXj" firstAttribute="leading" secondItem="1b2-ck-3kV" secondAttribute="leading" constant="34" id="Z4T-SG-Rjf"/>
                                                                         <constraint firstAttribute="trailing" secondItem="ieZ-a0-N82" secondAttribute="trailing" constant="34" id="Zu0-yB-DUE"/>
@@ -1167,7 +1166,9 @@
                                             <outlet property="beatsImageTopConstraint" destination="2dC-K6-POj" id="KaQ-8s-neL"/>
                                             <outlet property="beatsLabelHeightConstraint" destination="QOi-5i-AT6" id="fAv-5N-WrF"/>
                                             <outlet property="beatsLabelTopConstraint" destination="tZZ-7m-9vh" id="ouI-ef-nxA"/>
-                                            <outlet property="bioLabel" destination="CJe-FV-vkh" id="Xgc-Ta-fJm"/>
+                                            <outlet property="bioDivider" destination="1zg-dv-uMv" id="Dgr-QH-qDq"/>
+                                            <outlet property="bioLabel" destination="CJe-FV-vkh" id="Otx-Cq-Cbn"/>
+                                            <outlet property="bioTitleLabel" destination="zJ2-MA-M3J" id="uHT-iM-JQs"/>
                                             <outlet property="bottomView" destination="AV8-EY-XbN" id="py1-RM-kND"/>
                                             <outlet property="influencerIconImage" destination="71f-CF-p0C" id="Afs-KY-qB5"/>
                                             <outlet property="locationIcon" destination="X3O-Sk-2FR" id="01F-AE-8W0"/>

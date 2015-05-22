@@ -17,4 +17,5 @@
 +(void)deleteExistingData;
 +(void)showErrorToast;
 +(void)showNoNetworkToast;
++(void)showRequestTimeOutError;
 @end

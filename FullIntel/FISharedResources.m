@@ -48,6 +48,8 @@
 }
 
 -(void)checkLoginUserWithDetails:(NSString *)details{
+    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+    window.userInteractionEnabled = NO;
     if([self serviceIsReachable]) {
        // [self showProgressHUDForView];
         [FIWebService loginProcessWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -63,14 +65,17 @@
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"userid"] forKey:@"userId"];
             NSString *username = [NSString stringWithFormat:@"%@ %@",[responseObject valueForKey:@"firstName"],[responseObject valueForKey:@"lastName"]];
             [[NSUserDefaults standardUserDefaults]setObject:username forKey:@"username"];
+            window.userInteractionEnabled = YES;
             [[NSNotificationCenter defaultCenter]postNotificationName:@"Login" object:responseObject];
 
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            window.userInteractionEnabled = YES;
             [FIUtils showErrorToast];
             //[self hideProgressHUDForView];
         }];
         
     } else {
+        window.userInteractionEnabled = YES;
         [FIUtils showNoNetworkToast];
         //[self hideProgressHUDForView];
     }
@@ -90,8 +95,11 @@
                 
             }else {
                 
+                
+                //NSString *errMsg = [NSString stringWithFormat:@"%@"];
+                
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                [window makeToast:@"Seems like your session expired. This could also happen if same login is used in another device. Please login again to continue." duration:2 position:CSToastPositionCenter];
+                [window makeToast:@"Seems like your session may have expired. This could also happen if the same credentials are used to login using another device. Please login again." duration:2 position:CSToastPositionCenter];
             }
             
             
@@ -665,7 +673,7 @@
             if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 if(flag == 1) {
                     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                    [window makeToast:@"Content types and Content categories are updated successfully" duration:2 position:CSToastPositionCenter];
+                    [window makeToast:@"Updated content changes." duration:2 position:CSToastPositionCenter];
                     NSMutableDictionary *menuDic = [[NSMutableDictionary alloc] init];
                     [menuDic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] forKey:@"securityToken"];
                     NSData *menuJsondata = [NSJSONSerialization dataWithJSONObject:menuDic options:NSJSONWritingPrettyPrinted error:nil];

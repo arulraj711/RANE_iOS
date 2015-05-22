@@ -11,6 +11,7 @@
 
 @interface SocialWebView : UIViewController {
     UCZProgressView *progressView;
+    NSTimer *timer;
 }
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 - (IBAction)closeAction:(id)sender;

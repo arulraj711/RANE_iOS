@@ -490,13 +490,12 @@
 //    detailView.selectedIndexPath = indexPath;
 //    detailView.legendsArray = legendsList;
 //    [self.navigationController pushViewController:detailView animated:YES];
-    
-    
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    CorporateNewsDetailsTest *testView = [storyBoard instantiateViewControllerWithIdentifier:@"TestView"];
-    testView.currentIndex = indexPath.row;
-    [self.navigationController pushViewController:testView animated:YES];
-    
+    if(self.devices.count != 0) {
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        CorporateNewsDetailsTest *testView = [storyBoard instantiateViewControllerWithIdentifier:@"TestView"];
+        testView.currentIndex = indexPath.row;
+        [self.navigationController pushViewController:testView animated:YES];
+    }
 }
 
 -(void)checkMark:(UITapGestureRecognizer *)tapGesture {
@@ -545,7 +544,7 @@
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-        [self.view makeToast:@"Unchecked from Important List!" duration:1.5 position:CSToastPositionCenter];
+        [self.view makeToast:@"Removed from \"Marked Important\"" duration:1 position:CSToastPositionCenter];
     }else {
         [markedImpBtn setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
@@ -554,7 +553,7 @@
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-        [self.view makeToast:@"Marked Important!" duration:1.5 position:CSToastPositionCenter];
+        [self.view makeToast:@"Marked Important." duration:1 position:CSToastPositionCenter];
     }
     
 }
@@ -578,7 +577,7 @@
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-        [self.view makeToast:@"Removed from Saved List!" duration:1.5 position:CSToastPositionCenter];
+        [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.5 position:CSToastPositionCenter];
     }else {
         [savedBtn setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
@@ -588,7 +587,7 @@
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-        [self.view makeToast:@"Saved Successfully!" duration:1.5 position:CSToastPositionCenter];
+        [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.5 position:CSToastPositionCenter];
     }
     
 }

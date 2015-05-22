@@ -78,6 +78,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bannerImageViewHeightConstraint;
 
 
+@property (weak, nonatomic) IBOutlet UILabel *bioTitleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *bioDivider;
+
+
 
 @property (nonatomic,strong) AMRatingControl *starRating;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;

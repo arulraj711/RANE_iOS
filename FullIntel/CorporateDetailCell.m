@@ -20,6 +20,7 @@
 #import "FISharedResources.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <TwitterKit/TwitterKit.h>
+#import "FIUtils.h"
 
 @implementation CorporateDetailCell
 
@@ -230,7 +231,12 @@
         
         NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
         NSString *titleStr = [NSString stringWithFormat:@"%@ in %@",self.authorNameStr,[socialLink valueForKey:@"mediatype"]];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"socialLinkSelected" object:nil userInfo:@{@"name":titleStr,@"link":[socialLink valueForKey:@"url"]}];
+        
+        if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"socialLinkSelected" object:nil userInfo:@{@"name":titleStr,@"link":[socialLink valueForKey:@"url"]}];
+        } else {
+            [FIUtils showNoNetworkToast];
+        }
     }
 }
 
@@ -307,7 +313,7 @@
         
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
-        [self.contentView makeToast:@"Removed from Saved List!" duration:1.5 position:CSToastPositionCenter];
+        [self.contentView makeToast:@"Removed from \"Saved for Later\"" duration:1.5 position:CSToastPositionCenter];
     }else {
         [sender setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
@@ -318,7 +324,7 @@
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
-        [self.contentView makeToast:@"Saved Successfully!" duration:1.5 position:CSToastPositionCenter];
+        [self.contentView makeToast:@"Added to \"Saved for Later\"" duration:1.5 position:CSToastPositionCenter];
     }
 }
 
@@ -387,7 +393,7 @@
         
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
-        [self.contentView makeToast:@"Unchecked from Important List!" duration:1.5 position:CSToastPositionCenter];
+        [self.contentView makeToast:@"Removed from \"Marked Important\"" duration:1.5 position:CSToastPositionCenter];
     }else {
         [sender setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
@@ -398,7 +404,7 @@
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
-        [self.contentView makeToast:@"Marked Important!" duration:1.5 position:CSToastPositionCenter];
+        [self.contentView makeToast:@"Marked Important." duration:1.5 position:CSToastPositionCenter];
     }
     
 }
@@ -498,8 +504,8 @@
                 [self.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
                 [self.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
                 
-                NSString *authorName = [NSString stringWithFormat:@"%@ %@",[author valueForKey:@"firstName"],[author valueForKey:@"lastName"]];
-                self.aboutAuthorName.text = authorName;
+               // NSString *authorName = [NSString stringWithFormat:@"%@ %@",[author valueForKey:@"firstName"],[author valueForKey:@"lastName"]];
+                //self.aboutAuthorName.text = authorName;
                 self.authorNameStr = [author valueForKey:@"firstName"];
                 
                 if([[author valueForKey:@"starRating"] integerValue] == 0) {
@@ -600,7 +606,22 @@
                     self.beatsLabelHeightConstraint.constant = 0;
                 }
                 
-                self.bioLabel.text = [author valueForKey:@"bibliography"];
+                
+                NSString *bioString = [author valueForKey:@"bibliography"];
+                
+                if(bioString.length != 0) {
+                    
+                    self.bioTitleLabel.hidden = NO;
+                    self.bioDivider.hidden = NO;
+                    self.bioLabel.hidden = NO;
+                    self.bioLabel.text = bioString;
+                } else {
+                    self.bioTitleLabel.hidden = YES;
+                    self.bioDivider.hidden = YES;
+                    self.bioLabel.hidden = YES;
+                }
+                
+                
             });
         }
     
