@@ -13,12 +13,15 @@
 @interface AddContentThirdLevelView : UIViewController<RFQuiltLayoutDelegate,FourthLevelDelegate> {
    // id<ThirdLevelDelegate> delegate;
 }
+- (IBAction)backButtonClicked:(id)sender;
 @property (nonatomic, assign) id<ThirdLevelDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *categoryCollectionView;
 - (IBAction)checkMark:(id)sender;
 @property (nonatomic,strong) NSMutableArray *innerArray;
 @property (nonatomic,strong) NSMutableArray *selectedIdArray;
 @property (nonatomic,strong) NSMutableArray *previousArray;
+
 @property (nonatomic,strong) NSNumber *selectedId;
 @property (nonatomic,strong) NSMutableArray *checkedArray;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;

@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.hidden = YES;
     //self.categoryCollectionView.layer.borderColor = [UIColor lightGrayColor].CGColor;
    // self.categoryCollectionView.layer.borderWidth = 1.0f;
     self.selectedIdArray = [[NSMutableArray alloc]init];
@@ -31,8 +32,8 @@
     layout.direction = UICollectionViewScrollDirectionVertical;
     layout.blockPixels = CGSizeMake(150,150);
     [self.categoryCollectionView reloadData];
-    [self loadSelectedCategory];
-   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSelectedCategory:) name:@"selectedCategory" object:nil];
+    //[self loadSelectedCategory];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSelectedCategory:) name:@"selectedCategory" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,19 +48,23 @@
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
-    if(self.selectedIdArray.count != 0) {
-        [self.previousArray addObject:self.selectedId];
-    } else {
-        [self.previousArray removeAllObjects];
-    }
+//    if(self.selectedIdArray.count != 0) {
+//        [self.previousArray addObject:self.selectedId];
+//    } else {
+//        [self.previousArray removeAllObjects];
+//    }
     [delegate secondLevelDidFinish:self];
     [super viewWillDisappear:animated];
 }
 
-- (void)loadSelectedCategory
+- (void)loadSelectedCategory:(id)sender
 {
-    NSLog(@"second level previous array:%@ and selected id:%@",self.previousArray,self.selectedId);
-    if([self.previousArray containsObject:self.selectedId]) {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    self.innerArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"innerArray"]];
+    self.previousArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"previousArray"]];
+   // NSLog(@"second level previous array:%@ and selected id:%@",self.previousArray,self.selectedId);
+    //if([self.previousArray containsObject:self.selectedId]) {
         NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"secondLevelSelection"];
         NSLog(@"already selected array count:%d",alreadySelectedArray.count);
         if(alreadySelectedArray.count ==0) {
@@ -76,9 +81,10 @@
             self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
         }
         
-    } else {
-        self.selectedIdArray = [[NSMutableArray alloc]init];
-    }
+//    } else {
+//        self.selectedIdArray = [[NSMutableArray alloc]init];
+//    }
+    NSLog(@"second level selected id array:%@",self.selectedIdArray);
     [self.categoryCollectionView reloadData];
 
     

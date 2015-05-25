@@ -305,12 +305,24 @@
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
         cell.articleNumber.text = [curatedNews valueForKey:@"articleId"];
         cell.legendsArray = [[NSMutableArray alloc]initWithArray:legendsList];
+        NSMutableArray *multipleAuthorArray = [[NSMutableArray alloc]init];
         if(authorArray.count != 0) {
-            author = [authorArray objectAtIndex:0];
+            if(authorArray.count > 1) {
+                for(int i=0;i<2;i++) {
+                    NSManagedObject *authorObject = [authorArray objectAtIndex:i];
+                    [multipleAuthorArray addObject:[authorObject valueForKey:@"name"]];
+                }
+                cell.authorName.text = [multipleAuthorArray componentsJoinedByString:@" and "];
+            } else {
+                NSManagedObject *authorObject = [authorArray objectAtIndex:0];
+                cell.authorName.text = [authorObject valueForKey:@"name"];
+            }
         }
-        cell.authorName.text = [author valueForKey:@"name"];
-        cell.authorTitle.text = [author valueForKey:@"title"];
-        [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
+       // NSLog(@"multiple author array:%@",multipleAuthorArray);
+        
+        
+        //cell.authorTitle.text = [author valueForKey:@"title"];
+        //[cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         
         cell.title.text = [curatedNews valueForKey:@"title"];
         NSRange r;
@@ -581,6 +593,32 @@
     }else {
         [savedBtn setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
+        NSLog(@"curated news detail:%@",curatedNewsDetail);
+        if(curatedNewsDetail == nil) {
+            // NSLog(@"details is null");
+            NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+            [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+            [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            
+            NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
+            [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+            [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
+            NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
+            
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                //Background Thread
+                [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
+                [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
+                
+            });
+            
+        }
+        
         [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
         [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];

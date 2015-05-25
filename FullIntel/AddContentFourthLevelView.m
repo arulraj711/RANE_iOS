@@ -7,8 +7,10 @@
 //
 
 #import "AddContentFourthLevelView.h"
+#import "AddContentFifthLevelView.h"
 #import "SecondLevelCell.h"
 #import "FIContentCategory.h"
+#import "AddContentFifthLevelView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface AddContentFourthLevelView ()
@@ -19,9 +21,7 @@
 @synthesize  delegate;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    //self.categoryCollectionView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    //self.categoryCollectionView.layer.borderWidth = 1.0f;
+    self.titleLabel.text = self.title;
     self.selectedIdArray = [[NSMutableArray alloc]init];
     self.checkedArray = [[NSMutableArray alloc]init];
     self.uncheckedArray = [[NSMutableArray alloc]init];
@@ -74,6 +74,13 @@
     [delegate fourthLevelDidFinish:self];
     [super viewWillDisappear:animated];
 }
+
+- (void)fifthLevelDidFinish:(AddContentFifthLevelView*)fifthLevel {
+    self.selectedIdArray = fifthLevel.previousArray;
+   // NSLog(@"selected array from previous:%@",self.selectedIdArray);
+    [self.categoryCollectionView reloadData];
+}
+
 #pragma mark – RFQuiltLayoutDelegate
 
 
@@ -112,11 +119,17 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-//    FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
-//    AddContentFourthLevelView *thirdLevel = [storyboard instantiateViewControllerWithIdentifier:@"FourthLevel"];
-//    thirdLevel.innerArray = contentCategory.listArray;
-//    [self.navigationController pushViewController:thirdLevel animated:YES];
+    FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
+    if(contentCategory.listArray.count != 0) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+        AddContentFifthLevelView *thirdLevel = [storyboard instantiateViewControllerWithIdentifier:@"FifthLevel"];
+        thirdLevel.delegate = self;
+        thirdLevel.innerArray = contentCategory.listArray;
+        thirdLevel.title = contentCategory.name;
+        thirdLevel.previousArray = self.selectedIdArray;
+        thirdLevel.selectedId = contentCategory.categoryId;
+        [self.navigationController pushViewController:thirdLevel animated:YES];
+    }
 }
 
 //-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -146,4 +159,7 @@
     [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"fourthLevelUnSelection"];
 }
 
+- (IBAction)backButtonClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end
