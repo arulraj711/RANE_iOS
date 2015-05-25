@@ -330,10 +330,13 @@
 
 
 - (IBAction)mailButtonClick:(UIButton *)sender {
-    NSString *mailBodyStr = [NSString stringWithFormat:@"%@\n\n%@",self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
-    
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"title":[self.curatedNewsDetail valueForKey:@"articleHeading"],@"body":mailBodyStr}];
-
+    //NSLog(@"mail article url:%@",[self.curatedNewsDetail valueForKey:@"articleUrl"]);
+    NSString *articleUrl = [self.curatedNewsDetail valueForKey:@"articleUrl"];
+    if(articleUrl.length != 0) {
+        NSString *mailBodyStr = [NSString stringWithFormat:@"%@\n\n%@",self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
+        NSLog(@"mail body str:%@",mailBodyStr);
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"title":[self.curatedNewsDetail valueForKey:@"articleHeading"],@"body":mailBodyStr}];
+    }
 }
 
 - (IBAction)commentsButtonClick:(UIButton *)sender {

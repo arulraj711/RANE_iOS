@@ -279,7 +279,7 @@
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     cell.backgroundColor = [FIUtils colorWithHexString:stringWithoutSpaces];
-    [cell setupWithTitle:[dataObject.name uppercaseString] detailText:detailText level:level additionButtonHidden:!expanded];
+    [cell setupWithTitle:dataObject.name detailText:detailText level:level additionButtonHidden:!expanded];
     UIView *selectionColor = [[UIView alloc] init];
     selectionColor.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1];
     //cell.selectedBackgroundView = selectionColor;

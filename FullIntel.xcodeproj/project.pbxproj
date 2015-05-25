@@ -104,11 +104,6 @@
 		F7E3688E1ABC1D060083F38E /* ResearchRequestPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E3688C1ABC1D060083F38E /* ResearchRequestPopoverView.m */; };
 		F7E3688F1ABC1D060083F38E /* ResearchRequestPopoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E3688D1ABC1D060083F38E /* ResearchRequestPopoverView.xib */; };
 		F7E368941ABC1DB80083F38E /* MorePopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E368921ABC1DB80083F38E /* MorePopoverView.m */; };
-		F7E6ACED1AD66D4B002B5169 /* MarkedImportantListView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E6ACEC1AD66D4B002B5169 /* MarkedImportantListView.m */; };
-		F7E6ACEF1AD66D76002B5169 /* MarkedImportantListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7E6ACEE1AD66D76002B5169 /* MarkedImportantListView.storyboard */; };
-		F7E6ACF31AD66DAF002B5169 /* MarkedImportantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E6ACF11AD66DAF002B5169 /* MarkedImportantCell.m */; };
-		F7E6ACF41AD66DAF002B5169 /* MarkedImportantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E6ACF21AD66DAF002B5169 /* MarkedImportantCell.xib */; };
-		F7E6ACF71AD66E32002B5169 /* MarkedImportantDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E6ACF61AD66E32002B5169 /* MarkedImportantDetailsView.m */; };
 		F7E81F8C1A97057100F9A8D4 /* -iwatch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F4C1A97057000F9A8D4 /* -iwatch.jpg */; };
 		F7E81F8D1A97057100F9A8D4 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F4D1A97057000F9A8D4 /* 1.jpg */; };
 		F7E81F8E1A97057100F9A8D4 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F4E1A97057000F9A8D4 /* 2.jpg */; };
@@ -348,14 +343,6 @@
 		F7E3688D1ABC1D060083F38E /* ResearchRequestPopoverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResearchRequestPopoverView.xib; sourceTree = "<group>"; };
 		F7E368911ABC1DB80083F38E /* MorePopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MorePopoverView.h; sourceTree = "<group>"; };
 		F7E368921ABC1DB80083F38E /* MorePopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MorePopoverView.m; sourceTree = "<group>"; };
-		F7E6ACEB1AD66D4B002B5169 /* MarkedImportantListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkedImportantListView.h; sourceTree = "<group>"; };
-		F7E6ACEC1AD66D4B002B5169 /* MarkedImportantListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkedImportantListView.m; sourceTree = "<group>"; };
-		F7E6ACEE1AD66D76002B5169 /* MarkedImportantListView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MarkedImportantListView.storyboard; sourceTree = "<group>"; };
-		F7E6ACF01AD66DAF002B5169 /* MarkedImportantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkedImportantCell.h; sourceTree = "<group>"; };
-		F7E6ACF11AD66DAF002B5169 /* MarkedImportantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkedImportantCell.m; sourceTree = "<group>"; };
-		F7E6ACF21AD66DAF002B5169 /* MarkedImportantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarkedImportantCell.xib; sourceTree = "<group>"; };
-		F7E6ACF51AD66E32002B5169 /* MarkedImportantDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkedImportantDetailsView.h; sourceTree = "<group>"; };
-		F7E6ACF61AD66E32002B5169 /* MarkedImportantDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkedImportantDetailsView.m; sourceTree = "<group>"; };
 		F7E81F4C1A97057000F9A8D4 /* -iwatch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "-iwatch.jpg"; sourceTree = "<group>"; };
 		F7E81F4D1A97057000F9A8D4 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		F7E81F4E1A97057000F9A8D4 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
@@ -518,7 +505,6 @@
 			children = (
 				F7EC6D5A1ADFB37200A43CCA /* ProgressView */,
 				F773CFEA1ADE99DC002FC7CF /* AddContent */,
-				F7E6ACEA1AD66CEA002B5169 /* MarkedImportant */,
 				F7AE107F1AC01E040091E1C7 /* Influencer */,
 				F7E368771ABBF1710083F38E /* Popover_View */,
 				F78B42F51ABA88B200AB7FFB /* Corporate_News */,
@@ -868,21 +854,6 @@
 			name = More_Popover;
 			sourceTree = "<group>";
 		};
-		F7E6ACEA1AD66CEA002B5169 /* MarkedImportant */ = {
-			isa = PBXGroup;
-			children = (
-				F7E6ACEB1AD66D4B002B5169 /* MarkedImportantListView.h */,
-				F7E6ACEC1AD66D4B002B5169 /* MarkedImportantListView.m */,
-				F7E6ACEE1AD66D76002B5169 /* MarkedImportantListView.storyboard */,
-				F7E6ACF01AD66DAF002B5169 /* MarkedImportantCell.h */,
-				F7E6ACF11AD66DAF002B5169 /* MarkedImportantCell.m */,
-				F7E6ACF21AD66DAF002B5169 /* MarkedImportantCell.xib */,
-				F7E6ACF51AD66E32002B5169 /* MarkedImportantDetailsView.h */,
-				F7E6ACF61AD66E32002B5169 /* MarkedImportantDetailsView.m */,
-			);
-			name = MarkedImportant;
-			sourceTree = "<group>";
-		};
 		F7E81F4B1A97057000F9A8D4 /* img */ = {
 			isa = PBXGroup;
 			children = (
@@ -1140,10 +1111,8 @@
 				F7E81FB01A97057100F9A8D4 /* Josh.jpeg in Resources */,
 				F7E81FA91A97057100F9A8D4 /* htc_topic.png in Resources */,
 				F7C1AB5C1ABFEC6B00D8588A /* SavedListPopoverView.storyboard in Resources */,
-				F7E6ACEF1AD66D76002B5169 /* MarkedImportantListView.storyboard in Resources */,
 				F7AE10841AC01E4D0091E1C7 /* InfluencerListView.storyboard in Resources */,
 				F7E81FC91A97057100F9A8D4 /* stock1.png in Resources */,
-				F7E6ACF41AD66DAF002B5169 /* MarkedImportantCell.xib in Resources */,
 				F7E81FB21A97057100F9A8D4 /* mexico.jpg in Resources */,
 				F7E81F8F1A97057100F9A8D4 /* 3.jpg in Resources */,
 				F7E81FB71A97057100F9A8D4 /* Nick.jpeg in Resources */,
@@ -1243,7 +1212,6 @@
 				F7E3688E1ABC1D060083F38E /* ResearchRequestPopoverView.m in Sources */,
 				F773CFE71ADE4370002FC7CF /* JSCustomBadge.m in Sources */,
 				F7CE36E51A95E9490005AA0A /* RATreeView+Enums.m in Sources */,
-				F7E6ACED1AD66D4B002B5169 /* MarkedImportantListView.m in Sources */,
 				A0E223591A91C2F00073814A /* FullIntel.xcdatamodeld in Sources */,
 				F7CE36E81A95E9490005AA0A /* RATreeView+TableViewDataSource.m in Sources */,
 				F7DC38771AADA1C3006CF365 /* CorporateNewsDetailsView.m in Sources */,
@@ -1262,7 +1230,6 @@
 				F7E3687B1ABBF1DA0083F38E /* CommentsPopoverView.m in Sources */,
 				F7E368941ABC1DB80083F38E /* MorePopoverView.m in Sources */,
 				F7CE36E91A95E9490005AA0A /* RATreeView+TableViewDelegate.m in Sources */,
-				F7E6ACF31AD66DAF002B5169 /* MarkedImportantCell.m in Sources */,
 				A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */,
 				A07A05BE1AF78EBC0016AD46 /* AddContentThirdLevelView.m in Sources */,
 				F7CE36E41A95E9490005AA0A /* RATreeNodeItem.m in Sources */,
@@ -1296,7 +1263,6 @@
 				F7C1AB611ABFF41C00D8588A /* MoreViewCell.m in Sources */,
 				A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */,
 				A0DB6FC41B0B2BB400F6E2F4 /* CommentCell.m in Sources */,
-				F7E6ACF71AD66E32002B5169 /* MarkedImportantDetailsView.m in Sources */,
 				F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */,
 				A053F5231AF896B8002EDC46 /* ShowDetailView.m in Sources */,
 				F7E239F41AA5E49900708B6B /* Reachability.m in Sources */,
