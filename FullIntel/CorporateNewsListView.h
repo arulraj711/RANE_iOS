@@ -14,6 +14,7 @@
     NSManagedObject *author;
     UIRefreshControl *refreshControl;
 }
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *corporateListWidthConstraint;
 @property(strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpacing;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalSpacing;

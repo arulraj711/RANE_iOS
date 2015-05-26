@@ -39,6 +39,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readStatusUpdate:) name:@"readStatusUpdate" object:nil];
     
+    
    // [self.revealController showViewController:self.revealController.leftViewController];
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -104,7 +105,45 @@
     }
     
 }
+//-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+//    
+//    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+//    
+//    if(toInterfaceOrientation==UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
+//        
+//        NSLog(@"view size in Landscape :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+//        
+//        self.corporateListWidthConstraint.constant=self.view.frame.size.width-30;
+//        
+//    }else if(toInterfaceOrientation==UIInterfaceOrientationPortrait){
+//        
+//          NSLog(@"view size in Portrait :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+//        
+//        self.corporateListWidthConstraint.constant=self.view.frame.size.width-30;
+//    }
+//}
 
+#pragma mark -
+#pragma mark Rotation handling methods
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
+(NSTimeInterval)duration {
+    
+    // Fade the collectionView out
+
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    
+    // Force realignment of cell being displayed
+
+//    CGSize contentSize=self.articlesTableView.contentSize;
+//    contentSize.width=self.articlesTableView.bounds.size.width;
+//    self.articlesTableView.contentSize=contentSize;
+    
+//    [self.articlesTableView beginUpdates];
+//    [self.articlesTableView endUpdates];
+}
 -(void)showLoginPage {
     NSArray *navArray = self.navigationController.viewControllers;
     if(navArray.count > 1) {

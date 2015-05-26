@@ -50,8 +50,15 @@
 }
 
 - (void)layoutSubviews {
-   // [self.contentView updateConstraintsIfNeeded];
-    //[self.contentView layoutIfNeeded];
+    
+    [super layoutSubviews];
+    
+    
+
+    
+    
+    [self.contentView updateConstraintsIfNeeded];
+    [self.contentView layoutIfNeeded];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

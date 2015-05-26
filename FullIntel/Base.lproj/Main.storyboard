@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -87,7 +87,7 @@
                             <constraint firstAttribute="centerX" secondItem="St9-FG-tJi" secondAttribute="centerX" id="9ng-XS-luL"/>
                             <constraint firstItem="elN-gT-OTN" firstAttribute="top" secondItem="ou3-P5-eCO" secondAttribute="bottom" constant="-20" id="Fq1-dP-9Fy"/>
                             <constraint firstItem="BKh-WS-Kgy" firstAttribute="centerX" secondItem="St9-FG-tJi" secondAttribute="centerX" id="NlT-r8-3bU"/>
-                            <constraint firstItem="St9-FG-tJi" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="209" id="Pwp-GY-HVq"/>
+                            <constraint firstAttribute="centerY" secondItem="St9-FG-tJi" secondAttribute="centerY" id="RxE-Lu-svy"/>
                             <constraint firstItem="elN-gT-OTN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="bkY-rA-teF"/>
                             <constraint firstItem="aoh-wu-9Il" firstAttribute="top" secondItem="elN-gT-OTN" secondAttribute="bottom" id="gX5-dk-WSh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="elN-gT-OTN" secondAttribute="trailing" constant="-20" id="pdL-t9-LOk"/>
