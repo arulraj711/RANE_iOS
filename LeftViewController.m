@@ -485,13 +485,44 @@
 }
 
 
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    
+  //  NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
+    if(fromInterfaceOrientation == UIInterfaceOrientationPortrait) {
+        formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
+    }else {
+        formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
+    }
+    
+//    // Force realignment of cell being displayed
+//    CGSize currentSize = self.collectionView.bounds.size;
+//    float offset = self.currentIndex * currentSize.width;
+//    [self.collectionView setContentOffset:CGPointMake(offset, 0)];
+//    
+//    // Fade the collectionView back in
+//    [UIView animateWithDuration:0.125f animations:^{
+//        [self.collectionView setAlpha:1.0f];
+//    }];
+    
+}
+
+
 - (IBAction)addContentButtonClick:(id)sender {
+    
+    
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+   
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
     
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
-    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
-    formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
+    formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+    if(orientation == 1) {
+        formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
+    } else {
+        formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
+    }
+    
     formSheet.shadowRadius = 2.0;
     formSheet.shadowOpacity = 0.3;
     formSheet.shouldDismissOnBackgroundViewTap = YES;

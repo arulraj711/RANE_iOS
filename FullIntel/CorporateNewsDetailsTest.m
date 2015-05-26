@@ -178,11 +178,29 @@
         
         NSSet *authorSet = [curatedNews valueForKey:@"author"];
         NSMutableArray *authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
+        
+        NSLog(@"before author array:%@ and count:%d",authorArray,authorArray.count);
+        
+        NSMutableArray *multipleAuthorArray = [[NSMutableArray alloc]init];
+        if(authorArray.count != 0) {
+            if(authorArray.count > 1) {
+                for(int i=0;i<2;i++) {
+                    NSManagedObject *authorObject = [authorArray objectAtIndex:i];
+                    [multipleAuthorArray addObject:[authorObject valueForKey:@"name"]];
+                }
+                cell.articleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
+            } else {
+                NSManagedObject *authorObject = [authorArray objectAtIndex:0];
+                cell.articleAuthor.text = [authorObject valueForKey:@"name"];
+            }
+        }
+        
         NSManagedObject *authors;
         if(authorArray.count != 0) {
             authors = [authorArray objectAtIndex:0];
         }
-        cell.articleAuthor.text = [authors valueForKey:@"name"];
+        
+        //cell.articleAuthor.text = [authors valueForKey:@"name"];
         cell.aboutAuthorName.text = [authors valueForKey:@"name"];
         cell.authorName.text = [authors valueForKey:@"name"];
         cell.authorWorkTitle.text = [authors valueForKey:@"title"];

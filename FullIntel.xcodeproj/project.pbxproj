@@ -22,6 +22,7 @@
 		A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A087980C1ADFE47D00D93114 /* FirstLevelCell.m */; };
 		A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */; };
 		A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D591ADF848000A43CCA /* OpenSans-Semibold.ttf */; };
+		A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */; };
 		A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D956791B0C4C0100DB013F /* Fabric.framework */; };
 		A0D9567C1B0C4C0200DB013F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */; };
 		A0D956801B0C4D9100DB013F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */; };
@@ -207,6 +208,8 @@
 		A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFourthLevelView.m; sourceTree = "<group>"; };
 		A087980B1ADFE47D00D93114 /* FirstLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLevelCell.h; sourceTree = "<group>"; };
 		A087980C1ADFE47D00D93114 /* FirstLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLevelCell.m; sourceTree = "<group>"; };
+		A0BFEF831B13482300DCBDA8 /* AddContentFifthLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentFifthLevelView.h; sourceTree = "<group>"; };
+		A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFifthLevelView.m; sourceTree = "<group>"; };
 		A0D956791B0C4C0100DB013F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
@@ -622,6 +625,8 @@
 				A07A05BD1AF78EBC0016AD46 /* AddContentThirdLevelView.m */,
 				A07A05BF1AF7981A0016AD46 /* AddContentFourthLevelView.h */,
 				A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */,
+				A0BFEF831B13482300DCBDA8 /* AddContentFifthLevelView.h */,
+				A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */,
 			);
 			name = AddContent;
 			sourceTree = "<group>";
@@ -1238,6 +1243,7 @@
 				F7DB32611AA56F50002724D6 /* FIMenu.m in Sources */,
 				F7CE36E01A95E9490005AA0A /* RATreeNode.m in Sources */,
 				F7E354E31A947A19009677D2 /* LeftViewController.m in Sources */,
+				A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */,
 				F7CE36E11A95E9490005AA0A /* RATreeNodeCollectionController.m in Sources */,
 				F7CE36EA1A95E9490005AA0A /* RATreeView+UIScrollView.m in Sources */,
 				A0E223531A91C2F00073814A /* main.m in Sources */,

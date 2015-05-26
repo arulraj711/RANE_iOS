@@ -29,9 +29,16 @@
     
    
     
-    RFQuiltLayout* layout = (id)[self.contentCollectionView collectionViewLayout];
+    layout = (id)[self.contentCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
-    layout.blockPixels = CGSizeMake(150,150);
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    NSLog(@"current device orientation:%ld",(long)orientation);
+    if(orientation == 1) {
+        layout.blockPixels = CGSizeMake(120,150);
+    }else {
+        layout.blockPixels = CGSizeMake(130,150);
+    }
+    
     
     self.selectedIdArray = [[NSMutableArray alloc]init];
     self.checkedArray = [[NSMutableArray alloc]init];
@@ -49,6 +56,19 @@
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
     [[FISharedResources sharedResourceManager]manageContentCategoryWithDetails:resultStr withFlag:0];
 }
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    
+     // NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
+    if(fromInterfaceOrientation == 1) {
+        layout.blockPixels = CGSizeMake(130,150);
+    }else {
+        layout.blockPixels = CGSizeMake(120,150);
+    }
+    
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -80,7 +100,7 @@
 -(void)loadContentCategory {
     self.contentTypeArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentTypeList];
     self.contentCategoryArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentCategoryList];
-    for(FIContentCategory *category in self.contentCategoryArray) {
+    for(FIContentCategory *category in self.contentTypeArray) {
         if(category.isSubscribed) {
             [self.checkedArray addObject:category.categoryId];
             [self.selectedIdArray addObject:category.categoryId];
@@ -92,7 +112,7 @@
     [self.contentCollectionView reloadData];
     
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"selectedCategory" object:nil userInfo:@{@"innerArray":self.contentCategoryArray,@"title":@"Select Topic"}];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"selectedCategory" object:nil userInfo:@{@"innerArray":self.contentCategoryArray,@"previousArray":self.selectedIdArray,@"title":@"Select Topic"}];
     
     
     //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
@@ -161,7 +181,23 @@
         [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
         [categoryArray addObject:dic];
     }
-   // NSLog(@"final category array:%@",categoryArray);
+   
+    NSMutableArray *fifthLevelSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"fifthLevelSelection"];
+    for(int i=0;i<fifthLevelSelection.count;i++) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+        [dic setObject:[fifthLevelSelection objectAtIndex:i] forKey:@"id"];
+        [dic setObject:[NSNumber numberWithBool:YES] forKey:@"isSubscribed"];
+        [categoryArray addObject:dic];
+    }
+    
+    NSMutableArray *fifthLevelUnSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"fifthLevelUnSelection"];
+    for(int i=0;i<fifthLevelUnSelection.count;i++) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+        [dic setObject:[fifthLevelUnSelection objectAtIndex:i] forKey:@"id"];
+        [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
+        [categoryArray addObject:dic];
+    }
+    
     
     for(int i=0;i<self.checkedArray.count;i++) {
         NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
@@ -179,8 +215,8 @@
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
     [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [gradedetails setObject:[NSNumber numberWithBool:YES] forKey:@"updateCategory"];
-    [gradedetails setObject:contentType forKey:@"contentCategory"];
-    [gradedetails setObject:categoryArray forKey:@"contentType"];
+    [gradedetails setObject:categoryArray forKey:@"contentCategory"];
+    [gradedetails setObject:contentType forKey:@"contentType"];
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
     
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
@@ -204,21 +240,21 @@
 }
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     // NSLog(@"imp collection view");
-    return self.contentCategoryArray.count;
+    return self.contentTypeArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"cell for item");
     FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
     
-    FIContentCategory *contentCategory = [self.contentCategoryArray objectAtIndex:indexPath.row];
+    FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
     [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
     
     
    // [cell.image setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:contentCategory.imageUrl]]]];
     
     
-    [cell.image setContentMode:UIViewContentModeScaleAspectFit];
+    //[cell.image setContentMode:UIViewContentModeScaleAspectFit];
     cell.name.text = contentCategory.name;
     cell.checkMarkButton.tag = indexPath.row;
     
@@ -242,7 +278,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    FIContentCategory *contentCategory = [self.contentCategoryArray objectAtIndex:indexPath.row];
+    FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
     if(contentCategory.listArray.count != 0) {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
     AddContentSecondLevelView *secondLevel = [storyboard instantiateViewControllerWithIdentifier:@"SecondLevel"];
@@ -257,7 +293,7 @@
 }
 
 - (IBAction)checkMark:(id)sender {
-    FIContentCategory *contentCategory = [self.contentCategoryArray objectAtIndex:[sender tag]];
+    FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:[sender tag]];
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         [self.selectedIdArray removeObject:contentCategory.categoryId];
         [sender setSelected:NO];

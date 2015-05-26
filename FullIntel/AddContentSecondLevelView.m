@@ -21,18 +21,98 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    self.selectTopicsLabel.hidden = YES;
+    
+    self.navigationController.navigationBar.hidden = YES;
     //self.categoryCollectionView.layer.borderColor = [UIColor lightGrayColor].CGColor;
    // self.categoryCollectionView.layer.borderWidth = 1.0f;
     self.selectedIdArray = [[NSMutableArray alloc]init];
     self.checkedArray = [[NSMutableArray alloc]init];
     self.uncheckedArray = [[NSMutableArray alloc]init];
     // Do any additional setup after loading the view.
-    RFQuiltLayout* layout = (id)[self.categoryCollectionView collectionViewLayout];
+    layout = (id)[self.categoryCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
-    layout.blockPixels = CGSizeMake(150,150);
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    NSLog(@"current device orientation:%ld",(long)orientation);
+    if(orientation == 1) {
+        layout.blockPixels = CGSizeMake(170,200);
+    }else {
+        layout.blockPixels = CGSizeMake(200,200);
+        
+    }
+    //layout.blockPixels = CGSizeMake(180,200);
     [self.categoryCollectionView reloadData];
-    [self loadSelectedCategory];
-   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSelectedCategory:) name:@"selectedCategory" object:nil];
+    //[self loadSelectedCategory];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSelectedCategory:) name:@"selectedCategory" object:nil];
+ //   UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    
+
+    if(orientation == 1) {
+        testLabel = [[UILabel alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+        testLabel.text = @"Select Topics";
+        testLabel.textAlignment = NSTextAlignmentCenter;
+        testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
+        //self.selectTopicsLabel.frame = CGRectMake(0, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
+        // layout.blockPixels = CGSizeMake(100,150);
+    }else {
+        // layout.blockPixels = CGSizeMake(130,150);
+        testLabel = [[UILabel alloc]initWithFrame:CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+        testLabel.text = @"Select Topics";
+        testLabel.textAlignment = NSTextAlignmentCenter;
+        testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
+        //self.selectTopicsLabel.frame = CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
+    }
+    [self.view addSubview:testLabel];
+}
+
+//-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+//    
+//    // NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
+//    if(fromInterfaceOrientation == 1) {
+//      //  layout.blockPixels = CGSizeMake(130,150);
+//        testLabel.frame = CGRectMake((800-testLabel.frame.size.width)/2, testLabel.frame.origin.y, testLabel.frame.size.width, testLabel.frame.size.height);
+//    }else {
+//       // layout.blockPixels = CGSizeMake(100,150);
+//        testLabel.frame = CGRectMake((600-testLabel.frame.size.width)/2, testLabel.frame.origin.y, testLabel.frame.size.width, testLabel.frame.size.height);
+//    }
+//    
+//}
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
+(NSTimeInterval)duration {
+    
+    // Fade the collectionView out
+    [self.categoryCollectionView setAlpha:0.0f];
+    
+    // Suppress the layout errors by invalidating the layout
+    [self.categoryCollectionView.collectionViewLayout invalidateLayout];
+    
+    // Calculate the index of the item that the collectionView is currently displaying
+   // CGPoint currentOffset = [self.categoryCollectionView contentOffset];
+   // self.currentIndex = currentOffset.x / self.categoryCollectionView.frame.size.width;
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    
+    // Force realignment of cell being displayed
+   // CGSize currentSize = self.categoryCollectionView.bounds.size;
+  //  float offset = self.currentIndex * currentSize.width;
+    [self.categoryCollectionView setContentOffset:CGPointMake(0, 0)];
+    
+    
+    if(fromInterfaceOrientation == 1) {
+        layout.blockPixels = CGSizeMake(200,200);
+    }else {
+        layout.blockPixels = CGSizeMake(170,200);
+    }
+    
+    // Fade the collectionView back in
+    [UIView animateWithDuration:0.125f animations:^{
+        [self.categoryCollectionView setAlpha:1.0f];
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,19 +127,23 @@
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
-    if(self.selectedIdArray.count != 0) {
-        [self.previousArray addObject:self.selectedId];
-    } else {
-        [self.previousArray removeAllObjects];
-    }
+//    if(self.selectedIdArray.count != 0) {
+//        [self.previousArray addObject:self.selectedId];
+//    } else {
+//        [self.previousArray removeAllObjects];
+//    }
     [delegate secondLevelDidFinish:self];
     [super viewWillDisappear:animated];
 }
 
-- (void)loadSelectedCategory
+- (void)loadSelectedCategory:(id)sender
 {
-    NSLog(@"second level previous array:%@ and selected id:%@",self.previousArray,self.selectedId);
-    if([self.previousArray containsObject:self.selectedId]) {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    self.innerArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"innerArray"]];
+    self.previousArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"previousArray"]];
+   // NSLog(@"second level previous array:%@ and selected id:%@",self.previousArray,self.selectedId);
+    //if([self.previousArray containsObject:self.selectedId]) {
         NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"secondLevelSelection"];
         NSLog(@"already selected array count:%d",alreadySelectedArray.count);
         if(alreadySelectedArray.count ==0) {
@@ -76,9 +160,10 @@
             self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
         }
         
-    } else {
-        self.selectedIdArray = [[NSMutableArray alloc]init];
-    }
+//    } else {
+//        self.selectedIdArray = [[NSMutableArray alloc]init];
+//    }
+    NSLog(@"second level selected id array:%@",self.selectedIdArray);
     [self.categoryCollectionView reloadData];
 
     
@@ -108,7 +193,7 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetsForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return UIEdgeInsetsMake(5, 5, 5, 10);
+    return UIEdgeInsetsMake(5, 5, 5, 15);
 }
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     // NSLog(@"imp collection view");
@@ -122,7 +207,7 @@
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
     cell.name.text = contentCategory.name;
     [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
-    [cell.image setContentMode:UIViewContentModeScaleToFill];
+    [cell.image setContentMode:UIViewContentModeScaleAspectFit];
     
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         

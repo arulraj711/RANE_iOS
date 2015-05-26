@@ -21,24 +21,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-   // self.categoryCollectionView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    //self.categoryCollectionView.layer.borderWidth = 1.0f;
+    self.selectTopicsLabel.hidden = YES;
+    //self.titleLabel.text = self.title;
     self.selectedIdArray = [[NSMutableArray alloc]init];
     self.checkedArray = [[NSMutableArray alloc]init];
     self.uncheckedArray = [[NSMutableArray alloc]init];
     // Do any additional setup after loading the view.
     RFQuiltLayout* layout = (id)[self.categoryCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
-    layout.blockPixels = CGSizeMake(150,150);
+    layout.blockPixels = CGSizeMake(180,180);
+    
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    if(orientation == 1) {
+        testLabel = [[UILabel alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+        testLabel.text = self.title;
+        testLabel.textAlignment = NSTextAlignmentCenter;
+        testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
+        //self.selectTopicsLabel.frame = CGRectMake(0, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
+        // layout.blockPixels = CGSizeMake(100,150);
+    }else {
+        // layout.blockPixels = CGSizeMake(130,150);
+        testLabel = [[UILabel alloc]initWithFrame:CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+        testLabel.text = self.title;
+        testLabel.textAlignment = NSTextAlignmentCenter;
+        testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
+        //self.selectTopicsLabel.frame = CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
+    }
+    [self.view addSubview:testLabel];
     [self.categoryCollectionView reloadData];
     [self loadSelectedCategory];
-//    NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"thirdLevelSelection"];
-//    if(alreadySelectedArray.count == 0) {
-//        [self loadSelectedCategory];
-//    } else {
-//        self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
-//    }
     
     
 }
@@ -47,6 +58,20 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    
+    // NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
+    if(fromInterfaceOrientation == 1) {
+        //  layout.blockPixels = CGSizeMake(130,150);
+        testLabel.frame = CGRectMake((800-testLabel.frame.size.width)/2, testLabel.frame.origin.y, testLabel.frame.size.width, testLabel.frame.size.height);
+    }else {
+        // layout.blockPixels = CGSizeMake(100,150);
+        testLabel.frame = CGRectMake((760-testLabel.frame.size.width)/2, testLabel.frame.origin.y, testLabel.frame.size.width, testLabel.frame.size.height);
+    }
+    
+}
+
 
 - (void)loadSelectedCategory
 {
@@ -176,4 +201,7 @@
 }
 
 
+- (IBAction)backButtonClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end
