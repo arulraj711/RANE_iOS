@@ -29,9 +29,16 @@
     
    
     
-    RFQuiltLayout* layout = (id)[self.contentCollectionView collectionViewLayout];
+    layout = (id)[self.contentCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
-    layout.blockPixels = CGSizeMake(130,150);
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    NSLog(@"current device orientation:%ld",(long)orientation);
+    if(orientation == 1) {
+        layout.blockPixels = CGSizeMake(120,150);
+    }else {
+        layout.blockPixels = CGSizeMake(130,150);
+    }
+    
     
     self.selectedIdArray = [[NSMutableArray alloc]init];
     self.checkedArray = [[NSMutableArray alloc]init];
@@ -49,6 +56,19 @@
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
     [[FISharedResources sharedResourceManager]manageContentCategoryWithDetails:resultStr withFlag:0];
 }
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    
+     // NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
+    if(fromInterfaceOrientation == 1) {
+        layout.blockPixels = CGSizeMake(130,150);
+    }else {
+        layout.blockPixels = CGSizeMake(120,150);
+    }
+    
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -11,6 +11,7 @@
 #import "MZFormSheetController.h"
 @interface LeftViewController : UIViewController <RATreeViewDataSource,RATreeViewDelegate,MZFormSheetBackgroundWindowDelegate>{
     RATreeView *treeView;
+    MZFormSheetController *formSheet;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;
 @property BOOL isFirstTime;

@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "RFQuiltLayout.h"
 #import "AddContentSecondLevelView.h"
-@interface AddContentFirstLevelView : UIViewController<RFQuiltLayoutDelegate,UICollectionViewDelegate,SecondLevelDelegate>
+@interface AddContentFirstLevelView : UIViewController<RFQuiltLayoutDelegate,UICollectionViewDelegate,SecondLevelDelegate> {
+    RFQuiltLayout* layout;
+}
 - (IBAction)closeAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *contentCollectionView;
 @property (nonatomic,strong) NSMutableArray *contentTypeArray;
