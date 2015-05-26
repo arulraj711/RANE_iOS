@@ -135,7 +135,7 @@
     }
     
     CGFloat width =  [self.outletStr sizeWithFont:[UIFont fontWithName:@"OpenSans" size:14 ]].width;
-    NSLog(@"outlet text width:%f",width);
+    
     if(width == 0) {
         
     }
@@ -208,7 +208,7 @@
         curatedNewsDetail = [curatedNews valueForKey:@"details"];
     }
     
-    NSLog(@"curated news details in load:%@",curatedNewsDetail);
+    
     if(curatedNewsDetail != nil) {
         NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
         [_articleWebview loadHTMLString:htmlString baseURL:nil];
@@ -221,10 +221,8 @@
     
     NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
     if(markImpStatus == [NSNumber numberWithInt:1]) {
-        NSLog(@"mark selected");
         [self.markedImpButton setSelected:YES];
     } else {
-        NSLog(@"mark not selected");
         [self.markedImpButton setSelected:NO];
     }
     
@@ -234,8 +232,11 @@
     if(number == [NSNumber numberWithInt:1]) {
         
     } else {
-        NSLog(@"come inside read status change");
         [[NSNotificationCenter defaultCenter]postNotificationName:@"readStatusUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
+        
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
+        
         //Need to refresh Menu
         NSMutableDictionary *menuDic = [[NSMutableDictionary alloc] init];
         [menuDic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -465,7 +466,7 @@
         UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(7.5, 7.5, 15, 15)];
         image.backgroundColor = [UIColor clearColor];
         NSString *imageName = [NSString stringWithFormat:@"%@_white",[self.legendsArray objectAtIndex:indexPath.row]];
-        NSLog(@"detail view image name:%@",imageName);
+        
         image.image = [UIImage imageNamed:imageName];
         [iconImage addSubview:image];
         [cell.contentView addSubview:iconImage];
@@ -533,13 +534,13 @@
 }
 
 -(void)socialTap:(UITapGestureRecognizer *)tapGesture {
-    NSInteger row = tapGesture.view.tag;
-    NSLog(@"social tap working for row:%d",row);
+  //  NSInteger row = tapGesture.view.tag;
+    
 }
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"did select social link");
+    
     if(collectionView == self.socialLinkCollectionView) {
         
         NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
@@ -785,8 +786,6 @@
 }
 
 - (IBAction)globeButtonClick:(UIButton *)sender {
-    NSLog(@"globe button click");
-    
     [UIView animateWithDuration:0.2
                           delay:0.1
                         options: UIViewAnimationOptionCurveEaseIn

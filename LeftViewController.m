@@ -35,6 +35,10 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenus) name:@"MenuList" object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMenuCount:) name:@"updateMenuCount" object:nil];
+    
     self.addContentButton.layer.cornerRadius = 5.0f;
     self.addContentButton.layer.masksToBounds = YES;
     self.addContentButton.layer.borderWidth = 1.0f;
@@ -51,6 +55,7 @@
         else
             objectArray = [[NSMutableArray alloc] init];
     }
+    
     
     
     treeView = [[RATreeView alloc] initWithFrame:self.treeBackView.bounds];
@@ -88,6 +93,26 @@
     }
 }
 
+-(void)updateMenuCount:(id)sender {
+    RADataObject *dataObj;
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *type = [userInfo objectForKey:@"type"];
+    if([type isEqualToString:@"-1"]) {
+        dataObj = [self.data objectAtIndex:2];
+    }else if([type isEqualToString:@"-2"]) {
+        dataObj = [self.data objectAtIndex:0];
+    } else if([type isEqualToString:@"-3"]) {
+        dataObj = [self.data objectAtIndex:1];
+    }
+    
+    int cnt = [dataObj.unReadCount intValue];
+    dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+    NSMutableArray *reloadArray = [[NSMutableArray alloc]init];
+    [reloadArray addObject:dataObj];
+    [self.treeView reloadRowsForItems:reloadArray withRowAnimation:RATreeViewRowAnimationNone];
+}
+
 -(void)viewDidAppear:(BOOL)animated {
    
 //    if([[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."][0] intValue] >= 7) {
@@ -99,9 +124,6 @@
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
-    
-    
-    
     self.treeView.frame = self.treeBackView.bounds;
     NSString *companyLogoImageStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyLogo"];
     NSString *companyNameStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"];
@@ -266,7 +288,7 @@
 
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item
 {
-    //NSLog(@"cell for item");
+    NSLog(@"cell for item:%@",item);
     
     RADataObject *dataObject = item;
     NSInteger level = [self.treeView levelForCellForItem:item];
@@ -485,8 +507,25 @@
 }
 
 
+//-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
+//(NSTimeInterval)duration {
+//    
+//    // Fade the collectionView out
+//    [self.collectionView setAlpha:0.0f];
+//    
+//    // Suppress the layout errors by invalidating the layout
+//    [self.collectionView.collectionViewLayout invalidateLayout];
+//    
+//    // Calculate the index of the item that the collectionView is currently displaying
+//    CGPoint currentOffset = [self.collectionView contentOffset];
+//    self.currentIndex = currentOffset.x / self.collectionView.frame.size.width;
+//}
+
+
+
+
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    
+    self.treeView.frame = self.treeBackView.bounds;
   //  NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
     if(fromInterfaceOrientation == UIInterfaceOrientationPortrait) {
         formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
