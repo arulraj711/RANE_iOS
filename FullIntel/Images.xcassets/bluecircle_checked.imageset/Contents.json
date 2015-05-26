@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "uchec.png"
+      "filename" : "chk-30.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "un-60.png"
+      "filename" : "chk-60.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "un-90.png"
+      "filename" : "chk-90.png"
     }
   ],
   "info" : {

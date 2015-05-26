@@ -209,6 +209,20 @@
         
         curatedNewsDetail = [curatedNews valueForKey:@"details"];
         curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
+        
+        
+        NSNumber *number = [curatedNews valueForKey:@"readStatus"];
+        NSString *categoryStr = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+        NSLog(@"category id for read:%@",categoryStr);
+         //BOOL isRead = [NSNumber numberWithBool:[curatedNews valueForKey:@"readStatus"]];
+        if(number == [NSNumber numberWithInt:1]) {
+            
+        } else {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"readStatusUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
+        }
+        
+        
         cell.curatedNewsDetail = curatedNewsDetail;
         cell.selectedIndexPath = indexPath;
         cell.articleDesc = [curatedNews valueForKey:@"desc"];

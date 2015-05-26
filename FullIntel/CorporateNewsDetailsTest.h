@@ -17,6 +17,7 @@
      MFMailComposeViewController *mailComposer;
     UIView *innerWebView;
 }
+@property NSIndexPath *selectedIndexPath;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *articleIdArray;

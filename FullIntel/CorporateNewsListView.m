@@ -506,6 +506,7 @@
         UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         CorporateNewsDetailsTest *testView = [storyBoard instantiateViewControllerWithIdentifier:@"TestView"];
         testView.currentIndex = indexPath.row;
+        testView.selectedIndexPath = indexPath;
         [self.navigationController pushViewController:testView animated:YES];
     }
 }
