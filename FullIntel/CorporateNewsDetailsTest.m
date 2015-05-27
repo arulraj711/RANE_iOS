@@ -212,7 +212,7 @@
         
         
         NSNumber *number = [curatedNews valueForKey:@"readStatus"];
-        NSString *categoryStr = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+        NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
         NSLog(@"category id for read:%@",categoryStr);
          //BOOL isRead = [NSNumber numberWithBool:[curatedNews valueForKey:@"readStatus"]];
         if(number == [NSNumber numberWithInt:1]) {
