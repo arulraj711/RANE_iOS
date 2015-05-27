@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -412,8 +412,8 @@
                                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfz-n6-GN5">
                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="520"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1b2-ck-3kV">
-                                                                    <rect key="frame" x="0.0" y="-2000" width="1000" height="3000"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1b2-ck-3kV">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="3000"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZE1-Jw-cYe">
                                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="426"/>
@@ -988,6 +988,10 @@
                                                                 <outlet property="delegate" destination="1bm-hV-Nnm" id="SEs-bB-cK9"/>
                                                             </connections>
                                                         </scrollView>
+                                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlD-VX-FzY">
+                                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="520"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </webView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AV8-EY-XbN">
                                                             <rect key="frame" x="0.0" y="520" width="1000" height="80"/>
                                                             <subviews>
@@ -1129,7 +1133,11 @@
                                                         <constraint firstItem="AV8-EY-XbN" firstAttribute="leading" secondItem="mfz-n6-GN5" secondAttribute="leading" id="7Cy-Uf-dxu"/>
                                                         <constraint firstAttribute="bottom" secondItem="AV8-EY-XbN" secondAttribute="bottom" id="ANY-1k-loQ"/>
                                                         <constraint firstItem="AV8-EY-XbN" firstAttribute="top" secondItem="mfz-n6-GN5" secondAttribute="bottom" id="Ci9-Uj-rdb"/>
+                                                        <constraint firstAttribute="trailing" secondItem="zlD-VX-FzY" secondAttribute="trailing" id="K32-D6-1m1"/>
+                                                        <constraint firstItem="zlD-VX-FzY" firstAttribute="top" secondItem="3kC-bG-fJf" secondAttribute="top" id="VyC-zo-zH4"/>
                                                         <constraint firstItem="mfz-n6-GN5" firstAttribute="top" secondItem="3kC-bG-fJf" secondAttribute="top" id="a9s-Hn-YbP"/>
+                                                        <constraint firstItem="zlD-VX-FzY" firstAttribute="leading" secondItem="3kC-bG-fJf" secondAttribute="leading" id="ocF-Ly-38j"/>
+                                                        <constraint firstItem="AV8-EY-XbN" firstAttribute="top" secondItem="zlD-VX-FzY" secondAttribute="bottom" id="pPK-4a-tsu"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -1169,6 +1177,7 @@
                                             <outlet property="bioLabel" destination="CJe-FV-vkh" id="Otx-Cq-Cbn"/>
                                             <outlet property="bioTitleLabel" destination="zJ2-MA-M3J" id="uHT-iM-JQs"/>
                                             <outlet property="bottomView" destination="AV8-EY-XbN" id="py1-RM-kND"/>
+                                            <outlet property="detailsWebview" destination="zlD-VX-FzY" id="4HO-n1-ZDC"/>
                                             <outlet property="influencerIconImage" destination="71f-CF-p0C" id="Afs-KY-qB5"/>
                                             <outlet property="locationIcon" destination="X3O-Sk-2FR" id="01F-AE-8W0"/>
                                             <outlet property="locationIconHeightConstraint" destination="8F6-f5-kh2" id="MqR-5Y-s0J"/>

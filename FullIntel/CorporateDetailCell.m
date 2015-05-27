@@ -32,8 +32,24 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails:) name:@"CuratedNewsDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails:) name:@"CuratedNewsAuthorDetails" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeWebView:) name:@"removeWebView" object:nil];
 }
 
+-(void)removeWebView:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSNumber *number = [userInfo objectForKey:@"status"];
+    if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
+       // [self.detailsWebview removeFromSuperview];
+        self.detailsWebview.hidden = YES;
+        self.isFIViewSelected = YES;
+    } else {
+        self.detailsWebview.hidden = NO;
+        self.isFIViewSelected = NO;
+        //[self.contentView addSubview:self.detailsWebview];
+    }
+    
+}
 
 -(void)loadTweetsFromPost {
     NSMutableArray *tweetIds = [[NSMutableArray alloc]init];
@@ -366,6 +382,8 @@
             [[FISharedResources sharedResourceManager]getCommentsWithDetails:commentsResultStr withArticleId:self.selectedArticleId];
         }
     }
+    
+   // [[NSNotificationCenter defaultCenter]postNotificationName:@"showCommentsView" object:nil userInfo:nil];
 
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
     CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
@@ -374,6 +392,25 @@
     self.popOver.popoverContentSize=CGSizeMake(400, 300);
     //self.popOver.delegate = self;
     [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
+    
+    
+    
+//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
+//    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
+//    popOverView.articleId = self.selectedArticleId;
+//    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+//    self.popOver.popoverContentSize=CGSizeMake(400, 600);
+//    //self.popOver.delegate = self;
+//    NSLog(@"heightttt:%f",self.contentView.frame.size.height);
+//    //   UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//    CGRect rect = CGRectMake(self.contentView.frame.size.width/2, (self.contentView.frame.size.height-64)/2, 1, 1);
+//    //[popOverController presentPopoverFromRect:rect inView:view permittedArrowDirections:0 animated:YES];
+//    
+//    // [self.popOver presentPopoverFromBarButtonItem:sender
+//    //  permittedArrowDirections:0
+//    //    animated:YES];
+//    [self.popOver presentPopoverFromRect:sender.frame inView:self.contentView permittedArrowDirections:0 animated:YES];
 }
 
 
