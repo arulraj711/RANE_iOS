@@ -14,4 +14,7 @@
 - (IBAction)send:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextView *articleDesc;
 @property (nonatomic,strong) NSString *articleTitle;
+@property (nonatomic,strong) IBOutlet UIView *outerView;
+- (IBAction)closeAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *backImgeView;
 @end

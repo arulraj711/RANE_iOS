@@ -14,6 +14,9 @@
 #import "SocialWebView.h"
 #import "MZFormSheetController.h"
 #import "CommentsPopoverView.h"
+#import "PresentingAnimator.h"
+#import "DismissingAnimator.h"
+#import "ResearchRequestPopoverView.h"
 
 @interface CorporateNewsDetailsTest ()
 
@@ -28,6 +31,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailButtonClick:) name:@"mailButtonClick" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globeButtonClick:) name:@"globeButtonClick" object:nil];
    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommentsView:) name:@"showCommentsView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showResearchView:) name:@"showResearchView" object:nil];
+    
+    
     
     [self addCustomNavRightButton];
     oneSecondTicker = [[NSTimer alloc] init];
@@ -191,7 +197,7 @@
         NSSet *authorSet = [curatedNews valueForKey:@"author"];
         NSMutableArray *authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
         
-        NSLog(@"before author array:%@ and count:%d",authorArray,authorArray.count);
+        //NSLog(@"before author array:%@ and count:%d",authorArray,authorArray.count);
         
         NSMutableArray *multipleAuthorArray = [[NSMutableArray alloc]init];
         if(authorArray.count != 0) {
@@ -246,7 +252,7 @@
 //            //[connection release];
             
         
-        
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         if([curatedNews valueForKey:@"articleUrlData"] == nil) {
             NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
             [curatedNews setValue:string forKey:@"articleUrlData"];
@@ -254,6 +260,7 @@
         } else {
             [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
         }
+    });
         
 //        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
 //        [curatedNews setValue:string forKey:@"articleUrlData"];
@@ -552,18 +559,35 @@
 
 
 -(void)showCommentsView:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *articleId = [userInfo objectForKey:@"articleId"];
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
     CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
-   // popupViewController.transitioningDelegate = self;
-    //popOverView.modalPresentationStyle = UIModalPresentationCustom;
-   // popOverView.view.backgroundColor = [UIColor clearColor];
-    self.modalPresentationStyle = UIModalPresentationCustom;
+    popOverView.articleId = articleId;
+    popOverView.transitioningDelegate = self;
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:popOverView animated:YES completion:nil];
     //[self.navigationController presentViewController:popOverView
                                           //  animated:YES
                                           //completion:NULL];
 }
 
+-(void)showResearchView:(id)sender {
+    
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *articleId = [userInfo objectForKey:@"articleId"];
+    NSString *articleTitle = [userInfo objectForKey:@"articleTitle"];
+    NSString *articleUrl = [userInfo objectForKey:@"articleUrl"];
+    ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+    popOverView.articleId = articleId;
+    popOverView.articleTitle = articleTitle;
+    popOverView.articleUrl = articleUrl;
+    popOverView.transitioningDelegate = self;
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:popOverView animated:YES completion:nil];
+}
 
 - (void)socialLinkSelected:(id)sender
 {
@@ -769,6 +793,19 @@
                      }];
 }
 
+#pragma mark - UIViewControllerTransitioningDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                  presentingController:(UIViewController *)presenting
+                                                                      sourceController:(UIViewController *)source
+{
+    return [PresentingAnimator new];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return [DismissingAnimator new];
+}
 
 
 

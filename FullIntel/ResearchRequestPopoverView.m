@@ -19,7 +19,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.articleDesc.text = [NSString stringWithFormat:@"\n\n--------\n%@",self.articleUrl];
+    self.outerView.layer.masksToBounds = YES;
+    self.outerView.layer.cornerRadius = 10;
+    if(self.articleId.length != 0) {
+        self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\nArticleId : %@\nArticleTitle : %@\nArticleUrl : %@",self.articleId,self.articleTitle,self.articleUrl];
+    } else {
+        self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\n"];
+    }
+    
+    
+    self.backImgeView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapEvent)];
+    [self.backImgeView addGestureRecognizer:tapEvent];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,31 +38,28 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)tapEvent {
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
-*/
-
 - (IBAction)send:(id)sender {
-    
-    NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"] forKey:@"userId"];
-    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"] forKey:@"customerId"];
-    [gradedetails setObject:self.articleId forKey:@"articleId"];
-    [gradedetails setObject:self.articleDesc.text forKey:@"description"];
-    [gradedetails setObject:self.articleTitle forKey:@"headLine"];
-    [gradedetails setObject:@"1" forKey:@"version"];
-    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-    
-    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    //NSLog(@"request input:%@",resultStr);
-    [[FISharedResources sharedResourceManager]sendResearchRequestWithDetails:resultStr];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if(self.articleId.length != 0) {
+        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"] forKey:@"userId"];
+        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"] forKey:@"customerId"];
+        [gradedetails setObject:self.articleId forKey:@"articleId"];
+        [gradedetails setObject:self.articleDesc.text forKey:@"description"];
+        [gradedetails setObject:self.articleTitle forKey:@"headLine"];
+        [gradedetails setObject:@"1" forKey:@"version"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        //NSLog(@"request input:%@",resultStr);
+        [[FISharedResources sharedResourceManager]sendResearchRequestWithDetails:resultStr];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+- (IBAction)closeAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 @end

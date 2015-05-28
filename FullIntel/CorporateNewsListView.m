@@ -156,7 +156,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-   
+   [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
 }
 
 -(void)loadCuratedNews {

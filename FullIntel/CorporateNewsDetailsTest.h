@@ -10,7 +10,7 @@
 #import "FISharedResources.h"
 #import <MessageUI/MessageUI.h>
 
-@interface CorporateNewsDetailsTest : UIViewController<MFMailComposeViewControllerDelegate> {
+@interface CorporateNewsDetailsTest : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate> {
     NSTimer *oneSecondTicker;
     NSManagedObject *curatedNewsDetail;
     NSManagedObject *curatedNewsAuthorDetail;

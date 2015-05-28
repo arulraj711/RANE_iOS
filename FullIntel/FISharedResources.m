@@ -182,7 +182,7 @@
             
             if(influencerArray.count == 0) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                [window makeToast:@"No more articles to read" duration:2 position:CSToastPositionCenter];
+                [window makeToast:@"No more articles to display" duration:2 position:CSToastPositionCenter];
             }
             
             if([updownFlag isEqualToString:@"up"]) {

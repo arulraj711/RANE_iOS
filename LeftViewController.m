@@ -18,6 +18,9 @@
 #import "FIUtils.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FIUtils.h"
+#import "ResearchRequestPopoverView.h"
+#import "PresentingAnimator.h"
+#import "DismissingAnimator.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -42,7 +45,13 @@
     self.addContentButton.layer.cornerRadius = 5.0f;
     self.addContentButton.layer.masksToBounds = YES;
     self.addContentButton.layer.borderWidth = 1.0f;
-    self.addContentButton.layer.borderColor = [UIColor colorWithRed:(220/255.0) green:(223/255.0) blue:(224/255.0) alpha:1].CGColor;    
+    self.addContentButton.layer.borderColor = [UIColor colorWithRed:(220/255.0) green:(223/255.0) blue:(224/255.0) alpha:1].CGColor;
+    
+    self.researchButton.layer.cornerRadius = 5.0f;
+    self.researchButton.layer.masksToBounds = YES;
+    self.researchButton.layer.borderWidth = 1.0f;
+    self.researchButton.layer.borderColor = [UIColor colorWithRed:(220/255.0) green:(223/255.0) blue:(224/255.0) alpha:1].CGColor;
+    
     
     NSMutableArray *objectArray;
     NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
@@ -98,18 +107,28 @@
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSString *type = [userInfo objectForKey:@"type"];
+    NSMutableArray *reloadArray = [[NSMutableArray alloc]init];
     if([type isEqualToString:@"-1"]) {
         dataObj = [self.data objectAtIndex:2];
+        int cnt = [dataObj.unReadCount intValue];
+        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        
+        [reloadArray addObject:dataObj];
     }else if([type isEqualToString:@"-2"]) {
         dataObj = [self.data objectAtIndex:0];
+        int cnt = [dataObj.unReadCount intValue];
+        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        
+        [reloadArray addObject:dataObj];
     } else if([type isEqualToString:@"-3"]) {
         dataObj = [self.data objectAtIndex:1];
+        int cnt = [dataObj.unReadCount intValue];
+        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        
+        [reloadArray addObject:dataObj];
     }
     
-    int cnt = [dataObj.unReadCount intValue];
-    dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
-    NSMutableArray *reloadArray = [[NSMutableArray alloc]init];
-    [reloadArray addObject:dataObj];
+    
     [self.treeView reloadRowsForItems:reloadArray withRowAnimation:RATreeViewRowAnimationNone];
 }
 
@@ -545,6 +564,14 @@
     
 }
 
+- (IBAction)researchRequestButtonClick:(UIButton *)sender {
+    ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+    popOverView.transitioningDelegate = self;
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:popOverView animated:YES completion:nil];
+}
+
+
 
 - (IBAction)addContentButtonClick:(id)sender {
     
@@ -600,4 +627,20 @@
         
     }];
 }
+
+
+#pragma mark - UIViewControllerTransitioningDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                  presentingController:(UIViewController *)presenting
+                                                                      sourceController:(UIViewController *)source
+{
+    return [PresentingAnimator new];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return [DismissingAnimator new];
+}
+
 @end

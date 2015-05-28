@@ -128,7 +128,7 @@
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
     cell.name.text = contentCategory.name;
     [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
-    // [cell.image setContentMode:UIViewContentModeScaleToFill];
+    [cell.image setContentMode:UIViewContentModeScaleAspectFill];
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         //[self.selectedIdArray addObject:contentCategory.categoryId];
         [cell.checkMarkButton setSelected:YES];

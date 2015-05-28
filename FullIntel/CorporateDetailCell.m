@@ -303,14 +303,16 @@
 
 
 - (IBAction)researchRequestButtonClick:(UIButton *)sender {
-    ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
-    popOverView.articleId = self.selectedArticleId;
-    popOverView.articleTitle = self.selectedArticleTitle;
-    popOverView.articleUrl = self.selectedArticleUrl;
-    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
-    self.popOver.popoverContentSize=CGSizeMake(400, 260);
-    //self.popOver.delegate = self;
-    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+//    ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+//    popOverView.articleId = self.selectedArticleId;
+//    popOverView.articleTitle = self.selectedArticleTitle;
+//    popOverView.articleUrl = self.selectedArticleUrl;
+//    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+//    self.popOver.popoverContentSize=CGSizeMake(400, 260);
+//    //self.popOver.delegate = self;
+//    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
+     [[NSNotificationCenter defaultCenter]postNotificationName:@"showResearchView" object:nil userInfo:@{@"articleId":self.selectedArticleId,@"articleTitle":self.selectedArticleTitle,@"articleUrl":self.selectedArticleUrl}];
 }
 
 
@@ -387,15 +389,15 @@
         }
     }
     
-    //[[NSNotificationCenter defaultCenter]postNotificationName:@"showCommentsView" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"showCommentsView" object:nil userInfo:@{@"articleId":self.selectedArticleId}];
 
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
-    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
-    popOverView.articleId = self.selectedArticleId;
-    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
-    self.popOver.popoverContentSize=CGSizeMake(400, 300);
-    //self.popOver.delegate = self;
-    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
+//    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
+//    popOverView.articleId = self.selectedArticleId;
+//    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+//    self.popOver.popoverContentSize=CGSizeMake(400, 300);
+//    //self.popOver.delegate = self;
+//    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     
     
     
