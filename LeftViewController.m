@@ -489,7 +489,7 @@
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager] logoutUserWithDetails:resultStr withFlag:[NSNumber numberWithInt:1]];
         [FIUtils deleteExistingData];
-        
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
        [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
         [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];

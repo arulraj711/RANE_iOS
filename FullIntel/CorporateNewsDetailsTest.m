@@ -13,7 +13,7 @@
 #import "FIUtils.h"
 #import "SocialWebView.h"
 #import "MZFormSheetController.h"
-
+#import "CommentsPopoverView.h"
 
 @interface CorporateNewsDetailsTest ()
 
@@ -27,7 +27,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailButtonClick:) name:@"mailButtonClick" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globeButtonClick:) name:@"globeButtonClick" object:nil];
-   
+   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommentsView:) name:@"showCommentsView" object:nil];
+    
     [self addCustomNavRightButton];
     oneSecondTicker = [[NSTimer alloc] init];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -62,8 +63,9 @@
     
     UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     [addBtn setFrame:CGRectMake(0.0f,0.0f,25.0f,25.0f)];
-    [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_globe"]  forState:UIControlStateNormal];
-    [addBtn addTarget:self action:@selector(globeButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_fi"]  forState:UIControlStateNormal];
+    
+    [addBtn addTarget:self action:@selector(globeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [addBtnView addSubview:addBtn];
     UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,  nil]];
@@ -139,6 +141,16 @@
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     cell.cachedImageViewSize = cell.articleImageView.frame;
     
+    BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
+    
+    if(isFIViewSelected) {
+        cell.detailsWebview.hidden = YES;
+    } else {
+        cell.detailsWebview.hidden = NO;
+    }
+    
+    
+    
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];
@@ -210,6 +222,51 @@
         curatedNewsDetail = [curatedNews valueForKey:@"details"];
         curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
         
+       // dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            
+            
+            
+//            NSData *urlData;
+//            NSString *baseURLString =  [curatedNews valueForKey:@"articleUrl"];
+//            //NSString *urlString = [baseURLString stringByAppendingPathComponent:@"myfile"];
+//            
+//            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:baseURLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10.0];
+//            NSURLConnection *connection=[[NSURLConnection alloc] initWithRequest:request delegate:nil];
+//            
+//            if (connection)
+//            {
+//                //urlData = [NSURLConnection sendSynchronousRequest: request];
+//                urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//                NSString *htmlString = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
+//                [cell.detailWebview loadHTMLString:htmlString baseURL:[NSURL URLWithString:baseURLString]];
+//                //[cell.detailWebview];
+//                //[htmlString release];
+//            }
+//            
+//            //[connection release];
+            
+        
+        
+        if([curatedNews valueForKey:@"articleUrlData"] == nil) {
+            NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
+            [curatedNews setValue:string forKey:@"articleUrlData"];
+            [cell.detailsWebview loadHTMLString:string baseURL:nil];
+        } else {
+            [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
+        }
+        
+//        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
+//        [curatedNews setValue:string forKey:@"articleUrlData"];
+        
+        
+        
+        
+            
+//        NSURL *url = [NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]];
+//        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+//        //NSURLRequest *requestObj = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10.0];
+//        [cell.detailsWebview loadRequest:requestObj];
+       // });
         
         NSNumber *number = [curatedNews valueForKey:@"readStatus"];
         NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
@@ -256,7 +313,19 @@
             
         } else {
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                cell.webViewHeightConstraint.constant = 940;
+                
+                
+                NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
+                
+                if([userAccountTypeId isEqualToString:@"3"]) {
+                    cell.webViewHeightConstraint.constant = 400;
+                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
+                    cell.webViewHeightConstraint.constant = 940;
+                }
+                
+                
+                
+                
                 NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
                 [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
                 
@@ -482,6 +551,20 @@
 }
 
 
+-(void)showCommentsView:(id)sender {
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
+    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
+   // popupViewController.transitioningDelegate = self;
+    //popOverView.modalPresentationStyle = UIModalPresentationCustom;
+   // popOverView.view.backgroundColor = [UIColor clearColor];
+    self.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:popOverView animated:YES completion:nil];
+    //[self.navigationController presentViewController:popOverView
+                                          //  animated:YES
+                                          //completion:NULL];
+}
+
+
 - (void)socialLinkSelected:(id)sender
 {
     NSNotification *notification = sender;
@@ -573,38 +656,72 @@
     
 }
 
--(void)globeButtonClick {
+-(void)globeButtonClick:(UIButton *)sender {
+    
+    if(sender.selected) {
+        [sender setBackgroundImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
+        [sender setSelected:NO];
+    } else {
+        [sender setBackgroundImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
+        [sender setSelected:YES];
+    }
+  //  [sender setSelected:YES];
+//    if(sender.selected) {
+//        [sender setSelected:NO];
+//       // [sender setImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
+//    } else {
+//        [sender setSelected:YES];
+//        //[sender ];
+//       // [sender setImage:[UIImage imageNamed:@"nav_globe"] forState:(UIControlStateSelected | UIControlStateHighlighted)];
+//       // [addBtn setImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateHighlighted];
+//    }
     //NSNotification *notification = sender;
    // NSDictionary *userInfo = notification.userInfo;
-    NSString *articleUrl = [curatedNewsDetail valueForKey:@"articleUrl"];
+    //NSString *articleUrl = [curatedNewsDetail valueForKey:@"articleUrl"];
     
-    [UIView animateWithDuration:0.2
-                          delay:0.1
-                        options: UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                         innerWebView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-80);
-                         
-                         
-                         UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, innerWebView.frame.size.width, innerWebView.frame.size.height)];
-                         webView.backgroundColor = [UIColor whiteColor];
-                         NSURL *url = [NSURL URLWithString:articleUrl];
-                         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-                         [webView loadRequest:requestObj];
-                         [innerWebView addSubview:webView];
-                         innerWebView.backgroundColor = [UIColor whiteColor];
-                         self.navigationItem.hidesBackButton = YES;
-                         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-                         [button addTarget:self action:@selector(closeWebView)
-                          forControlEvents:UIControlEventTouchUpInside];
-                         [button setImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
-                         // [button setTitle:@"Show View" forState:UIControlStateNormal];
-                         button.frame = CGRectMake(0, 10, 28, 28);
-                         UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-                         self.navigationItem.rightBarButtonItem = customBarItem;
-                     }
-                     completion:^(BOOL finished){
-                     }];
-    [self.view addSubview:innerWebView];
+    
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [button addTarget:self action:@selector(closeWebView)
+//     forControlEvents:UIControlEventTouchUpInside];
+//    [button setImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlSelected];
+//    // [button setTitle:@"Show View" forState:UIControlStateNormal];
+//    button.frame = CGRectMake(0, 10, 28, 28);
+//    UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+//    self.navigationItem.rightBarButtonItem = customBarItem;
+    
+    
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:sender.selected]}];
+    
+    
+    
+//    [UIView animateWithDuration:0.2
+//                          delay:0.1
+//                        options: UIViewAnimationOptionCurveEaseIn
+//                     animations:^{
+//                         innerWebView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-80);
+//                         
+//                         
+//                         UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, innerWebView.frame.size.width, innerWebView.frame.size.height)];
+//                         webView.backgroundColor = [UIColor whiteColor];
+//                         NSURL *url = [NSURL URLWithString:articleUrl];
+//                         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+//                         [webView loadRequest:requestObj];
+//                         [innerWebView addSubview:webView];
+//                         innerWebView.backgroundColor = [UIColor whiteColor];
+//                         self.navigationItem.hidesBackButton = YES;
+//                         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//                         [button addTarget:self action:@selector(closeWebView)
+//                          forControlEvents:UIControlEventTouchUpInside];
+//                         [button setImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
+//                         // [button setTitle:@"Show View" forState:UIControlStateNormal];
+//                         button.frame = CGRectMake(0, 10, 28, 28);
+//                         UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+//                         self.navigationItem.rightBarButtonItem = customBarItem;
+//                     }
+//                     completion:^(BOOL finished){
+//                     }];
+//    [self.view addSubview:innerWebView];
 }
 
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView

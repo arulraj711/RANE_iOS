@@ -56,6 +56,7 @@
         <attribute name="articleType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="articleTypeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="articleUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleUrlData" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="categoryId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
@@ -283,7 +284,7 @@
         <element name="Company_Widget" positionX="-171" positionY="9" width="128" height="120"/>
         <element name="CuratedAuthor" positionX="-846" positionY="-1404" width="128" height="163"/>
         <element name="CuratedLegends" positionX="-153" positionY="-306" width="128" height="88"/>
-        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="313"/>
+        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="330"/>
         <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="238"/>
         <element name="CuratedNewsDetailAuthor" positionX="-2423" positionY="-1269" width="128" height="238"/>
         <element name="Influ_Drillin" positionX="-479" positionY="-18" width="128" height="268"/>
@@ -300,9 +301,9 @@
         <element name="Menu" positionX="-540" positionY="-315" width="128" height="73"/>
         <element name="Personality_Widget" positionX="-153" positionY="27" width="128" height="163"/>
         <element name="Product_Widget" positionX="-137" positionY="216" width="128" height="133"/>
+        <element name="RelatedPost" positionX="-2691" positionY="-1476" width="128" height="90"/>
         <element name="Stock_Widget" positionX="-234" positionY="-99" width="128" height="180"/>
         <element name="UserComments" positionX="-1863" positionY="-1431" width="128" height="118"/>
         <element name="Value_Widget" positionX="-110" positionY="-153" width="128" height="135"/>
-        <element name="RelatedPost" positionX="-2691" positionY="-1476" width="128" height="90"/>
     </elements>
 </model>

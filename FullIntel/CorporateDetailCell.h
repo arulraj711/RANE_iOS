@@ -15,7 +15,7 @@
 @interface CorporateDetailCell : UICollectionViewCell {
     NSMutableArray *tweetArray;
 }
-
+@property BOOL isFIViewSelected;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,strong) IBOutlet UILabel *articleTitle;
 @property (nonatomic,strong) IBOutlet UIImageView *articleImageView;
@@ -26,6 +26,7 @@
 @property (nonatomic,strong) IBOutlet UILabel *authorName;
 @property (nonatomic,strong) IBOutlet UILabel *authorWorkTitle;
 @property (weak, nonatomic) IBOutlet UIWebView *articleWebview;
+@property (weak, nonatomic) IBOutlet UIWebView *detailsWebview;
 @property (weak, nonatomic) IBOutlet UICollectionView *widgetCollectionView;
 @property (strong, nonatomic) IBOutlet UICollectionView *socialLinkCollectionView;
 @property (strong, nonatomic) IBOutlet UICollectionView *tweetsCollectionView;
@@ -101,7 +102,8 @@
 - (IBAction)commentsButtonClick:(UIButton *)sender;
 - (IBAction)markedImpButtonClick:(UIButton *)sender;
 - (IBAction)globeButtonClick:(UIButton *)sender;
-
+- (IBAction)savedListButtonClick:(UIButton *)sender;
+- (IBAction)moreButtonClick:(UIButton *)sender;
 -(void)loadTweetsFromPost;
 
 @end

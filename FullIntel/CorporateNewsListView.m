@@ -542,8 +542,17 @@
 //    detailView.legendsArray = legendsList;
 //    [self.navigationController pushViewController:detailView animated:YES];
     if(self.devices.count != 0) {
+        
+        //UpgradeView
         UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        CorporateNewsDetailsTest *testView = [storyBoard instantiateViewControllerWithIdentifier:@"TestView"];
+        NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
+        CorporateNewsDetailsTest *testView;
+        if([userAccountTypeId isEqualToString:@"3"]) {
+            testView = [storyBoard instantiateViewControllerWithIdentifier:@"NormalView"];
+        }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
+            testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
+        }
+        
         testView.currentIndex = indexPath.row;
         testView.selectedIndexPath = indexPath;
         [self.navigationController pushViewController:testView animated:YES];

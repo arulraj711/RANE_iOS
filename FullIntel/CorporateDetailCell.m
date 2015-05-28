@@ -21,6 +21,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <TwitterKit/TwitterKit.h>
 #import "FIUtils.h"
+#import "SavedListPopoverView.h"
+#import "MorePopoverView.h"
 
 @implementation CorporateDetailCell
 
@@ -32,8 +34,26 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails:) name:@"CuratedNewsDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails:) name:@"CuratedNewsAuthorDetails" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeWebView:) name:@"removeWebView" object:nil];
 }
 
+-(void)removeWebView:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSNumber *number = [userInfo objectForKey:@"status"];
+    if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
+       // [self.detailsWebview removeFromSuperview];
+        self.detailsWebview.hidden = YES;
+        self.isFIViewSelected = YES;
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
+    } else {
+        self.detailsWebview.hidden = NO;
+        self.isFIViewSelected = NO;
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+        //[self.contentView addSubview:self.detailsWebview];
+    }
+    
+}
 
 -(void)loadTweetsFromPost {
     NSMutableArray *tweetIds = [[NSMutableArray alloc]init];
@@ -362,6 +382,8 @@
             [[FISharedResources sharedResourceManager]getCommentsWithDetails:commentsResultStr withArticleId:self.selectedArticleId];
         }
     }
+    
+    //[[NSNotificationCenter defaultCenter]postNotificationName:@"showCommentsView" object:nil userInfo:nil];
 
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
     CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
@@ -370,6 +392,25 @@
     self.popOver.popoverContentSize=CGSizeMake(400, 300);
     //self.popOver.delegate = self;
     [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
+    
+    
+    
+//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
+//    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
+//    popOverView.articleId = self.selectedArticleId;
+//    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+//    self.popOver.popoverContentSize=CGSizeMake(400, 600);
+//    //self.popOver.delegate = self;
+//    NSLog(@"heightttt:%f",self.contentView.frame.size.height);
+//    //   UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//    CGRect rect = CGRectMake(self.contentView.frame.size.width/2, (self.contentView.frame.size.height-64)/2, 1, 1);
+//    //[popOverController presentPopoverFromRect:rect inView:view permittedArrowDirections:0 animated:YES];
+//    
+//    // [self.popOver presentPopoverFromBarButtonItem:sender
+//    //  permittedArrowDirections:0
+//    //    animated:YES];
+//    [self.popOver presentPopoverFromRect:sender.frame inView:self.contentView permittedArrowDirections:0 animated:YES];
 }
 
 
@@ -429,7 +470,15 @@
             NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
             NSLog(@"cell post notification is working:%@",curatedNewsDetail);
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                self.webViewHeightConstraint.constant = 940;
+                
+                 NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
+                
+                if([userAccountTypeId isEqualToString:@"3"]) {
+                    self.webViewHeightConstraint.constant = 400;
+                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
+                    self.webViewHeightConstraint.constant = 940;
+                }
+                
                 NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
                 [self.articleWebview loadHTMLString:htmlString baseURL:nil];
                 
@@ -644,5 +693,31 @@
     }
     
 }
+
+- (IBAction)savedListButtonClick:(UIButton *)sender {
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
+    
+    SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+    self.popOver.popoverContentSize=CGSizeMake(350, 267);
+    //self.popOver.delegate = self;
+    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+- (IBAction)moreButtonClick:(UIButton *)sender {
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MorePopoverView" bundle:nil];
+    
+    MorePopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MorePopoverView"];
+    //popOverView.articleTitle = [curatedNewsDetail valueForKey:@"articleHeading"];
+   // popOverView.articleUrl = [curatedNewsDetail valueForKey:@"articleUrl"];
+    //popOverView.articleImageUrl = [curatedNewsDetail valueForKey:@"articleImageURL"];
+    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+    self.popOver.popoverContentSize=CGSizeMake(350, 250);
+    //self.popOver.delegate = self;
+    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
 
 @end

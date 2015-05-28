@@ -13,4 +13,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic,strong) IBOutlet UITableView *commentsTableView;
 @property (nonatomic,strong) NSString *articleId;
+@property (nonatomic,strong) IBOutlet UIView *textBackView;
 @end
