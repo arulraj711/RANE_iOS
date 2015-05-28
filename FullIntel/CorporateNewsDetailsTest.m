@@ -141,8 +141,9 @@
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     cell.cachedImageViewSize = cell.articleImageView.frame;
     
+    BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
     
-    if(cell.isFIViewSelected) {
+    if(isFIViewSelected) {
         cell.detailsWebview.hidden = YES;
     } else {
         cell.detailsWebview.hidden = NO;
@@ -244,12 +245,27 @@
 //            
 //            //[connection release];
             
+        
+        
+        if([curatedNews valueForKey:@"articleUrlData"] == nil) {
+            NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
+            [curatedNews setValue:string forKey:@"articleUrlData"];
+            [cell.detailsWebview loadHTMLString:string baseURL:nil];
+        } else {
+            [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
+        }
+        
+//        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
+//        [curatedNews setValue:string forKey:@"articleUrlData"];
+        
+        
+        
+        
             
-            
-        NSURL *url = [NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]];
-        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-        //NSURLRequest *requestObj = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10.0];
-        [cell.detailsWebview loadRequest:requestObj];
+//        NSURL *url = [NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]];
+//        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+//        //NSURLRequest *requestObj = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10.0];
+//        [cell.detailsWebview loadRequest:requestObj];
        // });
         
         NSNumber *number = [curatedNews valueForKey:@"readStatus"];
@@ -297,7 +313,19 @@
             
         } else {
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                cell.webViewHeightConstraint.constant = 940;
+                
+                
+                NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
+                
+                if([userAccountTypeId isEqualToString:@"3"]) {
+                    cell.webViewHeightConstraint.constant = 400;
+                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
+                    cell.webViewHeightConstraint.constant = 940;
+                }
+                
+                
+                
+                
                 NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
                 [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
                 

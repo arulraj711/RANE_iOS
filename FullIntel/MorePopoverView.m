@@ -20,9 +20,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _moreInforArray = [[NSMutableArray alloc]init];
+    [_moreInforArray addObject:@"Linkedin"];
     [_moreInforArray addObject:@"Facebook"];
     [_moreInforArray addObject:@"Twitter"];
-    [_moreInforArray addObject:@"Linkedin"];
     [_moreInforArray addObject:@"Google Plus"];
     [_moreInforArray addObject:@"Evernote"];
     [_moreInforArray addObject:@"Pocket"];
@@ -46,7 +46,7 @@
     
     MoreViewCell *cell = (MoreViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
-    if(indexPath.row == 1) {
+    if(indexPath.row == 2) {
         cell.iconImage.image = [UIImage imageNamed:@"twitter"];
     } else {
         cell.iconImage.image = [UIImage imageNamed:[_moreInforArray objectAtIndex:indexPath.row]];

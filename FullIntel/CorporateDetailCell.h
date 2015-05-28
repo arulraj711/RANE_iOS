@@ -102,7 +102,8 @@
 - (IBAction)commentsButtonClick:(UIButton *)sender;
 - (IBAction)markedImpButtonClick:(UIButton *)sender;
 - (IBAction)globeButtonClick:(UIButton *)sender;
-
+- (IBAction)savedListButtonClick:(UIButton *)sender;
+- (IBAction)moreButtonClick:(UIButton *)sender;
 -(void)loadTweetsFromPost;
 
 @end
