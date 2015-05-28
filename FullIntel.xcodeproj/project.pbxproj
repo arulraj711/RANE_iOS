@@ -28,6 +28,9 @@
 		A0C326031B15D3BE00FEB164 /* StockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C326021B15D3BE00FEB164 /* StockViewController.m */; };
 		A0C326061B16F30A00FEB164 /* StockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C326051B16F30A00FEB164 /* StockCell.m */; };
 		A0C326091B16F5CE00FEB164 /* TopStoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C326081B16F5CE00FEB164 /* TopStoriesCell.m */; };
+		A0C3260B1B17598A00FEB164 /* StockResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C3260A1B17598900FEB164 /* StockResponse.json */; };
+		A0C3260F1B175D4D00FEB164 /* Stocks.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C3260E1B175D4D00FEB164 /* Stocks.m */; };
+		A0C326121B175D5D00FEB164 /* Stories.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C326111B175D5D00FEB164 /* Stories.m */; };
 		A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D956791B0C4C0100DB013F /* Fabric.framework */; };
 		A0D9567C1B0C4C0200DB013F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */; };
 		A0D956801B0C4D9100DB013F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */; };
@@ -223,6 +226,11 @@
 		A0C326051B16F30A00FEB164 /* StockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCell.m; sourceTree = "<group>"; };
 		A0C326071B16F5CE00FEB164 /* TopStoriesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopStoriesCell.h; sourceTree = "<group>"; };
 		A0C326081B16F5CE00FEB164 /* TopStoriesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopStoriesCell.m; sourceTree = "<group>"; };
+		A0C3260A1B17598900FEB164 /* StockResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = StockResponse.json; sourceTree = "<group>"; };
+		A0C3260D1B175D4D00FEB164 /* Stocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stocks.h; sourceTree = "<group>"; };
+		A0C3260E1B175D4D00FEB164 /* Stocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stocks.m; sourceTree = "<group>"; };
+		A0C326101B175D5D00FEB164 /* Stories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stories.h; sourceTree = "<group>"; };
+		A0C326111B175D5D00FEB164 /* Stories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stories.m; sourceTree = "<group>"; };
 		A0D956791B0C4C0100DB013F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
@@ -501,6 +509,7 @@
 		A0C325FE1B15CD1F00FEB164 /* Stock */ = {
 			isa = PBXGroup;
 			children = (
+				A0C3260C1B175D2900FEB164 /* Models */,
 				A0C325FF1B15CD8400FEB164 /* stock.storyboard */,
 				A0C326011B15D3BE00FEB164 /* StockViewController.h */,
 				A0C326021B15D3BE00FEB164 /* StockViewController.m */,
@@ -510,6 +519,17 @@
 				A0C326081B16F5CE00FEB164 /* TopStoriesCell.m */,
 			);
 			name = Stock;
+			sourceTree = "<group>";
+		};
+		A0C3260C1B175D2900FEB164 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A0C3260D1B175D4D00FEB164 /* Stocks.h */,
+				A0C3260E1B175D4D00FEB164 /* Stocks.m */,
+				A0C326101B175D5D00FEB164 /* Stories.h */,
+				A0C326111B175D5D00FEB164 /* Stories.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		A0E223441A91C2F00073814A = {
@@ -994,6 +1014,7 @@
 				F7F876B41AB976B00042404D /* influ_drillin.json */,
 				F7F3C05A1AA42CC700E653CB /* menu.json */,
 				F7E85EA81A9F3B710022B4D5 /* Influencer.json */,
+				A0C3260A1B17598900FEB164 /* StockResponse.json */,
 			);
 			name = "JSON Responses";
 			sourceTree = "<group>";
@@ -1141,6 +1162,7 @@
 				F7E81FB61A97057100F9A8D4 /* new-york-city-wallpaper.jpg in Resources */,
 				F7E81FA31A97057100F9A8D4 /* hendri.jpg in Resources */,
 				F7E81FA41A97057100F9A8D4 /* hero-bg-fade-400.png in Resources */,
+				A0C3260B1B17598A00FEB164 /* StockResponse.json in Resources */,
 				F7E81FBC1A97057100F9A8D4 /* pattern.png in Resources */,
 				F7E81FBE1A97057100F9A8D4 /* samsung.ico in Resources */,
 				F7E81FB01A97057100F9A8D4 /* Josh.jpeg in Resources */,
@@ -1271,6 +1293,7 @@
 				A07A05BE1AF78EBC0016AD46 /* AddContentThirdLevelView.m in Sources */,
 				F7CE36E41A95E9490005AA0A /* RATreeNodeItem.m in Sources */,
 				F7AE10881AC022CD0091E1C7 /* InfluencerCell.m in Sources */,
+				A0C326121B175D5D00FEB164 /* Stories.m in Sources */,
 				A0E2235C1A91C2F00073814A /* ViewController.m in Sources */,
 				F7DB32611AA56F50002724D6 /* FIMenu.m in Sources */,
 				F7CE36E01A95E9490005AA0A /* RATreeNode.m in Sources */,
@@ -1283,6 +1306,7 @@
 				F74A55131AB048570009FE4C /* PersonalityWidgetCell.m in Sources */,
 				A0066EEC1B03082D008B4623 /* CorporateNewsDetailsTest.m in Sources */,
 				F7CE36E21A95E9490005AA0A /* RATreeNodeController.m in Sources */,
+				A0C3260F1B175D4D00FEB164 /* Stocks.m in Sources */,
 				F7ECACCB1AB0730000B57AB6 /* StockWidgetCell.m in Sources */,
 				F7EC59171AA7084B00CED53F /* NHAlignmentFlowLayout.m in Sources */,
 				F7E0049B1AB152C500390D51 /* ProductWidgetCell.m in Sources */,

@@ -18,4 +18,5 @@
 +(void)showErrorToast;
 +(void)showNoNetworkToast;
 +(void)showRequestTimeOutError;
++(void)makeRoundedView:(UIView*)view;
 @end

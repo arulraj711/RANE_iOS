@@ -54,4 +54,10 @@
 +(void)addCommentsWithDetails:(NSString*)details
                     onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                     onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
++(void)getStockListDetails:(NSString*)details
+                    onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
 @end

@@ -222,6 +222,17 @@
     }];
 }
 
+
++(void)getStockListDetails:(NSString *)details onSuccess:(void (^)(AFHTTPRequestOperation *, id))success onFailure:(void (^)(AFHTTPRequestOperation *, NSError *))failure{
+    
+    
+ 
+        NSDictionary *JSON = [self dictionaryWithFileName:@"StockResponse"];
+        NSLog(@"JSON:%@",JSON);
+    
+    success(nil,JSON);
+    
+}
 + (NSDictionary *)dictionaryWithContentOfFile:(NSString *)path
 {
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];

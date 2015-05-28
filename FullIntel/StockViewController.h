@@ -15,4 +15,8 @@
 @property (nonatomic,strong) NSMutableArray *stockWatchList;
 @property (nonatomic) int currentIndex;
 @property (nonatomic,strong) NSMutableArray *topStoriesList;
+@property (weak, nonatomic) IBOutlet UILabel *topLabel;
+
+
+
 @end

@@ -108,5 +108,11 @@
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
     [window makeToast:@"Request Time out" duration:1 position:CSToastPositionCenter];
 }
++(void)makeRoundedView:(UIView*)view
+{
+    view.layer.cornerRadius = view.frame.size.width /2;
+    view.layer.masksToBounds = YES;
+
+}
 
 @end

@@ -10,4 +10,15 @@
 
 @interface StockCell : UICollectionViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *companyName;
+
+@property (weak, nonatomic) IBOutlet UILabel *value;
+
+@property (weak, nonatomic) IBOutlet UILabel *firstValue;
+@property (weak, nonatomic) IBOutlet UILabel *secondValue;
+@property (weak, nonatomic) IBOutlet UILabel *firstName;
+@property (weak, nonatomic) IBOutlet UILabel *lastName;
+@property (weak, nonatomic) IBOutlet UIImageView *downImage;
+@property (weak, nonatomic) IBOutlet UIImageView *graphImage;
+
 @end
