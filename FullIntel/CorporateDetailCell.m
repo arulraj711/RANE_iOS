@@ -173,10 +173,6 @@
         TweetsCell *tweetCell =(TweetsCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
         TWTRTweet *tweetObj = [tweetArray objectAtIndex:indexPath.row];
         TWTRUser *author = tweetObj.author;
-        NSLog(@"twitter authro:%@",author.name);
-        NSLog(@"twitter text:%@",tweetObj.text);
-        NSLog(@"twitter retweet cnt:%lld",tweetObj.retweetCount);
-        NSLog(@"twitter favourate cnt:%lld",tweetObj.favoriteCount);
         tweetCell.author.text = author.name;
         tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.name];
         tweetCell.twitterText.text = tweetObj.text;

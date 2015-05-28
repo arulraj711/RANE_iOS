@@ -305,7 +305,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bJt-tv-4Sj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="644" y="41"/>
+            <point key="canvasLocation" x="470" y="-738"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WGW-F2-N6V">
@@ -327,7 +327,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n5W-yj-D6l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1583" y="-628"/>
+            <point key="canvasLocation" x="2167" y="-2436"/>
         </scene>
         <!--Show Detail View-->
         <scene sceneID="Rx2-NB-amd">
@@ -413,7 +413,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="520"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1b2-ck-3kV">
-                                                                    <rect key="frame" x="0.0" y="-2000" width="1000" height="3000"/>
+                                                                    <rect key="frame" x="0.0" y="-1400" width="1000" height="3000"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZE1-Jw-cYe">
                                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="426"/>
@@ -1015,15 +1015,6 @@
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BGR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOf-Sp-o9Z">
-                                                                    <rect key="frame" x="112" y="44" width="490" height="18"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="18" id="dHG-tp-bCj"/>
-                                                                    </constraints>
-                                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
-                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RjQ-Y8-MCy">
                                                                     <rect key="frame" x="750" y="25" width="30" height="30"/>
                                                                     <constraints>
@@ -1093,6 +1084,15 @@
                                                                         <action selector="researchRequestButtonClick:" destination="1bm-hV-Nnm" eventType="touchUpInside" id="ZKE-RU-pFO"/>
                                                                     </connections>
                                                                 </button>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="BGR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOf-Sp-o9Z">
+                                                                    <rect key="frame" x="112" y="47" width="490" height="18"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="18" id="dHG-tp-bCj"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -1930,7 +1930,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w6i-gh-y7N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1562" y="-191"/>
+            <point key="canvasLocation" x="-874" y="-306"/>
         </scene>
         <!--Social Web View-->
         <scene sceneID="PPm-ul-HDu">
@@ -1974,7 +1974,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MI0-HL-m0P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="72" y="82"/>
+            <point key="canvasLocation" x="-579" y="-1381"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Es5-RM-L3q">
@@ -1992,7 +1992,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WrO-nM-b8j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-644" y="273"/>
+            <point key="canvasLocation" x="148" y="549"/>
         </scene>
     </scenes>
     <resources>

@@ -472,7 +472,15 @@
         [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
         navCtlr.navigationBar.tintColor = [UIColor whiteColor];
       //  [self.revealController setFrontViewController:navCtlr];
-    } else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
+    } else if([data.nodeId integerValue] == 2) {
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"stock" bundle:nil];
+        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"StockViewController"];
+        [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+        navCtlr.navigationBar.tintColor = [UIColor whiteColor];
+          [self.revealController setFrontViewController:navCtlr];
+        
+
+    }else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
