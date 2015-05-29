@@ -39,6 +39,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenus) name:@"MenuList" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogout) name:@"logoutSuccess" object:nil];
+    
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMenuCount:) name:@"updateMenuCount" object:nil];
     
@@ -505,16 +508,7 @@
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager] logoutUserWithDetails:resultStr withFlag:[NSNumber numberWithInt:1]];
-        [FIUtils deleteExistingData];
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
-       [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
-        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-       // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-       // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
-        [self.revealController setFrontViewController:navCtlr];
-        [self.revealController showViewController:self.revealController.frontViewController];
+        
     }
     
     if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
@@ -632,6 +626,20 @@
     [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
         
     }];
+}
+
+
+-(void)afterLogout {
+    [FIUtils deleteExistingData];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+    [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
+    [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+    // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+    // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
+    [self.revealController setFrontViewController:navCtlr];
+    [self.revealController showViewController:self.revealController.frontViewController];
 }
 
 

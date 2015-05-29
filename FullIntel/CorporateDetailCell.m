@@ -355,19 +355,32 @@
     self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];
     self.starRating.userInteractionEnabled = NO;
     [self.ratingControl addSubview:self.starRating];
+    
+    [timer invalidate];
+    [progressView removeFromSuperview];
 }
 
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    
-//    CGFloat y = -scrollView.contentOffset.y;
-//    NSLog(@"scroll y value:%f",y);
-//    if (y > 64) {
-//        self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
-//        self.articleImageView.center = CGPointMake(self.center.x, self.articleImageView.center.y);
-//    }
-//    
-//}
+-(void)viewDidDisappear:(BOOL)animated {
+    [timer invalidate];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
+    progressView = [[UCZProgressView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width/2-50, self.contentView.frame.size.height/2-50, 100, 100)];
+    progressView.translatesAutoresizingMaskIntoConstraints = NO;
+    progressView.backgroundColor = [UIColor clearColor];
+    [self.contentView addSubview:progressView];
+}
+
+
+- (void)cancelWeb
+{
+    [FIUtils showRequestTimeOutError];
+    // UIWindow *window = [[UIApplication sharedApplication]windows][0];
+    // [self.view makeToast:@"Request Time out" duration:1 position:CSToastPositionCenter];
+    
+}
 
 
 - (IBAction)researchRequestButtonClick:(UIButton *)sender {

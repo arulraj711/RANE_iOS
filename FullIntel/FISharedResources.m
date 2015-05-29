@@ -93,7 +93,7 @@
                 
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
-                
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"logoutSuccess" object:nil];
             }else {
                 
                 

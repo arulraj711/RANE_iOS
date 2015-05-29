@@ -13,9 +13,12 @@
 #import "MZFormSheetController.h"
 #import "AMPopTip.h"
 #import "CMPopTipView.h"
+#import "UCZProgressView.h"
 
 @interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate> {
     NSMutableArray *tweetArray;
+    UCZProgressView *progressView;
+    NSTimer *timer;
 }
 @property BOOL isFIViewSelected;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
