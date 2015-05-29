@@ -1,0 +1,83 @@
+{
+
+"stockList":[
+
+{
+"company_name": "Apple",
+"company_id" :"101012",
+"value":"$122.35",
+"color":"green",
+"firstName": "AAPL",
+"lastName": "Apple Inc",
+"firstValue": "+5.75",
+"secondValue": "+0.73%"
+
+},
+{
+"company_name": "Microsoft",
+"company_id" :"101013",
+"value":"$122.35",
+"color":"green",
+"firstName": "MSFT",
+"lastName": "Microsoft Corp",
+"firstValue": "+5.75",
+"secondValue": "+0.73%"
+
+},
+{
+"company_name": "Google",
+"company_id" :"101011",
+"value":"$122.35",
+"color":"red",
+"firstName": "GOOGL",
+"lastName": "Google Inc",
+"firstValue": "+5.75",
+"secondValue": "+0.73%"
+
+}
+],
+"TopStories": [
+
+{
+
+"story":"Apple Inc. Is A Cult That Should Succumb:Don Luskin",
+"resource_name":"Insider Monkey",
+"image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
+
+
+},
+{
+
+"story":"Apple Inc. Is A Cult That Should Succumb:Don Luskin",
+"resource_name":"Insider Monkey",
+"image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
+
+
+},
+{
+
+"story":"Apple Inc. Is A Cult That Should Succumb:Don Luskin",
+"resource_name":"Insider Monkey",
+"image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
+
+
+},
+{
+
+"story":"Apple Inc. Is A Cult That Should Succumb:Don Luskin",
+"resource_name":"Insider Monkey",
+"image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
+
+
+},
+{
+
+"story":"Apple Inc. Is A Cult That Should Succumb:Don Luskin",
+"resource_name":"Insider Monkey",
+"image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
+
+
+}
+
+]
+}

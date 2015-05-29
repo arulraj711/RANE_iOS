@@ -27,6 +27,13 @@
 		A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF674F1B16EC4D007EDD26 /* PresentingAnimator.m */; };
 		A0AF67531B16EC67007EDD26 /* DismissingAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF67521B16EC67007EDD26 /* DismissingAnimator.m */; };
 		A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */; };
+		A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C326251B182E2B00FEB164 /* StockResponse.json */; };
+		A0C326331B182F1000FEB164 /* stock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0C326281B182F1000FEB164 /* stock.storyboard */; };
+		A0C326341B182F1000FEB164 /* StockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C3262A1B182F1000FEB164 /* StockCell.m */; };
+		A0C326351B182F1000FEB164 /* Stocks.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C3262C1B182F1000FEB164 /* Stocks.m */; };
+		A0C326361B182F1000FEB164 /* StockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C3262E1B182F1000FEB164 /* StockViewController.m */; };
+		A0C326371B182F1000FEB164 /* Stories.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C326301B182F1000FEB164 /* Stories.m */; };
+		A0C326381B182F1000FEB164 /* TopStoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C326321B182F1000FEB164 /* TopStoriesCell.m */; };
 		A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D956791B0C4C0100DB013F /* Fabric.framework */; };
 		A0D9567C1B0C4C0200DB013F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */; };
 		A0D956801B0C4D9100DB013F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */; };
@@ -221,6 +228,18 @@
 		A0AF67521B16EC67007EDD26 /* DismissingAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissingAnimator.m; sourceTree = "<group>"; };
 		A0BFEF831B13482300DCBDA8 /* AddContentFifthLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentFifthLevelView.h; sourceTree = "<group>"; };
 		A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFifthLevelView.m; sourceTree = "<group>"; };
+		A0C326251B182E2B00FEB164 /* StockResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = StockResponse.json; sourceTree = "<group>"; };
+		A0C326281B182F1000FEB164 /* stock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = stock.storyboard; sourceTree = "<group>"; };
+		A0C326291B182F1000FEB164 /* StockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCell.h; sourceTree = "<group>"; };
+		A0C3262A1B182F1000FEB164 /* StockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCell.m; sourceTree = "<group>"; };
+		A0C3262B1B182F1000FEB164 /* Stocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stocks.h; sourceTree = "<group>"; };
+		A0C3262C1B182F1000FEB164 /* Stocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stocks.m; sourceTree = "<group>"; };
+		A0C3262D1B182F1000FEB164 /* StockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockViewController.h; sourceTree = "<group>"; };
+		A0C3262E1B182F1000FEB164 /* StockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockViewController.m; sourceTree = "<group>"; };
+		A0C3262F1B182F1000FEB164 /* Stories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stories.h; sourceTree = "<group>"; };
+		A0C326301B182F1000FEB164 /* Stories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stories.m; sourceTree = "<group>"; };
+		A0C326311B182F1000FEB164 /* TopStoriesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopStoriesCell.h; sourceTree = "<group>"; };
+		A0C326321B182F1000FEB164 /* TopStoriesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopStoriesCell.m; sourceTree = "<group>"; };
 		A0D956791B0C4C0100DB013F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
@@ -509,6 +528,24 @@
 			name = CustomPopAnimation;
 			sourceTree = "<group>";
 		};
+		A0C326271B182F1000FEB164 /* Stock */ = {
+			isa = PBXGroup;
+			children = (
+				A0C326281B182F1000FEB164 /* stock.storyboard */,
+				A0C326291B182F1000FEB164 /* StockCell.h */,
+				A0C3262A1B182F1000FEB164 /* StockCell.m */,
+				A0C3262B1B182F1000FEB164 /* Stocks.h */,
+				A0C3262C1B182F1000FEB164 /* Stocks.m */,
+				A0C3262D1B182F1000FEB164 /* StockViewController.h */,
+				A0C3262E1B182F1000FEB164 /* StockViewController.m */,
+				A0C3262F1B182F1000FEB164 /* Stories.h */,
+				A0C326301B182F1000FEB164 /* Stories.m */,
+				A0C326311B182F1000FEB164 /* TopStoriesCell.h */,
+				A0C326321B182F1000FEB164 /* TopStoriesCell.m */,
+			);
+			path = Stock;
+			sourceTree = "<group>";
+		};
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
@@ -532,6 +569,7 @@
 		A0E2234F1A91C2F00073814A /* FullIntel */ = {
 			isa = PBXGroup;
 			children = (
+				A0C326271B182F1000FEB164 /* Stock */,
 				F7EC6D5A1ADFB37200A43CCA /* ProgressView */,
 				F773CFEA1ADE99DC002FC7CF /* AddContent */,
 				F7AE107F1AC01E040091E1C7 /* Influencer */,
@@ -985,6 +1023,7 @@
 		F7E85EA71A9F2A950022B4D5 /* JSON Responses */ = {
 			isa = PBXGroup;
 			children = (
+				A0C326251B182E2B00FEB164 /* StockResponse.json */,
 				F773CFE81ADE99C7002FC7CF /* addContent.json */,
 				F7EDA00B1AC136CD00A5C601 /* influencer_list.json */,
 				F78B43001ABA92AC00AB7FFB /* corporate_news_list.json */,
@@ -1175,8 +1214,10 @@
 				F7E81F8D1A97057100F9A8D4 /* 1.jpg in Resources */,
 				F717CC941AB1B2E400F66B53 /* OpenSans-Light.ttf in Resources */,
 				F7E239F01AA5AED800708B6B /* LegendCollectionViewCell.xib in Resources */,
+				A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */,
 				F7E81FBB1A97057100F9A8D4 /* obama.jpg in Resources */,
 				F7E81F951A97057100F9A8D4 /* apple-logo.png in Resources */,
+				A0C326331B182F1000FEB164 /* stock.storyboard in Resources */,
 				F7E85EA91A9F3B710022B4D5 /* Influencer.json in Resources */,
 				F7E81FAD1A97057100F9A8D4 /* ipod.jpg in Resources */,
 				F7E0049C1AB152C500390D51 /* ProductWidgetCell.xib in Resources */,
@@ -1275,16 +1316,19 @@
 				F7CE36E11A95E9490005AA0A /* RATreeNodeCollectionController.m in Sources */,
 				F7CE36EA1A95E9490005AA0A /* RATreeView+UIScrollView.m in Sources */,
 				A0E223531A91C2F00073814A /* main.m in Sources */,
+				A0C326341B182F1000FEB164 /* StockCell.m in Sources */,
 				F7EBB2671ACA763F008C90DF /* FIUtils.m in Sources */,
 				F74A55131AB048570009FE4C /* PersonalityWidgetCell.m in Sources */,
 				A0066EEC1B03082D008B4623 /* CorporateNewsDetailsTest.m in Sources */,
 				F7CE36E21A95E9490005AA0A /* RATreeNodeController.m in Sources */,
+				A0C326381B182F1000FEB164 /* TopStoriesCell.m in Sources */,
 				F7ECACCB1AB0730000B57AB6 /* StockWidgetCell.m in Sources */,
 				F7EC59171AA7084B00CED53F /* NHAlignmentFlowLayout.m in Sources */,
 				F7E0049B1AB152C500390D51 /* ProductWidgetCell.m in Sources */,
 				A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */,
 				F7EC6D5D1ADFB38D00A43CCA /* MBProgressHUD.m in Sources */,
 				A0DEC3E41AE94FF10046E8BB /* SocialWebView.m in Sources */,
+				A0C326351B182F1000FEB164 /* Stocks.m in Sources */,
 				F7CE36E31A95E9490005AA0A /* RATreeNodeItem+Private.m in Sources */,
 				F7E368881ABC1C6F0083F38E /* SavedListPopoverView.m in Sources */,
 				F7CE36E71A95E9490005AA0A /* RATreeView+RATreeNodeCollectionControllerDataSource.m in Sources */,
@@ -1292,6 +1336,7 @@
 				F7CE36F11A95E99D0005AA0A /* RATableViewCell.m in Sources */,
 				F79BC08F1A9EBECF00A36D75 /* InfluencersTableViewCell.m in Sources */,
 				F78B42F81ABA896E00AB7FFB /* CorporateNewsListView.m in Sources */,
+				A0C326371B182F1000FEB164 /* Stories.m in Sources */,
 				A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */,
 				F732C7D11AC930680071A4D8 /* InfluencerDetailsView.m in Sources */,
 				F7C1AB611ABFF41C00D8588A /* MoreViewCell.m in Sources */,
@@ -1306,6 +1351,7 @@
 				A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */,
 				A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */,
 				F7E354E01A947A00009677D2 /* CenterViewController.m in Sources */,
+				A0C326361B182F1000FEB164 /* StockViewController.m in Sources */,
 				F7AE10821AC01E350091E1C7 /* InfluencerListView.m in Sources */,
 				F773CFEF1ADE9E0A002FC7CF /* AddContentFirstLevelView.m in Sources */,
 			);
