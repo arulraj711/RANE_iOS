@@ -1416,7 +1416,7 @@
                                                                                 <constraint firstAttribute="height" constant="30" id="BSh-1r-sjH"/>
                                                                                 <constraint firstAttribute="width" constant="30" id="VVd-ZA-3dD"/>
                                                                             </constraints>
-                                                                            <state key="normal" image="nav_fi">
+                                                                            <state key="normal">
                                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                             </state>
                                                                         </button>
@@ -2186,7 +2186,6 @@
         <image name="location" width="20" height="20"/>
         <image name="logo" width="100" height="20"/>
         <image name="more" width="30" height="30"/>
-        <image name="nav_fi" width="25" height="25"/>
         <image name="outlet" width="20" height="20"/>
         <image name="peoples" width="30" height="30"/>
         <image name="personality" width="12" height="12"/>

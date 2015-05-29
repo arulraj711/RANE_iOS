@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _savedListArray = [[NSMutableArray alloc]init];
-    [_savedListArray addObject:@"Project Vectra"];
+    [_savedListArray addObject:@"Create New Folder"];
     [_savedListArray addObject:@"Watch Launch"];
     [_savedListArray addObject:@"Boston Outreach"];
     [_savedListArray addObject:@"Cool Articles"];

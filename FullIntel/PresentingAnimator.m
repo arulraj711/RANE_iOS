@@ -39,13 +39,13 @@
 
     POPSpringAnimation *positionAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
     positionAnimation.toValue = @(transitionContext.containerView.center.y);
-    positionAnimation.springBounciness = 10;
+    positionAnimation.springBounciness = 1;
     [positionAnimation setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
         [transitionContext completeTransition:YES];
     }];
 
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    scaleAnimation.springBounciness = 20;
+    scaleAnimation.springBounciness = 2;
     scaleAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.2, 1.8)];
 
     POPBasicAnimation *opacityAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];

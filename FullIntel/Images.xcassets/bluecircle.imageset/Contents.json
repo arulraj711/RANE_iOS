@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "chg-30.png"
+      "filename" : "ch30.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "chg-60.png"
+      "filename" : "ch60.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "chg-90.png"
+      "filename" : "ch90.png"
     }
   ],
   "info" : {
