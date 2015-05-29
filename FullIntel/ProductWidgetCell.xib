@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
         </mutableArray>
@@ -14,41 +15,71 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="product" id="gTV-IL-0wX">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="376"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="376"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yuh-6e-vNd">
-                        <rect key="frame" x="0.0" y="34" width="320" height="1"/>
-                        <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ldA-J6-AwI">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="40"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="personality" translatesAutoresizingMaskIntoConstraints="NO" id="lxd-bU-U69">
+                                <rect key="frame" x="13" y="12" width="15" height="15"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Apple carplay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="beX-xj-YDh">
+                                <rect key="frame" x="32" y="9" width="111" height="21"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nav_fi" translatesAutoresizingMaskIntoConstraints="NO" id="Bro-0T-iB8">
+                                <rect key="frame" x="370" y="7" width="25" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D4o-RV-tJI">
+                                <rect key="frame" x="146" y="0.0" width="218" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.3803921569" green="0.38431372549999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="large_apple.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="0Pj-Me-Okc">
+                        <rect key="frame" x="120" y="52" width="160" height="160"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="product" translatesAutoresizingMaskIntoConstraints="NO" id="SoT-87-jDV">
-                        <rect key="frame" x="15" y="10" width="15" height="15"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Apple Watch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkn-lU-GI8">
-                        <rect key="frame" x="37" y="8" width="197" height="21"/>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
-                        <color key="textColor" red="0.3294117647" green="0.35686274509999999" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="iwatch.png" translatesAutoresizingMaskIntoConstraints="NO" id="0Pj-Me-Okc">
-                        <rect key="frame" x="80" y="54" width="160" height="250"/>
-                    </imageView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" text="Apple Watch is a smartwatch created by Apple Inc." translatesAutoresizingMaskIntoConstraints="NO" id="sW0-SH-l9j">
-                        <rect key="frame" x="16" y="324" width="289" height="50"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sW0-SH-l9j">
+                        <rect key="frame" x="20" y="220" width="360" height="105"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <string key="text">CarPlay is a standard developed by Apple Inc. to allow devices running the iOS operating systemto function with build-in display units of automobile dashboards.</string>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j0h-hA-ozH">
+                        <rect key="frame" x="0.0" y="326" width="400" height="1"/>
+                        <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucy-uE-Au5">
+                        <rect key="frame" x="0.0" y="329" width="400" height="40"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
+                        <state key="normal" title="Request Upgrade">
+                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Emo-QV-y2e">
+                        <rect key="frame" x="0.0" y="373" width="400" height="5"/>
+                        <color key="backgroundColor" red="0.65098039220000004" green="0.19215686269999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="iwatch.png" width="250" height="386"/>
-        <image name="product" width="12" height="12"/>
+        <image name="large_apple.jpg" width="1600" height="1600"/>
+        <image name="nav_fi" width="25" height="25"/>
+        <image name="personality" width="12" height="12"/>
     </resources>
 </document>

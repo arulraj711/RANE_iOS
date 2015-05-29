@@ -11,8 +11,10 @@
 #import "FISharedResources.h"
 #import "AMRatingControl.h"
 #import "MZFormSheetController.h"
+#import "AMPopTip.h"
+#import "CMPopTipView.h"
 
-@interface CorporateDetailCell : UICollectionViewCell {
+@interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate> {
     NSMutableArray *tweetArray;
 }
 @property BOOL isFIViewSelected;
@@ -82,6 +84,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *bioTitleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bioDivider;
 
+@property (nonatomic, strong) AMPopTip *popTip;
+@property (nonatomic, strong) id currentPopTipViewTarget;
+@property (nonatomic, strong)	NSDictionary	*contents;
+
 
 
 @property (nonatomic,strong) AMRatingControl *starRating;
@@ -105,5 +111,6 @@
 - (IBAction)savedListButtonClick:(UIButton *)sender;
 - (IBAction)moreButtonClick:(UIButton *)sender;
 -(void)loadTweetsFromPost;
+- (IBAction)infoButtonClick:(UIButton *)sender;
 
 @end

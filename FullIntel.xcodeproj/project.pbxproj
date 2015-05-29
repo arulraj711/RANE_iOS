@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		3BA3145765EFD5E9465E072A /* libPods-FullIntel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39AF10A475C726FDFCE5E99E /* libPods-FullIntel.a */; };
+		A003B19C1B1839F400857F35 /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = A003B19B1B1839F400857F35 /* AMPopTip.m */; };
+		A003B19F1B1841FF00857F35 /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = A003B19E1B1841FF00857F35 /* CMPopTipView.m */; };
+		A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A01B186D1200857F35 /* a123-logo.jpg */; };
+		A003B1A31B18710400857F35 /* large_apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A21B18710400857F35 /* large_apple.jpg */; };
+		A003B1A71B1873D900857F35 /* VideoWidgetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A003B1A51B1873D900857F35 /* VideoWidgetCell.m */; };
+		A003B1A81B1873D900857F35 /* VideoWidgetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A61B1873D900857F35 /* VideoWidgetCell.xib */; };
+		A003B1AA1B1874A200857F35 /* Apple_Car.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A91B1874A200857F35 /* Apple_Car.jpg */; };
 		A0066EEC1B03082D008B4623 /* CorporateNewsDetailsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsTest.m */; };
 		A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */; };
 		A010928D1B15AB25003C9F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A010928C1B15AB25003C9F3A /* Foundation.framework */; };
@@ -197,6 +204,16 @@
 /* Begin PBXFileReference section */
 		39AF10A475C726FDFCE5E99E /* libPods-FullIntel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FullIntel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90EF9BD902798B39A9DB8F3B /* Pods-FullIntel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.debug.xcconfig"; sourceTree = "<group>"; };
+		A003B19A1B1839F400857F35 /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTip.h; sourceTree = "<group>"; };
+		A003B19B1B1839F400857F35 /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPopTip.m; sourceTree = "<group>"; };
+		A003B19D1B1841FF00857F35 /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
+		A003B19E1B1841FF00857F35 /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
+		A003B1A01B186D1200857F35 /* a123-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "a123-logo.jpg"; sourceTree = "<group>"; };
+		A003B1A21B18710400857F35 /* large_apple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = large_apple.jpg; sourceTree = "<group>"; };
+		A003B1A41B1873D900857F35 /* VideoWidgetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoWidgetCell.h; sourceTree = "<group>"; };
+		A003B1A51B1873D900857F35 /* VideoWidgetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoWidgetCell.m; sourceTree = "<group>"; };
+		A003B1A61B1873D900857F35 /* VideoWidgetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoWidgetCell.xib; sourceTree = "<group>"; };
+		A003B1A91B1874A200857F35 /* Apple_Car.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Apple_Car.jpg; sourceTree = "<group>"; };
 		A0066EEA1B03082D008B4623 /* CorporateNewsDetailsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorporateNewsDetailsTest.h; sourceTree = "<group>"; };
 		A0066EEB1B03082D008B4623 /* CorporateNewsDetailsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateNewsDetailsTest.m; sourceTree = "<group>"; };
 		A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorporateDetailCell.h; sourceTree = "<group>"; };
@@ -506,6 +523,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A003B1991B1839E300857F35 /* PopTip */ = {
+			isa = PBXGroup;
+			children = (
+				A003B19D1B1841FF00857F35 /* CMPopTipView.h */,
+				A003B19E1B1841FF00857F35 /* CMPopTipView.m */,
+				A003B19A1B1839F400857F35 /* AMPopTip.h */,
+				A003B19B1B1839F400857F35 /* AMPopTip.m */,
+			);
+			name = PopTip;
+			sourceTree = "<group>";
+		};
 		A0066EED1B030B10008B4623 /* CorporateDetailCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -668,6 +696,9 @@
 				F7E004981AB152C500390D51 /* ProductWidgetCell.h */,
 				F7E004991AB152C500390D51 /* ProductWidgetCell.m */,
 				F7E0049A1AB152C500390D51 /* ProductWidgetCell.xib */,
+				A003B1A41B1873D900857F35 /* VideoWidgetCell.h */,
+				A003B1A51B1873D900857F35 /* VideoWidgetCell.m */,
+				A003B1A61B1873D900857F35 /* VideoWidgetCell.xib */,
 			);
 			name = Widgets;
 			sourceTree = "<group>";
@@ -857,6 +888,7 @@
 		F7E368771ABBF1710083F38E /* Popover_View */ = {
 			isa = PBXGroup;
 			children = (
+				A003B1991B1839E300857F35 /* PopTip */,
 				F7E368901ABC1D6E0083F38E /* More_Popover */,
 				F7E3688A1ABC1CC80083F38E /* ResearchRequest_Popover */,
 				F7E368841ABC1BF70083F38E /* SavedList_Popover */,
@@ -927,6 +959,8 @@
 		F7E81F4B1A97057000F9A8D4 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				A003B1A91B1874A200857F35 /* Apple_Car.jpg */,
+				A003B1A21B18710400857F35 /* large_apple.jpg */,
 				F717CC921AB1AF6900F66B53 /* back.jpg */,
 				F7E81F4C1A97057000F9A8D4 /* -iwatch.jpg */,
 				F7E81F4D1A97057000F9A8D4 /* 1.jpg */,
@@ -942,6 +976,7 @@
 				F7E81F571A97057000F9A8D4 /* apple_status.png */,
 				F7E81F581A97057000F9A8D4 /* Battle Scene1.jpg */,
 				F7E81F591A97057000F9A8D4 /* burberry.png */,
+				A003B1A01B186D1200857F35 /* a123-logo.jpg */,
 				F7E81F5A1A97057000F9A8D4 /* business-technology.jpg */,
 				F7E81F5B1A97057000F9A8D4 /* businessman-holding-ipad.jpg */,
 				F7E81F5C1A97057000F9A8D4 /* carolynryan.jpeg */,
@@ -1185,6 +1220,7 @@
 				F7AE10841AC01E4D0091E1C7 /* InfluencerListView.storyboard in Resources */,
 				F7E81FC91A97057100F9A8D4 /* stock1.png in Resources */,
 				F7E81FB21A97057100F9A8D4 /* mexico.jpg in Resources */,
+				A003B1AA1B1874A200857F35 /* Apple_Car.jpg in Resources */,
 				F7E81F8F1A97057100F9A8D4 /* 3.jpg in Resources */,
 				F7E81FB71A97057100F9A8D4 /* Nick.jpeg in Resources */,
 				F7E81F8C1A97057100F9A8D4 /* -iwatch.jpg in Resources */,
@@ -1204,6 +1240,7 @@
 				F7E81F911A97057100F9A8D4 /* 5.jpg in Resources */,
 				F7C1AB5E1ABFEFB100D8588A /* MorePopoverView.storyboard in Resources */,
 				F7CE36F21A95E99D0005AA0A /* RATableViewCell.xib in Resources */,
+				A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */,
 				F7E81FA71A97057100F9A8D4 /* hires_090219-A-6797M-101.jpg in Resources */,
 				F7E81FB91A97057100F9A8D4 /* NYSE.jpg in Resources */,
 				F773CFEC1ADE9C0D002FC7CF /* AddContent.storyboard in Resources */,
@@ -1211,6 +1248,7 @@
 				F7E81F8E1A97057100F9A8D4 /* 2.jpg in Resources */,
 				F7E81FC61A97057100F9A8D4 /* stat1.png in Resources */,
 				F78B43011ABA92AC00AB7FFB /* corporate_news_list.json in Resources */,
+				A003B1A81B1873D900857F35 /* VideoWidgetCell.xib in Resources */,
 				F7E81F8D1A97057100F9A8D4 /* 1.jpg in Resources */,
 				F717CC941AB1B2E400F66B53 /* OpenSans-Light.ttf in Resources */,
 				F7E239F01AA5AED800708B6B /* LegendCollectionViewCell.xib in Resources */,
@@ -1226,6 +1264,7 @@
 				F7E81F9C1A97057100F9A8D4 /* carolynryan.jpeg in Resources */,
 				F7ECACCC1AB0730000B57AB6 /* StockWidgetCell.xib in Resources */,
 				F7E81FAB1A97057100F9A8D4 /* ipads.jpg in Resources */,
+				A003B1A31B18710400857F35 /* large_apple.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1317,6 +1356,7 @@
 				F7CE36EA1A95E9490005AA0A /* RATreeView+UIScrollView.m in Sources */,
 				A0E223531A91C2F00073814A /* main.m in Sources */,
 				A0C326341B182F1000FEB164 /* StockCell.m in Sources */,
+				A003B19C1B1839F400857F35 /* AMPopTip.m in Sources */,
 				F7EBB2671ACA763F008C90DF /* FIUtils.m in Sources */,
 				F74A55131AB048570009FE4C /* PersonalityWidgetCell.m in Sources */,
 				A0066EEC1B03082D008B4623 /* CorporateNewsDetailsTest.m in Sources */,
@@ -1342,6 +1382,7 @@
 				F7C1AB611ABFF41C00D8588A /* MoreViewCell.m in Sources */,
 				A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */,
 				A0DB6FC41B0B2BB400F6E2F4 /* CommentCell.m in Sources */,
+				A003B1A71B1873D900857F35 /* VideoWidgetCell.m in Sources */,
 				F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */,
 				A053F5231AF896B8002EDC46 /* ShowDetailView.m in Sources */,
 				A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */,
@@ -1351,6 +1392,7 @@
 				A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */,
 				A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */,
 				F7E354E01A947A00009677D2 /* CenterViewController.m in Sources */,
+				A003B19F1B1841FF00857F35 /* CMPopTipView.m in Sources */,
 				A0C326361B182F1000FEB164 /* StockViewController.m in Sources */,
 				F7AE10821AC01E350091E1C7 /* InfluencerListView.m in Sources */,
 				F773CFEF1ADE9E0A002FC7CF /* AddContentFirstLevelView.m in Sources */,

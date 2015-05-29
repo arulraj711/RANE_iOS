@@ -23,6 +23,8 @@
 #import "FIUtils.h"
 #import "SavedListPopoverView.h"
 #import "MorePopoverView.h"
+#import "VideoWidgetCell.h"
+
 
 @implementation CorporateDetailCell
 
@@ -31,6 +33,13 @@
     self.authorImageView.layer.masksToBounds = YES;
     self.authorImageView.layer.cornerRadius = 25.0f;
    // self.socialLinksArray = [[NSMutableArray alloc]init];
+    
+    self.contents = [NSDictionary dictionaryWithObjectsAndKeys:
+                     // Rounded rect buttons
+                     @"A CMPopTipView will automatically position itself within the container view.", [NSNumber numberWithInt:11],
+                     nil];
+    
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails:) name:@"CuratedNewsDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails:) name:@"CuratedNewsAuthorDetails" object:nil];
@@ -87,6 +96,58 @@
     }];
 }
 
+- (IBAction)infoButtonClick:(id)sender {
+    NSString *contentMessage = nil;
+    UIView *contentView = nil;
+    NSNumber *key = [NSNumber numberWithInteger:[(UIView *)sender tag]];
+    id content = [self.contents objectForKey:key];
+    if ([content isKindOfClass:[UIView class]]) {
+        contentView = content;
+    }
+    else if ([content isKindOfClass:[NSString class]]) {
+        contentMessage = content;
+    }
+    else {
+        contentMessage = @"This section has widgets that provide insight on people,companies and topics mentioned in the article";
+    }
+    
+    NSString *title = nil;
+    
+    CMPopTipView *popTipView;
+    if (contentView) {
+        popTipView = [[CMPopTipView alloc] initWithCustomView:contentView];
+    }
+    else if (title) {
+        popTipView = [[CMPopTipView alloc] initWithTitle:title message:contentMessage];
+    }
+    else {
+        popTipView = [[CMPopTipView alloc] initWithMessage:contentMessage];
+    }
+    popTipView.delegate = self;
+//    if (backgroundColor && ![backgroundColor isEqual:[NSNull null]]) {
+//        popTipView.backgroundColor = backgroundColor;
+//    }
+//    if (textColor && ![textColor isEqual:[NSNull null]]) {
+//        popTipView.textColor = textColor;
+//    }
+  //  popTipView.animation = arc4random() % 2;
+    //popTipView.has3DStyle = (BOOL)(arc4random() % 2);
+    
+    popTipView.dismissTapAnywhere = YES;
+    [popTipView autoDismissAnimated:YES atTimeInterval:3.0];
+    UIButton *button = (UIButton *)sender;
+    [popTipView presentPointingAtView:button inView:self.contentView animated:YES];
+    self.currentPopTipViewTarget = sender;
+}
+
+#pragma mark - CMPopTipViewDelegate methods
+
+- (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipView
+{
+  //  [self.visiblePopTipViews removeObject:popTipView];
+    self.currentPopTipViewTarget = nil;
+}
+
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
     return 1;
@@ -94,11 +155,13 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if(collectionView == self.widgetCollectionView) {
         if(indexPath.row == 0) {
-            return CGSizeMake(320, 260);
+            return CGSizeMake(400, 320);
         } else if(indexPath.row == 1) {
-            return CGSizeMake(320, 200);
+            return CGSizeMake(400, 320);
         } else if(indexPath.row == 2) {
-            return CGSizeMake(320, 400);
+            return CGSizeMake(400, 376);
+        } else if(indexPath.row == 3) {
+            return CGSizeMake(400, 300);
         }
         
     }
@@ -129,7 +192,7 @@
     }else if(view == self.tweetsCollectionView) {
         itemCount = tweetArray.count;
     }else {
-        itemCount = 3;
+        itemCount = 4;
     }
     return itemCount;
 }
@@ -193,10 +256,6 @@
         TweetsCell *tweetCell =(TweetsCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
         TWTRTweet *tweetObj = [tweetArray objectAtIndex:indexPath.row];
         TWTRUser *author = tweetObj.author;
-        NSLog(@"twitter authro:%@",author.name);
-        NSLog(@"twitter text:%@",tweetObj.text);
-        NSLog(@"twitter retweet cnt:%lld",tweetObj.retweetCount);
-        NSLog(@"twitter favourate cnt:%lld",tweetObj.favoriteCount);
         tweetCell.author.text = author.name;
         tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.name];
         tweetCell.twitterText.text = tweetObj.text;
@@ -230,6 +289,15 @@
             [self.widgetCollectionView registerNib:[UINib nibWithNibName:@"ProductWidgetCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"product"];
             
             ProductWidgetCell *cell =(ProductWidgetCell*) [cv dequeueReusableCellWithReuseIdentifier:@"product" forIndexPath:indexPath];
+            cell.contentView.layer.borderWidth = 1.0f;
+            cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+            collectionCell = cell;
+        } else if(indexPath.row == 3) {
+            [self.widgetCollectionView registerClass:[VideoWidgetCell class]
+                          forCellWithReuseIdentifier:@"video"];
+            [self.widgetCollectionView registerNib:[UINib nibWithNibName:@"VideoWidgetCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"video"];
+            
+            VideoWidgetCell *cell =(VideoWidgetCell*) [cv dequeueReusableCellWithReuseIdentifier:@"video" forIndexPath:indexPath];
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
             collectionCell = cell;
@@ -277,13 +345,13 @@
         }
     }
    // NSLog(@"webview height:%f",webView.frame.size.height);
-//    if(webView.frame.size.height > 1000) {
+    if(webView.frame.size.height > 1400) {
         self.webViewHeightConstraint.constant = webView.frame.size.height;
-//    } else {
-//        self.webViewHeightConstraint.constant = 1000;
-//    }
+    } else {
+        self.webViewHeightConstraint.constant = 1400;
+    }
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+2600);
     self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];
     self.starRating.userInteractionEnabled = NO;
     [self.ratingControl addSubview:self.starRating];

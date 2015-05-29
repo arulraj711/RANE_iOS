@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Regular.ttf">
@@ -17,51 +17,74 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Personality" id="gTV-IL-0wX">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="320"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="320"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="personality" translatesAutoresizingMaskIntoConstraints="NO" id="upf-2q-i7R">
-                        <rect key="frame" x="15" y="10" width="15" height="15"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Personality" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpP-5j-NHF">
-                        <rect key="frame" x="37" y="8" width="197" height="21"/>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
-                        <color key="textColor" red="0.32941176470588235" green="0.35686274509803922" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNW-En-QlH">
-                        <rect key="frame" x="0.0" y="34" width="320" height="1"/>
-                        <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
-                    </imageView>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3VN-ld-9tf">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="40"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="personality" translatesAutoresizingMaskIntoConstraints="NO" id="upf-2q-i7R">
+                                <rect key="frame" x="13" y="12" width="15" height="15"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The Apple Car" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpP-5j-NHF">
+                                <rect key="frame" x="32" y="9" width="111" height="21"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nav_fi" translatesAutoresizingMaskIntoConstraints="NO" id="loC-l5-C16">
+                                <rect key="frame" x="370" y="7" width="25" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0k-NH-Ltl">
+                                <rect key="frame" x="146" y="0.0" width="218" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.38039215686274508" green="0.38431372549019605" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tim.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="sW0-WW-uFR">
-                        <rect key="frame" x="15" y="50" width="80" height="80"/>
+                        <rect key="frame" x="15" y="50" width="90" height="90"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tim Cook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FhE-Am-ONf">
-                        <rect key="frame" x="107" y="58" width="197" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="John Maddox" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FhE-Am-ONf">
+                        <rect key="frame" x="117" y="58" width="197" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CEO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cis-Ki-e8q">
-                        <rect key="frame" x="109" y="85" width="176" height="21"/>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
-                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Apple Inc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4v2-hI-Zl3">
-                        <rect key="frame" x="110" y="110" width="193" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Director of collaborative Program strategies" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4v2-hI-Zl3">
+                        <rect key="frame" x="117" y="80" width="193" height="49"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" text="Timothy Donald 'Tim Cook'(born November 1,1960) is an American business executive, and is the CEO of Apple Inc." translatesAutoresizingMaskIntoConstraints="NO" id="s7W-qn-q7K">
-                        <rect key="frame" x="15" y="146" width="289" height="88"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7W-qn-q7K">
+                        <rect key="frame" x="15" y="146" width="369" height="125"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <string key="text">John Maddox serves as UMTRIs director of collaborative program strategies. In this position,he helps UMTRI develop collaborative opportunities with federal agencies and industry stakeholders.</string>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6fw-RY-E79">
+                        <rect key="frame" x="1" y="270" width="400" height="1"/>
+                        <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YnK-MI-sKe">
+                        <rect key="frame" x="1" y="273" width="400" height="40"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
+                        <state key="normal" title="Request Upgrade">
+                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFr-nn-5b7">
+                        <rect key="frame" x="1" y="317" width="400" height="5"/>
+                        <color key="backgroundColor" red="0.65098039215686276" green="0.19215686274509802" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -69,6 +92,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="nav_fi" width="25" height="25"/>
         <image name="personality" width="12" height="12"/>
         <image name="tim.jpeg" width="638" height="638"/>
     </resources>
