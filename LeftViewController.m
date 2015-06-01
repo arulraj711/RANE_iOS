@@ -514,10 +514,18 @@
       //  [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
        // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
          [self.revealController setFrontViewController:navCtlr];
+
     }
     else if([data.nodeId integerValue] == 4) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"IpAndLegal" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"IpAndLegalViewController"];
+        [self.revealController setFrontViewController:navCtlr];
+        
+
+    } else if([data.nodeId integerValue] == 5) {
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ExecutiveMoves" bundle:nil];
+        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"ExecutiveMoves"];
+
         //  [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
         // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
         [self.revealController setFrontViewController:navCtlr];
@@ -534,7 +542,9 @@
     
     if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
     } else {
-        if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4) {
+
+        if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
+
        // NSLog(@"empty node id");
     }else {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];

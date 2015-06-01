@@ -31,6 +31,10 @@
 		A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */; };
 		A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D591ADF848000A43CCA /* OpenSans-Semibold.ttf */; };
 		A0A678631B1C159400FB2AEA /* influencer_new.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A678621B1C159400FB2AEA /* influencer_new.json */; };
+		A0A678681B1C8A8000FB2AEA /* ExecutiveMovesController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A678671B1C8A8000FB2AEA /* ExecutiveMovesController.m */; };
+		A0A6786C1B1C90FB00FB2AEA /* ExecutiveMovesCell.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0A6786B1B1C90FB00FB2AEA /* ExecutiveMovesCell.storyboard */; };
+		A0A678731B1C982D00FB2AEA /* ExecutiveMoveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A678711B1C982D00FB2AEA /* ExecutiveMoveCell.m */; };
+		A0A678741B1C982D00FB2AEA /* ExecutiveMoveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0A678721B1C982D00FB2AEA /* ExecutiveMoveCell.xib */; };
 		A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF674C1B16EC1C007EDD26 /* UIColor+CustomColors.m */; };
 		A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF674F1B16EC4D007EDD26 /* PresentingAnimator.m */; };
 		A0AF67531B16EC67007EDD26 /* DismissingAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF67521B16EC67007EDD26 /* DismissingAnimator.m */; };
@@ -255,6 +259,12 @@
 		A087980B1ADFE47D00D93114 /* FirstLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLevelCell.h; sourceTree = "<group>"; };
 		A087980C1ADFE47D00D93114 /* FirstLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLevelCell.m; sourceTree = "<group>"; };
 		A0A678621B1C159400FB2AEA /* influencer_new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = influencer_new.json; sourceTree = "<group>"; };
+		A0A678661B1C8A8000FB2AEA /* ExecutiveMovesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExecutiveMovesController.h; sourceTree = "<group>"; };
+		A0A678671B1C8A8000FB2AEA /* ExecutiveMovesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExecutiveMovesController.m; sourceTree = "<group>"; };
+		A0A6786B1B1C90FB00FB2AEA /* ExecutiveMovesCell.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ExecutiveMovesCell.storyboard; sourceTree = "<group>"; };
+		A0A678701B1C982D00FB2AEA /* ExecutiveMoveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExecutiveMoveCell.h; sourceTree = "<group>"; };
+		A0A678711B1C982D00FB2AEA /* ExecutiveMoveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExecutiveMoveCell.m; sourceTree = "<group>"; };
+		A0A678721B1C982D00FB2AEA /* ExecutiveMoveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExecutiveMoveCell.xib; sourceTree = "<group>"; };
 		A0AF674B1B16EC1C007EDD26 /* UIColor+CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColors.h"; sourceTree = "<group>"; };
 		A0AF674C1B16EC1C007EDD26 /* UIColor+CustomColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CustomColors.m"; sourceTree = "<group>"; };
 		A0AF674E1B16EC4D007EDD26 /* PresentingAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentingAnimator.h; sourceTree = "<group>"; };
@@ -585,6 +595,19 @@
 			name = CorporateDetailCell;
 			sourceTree = "<group>";
 		};
+		A0A678651B1C8A5400FB2AEA /* ExecutiveMoves */ = {
+			isa = PBXGroup;
+			children = (
+				A0A678661B1C8A8000FB2AEA /* ExecutiveMovesController.h */,
+				A0A678671B1C8A8000FB2AEA /* ExecutiveMovesController.m */,
+				A0A6786B1B1C90FB00FB2AEA /* ExecutiveMovesCell.storyboard */,
+				A0A678701B1C982D00FB2AEA /* ExecutiveMoveCell.h */,
+				A0A678711B1C982D00FB2AEA /* ExecutiveMoveCell.m */,
+				A0A678721B1C982D00FB2AEA /* ExecutiveMoveCell.xib */,
+			);
+			name = ExecutiveMoves;
+			sourceTree = "<group>";
+		};
 		A0AF674A1B16EBF6007EDD26 /* CustomPopAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -670,6 +693,7 @@
 		A0E2234F1A91C2F00073814A /* FullIntel */ = {
 			isa = PBXGroup;
 			children = (
+				A0A678651B1C8A5400FB2AEA /* ExecutiveMoves */,
 				A0CF5BE01B1C820300DED2D9 /* DealsAndIPLegal */,
 				A0C326271B182F1000FEB164 /* Stock */,
 				F7EC6D5A1ADFB37200A43CCA /* ProgressView */,
@@ -1266,6 +1290,7 @@
 				F7E3687C1ABBF1DA0083F38E /* CommentsPopoverView.xib in Resources */,
 				F7E81FBF1A97057100F9A8D4 /* samsung_topic.jpg in Resources */,
 				F7DC62D11AA83A5900D6686E /* InfluencerCustomTableViewCell.xib in Resources */,
+				A0A6786C1B1C90FB00FB2AEA /* ExecutiveMovesCell.storyboard in Resources */,
 				F7E81F991A97057100F9A8D4 /* burberry.png in Resources */,
 				F7E81F971A97057100F9A8D4 /* apple_status.png in Resources */,
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,
@@ -1321,6 +1346,7 @@
 				A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */,
 				A0D956811B0C4D9100DB013F /* TwitterKitResources.bundle in Resources */,
 				F7E81F911A97057100F9A8D4 /* 5.jpg in Resources */,
+				A0A678741B1C982D00FB2AEA /* ExecutiveMoveCell.xib in Resources */,
 				F7C1AB5E1ABFEFB100D8588A /* MorePopoverView.storyboard in Resources */,
 				F7CE36F21A95E99D0005AA0A /* RATableViewCell.xib in Resources */,
 				A0CF5C191B1C87BC00DED2D9 /* Deals.storyboard in Resources */,
@@ -1443,9 +1469,11 @@
 				F7CE36E11A95E9490005AA0A /* RATreeNodeCollectionController.m in Sources */,
 				A0CF5BFE1B1C821A00DED2D9 /* IpAndLegalCell.m in Sources */,
 				F7CE36EA1A95E9490005AA0A /* RATreeView+UIScrollView.m in Sources */,
+				A0A678731B1C982D00FB2AEA /* ExecutiveMoveCell.m in Sources */,
 				A0E223531A91C2F00073814A /* main.m in Sources */,
 				A003B19C1B1839F400857F35 /* AMPopTip.m in Sources */,
 				F7EBB2671ACA763F008C90DF /* FIUtils.m in Sources */,
+				A0A678681B1C8A8000FB2AEA /* ExecutiveMovesController.m in Sources */,
 				F74A55131AB048570009FE4C /* PersonalityWidgetCell.m in Sources */,
 				A0066EEC1B03082D008B4623 /* CorporateNewsDetailsTest.m in Sources */,
 				F7CE36E21A95E9490005AA0A /* RATreeNodeController.m in Sources */,
