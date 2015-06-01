@@ -59,6 +59,8 @@
     _requestUpgradeButton.layer.cornerRadius=5.0;
     
     
+        [FIUtils makeRoundedView:_authorImageView];
+    
     NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"IP & LEGAL offers insight on relevant patents, trademarks and other legal matters that are relevant to you."];
     
     [attriString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"OpenSans-Bold" size:20] range:NSMakeRange(0,10)];
@@ -172,6 +174,8 @@
         //        socialCell.tag = indexPath.row;
         //        socialCell.iconImage.userInteractionEnabled = YES;
         //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
+        
+         socialCell.iconImage.image = [UIImage imageNamed:@"Twitter-1"];
         
         socialCell.blueCircleView.hidden = YES;
         collectionCell = socialCell;
