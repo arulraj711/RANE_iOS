@@ -41,7 +41,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _requestUpgradeButton.layer.borderColor=[[UIColor blackColor]CGColor];
+    _requestUpgradeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
     _requestUpgradeButton.layer.borderWidth=1.5;
     _requestUpgradeButton.layer.cornerRadius=5.0;
   
@@ -144,9 +144,9 @@
     NSInteger itemCount;
 
     if(view == self.socialCollectionView){
-        itemCount = 4;
-    }else if(view == self.twitterCollectionView) {
         itemCount = 3;
+    }else if(view == self.twitterCollectionView) {
+        itemCount = 1;
     }else {
         itemCount = 3;
     }
@@ -184,6 +184,7 @@
         //        socialCell.iconImage.userInteractionEnabled = YES;
         //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
         
+         socialCell.iconImage.image = [UIImage imageNamed:@"Twitter-1"];
          socialCell.blueCircleView.hidden = YES;
         collectionCell = socialCell;
         

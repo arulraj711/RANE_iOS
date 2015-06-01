@@ -72,80 +72,80 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YA8-qK-5uM">
-                                <rect key="frame" x="6" y="9" width="25" height="25"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="signal" translatesAutoresizingMaskIntoConstraints="NO" id="YA8-qK-5uM">
+                                <rect key="frame" x="15" y="14" width="15" height="15"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.43921568630000002" green="0.55294117649999996" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.3803921569" green="0.38431372549999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="timeline" translatesAutoresizingMaskIntoConstraints="NO" id="Gqx-No-6tx">
                         <rect key="frame" x="54" y="59" width="20" height="420"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8P4-5G-yDe">
-                        <rect key="frame" x="108" y="51" width="50" height="50"/>
+                        <rect key="frame" x="108" y="63" width="50" height="50"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vG3-iU-0jr">
-                        <rect key="frame" x="108" y="140" width="50" height="50"/>
+                        <rect key="frame" x="108" y="152" width="50" height="50"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rn3-KA-Eep">
-                        <rect key="frame" x="108" y="219" width="50" height="50"/>
+                        <rect key="frame" x="108" y="231" width="50" height="50"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kxA-KU-QDT">
-                        <rect key="frame" x="107" y="308" width="50" height="50"/>
+                        <rect key="frame" x="107" y="320" width="50" height="50"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iXG-H0-qVv">
-                        <rect key="frame" x="108" y="408" width="50" height="50"/>
+                        <rect key="frame" x="108" y="420" width="50" height="50"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AOL." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bgs-8Z-hbL">
-                        <rect key="frame" x="172" y="65" width="130" height="21"/>
+                        <rect key="frame" x="172" y="77" width="130" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HUGHES Telematics" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuQ-VM-Nit">
-                        <rect key="frame" x="169" y="233" width="130" height="21"/>
+                        <rect key="frame" x="169" y="245" width="130" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CloudSwitch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLX-PB-dUA">
-                        <rect key="frame" x="172" y="322" width="130" height="21"/>
+                        <rect key="frame" x="172" y="334" width="130" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MCI" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xQ-DI-yKx">
-                        <rect key="frame" x="172" y="422" width="130" height="21"/>
+                        <rect key="frame" x="172" y="434" width="130" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$4.4B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3t-Ru-z7Y">
-                        <rect key="frame" x="99" y="110" width="68" height="21"/>
+                        <rect key="frame" x="99" y="122" width="68" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                         <color key="textColor" red="0.64313725490196072" green="0.074509803921568626" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$350M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5R3-7n-Ju0">
-                        <rect key="frame" x="99" y="195" width="68" height="21"/>
+                        <rect key="frame" x="99" y="207" width="68" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                         <color key="textColor" red="0.64313725489999995" green="0.074509803920000006" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$612M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGV-pc-xEB">
-                        <rect key="frame" x="99" y="278" width="68" height="21"/>
+                        <rect key="frame" x="99" y="290" width="68" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                         <color key="textColor" red="0.64313725489999995" green="0.074509803920000006" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="undisclosed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Xo-hp-ne8">
-                        <rect key="frame" x="99" y="366" width="112" height="21"/>
+                        <rect key="frame" x="99" y="378" width="112" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                         <color key="textColor" red="0.64313725489999995" green="0.074509803920000006" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="EdgeCast Networks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74t-D1-52v">
-                        <rect key="frame" x="166" y="155" width="130" height="21"/>
+                        <rect key="frame" x="166" y="167" width="130" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -186,6 +186,7 @@
     </objects>
     <resources>
         <image name="nav_fi" width="25" height="25"/>
+        <image name="signal" width="25" height="25"/>
         <image name="timeline" width="20" height="420"/>
     </resources>
 </document>

@@ -54,18 +54,26 @@
         [_dealsWebView loadRequest:urlRequest];
     
     
-    _requestUpgradeButton.layer.borderColor=[[UIColor blackColor]CGColor];
+    _requestUpgradeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
     _requestUpgradeButton.layer.borderWidth=1.5;
     _requestUpgradeButton.layer.cornerRadius=5.0;
     
     
     NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"IP & LEGAL offers insight on relevant patents, trademarks and other legal matters that are relevant to you."];
     
-    [attriString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"OpenSans-Bold" size:20] range:NSMakeRange(0,9)];
+    [attriString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"OpenSans-Bold" size:20] range:NSMakeRange(0,10)];
     
-    [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0XA4131E) range:NSMakeRange(0,9)];
+    [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0XA4131E) range:NSMakeRange(0,10)];
     
     _DealsLabel.attributedText=attriString;
+    
+    
+    
+    [_authorImageBigView sd_setImageWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/525460441502187520/52FB7IFR_400x400.jpeg"] placeholderImage:[UIImage imageNamed:@"FI"]];
+    
+    [_authorImageView sd_setImageWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/525460441502187520/52FB7IFR_400x400.jpeg"] placeholderImage:[UIImage imageNamed:@"FI"]];
+    
+    
     
 }
 
@@ -127,7 +135,7 @@
     if(view == self.socialCollectionView){
         itemCount = 4;
     }else if(view == self.twitterCollectionView) {
-        itemCount = 3;
+        itemCount = 1;
     }else {
         itemCount = 3;
     }
