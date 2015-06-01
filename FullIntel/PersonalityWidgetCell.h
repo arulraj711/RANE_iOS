@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PersonalityWidgetCell : UICollectionViewCell
-
+@property (weak, nonatomic) IBOutlet UIButton *reqButton;
+- (IBAction)requestUpgradeButtonClick:(id)sender;
 @end

@@ -30,6 +30,9 @@
 -(void)sendResearchRequestWithDetails:(NSString *)details;
 -(void)getCommentsWithDetails:(NSString *)details withArticleId:(NSString *)articleId;
 -(void)addCommentsWithDetails:(NSString *)details;
+-(void)updateAppViewTypeWithDetails:(NSString *)details;
+-(void)featureAccessRequestWithDetails:(NSString *)details;
+-(NSDictionary *)getTweetDetails:(NSString *)details;
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)showProgressView;
 - (void)hideProgressView;

@@ -156,7 +156,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-   [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+  // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
 }
 
 -(void)loadCuratedNews {
@@ -593,29 +593,31 @@
     
     
      NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
-    
-    
-    
-    UIButton *markedImpBtn = (UIButton *)[tapGesture view];
-    if(markedImpBtn.selected) {
-        [markedImpBtn setSelected:NO];
-        [resultDic setObject:@"false" forKey:@"isSelected"];
-        [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
-        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-        [self.view makeToast:@"Removed from \"Marked Important\"" duration:1 position:CSToastPositionCenter];
-    }else {
-        [markedImpBtn setSelected:YES];
-        [resultDic setObject:@"true" forKey:@"isSelected"];
-        [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
-        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-        [self.view makeToast:@"Marked Important." duration:1 position:CSToastPositionCenter];
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+        UIButton *markedImpBtn = (UIButton *)[tapGesture view];
+        if(markedImpBtn.selected) {
+            [markedImpBtn setSelected:NO];
+            [resultDic setObject:@"false" forKey:@"isSelected"];
+            [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
+        }else {
+            [markedImpBtn setSelected:YES];
+            [resultDic setObject:@"true" forKey:@"isSelected"];
+            [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
+        }
+    } else {
+        [FIUtils showNoNetworkToast];
     }
+    
     
 }
 
@@ -628,6 +630,7 @@
     [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
     [resultDic setObject:@"3" forKey:@"status"];
     NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     UIButton *savedBtn = (UIButton *)[tapGesture view];
     if(savedBtn.selected) {
         [savedBtn setSelected:NO];
@@ -638,7 +641,7 @@
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-        [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.5 position:CSToastPositionCenter];
+        [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
     }else {
         [savedBtn setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
@@ -674,9 +677,11 @@
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-        [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.5 position:CSToastPositionCenter];
+        [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
     }
-    
+    } else {
+        [FIUtils showNoNetworkToast];
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView

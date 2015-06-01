@@ -13,6 +13,7 @@
 #import "PKRevealController.h"
 #import "InfluencerDetailsView.h"
 #import "UIView+Toast.h"
+#import "FIUtils.h"
 @interface InfluencerListView ()
 
 @end
@@ -25,6 +26,17 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadInfluencerList) name:@"InfluencerList" object:nil];
+    
+    
+    
+    NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"INFLUENCER COMMENTS aggregates relevant articles and research notes from relevant industry analysts, financial firms and influencers from the traditional and social media"];
+    
+    [attriString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"OpenSans-Bold" size:20] range:NSMakeRange(0,19)];
+    
+    [attriString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:164.0/255.0 green:19.0/255.0 blue:30.0/255.0 alpha:1] range:NSMakeRange(0,19)];
+    
+    _topLabel.attributedText=attriString;
+    
     
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -124,35 +136,39 @@
     [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:nil];
     cell.title.text = [influencer valueForKey:@"title"];
     cell.descTextView.text = [influencer valueForKey:@"desc"];
-    cell.articleDate.text = [influencer valueForKey:@"date"];
+    
+    NSString *dateStr = [FIUtils getDateFromTimeStamp:[[influencer valueForKey:@"date"] doubleValue]];
+    cell.articleDate.text = dateStr;
+    
+    //cell.articleDate.text = [influencer valueForKey:@"date"];
     cell.outlet.text = [influencer valueForKey:@"outlet"];
     
     
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(queue, ^{
-        
-        
-        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Influencer"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@", [influencer valueForKey:@"articleId"]];
-        [fetchRequest setPredicate:predicate];
-        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-        
-        NSManagedObject *influencer = [newPerson objectAtIndex:0];
-        
-        if([influencer valueForKey:@"details"] == nil) {
-            
-            NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
-            [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-            [resultDic setObject:[influencer valueForKey:@"articleId"] forKey:@"selectedArticleId"];
-            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-            
-            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]getInfluencerDetailsWithDetails:resultStr];
-        }else {
-            //NSLog(@"not null");
-        }
-    });
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_async(queue, ^{
+//        
+//        
+//        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+//        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Influencer"];
+//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@", [influencer valueForKey:@"articleId"]];
+//        [fetchRequest setPredicate:predicate];
+//        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//        
+//        NSManagedObject *influencer = [newPerson objectAtIndex:0];
+//        
+//        if([influencer valueForKey:@"details"] == nil) {
+//            
+//            NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+//            [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+//            [resultDic setObject:[influencer valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+//            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+//            
+//            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+//            [[FISharedResources sharedResourceManager]getInfluencerDetailsWithDetails:resultStr];
+//        }else {
+//            //NSLog(@"not null");
+//        }
+//    });
     
     UITapGestureRecognizer *markedImpTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(markedImpAction:)];
     [cell.markedImpButton addGestureRecognizer:markedImpTap];
@@ -178,13 +194,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSManagedObject *influencer = [self.influencerArray objectAtIndex:indexPath.row];
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
-    InfluencerDetailsView *detailView = [storyBoard instantiateViewControllerWithIdentifier:@"DetailView"];
-    detailView.legendsArray = legendsList;
-    detailView.selectedId = [influencer valueForKey:@"articleId"];
-    [self.navigationController pushViewController:detailView animated:YES];
+//    NSManagedObject *influencer = [self.influencerArray objectAtIndex:indexPath.row];
+//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
+//    InfluencerDetailsView *detailView = [storyBoard instantiateViewControllerWithIdentifier:@"DetailView"];
+//    detailView.legendsArray = legendsList;
+//    detailView.selectedId = [influencer valueForKey:@"articleId"];
+//    [self.navigationController pushViewController:detailView animated:YES];
 }
 
 
+- (IBAction)requestUpgradeButtonClick:(id)sender {
+    NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [gradedetails setObject:[NSNumber numberWithInt:7] forKey:@"moduleId"];
+    [gradedetails setObject:[NSNumber numberWithInt:1] forKey:@"featureId"];
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+    [[FISharedResources sharedResourceManager]featureAccessRequestWithDetails:resultStr];
+}
 @end

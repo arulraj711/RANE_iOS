@@ -64,6 +64,16 @@
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"customerid"] forKey:@"customerId"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"userid"] forKey:@"userId"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"userAccountTypeId"] forKey:@"userAccountTypeId"];
+            NSString *appViewType = [NSString stringWithFormat:@"%@",[responseObject valueForKey:@"appViewTypeId"]];
+            
+            if([appViewType isEqualToString:@"1"]) {
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
+            } else if([appViewType isEqualToString:@"2"]) {
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+            }
+            
+            
+            //[[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"appViewTypeId"] forKey:@"appViewTypeId"];
             NSString *username = [NSString stringWithFormat:@"%@ %@",[responseObject valueForKey:@"firstName"],[responseObject valueForKey:@"lastName"]];
             [[NSUserDefaults standardUserDefaults]setObject:username forKey:@"username"];
             window.userInteractionEnabled = YES;
@@ -168,6 +178,24 @@
     return (saveError == nil);
 }
 
+-(BOOL)clearEntity:(NSString *)entity {
+    NSManagedObjectContext *myContext = [self managedObjectContext];
+    NSFetchRequest *fetchAllObjects = [[NSFetchRequest alloc] init];
+    [fetchAllObjects setEntity:[NSEntityDescription entityForName:entity inManagedObjectContext:myContext]];
+    [fetchAllObjects setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+    NSError *error = nil;
+    NSArray *allObjects = [myContext executeFetchRequest:fetchAllObjects error:&error];
+    for (NSManagedObject *object in allObjects) {
+        [myContext deleteObject:object];
+    }
+    
+    NSError *saveError = nil;
+    if (![myContext save:&saveError]) {
+        
+    }
+    
+    return (saveError == nil);
+}
 
 
 -(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSInteger)categoryId withFlag:(NSString *)updownFlag {
@@ -298,6 +326,7 @@
     if([self serviceIsReachable]) {
     [FIWebService fetchInfluencerListWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            [self clearEntity:@"Influencer"];
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isInfluencerLoad"];
         NSArray *influencerArray = [responseObject objectForKey:@"influencerArray"];
         for(NSDictionary *dic in influencerArray) {
@@ -309,6 +338,7 @@
             [influencer setValue:[dic objectForKey:@"title"] forKey:@"title"];
             [influencer setValue:[dic objectForKey:@"desc"] forKey:@"desc"];
             [influencer setValue:[dic objectForKey:@"image"] forKey:@"image"];
+            [influencer setValue:[dic objectForKey:@"date"] forKey:@"date"];
             NSArray *authorArray = [dic objectForKey:@"author"];
             NSMutableArray *authorList = [[NSMutableArray alloc]init];
             for(NSDictionary *dict in authorArray) {
@@ -321,6 +351,14 @@
             }
             NSOrderedSet *Obj = [[NSOrderedSet alloc]initWithArray:authorList];
             [influencer setValue:Obj forKey:@"author"];
+            
+            
+            NSArray *outletArray = [dic objectForKey:@"outlet"];
+            if(outletArray.count != 0){
+                NSDictionary *outletDic = [outletArray objectAtIndex:0];
+                [influencer setValue:[outletDic objectForKey:@"outletname"] forKey:@"outlet"];
+            }
+            
             
             NSArray *legendsArray = [dic objectForKey:@"legendList"];
             NSMutableArray *legendsList = [[NSMutableArray alloc]init];
@@ -747,6 +785,42 @@
     }
 }
 
+-(void)updateAppViewTypeWithDetails:(NSString *)details {
+    if([self serviceIsReachable]) {
+        [FIWebService updateAppViewTypeWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+            } else {
+                [self hideProgressView];
+                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    } else {
+        [FIUtils showNoNetworkToast];
+    }
+}
+
+-(void)featureAccessRequestWithDetails:(NSString *)details {
+    if([self serviceIsReachable]) {
+        [FIWebService featureAccessRequestWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+            } else {
+                [self hideProgressView];
+                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    } else {
+        [FIUtils showNoNetworkToast];
+    }
+}
+
 
 -(void)addCommentsWithDetails:(NSString *)details {
     if([self serviceIsReachable]) {
@@ -767,6 +841,16 @@
     } else {
         [FIUtils showNoNetworkToast];
     }
+}
+
+-(NSDictionary *)getTweetDetails:(NSString *)details {
+     __block NSDictionary *responseDic;
+    [FIWebService getTweetDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        responseDic = responseObject;
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [FIUtils showErrorToast];
+    }];
+    return responseDic;
 }
 
 

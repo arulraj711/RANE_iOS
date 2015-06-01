@@ -121,7 +121,7 @@
     </entity>
     <entity name="Influencer" syncable="YES">
         <attribute name="articleId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="outlet" optional="YES" attributeType="String" syncable="YES"/>
@@ -288,7 +288,7 @@
         <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="238"/>
         <element name="CuratedNewsDetailAuthor" positionX="-2423" positionY="-1269" width="128" height="238"/>
         <element name="Influ_Drillin" positionX="-479" positionY="-18" width="128" height="268"/>
-        <element name="Influencer" positionX="-1098" positionY="-225" width="128" height="193"/>
+        <element name="Influencer" positionX="-1098" positionY="-225" width="128" height="195"/>
         <element name="Influencer_Author" positionX="-380" positionY="-153" width="128" height="118"/>
         <element name="InfluencerAuthor" positionX="-837" positionY="-271" width="128" height="163"/>
         <element name="InfluencerDetail" positionX="-758" positionY="9" width="128" height="193"/>

@@ -54,9 +54,17 @@
 +(void)addCommentsWithDetails:(NSString*)details
                     onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                     onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)updateAppViewTypeWithDetails:(NSString*)details
+                    onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
-
++(void)featureAccessRequestWithDetails:(NSString*)details
+                          onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                          onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 +(void)getStockListDetails:(NSString*)details
+                 onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)getTweetDetails:(NSString*)details
                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

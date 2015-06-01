@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ProductWidgetCell : UICollectionViewCell
-
+- (IBAction)requestUpgradeButtonClick:(id)sender;
 @end

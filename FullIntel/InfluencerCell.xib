@@ -12,7 +12,9 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
-            <string>OpenSans</string>
+        </mutableArray>
+        <mutableArray key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -37,7 +39,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="64" id="3lx-CD-pFQ"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="23"/>
+                        <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="22"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -45,25 +47,25 @@
                         <rect key="frame" x="210" y="73" width="11" height="12"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Jan 27,2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2L-4f-dZx">
-                        <rect key="frame" x="223" y="71" width="97" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="June 27,2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2L-4f-dZx">
+                        <rect key="frame" x="223" y="70" width="85" height="18"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="97" id="UFw-QZ-nQJ"/>
+                            <constraint firstAttribute="width" constant="85" id="UFw-QZ-nQJ"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                         <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe" translatesAutoresizingMaskIntoConstraints="NO" id="Yuz-n0-4cm">
-                        <rect key="frame" x="316" y="73" width="12" height="12"/>
+                        <rect key="frame" x="307" y="73" width="12" height="12"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The Australian Financial Review" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b53-ya-2G6">
-                        <rect key="frame" x="331" y="71" width="272" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Australian Financial Review" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b53-ya-2G6">
+                        <rect key="frame" x="320" y="70" width="272" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="272" id="1Lw-rW-4nT"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                         <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -72,7 +74,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <string key="text">Following the recent 7-to-1 stock split, the stock price of Apple Inc. (NASDAQ:AAPL), its stock price declined to around $93 per share, from around $650 price tag it had before. While the current investors of Apple are unaffected by the stock split, the stock has become more affordable for other retail investors. In a recent interview on CNBC, Timothy Arcuri, the Managing Director of Cowen and Company said that the stock split, combined with the launch of new products is a good thing for Apple’s stock and might send it higher.</string>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="urK-yn-xYG">
@@ -166,7 +168,7 @@
                     <constraint firstItem="gDy-eF-lNA" firstAttribute="top" secondItem="Sfn-2o-zo2" secondAttribute="topMargin" constant="-4" id="1ly-UA-VgT"/>
                     <constraint firstItem="ksa-4V-5IH" firstAttribute="top" secondItem="urK-yn-xYG" secondAttribute="bottom" constant="-9" id="4ai-2r-wON"/>
                     <constraint firstItem="r1r-La-DxJ" firstAttribute="leading" secondItem="ksa-4V-5IH" secondAttribute="trailing" constant="28" id="6ah-0P-2ni"/>
-                    <constraint firstItem="Yuz-n0-4cm" firstAttribute="leading" secondItem="d2L-4f-dZx" secondAttribute="trailing" constant="-4" id="70h-Zy-mBW"/>
+                    <constraint firstItem="Yuz-n0-4cm" firstAttribute="leading" secondItem="d2L-4f-dZx" secondAttribute="trailing" constant="-1" id="70h-Zy-mBW"/>
                     <constraint firstItem="980-Gh-fnU" firstAttribute="top" secondItem="hq0-jF-ez2" secondAttribute="bottom" constant="29" id="7qT-ok-WoN"/>
                     <constraint firstItem="ksa-4V-5IH" firstAttribute="leading" secondItem="gDy-eF-lNA" secondAttribute="leading" constant="-1" id="9FD-Od-YOQ"/>
                     <constraint firstItem="WAM-d7-zzR" firstAttribute="leading" secondItem="hq0-jF-ez2" secondAttribute="trailing" constant="40" id="9Uc-hh-b4P"/>
@@ -179,7 +181,7 @@
                     <constraint firstItem="Nfd-I4-fjk" firstAttribute="centerX" secondItem="Lng-gf-gkN" secondAttribute="centerX" id="Lem-xz-x5V"/>
                     <constraint firstAttribute="bottomMargin" secondItem="urK-yn-xYG" secondAttribute="bottom" constant="92" id="QVB-Uh-dxP"/>
                     <constraint firstItem="mLJ-9X-Vms" firstAttribute="leading" secondItem="t5w-yI-4Ok" secondAttribute="leading" id="Rcd-Ok-BN5"/>
-                    <constraint firstItem="b53-ya-2G6" firstAttribute="leading" secondItem="Yuz-n0-4cm" secondAttribute="trailing" constant="3" id="Rzv-a6-GKh"/>
+                    <constraint firstItem="b53-ya-2G6" firstAttribute="leading" secondItem="Yuz-n0-4cm" secondAttribute="trailing" constant="1" id="Rzv-a6-GKh"/>
                     <constraint firstAttribute="bottomMargin" secondItem="980-Gh-fnU" secondAttribute="bottom" constant="3" id="S12-Ku-fey"/>
                     <constraint firstItem="Sxw-ux-Hoa" firstAttribute="bottom" secondItem="hq0-jF-ez2" secondAttribute="bottom" id="VFT-am-vGS"/>
                     <constraint firstItem="mLJ-9X-Vms" firstAttribute="leading" secondItem="hq0-jF-ez2" secondAttribute="leading" id="Vz5-oA-4Bd"/>
@@ -195,7 +197,7 @@
                     <constraint firstItem="Sxw-ux-Hoa" firstAttribute="leading" secondItem="mLJ-9X-Vms" secondAttribute="leading" id="g6o-km-UTc"/>
                     <constraint firstItem="r1r-La-DxJ" firstAttribute="width" secondItem="Nfd-I4-fjk" secondAttribute="width" id="h1K-LT-dw8"/>
                     <constraint firstAttribute="trailingMargin" secondItem="gDy-eF-lNA" secondAttribute="trailing" constant="128" id="j81-5J-M0g"/>
-                    <constraint firstItem="urK-yn-xYG" firstAttribute="leading" secondItem="b53-ya-2G6" secondAttribute="trailing" constant="53" id="mgz-gm-9c0"/>
+                    <constraint firstItem="urK-yn-xYG" firstAttribute="leading" secondItem="b53-ya-2G6" secondAttribute="trailing" constant="64" id="mgz-gm-9c0"/>
                     <constraint firstItem="Yuz-n0-4cm" firstAttribute="top" secondItem="WAM-d7-zzR" secondAttribute="top" id="nrv-gx-oyY"/>
                     <constraint firstItem="gDy-eF-lNA" firstAttribute="leading" secondItem="hq0-jF-ez2" secondAttribute="trailing" constant="41" id="oSV-Oe-dqh"/>
                     <constraint firstItem="d2L-4f-dZx" firstAttribute="centerY" secondItem="WAM-d7-zzR" secondAttribute="centerY" id="q9G-5h-A2G"/>
@@ -207,15 +209,15 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="articleDate" destination="d2L-4f-dZx" id="nEI-m1-ik3"/>
                 <outlet property="authorImageView" destination="hq0-jF-ez2" id="hlh-TC-DNb"/>
                 <outlet property="authorName" destination="mLJ-9X-Vms" id="XBI-xR-MhQ"/>
                 <outlet property="authorTitle" destination="980-Gh-fnU" id="BRL-w3-77h"/>
                 <outlet property="bookmarkView" destination="r1r-La-DxJ" id="Q10-Tp-6eM"/>
                 <outlet property="descTextView" destination="ksa-4V-5IH" id="yd7-sg-0SA"/>
                 <outlet property="legendCollectionView" destination="urK-yn-xYG" id="uAi-UL-oqN"/>
-                <outlet property="markedImpButton" destination="lSB-RR-O8S" id="0eL-Tj-Sj7"/>
                 <outlet property="markedImpView" destination="Nfd-I4-fjk" id="r3E-2A-s1v"/>
-                <outlet property="savedForLaterButton" destination="Yaj-s5-PXf" id="SYz-R0-IZm"/>
+                <outlet property="outlet" destination="b53-ya-2G6" id="EjQ-X1-uCt"/>
                 <outlet property="title" destination="gDy-eF-lNA" id="e1b-Pk-qbo"/>
             </connections>
             <point key="canvasLocation" x="503" y="679"/>

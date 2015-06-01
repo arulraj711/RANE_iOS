@@ -11,6 +11,8 @@
 @interface InfluencerListView : UIViewController {
     NSMutableArray *legendsList;
 }
+- (IBAction)requestUpgradeButtonClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *topLabel;
 @property (weak, nonatomic) IBOutlet UITableView *influencerTableView;
 @property (nonatomic,strong) NSMutableArray *influencerArray;
 @end

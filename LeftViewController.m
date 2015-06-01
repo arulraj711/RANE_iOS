@@ -431,14 +431,14 @@
        // NSLog(@"list is clopsed");
         [cell.expandButton setSelected:YES];
     }
-    if([data.name isEqualToString:@"LOGOUT"]) {
-
-        cell.customTitleLabel.textColor = UIColorFromRGB(0x666E73);
-        cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        
-        cell.iconImage.tintColor = UIColorFromRGB(0x666E73);
-    } else {
-        
+//    if([data.name isEqualToString:@"LOGOUT"]) {
+//
+//        cell.customTitleLabel.textColor = UIColorFromRGB(0x666E73);
+//        cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//        
+//        cell.iconImage.tintColor = UIColorFromRGB(0x666E73);
+//    } else {
+    
         NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
         NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
         
@@ -446,9 +446,12 @@
         cell.customTitleLabel.textColor = [FIUtils colorWithHexString:stringWithoutSpaces];
         cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.iconImage.tintColor = [FIUtils colorWithHexString:stringWithoutSpaces];
-    }
+    //}
     
     if([data.nodeId integerValue] == 9) {
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+        [self.revealController setFrontViewController:navCtlr];
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
         [gradedetails setObject:@"" forKey:@"lastArticleId"];
@@ -461,6 +464,12 @@
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-2] forKey:@"categoryId"];
         
     } else if([data.nodeId integerValue] == 1) {
+        
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+        [self.revealController setFrontViewController:navCtlr];
+        
+        
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
         [gradedetails setObject:accessToken forKey:@"securityToken"];
@@ -476,29 +485,28 @@
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
         
     } else if([data.nodeId integerValue] == 6) {
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+        [self.revealController setFrontViewController:navCtlr];
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
         [gradedetails setObject:@"" forKey:@"lastArticleId"];
         [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
         [gradedetails setObject:@"3" forKey:@"activityTypeIds"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-        
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:-3 withFlag:@""];
-       
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-3] forKey:@"categoryId"];
         
     } else if([data.nodeId integerValue] == 7) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"InfluencerView"];
-        [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-        navCtlr.navigationBar.tintColor = [UIColor whiteColor];
-      //  [self.revealController setFrontViewController:navCtlr];
+        [self.revealController setFrontViewController:navCtlr];
     }else if([data.nodeId integerValue] == 2) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"stock" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"StockViewController"];
-        [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-        navCtlr.navigationBar.tintColor = [UIColor whiteColor];
+      //  [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+       // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
          [self.revealController setFrontViewController:navCtlr];
     } else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         
@@ -513,10 +521,12 @@
     
     if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
     } else {
-    if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6) {
+    if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7) {
        // NSLog(@"empty node id");
     }else {
-        //NSLog(@"full node id");
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+        [self.revealController setFrontViewController:navCtlr];
         NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:data.nodeId];
         [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
         
@@ -631,7 +641,7 @@
 
 -(void)afterLogout {
     [FIUtils deleteExistingData];
-    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+   // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];

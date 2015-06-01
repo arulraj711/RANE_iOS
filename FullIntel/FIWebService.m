@@ -10,7 +10,7 @@
 
 //Host URL
 #define BARTRIVIA_URL @"http://fullintel.com/services/mv01/sv00/appuser"
-
+#define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
 @implementation FIWebService
 + (void)getResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 {
@@ -100,13 +100,20 @@
 +(void)fetchInfluencerListWithAccessToken:(NSString*)details
                                 onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    [self getResultsForFunctionName:@"influencers" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"curated news response:%@",responseObject);
-        success(operation,responseObject);
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure(operation, error);
-        
-    }];
+    
+    NSDictionary *JSON = [self dictionaryWithFileName:@"influencer_new"];
+    NSLog(@"JSON:%@",JSON);
+    
+    success(nil,JSON);
+    
+    
+//    [self getResultsForFunctionName:@"influencers" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        //NSLog(@"curated news response:%@",responseObject);
+//        success(operation,responseObject);
+//    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        failure(operation, error);
+//        
+//    }];
 }
 
 
@@ -210,6 +217,17 @@
 }
 
 
++(void)updateAppViewTypeWithDetails:(NSString*)details
+                          onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                          onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    [self getResultsForFunctionName:@"updateappviewtype" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
+
 +(void)userActivitiesOnArticlesWithDetails:(NSString *)details
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
@@ -222,6 +240,18 @@
     }];
 }
 
++(void)featureAccessRequestWithDetails:(NSString*)details
+                             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    [self getResultsForFunctionName:@"featureaccessrequest" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
+
+
 +(void)getStockListDetails:(NSString *)details onSuccess:(void (^)(AFHTTPRequestOperation *, id))success onFailure:(void (^)(AFHTTPRequestOperation *, NSError *))failure{
     
     
@@ -232,6 +262,26 @@
     success(nil,JSON);
     
 }
+
++(void)getTweetDetails:(NSString*)details
+             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+//    NSDictionary *json = [self dictionaryWithContentOfFile:@"http://api.twittercounter.com/?twitter_id=813286&apikey=1c29beff4fb9acba2e7f82bc9b945a4e"];
+//    NSLog(@" tweet JSON:%@",json);
+    
+    NSString *twitterUrl = [NSString stringWithFormat:@"http://api.twittercounter.com/?twitter_id=%@&apikey=%@",details,Twitter_API_Key];
+    
+    NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:twitterUrl]];
+    NSError* error;
+    NSDictionary* json = [NSJSONSerialization
+                          JSONObjectWithData:data //1
+                          
+                          options:kNilOptions
+                          error:&error];
+    NSLog(@"tweet json:%@",json);
+    success(nil,json);
+}
+
 
 + (NSDictionary *)dictionaryWithContentOfFile:(NSString *)path
 {

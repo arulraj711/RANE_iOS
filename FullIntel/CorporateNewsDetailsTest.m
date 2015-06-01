@@ -69,8 +69,13 @@
     
     UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     [addBtn setFrame:CGRectMake(0.0f,0.0f,25.0f,25.0f)];
-    [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_fi"]  forState:UIControlStateNormal];
     
+    BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
+    if(isFIViewSelected) {
+        [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_globe"]  forState:UIControlStateNormal];
+    } else {
+        [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_fi"]  forState:UIControlStateNormal];
+    }
     [addBtn addTarget:self action:@selector(globeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [addBtnView addSubview:addBtn];
     UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
@@ -148,6 +153,7 @@
     cell.cachedImageViewSize = cell.articleImageView.frame;
     
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
+
     
     if(isFIViewSelected) {
         cell.detailsWebview.hidden = YES;
@@ -655,6 +661,7 @@
 }
 
 -(void)mailButtonClick:(id)sender {
+    NSLog(@"one");
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSString *title = [userInfo objectForKey:@"title"];
@@ -685,9 +692,11 @@
     if(sender.selected) {
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
         [sender setSelected:NO];
+       // [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
     } else {
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
         [sender setSelected:YES];
+       // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     }
   //  [sender setSelected:YES];
 //    if(sender.selected) {
@@ -712,10 +721,15 @@
 //    button.frame = CGRectMake(0, 10, 28, 28);
 //    UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 //    self.navigationItem.rightBarButtonItem = customBarItem;
+    BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
+    if(isFIViewSelected) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:0]}];
+    } else {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:1]}];
+    }
     
     
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:sender.selected]}];
     
     
     

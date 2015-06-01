@@ -39,7 +39,7 @@
                      @"A CMPopTipView will automatically position itself within the container view.", [NSNumber numberWithInt:11],
                      nil];
     
-    
+    [progressView removeFromSuperview];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails:) name:@"CuratedNewsDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails:) name:@"CuratedNewsAuthorDetails" object:nil];
@@ -47,17 +47,32 @@
 }
 
 -(void)removeWebView:(id)sender {
+    [timer invalidate];
+    [progressView removeFromSuperview];
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSNumber *number = [userInfo objectForKey:@"status"];
+    NSLog(@"selected number:%@",number);
     if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
        // [self.detailsWebview removeFromSuperview];
         self.detailsWebview.hidden = YES;
         self.isFIViewSelected = YES;
+        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+        [gradedetails setObject:[NSNumber numberWithInt:1] forKey:@"appViewTypeId"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        [[FISharedResources sharedResourceManager]updateAppViewTypeWithDetails:resultStr];
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
     } else {
         self.detailsWebview.hidden = NO;
         self.isFIViewSelected = NO;
+        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+        [gradedetails setObject:[NSNumber numberWithInt:2] forKey:@"appViewTypeId"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        [[FISharedResources sharedResourceManager]updateAppViewTypeWithDetails:resultStr];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
         //[self.contentView addSubview:self.detailsWebview];
     }
@@ -257,10 +272,13 @@
         TWTRTweet *tweetObj = [tweetArray objectAtIndex:indexPath.row];
         TWTRUser *author = tweetObj.author;
         tweetCell.author.text = author.name;
-        tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.name];
+        NSDictionary *tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:tweetObj.tweetID];
+        NSLog(@"user id:%@ and tweet id:%@ and dic:%@",author.userID,tweetObj.tweetID,tweetDic);
+        tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
         tweetCell.twitterText.text = tweetObj.text;
         tweetCell.retweet.text = [NSString stringWithFormat:@"%lld",tweetObj.retweetCount];
         tweetCell.favourate.text = [NSString stringWithFormat:@"%lld",tweetObj.favoriteCount];
+        tweetCell.followers.text = [tweetDic objectForKey:@"followers_current"];
         tweetCell.contentView.layer.borderWidth = 1.0f;
         tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:237.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1] CGColor];
         collectionCell = tweetCell;
@@ -279,7 +297,7 @@
                           forCellWithReuseIdentifier:@"stock"];
             [self.widgetCollectionView registerNib:[UINib nibWithNibName:@"StockWidgetCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"stock"];
             
-            PersonalityWidgetCell *cell =(PersonalityWidgetCell*) [cv dequeueReusableCellWithReuseIdentifier:@"stock" forIndexPath:indexPath];
+            StockWidgetCell *cell =(StockWidgetCell*) [cv dequeueReusableCellWithReuseIdentifier:@"stock" forIndexPath:indexPath];
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
             collectionCell = cell;
@@ -366,16 +384,19 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
+    timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
     progressView = [[UCZProgressView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width/2-50, self.contentView.frame.size.height/2-50, 100, 100)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
     progressView.backgroundColor = [UIColor clearColor];
-    [self.contentView addSubview:progressView];
+  //  [self.contentView addSubview:progressView];
 }
 
 
 - (void)cancelWeb
 {
+    [progressView removeFromSuperview];
+    [timer invalidate];
+    
     [FIUtils showRequestTimeOutError];
     // UIWindow *window = [[UIApplication sharedApplication]windows][0];
     // [self.view makeToast:@"Request Time out" duration:1 position:CSToastPositionCenter];
@@ -403,7 +424,7 @@
     [resultDic setObject:self.selectedArticleId forKey:@"selectedArticleId"];
     [resultDic setObject:@"3" forKey:@"status"];
     
-    
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     
     if(sender.selected) {
         [sender setSelected:NO];
@@ -416,7 +437,7 @@
         
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
-        [self.contentView makeToast:@"Removed from \"Saved for Later\"" duration:1.5 position:CSToastPositionCenter];
+        [self.contentView makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
     }else {
         [sender setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
@@ -427,7 +448,10 @@
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
-        [self.contentView makeToast:@"Added to \"Saved for Later\"" duration:1.5 position:CSToastPositionCenter];
+        [self.contentView makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+    }
+    } else {
+        [FIUtils showNoNetworkToast];
     }
 }
 
@@ -435,11 +459,15 @@
 - (IBAction)mailButtonClick:(UIButton *)sender {
     //NSLog(@"mail article url:%@",[self.curatedNewsDetail valueForKey:@"articleUrl"]);
     NSString *articleUrl = [self.curatedNewsDetail valueForKey:@"articleUrl"];
+    NSString *mailBodyStr;
     if(articleUrl.length != 0) {
-        NSString *mailBodyStr = [NSString stringWithFormat:@"%@\n\n%@",self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
-        NSLog(@"mail body str:%@",mailBodyStr);
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"title":[self.curatedNewsDetail valueForKey:@"articleHeading"],@"body":mailBodyStr}];
+        mailBodyStr = [NSString stringWithFormat:@"%@\n\n%@",self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
+    } else {
+        mailBodyStr = [NSString stringWithFormat:@"%@\n",self.articleDesc];
     }
+    NSLog(@"mail body string:%@ and title:%@",mailBodyStr,self.selectedArticleTitle);
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"title":self.selectedArticleTitle,@"body":mailBodyStr}];
+    //}
 }
 
 - (IBAction)commentsButtonClick:(UIButton *)sender {
@@ -507,7 +535,7 @@
     [resultDic setObject:self.selectedArticleId forKey:@"selectedArticleId"];
     [resultDic setObject:@"2" forKey:@"status"];
     
-    
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     
     if(sender.selected) {
         [sender setSelected:NO];
@@ -520,7 +548,7 @@
         
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
-        [self.contentView makeToast:@"Removed from \"Marked Important\"" duration:1.5 position:CSToastPositionCenter];
+        [self.contentView makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
     }else {
         [sender setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
@@ -531,7 +559,10 @@
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
-        [self.contentView makeToast:@"Marked Important." duration:1.5 position:CSToastPositionCenter];
+        [self.contentView makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
+    }
+    } else {
+        [FIUtils showNoNetworkToast];
     }
     
 }
