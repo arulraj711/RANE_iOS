@@ -62,14 +62,14 @@
     
 //    NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
     
-    NSString *string=@"The deal aims to create a major new player in the digital media business by combining one of the biggest mobile network providers with a leading content producer.It's part of Verizon's (VZ, Tech30) plan to dominate a future in which all content -- from TV channels to publications -- are streamed over the Internet. By buying AOL, Verizon is getting much more than the 1990s dial-up Internet company that first introduced many Americans to the Web. Today AOL provides online video services, content and ads to 40,000 other publishers. It brings in $600 million in advertising. It has news sites such as The Huffington Post, TechCrunch and Engadget./n The deal aims to create a major new player in the digital media business by combining one of the biggest mobile network providers with a leading content producer.It's part of Verizon's (VZ, Tech30) plan to dominate a future in which all content -- from TV channels to publications -- are streamed over the Internet. By buying AOL, Verizon is getting much more than the 1990s dial-up Internet company that first introduced many Americans to the Web. Today AOL provides online video services, content and ads to 40,000 other publishers. It brings in $600 million in advertising. It has news sites such as The Huffington Post, TechCrunch and Engadget /n The deal aims to create a major new player in the digital media business by combining one of the biggest mobile network providers with a leading content producer.It's part of Verizon's (VZ, Tech30) plan to dominate a future in which all content -- from TV channels to publications -- are streamed over the Internet. By buying AOL, Verizon is getting much more than the 1990s dial-up Internet company that first introduced many Americans to the Web. Today AOL provides online video services, content and ads to 40,000 other publishers. It brings in $600 million in advertising. It has news sites such as The Huffington Post, TechCrunch and Engadget ";
+//    NSString *string=@"The deal aims to create a major new player in the digital media business by combining one of the biggest mobile network providers with a leading content producer.It's part of Verizon's (VZ, Tech30) plan to dominate a future in which all content -- from TV channels to publications -- are streamed over the Internet. By buying AOL, Verizon is getting much more than the 1990s dial-up Internet company that first introduced many Americans to the Web. Today AOL provides online video services, content and ads to 40,000 other publishers. It brings in $600 million in advertising. It has news sites such as The Huffington Post, TechCrunch and Engadget./n The deal aims to create a major new player in the digital media business by combining one of the biggest mobile network providers with a leading content producer.It's part of Verizon's (VZ, Tech30) plan to dominate a future in which all content -- from TV channels to publications -- are streamed over the Internet. By buying AOL, Verizon is getting much more than the 1990s dial-up Internet company that first introduced many Americans to the Web. Today AOL provides online video services, content and ads to 40,000 other publishers. It brings in $600 million in advertising. It has news sites such as The Huffington Post, TechCrunch and Engadget /n The deal aims to create a major new player in the digital media business by combining one of the biggest mobile network providers with a leading content producer.It's part of Verizon's (VZ, Tech30) plan to dominate a future in which all content -- from TV channels to publications -- are streamed over the Internet. By buying AOL, Verizon is getting much more than the 1990s dial-up Internet company that first introduced many Americans to the Web. Today AOL provides online video services, content and ads to 40,000 other publishers. It brings in $600 million in advertising. It has news sites such as The Huffington Post, TechCrunch and Engadget ";
+//    
+//    NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",string];
+//    [self.dealsWebView loadHTMLString:htmlString baseURL:nil];
     
-    NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",string];
-    [self.dealsWebView loadHTMLString:htmlString baseURL:nil];
     
-    
-//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/184003479/fullIntel/testdata/dealsDril.html"]];
-//    [_dealsWebView loadRequest:urlRequest];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/184003479/fullIntel/testdata/dealsDril.html"]];
+    [_dealsWebView loadRequest:urlRequest];
     
             [_authorImageBigView sd_setImageWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/525460441502187520/52FB7IFR_400x400.jpeg"] placeholderImage:[UIImage imageNamed:@"FI"]];
     
@@ -144,7 +144,7 @@
     NSInteger itemCount;
 
     if(view == self.socialCollectionView){
-        itemCount = 3;
+        itemCount = 1;
     }else if(view == self.twitterCollectionView) {
         itemCount = 1;
     }else {
@@ -171,12 +171,12 @@
 //        } else {
 //            socialCell.blueCircleView.hidden = YES;
 //        }
-//        socialCell.cellOuterView.layer.borderWidth = 1.0f;
-//        socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
-//        socialCell.cellOuterView.layer.masksToBounds = YES;
-//        socialCell.cellOuterView.layer.cornerRadius = 20.0f;
-//        socialCell.blueCircleView.layer.masksToBounds = YES;
-//        socialCell.blueCircleView.layer.cornerRadius = 5.0f;
+        socialCell.cellOuterView.layer.borderWidth = 1.0f;
+        socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+        socialCell.cellOuterView.layer.masksToBounds = YES;
+        socialCell.cellOuterView.layer.cornerRadius = 20.0f;
+        socialCell.blueCircleView.layer.masksToBounds = YES;
+        socialCell.blueCircleView.layer.cornerRadius = 5.0f;
         
         
         //        UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];

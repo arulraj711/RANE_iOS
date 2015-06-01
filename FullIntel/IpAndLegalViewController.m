@@ -133,7 +133,7 @@
     NSInteger itemCount;
     
     if(view == self.socialCollectionView){
-        itemCount = 4;
+        itemCount = 1;
     }else if(view == self.twitterCollectionView) {
         itemCount = 1;
     }else {
@@ -160,12 +160,12 @@
         //        } else {
         //            socialCell.blueCircleView.hidden = YES;
         //        }
-        //        socialCell.cellOuterView.layer.borderWidth = 1.0f;
-        //        socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
-        //        socialCell.cellOuterView.layer.masksToBounds = YES;
-        //        socialCell.cellOuterView.layer.cornerRadius = 20.0f;
-        //        socialCell.blueCircleView.layer.masksToBounds = YES;
-        //        socialCell.blueCircleView.layer.cornerRadius = 5.0f;
+                socialCell.cellOuterView.layer.borderWidth = 1.0f;
+                socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+                socialCell.cellOuterView.layer.masksToBounds = YES;
+                socialCell.cellOuterView.layer.cornerRadius = 20.0f;
+               socialCell.blueCircleView.layer.masksToBounds = YES;
+               socialCell.blueCircleView.layer.cornerRadius = 5.0f;
         
         
         //        UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];

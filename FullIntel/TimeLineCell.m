@@ -21,7 +21,7 @@
     
     [_thirdImageView sd_setImageWithURL:[NSURL URLWithString:@"https://s3.amazonaws.com/image.infoarmy/1387865887710.jpg"] placeholderImage:[UIImage imageNamed:@"FI"]];
     [_forthImageView sd_setImageWithURL:[NSURL URLWithString:@"https://s3.amazonaws.com/image.infoarmy/1387865976407.png"] placeholderImage:[UIImage imageNamed:@"FI"]];
-    [_firstImageView sd_setImageWithURL:[NSURL URLWithString:@"https://s3.amazonaws.com/image.infoarmy/1373892638886.gif"] placeholderImage:[UIImage imageNamed:@"FI"]];
+    [_fivethImageView sd_setImageWithURL:[NSURL URLWithString:@"https://s3.amazonaws.com/image.infoarmy/1373892638886.gif"] placeholderImage:[UIImage imageNamed:@"FI"]];
     
     
     [FIUtils makeRoundedView:_firstImageView];
