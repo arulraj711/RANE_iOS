@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "RFQuiltLayout.h"
 #import "AddContentThirdLevelView.h"
+#import "AMPopTip.h"
+#import "CMPopTipView.h"
 @protocol SecondLevelDelegate;
-@interface AddContentSecondLevelView : UIViewController<RFQuiltLayoutDelegate,ThirdLevelDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
+@interface AddContentSecondLevelView : UIViewController<RFQuiltLayoutDelegate,ThirdLevelDelegate,UICollectionViewDataSource,UICollectionViewDelegate,CMPopTipViewDelegate>{
     UILabel *testLabel;
+    UILabel *availableTopic;
+    UIButton *infoButton;
     UICollectionView *collectionView;
     RFQuiltLayout* layout;
 }
@@ -25,6 +29,13 @@
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
 @property (nonatomic,strong) NSMutableArray *previousArray;
 @property (nonatomic,strong) NSNumber *selectedId;
+
+
+
+@property (nonatomic, strong) AMPopTip *popTip;
+@property (nonatomic, strong) id currentPopTipViewTarget;
+@property (nonatomic, strong)	NSDictionary	*contents;
+
 @end
 
 @protocol SecondLevelDelegate

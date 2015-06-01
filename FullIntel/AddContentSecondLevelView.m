@@ -21,6 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.contents = [NSDictionary dictionaryWithObjectsAndKeys:
+                     // Rounded rect buttons
+                     @"A CMPopTipView will automatically position itself within the container view.", [NSNumber numberWithInt:11],
+                     nil];
+    
     
     self.selectTopicsLabel.hidden = YES;
     
@@ -50,21 +55,37 @@
     
 
     if(orientation == 1) {
-        testLabel = [[UILabel alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
-        testLabel.text = @"Select Topics";
-        testLabel.textAlignment = NSTextAlignmentCenter;
+        testLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+        testLabel.text = @"Topics";
+        testLabel.textAlignment = NSTextAlignmentLeft;
         testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
+        
+        
+        infoButton = [[UIButton alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y, 25, 25)];
+        [infoButton setImage:[UIImage imageNamed:@"info_button"] forState:UIControlStateNormal];
+        [infoButton addTarget:self action:@selector(infoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         //self.selectTopicsLabel.frame = CGRectMake(0, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
         // layout.blockPixels = CGSizeMake(100,150);
     }else {
         // layout.blockPixels = CGSizeMake(130,150);
-        testLabel = [[UILabel alloc]initWithFrame:CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
-        testLabel.text = @"Select Topics";
-        testLabel.textAlignment = NSTextAlignmentCenter;
+        testLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+        testLabel.text = @"Topics";
+        testLabel.textAlignment = NSTextAlignmentLeft;
         testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
-        //self.selectTopicsLabel.frame = CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
+        
+        availableTopic = [[UILabel alloc]initWithFrame:CGRectMake(615, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+        availableTopic.text = @"Available Topics";
+        availableTopic.textAlignment = NSTextAlignmentLeft;
+        availableTopic.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
+        
+        
+        infoButton = [[UIButton alloc]initWithFrame:CGRectMake(750, self.selectTopicsLabel.frame.origin.y, 25, 25)];
+        [infoButton setImage:[UIImage imageNamed:@"info_button"] forState:UIControlStateNormal];
+        [infoButton addTarget:self action:@selector(infoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     [self.view addSubview:testLabel];
+    [self.view addSubview:infoButton];
+    [self.view addSubview:availableTopic];
 }
 
 //-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -239,10 +260,41 @@
     
 }
 
-//-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    SecondLevelCell *cell = (SecondLevelCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//    [cell.checkMarkButton setSelected:NO];
-//}
+- (void)infoButtonClick:(id)sender {
+    NSString *contentMessage = nil;
+    UIView *contentView = nil;
+    NSNumber *key = [NSNumber numberWithInteger:[(UIView *)sender tag]];
+    id content = [self.contents objectForKey:key];
+    if ([content isKindOfClass:[UIView class]]) {
+        contentView = content;
+    }
+    else if ([content isKindOfClass:[NSString class]]) {
+        contentMessage = content;
+    }
+    else {
+        contentMessage = @"Level 1:Adobe,Google,Samsung,Apple\nLevel 2:Product,Service\nLevel 3: Photoshop,Dreamweaver\nLevel 4: North America";
+    }
+    
+    NSString *title = nil;
+    
+    CMPopTipView *popTipView;
+    if (contentView) {
+        popTipView = [[CMPopTipView alloc] initWithCustomView:contentView];
+    }
+    else if (title) {
+        popTipView = [[CMPopTipView alloc] initWithTitle:title message:contentMessage];
+    }
+    else {
+        popTipView = [[CMPopTipView alloc] initWithMessage:contentMessage];
+    }
+    popTipView.delegate = self;
+    popTipView.dismissTapAnywhere = YES;
+    [popTipView autoDismissAnimated:YES atTimeInterval:3.0];
+    UIButton *button = (UIButton *)sender;
+    [popTipView presentPointingAtView:button inView:self.view animated:YES];
+    
+    self.currentPopTipViewTarget = sender;
+}
 
 - (IBAction)checkMark:(id)sender {
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
@@ -265,5 +317,12 @@
     }
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
     [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
+}
+#pragma mark - CMPopTipViewDelegate methods
+
+- (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipView
+{
+    //  [self.visiblePopTipViews removeObject:popTipView];
+    self.currentPopTipViewTarget = nil;
 }
 @end

@@ -32,9 +32,9 @@
 		A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D591ADF848000A43CCA /* OpenSans-Semibold.ttf */; };
 		A0A678631B1C159400FB2AEA /* influencer_new.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A678621B1C159400FB2AEA /* influencer_new.json */; };
 		A0A678681B1C8A8000FB2AEA /* ExecutiveMovesController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A678671B1C8A8000FB2AEA /* ExecutiveMovesController.m */; };
-		A0A6786C1B1C90FB00FB2AEA /* ExecutiveMovesCell.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0A6786B1B1C90FB00FB2AEA /* ExecutiveMovesCell.storyboard */; };
 		A0A678731B1C982D00FB2AEA /* ExecutiveMoveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A678711B1C982D00FB2AEA /* ExecutiveMoveCell.m */; };
 		A0A678741B1C982D00FB2AEA /* ExecutiveMoveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0A678721B1C982D00FB2AEA /* ExecutiveMoveCell.xib */; };
+		A0A678761B1CA66300FB2AEA /* ExecutiveMoves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0A678751B1CA66300FB2AEA /* ExecutiveMoves.storyboard */; };
 		A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF674C1B16EC1C007EDD26 /* UIColor+CustomColors.m */; };
 		A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF674F1B16EC4D007EDD26 /* PresentingAnimator.m */; };
 		A0AF67531B16EC67007EDD26 /* DismissingAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF67521B16EC67007EDD26 /* DismissingAnimator.m */; };
@@ -261,10 +261,10 @@
 		A0A678621B1C159400FB2AEA /* influencer_new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = influencer_new.json; sourceTree = "<group>"; };
 		A0A678661B1C8A8000FB2AEA /* ExecutiveMovesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExecutiveMovesController.h; sourceTree = "<group>"; };
 		A0A678671B1C8A8000FB2AEA /* ExecutiveMovesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExecutiveMovesController.m; sourceTree = "<group>"; };
-		A0A6786B1B1C90FB00FB2AEA /* ExecutiveMovesCell.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ExecutiveMovesCell.storyboard; sourceTree = "<group>"; };
 		A0A678701B1C982D00FB2AEA /* ExecutiveMoveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExecutiveMoveCell.h; sourceTree = "<group>"; };
 		A0A678711B1C982D00FB2AEA /* ExecutiveMoveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExecutiveMoveCell.m; sourceTree = "<group>"; };
 		A0A678721B1C982D00FB2AEA /* ExecutiveMoveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExecutiveMoveCell.xib; sourceTree = "<group>"; };
+		A0A678751B1CA66300FB2AEA /* ExecutiveMoves.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ExecutiveMoves.storyboard; sourceTree = "<group>"; };
 		A0AF674B1B16EC1C007EDD26 /* UIColor+CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColors.h"; sourceTree = "<group>"; };
 		A0AF674C1B16EC1C007EDD26 /* UIColor+CustomColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CustomColors.m"; sourceTree = "<group>"; };
 		A0AF674E1B16EC4D007EDD26 /* PresentingAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentingAnimator.h; sourceTree = "<group>"; };
@@ -600,7 +600,7 @@
 			children = (
 				A0A678661B1C8A8000FB2AEA /* ExecutiveMovesController.h */,
 				A0A678671B1C8A8000FB2AEA /* ExecutiveMovesController.m */,
-				A0A6786B1B1C90FB00FB2AEA /* ExecutiveMovesCell.storyboard */,
+				A0A678751B1CA66300FB2AEA /* ExecutiveMoves.storyboard */,
 				A0A678701B1C982D00FB2AEA /* ExecutiveMoveCell.h */,
 				A0A678711B1C982D00FB2AEA /* ExecutiveMoveCell.m */,
 				A0A678721B1C982D00FB2AEA /* ExecutiveMoveCell.xib */,
@@ -1290,7 +1290,6 @@
 				F7E3687C1ABBF1DA0083F38E /* CommentsPopoverView.xib in Resources */,
 				F7E81FBF1A97057100F9A8D4 /* samsung_topic.jpg in Resources */,
 				F7DC62D11AA83A5900D6686E /* InfluencerCustomTableViewCell.xib in Resources */,
-				A0A6786C1B1C90FB00FB2AEA /* ExecutiveMovesCell.storyboard in Resources */,
 				F7E81F991A97057100F9A8D4 /* burberry.png in Resources */,
 				F7E81F971A97057100F9A8D4 /* apple_status.png in Resources */,
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,
@@ -1324,6 +1323,7 @@
 				F7C1AB5C1ABFEC6B00D8588A /* SavedListPopoverView.storyboard in Resources */,
 				A0CF5C121B1C85D900DED2D9 /* stock.storyboard in Resources */,
 				F7AE10841AC01E4D0091E1C7 /* InfluencerListView.storyboard in Resources */,
+				A0A678761B1CA66300FB2AEA /* ExecutiveMoves.storyboard in Resources */,
 				F7E81FC91A97057100F9A8D4 /* stock1.png in Resources */,
 				F7E81FB21A97057100F9A8D4 /* mexico.jpg in Resources */,
 				A003B1AA1B1874A200857F35 /* Apple_Car.jpg in Resources */,
