@@ -159,10 +159,10 @@
                                                 </state>
                                             </button>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Du6-se-9Jp">
-                                                <rect key="frame" x="570" y="275" width="400" height="1124"/>
+                                                <rect key="frame" x="570" y="275" width="400" height="1130"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="1124" id="GFr-uQ-abX"/>
+                                                    <constraint firstAttribute="height" constant="1130" id="GFr-uQ-abX"/>
                                                 </constraints>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="pcK-Xh-yOi">
                                                     <size key="itemSize" width="30" height="30"/>

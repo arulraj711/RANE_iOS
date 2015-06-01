@@ -34,11 +34,11 @@
     _requestUpgradeButton.layer.cornerRadius=5.0;
     
     
-    NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"DEALS provides stock market information and top stories on a list of companies that you are watching"];
+    NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"EXECUTIVE MOVES provides insight on key personnel changes in the industry that are relevant to you."];
     
-    [attriString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"OpenSans-Bold" size:20] range:NSMakeRange(0,5)];
+    [attriString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"OpenSans-Bold" size:20] range:NSMakeRange(0,15)];
     
-    [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0XA4131E) range:NSMakeRange(0,5)];
+    [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0XA4131E) range:NSMakeRange(0,15)];
     
     _DealsLabel.attributedText=attriString;
     
