@@ -96,7 +96,13 @@
 
 
 -(void)backBtnPress {
-    [self.revealController showViewController:self.revealController.leftViewController];
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        NSLog(@"left view opened");
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        NSLog(@"left view closed");
+        [self.revealController showViewController:self.revealController.leftViewController];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

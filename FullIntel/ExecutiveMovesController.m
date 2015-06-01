@@ -16,6 +16,7 @@
 #import "CompanyCell.h"
 #import "TimeLineCell.h"
 #import "CompetitorCell.h"
+#import "PKRevealController.h"
 #import "ExecutiveMoveCell.h"
 
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -32,6 +33,14 @@
     _requestUpgradeButton.layer.borderColor=[[UIColor blackColor]CGColor];
     _requestUpgradeButton.layer.borderWidth=1.5;
     _requestUpgradeButton.layer.cornerRadius=5.0;
+    
+    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+    [self.navigationItem setLeftBarButtonItem:addButton];
     
     
     NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"EXECUTIVE MOVES provides insight on key personnel changes in the industry that are relevant to you."];
@@ -67,6 +76,19 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)backBtnPress {
+    
+    
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        NSLog(@"left view opened");
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        NSLog(@"left view closed");
+        [self.revealController showViewController:self.revealController.leftViewController];
+    }
+    
 }
 
 #pragma mark - UICollectionView Delegate
