@@ -1,83 +1,79 @@
 {
-
-"stockList":[
-
-{
-"company_name": "Apple",
-"company_id" :"101012",
-"value":"$122.35",
-"color":"green",
-"firstName": "AAPL",
-"lastName": "Apple Inc",
-"firstValue": "+5.75",
-"secondValue": "+0.73%"
-
-},
-{
-"company_name": "Microsoft",
-"company_id" :"101013",
-"value":"$122.35",
-"color":"green",
-"firstName": "MSFT",
-"lastName": "Microsoft Corp",
-"firstValue": "+5.75",
-"secondValue": "+0.73%"
-
-},
-{
-"company_name": "Google",
-"company_id" :"101011",
-"value":"$122.35",
-"color":"red",
-"firstName": "GOOGL",
-"lastName": "Google Inc",
-"firstValue": "+5.75",
-"secondValue": "+0.73%"
-
-}
-],
-"TopStories": [
-
-{
-
-"story":"Apple Inc. Is A Cult That Should Succumb:Don Luskin",
-"resource_name":"Insider Monkey",
-"image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
-
-
-},
-{
-
-"story":"Apple Inc. Is A Cult That Should Succumb:Don Luskin",
-"resource_name":"Insider Monkey",
-"image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
-
-
-},
-{
-
-"story":"Apple Inc. Is A Cult That Should Succumb:Don Luskin",
-"resource_name":"Insider Monkey",
-"image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
-
-
-},
-{
-
-"story":"Apple Inc. Is A Cult That Should Succumb:Don Luskin",
-"resource_name":"Insider Monkey",
-"image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
-
-
-},
-{
-
-"story":"Apple Inc. Is A Cult That Should Succumb:Don Luskin",
-"resource_name":"Insider Monkey",
-"image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
-
-
-}
-
-]
+    "stockList": [
+                  {
+                  "company_name": "Apple",
+                  "company_id": "101012",
+                  "value": "$122.35",
+                  "color": "green",
+                  "firstName": "AAPL",
+                  "lastName": "Apple Inc",
+                  "firstValue": "+5.75",
+                  "secondValue": "+0.73%",
+                  "imageUrl": "https://dl.dropboxusercontent.com/u/90350613/apple_stock.png"
+                  },
+                  {
+                  "company_name": "Microsoft",
+                  "company_id": "101013",
+                  "value": "$43.58",
+                  "color": "green",
+                  "firstName": "MSFT",
+                  "lastName": "Microsoft Corp",
+                  "firstValue": "+0.05",
+                  "secondValue": "+0.11%",
+                  "imageUrl": "https://dl.dropboxusercontent.com/u/90350613/msft_stock.png"
+                  },
+                  {
+                  "company_name": "Google",
+                  "company_id": "101011",
+                  "value": "$543.00",
+                  "color": "red",
+                  "firstName": "GOOGL",
+                  "lastName": "Google Inc",
+                  "firstValue": "+0.35",
+                  "secondValue": "+0.06%",
+                  "imageUrl": "https://dl.dropboxusercontent.com/u/90350613/google_stock.png"
+                  }
+                  ],
+    "TopStories": [
+                   {
+                   "story": "Apple Inc. Is A Cult That Should Succumb:Don Luskin",
+                   "resource_name": "Insider Monkey",
+                   "image": "http://s3.reutersmedia.net/resources/r/?m=02&d=20150127&t=2&i=1020324303&w=580&fh=&fw=&ll=&pl=&r=LYNXMPEB0Q0Z6"
+                   },
+                   {
+                   "story": "U.S. stock futures rise on Greek agreement after S&P ends flat",
+                   "resource_name": "Reuters",
+                   "image": "http://s4.reutersmedia.net/resources/r/?m=02&d=20150211&t=2&i=1024218497&w=&fh=&fw=&ll=700&pl=378&r=LYNXMPEB1A0HY"
+                   },
+                   {
+                   "story": "Microsoft, Samsung settle contract dispute over patents",
+                   "resource_name": "Reuters",
+                   "image": "http://ei.marketwatch.com//Multimedia/2014/09/05/Photos/ZH/MW-CT568_AAPL09_20140905184050_ZH.jpg?uuid=f1379984-354d-11e4-a3b4-00212804637c"
+                   },
+                   {
+                   "story": "Apple wins patent for augmented reality goggles",
+                   "resource_name": "MarketWatch.com",
+                   "image": "http://cdn2.insidermonkey.com/blog/wp-content/uploads/2015/01/AAPL_Huawei_Xiaomi-500x281.jpg"
+                   },
+                   {
+                   "story": "Infosys Buys US-Based Panaya for $200 Million",
+                   "resource_name": "NDTV News",
+                   "image": "http://i.ndtvimg.com/i/2014-10/infosys_625x300_41412920260.jpg"
+                   },
+                   {
+                   "story": "Comcast Merger Rejection Could Doom Cable TV",
+                   "resource_name": "US News",
+                   "image": "http://www.usnews.com/dims4/USNEWS/3114207/2147483647/resize/652x%3E/quality/85/?url=%2Fcmsmedia%2F7d%2F2e%2F1f1af12040bc8a54337e325f0cf3%2F150213-comcast-editorial.jpg"
+                   },
+                   {
+                   "story": "Final Contract Offer’ Made In West Coast Port Disruptions; Labor Secretary Tries To Broker Settlement",
+                   "resource_name": "Oakland CBS",
+                   "image": "http://www.extremetech.com/wp-content/uploads/2015/02/Locked-Phone-348x196.jpg"
+                   },
+                   {
+                   "story": "EU unveils plan to copy US capital markets model",
+                   "resource_name": "EU Observer",
+                   "image": "https://s3.eu-central-1.amazonaws.com/euobs-media/5013bd5a6da0b713c2cb913228d0b5a5.jpg"
+                   }
+                   ]
 }
