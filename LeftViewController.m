@@ -639,7 +639,7 @@
         // Passing data
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
         navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-        navController.topViewController.title = @"Add Content";
+        navController.topViewController.title = @"Modules";
     };
     formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
     
