@@ -272,13 +272,13 @@
         TWTRTweet *tweetObj = [tweetArray objectAtIndex:indexPath.row];
         TWTRUser *author = tweetObj.author;
         tweetCell.author.text = author.name;
-        NSDictionary *tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:tweetObj.tweetID];
-        NSLog(@"user id:%@ and tweet id:%@ and dic:%@",author.userID,tweetObj.tweetID,tweetDic);
+        //NSDictionary *tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:tweetObj.tweetID];
+       // NSLog(@"user id:%@ and tweet id:%@ and dic:%@",author.userID,tweetObj.tweetID,tweetDic);
         tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
         tweetCell.twitterText.text = tweetObj.text;
         tweetCell.retweet.text = [NSString stringWithFormat:@"%lld",tweetObj.retweetCount];
         tweetCell.favourate.text = [NSString stringWithFormat:@"%lld",tweetObj.favoriteCount];
-        tweetCell.followers.text = [tweetDic objectForKey:@"followers_current"];
+     //   tweetCell.followers.text = [tweetDic objectForKey:@"followers_current"];
         tweetCell.contentView.layer.borderWidth = 1.0f;
         tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:237.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1] CGColor];
         collectionCell = tweetCell;
