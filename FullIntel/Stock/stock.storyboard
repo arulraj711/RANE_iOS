@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -8,10 +8,10 @@
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Bold.ttf">
             <string>OpenSans-Bold</string>
+            <string>OpenSans-Bold</string>
+            <string>OpenSans-Bold</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
-            <string>OpenSans</string>
-            <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
@@ -38,33 +38,32 @@
                                 <rect key="frame" x="0.0" y="28" width="1000" height="104"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STOCK WATCH provides stock market information and top stories on a list of companies that you are watching" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIe-Nf-Gh5">
-                                        <rect key="frame" x="36" y="17" width="772" height="69"/>
+                                        <rect key="frame" x="36" y="8" width="715" height="88"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxE-lA-RQZ">
-                                        <rect key="frame" x="831" y="28" width="147" height="50"/>
-                                        <color key="backgroundColor" red="0.48627450979999998" green="0.8862745098" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="790" y="27" width="200" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="EE0-fe-Swi"/>
-                                            <constraint firstAttribute="width" constant="147" id="IVJ-Bq-nbR"/>
+                                            <constraint firstAttribute="width" constant="200" id="IVJ-Bq-nbR"/>
                                         </constraints>
-                                        <state key="normal">
+                                        <state key="normal" image="request_upgrade">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="kIe-Nf-Gh5" secondAttribute="bottom" constant="18" id="0tb-h2-Kj1"/>
-                                    <constraint firstAttribute="trailing" secondItem="kIe-Nf-Gh5" secondAttribute="trailing" constant="192" id="3LK-jX-adv"/>
+                                    <constraint firstAttribute="bottom" secondItem="kIe-Nf-Gh5" secondAttribute="bottom" constant="8" id="0tb-h2-Kj1"/>
+                                    <constraint firstAttribute="trailing" secondItem="kIe-Nf-Gh5" secondAttribute="trailing" constant="249" id="3LK-jX-adv"/>
                                     <constraint firstItem="kIe-Nf-Gh5" firstAttribute="leading" secondItem="Lec-ka-DKR" secondAttribute="leading" constant="36" id="9oR-du-JKz"/>
-                                    <constraint firstAttribute="trailing" secondItem="XxE-lA-RQZ" secondAttribute="trailing" constant="22" id="CMG-yX-Bwi"/>
-                                    <constraint firstItem="XxE-lA-RQZ" firstAttribute="top" secondItem="Lec-ka-DKR" secondAttribute="top" constant="28" id="NCD-4C-LMK"/>
+                                    <constraint firstAttribute="trailing" secondItem="XxE-lA-RQZ" secondAttribute="trailing" constant="10" id="CMG-yX-Bwi"/>
+                                    <constraint firstItem="XxE-lA-RQZ" firstAttribute="top" secondItem="Lec-ka-DKR" secondAttribute="top" constant="27" id="NCD-4C-LMK"/>
                                     <constraint firstAttribute="height" constant="104" id="PnX-Eh-utq"/>
-                                    <constraint firstItem="kIe-Nf-Gh5" firstAttribute="top" secondItem="Lec-ka-DKR" secondAttribute="top" constant="17" id="hnl-mn-oVp"/>
+                                    <constraint firstItem="kIe-Nf-Gh5" firstAttribute="top" secondItem="Lec-ka-DKR" secondAttribute="top" constant="8" id="hnl-mn-oVp"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yYW-s7-E9v">
@@ -73,49 +72,49 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TOP STORIES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgn-MI-zIY">
                                         <rect key="frame" x="8" y="11" width="202" height="20"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-A7-Uur">
-                                        <rect key="frame" x="8" y="39" width="310" height="1"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="8" y="39" width="344" height="1"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.44" colorSpace="calibratedRGB"/>
                                     </imageView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="86" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ApZ-6o-J37">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ApZ-6o-J37">
                                         <rect key="frame" x="0.0" y="53" width="352" height="400"/>
-                                        <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="separatorColor" white="0.0" alpha="0.050000000000000003" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopStoriesCell" rowHeight="86" id="uth-Mu-Eik" customClass="TopStoriesCell">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopStoriesCell" rowHeight="80" id="uth-Mu-Eik" customClass="TopStoriesCell">
                                                 <rect key="frame" x="0.0" y="0.0" width="284" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uth-Mu-Eik" id="xHJ-At-iGj">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RQv-Ud-IgT">
-                                                            <rect key="frame" x="8" y="13" width="60" height="60"/>
+                                                            <rect key="frame" x="8" y="10" width="60" height="60"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Inc.(AAPL) is A Cult That Should Succumb: Don Luskin" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zni-5k-TeG">
                                                             <rect key="frame" x="88" y="8" width="256" height="43"/>
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Insider Monkey" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gB1-sC-Zu6">
-                                                            <rect key="frame" x="88" y="59" width="212" height="21"/>
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
-                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <rect key="frame" x="91" y="47" width="212" height="21"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="11"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.66666666666666663" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="gB1-sC-Zu6" secondAttribute="trailing" constant="44" id="3k5-VB-Etr"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="gB1-sC-Zu6" secondAttribute="trailing" constant="41" id="3k5-VB-Etr"/>
                                                         <constraint firstItem="zni-5k-TeG" firstAttribute="trailing" secondItem="xHJ-At-iGj" secondAttribute="trailingMargin" id="Bcc-0S-i4q"/>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="gB1-sC-Zu6" secondAttribute="bottom" constant="-3" id="FRx-aa-5Sg"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="gB1-sC-Zu6" secondAttribute="bottom" constant="3" id="FRx-aa-5Sg"/>
                                                         <constraint firstItem="zni-5k-TeG" firstAttribute="top" secondItem="xHJ-At-iGj" secondAttribute="topMargin" id="hXV-l2-i8R"/>
-                                                        <constraint firstItem="gB1-sC-Zu6" firstAttribute="top" secondItem="zni-5k-TeG" secondAttribute="bottom" constant="8" id="iwU-b0-E0N"/>
-                                                        <constraint firstItem="gB1-sC-Zu6" firstAttribute="top" secondItem="xHJ-At-iGj" secondAttribute="topMargin" constant="51" id="mcb-hS-1i1"/>
-                                                        <constraint firstItem="gB1-sC-Zu6" firstAttribute="leading" secondItem="xHJ-At-iGj" secondAttribute="leadingMargin" constant="80" id="naU-qm-ev2"/>
+                                                        <constraint firstItem="gB1-sC-Zu6" firstAttribute="top" secondItem="zni-5k-TeG" secondAttribute="bottom" constant="-4" id="iwU-b0-E0N"/>
+                                                        <constraint firstItem="gB1-sC-Zu6" firstAttribute="top" secondItem="xHJ-At-iGj" secondAttribute="topMargin" constant="39" id="mcb-hS-1i1"/>
+                                                        <constraint firstItem="gB1-sC-Zu6" firstAttribute="leading" secondItem="xHJ-At-iGj" secondAttribute="leadingMargin" constant="83" id="naU-qm-ev2"/>
                                                         <constraint firstItem="zni-5k-TeG" firstAttribute="leading" secondItem="xHJ-At-iGj" secondAttribute="leadingMargin" constant="80" id="ueT-De-k8e"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
@@ -132,7 +131,7 @@
                                         </connections>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="ApZ-6o-J37" secondAttribute="trailing" id="JYZ-v4-dIW"/>
                                     <constraint firstItem="ApZ-6o-J37" firstAttribute="top" secondItem="yYW-s7-E9v" secondAttribute="top" constant="53" id="bR7-Hj-bon"/>
@@ -160,7 +159,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Apple" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUV-Zh-eQz">
                                                     <rect key="frame" x="63" y="8" width="174" height="40"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="23"/>
-                                                    <color key="textColor" red="0.31459682430000002" green="0.50360541280000004" blue="0.73135359119999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.16470588235294117" green="0.29411764705882354" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ftQ-m1-Qhq">
@@ -177,38 +176,38 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Apple Inc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ecc-hZ-H49">
                                                     <rect key="frame" x="150" y="223" width="150" height="50"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PNZ-op-mDl">
-                                                    <rect key="frame" x="0.0" y="51" width="300" height="170"/>
+                                                    <rect key="frame" x="0.0" y="51" width="300" height="169"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Nv-LM-2Mk">
-                                                    <rect key="frame" x="22" y="192" width="30" height="20"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="greenTriangle" translatesAutoresizingMaskIntoConstraints="NO" id="3Nv-LM-2Mk">
+                                                    <rect key="frame" x="33" y="180" width="25" height="25"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$ 122.35" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCh-j7-Oo4">
                                                     <rect key="frame" x="62" y="158" width="135" height="52"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="33"/>
-                                                    <color key="textColor" red="0.31459682428945851" green="0.50360541284580018" blue="0.73135359116022092" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.4392156862745098" green="0.55294117647058827" blue="0.63529411764705879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+5.75" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebM-1H-iXb">
                                                     <rect key="frame" x="230" y="156" width="62" height="21"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
-                                                    <color key="textColor" red="0.48627450979999998" green="0.8862745098" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.4431372549" green="0.72941176470000002" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+0.73%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4X-q8-ILj">
                                                     <rect key="frame" x="223" y="184" width="69" height="21"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
-                                                    <color key="textColor" red="0.48627450979999998" green="0.8862745098" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="17"/>
+                                                    <color key="textColor" red="0.44313725490196076" green="0.72941176470588232" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AAPL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBz-xw-Z1y">
                                                     <rect key="frame" x="1" y="224" width="150" height="50"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -253,6 +252,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="1000" height="600"/>
                     <connections>
+                        <outlet property="requestUpgradeButton" destination="XxE-lA-RQZ" id="7XL-De-VJy"/>
                         <outlet property="stockCollectionView" destination="Il1-hj-Tdg" id="5jp-kQ-xpX"/>
                         <outlet property="topLabel" destination="kIe-Nf-Gh5" id="y5d-re-jm4"/>
                         <outlet property="topStoriesTableView" destination="ApZ-6o-J37" id="YsP-DF-WfO"/>
@@ -283,4 +283,8 @@
             <point key="canvasLocation" x="-273" y="-773"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="greenTriangle" width="25" height="25"/>
+        <image name="request_upgrade" width="200" height="50"/>
+    </resources>
 </document>

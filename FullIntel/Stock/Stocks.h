@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSString *color;
 @property (nonatomic,strong) NSString *firstValue;
 @property (nonatomic,strong) NSString *company_id;
+@property (nonatomic,strong) NSString *imageUrl;
 
 
 -(void)getDetailsFromDictionary:(NSDictionary *)dict;

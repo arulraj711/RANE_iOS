@@ -17,6 +17,7 @@
 @property (nonatomic,strong) NSMutableArray *topStoriesList;
 @property (weak, nonatomic) IBOutlet UILabel *topLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
 
 
 @end

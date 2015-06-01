@@ -16,6 +16,7 @@
 #import "Stocks.h"
 #import "FIUtils.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface StockViewController ()
 
 @end
@@ -43,7 +44,7 @@ NHAlignmentFlowLayout *layout;
     
     layout = [[NHAlignmentFlowLayout alloc] init];
     
-    layout.sectionInset = UIEdgeInsetsMake(5, 10, 0, 10);
+    layout.sectionInset = UIEdgeInsetsMake(5, 8, 0, 10);
     
     layout.itemSize = CGSizeMake(300, 270);
     layout.minimumInteritemSpacing = 20.0f;
@@ -65,7 +66,7 @@ NHAlignmentFlowLayout *layout;
     
     [attriString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"OpenSans-Bold" size:20] range:NSMakeRange(0,11)];
     
-    [attriString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,11)];
+    [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0XA4131E) range:NSMakeRange(0,11)];
     
     _topLabel.attributedText=attriString;
     
@@ -73,6 +74,10 @@ NHAlignmentFlowLayout *layout;
     _stockWatchList=[[NSMutableArray alloc]init];
     _topStoriesList=[[NSMutableArray alloc]init];
     
+    
+    _requestUpgradeButton.layer.borderColor=[[UIColor blackColor]CGColor];
+    _requestUpgradeButton.layer.borderWidth=1.5;
+    _requestUpgradeButton.layer.cornerRadius=5.0;
     
     [FIWebService getStockListDetails:@"Mock" onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -112,6 +117,8 @@ NHAlignmentFlowLayout *layout;
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
+    
+    
     
 }
 
@@ -163,7 +170,7 @@ NHAlignmentFlowLayout *layout;
        
        
        stockCell.contentView.layer.borderWidth = 1.0f;
-       stockCell.contentView.layer.cornerRadius=3.0f;
+       stockCell.contentView.layer.cornerRadius=5.0f;
        stockCell.contentView.layer.borderColor = [[UIColor colorWithRed:237.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1] CGColor];
        
        Stocks *stockDetails=(Stocks *)[_stockWatchList objectAtIndex:indexPath.row];
@@ -175,6 +182,26 @@ NHAlignmentFlowLayout *layout;
        stockCell.firstValue.text=stockDetails.firstValue;
        stockCell.secondValue.text=stockDetails.secondValue;
        
+     
+       
+       [stockCell.graphImage sd_setImageWithURL:[NSURL URLWithString:stockDetails.imageUrl] placeholderImage:[UIImage imageNamed:@""]];
+       
+       stockCell.graphImage.alpha=0.1;
+       
+       
+       if([stockDetails.color isEqualToString:@"green"]){
+           
+           stockCell.firstValue.textColor=UIColorFromRGB(0X71ba81);
+           stockCell.secondValue.textColor=UIColorFromRGB(0X71ba81);
+           
+           stockCell.downImage.image=[UIImage imageNamed:@"greenTriangle"];
+       }else{
+           
+           stockCell.firstValue.textColor=UIColorFromRGB(0XA4131E);
+           stockCell.secondValue.textColor=UIColorFromRGB(0XA4131E);
+           
+           stockCell.downImage.image=[UIImage imageNamed:@"redTriangle"];
+       }
        
         collectionCell = stockCell;
    

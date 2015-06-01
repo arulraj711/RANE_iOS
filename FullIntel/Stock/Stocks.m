@@ -20,6 +20,6 @@
       _secondValue=[dict objectForKey:@"secondValue"];
       _value=[dict objectForKey:@"value"];
       _color=[dict objectForKey:@"color"];
-    
+    _imageUrl=[dict objectForKey:@"imageUrl"];
 }
 @end
