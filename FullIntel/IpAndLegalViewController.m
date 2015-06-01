@@ -28,6 +28,8 @@
 #import "IpAndLegalCell.h"
 #import "NumberOfPatternsCell.h"
 #import "RecentPaternsCell.h"
+
+#define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface IpAndLegalViewController ()
 
 @end
@@ -37,6 +39,47 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+    
+    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+    [self.navigationItem setLeftBarButtonItem:addButton];
+    
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/184003479/fullIntel/testdata/legalDril.html"]];
+        [_dealsWebView loadRequest:urlRequest];
+    
+    
+    _requestUpgradeButton.layer.borderColor=[[UIColor blackColor]CGColor];
+    _requestUpgradeButton.layer.borderWidth=1.5;
+    _requestUpgradeButton.layer.cornerRadius=5.0;
+    
+    
+    NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"IP & LEGAL offers insight on relevant patents, trademarks and other legal matters that are relevant to you."];
+    
+    [attriString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"OpenSans-Bold" size:20] range:NSMakeRange(0,9)];
+    
+    [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0XA4131E) range:NSMakeRange(0,9)];
+    
+    _DealsLabel.attributedText=attriString;
+    
+}
+
+-(void)backBtnPress {
+    
+    
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        NSLog(@"left view opened");
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        NSLog(@"left view closed");
+        [self.revealController showViewController:self.revealController.leftViewController];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,11 +103,11 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if(collectionView == self.widgetCollectionView) {
         if(indexPath.row == 0) {
-            return CGSizeMake(320, 560);
+            return CGSizeMake(400, 400);
         } else if(indexPath.row == 1) {
-            return CGSizeMake(320, 260);
+            return CGSizeMake(400, 350);
         } else if(indexPath.row == 2) {
-            return CGSizeMake(320, 260);
+            return CGSizeMake(400, 150);
         }
         
     }
@@ -142,7 +185,7 @@
         tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:237.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1] CGColor];
         collectionCell = tweetCell;
     }else {
-        if(indexPath.row == 2) {
+        if(indexPath.row == 1) {
             [self.widgetCollectionView registerClass:[NumberOfPatternsCell class]
                           forCellWithReuseIdentifier:@"NumberOfPatternsCell"];
             [self.widgetCollectionView registerNib:[UINib nibWithNibName:@"NumberOfPatternsCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"NumberOfPatternsCell"];
@@ -160,7 +203,7 @@
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
             collectionCell = cell;
-        } else if(indexPath.row == 1) {
+        } else if(indexPath.row == 2) {
             [self.widgetCollectionView registerClass:[RecentPaternsCell class]
                           forCellWithReuseIdentifier:@"RecentPaternsCell"];
             [self.widgetCollectionView registerNib:[UINib nibWithNibName:@"RecentPaternsCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"RecentPaternsCell"];

@@ -27,6 +27,7 @@
 #import "CompanyCell.h"
 #import "TimeLineCell.h"
 #import "CompetitorCell.h"
+#import "FIUtils.h"
 
 
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -74,13 +75,36 @@
     
             [_authorImageView sd_setImageWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/525460441502187520/52FB7IFR_400x400.jpeg"] placeholderImage:[UIImage imageNamed:@"FI"]];
     
+    
+    [FIUtils makeRoundedView:_authorImageView];
+    
+    
+    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+    [self.navigationItem setLeftBarButtonItem:addButton];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)backBtnPress {
+    
+    
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        NSLog(@"left view opened");
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        NSLog(@"left view closed");
+        [self.revealController showViewController:self.revealController.leftViewController];
+    }
+    
+}
 /*
 #pragma mark - Navigation
 
@@ -98,11 +122,11 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if(collectionView == self.widgetCollectionView) {
         if(indexPath.row == 0) {
-            return CGSizeMake(320, 560);
+            return CGSizeMake(400, 540);
         } else if(indexPath.row == 1) {
-            return CGSizeMake(320, 260);
+            return CGSizeMake(400, 310);
         } else if(indexPath.row == 2) {
-            return CGSizeMake(320, 260);
+            return CGSizeMake(400, 310);
         }
         
     }

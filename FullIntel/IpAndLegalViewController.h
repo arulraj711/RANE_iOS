@@ -21,4 +21,9 @@
 
 
 @property (weak, nonatomic) IBOutlet UIWebView *dealsWebView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *authorImageView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *authorImageBigView;
+
 @end

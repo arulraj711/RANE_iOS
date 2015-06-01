@@ -14,22 +14,23 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CompetitorCell" id="gTV-IL-0wX" customClass="CompetitorCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="310"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="310"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mR7-h5-OSu">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="40"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nav_fi" translatesAutoresizingMaskIntoConstraints="NO" id="e8j-tB-hBf">
-                                <rect key="frame" x="286" y="7" width="25" height="25"/>
+                                <rect key="frame" x="367" y="7" width="25" height="25"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verizon's Competitors" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4u-kg-bHU">
                                 <rect key="frame" x="42" y="11" width="236" height="21"/>
@@ -95,15 +96,31 @@
                         <color key="textColor" red="0.4431372549" green="0.72941176470000002" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAW-dk-4MC">
+                        <rect key="frame" x="-1" y="266" width="400" height="40"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
+                        <state key="normal" title="Request Upgrade">
+                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gji-5V-IyQ">
+                        <rect key="frame" x="-1" y="263" width="400" height="1"/>
+                        <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tn9-b3-tYe">
+                        <rect key="frame" x="0.0" y="308" width="400" height="2"/>
+                        <color key="backgroundColor" red="0.64313725489999995" green="0.074509803920000006" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <size key="customSize" width="311" height="260"/>
+            <size key="customSize" width="391" height="311"/>
             <connections>
                 <outlet property="firstImageView" destination="IvO-wN-Tvl" id="WSv-i2-4dC"/>
                 <outlet property="secondImageView" destination="4wT-nJ-q5h" id="QA9-p3-L65"/>
             </connections>
-            <point key="canvasLocation" x="462" y="169.5"/>
+            <point key="canvasLocation" x="669" y="-66.5"/>
         </collectionViewCell>
     </objects>
     <resources>
