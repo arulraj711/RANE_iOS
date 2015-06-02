@@ -344,16 +344,16 @@
     }else {
         cell.expandButton.hidden = YES;
     }
-    __weak typeof(self) weakSelf = self;
-    cell.additionButtonTapAction = ^(id sender){
-        if (![weakSelf.treeView isCellForItemExpanded:dataObject] || weakSelf.treeView.isEditing) {
-            return;
-        }
-        RADataObject *newDataObject = [[RADataObject alloc] initWithName:@"Added value" children:@[]];
-        [dataObject addChild:newDataObject];
-        [weakSelf.treeView insertItemsAtIndexes:[NSIndexSet indexSetWithIndex:0] inParent:dataObject withAnimation:RATreeViewRowAnimationLeft];
-        [weakSelf.treeView reloadRowsForItems:@[dataObject] withRowAnimation:RATreeViewRowAnimationNone];
-    };
+//    __weak typeof(self) weakSelf = self;
+//    cell.additionButtonTapAction = ^(id sender){
+//        if (![weakSelf.treeView isCellForItemExpanded:dataObject] || weakSelf.treeView.isEditing) {
+//            return;
+//        }
+//        RADataObject *newDataObject = [[RADataObject alloc] initWithName:@"Added value" children:@[]];
+//        [dataObject addChild:newDataObject];
+//        [weakSelf.treeView insertItemsAtIndexes:[NSIndexSet indexSetWithIndex:0] inParent:dataObject withAnimation:RATreeViewRowAnimationLeft];
+//        [weakSelf.treeView reloadRowsForItems:@[dataObject] withRowAnimation:RATreeViewRowAnimationNone];
+//    };
     
     
     
@@ -378,6 +378,18 @@
     titleFrame.origin.x = left;
     cell.customTitleLabel.frame = titleFrame;
     
+    
+    NSString *highlightColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
+    NSString *highColor = [highlightColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    
+    if(cell.customTitleLabel.isHighlighted)
+    {
+        cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
+    }
+    else
+    {
+        cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:highColor];
+    }
     
     
     
@@ -409,11 +421,11 @@
     
 }
 -(void)treeView:(RATreeView *)treeView didDeselectRowForItem:(id)item {
-    RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
-    cell.customTitleLabel.textColor = UIColorFromRGB(0x666E73);
-    cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-
-    cell.iconImage.tintColor = UIColorFromRGB(0x666E73);
+//    RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
+//    cell.customTitleLabel.highlightedTextColor = UIColorFromRGB(0x666E73);
+//    cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//
+//    cell.iconImage.tintColor = UIColorFromRGB(0x666E73);
 }
 
 
@@ -431,23 +443,12 @@
        // NSLog(@"list is clopsed");
         [cell.expandButton setSelected:YES];
     }
-//    if([data.name isEqualToString:@"LOGOUT"]) {
-//
-//        cell.customTitleLabel.textColor = UIColorFromRGB(0x666E73);
-//        cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//        
-//        cell.iconImage.tintColor = UIColorFromRGB(0x666E73);
-//    } else {
+
     
         NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
         NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
         
-        
-        cell.customTitleLabel.textColor = [FIUtils colorWithHexString:stringWithoutSpaces];
-        cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        cell.iconImage.tintColor = [FIUtils colorWithHexString:stringWithoutSpaces];
-    //}
-    
+        cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
     if([data.nodeId integerValue] == 9) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];

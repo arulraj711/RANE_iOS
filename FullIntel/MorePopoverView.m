@@ -57,13 +57,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"did select more tableview");
-    if(indexPath.row == 0) {
-        [self targetedShare:SLServiceTypeFacebook];
-    } else if(indexPath.row == 1) {
-        [self targetedShare:SLServiceTypeTwitter];
-    } else if(indexPath.row == 2) {
-        [self targetedShare:@""];
-    }
+//    if(indexPath.row == 0) {
+//        [self targetedShare:SLServiceTypeFacebook];
+//    } else if(indexPath.row == 1) {
+//        [self targetedShare:SLServiceTypeTwitter];
+//    } else if(indexPath.row == 2) {
+//        [self targetedShare:@""];
+//    }
     
     
     

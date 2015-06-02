@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,16 +12,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-b0-umh">
-                    <rect key="frame" x="140" y="220" width="200" height="40"/>
+                    <rect key="frame" x="-10" y="185" width="500" height="109"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="CRx-a0-RkT"/>
-                        <constraint firstAttribute="width" constant="200" id="ujG-s1-IZI"/>
+                        <constraint firstAttribute="height" constant="109" id="CRx-a0-RkT"/>
+                        <constraint firstAttribute="width" constant="500" id="ujG-s1-IZI"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="Ufj-b0-umh" secondAttribute="centerY" id="OSf-0W-lQn"/>
+                <constraint firstAttribute="centerY" secondItem="Ufj-b0-umh" secondAttribute="centerY" constant="0.5" id="OSf-0W-lQn"/>
                 <constraint firstAttribute="centerX" secondItem="Ufj-b0-umh" secondAttribute="centerX" id="RIS-1y-L7E"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
