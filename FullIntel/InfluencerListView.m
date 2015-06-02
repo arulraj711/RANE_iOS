@@ -69,6 +69,12 @@
 //    if(!isLoadFirst) {
         [[FISharedResources sharedResourceManager]getInfluencerListWithAccessToken:resultStr];
    // }
+    
+    
+    
+    _requestUpgradeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
+    _requestUpgradeButton.layer.borderWidth=1.5;
+    _requestUpgradeButton.layer.cornerRadius=5.0;
 }
 
 - (void)didReceiveMemoryWarning {

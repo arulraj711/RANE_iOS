@@ -108,7 +108,7 @@
     UITextView *tv = object;
     CGFloat topCorrect = ([tv bounds].size.height - [tv contentSize].height * [tv zoomScale])/2.0;
     topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect );
-    tv.font=[UIFont fontWithName:@"OpenSans-Light" size:80.0];
+    tv.font=[UIFont fontWithName:@"OpenSans" size:50.0];
     tv.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
 }
 
@@ -277,5 +277,13 @@
 }
 
 - (IBAction)requestUpgradeButtonPressed:(id)sender {
+    
+    NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [gradedetails setObject:[NSNumber numberWithInt:8] forKey:@"moduleId"];
+    [gradedetails setObject:[NSNumber numberWithInt:1] forKey:@"featureId"];
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+    [[FISharedResources sharedResourceManager]featureAccessRequestWithDetails:resultStr];
 }
 @end

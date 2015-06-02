@@ -19,5 +19,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
 
+- (IBAction)requestUpgradeButtonPressed:(id)sender;
 
 @end
