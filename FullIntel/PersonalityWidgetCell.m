@@ -15,6 +15,16 @@
     // Initialization code
     self.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
     self.contentView.layer.borderWidth = 1.0f;
+    
+//    if([_pageName isEqualToString:@"Executive"]){
+//        
+//        _title.text=@"Personality";
+//        _name.text=@"Michael Gough";
+//        _designation.text=@"Corporate Vice President of Design, Microsoft";
+//        _details.text=@"CVP of Design, ASG @Microsoft. Renegotiating our relationship with digital stuff.";
+//        
+//
+//    }
 }
 
 

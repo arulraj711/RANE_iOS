@@ -139,15 +139,6 @@
         popTipView = [[CMPopTipView alloc] initWithMessage:contentMessage];
     }
     popTipView.delegate = self;
-//    if (backgroundColor && ![backgroundColor isEqual:[NSNull null]]) {
-//        popTipView.backgroundColor = backgroundColor;
-//    }
-//    if (textColor && ![textColor isEqual:[NSNull null]]) {
-//        popTipView.textColor = textColor;
-//    }
-  //  popTipView.animation = arc4random() % 2;
-    //popTipView.has3DStyle = (BOOL)(arc4random() % 2);
-    
     popTipView.dismissTapAnywhere = YES;
     [popTipView autoDismissAnimated:YES atTimeInterval:3.0];
     UIButton *button = (UIButton *)sender;

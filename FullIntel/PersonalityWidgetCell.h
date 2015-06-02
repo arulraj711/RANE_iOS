@@ -10,5 +10,14 @@
 
 @interface PersonalityWidgetCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIButton *reqButton;
+//@property (weak, nonatomic) NSString *pageName;
 - (IBAction)requestUpgradeButtonClick:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UILabel *title;
+
+@property (weak, nonatomic) IBOutlet UILabel *name;
+
+@property (weak, nonatomic) IBOutlet UILabel *designation;
+@property (weak, nonatomic) IBOutlet UITextView *details;
+
 @end

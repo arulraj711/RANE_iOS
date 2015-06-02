@@ -31,7 +31,7 @@
 
 
 
-
+@property (nonatomic,strong) UIPopoverController *popOver;
 
 
 

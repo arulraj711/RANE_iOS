@@ -23,7 +23,7 @@
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ldA-J6-AwI">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="40"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="personality" translatesAutoresizingMaskIntoConstraints="NO" id="lxd-bU-U69">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="product-1" translatesAutoresizingMaskIntoConstraints="NO" id="lxd-bU-U69">
                                 <rect key="frame" x="13" y="12" width="15" height="15"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
@@ -80,6 +80,6 @@
     <resources>
         <image name="large_apple.jpg" width="1600" height="1600"/>
         <image name="nav_fi" width="25" height="25"/>
-        <image name="personality" width="12" height="12"/>
+        <image name="product-1" width="25" height="25"/>
     </resources>
 </document>

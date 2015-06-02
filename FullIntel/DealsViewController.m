@@ -87,6 +87,15 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
     [self.navigationItem setLeftBarButtonItem:addButton];
     
+//    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Deals" bundle:nil];
+    
+    UIViewController *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"overlayView"];
+    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+    self.popOver.popoverContentSize=CGSizeMake(350, 267);
+    //self.popOver.delegate = self;
+    [self.popOver presentPopoverFromRect:CGRectMake(500, 500, 100, 100) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
