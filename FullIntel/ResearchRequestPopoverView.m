@@ -23,7 +23,7 @@
     self.outerView.layer.cornerRadius = 10;
     if(self.fromAddContent) {
         self.titleText.text = @"Request Change";
-        self.articleDesc.text = [NSString stringWithFormat:@"Hi There,\n\nI would like to add change topics that are currently monitored.\n\n---\n%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"]];
+        self.articleDesc.text = [NSString stringWithFormat:@"Hi There,\n\nI would like to add/ change topics that are currently monitored.\n\nPlease add the following topics:---\n\n\n\n%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"]];
         
     }else {
         self.titleText.text = @"Research Request/Feedback";

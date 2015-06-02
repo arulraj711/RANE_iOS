@@ -112,6 +112,8 @@
 {
     view.layer.cornerRadius = view.frame.size.width /2;
     view.layer.masksToBounds = YES;
+    view.layer.borderWidth = 1.0;
+    view.layer.borderColor = [UIColor lightGrayColor].CGColor;
   
 }
 @end
