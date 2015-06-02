@@ -20,6 +20,7 @@
 		A010928D1B15AB25003C9F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A010928C1B15AB25003C9F3A /* Foundation.framework */; };
 		A02C54C61AEF5E0000E65011 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02C54C51AEF5E0000E65011 /* Social.framework */; };
 		A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0406BA01B05CE5F00985CF8 /* TweetsCell.m */; };
+		A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A050A4861B1DF2B30043C477 /* Deals.storyboard */; };
 		A053F5231AF896B8002EDC46 /* ShowDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = A053F5221AF896B8002EDC46 /* ShowDetailView.m */; };
 		A053F5251AF9F090002EDC46 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A053F5241AF9F090002EDC46 /* Accounts.framework */; };
 		A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B41AF74CE60016AD46 /* FIContentCategory.m */; };
@@ -38,7 +39,6 @@
 		A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C326251B182E2B00FEB164 /* StockResponse.json */; };
 		A0CF5C541B1DD98B00DED2D9 /* CompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C251B1DD98B00DED2D9 /* CompanyCell.xib */; };
 		A0CF5C551B1DD98B00DED2D9 /* CompetitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C261B1DD98B00DED2D9 /* CompetitorCell.xib */; };
-		A0CF5C561B1DD98B00DED2D9 /* Deals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C271B1DD98B00DED2D9 /* Deals.storyboard */; };
 		A0CF5C571B1DD98B00DED2D9 /* DealsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CF5C291B1DD98B00DED2D9 /* DealsViewController.m */; };
 		A0CF5C581B1DD98B00DED2D9 /* ExecutiveMoveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C2A1B1DD98B00DED2D9 /* ExecutiveMoveCell.xib */; };
 		A0CF5C591B1DD98B00DED2D9 /* ExecutiveMoves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C2B1B1DD98B00DED2D9 /* ExecutiveMoves.storyboard */; };
@@ -247,6 +247,7 @@
 		A02C54C51AEF5E0000E65011 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		A0406B9F1B05CE5F00985CF8 /* TweetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsCell.h; sourceTree = "<group>"; };
 		A0406BA01B05CE5F00985CF8 /* TweetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsCell.m; sourceTree = "<group>"; };
+		A050A4861B1DF2B30043C477 /* Deals.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Deals.storyboard; sourceTree = "<group>"; };
 		A053F5211AF896B8002EDC46 /* ShowDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowDetailView.h; sourceTree = "<group>"; };
 		A053F5221AF896B8002EDC46 /* ShowDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowDetailView.m; sourceTree = "<group>"; };
 		A053F5241AF9F090002EDC46 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -274,7 +275,6 @@
 		A0C326251B182E2B00FEB164 /* StockResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = StockResponse.json; sourceTree = "<group>"; };
 		A0CF5C251B1DD98B00DED2D9 /* CompanyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyCell.xib; sourceTree = "<group>"; };
 		A0CF5C261B1DD98B00DED2D9 /* CompetitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompetitorCell.xib; sourceTree = "<group>"; };
-		A0CF5C271B1DD98B00DED2D9 /* Deals.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Deals.storyboard; sourceTree = "<group>"; };
 		A0CF5C281B1DD98B00DED2D9 /* DealsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealsViewController.h; sourceTree = "<group>"; };
 		A0CF5C291B1DD98B00DED2D9 /* DealsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealsViewController.m; sourceTree = "<group>"; };
 		A0CF5C2A1B1DD98B00DED2D9 /* ExecutiveMoveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExecutiveMoveCell.xib; sourceTree = "<group>"; };
@@ -621,9 +621,9 @@
 		A0CF5C241B1DD97200DED2D9 /* MockPages */ = {
 			isa = PBXGroup;
 			children = (
+				A050A4861B1DF2B30043C477 /* Deals.storyboard */,
 				A0CF5C251B1DD98B00DED2D9 /* CompanyCell.xib */,
 				A0CF5C261B1DD98B00DED2D9 /* CompetitorCell.xib */,
-				A0CF5C271B1DD98B00DED2D9 /* Deals.storyboard */,
 				A0CF5C281B1DD98B00DED2D9 /* DealsViewController.h */,
 				A0CF5C291B1DD98B00DED2D9 /* DealsViewController.m */,
 				A0CF5C2A1B1DD98B00DED2D9 /* ExecutiveMoveCell.xib */,
@@ -1315,6 +1315,7 @@
 				F7E81F9D1A97057100F9A8D4 /* Charles.jpg in Resources */,
 				F7E81F941A97057100F9A8D4 /* apple-logo.gif in Resources */,
 				F7E3688F1ABC1D060083F38E /* ResearchRequestPopoverView.xib in Resources */,
+				A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */,
 				F7E81FB61A97057100F9A8D4 /* new-york-city-wallpaper.jpg in Resources */,
 				F7E81FA31A97057100F9A8D4 /* hendri.jpg in Resources */,
 				A0CF5C581B1DD98B00DED2D9 /* ExecutiveMoveCell.xib in Resources */,
@@ -1369,7 +1370,6 @@
 				F7E81F951A97057100F9A8D4 /* apple-logo.png in Resources */,
 				F7E85EA91A9F3B710022B4D5 /* Influencer.json in Resources */,
 				F7E81FAD1A97057100F9A8D4 /* ipod.jpg in Resources */,
-				A0CF5C561B1DD98B00DED2D9 /* Deals.storyboard in Resources */,
 				F7E0049C1AB152C500390D51 /* ProductWidgetCell.xib in Resources */,
 				F7E81FBA1A97057100F9A8D4 /* o-NEW-YORK-facebook.jpg in Resources */,
 				F7E81FC31A97057100F9A8D4 /* sony.ico in Resources */,

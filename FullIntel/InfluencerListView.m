@@ -219,7 +219,7 @@
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
     [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [gradedetails setObject:[NSNumber numberWithInt:7] forKey:@"moduleId"];
-    [gradedetails setObject:[NSNumber numberWithInt:1] forKey:@"featureId"];
+    [gradedetails setObject:[NSNumber numberWithInt:11] forKey:@"featureId"];
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
     [[FISharedResources sharedResourceManager]featureAccessRequestWithDetails:resultStr];
