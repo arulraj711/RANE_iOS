@@ -21,14 +21,18 @@
     
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 10;
-    if(self.articleId.length != 0) {
-        self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\nArticleId : %@\nArticleTitle : %@\nArticleUrl : %@",self.articleId,self.articleTitle,self.articleUrl];
-    } else {
-        //self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\n"];
+    if(self.fromAddContent) {
+        self.titleText.text = @"Request Change";
+        self.articleDesc.text = [NSString stringWithFormat:@"Hi There,\n\nI would like to add change topics that are currently monitored.\n\n---\n%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"]];
+        
+    }else {
+        self.titleText.text = @"Research Request/Feedback";
+        if(self.articleId.length != 0) {
+            self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\nArticleId : %@\nArticleTitle : %@\nArticleUrl : %@",self.articleId,self.articleTitle,self.articleUrl];
+        }
+        self.articleDesc.selectedRange = NSMakeRange(0, 0);
+        [self.articleDesc becomeFirstResponder];
     }
-    self.articleDesc.selectedRange = NSMakeRange(0, 0);
-    [self.articleDesc becomeFirstResponder];
-    
     self.backImgeView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapEvent)];
     [self.backImgeView addGestureRecognizer:tapEvent];

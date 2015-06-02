@@ -63,6 +63,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"companyName"] forKey:@"companyName"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"customerid"] forKey:@"customerId"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"userid"] forKey:@"userId"];
+            [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"firstName"] forKey:@"firstName"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"userAccountTypeId"] forKey:@"userAccountTypeId"];
             NSString *appViewType = [NSString stringWithFormat:@"%@",[responseObject valueForKey:@"appViewTypeId"]];
             

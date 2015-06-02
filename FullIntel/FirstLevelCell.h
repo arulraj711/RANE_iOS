@@ -12,4 +12,5 @@
 @property (nonatomic,strong) IBOutlet UIImageView *image;
 @property (nonatomic,strong) IBOutlet UILabel *name;
 @property (nonatomic,strong) IBOutlet UIButton *checkMarkButton;
+@property (nonatomic,strong) IBOutlet UIView *gradientView;
 @end

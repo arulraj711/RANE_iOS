@@ -20,5 +20,6 @@
 @property (nonatomic,strong) NSMutableArray *selectedIdArray;
 @property (nonatomic,strong) NSMutableArray *checkedArray;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
+
 - (IBAction)checkMark:(id)sender;
 @end

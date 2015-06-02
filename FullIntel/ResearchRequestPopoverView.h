@@ -11,10 +11,12 @@
 @interface ResearchRequestPopoverView : UIViewController
 @property (nonatomic,strong) NSString *articleId;
 @property (nonatomic,strong) NSString *articleUrl;
+@property BOOL fromAddContent;
 - (IBAction)send:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextView *articleDesc;
 @property (nonatomic,strong) NSString *articleTitle;
 @property (nonatomic,strong) IBOutlet UIView *outerView;
 - (IBAction)closeAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *backImgeView;
+@property (nonatomic,strong) IBOutlet UILabel *titleText;
 @end

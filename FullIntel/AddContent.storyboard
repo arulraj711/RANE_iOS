@@ -22,6 +22,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -110,6 +111,25 @@
                                                         <constraint firstItem="v6H-SH-PON" firstAttribute="leading" secondItem="olj-Sd-Gw6" secondAttribute="leading" id="j36-da-08X"/>
                                                     </constraints>
                                                 </view>
+                                                <view alpha="0.69999999999999973" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mAX-sT-d9H">
+                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="150"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request Upgrade" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbU-Yd-Te4">
+                                                            <rect key="frame" x="14" y="44" width="102" height="61"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="sbU-Yd-Te4" secondAttribute="trailing" constant="14" id="3fT-gU-zuy"/>
+                                                        <constraint firstItem="sbU-Yd-Te4" firstAttribute="leading" secondItem="mAX-sT-d9H" secondAttribute="leading" constant="14" id="EUQ-tf-PVb"/>
+                                                        <constraint firstItem="sbU-Yd-Te4" firstAttribute="top" secondItem="mAX-sT-d9H" secondAttribute="top" constant="44" id="Wu5-xA-Y9v"/>
+                                                        <constraint firstAttribute="bottom" secondItem="sbU-Yd-Te4" secondAttribute="bottom" constant="45" id="nHh-a3-chE"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -120,15 +140,20 @@
                                             <constraint firstItem="olj-Sd-Gw6" firstAttribute="leading" secondItem="zSt-lu-z9r" secondAttribute="leadingMargin" constant="-8" id="H85-ly-V4W"/>
                                             <constraint firstItem="gaD-Tu-nay" firstAttribute="top" secondItem="zSt-lu-z9r" secondAttribute="topMargin" id="JzG-yI-6TL"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="J7C-6M-oH2" secondAttribute="trailing" constant="-8" id="Lf1-yl-sCc"/>
+                                            <constraint firstItem="mAX-sT-d9H" firstAttribute="leading" secondItem="zSt-lu-z9r" secondAttribute="leadingMargin" constant="-8" id="OLB-hk-Ugu"/>
+                                            <constraint firstItem="mAX-sT-d9H" firstAttribute="top" secondItem="zSt-lu-z9r" secondAttribute="topMargin" constant="-8" id="Ozg-hg-uuM"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="olj-Sd-Gw6" secondAttribute="trailing" constant="-8" id="TRC-O1-ch7"/>
                                             <constraint firstItem="J7C-6M-oH2" firstAttribute="leading" secondItem="zSt-lu-z9r" secondAttribute="leadingMargin" constant="-8" id="UNE-7x-PND"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="olj-Sd-Gw6" secondAttribute="bottom" constant="-8" id="YDw-fk-I7x"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="J7C-6M-oH2" secondAttribute="bottom" constant="-8" id="btB-fe-2GL"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="mAX-sT-d9H" secondAttribute="bottom" constant="-8" id="d6a-Hj-uC7"/>
                                             <constraint firstItem="olj-Sd-Gw6" firstAttribute="top" secondItem="zSt-lu-z9r" secondAttribute="topMargin" constant="92" id="mvS-Fj-JRk"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="mAX-sT-d9H" secondAttribute="trailing" constant="-8" id="ple-zF-15N"/>
                                         </constraints>
                                         <size key="customSize" width="130" height="150"/>
                                         <connections>
                                             <outlet property="checkMarkButton" destination="gaD-Tu-nay" id="cIP-uX-OKl"/>
+                                            <outlet property="gradientView" destination="mAX-sT-d9H" id="B0e-Ts-CVJ"/>
                                             <outlet property="image" destination="J7C-6M-oH2" id="Hnc-fu-3ug"/>
                                             <outlet property="name" destination="v6H-SH-PON" id="FkA-Ed-lyz"/>
                                         </connections>

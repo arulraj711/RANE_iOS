@@ -608,6 +608,7 @@
 -(void)requestChange:(id)sender {
     ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
     popOverView.transitioningDelegate = self;
+    popOverView.fromAddContent = YES;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:popOverView animated:YES completion:nil];
 }

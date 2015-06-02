@@ -265,14 +265,18 @@
     
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
     [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
-    
-    
-   // [cell.image setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:contentCategory.imageUrl]]]];
-    
-    
-    //[cell.image setContentMode:UIViewContentModeScaleAspectFit];
     cell.name.text = contentCategory.name;
     cell.checkMarkButton.tag = indexPath.row;
+    
+    if(self.contentTypeArray.count > 1) {
+        if(indexPath.row != 0) {
+            cell.gradientView.hidden = NO;
+        } else {
+            cell.gradientView.hidden = YES;
+        }
+    } else {
+        cell.gradientView.hidden = YES;
+    }
     
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         //[self.checkedArray addObject:contentCategory.categoryId];
@@ -283,13 +287,6 @@
         //[self.selectedIdArray removeObject:contentCategory.categoryId];
         [cell.checkMarkButton setSelected:NO];
     }
-    
-//    if([self.selectedIdArray containsObject:contentCategory.name]) {
-//        [cell.checkMarkButton setSelected:YES];
-//    } else {
-//        [cell.checkMarkButton setSelected:NO];
-//    }
-
     return cell;
 }
 
