@@ -64,6 +64,18 @@
 }
 
 -(void)addCustomNavRightButton {
+    
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:18];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text = @"Article";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
+    
+    
     UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 25, 25)];
     addBtnView.backgroundColor = [UIColor clearColor];
     
@@ -155,11 +167,7 @@
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
 
     
-    if(isFIViewSelected) {
-        cell.detailsWebview.hidden = YES;
-    } else {
-        cell.detailsWebview.hidden = NO;
-    }
+    
     
     
     
@@ -257,16 +265,23 @@
 //            
 //            //[connection release];
             
-        
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        if([curatedNews valueForKey:@"articleUrlData"] == nil) {
-            NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
-            [curatedNews setValue:string forKey:@"articleUrlData"];
-            [cell.detailsWebview loadHTMLString:string baseURL:nil];
+        if(isFIViewSelected) {
+            cell.detailsWebview.hidden = YES;
         } else {
-            [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
+            cell.detailsWebview.hidden = NO;
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                if([curatedNews valueForKey:@"articleUrlData"] == nil) {
+                    NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
+                    [curatedNews setValue:string forKey:@"articleUrlData"];
+                    [cell.detailsWebview loadHTMLString:string baseURL:nil];
+                } else {
+                    [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
+                }
+            });
         }
-    });
+        
+        
+    
         
 //        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
 //        [curatedNews setValue:string forKey:@"articleUrlData"];
@@ -669,6 +684,11 @@
     mailComposer = [[MFMailComposeViewController alloc]init];
     mailComposer.mailComposeDelegate = self;
     [mailComposer setSubject:title];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
+                                                                fontWithName:@"Open Sans" size:18], NSFontAttributeName,
+                                [UIColor whiteColor], NSForegroundColorAttributeName, nil];
+    mailComposer.navigationBar.titleTextAttributes = attributes;
+   // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
     [mailComposer setMessageBody:body isHTML:NO];
     [self presentViewController:mailComposer animated:YES completion:nil];
 }

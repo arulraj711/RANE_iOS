@@ -397,7 +397,7 @@
             cell.outletHorizontalConstraint.constant = value+12+25;
         }
         cell.outlet.text = [curatedNews valueForKey:@"outlet"];
-        CGSize maximumLabelSize = CGSizeMake(190, FLT_MAX);
+        CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
         CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.title.font constrainedToSize:maximumLabelSize lineBreakMode:cell.title.lineBreakMode];
         NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
 //        if(expectedLabelSize.height < 60) {
@@ -416,23 +416,23 @@
         
         //int i=30;
         
-        if(expectedLabelSize.height > 180) {
-            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*5;
-        } else if(expectedLabelSize.height > 150) {
-            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*4;
-        } else if(expectedLabelSize.height > 120) {
-            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*3;
-        } else if(expectedLabelSize.height > 90) {
-            cell.titleHeightConstraint.constant = expectedLabelSize.height - 45*2;
-        } else if(expectedLabelSize.height > 60) {
-            cell.titleHeightConstraint.constant = expectedLabelSize.height - 45*1;
-        } else if(expectedLabelSize.height > 30) {
-            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*0;
-        } else {
-            cell.titleHeightConstraint.constant = expectedLabelSize.height;
-        }
+//        if(expectedLabelSize.height > 180) {
+//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*5;
+//        } else if(expectedLabelSize.height > 150) {
+//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*4;
+//        } else if(expectedLabelSize.height > 120) {
+//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*3;
+//        } else if(expectedLabelSize.height > 90) {
+//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 45*2;
+//        } else if(expectedLabelSize.height > 60) {
+//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 45*1;
+//        } else if(expectedLabelSize.height > 30) {
+//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*0;
+//        } else {
+//            cell.titleHeightConstraint.constant = expectedLabelSize.height;
+//        }
         
-        
+        cell.titleHeightConstraint.constant = expectedLabelSize.height;
         NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
         NSLog(@"marked important staus:%@",number);
         if(number == [NSNumber numberWithInt:1]) {

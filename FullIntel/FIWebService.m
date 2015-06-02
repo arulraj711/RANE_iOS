@@ -270,8 +270,9 @@
 //    NSLog(@" tweet JSON:%@",json);
     
     NSString *twitterUrl = [NSString stringWithFormat:@"http://api.twittercounter.com/?twitter_id=%@&apikey=%@",details,Twitter_API_Key];
-    
+    NSLog(@"twitter url:%@",twitterUrl);
     NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:twitterUrl]];
+    NSLog(@"result data:%d",data.length);
     NSError* error;
     NSDictionary* json = [NSJSONSerialization
                           JSONObjectWithData:data //1
