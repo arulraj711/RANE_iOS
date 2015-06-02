@@ -40,7 +40,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenus) name:@"MenuList" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogout) name:@"logoutSuccess" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestChange:) name:@"requestChange" object:nil];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMenuCount:) name:@"updateMenuCount" object:nil];
@@ -605,7 +605,12 @@
     [self presentViewController:popOverView animated:YES completion:nil];
 }
 
-
+-(void)requestChange:(id)sender {
+    ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+    popOverView.transitioningDelegate = self;
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:popOverView animated:YES completion:nil];
+}
 
 - (IBAction)addContentButtonClick:(id)sender {
     
@@ -657,9 +662,13 @@
     
     [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
     
-    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-        
-    }];
+//    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+//    if(accessToken.length > 0) {
+        [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+            
+        }];
+   // }
+    
 }
 
 

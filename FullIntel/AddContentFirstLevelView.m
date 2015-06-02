@@ -27,6 +27,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadContentCategory) name:@"contentCategory" object:nil];
     
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddContentExpire) name:@"AddContentExpire" object:nil];
+    
    
     
     layout = (id)[self.contentCollectionView collectionViewLayout];
@@ -127,6 +129,20 @@
         [self.selectedIdArray removeAllObjects];
     }
     [self.contentCollectionView reloadData];
+}
+
+
+- (IBAction)requestChange:(id)sender {
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+     [[NSNotificationCenter defaultCenter]postNotificationName:@"requestChange" object:nil userInfo:nil];
+}
+
+
+-(void)AddContentExpire {
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)closeAction:(id)sender {

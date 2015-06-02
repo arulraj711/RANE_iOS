@@ -111,6 +111,8 @@
                 
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:@"Seems like your session may have expired. This could also happen if the same credentials are used to login using another device. Please login again." duration:2 position:CSToastPositionCenter];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"AddContentExpire" object:responseObject];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CommentsExpire" object:responseObject];
             }
             
             

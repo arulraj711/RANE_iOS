@@ -26,7 +26,8 @@
     } else {
         //self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\n"];
     }
-    
+    self.articleDesc.selectedRange = NSMakeRange(0, 0);
+    [self.articleDesc becomeFirstResponder];
     
     self.backImgeView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapEvent)];

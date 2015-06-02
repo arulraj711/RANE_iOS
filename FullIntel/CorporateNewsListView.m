@@ -193,11 +193,11 @@
     NSInteger category = categoryStr.integerValue;
     NSString *inputJson;
     if(category == -2) {
-        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:[NSNumber numberWithInt:-1]];
+        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:@""];
     } else if(category == -3) {
-        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:[NSNumber numberWithInt:-1]];
+        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:@""];
     } else {
-        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:category]];
+        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:categoryStr];
     }
     
     
@@ -243,7 +243,8 @@
         // Passing data
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
         navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-        navController.topViewController.title = @"Add Content";
+        navController.topViewController.title = @"Modules";
+        
     };
     formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
     
@@ -451,8 +452,10 @@
         
         if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             cell.readStatusImageView.hidden = NO;
+            cell.contentView.alpha = 0.5;
         } else {
             cell.readStatusImageView.hidden = YES;
+            cell.contentView.alpha = 1;
         }
         
         //[self updateReadUnReadStatusForRow:indexPath];
@@ -489,9 +492,11 @@
     if(number == [NSNumber numberWithInt:1]) {
         // cell.title.alpha = 0.7f;
         cell.readStatusImageView.hidden = NO;
+        cell.contentView.alpha = 0.5;
     } else {
         // cell.title.alpha = 1.0f;
         cell.readStatusImageView.hidden = YES;
+        cell.contentView.alpha = 1.0;
     }
 }
 
@@ -710,7 +715,15 @@
         NSManagedObject *curatedNews = [self.devices lastObject];
         NSString *inputJson;
         
+        NSString *categoryStr = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+        NSInteger category = categoryStr.integerValue;
+        if(category == -2) {
+            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:@""];
+        } else if(category == -3) {
+            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:@""];
+        } else {
             inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+        }
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] integerValue] withFlag:@""];
         }
         //[self reloadData];

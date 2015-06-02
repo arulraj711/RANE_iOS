@@ -60,7 +60,7 @@
                             blue:((float) b / 255.0f)
                            alpha:1.0f];
 }
-+(NSString*)createInputJsonForContentWithToekn:(NSString *)securityToken lastArticleId:(NSString *)articleId contentTypeId:(NSString *)contentTypeId listSize:(NSInteger)listSize activityTypeId:(NSString*)activityTypeId categoryId:(NSNumber *)categoryId {
++(NSString*)createInputJsonForContentWithToekn:(NSString *)securityToken lastArticleId:(NSString *)articleId contentTypeId:(NSString *)contentTypeId listSize:(NSInteger)listSize activityTypeId:(NSString*)activityTypeId categoryId:(NSString *)categoryId {
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
     [gradedetails setObject:securityToken forKey:@"securityToken"];
     [gradedetails setObject:articleId forKey:@"lastArticleId"];

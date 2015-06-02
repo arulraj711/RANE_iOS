@@ -30,7 +30,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="36T-kw-A3h">
                                 <rect key="frame" x="200" y="50" width="200" height="500"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zjt-lA-j21">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zjt-lA-j21">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="440"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -41,16 +41,26 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="400" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgo-Dy-1Hq">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rgo-Dy-1Hq">
                                                             <rect key="frame" x="20" y="7" width="45" height="45"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="45" id="0zv-n0-06m"/>
+                                                                <constraint firstAttribute="height" constant="45" id="FRJ-Xz-k22"/>
+                                                            </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLZ-D6-qLv">
-                                                            <rect key="frame" x="75" y="9" width="130" height="21"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLZ-D6-qLv">
+                                                            <rect key="frame" x="75" y="9" width="118" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="EPX-jo-5T7"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="289" translatesAutoresizingMaskIntoConstraints="NO" id="gEA-oF-0mV">
-                                                            <rect key="frame" x="75" y="24" width="289" height="36"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="289" translatesAutoresizingMaskIntoConstraints="NO" id="gEA-oF-0mV">
+                                                            <rect key="frame" x="75" y="24" width="116" height="45"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="45" id="uuN-9S-XKF"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -62,6 +72,16 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="xLZ-D6-qLv" firstAttribute="leading" secondItem="rgo-Dy-1Hq" secondAttribute="trailing" constant="10" id="DmF-kq-xib"/>
+                                                        <constraint firstItem="rgo-Dy-1Hq" firstAttribute="top" secondItem="qSr-46-XLm" secondAttribute="topMargin" constant="-1" id="QZj-Zi-GBJ"/>
+                                                        <constraint firstItem="rgo-Dy-1Hq" firstAttribute="leading" secondItem="qSr-46-XLm" secondAttribute="leadingMargin" constant="12" id="Rm3-mp-HOy"/>
+                                                        <constraint firstItem="gEA-oF-0mV" firstAttribute="leading" secondItem="rgo-Dy-1Hq" secondAttribute="trailing" constant="10" id="UXy-1v-qny"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="gEA-oF-0mV" secondAttribute="trailing" constant="1" id="V1A-Uq-ved"/>
+                                                        <constraint firstItem="xLZ-D6-qLv" firstAttribute="top" secondItem="qSr-46-XLm" secondAttribute="topMargin" constant="1" id="Yyv-IC-M5H"/>
+                                                        <constraint firstItem="gEA-oF-0mV" firstAttribute="top" secondItem="qSr-46-XLm" secondAttribute="topMargin" constant="16" id="fa2-tK-oPU"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="xLZ-D6-qLv" secondAttribute="trailing" constant="-1" id="yLh-mF-TFc"/>
+                                                    </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="date" destination="LkJ-w2-usz" id="1hG-3U-xKv"/>

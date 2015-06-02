@@ -13,6 +13,7 @@
     RFQuiltLayout* layout;
 }
 - (IBAction)closeAction:(id)sender;
+- (IBAction)requestChange:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *contentCollectionView;
 @property (nonatomic,strong) NSMutableArray *contentTypeArray;
 @property (nonatomic,strong) NSMutableArray *contentCategoryArray;

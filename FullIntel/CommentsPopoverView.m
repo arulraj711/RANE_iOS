@@ -26,6 +26,8 @@
     self.outerView.layer.cornerRadius = 10;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchCommentsForArticleId) name:@"FetchingComments" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CommentsExpire) name:@"CommentsExpire" object:nil];
+    
     
     NSString *username = [[NSUserDefaults standardUserDefaults]objectForKey:@"username"];
     
@@ -38,6 +40,9 @@
     
 }
 
+-(void)CommentsExpire {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
 -(void)tapEvent {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
