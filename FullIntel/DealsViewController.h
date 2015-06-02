@@ -28,14 +28,17 @@
 @property (weak, nonatomic) IBOutlet UIImageView *authorImageBigView;
 
 
+@property (weak, nonatomic) IBOutlet UIView *overlayView;
 
 
 
 @property (nonatomic,strong) UIPopoverController *popOver;
 
+@property (weak, nonatomic) IBOutlet UITextView *sampleDataText;
 
 
 
+@property (weak, nonatomic) IBOutlet UIView *rotateView;
 
 
 

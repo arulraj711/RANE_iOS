@@ -64,6 +64,8 @@
 		A0CF5C191B1C87BC00DED2D9 /* Deals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C181B1C87BC00DED2D9 /* Deals.storyboard */; };
 		A0CF5C1D1B1CC35600DED2D9 /* PersonalityExecutiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CF5C1B1B1CC35600DED2D9 /* PersonalityExecutiveCell.m */; };
 		A0CF5C1E1B1CC35600DED2D9 /* PersonalityExecutiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C1C1B1CC35600DED2D9 /* PersonalityExecutiveCell.xib */; };
+		A0CF5C221B1DADFA00DED2D9 /* ExecutiveTimeLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CF5C201B1DADFA00DED2D9 /* ExecutiveTimeLineCell.m */; };
+		A0CF5C231B1DADFA00DED2D9 /* ExecutiveTimeLineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C211B1DADFA00DED2D9 /* ExecutiveTimeLineCell.xib */; };
 		A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D956791B0C4C0100DB013F /* Fabric.framework */; };
 		A0D9567C1B0C4C0200DB013F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */; };
 		A0D956801B0C4D9100DB013F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */; };
@@ -314,6 +316,9 @@
 		A0CF5C1A1B1CC35600DED2D9 /* PersonalityExecutiveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalityExecutiveCell.h; sourceTree = "<group>"; };
 		A0CF5C1B1B1CC35600DED2D9 /* PersonalityExecutiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalityExecutiveCell.m; sourceTree = "<group>"; };
 		A0CF5C1C1B1CC35600DED2D9 /* PersonalityExecutiveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalityExecutiveCell.xib; sourceTree = "<group>"; };
+		A0CF5C1F1B1DADF900DED2D9 /* ExecutiveTimeLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExecutiveTimeLineCell.h; sourceTree = "<group>"; };
+		A0CF5C201B1DADFA00DED2D9 /* ExecutiveTimeLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExecutiveTimeLineCell.m; sourceTree = "<group>"; };
+		A0CF5C211B1DADFA00DED2D9 /* ExecutiveTimeLineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExecutiveTimeLineCell.xib; sourceTree = "<group>"; };
 		A0D956791B0C4C0100DB013F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
@@ -612,6 +617,9 @@
 				A0CF5C1A1B1CC35600DED2D9 /* PersonalityExecutiveCell.h */,
 				A0CF5C1B1B1CC35600DED2D9 /* PersonalityExecutiveCell.m */,
 				A0CF5C1C1B1CC35600DED2D9 /* PersonalityExecutiveCell.xib */,
+				A0CF5C1F1B1DADF900DED2D9 /* ExecutiveTimeLineCell.h */,
+				A0CF5C201B1DADFA00DED2D9 /* ExecutiveTimeLineCell.m */,
+				A0CF5C211B1DADFA00DED2D9 /* ExecutiveTimeLineCell.xib */,
 			);
 			name = ExecutiveMoves;
 			sourceTree = "<group>";
@@ -1310,6 +1318,7 @@
 				F7E81FC71A97057100F9A8D4 /* stat2.png in Resources */,
 				F7E81FB11A97057100F9A8D4 /* kates.jpg in Resources */,
 				F7E81F9A1A97057100F9A8D4 /* business-technology.jpg in Resources */,
+				A0CF5C231B1DADFA00DED2D9 /* ExecutiveTimeLineCell.xib in Resources */,
 				A0CF5C061B1C821A00DED2D9 /* TimeLineCell.xib in Resources */,
 				F7E81FAA1A97057100F9A8D4 /* ionic.png in Resources */,
 				F7E81FA21A97057100F9A8D4 /* google_topic.png in Resources */,
@@ -1504,6 +1513,7 @@
 				A0CF5BFA1B1C821A00DED2D9 /* CompetitorCell.m in Sources */,
 				F79BC08F1A9EBECF00A36D75 /* InfluencersTableViewCell.m in Sources */,
 				A0CF5C051B1C821A00DED2D9 /* TimeLineCell.m in Sources */,
+				A0CF5C221B1DADFA00DED2D9 /* ExecutiveTimeLineCell.m in Sources */,
 				A0CF5C141B1C85D900DED2D9 /* Stocks.m in Sources */,
 				F78B42F81ABA896E00AB7FFB /* CorporateNewsListView.m in Sources */,
 				A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */,

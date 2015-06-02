@@ -16,8 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *title;
 
 @property (weak, nonatomic) IBOutlet UILabel *name;
-
 @property (weak, nonatomic) IBOutlet UILabel *designation;
-@property (weak, nonatomic) IBOutlet UITextView *details;
 
+@property (weak, nonatomic) IBOutlet UITextView *description;
 @end

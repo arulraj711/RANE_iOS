@@ -18,6 +18,7 @@
 #import "CompetitorCell.h"
 #import "PKRevealController.h"
 #import "ExecutiveMoveCell.h"
+#import "ExecutiveTimeLineCell.h"
 #import "FIUtils.h"
 #import "PersonalityExecutiveCell.h"
 
@@ -185,11 +186,11 @@
         collectionCell = tweetCell;
     }else {
         if(indexPath.row == 2) {
-            [self.widgetCollectionView registerClass:[TimeLineCell class]
-                          forCellWithReuseIdentifier:@"TimeLineCell"];
-            [self.widgetCollectionView registerNib:[UINib nibWithNibName:@"TimeLineCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"TimeLineCell"];
+            [self.widgetCollectionView registerClass:[ExecutiveTimeLineCell class]
+                          forCellWithReuseIdentifier:@"ExecutiveTimeLineCell"];
+            [self.widgetCollectionView registerNib:[UINib nibWithNibName:@"ExecutiveTimeLineCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"ExecutiveTimeLineCell"];
             
-            TimeLineCell *cell =(TimeLineCell*) [cv dequeueReusableCellWithReuseIdentifier:@"TimeLineCell" forIndexPath:indexPath];
+            ExecutiveTimeLineCell *cell =(ExecutiveTimeLineCell*) [cv dequeueReusableCellWithReuseIdentifier:@"ExecutiveTimeLineCell" forIndexPath:indexPath];
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
             collectionCell = cell;

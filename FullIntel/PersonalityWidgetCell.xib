@@ -16,10 +16,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalityWidgetCell">
             <connections>
-                <outlet property="designation" destination="4v2-hI-Zl3" id="SRI-Y8-7Nx"/>
-                <outlet property="details" destination="s7W-qn-q7K" id="OAn-Ar-Dfu"/>
-                <outlet property="name" destination="FhE-Am-ONf" id="YOV-cu-wrz"/>
-                <outlet property="title" destination="gpP-5j-NHF" id="VDl-b1-Umu"/>
+                <outlet property="description" destination="s7W-qn-q7K" id="fFR-Ld-vH9"/>
+                <outlet property="designation" destination="4v2-hI-Zl3" id="nw9-zc-H6H"/>
+                <outlet property="name" destination="FhE-Am-ONf" id="vTQ-jA-nht"/>
+                <outlet property="title" destination="gpP-5j-NHF" id="tBb-Tm-Z4J"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -89,7 +89,7 @@
                         </state>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFr-nn-5b7">
-                        <rect key="frame" x="1" y="317" width="400" height="5"/>
+                        <rect key="frame" x="0.0" y="317" width="400" height="5"/>
                         <color key="backgroundColor" red="0.65098039215686276" green="0.19215686274509802" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                 </subviews>
