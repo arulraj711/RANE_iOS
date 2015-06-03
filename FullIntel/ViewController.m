@@ -11,10 +11,11 @@
 #import "UIView+Toast.h"
 #import "FIUtils.h"
 #import "LeftViewController.h"
+#import "FIWebService.h"
 //#import "WToast.h"
 //#import "UIImageView+AnimationImages.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-@interface ViewController ()
+@interface ViewController ()<UIAlertViewDelegate>
 
 @end
 
@@ -174,4 +175,64 @@
    
 }
 
+- (IBAction)forgetPasswordButtonPressed:(id)sender {
+    
+    [self showForgetAlert:_usernameTextField.text];
+
+}
+
+
+-(void)showForgetAlert:(NSString *)textString{
+
+    UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Forgot Password" message:@"Please enter valid email address" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
+    
+    alertView.alertViewStyle=UIAlertViewStylePlainTextInput;
+    
+    UITextField *textField=[alertView textFieldAtIndex:0];
+    
+    textField.text=textString;
+    
+    [alertView show];
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    UITextField *emailTextField = [alertView textFieldAtIndex:0];
+    NSLog(@"%@",emailTextField.text);
+    
+    NSLog(@"Button Index:%d",buttonIndex);
+
+    
+    if(buttonIndex==1){
+        
+        if([emailTextField.text length] == 0) {
+            [self.view makeToast:@"Please enter valid emaill address and try again." duration:2 position:CSToastPositionCenter];
+            
+            [self showForgetAlert:emailTextField.text];
+        } else if(![self NSStringIsValidEmail:emailTextField.text]) {
+            [self.view makeToast:@"Please enter valid emaill address and try again." duration:2 position:CSToastPositionCenter];
+            
+            [self showForgetAlert:emailTextField.text];
+        }else{
+        
+        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+        [gradedetails setObject:emailTextField.text forKey:@"email"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        
+        
+        [FIWebService forgotPasswordWithDetails:resultStr onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSString *message=[responseObject objectForKey:@"message"];
+            
+            [self.view makeToast:message duration:2 position:CSToastPositionCenter];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+       }
+    }
+}
 @end

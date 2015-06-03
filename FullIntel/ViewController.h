@@ -18,5 +18,6 @@
 @property (nonatomic,strong)  IBOutlet UIView *outerView;
 - (IBAction)signInButtonClicked:(id)sender;
 @property BOOL isAnimated;
+- (IBAction)forgetPasswordButtonPressed:(id)sender;
 @end
 

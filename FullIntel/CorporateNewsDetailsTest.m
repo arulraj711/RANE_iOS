@@ -33,6 +33,8 @@
    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommentsView:) name:@"showCommentsView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showResearchView:) name:@"showResearchView" object:nil];
     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showWebView:) name:@"widgetSelected" object:nil];
+    
     
     
     [self addCustomNavRightButton];
@@ -842,6 +844,93 @@
     return [DismissingAnimator new];
 }
 
-
-
+-(void)showWebView:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
+    
+    NSLog(@"indexPath row:%d",indexPath.row);
+    
+    [self presentWebViewWithLink:indexPath];
+    
+}
+-(void)presentWebViewWithLink :(NSIndexPath *)indexPath{
+    
+    
+    NSString *urlString;
+    
+    
+    if(indexPath.row==0){
+        
+        urlString=@"http://en.wikipedia.org/wiki/John_Maddox";
+    }else if (indexPath.row==1){
+        urlString=@"http://en.wikipedia.org/wiki/A123_Systems";
+        
+    }else if (indexPath.row==2){
+         urlString=@"http://en.wikipedia.org/wiki/CarPlay";
+        
+    }else{
+        
+        urlString=@"https://www.youtube.com/watch?v=VQ0bUgAj_cw";
+    }
+    
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    
+    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+    // UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"modal"];
+    
+    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+    
+    formSheet.presentedFormSheetSize = CGSizeMake(850, 700);
+    //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
+    formSheet.shadowRadius = 2.0;
+    formSheet.shadowOpacity = 0.3;
+    formSheet.shouldDismissOnBackgroundViewTap = YES;
+    formSheet.shouldCenterVertically = YES;
+    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
+    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
+    // formSheet.landscapeTopInset = 50;
+    // formSheet.portraitTopInset = 100;
+    
+    __weak MZFormSheetController *weakFormSheet = formSheet;
+    
+    
+    // If you want to animate status bar use this code
+    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
+        if ([navController.topViewController isKindOfClass:[SocialWebView class]]) {
+            SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
+            mzvc.urlString = urlString;
+            //  mzvc.showStatusBar = NO;
+        }
+        
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+            }
+        }];
+    };
+    
+    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+        // Passing data
+        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
+        
+        navController.topViewController.title = @"";
+        
+        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+        SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
+        mzvc.urlString = urlString;
+    };
+    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+    
+    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
+    
+    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        
+    }];
+    
+}
 @end

@@ -400,6 +400,11 @@
             [FIUtils showNoNetworkToast];
         }
     }
+    
+    if(collectionView==self.widgetCollectionView){
+        
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"widgetSelected" object:nil userInfo:@{@"indexPath":indexPath}];
+    }
 }
 
 

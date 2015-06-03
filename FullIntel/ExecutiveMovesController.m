@@ -22,6 +22,8 @@
 #import "FIUtils.h"
 #import "PersonalityExecutiveCell.h"
 #import "FISharedResources.h"
+#import "MZFormSheetController.h"
+#import "SocialWebView.h"
 
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface ExecutiveMovesController ()
@@ -282,6 +284,82 @@
     }
     return collectionCell;
     
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    if(collectionView==self.widgetCollectionView){
+        
+        
+        if(indexPath.row==0){
+            
+            [self presentWebViewWithLink:@"https://www.linkedin.com/pub/michael-gough/1/602/851"];
+        }
+    }
+
+}
+
+-(void)presentWebViewWithLink :(NSString *)urlString{
+    
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    
+    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+    // UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"modal"];
+    
+    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+    
+    formSheet.presentedFormSheetSize = CGSizeMake(850, 700);
+    //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
+    formSheet.shadowRadius = 2.0;
+    formSheet.shadowOpacity = 0.3;
+    formSheet.shouldDismissOnBackgroundViewTap = YES;
+    formSheet.shouldCenterVertically = YES;
+    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
+    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
+    // formSheet.landscapeTopInset = 50;
+    // formSheet.portraitTopInset = 100;
+    
+    __weak MZFormSheetController *weakFormSheet = formSheet;
+    
+    
+    // If you want to animate status bar use this code
+    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
+        if ([navController.topViewController isKindOfClass:[SocialWebView class]]) {
+            SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
+            mzvc.urlString = urlString;
+            //  mzvc.showStatusBar = NO;
+        }
+        
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+            }
+        }];
+    };
+    
+    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+        // Passing data
+        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
+        
+        navController.topViewController.title = @"";
+        
+        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+        SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
+        mzvc.urlString = urlString;
+    };
+    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+    
+    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
+    
+    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        
+    }];
+
 }
 
 -(void)socialTap:(UITapGestureRecognizer *)sender{

@@ -24,6 +24,13 @@
 +(void)loginProcessWithDetails:(NSString*)details
               onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
               onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
++(void)forgotPasswordWithDetails:(NSString*)details
+                     onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                     onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
 +(void)fetchCuratedNewsDetailsWithDetails:(NSString *)details
                           onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                           onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;

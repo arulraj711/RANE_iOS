@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -7,6 +7,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
@@ -71,7 +72,7 @@
                                     <constraint firstAttribute="height" constant="182" id="wBg-PU-9Va"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2015 Fullintel, all rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKh-WS-Kgy">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2015 Fullintel LLC., all rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKh-WS-Kgy">
                                 <rect key="frame" x="121" y="576" width="359" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="359" id="NmH-LY-EWs"/>
@@ -81,15 +82,28 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpG-VK-sEo">
+                                <rect key="frame" x="338" y="399" width="161" height="37"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                <state key="normal" title="Forgot Password?">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="forgetPasswordButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pKr-mk-ddc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="rpG-VK-sEo" secondAttribute="trailing" constant="85" id="0MC-hT-4Dt"/>
                             <constraint firstAttribute="centerX" secondItem="St9-FG-tJi" secondAttribute="centerX" id="9ng-XS-luL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="elN-gT-OTN" secondAttribute="trailing" constant="-20" id="Ea9-Kw-8eU"/>
                             <constraint firstItem="BKh-WS-Kgy" firstAttribute="centerX" secondItem="St9-FG-tJi" secondAttribute="centerX" id="NlT-r8-3bU"/>
                             <constraint firstItem="elN-gT-OTN" firstAttribute="top" secondItem="ou3-P5-eCO" secondAttribute="bottom" constant="-20" id="QUQ-97-GKu"/>
                             <constraint firstAttribute="centerY" secondItem="St9-FG-tJi" secondAttribute="centerY" id="RxE-Lu-svy"/>
+                            <constraint firstItem="rpG-VK-sEo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="322" id="bGN-JU-VEH"/>
                             <constraint firstItem="aoh-wu-9Il" firstAttribute="top" secondItem="elN-gT-OTN" secondAttribute="bottom" id="bYj-Wm-w6v"/>
+                            <constraint firstItem="rpG-VK-sEo" firstAttribute="top" secondItem="St9-FG-tJi" secondAttribute="bottom" constant="8" id="bkm-sZ-7PB"/>
                             <constraint firstItem="elN-gT-OTN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="ce5-UG-Air"/>
                             <constraint firstItem="aoh-wu-9Il" firstAttribute="top" secondItem="BKh-WS-Kgy" secondAttribute="bottom" constant="3" id="y69-S5-55B"/>
                         </constraints>
@@ -103,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="288" y="273"/>
+            <point key="canvasLocation" x="590" y="179"/>
         </scene>
     </scenes>
 </document>

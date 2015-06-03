@@ -183,6 +183,17 @@
     }];
 }
 
++(void)forgotPasswordWithDetails:(NSString *)details onSuccess:(void (^)(AFHTTPRequestOperation *, id))success onFailure:(void (^)(AFHTTPRequestOperation *, NSError *))failure{
+    
+    
+    [self getResultsForFunctionName:@"retrievepassword" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+    
+}
 +(void)logoutWithAccessToken:(NSString*)details
                    onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                    onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
