@@ -41,7 +41,7 @@
         layout.blockPixels = CGSizeMake(130,150);
     }
     
-    
+    //[self.contentCollectionView reloadData];
     self.selectedIdArray = [[NSMutableArray alloc]init];
     self.checkedArray = [[NSMutableArray alloc]init];
     self.uncheckedArray = [[NSMutableArray alloc]init];

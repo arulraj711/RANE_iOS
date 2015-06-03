@@ -263,13 +263,13 @@
     
 }
 
-+(void)getTweetDetails:(NSString*)details
++(void)getTweetDetails:(NSString*)withScreenName
              onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
              onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
 //    NSDictionary *json = [self dictionaryWithContentOfFile:@"http://api.twittercounter.com/?twitter_id=813286&apikey=1c29beff4fb9acba2e7f82bc9b945a4e"];
 //    NSLog(@" tweet JSON:%@",json);
     
-    NSString *twitterUrl = [NSString stringWithFormat:@"http://api.twittercounter.com/?twitter_id=%@&apikey=%@",details,Twitter_API_Key];
+    NSString *twitterUrl = [NSString stringWithFormat:@"https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=%@",withScreenName];
     NSLog(@"twitter url:%@",twitterUrl);
     NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:twitterUrl]];
     NSLog(@"result data:%d",data.length);

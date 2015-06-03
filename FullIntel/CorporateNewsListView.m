@@ -105,6 +105,17 @@
     }
     
 }
+
+-(void)viewDidAppear:(BOOL)animated {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length == 0) {
+        // NSLog(@"corporate if part");
+        [self showLoginPage];
+    } else {
+        [self loadCuratedNews];
+        
+    }
+}
 //-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
 //    
 //    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
@@ -152,12 +163,12 @@
     
     UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-    [self presentViewController:loginView animated:YES completion:nil];
+    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+    [window addSubview:loginView.view];
+    //[self presentViewController:loginView animated:YES completion:nil];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-  // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
-}
+
 
 -(void)loadCuratedNews {
     NSInteger categoryId = [[[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"] integerValue];

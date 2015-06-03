@@ -264,8 +264,8 @@
         TWTRUser *author = tweetObj.author;
         tweetCell.author.text = author.name;
        // NSLog(@"tweet id:%@",tweetObj.tweetID);
-        //NSDictionary *tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:tweetObj.tweetID];
-        //NSLog(@"user id:%@ and tweet id:%@ and dic:%@",author.userID,tweetObj.tweetID,tweetDic);
+        NSDictionary *tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
+        NSLog(@"user id:%@ and tweet id:%@ and dic:%@",author.userID,tweetObj.tweetID,tweetDic);
         tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
         tweetCell.twitterText.text = tweetObj.text;
         if(tweetObj.retweetCount/1000 == 0) {
@@ -280,6 +280,14 @@
             tweetCell.favourate.text = [NSString stringWithFormat:@"%lldK",tweetObj.favoriteCount/1000];
         }
         
+        int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
+        NSLog(@"single followers count:%d",followersCount);
+        if(followersCount/1000 == 0) {
+            tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
+        } else {
+            float followersFloatValue = (float)followersCount;
+            tweetCell.followers.text = [NSString stringWithFormat:@"%.01fK",followersFloatValue/1000];
+        }
         
      //   tweetCell.followers.text = [tweetDic objectForKey:@"followers_current"];
         tweetCell.contentView.layer.borderWidth = 1.0f;
@@ -367,13 +375,14 @@
     }
    // NSLog(@"webview height:%f",webView.frame.size.height);
     if(webView.frame.size.height > 1400) {
+//        self.articleWebview.frame = CGRectMake(self.articleWebview.frame.origin.x, self.articleWebview.frame.origin.y, self.articleWebview.frame.size.width, webView.frame.size.height);
         self.webViewHeightConstraint.constant = webView.frame.size.height;
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1000);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
     } else {
-        self.webViewHeightConstraint.constant = 1300;
+        self.webViewHeightConstraint.constant = 1400;
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
     }
-    
+    self.socialLinkCollectionView.delegate = self;
     
     self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];
     self.starRating.userInteractionEnabled = NO;

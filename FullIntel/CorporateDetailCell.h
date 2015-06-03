@@ -15,7 +15,7 @@
 #import "CMPopTipView.h"
 #import "UCZProgressView.h"
 
-@interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate> {
+@interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDelegate> {
     NSMutableArray *tweetArray;
     UCZProgressView *progressView;
     

@@ -54,19 +54,23 @@
     self.researchButton.layer.masksToBounds = YES;
     self.researchButton.layer.borderWidth = 1.0f;
     self.researchButton.layer.borderColor = [UIColor colorWithRed:(220/255.0) green:(223/255.0) blue:(224/255.0) alpha:1].CGColor;
-    
-    
     NSMutableArray *objectArray;
-    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
-    if (dataRepresentingSavedArray != nil)
-    {
-        NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
-        if (oldSavedArray != nil)
-            objectArray = [[NSMutableArray alloc] initWithArray:oldSavedArray];
-        else
-            objectArray = [[NSMutableArray alloc] init];
+    
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length != 0) {
+        
+        NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+        NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+        if (dataRepresentingSavedArray != nil)
+        {
+            NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+            if (oldSavedArray != nil)
+                objectArray = [[NSMutableArray alloc] initWithArray:oldSavedArray];
+            else
+                objectArray = [[NSMutableArray alloc] init];
+        }
     }
+    
     
     
     
@@ -152,6 +156,9 @@
     
     [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:companyLogoImageStr] placeholderImage:nil];
     self.companyName.text = [companyNameStr uppercaseString];
+    self.companyName.numberOfLines = 1;
+    self.companyName.minimumFontSize = 8.;
+    self.companyName.adjustsFontSizeToFitWidth = YES;
     
     
 }
