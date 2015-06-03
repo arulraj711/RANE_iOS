@@ -400,7 +400,7 @@
             self.socialLinksArray = [[NSMutableArray alloc]init];
             NSSet *socialMediaSet = [author valueForKey:@"authorSocialMedia"];
             self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialMediaSet allObjects]];
-            NSLog(@"social list:%d",self.socialLinksArray.count);
+           // NSLog(@"social list:%d",self.socialLinksArray.count);
            
             
             

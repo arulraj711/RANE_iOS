@@ -475,7 +475,7 @@
     NSString *articleUrl = [self.curatedNewsDetail valueForKey:@"articleUrl"];
     NSString *mailBodyStr;
     if(articleUrl.length != 0) {
-        mailBodyStr = [NSString stringWithFormat:@"%@\n\n%@",self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
+        mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@",self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
     } else {
         mailBodyStr = [NSString stringWithFormat:@"%@\n",self.articleDesc];
     }

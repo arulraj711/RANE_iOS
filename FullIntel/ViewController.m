@@ -100,6 +100,7 @@
         [_passwordTextField becomeFirstResponder];
     }else {
         [textField resignFirstResponder];
+        [self callSignInFunction];
     }
     
     return YES;
@@ -123,6 +124,10 @@
 - (IBAction)signInButtonClicked:(id)sender {
     [_usernameTextField resignFirstResponder];
     [_passwordTextField resignFirstResponder];
+    [self callSignInFunction];
+}
+
+-(void)callSignInFunction {
     if([_usernameTextField.text length] == 0) {
         [self.view makeToast:@"Please check your login info and try again." duration:2 position:CSToastPositionCenter];
     } else if(![self NSStringIsValidEmail:_usernameTextField.text]) {
@@ -130,15 +135,15 @@
     }else if([_passwordTextField.text length] == 0) {
         [self.view makeToast:@"Please check your login info and try again." duration:2 position:CSToastPositionCenter];
     }else {
-    NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-    [gradedetails setObject:_usernameTextField.text forKey:@"email"];
-    [gradedetails setObject:_passwordTextField.text forKey:@"password"];
-    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-    
-    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    
-    [[FISharedResources sharedResourceManager] checkLoginUserWithDetails:resultStr];
-    
+        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+        [gradedetails setObject:_usernameTextField.text forKey:@"email"];
+        [gradedetails setObject:_passwordTextField.text forKey:@"password"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        
+        [[FISharedResources sharedResourceManager] checkLoginUserWithDetails:resultStr];
+        
     }
 }
 

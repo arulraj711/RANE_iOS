@@ -11,7 +11,7 @@
                                    "outletname": "MacRumors"
                                    }
                                    ],
-                        "date": 1432012210,
+                        "date": 1432012210000,
                         "image": "http://cdn1.benzinga.com/files/imagecache/story_image_680x375C/images/story/2012/73682637_3.jpg",
                         "readStatus": 1,
                         "markAsImportant": 0,
@@ -39,7 +39,7 @@
                                    "outletname": "The Wall Street Journal"
                                    }
                                    ],
-                        "date": 1431925810,
+                        "date": 1431925810000,
                         "image": "https://g.foolcdn.com/editorial/images/168738/tech-stock-apple-store-aapl_large.JPG",
                         "readStatus": 1,
                         "markAsImportant": 0,
@@ -67,7 +67,7 @@
                                    "outletname": "Gartner"
                                    }
                                    ],
-                        "date": 1431407410,
+                        "date": 1431407410000,
                         "image": "http://cdn2.benzinga.com/files/imagecache/story_image_680x375C/images/story/2012/181281524_5.jpg",
                         "readStatus": 1,
                         "markAsImportant": 0,
@@ -95,7 +95,7 @@
                                    "outletname": "Benzinga"
                                    }
                                    ],
-                        "date": 1432876210,
+                        "date": 1432876210000,
                         "image": "http://cdn1.benzinga.com/files/imagecache/story_image_680x375C/images/story/2012/180232911_3.jpg",
                         "readStatus": 1,
                         "markAsImportant": 0,
@@ -123,7 +123,7 @@
                                    "outletname": "ValueWalk"
                                    }
                                    ],
-                        "date": 1432012210,
+                        "date": 1432012210000,
                         "image": "http://www.valuewalk.com/wp-content/uploads/2015/05/15-Inch-MacBook-Pro.jpg",
                         "readStatus": 1,
                         "markAsImportant": 0,
