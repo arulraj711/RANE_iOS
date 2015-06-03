@@ -25,9 +25,15 @@
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,strong) IBOutlet UILabel *articleTitle;
 @property (nonatomic,strong) IBOutlet UIImageView *articleImageView;
+@property (nonatomic,strong) IBOutlet UIImageView *overlayArticleImageView;
+@property (nonatomic,strong) IBOutlet UILabel *overlayArticleTitle;
 @property (nonatomic,strong) IBOutlet UILabel *articleDate;
 @property (nonatomic,strong) IBOutlet UILabel *articleOutlet;
 @property (nonatomic,strong) IBOutlet UILabel *articleAuthor;
+@property (nonatomic,strong) IBOutlet UILabel *overlayArticleDate;
+@property (nonatomic,strong) IBOutlet UILabel *overlayArticleOutlet;
+@property (nonatomic,strong) IBOutlet UILabel *overlayArticleAuthor;
+@property (nonatomic,strong) IBOutlet UITextView *overlayArticleDesc;
 @property (nonatomic,strong) IBOutlet UIImageView *authorImageView;
 @property (nonatomic,strong) IBOutlet UILabel *authorName;
 @property (nonatomic,strong) IBOutlet UILabel *authorWorkTitle;
@@ -44,6 +50,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorTagLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (strong, nonatomic) IBOutlet UIView *ratingControl;
+@property (strong, nonatomic) IBOutlet UIView *overlayView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *outletTextWidthConstraint;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
