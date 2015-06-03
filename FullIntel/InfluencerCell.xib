@@ -91,15 +91,8 @@
                             <outlet property="delegate" destination="BOD-if-37S" id="N8Q-0f-jl0"/>
                         </connections>
                     </collectionView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lng-gf-gkN">
-                        <rect key="frame" x="930" y="33" width="30" height="30"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <state key="normal" image="circle">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nfd-I4-fjk">
-                        <rect key="frame" x="925" y="71" width="40" height="40"/>
+                        <rect key="frame" x="925" y="60" width="40" height="40"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSB-RR-O8S">
                                 <rect key="frame" x="10" y="10" width="20" height="20"/>
@@ -121,7 +114,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r1r-La-DxJ">
-                        <rect key="frame" x="925" y="119" width="40" height="40"/>
+                        <rect key="frame" x="925" y="108" width="40" height="40"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yaj-s5-PXf">
                                 <rect key="frame" x="10" y="10" width="20" height="20"/>
@@ -168,13 +161,11 @@
                     <constraint firstItem="980-Gh-fnU" firstAttribute="top" secondItem="hq0-jF-ez2" secondAttribute="bottom" constant="29" id="7qT-ok-WoN"/>
                     <constraint firstItem="ksa-4V-5IH" firstAttribute="leading" secondItem="gDy-eF-lNA" secondAttribute="leading" constant="-1" id="9FD-Od-YOQ"/>
                     <constraint firstItem="WAM-d7-zzR" firstAttribute="leading" secondItem="hq0-jF-ez2" secondAttribute="trailing" constant="40" id="9Uc-hh-b4P"/>
-                    <constraint firstItem="Nfd-I4-fjk" firstAttribute="top" secondItem="Lng-gf-gkN" secondAttribute="bottom" constant="8" symbolic="YES" id="AQj-nk-jsH"/>
                     <constraint firstAttribute="trailingMargin" secondItem="urK-yn-xYG" secondAttribute="trailing" constant="128" id="DqB-A1-LDr"/>
                     <constraint firstItem="urK-yn-xYG" firstAttribute="top" secondItem="gDy-eF-lNA" secondAttribute="bottom" constant="-1" id="ERu-Xc-Cqj"/>
                     <constraint firstItem="r1r-La-DxJ" firstAttribute="top" secondItem="Nfd-I4-fjk" secondAttribute="bottom" constant="8" id="EeQ-l8-95n"/>
-                    <constraint firstItem="Nfd-I4-fjk" firstAttribute="top" secondItem="Sfn-2o-zo2" secondAttribute="top" constant="71" id="H9Q-eP-Zsl"/>
+                    <constraint firstItem="Nfd-I4-fjk" firstAttribute="top" secondItem="Sfn-2o-zo2" secondAttribute="top" constant="60" id="H9Q-eP-Zsl"/>
                     <constraint firstItem="hq0-jF-ez2" firstAttribute="leading" secondItem="Sfn-2o-zo2" secondAttribute="leadingMargin" constant="42" id="K2x-Ny-947"/>
-                    <constraint firstItem="Nfd-I4-fjk" firstAttribute="centerX" secondItem="Lng-gf-gkN" secondAttribute="centerX" id="Lem-xz-x5V"/>
                     <constraint firstAttribute="bottomMargin" secondItem="urK-yn-xYG" secondAttribute="bottom" constant="92" id="QVB-Uh-dxP"/>
                     <constraint firstItem="b53-ya-2G6" firstAttribute="leading" secondItem="Yuz-n0-4cm" secondAttribute="trailing" constant="1" id="Rzv-a6-GKh"/>
                     <constraint firstAttribute="bottomMargin" secondItem="980-Gh-fnU" secondAttribute="bottom" constant="3" id="S12-Ku-fey"/>
@@ -218,7 +209,6 @@
     </objects>
     <resources>
         <image name="bookmark-empty" width="20" height="20"/>
-        <image name="circle" width="30" height="30"/>
         <image name="clock" width="11" height="12"/>
         <image name="globe" width="12" height="12"/>
         <image name="star_btn" width="20" height="20"/>
