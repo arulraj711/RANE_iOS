@@ -96,7 +96,7 @@
 
 +(void)showErrorToast {
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-    [window makeToast:@"Oops..! Something is wrong.Please try again later." duration:1 position:CSToastPositionCenter];
+    [window makeToast:@"Oops..! Something is wrong. Please try again later." duration:1 position:CSToastPositionCenter];
 }
 
 +(void)showNoNetworkToast {

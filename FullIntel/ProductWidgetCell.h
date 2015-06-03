@@ -10,4 +10,5 @@
 
 @interface ProductWidgetCell : UICollectionViewCell
 - (IBAction)requestUpgradeButtonClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
 @end

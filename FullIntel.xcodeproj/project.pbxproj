@@ -18,6 +18,7 @@
 		A0066EEC1B03082D008B4623 /* CorporateNewsDetailsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsTest.m */; };
 		A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */; };
 		A010928D1B15AB25003C9F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A010928C1B15AB25003C9F3A /* Foundation.framework */; };
+		A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A010C1C01B1F32AF00BF053D /* john_maddox.jpg */; };
 		A02C54C61AEF5E0000E65011 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02C54C51AEF5E0000E65011 /* Social.framework */; };
 		A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0406BA01B05CE5F00985CF8 /* TweetsCell.m */; };
 		A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A050A4861B1DF2B30043C477 /* Deals.storyboard */; };
@@ -247,6 +248,7 @@
 		A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorporateDetailCell.h; sourceTree = "<group>"; };
 		A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateDetailCell.m; sourceTree = "<group>"; };
 		A010928C1B15AB25003C9F3A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A010C1C01B1F32AF00BF053D /* john_maddox.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john_maddox.jpg; sourceTree = "<group>"; };
 		A02C54C51AEF5E0000E65011 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		A0406B9F1B05CE5F00985CF8 /* TweetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsCell.h; sourceTree = "<group>"; };
 		A0406BA01B05CE5F00985CF8 /* TweetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsCell.m; sourceTree = "<group>"; };
@@ -1097,6 +1099,7 @@
 			children = (
 				A003B1A91B1874A200857F35 /* Apple_Car.jpg */,
 				A003B1A21B18710400857F35 /* large_apple.jpg */,
+				A010C1C01B1F32AF00BF053D /* john_maddox.jpg */,
 				F717CC921AB1AF6900F66B53 /* back.jpg */,
 				F7E81F4C1A97057000F9A8D4 /* -iwatch.jpg */,
 				F7E81F4D1A97057000F9A8D4 /* 1.jpg */,
@@ -1313,6 +1316,7 @@
 				F7E81F9F1A97057100F9A8D4 /* ebola_new.jpeg in Resources */,
 				F7E81FC41A97057100F9A8D4 /* sony_topic.jpg in Resources */,
 				F7F876B51AB976B00042404D /* influ_drillin.json in Resources */,
+				A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */,
 				A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */,
 				A0CF5C5D1B1DD98B00DED2D9 /* IpAndLegal.storyboard in Resources */,
 				F7F3C05B1AA42CC700E653CB /* menu.json in Resources */,

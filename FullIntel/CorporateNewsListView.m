@@ -253,7 +253,13 @@
     formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
         // Passing data
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+        [navController.navigationBar setTitleTextAttributes:
+         [NSDictionary dictionaryWithObjectsAndKeys:
+          [UIColor whiteColor],
+          UITextAttributeTextColor,
+          [UIFont fontWithName:@"OpenSans" size:18.0],
+          UITextAttributeFont,
+          nil]];
         navController.topViewController.title = @"Add Content";
         
     };

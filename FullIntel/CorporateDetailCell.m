@@ -302,6 +302,11 @@
             PersonalityWidgetCell * cell =(PersonalityWidgetCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Personality" forIndexPath:indexPath];
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+            
+            UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
+            socialCellTap.numberOfTapsRequired=1;
+            cell.requestUpgradeButton.tag=indexPath.row;
+            [cell.requestUpgradeButton addGestureRecognizer:socialCellTap];
             collectionCell = cell;
         } else if(indexPath.row == 1) {
             [self.widgetCollectionView registerClass:[StockWidgetCell class]
@@ -311,6 +316,11 @@
             StockWidgetCell *cell =(StockWidgetCell*) [cv dequeueReusableCellWithReuseIdentifier:@"stock" forIndexPath:indexPath];
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+            UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
+            socialCellTap.numberOfTapsRequired=1;
+            cell.requestUpgradeButton.tag=indexPath.row;
+            [cell.requestUpgradeButton addGestureRecognizer:socialCellTap];
+            
             collectionCell = cell;
         } else if(indexPath.row == 2) {
             [self.widgetCollectionView registerClass:[ProductWidgetCell class]
@@ -320,6 +330,11 @@
             ProductWidgetCell *cell =(ProductWidgetCell*) [cv dequeueReusableCellWithReuseIdentifier:@"product" forIndexPath:indexPath];
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+            UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
+            socialCellTap.numberOfTapsRequired=1;
+            cell.requestUpgradeButton.tag=indexPath.row;
+            [cell.requestUpgradeButton addGestureRecognizer:socialCellTap];
+            
             collectionCell = cell;
         } else if(indexPath.row == 3) {
             [self.widgetCollectionView registerClass:[VideoWidgetCell class]
@@ -329,6 +344,11 @@
             VideoWidgetCell *cell =(VideoWidgetCell*) [cv dequeueReusableCellWithReuseIdentifier:@"video" forIndexPath:indexPath];
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+            UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
+            socialCellTap.numberOfTapsRequired=1;
+            cell.requestUpgradeButton.tag=indexPath.row;
+            [cell.requestUpgradeButton addGestureRecognizer:socialCellTap];
+            
             collectionCell = cell;
         }
     }
@@ -338,6 +358,31 @@
 -(void)socialTap:(UITapGestureRecognizer *)tapGesture {
     NSInteger row = tapGesture.view.tag;
     NSLog(@"social tap working for row:%d",row);
+}
+
+
+-(void)upgradeTap:(UITapGestureRecognizer *)sender{
+    
+    UIButton *btn=(UIButton *)sender.view;
+    
+    if(btn.tag == 0){
+        //Personality Widget
+        [btn setSelected:YES];
+        [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:1];
+    }else if(btn.tag == 1){
+        //Company Widget
+        [btn setSelected:YES];
+        [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:3];
+    }else if(btn.tag == 2){
+        //Product Widget
+        [btn setSelected:YES];
+        [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:4];
+    }else if(btn.tag == 3) {
+        //Video Widget
+        [btn setSelected:YES];
+        [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:7];
+    }
+    
 }
 
 
@@ -664,10 +709,7 @@
                 self.socialLinksArray = [[NSMutableArray alloc]init];
                 NSSet *socialMediaSet = [author valueForKey:@"authorSocialMedia"];
                 self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialMediaSet allObjects]];
-                NSLog(@"social list:%d",self.socialLinksArray.count);
-                
-                
-                
+               // NSLog(@"social list:%d",self.socialLinksArray.count);
                 if(self.socialLinksArray.count == 0) {
                     self.socialLinkLabel.hidden = YES;
                     self.socialLinkDivider.hidden = YES;

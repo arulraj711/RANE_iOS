@@ -279,18 +279,18 @@
 
 -(void)socialTap:(UITapGestureRecognizer *)sender{
     
-    UIView *view=sender.view;
+    UIButton *btn=(UIButton *)sender.view;
     
-    if(view.tag==0){
-        
+    if(btn.tag==0){
+        [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:4 withFeatureId:5];
     }
-    if(view.tag==1){
-        
+    if(btn.tag==1){
+        [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:4 withFeatureId:14];
     }
-    if(view.tag==2){
-        
+    if(btn.tag==2){
+        [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:4 withFeatureId:14];
     }
     
