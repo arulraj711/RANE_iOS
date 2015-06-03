@@ -79,7 +79,7 @@
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfK-Bm-kqE">
                         <rect key="frame" x="0.0" y="757" width="400" height="40"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
-                        <state key="normal" title="Request Upgrade">
+                        <state key="normal" image="btn">
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -198,6 +198,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="btn" width="400" height="40"/>
         <image name="executiveTimeLine" width="20" height="700"/>
         <image name="nav_fi" width="25" height="25"/>
         <image name="paddingBox" width="290" height="40"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -51,26 +51,26 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CEO Rating          " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tnL-Ye-uNK">
-                        <rect key="frame" x="112" y="48" width="92" height="37"/>
+                        <rect key="frame" x="121" y="48" width="92" height="37"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Est Vaule                  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0d-hQ-pAX">
-                        <rect key="frame" x="227" y="48" width="92" height="37"/>
+                        <rect key="frame" x="246" y="48" width="92" height="37"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jo5-XJ-iTu">
-                        <rect key="frame" x="11" y="82" width="295" height="1"/>
+                        <rect key="frame" x="8" y="83" width="387" height="2"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IvO-wN-Tvl">
                         <rect key="frame" x="24" y="103" width="60" height="60"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="47%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hH5-Da-dh1">
-                        <rect key="frame" x="124" y="122" width="69" height="21"/>
+                        <rect key="frame" x="133" y="122" width="69" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                         <color key="textColor" red="0.31459682430000002" green="0.50360541280000004" blue="0.73135359119999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -79,19 +79,19 @@
                         <rect key="frame" x="24" y="184" width="60" height="60"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="47%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0uY-RK-Ra4">
-                        <rect key="frame" x="124" y="203" width="69" height="21"/>
+                        <rect key="frame" x="133" y="203" width="69" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                         <color key="textColor" red="0.31459682430000002" green="0.50360541280000004" blue="0.73135359119999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$2.5B" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXE-j3-wAL">
-                        <rect key="frame" x="227" y="122" width="69" height="21"/>
+                        <rect key="frame" x="246" y="122" width="69" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                         <color key="textColor" red="0.4431372549" green="0.72941176470000002" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$6.3B" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Vt-wq-Rp6">
-                        <rect key="frame" x="227" y="203" width="69" height="21"/>
+                        <rect key="frame" x="246" y="203" width="69" height="21"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                         <color key="textColor" red="0.4431372549" green="0.72941176470000002" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -99,7 +99,7 @@
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAW-dk-4MC">
                         <rect key="frame" x="-1" y="266" width="400" height="40"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
-                        <state key="normal" title="Request Upgrade">
+                        <state key="normal" image="btn">
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -120,10 +120,11 @@
                 <outlet property="firstImageView" destination="IvO-wN-Tvl" id="WSv-i2-4dC"/>
                 <outlet property="secondImageView" destination="4wT-nJ-q5h" id="QA9-p3-L65"/>
             </connections>
-            <point key="canvasLocation" x="669" y="-66.5"/>
+            <point key="canvasLocation" x="669" y="-67"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="btn" width="400" height="40"/>
         <image name="competions" width="25" height="25"/>
         <image name="nav_fi" width="25" height="25"/>
     </resources>

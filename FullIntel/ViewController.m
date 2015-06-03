@@ -43,7 +43,7 @@
     UIView *rPaddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
-    self.usernameTextField.text = @"mark@foradobe.com";
+    self.usernameTextField.text = @"adobe@foradobe.com";
     self.passwordTextField.text = @"start";
 }
 - (void)animateImages

@@ -19,6 +19,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -234,11 +235,41 @@
                                     <outlet property="delegate" destination="gsT-Rd-qvi" id="p8d-qQ-9WT"/>
                                 </connections>
                             </collectionView>
+                            <view userInteractionEnabled="NO" alpha="0.34999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="knR-8g-DeE">
+                                <rect key="frame" x="16" y="144" width="984" height="456"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7F-G7-bHY">
+                                <rect key="frame" x="16" y="144" width="984" height="455"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Sample Content" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eN1-hH-V4C">
+                                        <rect key="frame" x="-8" y="160" width="1000" height="135"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="50"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="eN1-hH-V4C" secondAttribute="trailing" constant="-8" id="1QA-bo-fFV"/>
+                                    <constraint firstItem="eN1-hH-V4C" firstAttribute="top" secondItem="L7F-G7-bHY" secondAttribute="top" constant="160" id="LPp-eA-BA5"/>
+                                    <constraint firstAttribute="bottom" secondItem="eN1-hH-V4C" secondAttribute="bottom" constant="160" id="Ode-rk-1iZ"/>
+                                    <constraint firstItem="eN1-hH-V4C" firstAttribute="leading" secondItem="L7F-G7-bHY" secondAttribute="leading" constant="-8" id="e7i-ad-fNQ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="L7F-G7-bHY" firstAttribute="top" secondItem="ds7-C4-5CI" secondAttribute="bottom" constant="124" id="9yv-fz-CoH"/>
                             <constraint firstItem="BD8-a5-aBJ" firstAttribute="top" secondItem="yYW-s7-E9v" secondAttribute="bottom" constant="1" id="AGQ-nV-WTk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="knR-8g-DeE" secondAttribute="trailing" constant="-16" id="ESX-2j-6gg"/>
                             <constraint firstItem="yYW-s7-E9v" firstAttribute="top" secondItem="ds7-C4-5CI" secondAttribute="bottom" constant="124" id="PHi-pN-Rk6"/>
+                            <constraint firstItem="BD8-a5-aBJ" firstAttribute="top" secondItem="L7F-G7-bHY" secondAttribute="bottom" constant="1" id="SIK-FO-hcu"/>
+                            <constraint firstItem="knR-8g-DeE" firstAttribute="top" secondItem="ds7-C4-5CI" secondAttribute="bottom" constant="124" id="TKp-fO-uGF"/>
+                            <constraint firstItem="L7F-G7-bHY" firstAttribute="leading" secondItem="sEo-py-fMV" secondAttribute="leadingMargin" id="VMf-g2-ea2"/>
+                            <constraint firstItem="BD8-a5-aBJ" firstAttribute="top" secondItem="knR-8g-DeE" secondAttribute="bottom" id="cpV-zD-XEB"/>
+                            <constraint firstItem="knR-8g-DeE" firstAttribute="leading" secondItem="sEo-py-fMV" secondAttribute="leadingMargin" id="crx-G4-5zB"/>
                             <constraint firstItem="BD8-a5-aBJ" firstAttribute="top" secondItem="Il1-hj-Tdg" secondAttribute="bottom" constant="1" id="i9e-4v-GpI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yYW-s7-E9v" secondAttribute="trailing" constant="-16" id="ipn-V8-cb8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Lec-ka-DKR" secondAttribute="trailing" constant="-16" id="jtd-Ly-FTd"/>
@@ -248,6 +279,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Il1-hj-Tdg" secondAttribute="trailing" constant="336" id="u1E-mb-QfI"/>
                             <constraint firstItem="Lec-ka-DKR" firstAttribute="leading" secondItem="sEo-py-fMV" secondAttribute="leadingMargin" constant="-16" id="uDW-3u-3bj"/>
                             <constraint firstItem="Il1-hj-Tdg" firstAttribute="top" secondItem="Lec-ka-DKR" secondAttribute="bottom" constant="12" id="v0M-VV-pMF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="L7F-G7-bHY" secondAttribute="trailing" constant="-16" id="zlG-ps-Zzp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="SlX-HJ-WO9"/>
@@ -256,6 +288,8 @@
                     <size key="freeformSize" width="1000" height="600"/>
                     <connections>
                         <outlet property="requestUpgradeButton" destination="XxE-lA-RQZ" id="7XL-De-VJy"/>
+                        <outlet property="rotateView" destination="L7F-G7-bHY" id="qni-9z-CQj"/>
+                        <outlet property="sampleDataText" destination="eN1-hH-V4C" id="dIY-FX-f7K"/>
                         <outlet property="stockCollectionView" destination="Il1-hj-Tdg" id="5jp-kQ-xpX"/>
                         <outlet property="topLabel" destination="kIe-Nf-Gh5" id="y5d-re-jm4"/>
                         <outlet property="topStoriesTableView" destination="ApZ-6o-J37" id="YsP-DF-WfO"/>

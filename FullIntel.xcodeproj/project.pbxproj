@@ -621,45 +621,58 @@
 		A0CF5C241B1DD97200DED2D9 /* MockPages */ = {
 			isa = PBXGroup;
 			children = (
+				A0CF5C751B1EBD7200DED2D9 /* ExecutiveMoves */,
+				A0CF5C741B1EBD5300DED2D9 /* Stock */,
+				A0CF5C731B1EBCDA00DED2D9 /* IP&Legal */,
+				A0CF5C721B1EBC8200DED2D9 /* Deals */,
+			);
+			name = MockPages;
+			sourceTree = "<group>";
+		};
+		A0CF5C721B1EBC8200DED2D9 /* Deals */ = {
+			isa = PBXGroup;
+			children = (
 				A050A4861B1DF2B30043C477 /* Deals.storyboard */,
 				A0CF5C251B1DD98B00DED2D9 /* CompanyCell.xib */,
 				A0CF5C261B1DD98B00DED2D9 /* CompetitorCell.xib */,
 				A0CF5C281B1DD98B00DED2D9 /* DealsViewController.h */,
 				A0CF5C291B1DD98B00DED2D9 /* DealsViewController.m */,
-				A0CF5C2A1B1DD98B00DED2D9 /* ExecutiveMoveCell.xib */,
-				A0CF5C2B1B1DD98B00DED2D9 /* ExecutiveMoves.storyboard */,
-				A0CF5C2C1B1DD98B00DED2D9 /* ExecutiveMovesController.m */,
-				A0CF5C2D1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.h */,
-				A0CF5C2E1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.m */,
-				A0CF5C2F1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.xib */,
-				A0CF5C301B1DD98B00DED2D9 /* IpAndLegal.storyboard */,
-				A0CF5C311B1DD98B00DED2D9 /* IpAndLegalCell.xib */,
-				A0CF5C321B1DD98B00DED2D9 /* IpAndLegalViewController.m */,
-				A0CF5C331B1DD98B00DED2D9 /* NumberOfPatternsCell.xib */,
-				A0CF5C341B1DD98B00DED2D9 /* PersonalityExecutiveCell.xib */,
-				A0CF5C351B1DD98B00DED2D9 /* RecentPaternsCell.xib */,
-				A0CF5C361B1DD98B00DED2D9 /* stock.storyboard */,
-				A0CF5C371B1DD98B00DED2D9 /* StockViewController.h */,
-				A0CF5C381B1DD98B00DED2D9 /* StockViewController.m */,
 				A0CF5C391B1DD98B00DED2D9 /* TimeLineCell.xib */,
 				A0CF5C3A1B1DD98B00DED2D9 /* CompanyCell.h */,
 				A0CF5C3B1B1DD98B00DED2D9 /* CompanyCell.m */,
 				A0CF5C3C1B1DD98B00DED2D9 /* CompetitorCell.h */,
 				A0CF5C3D1B1DD98B00DED2D9 /* CompetitorCell.m */,
-				A0CF5C3E1B1DD98B00DED2D9 /* ExecutiveMoveCell.h */,
-				A0CF5C3F1B1DD98B00DED2D9 /* ExecutiveMoveCell.m */,
-				A0CF5C401B1DD98B00DED2D9 /* ExecutiveMovesController.h */,
+				A0CF5C4A1B1DD98B00DED2D9 /* TimeLineCell.h */,
+				A0CF5C4B1B1DD98B00DED2D9 /* TimeLineCell.m */,
+			);
+			name = Deals;
+			sourceTree = "<group>";
+		};
+		A0CF5C731B1EBCDA00DED2D9 /* IP&Legal */ = {
+			isa = PBXGroup;
+			children = (
+				A0CF5C301B1DD98B00DED2D9 /* IpAndLegal.storyboard */,
+				A0CF5C311B1DD98B00DED2D9 /* IpAndLegalCell.xib */,
+				A0CF5C321B1DD98B00DED2D9 /* IpAndLegalViewController.m */,
+				A0CF5C331B1DD98B00DED2D9 /* NumberOfPatternsCell.xib */,
+				A0CF5C351B1DD98B00DED2D9 /* RecentPaternsCell.xib */,
 				A0CF5C411B1DD98B00DED2D9 /* IpAndLegalCell.h */,
 				A0CF5C421B1DD98B00DED2D9 /* IpAndLegalCell.m */,
 				A0CF5C431B1DD98B00DED2D9 /* IpAndLegalViewController.h */,
 				A0CF5C441B1DD98B00DED2D9 /* NumberOfPatternsCell.h */,
 				A0CF5C451B1DD98B00DED2D9 /* NumberOfPatternsCell.m */,
-				A0CF5C461B1DD98B00DED2D9 /* PersonalityExecutiveCell.h */,
-				A0CF5C471B1DD98B00DED2D9 /* PersonalityExecutiveCell.m */,
 				A0CF5C481B1DD98B00DED2D9 /* RecentPaternsCell.h */,
 				A0CF5C491B1DD98B00DED2D9 /* RecentPaternsCell.m */,
-				A0CF5C4A1B1DD98B00DED2D9 /* TimeLineCell.h */,
-				A0CF5C4B1B1DD98B00DED2D9 /* TimeLineCell.m */,
+			);
+			name = "IP&Legal";
+			sourceTree = "<group>";
+		};
+		A0CF5C741B1EBD5300DED2D9 /* Stock */ = {
+			isa = PBXGroup;
+			children = (
+				A0CF5C361B1DD98B00DED2D9 /* stock.storyboard */,
+				A0CF5C371B1DD98B00DED2D9 /* StockViewController.h */,
+				A0CF5C381B1DD98B00DED2D9 /* StockViewController.m */,
 				A0CF5C4C1B1DD98B00DED2D9 /* StockCell.h */,
 				A0CF5C4D1B1DD98B00DED2D9 /* StockCell.m */,
 				A0CF5C4E1B1DD98B00DED2D9 /* Stocks.h */,
@@ -669,7 +682,26 @@
 				A0CF5C521B1DD98B00DED2D9 /* TopStoriesCell.h */,
 				A0CF5C531B1DD98B00DED2D9 /* TopStoriesCell.m */,
 			);
-			name = MockPages;
+			name = Stock;
+			sourceTree = "<group>";
+		};
+		A0CF5C751B1EBD7200DED2D9 /* ExecutiveMoves */ = {
+			isa = PBXGroup;
+			children = (
+				A0CF5C2A1B1DD98B00DED2D9 /* ExecutiveMoveCell.xib */,
+				A0CF5C2B1B1DD98B00DED2D9 /* ExecutiveMoves.storyboard */,
+				A0CF5C2C1B1DD98B00DED2D9 /* ExecutiveMovesController.m */,
+				A0CF5C2D1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.h */,
+				A0CF5C2E1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.m */,
+				A0CF5C2F1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.xib */,
+				A0CF5C341B1DD98B00DED2D9 /* PersonalityExecutiveCell.xib */,
+				A0CF5C3E1B1DD98B00DED2D9 /* ExecutiveMoveCell.h */,
+				A0CF5C3F1B1DD98B00DED2D9 /* ExecutiveMoveCell.m */,
+				A0CF5C401B1DD98B00DED2D9 /* ExecutiveMovesController.h */,
+				A0CF5C461B1DD98B00DED2D9 /* PersonalityExecutiveCell.h */,
+				A0CF5C471B1DD98B00DED2D9 /* PersonalityExecutiveCell.m */,
+			);
+			name = ExecutiveMoves;
 			sourceTree = "<group>";
 		};
 		A0E223441A91C2F00073814A = {

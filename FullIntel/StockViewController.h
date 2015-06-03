@@ -21,4 +21,11 @@
 
 - (IBAction)requestUpgradeButtonPressed:(id)sender;
 
+
+@property (weak, nonatomic) IBOutlet UITextView *sampleDataText;
+
+
+
+@property (weak, nonatomic) IBOutlet UIView *rotateView;
+
 @end

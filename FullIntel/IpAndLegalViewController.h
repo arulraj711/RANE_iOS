@@ -26,4 +26,12 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *authorImageBigView;
 
+
+@property (weak, nonatomic) IBOutlet UITextView *sampleDataText;
+
+
+
+@property (weak, nonatomic) IBOutlet UIView *rotateView;
+
+
 @end

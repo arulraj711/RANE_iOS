@@ -75,6 +75,8 @@
     _requestUpgradeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
     _requestUpgradeButton.layer.borderWidth=1.5;
     _requestUpgradeButton.layer.cornerRadius=5.0;
+    
+    _rotateView.transform = CGAffineTransformMakeRotation(-0.6);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,7 +101,31 @@
     NSLog(@"influencer array count:%d",self.influencerArray.count);
     [self.influencerTableView reloadData];
 }
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
+    
+    UITextView *tv = object;
+    CGFloat topCorrect = ([tv bounds].size.height - [tv contentSize].height * [tv zoomScale])/2.0;
+    topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect );
+    tv.font=[UIFont fontWithName:@"OpenSans" size:50.0];
+    tv.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
+}
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    [self.sampleDataText addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    
+    [self.sampleDataText removeObserver:self forKeyPath:@"contentSize"];
+    
+    
+}
 
 -(void)backBtnPress {
     if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
