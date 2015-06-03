@@ -19,4 +19,6 @@
 +(void)showNoNetworkToast;
 +(void)showRequestTimeOutError;
 +(void)makeRoundedView:(UIView*)view;
++(void)callRequestionUpdateWithModuleId:(NSInteger)moduleId
+                          withFeatureId:(NSInteger)featureId;
 @end

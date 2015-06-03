@@ -335,12 +335,6 @@ NHAlignmentFlowLayout *layout;
 
 - (IBAction)requestUpgradeButtonPressed:(id)sender {
     
-    NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    [gradedetails setObject:[NSNumber numberWithInt:2] forKey:@"moduleId"];
-    [gradedetails setObject:[NSNumber numberWithInt:11] forKey:@"featureId"];
-    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    [[FISharedResources sharedResourceManager]featureAccessRequestWithDetails:resultStr];
+    [FIUtils callRequestionUpdateWithModuleId:2 withFeatureId:11];
 }
 @end

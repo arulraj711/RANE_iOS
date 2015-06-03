@@ -117,7 +117,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe" translatesAutoresizingMaskIntoConstraints="NO" id="eCO-TY-Cqj">
-                                                <rect key="frame" x="149" y="180" width="12" height="12"/>
+                                                <rect key="frame" x="146" y="180" width="12" height="12"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CNN.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8io-4q-6Be">
                                                 <rect key="frame" x="159" y="175" width="66" height="21"/>
@@ -611,7 +611,7 @@
                                             <constraint firstItem="zFy-sZ-ngt" firstAttribute="top" secondItem="ycJ-LE-L3y" secondAttribute="bottom" constant="7" id="iZn-Dd-Ti9"/>
                                             <constraint firstItem="ZsD-Hq-zdd" firstAttribute="leading" secondItem="0AX-Gp-9Ci" secondAttribute="leading" id="j9F-yh-TWB"/>
                                             <constraint firstItem="1v4-eP-4pN" firstAttribute="top" secondItem="avo-bL-IIq" secondAttribute="bottom" constant="-14" id="jrx-Y3-t1o"/>
-                                            <constraint firstItem="eCO-TY-Cqj" firstAttribute="leading" secondItem="1v4-eP-4pN" secondAttribute="trailing" constant="9" id="jsC-ay-Zpe"/>
+                                            <constraint firstItem="eCO-TY-Cqj" firstAttribute="leading" secondItem="1v4-eP-4pN" secondAttribute="trailing" constant="6" id="jsC-ay-Zpe"/>
                                             <constraint firstItem="FYh-4Y-qb5" firstAttribute="centerX" secondItem="TTp-KW-2Gn" secondAttribute="centerX" constant="-98" id="kTz-3l-IKt"/>
                                             <constraint firstItem="1v4-eP-4pN" firstAttribute="leading" secondItem="Nge-HR-iPT" secondAttribute="trailing" constant="3" id="kZW-eQ-Hfv"/>
                                             <constraint firstItem="ycJ-LE-L3y" firstAttribute="centerX" secondItem="zFy-sZ-ngt" secondAttribute="centerX" id="lpU-ia-x0k"/>

@@ -11,4 +11,7 @@
 @interface CompanyCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *companyLogo;
 
+@property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
+
+
 @end

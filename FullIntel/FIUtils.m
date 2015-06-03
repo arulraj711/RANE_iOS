@@ -116,4 +116,15 @@
     view.layer.borderColor = [UIColor lightGrayColor].CGColor;
   
 }
++(void)callRequestionUpdateWithModuleId:(NSInteger)moduleId withFeatureId:(NSInteger)featureId{
+    
+    NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [gradedetails setObject:[NSNumber numberWithInt:moduleId] forKey:@"moduleId"];
+    [gradedetails setObject:[NSNumber numberWithInt:featureId] forKey:@"featureId"];
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+    [[FISharedResources sharedResourceManager]featureAccessRequestWithDetails:resultStr];
+    
+}
 @end

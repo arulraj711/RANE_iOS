@@ -10,4 +10,5 @@
 
 @interface NumberOfPatternsCell : UICollectionViewCell
 
+@property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
 @end

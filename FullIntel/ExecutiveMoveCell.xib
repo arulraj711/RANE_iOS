@@ -53,7 +53,7 @@
                         <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ts4-Bg-BbV">
-                        <rect key="frame" x="0.0" y="183" width="400" height="40"/>
+                        <rect key="frame" x="0.0" y="185" width="400" height="40"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                         <state key="normal" image="btn">
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -80,6 +80,7 @@
             <connections>
                 <outlet property="centerImage" destination="67a-4u-Gdw" id="5jL-ep-09E"/>
                 <outlet property="leftImage" destination="IPQ-kG-AU9" id="Nqe-XF-k2F"/>
+                <outlet property="requestUpgradeButton" destination="ts4-Bg-BbV" id="Djy-wh-l5A"/>
                 <outlet property="rightImage" destination="o0G-i4-0Uq" id="gas-PZ-HaE"/>
             </connections>
         </collectionViewCell>

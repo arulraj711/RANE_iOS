@@ -118,6 +118,7 @@
             <size key="customSize" width="391" height="311"/>
             <connections>
                 <outlet property="firstImageView" destination="IvO-wN-Tvl" id="WSv-i2-4dC"/>
+                <outlet property="requestUpgradeButton" destination="yAW-dk-4MC" id="tAm-1p-nVt"/>
                 <outlet property="secondImageView" destination="4wT-nJ-q5h" id="QA9-p3-L65"/>
             </connections>
             <point key="canvasLocation" x="669" y="-67"/>

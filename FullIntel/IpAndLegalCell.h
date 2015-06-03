@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface IpAndLegalCell : UICollectionViewCell
+- (IBAction)requestUpgradeButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
 
 @end

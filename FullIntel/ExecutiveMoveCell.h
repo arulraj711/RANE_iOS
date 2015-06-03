@@ -12,4 +12,8 @@
 @property (nonatomic,strong) IBOutlet UIImageView *leftImage;
 @property (nonatomic,strong) IBOutlet UIImageView *rightImage;
 @property (nonatomic,strong) IBOutlet UIImageView *centerImage;
+
+- (IBAction)requestionButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
+
 @end

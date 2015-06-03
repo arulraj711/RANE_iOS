@@ -117,7 +117,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe" translatesAutoresizingMaskIntoConstraints="NO" id="5E5-3E-A6h">
-                                                <rect key="frame" x="149" y="180" width="12" height="12"/>
+                                                <rect key="frame" x="145" y="180" width="12" height="12"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CNN.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cf9-kR-wn7">
                                                 <rect key="frame" x="159" y="175" width="66" height="21"/>
@@ -131,7 +131,7 @@
                                             <imageView userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="personality" translatesAutoresizingMaskIntoConstraints="NO" id="47B-pp-2iI">
                                                 <rect key="frame" x="226" y="180" width="12" height="12"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chester Chipperfield" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFu-uP-dLY">
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darrell Etherington" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFu-uP-dLY">
                                                 <rect key="frame" x="239" y="175" width="206" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="206" id="2Qp-Bh-0wx"/>
@@ -218,7 +218,7 @@
                                                                         <constraint firstAttribute="width" constant="30" id="mYW-UU-h9J"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mac Rumors" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1M-W8-dWc">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brian Vellmure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1M-W8-dWc">
                                                                     <rect key="frame" x="62" y="20" width="250" height="21"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="21" id="AaC-22-UK7"/>
@@ -227,7 +227,7 @@
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@MacRumors" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWt-9S-lr2">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@BrianVellmure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWt-9S-lr2">
                                                                     <rect key="frame" x="62" y="41" width="250" height="21"/>
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -247,9 +247,10 @@
                                                                         <constraint firstAttribute="height" constant="1" id="Qxz-k6-fNg"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Has #Apple lost its religion of simplicity ?" translatesAutoresizingMaskIntoConstraints="NO" id="HN1-us-lnF">
+                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HN1-us-lnF">
                                                                     <rect key="frame" x="11" y="115" width="296" height="112"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <string key="text">Microsoft Hires Adobe's Michael Gough To Lead Design Of Apps And Services  http://tcrn.ch/1BWLn2O  | Microsoft doubling down on Experience.</string>
                                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -375,7 +376,7 @@
                                                 <rect key="frame" x="34" y="2320" width="116" height="20"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chester Chipperfield" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7P-aP-Tve">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darrell Etherington" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7P-aP-Tve">
                                                 <rect key="frame" x="193" y="2166" width="386" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Aln-s8-hhE"/>
@@ -388,7 +389,7 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Xyi-VU-ngA">
                                                 <rect key="frame" x="192" y="2213" width="20" height="20"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Writer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3M4-A6-Uvi">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Writer and Editor" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3M4-A6-Uvi">
                                                 <rect key="frame" x="215" y="2212" width="370" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="370" id="NzF-Zk-Ydh"/>
@@ -401,7 +402,7 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="outlet" translatesAutoresizingMaskIntoConstraints="NO" id="GwH-HK-cFa">
                                                 <rect key="frame" x="195" y="2240" width="15" height="20"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9to5Mac" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZs-Z5-S7c">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#Technology" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZs-Z5-S7c">
                                                 <rect key="frame" x="215" y="2237" width="370" height="21"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -410,7 +411,7 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="BMC-1B-kZK">
                                                 <rect key="frame" x="195" y="2262" width="15" height="20"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Los Angeles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ke-6R-iwS">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toronto, Canada Area" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ke-6R-iwS">
                                                 <rect key="frame" x="215" y="2262" width="370" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="qDl-Ie-wcD"/>
@@ -426,7 +427,7 @@
                                                     <constraint firstAttribute="height" constant="15" id="7Ay-oK-KUD"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#News" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pce-9L-VPL">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#chart #Business #Analyst" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pce-9L-VPL">
                                                 <rect key="frame" x="215" y="2287" width="370" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="g0f-33-8uq"/>
@@ -527,12 +528,11 @@
                                                 <rect key="frame" x="34" y="2390" width="917" height="1"/>
                                                 <color key="backgroundColor" red="0.86274509799999999" green="0.87450980389999999" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="beU-Eh-6iy">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio: Writer at TechCrunch, covering Apple and startups. Email: darrell@techcrunch.com" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="beU-Eh-6iy">
                                                 <rect key="frame" x="44" y="2395" width="907" height="92"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="92" id="TR0-md-P2x"/>
                                                 </constraints>
-                                                <string key="text">Automotive and Consumer Electronics Research, Development and Engineering of complex architectures, systems and components. Strong Leadership and Management Skills, with the focus on Communication, Good Information Flow, Transparency, Highly Motivated Team, High Expectations and Performance, International Experience and Assignments, Compliance and Mentorship</string>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -584,7 +584,7 @@
                                             <constraint firstItem="5E5-3E-A6h" firstAttribute="top" secondItem="ZTi-IE-nTg" secondAttribute="top" id="P8D-a3-6L2"/>
                                             <constraint firstItem="xpW-KZ-gHT" firstAttribute="centerX" secondItem="KcF-KD-F6C" secondAttribute="centerX" id="QFL-4D-eSo"/>
                                             <constraint firstItem="m7F-qV-JXo" firstAttribute="trailing" secondItem="fBx-Ak-Ffq" secondAttribute="trailing" id="Qgv-b8-HBO"/>
-                                            <constraint firstItem="5E5-3E-A6h" firstAttribute="leading" secondItem="bT3-nQ-wIV" secondAttribute="trailing" constant="9" id="SDb-Ay-rzh"/>
+                                            <constraint firstItem="5E5-3E-A6h" firstAttribute="leading" secondItem="bT3-nQ-wIV" secondAttribute="trailing" constant="5" id="SDb-Ay-rzh"/>
                                             <constraint firstItem="5E5-3E-A6h" firstAttribute="top" secondItem="47B-pp-2iI" secondAttribute="top" id="Sl9-bc-l46"/>
                                             <constraint firstItem="xpW-KZ-gHT" firstAttribute="leading" secondItem="xdu-IX-Jyg" secondAttribute="leading" id="UUf-4L-Q5h"/>
                                             <constraint firstItem="xdu-IX-Jyg" firstAttribute="top" secondItem="APA-bG-GPO" secondAttribute="top" constant="2320" id="VWB-mX-yMf"/>
@@ -684,7 +684,7 @@
                                             <constraint firstAttribute="height" constant="50" id="w0L-cE-zqN"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chester Chipperfield" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXg-3z-BPv">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darrell Etherington" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXg-3z-BPv">
                                         <rect key="frame" x="112" y="21" width="531" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="wjY-cd-Y7e"/>
@@ -693,7 +693,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BGR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u67-qF-cUp">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Writer and Editor" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u67-qF-cUp">
                                         <rect key="frame" x="112" y="44" width="490" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="rbL-vK-huR"/>

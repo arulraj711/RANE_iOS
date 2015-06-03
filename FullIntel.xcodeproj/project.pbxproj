@@ -66,6 +66,9 @@
 		A0CF5C6F1B1DD98B00DED2D9 /* Stocks.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CF5C4F1B1DD98B00DED2D9 /* Stocks.m */; };
 		A0CF5C701B1DD98B00DED2D9 /* Stories.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CF5C511B1DD98B00DED2D9 /* Stories.m */; };
 		A0CF5C711B1DD98B00DED2D9 /* TopStoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CF5C531B1DD98B00DED2D9 /* TopStoriesCell.m */; };
+		A0CF5C791B1EFE1100DED2D9 /* dealsDril.html in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C761B1EFE1100DED2D9 /* dealsDril.html */; };
+		A0CF5C7A1B1EFE1100DED2D9 /* legalDril.html in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C771B1EFE1100DED2D9 /* legalDril.html */; };
+		A0CF5C7B1B1EFE1100DED2D9 /* movesDrill.html in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C781B1EFE1100DED2D9 /* movesDrill.html */; };
 		A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D956791B0C4C0100DB013F /* Fabric.framework */; };
 		A0D9567C1B0C4C0200DB013F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */; };
 		A0D956801B0C4D9100DB013F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */; };
@@ -319,6 +322,9 @@
 		A0CF5C511B1DD98B00DED2D9 /* Stories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stories.m; sourceTree = "<group>"; };
 		A0CF5C521B1DD98B00DED2D9 /* TopStoriesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopStoriesCell.h; sourceTree = "<group>"; };
 		A0CF5C531B1DD98B00DED2D9 /* TopStoriesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopStoriesCell.m; sourceTree = "<group>"; };
+		A0CF5C761B1EFE1100DED2D9 /* dealsDril.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dealsDril.html; sourceTree = "<group>"; };
+		A0CF5C771B1EFE1100DED2D9 /* legalDril.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = legalDril.html; sourceTree = "<group>"; };
+		A0CF5C781B1EFE1100DED2D9 /* movesDrill.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = movesDrill.html; sourceTree = "<group>"; };
 		A0D956791B0C4C0100DB013F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
@@ -1188,6 +1194,9 @@
 		F7E85EA71A9F2A950022B4D5 /* JSON Responses */ = {
 			isa = PBXGroup;
 			children = (
+				A0CF5C761B1EFE1100DED2D9 /* dealsDril.html */,
+				A0CF5C771B1EFE1100DED2D9 /* legalDril.html */,
+				A0CF5C781B1EFE1100DED2D9 /* movesDrill.html */,
 				A0A678621B1C159400FB2AEA /* influencer_new.json */,
 				A0C326251B182E2B00FEB164 /* StockResponse.json */,
 				F773CFE81ADE99C7002FC7CF /* addContent.json */,
@@ -1296,6 +1305,7 @@
 				F7E354E71A947AB0009677D2 /* LeftView.storyboard in Resources */,
 				F7E354E51A947A8B009677D2 /* CenterView.storyboard in Resources */,
 				F7E81FC11A97057100F9A8D4 /* slide_apple.png in Resources */,
+				A0CF5C7B1B1EFE1100DED2D9 /* movesDrill.html in Resources */,
 				F7E81FA81A97057100F9A8D4 /* hp_hero_rtr2iogt_1140x548_v2.jpg in Resources */,
 				F7E81FCA1A97057100F9A8D4 /* tim.jpeg in Resources */,
 				A0E2235F1A91C2F00073814A /* Main.storyboard in Resources */,
@@ -1370,6 +1380,7 @@
 				F7E81FA51A97057100F9A8D4 /* hero-bg-fade-op.png in Resources */,
 				A0CF5C591B1DD98B00DED2D9 /* ExecutiveMoves.storyboard in Resources */,
 				F7E81F921A97057100F9A8D4 /* 6.jpg in Resources */,
+				A0CF5C791B1EFE1100DED2D9 /* dealsDril.html in Resources */,
 				F7E81FC21A97057100F9A8D4 /* snow.jpg in Resources */,
 				F717CC931AB1AF6900F66B53 /* back.jpg in Resources */,
 				F7E81FC01A97057100F9A8D4 /* Siemens-logo.svg in Resources */,
@@ -1387,6 +1398,7 @@
 				A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */,
 				F7E81FA71A97057100F9A8D4 /* hires_090219-A-6797M-101.jpg in Resources */,
 				F7E81FB91A97057100F9A8D4 /* NYSE.jpg in Resources */,
+				A0CF5C7A1B1EFE1100DED2D9 /* legalDril.html in Resources */,
 				F773CFEC1ADE9C0D002FC7CF /* AddContent.storyboard in Resources */,
 				A0E223611A91C2F00073814A /* Images.xcassets in Resources */,
 				F7E81F8E1A97057100F9A8D4 /* 2.jpg in Resources */,

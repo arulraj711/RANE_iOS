@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface RecentPaternsCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
 
 @end

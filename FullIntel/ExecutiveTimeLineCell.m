@@ -9,6 +9,7 @@
 #import "ExecutiveTimeLineCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FIUtils.h"
+#import "FISharedResources.h"
 @implementation ExecutiveTimeLineCell
 
 - (void)awakeFromNib {
@@ -32,4 +33,10 @@
     
 }
 
+- (IBAction)requestUpgradeButtonPressed:(id)sender {
+    
+    
+    [FIUtils callRequestionUpdateWithModuleId:5 withFeatureId:5];
+
+}
 @end

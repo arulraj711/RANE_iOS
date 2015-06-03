@@ -178,6 +178,7 @@
                 <outlet property="firstImageView" destination="8P4-5G-yDe" id="Hy4-RR-Fc2"/>
                 <outlet property="fivethImageView" destination="iXG-H0-qVv" id="CiZ-jc-lLG"/>
                 <outlet property="forthImageView" destination="kxA-KU-QDT" id="fmq-iM-2ar"/>
+                <outlet property="requestUpgradeButton" destination="ZGE-SM-HVu" id="72F-Fp-RZf"/>
                 <outlet property="secondImageView" destination="vG3-iU-0jr" id="GFf-XJ-aI9"/>
                 <outlet property="thirdImageView" destination="Rn3-KA-Eep" id="5Hb-TT-VGp"/>
             </connections>

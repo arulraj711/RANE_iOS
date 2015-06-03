@@ -78,6 +78,7 @@
             <size key="customSize" width="401" height="342"/>
             <connections>
                 <outlet property="companyLogo" destination="jB5-pt-3cL" id="xSk-gQ-DzP"/>
+                <outlet property="requestUpgradeButton" destination="LVQ-CH-ILm" id="RFI-v5-VcK"/>
             </connections>
             <point key="canvasLocation" x="552" y="354"/>
         </collectionViewCell>

@@ -77,7 +77,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfK-Bm-kqE">
-                        <rect key="frame" x="0.0" y="757" width="400" height="40"/>
+                        <rect key="frame" x="0.0" y="760" width="400" height="40"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                         <state key="normal" image="btn">
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -191,6 +191,7 @@
             <connections>
                 <outlet property="firstImage" destination="FcC-jx-T5L" id="ZSZ-wH-E9S"/>
                 <outlet property="forthImage" destination="Rza-W8-ctY" id="pMu-hl-OvO"/>
+                <outlet property="requestUpgradeButton" destination="ZfK-Bm-kqE" id="MSj-gd-eAK"/>
                 <outlet property="secondImage" destination="TTO-AI-MXX" id="yEi-iY-I2i"/>
                 <outlet property="thirdImage" destination="GKw-po-1PL" id="ue4-Ne-2hX"/>
             </connections>

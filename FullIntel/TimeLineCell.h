@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *thirdImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *forthImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *fivethImageView;
+@property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
 
 @end

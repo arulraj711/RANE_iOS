@@ -64,6 +64,9 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <size key="customSize" width="320" height="150"/>
+            <connections>
+                <outlet property="requestUpgradeButton" destination="jXf-x6-nCm" id="DiX-Zs-jTG"/>
+            </connections>
             <point key="canvasLocation" x="530" y="460.5"/>
         </collectionViewCell>
     </objects>

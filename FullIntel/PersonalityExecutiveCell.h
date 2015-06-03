@@ -10,5 +10,6 @@
 
 @interface PersonalityExecutiveCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
-
+- (IBAction)requestUpgradeButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
 @end

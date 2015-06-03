@@ -62,8 +62,12 @@
 
     
     
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/184003479/fullIntel/testdata/dealsDril.html"]];
-    [_dealsWebView loadRequest:urlRequest];
+//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/184003479/fullIntel/testdata/dealsDril.html"]];
+//    [_dealsWebView loadRequest:urlRequest];
+    
+    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"dealsDril" ofType:@"html"];
+    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+    [_dealsWebView loadHTMLString:htmlString baseURL:nil];
     
             [_authorImageBigView sd_setImageWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/525460441502187520/52FB7IFR_400x400.jpeg"] placeholderImage:[UIImage imageNamed:@"FI"]];
     
@@ -251,6 +255,11 @@
             CompanyCell * cell =(CompanyCell*) [cv dequeueReusableCellWithReuseIdentifier:@"CompanyCell" forIndexPath:indexPath];
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+            
+            UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];
+            socialCellTap.numberOfTapsRequired=1;
+            cell.requestUpgradeButton.tag=indexPath.row;
+            [cell.requestUpgradeButton addGestureRecognizer:socialCellTap];
             collectionCell = cell;
         } else if(indexPath.row == 0) {
             [self.widgetCollectionView registerClass:[TimeLineCell class]
@@ -260,6 +269,11 @@
             TimeLineCell *cell =(TimeLineCell*) [cv dequeueReusableCellWithReuseIdentifier:@"TimeLineCell" forIndexPath:indexPath];
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+            
+            UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];
+            socialCellTap.numberOfTapsRequired=1;
+            cell.requestUpgradeButton.tag=indexPath.row;
+            [cell.requestUpgradeButton addGestureRecognizer:socialCellTap];
             collectionCell = cell;
         } else if(indexPath.row == 1) {
             [self.widgetCollectionView registerClass:[CompetitorCell class]
@@ -269,6 +283,11 @@
             CompetitorCell *cell =(CompetitorCell*) [cv dequeueReusableCellWithReuseIdentifier:@"CompetitorCell" forIndexPath:indexPath];
             cell.contentView.layer.borderWidth = 1.0f;
             cell.contentView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+            
+            UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];
+            socialCellTap.numberOfTapsRequired=1;
+            cell.requestUpgradeButton.tag=indexPath.row;
+            [cell.requestUpgradeButton addGestureRecognizer:socialCellTap];
             collectionCell = cell;
         }
     }
@@ -276,14 +295,27 @@
 
 }
 
+-(void)socialTap:(UITapGestureRecognizer *)sender{
+    
+    UIView *view=sender.view;
+    
+    if(view.tag==0){
+        
+        [FIUtils callRequestionUpdateWithModuleId:8 withFeatureId:5];
+    }
+    if(view.tag==1){
+        
+        [FIUtils callRequestionUpdateWithModuleId:8 withFeatureId:14];
+    }
+    if(view.tag==2){
+        
+        [FIUtils callRequestionUpdateWithModuleId:8 withFeatureId:3];
+    }
+    
+}
+
 - (IBAction)requestUpgradeButtonPressed:(id)sender {
     
-    NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    [gradedetails setObject:[NSNumber numberWithInt:8] forKey:@"moduleId"];
-    [gradedetails setObject:[NSNumber numberWithInt:12] forKey:@"featureId"];
-    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    [[FISharedResources sharedResourceManager]featureAccessRequestWithDetails:resultStr];
+   [FIUtils callRequestionUpdateWithModuleId:8 withFeatureId:12];
 }
 @end

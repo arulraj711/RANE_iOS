@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *firstImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *secondImageView;
 
+@property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
 
 @end
