@@ -15,7 +15,7 @@
 //#import "WToast.h"
 //#import "UIImageView+AnimationImages.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-@interface ViewController ()<UIAlertViewDelegate>
+@interface ViewController ()<UIAlertViewDelegate,UITextFieldDelegate>
 
 @end
 
@@ -99,9 +99,12 @@
 {
     if(textField == _usernameTextField) {
         [_passwordTextField becomeFirstResponder];
-    }else {
+    }else if(textField==_passwordTextField){
         [textField resignFirstResponder];
         [self callSignInFunction];
+    }else{
+        
+        [self callForgotPasswordWithEmail:textField.text];
     }
     
     return YES;
@@ -189,6 +192,9 @@
     alertView.alertViewStyle=UIAlertViewStylePlainTextInput;
     
     UITextField *textField=[alertView textFieldAtIndex:0];
+    textField.keyboardType=UIKeyboardTypeEmailAddress;
+    textField.returnKeyType=UIReturnKeySend;
+    textField.delegate=self;
     
     textField.text=textString;
     
@@ -216,23 +222,32 @@
             [self showForgetAlert:emailTextField.text];
         }else{
         
-        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-        [gradedetails setObject:emailTextField.text forKey:@"email"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-        
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        
-        
-        [FIWebService forgotPasswordWithDetails:resultStr onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSString *message=[responseObject objectForKey:@"message"];
-            
-            [self.view makeToast:message duration:2 position:CSToastPositionCenter];
-            
-        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-        }];
+       
+            [self callForgotPasswordWithEmail:emailTextField.text];
        }
     }
 }
+
+
+-(void)callForgotPasswordWithEmail:(NSString *)email{
+    
+    NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+    [gradedetails setObject:email forKey:@"email"];
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+    
+    
+    [FIWebService forgotPasswordWithDetails:resultStr onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString *message=[responseObject objectForKey:@"message"];
+        
+        [self.view makeToast:message duration:2 position:CSToastPositionCenter];
+        
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
+}
+
 @end
