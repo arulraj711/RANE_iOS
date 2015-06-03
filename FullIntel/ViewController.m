@@ -23,8 +23,9 @@
 - (void)viewDidLoad {
     self.isAnimated = YES;
     [super viewDidLoad];
+    [self animateImages];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
-    
+    oldFrame = self.backgroundImageView.frame;
     
     self.usernameTextField.layer.borderWidth = 1.0f;
     self.usernameTextField.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
@@ -36,13 +37,14 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     self.isAnimated = YES;
-    //[self animateImages];
+    
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.usernameTextField.leftView = paddingView;
     self.usernameTextField.leftViewMode = UITextFieldViewModeAlways;
     UIView *rPaddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+
     self.usernameTextField.text = @"adobe@foradobe.com";
     self.passwordTextField.text = @"start";
 }
@@ -53,14 +55,15 @@
     static int count = 0;
     NSArray *animationImages = @[[UIImage imageNamed:@"NYSE.jpg"],[UIImage imageNamed:@"ebola_new.jpeg"],[UIImage imageNamed:@"new-york-city-wallpaper.jpg"],[UIImage imageNamed:@"o-NEW-YORK-facebook.jpg"]];
     UIImage *image = [animationImages objectAtIndex:(count % [animationImages count])];
-   // CGRect oldFrame = self.backgroundImageView.frame;
-    CGRect newframe = CGRectMake(self.backgroundImageView.frame.origin.x, self.backgroundImageView.frame.origin.y, self.backgroundImageView.frame.size.width-100, self.backgroundImageView.frame.size.height-100);
+    
+    CGRect newframe = CGRectMake(self.backgroundImageView.frame.origin.x, self.backgroundImageView.frame.origin.y, self.backgroundImageView.frame.size.width, self.backgroundImageView.frame.size.height);
     [UIView transitionWithView:self.backgroundImageView
-                      duration:2.5f // animation duration
+                      duration:2.0f // animation duration
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
                         self.backgroundImageView.frame = newframe;
                         self.backgroundImageView.image = image; // change to other image
+                        [self.backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
                     } completion:^(BOOL finished) {
                         //self.backgroundImageView.frame = oldFrame;
                         [self animateImages]; // once finished, repeat again
@@ -73,22 +76,22 @@
     self.isAnimated = NO;
 }
 
-- (void)crossfade {
-    [UIView animateWithDuration:3.0
-                          delay:0.0
-                        options:UIViewAnimationOptionTransitionCurlUp
-                     animations:^{ self.backgroundImageView.alpha = 1; }
-                     completion:^(BOOL finished){
-                     
-                         [UIView animateWithDuration:3.0
-                                               delay:0.0
-                                             options:UIViewAnimationOptionTransitionCurlUp
-                                          animations:^{ self.backgroundImageView.alpha = 0.3; }
-                                          completion:^(BOOL finished){}
-                          ];
-                     }
-     ];
-}
+//- (void)crossfade {
+//    [UIView animateWithDuration:3.0
+//                          delay:0.0
+//                        options:UIViewAnimationOptionTransitionCurlUp
+//                     animations:^{ self.backgroundImageView.alpha = 1; }
+//                     completion:^(BOOL finished){
+//                     
+//                         [UIView animateWithDuration:3.0
+//                                               delay:0.0
+//                                             options:UIViewAnimationOptionTransitionCurlUp
+//                                          animations:^{ self.backgroundImageView.alpha = 0.3; }
+//                                          completion:^(BOOL finished){}
+//                          ];
+//                     }
+//     ];
+//}
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -156,8 +159,8 @@
         NSString *resultJson = [[NSString alloc]initWithData:menuJsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:resultJson];
          //[[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:-1 withFlag:@""];
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
+      //  [self dismissViewControllerAnimated:YES completion:nil];
+        [self.view removeFromSuperview];
     } else {
         [self.view makeToast:[notification.object objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
 //        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"FullIntel" message:[notification.object objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];

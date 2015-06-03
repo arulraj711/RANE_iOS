@@ -776,6 +776,7 @@
             if([[responseObject objectForKey:@"success"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"ResearchSend" object:nil];
             } else {
                 [self hideProgressView];
                 [self showLoginView:[responseObject objectForKey:@"success"]];
@@ -849,7 +850,7 @@
 -(NSDictionary *)getTweetDetails:(NSString *)details {
      __block NSDictionary *responseDic;
     [FIWebService getTweetDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        responseDic = responseObject;
+        responseDic = [responseObject objectAtIndex:0];
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [FIUtils showErrorToast];
     }];

@@ -43,7 +43,7 @@
     if(orientation == 1) {
         layout.blockPixels = CGSizeMake(170,200);
     }else {
-        layout.blockPixels = CGSizeMake(200,200);
+        layout.blockPixels = CGSizeMake(170,200);
         
     }
     //layout.blockPixels = CGSizeMake(180,200);
@@ -58,30 +58,14 @@
         testLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
         testLabel.text = @"Topics";
         testLabel.textAlignment = NSTextAlignmentLeft;
-        testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
-        
-        
-//        infoButton = [[UIButton alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y, 25, 25)];
-//        [infoButton setImage:[UIImage imageNamed:@"info_button"] forState:UIControlStateNormal];
-//        [infoButton addTarget:self action:@selector(infoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        //self.selectTopicsLabel.frame = CGRectMake(0, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
-        // layout.blockPixels = CGSizeMake(100,150);
+        testLabel.font = [UIFont fontWithName:@"OpenSans" size:20.0];
     }else {
         // layout.blockPixels = CGSizeMake(130,150);
         testLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
         testLabel.text = @"Topics";
         testLabel.textAlignment = NSTextAlignmentLeft;
-        testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
-        
-//        availableTopic = [[UILabel alloc]initWithFrame:CGRectMake(615, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
-//        availableTopic.text = @"Available Topics";
-//        availableTopic.textAlignment = NSTextAlignmentLeft;
-//        availableTopic.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
-//        
-//        
-//        infoButton = [[UIButton alloc]initWithFrame:CGRectMake(750, self.selectTopicsLabel.frame.origin.y, 25, 25)];
-//        [infoButton setImage:[UIImage imageNamed:@"info_button"] forState:UIControlStateNormal];
-//        [infoButton addTarget:self action:@selector(infoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        testLabel.font = [UIFont fontWithName:@"OpenSans" size:20.0];
+
     }
     [self.view addSubview:testLabel];
     [self.view addSubview:infoButton];
@@ -124,7 +108,7 @@
     
     
     if(fromInterfaceOrientation == 1) {
-        layout.blockPixels = CGSizeMake(200,200);
+        layout.blockPixels = CGSizeMake(170,200);
     }else {
         layout.blockPixels = CGSizeMake(170,200);
     }
