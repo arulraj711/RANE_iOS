@@ -59,9 +59,9 @@
         [gradedetails setObject:self.articleDesc.text forKey:@"description"];
         [gradedetails setObject:self.articleTitle forKey:@"headLine"];
     } else {
-        [gradedetails setObject:@"" forKey:@"articleId"];
-        [gradedetails setObject:@"" forKey:@"description"];
-        [gradedetails setObject:@"" forKey:@"headLine"];
+        [gradedetails setObject:@"Sent from Menu Id Research Request" forKey:@"articleId"];
+        [gradedetails setObject:@"Sent from Menu Desc Research Request" forKey:@"description"];
+        [gradedetails setObject:@"Sent from Menu Head Research Request" forKey:@"headLine"];
     }
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
     

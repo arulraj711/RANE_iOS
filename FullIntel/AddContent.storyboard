@@ -163,6 +163,7 @@
                                             <outlet property="gradientView" destination="mAX-sT-d9H" id="B0e-Ts-CVJ"/>
                                             <outlet property="image" destination="J7C-6M-oH2" id="Hnc-fu-3ug"/>
                                             <outlet property="name" destination="v6H-SH-PON" id="FkA-Ed-lyz"/>
+                                            <outlet property="upgradeButton" destination="zvL-dW-fP4" id="UF8-ky-vVr"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

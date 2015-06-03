@@ -10,6 +10,7 @@
 #import "MoreViewCell.h"
 #import <Social/Social.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "FIUtils.h"
 @interface MorePopoverView ()
 
 @end
@@ -109,5 +110,8 @@
         
         [alert show];
     }
+}
+- (IBAction)requestButtonClick:(id)sender {
+    [FIUtils callRequestionUpdateWithModuleId:10 withFeatureId:10];
 }
 @end

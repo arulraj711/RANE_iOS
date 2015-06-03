@@ -11,4 +11,5 @@
 @interface SavedListPopoverView : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *savedListTableView;
 @property (nonatomic,strong) NSMutableArray *savedListArray;
+- (IBAction)requestButtonClick:(id)sender;
 @end

@@ -773,7 +773,7 @@
 -(void)sendResearchRequestWithDetails:(NSString *)details {
     if([self serviceIsReachable]) {
         [FIWebService sendResearchRequestWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if([[responseObject objectForKey:@"success"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if(![[responseObject objectForKey:@"code"]isEqualToNumber:[NSNumber numberWithInt:102]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"ResearchSend" object:nil];

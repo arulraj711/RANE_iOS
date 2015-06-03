@@ -8,6 +8,7 @@
 
 #import "SavedListPopoverView.h"
 #import "SavedListCell.h"
+#import "FIUtils.h"
 
 @interface SavedListPopoverView ()
 
@@ -42,6 +43,10 @@
     SavedListCell *cell = (SavedListCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.name.text = [_savedListArray objectAtIndex:indexPath.row];
     return cell;
+}
+
+- (IBAction)requestButtonClick:(id)sender {
+    [FIUtils callRequestionUpdateWithModuleId:10 withFeatureId:9];
 }
 
 @end

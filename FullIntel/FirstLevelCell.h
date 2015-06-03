@@ -13,4 +13,5 @@
 @property (nonatomic,strong) IBOutlet UILabel *name;
 @property (nonatomic,strong) IBOutlet UIButton *checkMarkButton;
 @property (nonatomic,strong) IBOutlet UIView *gradientView;
+@property (nonatomic,strong) IBOutlet UIButton *upgradeButton;
 @end

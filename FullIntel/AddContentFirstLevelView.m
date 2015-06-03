@@ -14,6 +14,7 @@
 #import "FIContentCategory.h"
 #import "UIView+Toast.h"
 #import "AddContentSecondLevelView.h"
+#import "FIUtils.h"
 @interface AddContentFirstLevelView ()
 
 @end
@@ -271,6 +272,9 @@
     if(self.contentTypeArray.count > 1) {
         if(indexPath.row != 0) {
             cell.gradientView.hidden = NO;
+            UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
+            cell.upgradeButton.tag = indexPath.row;
+            [cell.upgradeButton addGestureRecognizer:tapEvent];
         } else {
             cell.gradientView.hidden = YES;
         }
@@ -303,6 +307,31 @@
     [self.navigationController pushViewController:secondLevel animated:YES];
     }
     
+}
+
+-(void)upgradeTap:(UITapGestureRecognizer *)sender {
+    UIView *view = sender.view;
+    NSLog(@"tag value:%d",view.tag);
+    FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:view.tag];
+    NSLog(@"slected name:%@ and id:%@",contentCategory.name,contentCategory.categoryId);
+    if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+        //Stock Watch
+        [FIUtils callRequestionUpdateWithModuleId:2 withFeatureId:15];
+    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:4]]) {
+        //IP and Legal
+        [FIUtils callRequestionUpdateWithModuleId:4 withFeatureId:15];
+    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:5]]) {
+        //Executive Moves
+        [FIUtils callRequestionUpdateWithModuleId:5 withFeatureId:15];
+    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:7]]) {
+        //Influencer Comments
+        [FIUtils callRequestionUpdateWithModuleId:7 withFeatureId:15];
+    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+        //Deals
+        [FIUtils callRequestionUpdateWithModuleId:8 withFeatureId:15];
+    }
+    
+    [self.view makeToast:@"Your request has been sent." duration:1 position:CSToastPositionCenter];
 }
 
 - (IBAction)checkMark:(id)sender {

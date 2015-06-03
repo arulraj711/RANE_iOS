@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *moreTableView;
 @property (nonatomic,strong) NSMutableArray *moreInforArray;
 @property (nonatomic,strong) NSString *articleTitle;
+- (IBAction)requestButtonClick:(id)sender;
 @property (nonatomic,strong) NSString *articleImageUrl;
 @property (nonatomic,strong) NSString *articleUrl;
 @end
