@@ -47,7 +47,7 @@
 }
 
 -(void)removeWebView:(id)sender {
-    [timer invalidate];
+    [self.timer invalidate];
     [progressView removeFromSuperview];
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
@@ -379,17 +379,17 @@
     self.starRating.userInteractionEnabled = NO;
     [self.ratingControl addSubview:self.starRating];
     
-    [timer invalidate];
+    [self.timer invalidate];
     [progressView removeFromSuperview];
 }
 
 
 -(void)viewDidDisappear:(BOOL)animated {
-    [timer invalidate];
+    [self.timer invalidate];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
     progressView = [[UCZProgressView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width/2-50, self.contentView.frame.size.height/2-50, 100, 100)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
     progressView.backgroundColor = [UIColor clearColor];
@@ -400,7 +400,7 @@
 - (void)cancelWeb
 {
     [progressView removeFromSuperview];
-    [timer invalidate];
+    [self.timer invalidate];
     
     [FIUtils showRequestTimeOutError];
     // UIWindow *window = [[UIApplication sharedApplication]windows][0];

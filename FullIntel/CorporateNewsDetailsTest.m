@@ -267,6 +267,7 @@
             
         if(isFIViewSelected) {
             cell.detailsWebview.hidden = YES;
+            [cell.timer invalidate];
         } else {
             cell.detailsWebview.hidden = NO;
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){

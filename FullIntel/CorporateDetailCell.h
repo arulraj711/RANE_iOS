@@ -18,9 +18,10 @@
 @interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate> {
     NSMutableArray *tweetArray;
     UCZProgressView *progressView;
-    NSTimer *timer;
+    
 }
 @property BOOL isFIViewSelected;
+@property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,strong) IBOutlet UILabel *articleTitle;
 @property (nonatomic,strong) IBOutlet UIImageView *articleImageView;

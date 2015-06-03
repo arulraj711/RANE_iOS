@@ -61,9 +61,9 @@
         testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
         
         
-        infoButton = [[UIButton alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y, 25, 25)];
-        [infoButton setImage:[UIImage imageNamed:@"info_button"] forState:UIControlStateNormal];
-        [infoButton addTarget:self action:@selector(infoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//        infoButton = [[UIButton alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y, 25, 25)];
+//        [infoButton setImage:[UIImage imageNamed:@"info_button"] forState:UIControlStateNormal];
+//        [infoButton addTarget:self action:@selector(infoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         //self.selectTopicsLabel.frame = CGRectMake(0, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
         // layout.blockPixels = CGSizeMake(100,150);
     }else {
@@ -73,15 +73,15 @@
         testLabel.textAlignment = NSTextAlignmentLeft;
         testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
         
-        availableTopic = [[UILabel alloc]initWithFrame:CGRectMake(615, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
-        availableTopic.text = @"Available Topics";
-        availableTopic.textAlignment = NSTextAlignmentLeft;
-        availableTopic.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
-        
-        
-        infoButton = [[UIButton alloc]initWithFrame:CGRectMake(750, self.selectTopicsLabel.frame.origin.y, 25, 25)];
-        [infoButton setImage:[UIImage imageNamed:@"info_button"] forState:UIControlStateNormal];
-        [infoButton addTarget:self action:@selector(infoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//        availableTopic = [[UILabel alloc]initWithFrame:CGRectMake(615, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+//        availableTopic.text = @"Available Topics";
+//        availableTopic.textAlignment = NSTextAlignmentLeft;
+//        availableTopic.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
+//        
+//        
+//        infoButton = [[UIButton alloc]initWithFrame:CGRectMake(750, self.selectTopicsLabel.frame.origin.y, 25, 25)];
+//        [infoButton setImage:[UIImage imageNamed:@"info_button"] forState:UIControlStateNormal];
+//        [infoButton addTarget:self action:@selector(infoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     [self.view addSubview:testLabel];
     [self.view addSubview:infoButton];
