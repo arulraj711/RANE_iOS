@@ -69,9 +69,9 @@
     NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
     [_dealsWebView loadHTMLString:htmlString baseURL:nil];
     
-            [_authorImageBigView sd_setImageWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/525460441502187520/52FB7IFR_400x400.jpeg"] placeholderImage:[UIImage imageNamed:@"FI"]];
+            [_authorImageBigView sd_setImageWithURL:[NSURL URLWithString:@"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/8/005/07a/0c9/315cf95.jpg"] placeholderImage:[UIImage imageNamed:@"FI"]];
     
-            [_authorImageView sd_setImageWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/525460441502187520/52FB7IFR_400x400.jpeg"] placeholderImage:[UIImage imageNamed:@"FI"]];
+            [_authorImageView sd_setImageWithURL:[NSURL URLWithString:@"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/8/005/07a/0c9/315cf95.jpg"] placeholderImage:[UIImage imageNamed:@"FI"]];
     
     
     [FIUtils makeRoundedView:_authorImageView];
