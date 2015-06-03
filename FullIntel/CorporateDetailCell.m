@@ -13,7 +13,7 @@
 #import "SocialLinkCell.h"
 #import "TweetsCell.h"
 #import "MZFormSheetController.h"
-#import "SocialWebView.h"
+//#import "SocialWebView.h"
 #import "ResearchRequestPopoverView.h"
 #import "UIView+Toast.h"
 #import "CommentsPopoverView.h"
@@ -34,6 +34,12 @@
     self.authorImageView.layer.cornerRadius = 25.0f;
    // self.socialLinksArray = [[NSMutableArray alloc]init];
     
+    
+    self.overlayArticleImageView.layer.masksToBounds = YES;
+    self.overlayArticleImageView.layer.cornerRadius = 10.0f;
+    self.overlayArticleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
+    self.overlayArticleImageView.layer.borderWidth = 0.5f;
+    
     self.contents = [NSDictionary dictionaryWithObjectsAndKeys:
                      // Rounded rect buttons
                      @"A CMPopTipView will automatically position itself within the container view.", [NSNumber numberWithInt:11],
@@ -44,6 +50,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails:) name:@"CuratedNewsDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails:) name:@"CuratedNewsAuthorDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeWebView:) name:@"removeWebView" object:nil];
+    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:nil];
+    tapEvent.numberOfTapsRequired = 1;
+    self.detailsWebview.tag =101;
+    self.detailsWebview.userInteractionEnabled = YES;
+    [self.detailsWebview addGestureRecognizer:tapEvent];
+    
+    
 }
 
 -(void)removeWebView:(id)sender {
@@ -56,6 +69,7 @@
     if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
        // [self.detailsWebview removeFromSuperview];
         self.detailsWebview.hidden = YES;
+        self.overlayView.hidden = YES;
         self.isFIViewSelected = YES;
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -67,6 +81,7 @@
     } else {
         self.detailsWebview.hidden = NO;
         self.isFIViewSelected = NO;
+        self.overlayView.hidden = NO;
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
         [gradedetails setObject:[NSNumber numberWithInt:2] forKey:@"appViewTypeId"];
@@ -78,6 +93,19 @@
     }
     
 }
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    NSLog(@"gesture working in cell:%ld and %ld",(long)otherGestureRecognizer.view.tag,(long)gestureRecognizer.view.tag);
+    if((long)otherGestureRecognizer.view.tag == 101){
+        self.overlayView.hidden = YES;
+    } else {
+       // self.overlayView.hidden = NO;
+    }
+  //  [self.overlayView removeFromSuperview];
+    return YES;
+}
+
 
 -(void)loadTweetsFromPost {
     NSMutableArray *tweetIds = [[NSMutableArray alloc]init];
