@@ -104,12 +104,14 @@
     self.contentTypeArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentTypeList];
     self.contentCategoryArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentCategoryList];
     for(FIContentCategory *category in self.contentTypeArray) {
-        if(category.isSubscribed) {
-            [self.checkedArray addObject:category.categoryId];
-            [self.selectedIdArray addObject:category.categoryId];
-        } else {
-            [self.uncheckedArray addObject:category.categoryId];
-            [self.selectedIdArray removeObject:category.categoryId];
+        if([category.categoryId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if(category.isSubscribed) {
+                [self.checkedArray addObject:category.categoryId];
+                [self.selectedIdArray addObject:category.categoryId];
+            } else {
+                [self.uncheckedArray addObject:category.categoryId];
+                [self.selectedIdArray removeObject:category.categoryId];
+            }
         }
     }
     [self.contentCollectionView reloadData];
@@ -228,7 +230,7 @@
         [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
         [contentType addObject:dic];
     }
-  //  NSLog(@"content type %d and category:%d and checked array:%d and unchecked array:%d",contentType.count,categoryArray.count,self.checkedArray.count,self.uncheckedArray.count);
+   // NSLog(@"content type %d and category:%d and checked array:%d and unchecked array:%@",contentType.count,categoryArray.count,self.checkedArray.count,contentType);
     if(self.checkedArray.count == 0) {
         [self.view makeToast:@"Please select atleast one module" duration:1 position:CSToastPositionCenter];
     } else {
