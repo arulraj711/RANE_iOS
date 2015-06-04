@@ -228,21 +228,26 @@
         [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
         [contentType addObject:dic];
     }
+  //  NSLog(@"content type %d and category:%d and checked array:%d and unchecked array:%d",contentType.count,categoryArray.count,self.checkedArray.count,self.uncheckedArray.count);
+    if(self.checkedArray.count == 0) {
+        [self.view makeToast:@"Please select atleast one module" duration:1 position:CSToastPositionCenter];
+    } else {
+        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+        [gradedetails setObject:[NSNumber numberWithBool:YES] forKey:@"updateCategory"];
+        [gradedetails setObject:categoryArray forKey:@"contentCategory"];
+        [gradedetails setObject:contentType forKey:@"contentType"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        NSLog(@"final json format:%@",resultStr);
+        [[FISharedResources sharedResourceManager]manageContentCategoryWithDetails:resultStr withFlag:1];
+        
+        //[self.view makeToast:@"Content types and Content categories updated successfully" duration:2 position:CSToastPositionCenter];
+        [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
     
-    NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    [gradedetails setObject:[NSNumber numberWithBool:YES] forKey:@"updateCategory"];
-    [gradedetails setObject:categoryArray forKey:@"contentCategory"];
-    [gradedetails setObject:contentType forKey:@"contentType"];
-    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-    
-    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    NSLog(@"final json format:%@",resultStr);
-    [[FISharedResources sharedResourceManager]manageContentCategoryWithDetails:resultStr withFlag:1];
-    
-    //[self.view makeToast:@"Content types and Content categories updated successfully" duration:2 position:CSToastPositionCenter];
-    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark – RFQuiltLayoutDelegate
