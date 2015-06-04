@@ -14,6 +14,7 @@
 #import "AMPopTip.h"
 #import "CMPopTipView.h"
 #import "UCZProgressView.h"
+#import "MKNumberBadgeView.h"
 
 @interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDelegate> {
     NSMutableArray *tweetArray;
@@ -99,7 +100,7 @@
 @property (nonatomic, strong) id currentPopTipViewTarget;
 @property (nonatomic, strong)	NSDictionary	*contents;
 
-
+@property (retain) IBOutlet MKNumberBadgeView* badgeTwo;
 
 @property (nonatomic,strong) AMRatingControl *starRating;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;

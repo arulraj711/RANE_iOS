@@ -24,7 +24,7 @@
 #import "SavedListPopoverView.h"
 #import "MorePopoverView.h"
 #import "VideoWidgetCell.h"
-
+#define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @implementation CorporateDetailCell
 
@@ -34,6 +34,10 @@
     self.authorImageView.layer.cornerRadius = 25.0f;
    // self.socialLinksArray = [[NSMutableArray alloc]init];
     
+    
+    self.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
+    self.badgeTwo.hideWhenZero = YES;
+    self.badgeTwo.value = 0;
     
     self.overlayArticleImageView.layer.masksToBounds = YES;
     self.overlayArticleImageView.layer.cornerRadius = 10.0f;
