@@ -188,7 +188,8 @@
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
         cell.cachedImageViewSize = cell.articleImageView.frame;
         cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
-        
+        cell.overlayArticleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
+        cell.overlayArticleDesc.text = [curatedNews valueForKey:@"desc"];
         NSString *outletString = [curatedNews valueForKey:@"outlet"];
         
         CGFloat width =  [outletString sizeWithFont:[UIFont fontWithName:@"OpenSans" size:14 ]].width;
@@ -209,6 +210,7 @@
         }
         
         cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
+        cell.overlayArticleOutlet.text = [curatedNews valueForKey:@"outlet"];
         
         NSSet *authorSet = [curatedNews valueForKey:@"author"];
         NSMutableArray *authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
@@ -223,9 +225,11 @@
                     [multipleAuthorArray addObject:[authorObject valueForKey:@"name"]];
                 }
                 cell.articleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
+                cell.overlayArticleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
             } else {
                 NSManagedObject *authorObject = [authorArray objectAtIndex:0];
                 cell.articleAuthor.text = [authorObject valueForKey:@"name"];
+                cell.overlayArticleAuthor.text = [authorObject valueForKey:@"name"];
             }
         }
         
@@ -269,9 +273,14 @@
             
         if(isFIViewSelected) {
             cell.detailsWebview.hidden = YES;
+            cell.overlayView.hidden = YES;
             [cell.timer invalidate];
         } else {
+            [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
+            [cell.overlayArticleImageView setContentMode:UIViewContentModeScaleAspectFill];
+            cell.overlayArticleTitle.text = [curatedNews valueForKey:@"title"];
             cell.detailsWebview.hidden = NO;
+            cell.overlayView.hidden = NO;
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                 if([curatedNews valueForKey:@"articleUrlData"] == nil) {
                     NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
@@ -541,8 +550,15 @@
                 });
         }
     }
-    
     return cell;
+    
+}
+
+
+
+
+-(void)removeOverlay:(UITapGestureRecognizer *)gesture {
+    NSLog(@"remove overlay working");
     
 }
 

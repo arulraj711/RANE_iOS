@@ -106,7 +106,7 @@
 
 +(void)showRequestTimeOutError {
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-    [window makeToast:@"Request Time out" duration:1 position:CSToastPositionCenter];
+    [window makeToast:@"This seems to take longer than expected...Please wait..." duration:1 position:CSToastPositionCenter];
 }
 +(void)makeRoundedView:(UIView*)view
 {

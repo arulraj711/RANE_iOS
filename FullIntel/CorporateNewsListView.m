@@ -612,7 +612,13 @@
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
     [resultDic setObject:@"2" forKey:@"status"];
-    
+     NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
+    NSLog(@"marked imp read status:%@",number);
+    if(number == [NSNumber numberWithInt:1]) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2"}];
+    } else {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2"}];
+    }
     
      NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {

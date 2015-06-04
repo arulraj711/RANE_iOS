@@ -102,10 +102,13 @@
     }else if(textField==_passwordTextField){
         [textField resignFirstResponder];
         [self callSignInFunction];
+<<<<<<< HEAD
     }else{
         
         [self callForgotPasswordWithEmail:textField.text];
         
+=======
+>>>>>>> 3522e9e0790eb7113b773b18156439c1705b7fa5
     }
     
     return YES;
