@@ -65,6 +65,8 @@
     
 }
 
+
+
 -(void)addCustomNavRightButton {
     
     
@@ -190,6 +192,12 @@
         cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
         cell.overlayArticleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
         cell.overlayArticleDesc.text = [curatedNews valueForKey:@"desc"];
+        
+        [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
+        [cell.overlayArticleImageView setContentMode:UIViewContentModeScaleAspectFill];
+        cell.overlayArticleTitle.text = [curatedNews valueForKey:@"title"];
+        
+        
         NSString *outletString = [curatedNews valueForKey:@"outlet"];
         
         CGFloat width =  [outletString sizeWithFont:[UIFont fontWithName:@"OpenSans" size:14 ]].width;
@@ -276,9 +284,6 @@
             cell.overlayView.hidden = YES;
             [cell.timer invalidate];
         } else {
-            [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
-            [cell.overlayArticleImageView setContentMode:UIViewContentModeScaleAspectFill];
-            cell.overlayArticleTitle.text = [curatedNews valueForKey:@"title"];
             cell.detailsWebview.hidden = NO;
             cell.overlayView.hidden = NO;
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
@@ -620,12 +625,16 @@
     NSString *articleId = [userInfo objectForKey:@"articleId"];
     NSString *articleTitle = [userInfo objectForKey:@"articleTitle"];
     NSString *articleUrl = [userInfo objectForKey:@"articleUrl"];
+    
+    
+    
     ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
     popOverView.articleId = articleId;
     popOverView.articleTitle = articleTitle;
     popOverView.articleUrl = articleUrl;
     popOverView.transitioningDelegate = self;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
+
     [self presentViewController:popOverView animated:YES completion:nil];
 }
 
@@ -878,16 +887,16 @@
     
     if(indexPath.row==0){
         
-        urlString=@"http://en.wikipedia.org/wiki/John_Maddox";
+        urlString=@"https://www.linkedin.com/pub/john-maddox/7/ab5/18";
     }else if (indexPath.row==1){
-        urlString=@"http://en.wikipedia.org/wiki/A123_Systems";
+        urlString=@"https://www.crunchbase.com/organization/a123systems";
         
     }else if (indexPath.row==2){
          urlString=@"http://en.wikipedia.org/wiki/CarPlay";
         
     }else{
         
-        urlString=@"https://www.youtube.com/watch?v=VQ0bUgAj_cw";
+        urlString=@"https://www.youtube.com/embed/VQ0bUgAj_cw";
     }
     
     

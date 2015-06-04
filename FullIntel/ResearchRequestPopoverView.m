@@ -25,7 +25,7 @@
     self.outerView.layer.cornerRadius = 10;
     if(self.fromAddContent) {
         self.titleText.text = @"Request Change";
-        self.articleDesc.text = [NSString stringWithFormat:@"Hi There,\n\nI would like to add/ change topics that are currently monitored.\n\nPlease add the following topics:---\n\n\n\n%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"]];
+        self.articleDesc.text = [NSString stringWithFormat:@"Hi there,\n\nI would like to make the following changes to the topics\n\n"];
         
     }else {
         self.titleText.text = @"Research Request/Feedback";
@@ -38,13 +38,41 @@
     self.backImgeView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapEvent)];
     [self.backImgeView addGestureRecognizer:tapEvent];
+    
+
 }
 
+- (BOOL)shouldAutorotate{
+    if([[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeLeft ||[[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeRight ||[[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortrait)
+    {
+        return YES;
+    }
+    else{
+        return NO;
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+    
+    [super viewDidAppear:animated];
+    
+    [self shouldAutorotate];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)updateViewConstraints {
+    if (self.view.superview != nil && [[self.view.superview constraints] count] == 0) {
+        NSDictionary* views = @{@"view" : self.view};
+        
+        [self.view.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:0 views:views]];
+        [self.view.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:0 views:views]];
+    }
+    [super updateViewConstraints];
+}
 -(void)tapEvent {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }

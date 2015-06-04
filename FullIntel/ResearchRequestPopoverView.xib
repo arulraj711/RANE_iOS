@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -11,7 +11,7 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResearchRequestPopoverView">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner">
             <connections>
                 <outlet property="articleDesc" destination="Ty0-Uq-oQa" id="sfo-TQ-jkl"/>
                 <outlet property="backImgeView" destination="jVV-8S-TxU" id="MqU-Od-Ev1"/>
@@ -113,15 +113,21 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="jVV-8S-TxU" secondAttribute="bottom" id="2PY-hE-eZ3"/>
-                <constraint firstAttribute="trailing" secondItem="jVV-8S-TxU" secondAttribute="trailing" id="557-g7-N9Z"/>
-                <constraint firstItem="s3L-uD-y3r" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="100" id="HAP-gg-3xQ"/>
-                <constraint firstAttribute="trailing" secondItem="s3L-uD-y3r" secondAttribute="trailing" constant="100" id="SZa-AD-zbS"/>
-                <constraint firstItem="jVV-8S-TxU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dox-dF-3MN"/>
-                <constraint firstItem="s3L-uD-y3r" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="mRJ-NP-tRI"/>
-                <constraint firstItem="jVV-8S-TxU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="t3y-QI-Kqh"/>
-                <constraint firstAttribute="bottom" secondItem="s3L-uD-y3r" secondAttribute="bottom" constant="50" id="yFu-e8-88B"/>
+                <constraint firstAttribute="trailing" secondItem="s3L-uD-y3r" secondAttribute="trailing" constant="100" id="02g-pm-lqG"/>
+                <constraint firstItem="s3L-uD-y3r" firstAttribute="centerY" secondItem="jVV-8S-TxU" secondAttribute="centerY" id="050-jh-f7d"/>
+                <constraint firstItem="jVV-8S-TxU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="DpA-us-zqh"/>
+                <constraint firstItem="s3L-uD-y3r" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="100" id="Ekw-CM-Bpl"/>
+                <constraint firstItem="s3L-uD-y3r" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="PfY-BC-IRG"/>
+                <constraint firstItem="s3L-uD-y3r" firstAttribute="centerX" secondItem="jVV-8S-TxU" secondAttribute="centerX" id="VDu-c8-ECv"/>
+                <constraint firstItem="s3L-uD-y3r" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="bmM-Nj-Uzb"/>
+                <constraint firstAttribute="bottom" secondItem="s3L-uD-y3r" secondAttribute="bottom" constant="50" id="fY3-Pd-CWI"/>
+                <constraint firstAttribute="trailing" secondItem="jVV-8S-TxU" secondAttribute="trailing" id="gUE-Kz-2bG"/>
+                <constraint firstAttribute="bottom" secondItem="jVV-8S-TxU" secondAttribute="bottom" id="kB7-qW-G3D"/>
+                <constraint firstItem="s3L-uD-y3r" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="rm0-RL-OIO"/>
+                <constraint firstItem="jVV-8S-TxU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="tM7-2N-QDu"/>
+                <constraint firstItem="jVV-8S-TxU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vo7-Kv-s0l"/>
             </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>

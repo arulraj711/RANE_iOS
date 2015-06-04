@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -23,7 +23,9 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
-            <string>OpenSans</string>
+        </mutableArray>
+        <mutableArray key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -63,12 +65,16 @@
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kda-iK-ch4">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="40"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sampleWidget" translatesAutoresizingMaskIntoConstraints="NO" id="hKB-gv-SmT">
+                                <rect key="frame" x="148" y="0.0" width="215" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nav_fi" translatesAutoresizingMaskIntoConstraints="NO" id="Frh-gW-wUe">
                                 <rect key="frame" x="365" y="7" width="25" height="25"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verizon's Acquistion Timeline" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LO-g9-Eu7">
-                                <rect key="frame" x="42" y="11" width="236" height="21"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Timeline" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LO-g9-Eu7">
+                                <rect key="frame" x="42" y="9" width="81" height="21"/>
+                                <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -184,13 +190,14 @@
                 <outlet property="secondImageView" destination="vG3-iU-0jr" id="GFf-XJ-aI9"/>
                 <outlet property="thirdImageView" destination="Rn3-KA-Eep" id="5Hb-TT-VGp"/>
             </connections>
-            <point key="canvasLocation" x="512" y="282"/>
+            <point key="canvasLocation" x="228" y="107"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="btn" width="400" height="40"/>
         <image name="btn_selected" width="400" height="40"/>
         <image name="nav_fi" width="25" height="25"/>
+        <image name="sampleWidget" width="218" height="40"/>
         <image name="signal" width="25" height="25"/>
         <image name="timeline" width="20" height="420"/>
     </resources>

@@ -42,7 +42,7 @@
                                 <rect key="frame" x="370" y="7" width="25" height="25"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sample-widget" translatesAutoresizingMaskIntoConstraints="NO" id="h0k-NH-Ltl">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sampleWidget" translatesAutoresizingMaskIntoConstraints="NO" id="h0k-NH-Ltl">
                                 <rect key="frame" x="146" y="0.0" width="218" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
@@ -103,7 +103,7 @@
         <image name="btn_selected" width="400" height="40"/>
         <image name="john_maddox.jpg" width="250" height="250"/>
         <image name="nav_fi" width="25" height="25"/>
-        <image name="sample-widget" width="218" height="40"/>
+        <image name="sampleWidget" width="218" height="40"/>
         <image name="user" width="25" height="25"/>
     </resources>
 </document>

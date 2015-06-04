@@ -38,7 +38,7 @@
                                 <rect key="frame" x="370" y="7" width="25" height="25"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gcv-km-5uR">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sampleWidget" translatesAutoresizingMaskIntoConstraints="NO" id="gcv-km-5uR">
                                 <rect key="frame" x="150" y="0.0" width="215" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
@@ -92,5 +92,6 @@
         <image name="btn_selected" width="400" height="40"/>
         <image name="camera" width="25" height="25"/>
         <image name="nav_fi" width="25" height="25"/>
+        <image name="sampleWidget" width="218" height="40"/>
     </resources>
 </document>
