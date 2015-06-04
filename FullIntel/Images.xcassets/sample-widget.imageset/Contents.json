@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "sel-btn.png"
+      "filename" : "sample-widget.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "sel-btn@2x.png"
+      "filename" : "sample-widget@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "sel-btn@3x.png"
+      "filename" : "sample-widget@3x.png"
     }
   ],
   "info" : {

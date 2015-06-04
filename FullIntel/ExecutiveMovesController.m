@@ -369,14 +369,17 @@
     if(btn.tag==0){
         [btn setSelected:YES];
       [FIUtils callRequestionUpdateWithModuleId:5 withFeatureId:1];
+         [btn setEnabled:NO];
     }
     if(btn.tag==1){
         [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:5 withFeatureId:6];
+         [btn setEnabled:NO];
     }
     if(btn.tag==2){
         [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:5 withFeatureId:5];
+         [btn setEnabled:NO];
     }
     
 }

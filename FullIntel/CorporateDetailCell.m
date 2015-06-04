@@ -397,18 +397,23 @@
         //Personality Widget
         [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:1];
+      
+        [btn setEnabled:NO];
     }else if(btn.tag == 1){
         //Company Widget
         [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:3];
+        [btn setEnabled:NO];
     }else if(btn.tag == 2){
         //Product Widget
         [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:4];
+        [btn setEnabled:NO];
     }else if(btn.tag == 3) {
         //Video Widget
         [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:7];
+        [btn setEnabled:NO];
     }
     
 }

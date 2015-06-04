@@ -865,7 +865,7 @@
     NSDictionary *userInfo = notification.userInfo;
     NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
     
-    NSLog(@"indexPath row:%d",indexPath.row);
+    NSLog(@"indexPath row:%ld",(long)indexPath.row);
     
     [self presentWebViewWithLink:indexPath];
     

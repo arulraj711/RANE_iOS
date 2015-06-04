@@ -46,7 +46,7 @@
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
 
-    self.usernameTextField.text = @"adobe@foradobe.com";
+    self.usernameTextField.text = @"mark@foradobe.com";
     self.passwordTextField.text = @"start";
 }
 - (void)animateImages
@@ -184,7 +184,7 @@
 
 -(void)showForgetAlert:(NSString *)textString{
 
-    UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Forgot Password" message:@"Please enter valid email address" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
+    UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Forgot Password" message:@"Please enter the email address associated with your account." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
     
     alertView.alertViewStyle=UIAlertViewStylePlainTextInput;
     
@@ -204,17 +204,22 @@
     UITextField *emailTextField = [alertView textFieldAtIndex:0];
     NSLog(@"%@",emailTextField.text);
     
-    NSLog(@"Button Index:%d",buttonIndex);
+    NSLog(@"Button Index:%ld",(long)buttonIndex);
 
+    
+    
+    
+    
+    
     
     if(buttonIndex==1){
         
         if([emailTextField.text length] == 0) {
-            [self.view makeToast:@"Please enter valid emaill address and try again." duration:2 position:CSToastPositionCenter];
+            [self.view makeToast:@"Please enter the email address associated with your account." duration:2 position:CSToastPositionCenter];
             
             [self showForgetAlert:emailTextField.text];
         } else if(![self NSStringIsValidEmail:emailTextField.text]) {
-            [self.view makeToast:@"Please enter valid emaill address and try again." duration:2 position:CSToastPositionCenter];
+            [self.view makeToast:@"Please enter the email address associated with your account." duration:2 position:CSToastPositionCenter];
             
             [self showForgetAlert:emailTextField.text];
         }else{
