@@ -3,17 +3,29 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "btn.png"
+      "filename" : "btn-cli1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "btn@2x.png"
+      "filename" : "btn-cli2-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "btn@3x.png"
+      "filename" : "btn-cli3-1.png"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "btn-cli2.png",
+      "unassigned" : true,
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "btn-cli3.png",
+      "unassigned" : true,
+      "scale" : "1x"
     }
   ],
   "info" : {
