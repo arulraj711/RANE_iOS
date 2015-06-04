@@ -288,7 +288,7 @@ NHAlignmentFlowLayout *layout;
 
 //-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
 //(NSTimeInterval)duration {
-//    
+//
 //    // Fade the collectionView out
 //    [self.stockCollectionView setAlpha:0.0f];
 //    

@@ -912,6 +912,7 @@
                         <outlet property="authorImageView" destination="RZo-0W-niV" id="Hp5-Ep-3Mi"/>
                         <outlet property="dealsWebView" destination="5S5-e4-GXT" id="8PL-iG-WcL"/>
                         <outlet property="firstCompanyImageView" destination="7od-Oh-haO" id="0GC-YB-2CT"/>
+                        <outlet property="forLabel" destination="6Jv-ue-sJs" id="vBH-r7-QRn"/>
                         <outlet property="overlayView" destination="kLZ-Qw-Ef0" id="ec0-8t-jXg"/>
                         <outlet property="requestUpgradeButton" destination="1kJ-0i-QoO" id="Lp5-Kg-06C"/>
                         <outlet property="rotateView" destination="rvZ-x0-JUC" id="L1w-FH-XgX"/>
