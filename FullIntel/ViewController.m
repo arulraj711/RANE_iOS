@@ -46,7 +46,7 @@
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
 
-    self.usernameTextField.text = @"adobe@foradobe.com";
+    self.usernameTextField.text = @"smith@foradobe.com";
     self.passwordTextField.text = @"start";
 }
 - (void)animateImages

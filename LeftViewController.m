@@ -110,6 +110,7 @@
 }
 
 -(void)updateMenuCount:(id)sender {
+    
     RADataObject *dataObj;
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
@@ -122,11 +123,21 @@
         
         [reloadArray addObject:dataObj];
     }else if([type isEqualToString:@"-2"]) {
-        dataObj = [self.data objectAtIndex:0];
-        int cnt = [dataObj.unReadCount intValue];
-        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        NSNumber *num = [userInfo objectForKey:@"isSelected"];
+        NSLog(@"selected number:%@",num);
+        if([num isEqualToNumber:[NSNumber numberWithInt:1]]){
+            dataObj = [self.data objectAtIndex:0];
+            int cnt = [dataObj.unReadCount intValue];
+            dataObj.unReadCount = [NSNumber numberWithInt:cnt+1];
+            [reloadArray addObject:dataObj];
+        } else if([num isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            NSLog(@"come inside");
+            dataObj = [self.data objectAtIndex:0];
+            int cnt = [dataObj.unReadCount intValue];
+            dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+            [reloadArray addObject:dataObj];
+        }
         
-        [reloadArray addObject:dataObj];
     } else if([type isEqualToString:@"-3"]) {
         dataObj = [self.data objectAtIndex:1];
         int cnt = [dataObj.unReadCount intValue];

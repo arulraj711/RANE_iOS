@@ -518,6 +518,7 @@
 }
 
 -(void)updateMarkedImportantStatusForRow:(NSIndexPath *)indexPath {
+
      NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
     CorporateNewsCell *cell = (CorporateNewsCell *)[self.articlesTableView cellForRowAtIndexPath:indexPath];
     NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
@@ -526,6 +527,7 @@
         [cell.markedImpButton setSelected:YES];
     } else {
         [cell.markedImpButton setSelected:NO];
+        
     }
 }
 
@@ -605,7 +607,6 @@
 
 -(void)markedImpAction:(UITapGestureRecognizer *)tapGesture {
     
-    
     NSInteger selectedTag = [tapGesture view].tag;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
@@ -615,9 +616,11 @@
      NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
     NSLog(@"marked imp read status:%@",number);
     if(number == [NSNumber numberWithInt:1]) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2"}];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
     } else {
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2"}];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
+        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
     }
     
      NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];

@@ -555,7 +555,7 @@
     if(articleUrl.length != 0) {
         mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@",self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
     } else {
-        mailBodyStr = [NSString stringWithFormat:@"%@\n",self.articleDesc];
+        mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n",self.articleDesc];
     }
     NSLog(@"mail body string:%@ and title:%@",mailBodyStr,self.selectedArticleTitle);
         [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"title":self.selectedArticleTitle,@"body":mailBodyStr}];

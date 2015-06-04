@@ -65,6 +65,8 @@
     
 }
 
+
+
 -(void)addCustomNavRightButton {
     
     
@@ -190,6 +192,12 @@
         cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
         cell.overlayArticleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
         cell.overlayArticleDesc.text = [curatedNews valueForKey:@"desc"];
+        
+        [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
+        [cell.overlayArticleImageView setContentMode:UIViewContentModeScaleAspectFill];
+        cell.overlayArticleTitle.text = [curatedNews valueForKey:@"title"];
+        
+        
         NSString *outletString = [curatedNews valueForKey:@"outlet"];
         
         CGFloat width =  [outletString sizeWithFont:[UIFont fontWithName:@"OpenSans" size:14 ]].width;
@@ -276,9 +284,6 @@
             cell.overlayView.hidden = YES;
             [cell.timer invalidate];
         } else {
-            [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
-            [cell.overlayArticleImageView setContentMode:UIViewContentModeScaleAspectFill];
-            cell.overlayArticleTitle.text = [curatedNews valueForKey:@"title"];
             cell.detailsWebview.hidden = NO;
             cell.overlayView.hidden = NO;
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
