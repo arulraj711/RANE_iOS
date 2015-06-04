@@ -105,6 +105,7 @@
     }else{
         
         [self callForgotPasswordWithEmail:textField.text];
+        
     }
     
     return YES;
