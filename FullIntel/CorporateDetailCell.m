@@ -476,7 +476,7 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
     progressView = [[UCZProgressView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width/2-50, self.contentView.frame.size.height/2-50, 100, 100)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
     progressView.backgroundColor = [UIColor clearColor];
