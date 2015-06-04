@@ -35,22 +35,26 @@
         self.articleDesc.selectedRange = NSMakeRange(0, 0);
         [self.articleDesc becomeFirstResponder];
     }
+    
+    
     self.backImgeView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapEvent)];
     [self.backImgeView addGestureRecognizer:tapEvent];
     
 
+    
+
 }
 
-- (BOOL)shouldAutorotate{
-    if([[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeLeft ||[[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeRight ||[[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortrait)
-    {
-        return YES;
-    }
-    else{
-        return NO;
-    }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    [super viewWillAppear:animated];
+    
+ 
+    self.navigationController.navigationBarHidden=YES;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -66,7 +70,7 @@
     [super updateViewConstraints];
 }
 -(void)tapEvent {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissViewControllerAnimated:NO completion:NULL];
 }
 - (IBAction)send:(id)sender {
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];

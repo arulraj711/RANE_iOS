@@ -602,11 +602,14 @@
     NSDictionary *userInfo = notification.userInfo;
     NSString *articleId = [userInfo objectForKey:@"articleId"];
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
-    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
+    UINavigationController *navCtlr = [storyBoard instantiateViewControllerWithIdentifier:@"commentNav"];
+    
+     CommentsPopoverView *popOverView=(CommentsPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
+    
     popOverView.articleId = articleId;
-    popOverView.transitioningDelegate = self;
-    popOverView.modalPresentationStyle = UIModalPresentationCustom;
-    [self presentViewController:popOverView animated:YES completion:nil];
+   // popOverView.transitioningDelegate = self;
+    navCtlr.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:navCtlr animated:NO completion:nil];
     //[self.navigationController presentViewController:popOverView
                                           //  animated:YES
                                           //completion:NULL];
@@ -621,15 +624,21 @@
     NSString *articleUrl = [userInfo objectForKey:@"articleUrl"];
     
     
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
+    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
     
-    ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
-    popOverView.articleId = articleId;
-    popOverView.articleTitle = articleTitle;
-    popOverView.articleUrl = articleUrl;
-    popOverView.transitioningDelegate = self;
+    ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+ //   ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+    researchViewController.articleId = articleId;
+    researchViewController.articleTitle = articleTitle;
+    researchViewController.articleUrl = articleUrl;
+//   popOverView.transitioningDelegate = self;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
-
-    [self presentViewController:popOverView animated:YES completion:nil];
+    
+    
+    
+    
+    [self presentViewController:popOverView animated:NO completion:nil];
 }
 
 - (void)socialLinkSelected:(id)sender

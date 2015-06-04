@@ -43,13 +43,20 @@
 }
 
 
-
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    [super viewWillAppear:animated];
+    
+    
+    self.navigationController.navigationBarHidden=YES;
+}
 
 -(void)CommentsExpire {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissViewControllerAnimated:NO completion:NULL];
 }
 -(void)tapEvent {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissViewControllerAnimated:NO completion:NULL];
 }
 
 -(void)fetchCommentsForArticleId{
