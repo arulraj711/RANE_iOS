@@ -46,9 +46,9 @@
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
 
-    self.usernameTextField.text = @"testing@foradobe.com";
+   // self.usernameTextField.text = @"testing@foradobe.com";
 
-    self.passwordTextField.text = @"start";
+   // self.passwordTextField.text = @"start";
 }
 - (void)animateImages
 {
@@ -194,7 +194,7 @@
     textField.returnKeyType=UIReturnKeySend;
     textField.delegate=self;
     
-    textField.text=textString;
+   // textField.text=textString;
     
     [alertView show];
     

@@ -527,6 +527,8 @@
       //  NSLog(@"curated result:%@",[curatedNews valueForKey:@"details"]);
         
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"id"] forKey:@"articleId"];
+            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"totalComments"] forKey:@"totalComments"];
+            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"unReadComment"] forKey:@"unReadComment"];
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"articleImageURL"] forKey:@"articleImageURL"];
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"article"] forKey:@"article"];
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"publisheddate"] forKey:@"articlePublisheddate"];
@@ -847,6 +849,29 @@
         [FIUtils showNoNetworkToast];
     }
 }
+
+-(void)markCommentAsReadWithDetails:(NSString *)details {
+    if([self serviceIsReachable]) {
+        [FIWebService commentMarkAsReadWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+//            if(![[responseObject objectForKey:@"code"]isEqualToNumber:[NSNumber numberWithInt:102]]) {
+//                UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//                [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+//                [self getCommentsWithDetails:self.getCommentDetailString withArticleId:self.getCommentArticleId];
+//                
+//                
+//            } else {
+//                [self hideProgressView];
+//                [self showLoginView:[responseObject objectForKey:@"success"]];
+//            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    } else {
+        [FIUtils showNoNetworkToast];
+    }
+}
+
 
 -(NSDictionary *)getTweetDetails:(NSString *)details {
      __block NSDictionary *responseDic;

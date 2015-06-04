@@ -292,7 +292,8 @@
         }
         
         
-    
+        NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
+        cell.badgeTwo.value = [unreadCnt integerValue];
         
 //        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
 //        [curatedNews setValue:string forKey:@"articleUrlData"];

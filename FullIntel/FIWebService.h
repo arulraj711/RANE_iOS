@@ -74,4 +74,7 @@
 +(void)getTweetDetails:(NSString*)withScreenName
                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)commentMarkAsReadWithDetails:(NSString*)details
+                             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

@@ -85,6 +85,8 @@
         <attribute name="outletname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="readStatus" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="saveForLater" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="totalComments" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="unReadComment" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="relatedPost" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="RelatedPost" syncable="YES"/>
     </entity>
     <entity name="CuratedNewsDetailAuthor" syncable="YES">
@@ -285,7 +287,7 @@
         <element name="CuratedAuthor" positionX="-846" positionY="-1404" width="128" height="163"/>
         <element name="CuratedLegends" positionX="-153" positionY="-306" width="128" height="88"/>
         <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="330"/>
-        <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="238"/>
+        <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="270"/>
         <element name="CuratedNewsDetailAuthor" positionX="-2423" positionY="-1269" width="128" height="238"/>
         <element name="Influ_Drillin" positionX="-479" positionY="-18" width="128" height="268"/>
         <element name="Influencer" positionX="-1098" positionY="-225" width="128" height="195"/>

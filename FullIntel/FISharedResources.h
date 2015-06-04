@@ -33,6 +33,7 @@
 -(void)updateAppViewTypeWithDetails:(NSString *)details;
 -(void)featureAccessRequestWithDetails:(NSString *)details;
 -(NSDictionary *)getTweetDetails:(NSString *)details;
+-(void)markCommentAsReadWithDetails:(NSString *)details;
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)showProgressView;
 - (void)hideProgressView;

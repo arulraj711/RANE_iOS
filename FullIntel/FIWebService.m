@@ -262,6 +262,16 @@
     }];
 }
 
++(void)commentMarkAsReadWithDetails:(NSString*)details
+                          onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                          onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    [self getResultsForFunctionName:@"useractivity/comment/markasRead" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
 
 +(void)getStockListDetails:(NSString *)details onSuccess:(void (^)(AFHTTPRequestOperation *, id))success onFailure:(void (^)(AFHTTPRequestOperation *, NSError *))failure{
     

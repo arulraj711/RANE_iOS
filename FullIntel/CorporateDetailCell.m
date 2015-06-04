@@ -37,7 +37,7 @@
     
     self.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
     self.badgeTwo.hideWhenZero = YES;
-    self.badgeTwo.value = 0;
+    //self.badgeTwo.value = 0;
     
     self.overlayArticleImageView.layer.masksToBounds = YES;
     self.overlayArticleImageView.layer.cornerRadius = 10.0f;
@@ -107,6 +107,7 @@
        // self.overlayView.hidden = NO;
     }
   //  [self.overlayView removeFromSuperview];
+    self.overlayView.hidden = YES;
     return YES;
 }
 
@@ -485,10 +486,10 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
-    progressView = [[UCZProgressView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width/2-50, self.contentView.frame.size.height/2-50, 100, 100)];
-    progressView.translatesAutoresizingMaskIntoConstraints = NO;
-    progressView.backgroundColor = [UIColor clearColor];
+//    self.timer = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
+//    progressView = [[UCZProgressView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width/2-50, self.contentView.frame.size.height/2-50, 100, 100)];
+//    progressView.translatesAutoresizingMaskIntoConstraints = NO;
+//    progressView.backgroundColor = [UIColor clearColor];
   //  [self.contentView addSubview:progressView];
 }
 
@@ -562,11 +563,11 @@
     NSString *articleUrl = [self.curatedNewsDetail valueForKey:@"articleUrl"];
     NSString *mailBodyStr;
     if(articleUrl.length != 0) {
-        mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@",self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
+        mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n\n%@",self.selectedArticleTitle,self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
     } else {
-        mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n",self.articleDesc];
+        mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n",self.selectedArticleTitle,self.articleDesc];
     }
-    NSLog(@"mail body string:%@ and title:%@",mailBodyStr,self.selectedArticleTitle);
+   // NSLog(@"mail body string:%@ and title:%@",mailBodyStr,self.selectedArticleTitle);
         [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"title":self.selectedArticleTitle,@"body":mailBodyStr}];
     //}
 }
@@ -700,7 +701,8 @@
                 
                 NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
                 [self.articleWebview loadHTMLString:htmlString baseURL:nil];
-                
+                NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
+                self.badgeTwo.value = [unreadCnt integerValue];
                 
                 NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
                 if(markImpStatus == [NSNumber numberWithInt:1]) {

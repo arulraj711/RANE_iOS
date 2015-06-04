@@ -72,6 +72,44 @@
         NSSet *commentSet = [userComments valueForKey:@"comments"];
         self.commentsArray = [[NSMutableArray alloc]initWithArray:[commentSet allObjects]];
     }
+    
+    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [resultDic setObject:self.articleId forKey:@"articleId"];
+    [resultDic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"userId"] forKey:@"userId"];
+    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"] forKey:@"customerId"];
+    [resultDic setObject:@"1" forKey:@"activityTypeId"];
+    [resultDic setObject:@"1" forKey:@"version"];
+    
+    
+    NSMutableArray *commentIdArray = [[NSMutableArray alloc]init];
+    for(NSManagedObject *comment in self.commentsArray) {
+        NSMutableDictionary *commentDic = [[NSMutableDictionary alloc] init];
+        [commentDic setObject:[comment valueForKey:@"id"] forKey:@"id"];
+        [commentIdArray addObject:commentDic];
+    }
+    
+    [resultDic setObject:commentIdArray forKey:@"commentList"];
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+    [[FISharedResources sharedResourceManager]markCommentAsReadWithDetails:resultStr];
+    
+//    "{
+//    ""userId"":""3"",
+//    ""securityToken"":""51595184fcf885dd67a912d8ece7cd0755d440a4"",
+//    ""customerId"": ""1"",
+//    ""commentList"":[ {
+//        ""id"":""3""
+//    },
+//    {
+//        ""id"":""4""
+//    }],
+//    ""articleId"": ""3799265c-254b-4c79-8c32-96edfeeb2bb3"",
+//    ""activityTypeId"":""1"",
+//    ""version"": 1
+//}"
+    
+    
     [self.commentsTableView reloadData];
 }
 
