@@ -196,7 +196,7 @@
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
         
         NSString *articleImageStr = [curatedNews valueForKey:@"image"];
-        [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:nil];
+        [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"bannerImage"]];
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
         cell.cachedImageViewSize = cell.articleImageView.frame;
         cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];

@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.revealController showViewController:self.revealController.leftViewController];
-
+    
    // NSLog(@"list did load");
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"authenticationFailed" object:nil];
@@ -95,18 +95,27 @@
     [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    if(accessToken.length == 0) {
-        // NSLog(@"corporate if part");
-        [self showLoginPage];
-    } else {
-        [self loadCuratedNews];
-        
-    }
+    self.articlesTableView.dataSource = nil;
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.alpha = 1.0;
+    activityIndicator.center = self.view.center;
+    activityIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+    
+//    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+//    if(accessToken.length == 0) {
+//        // NSLog(@"corporate if part");
+//        [self showLoginPage];
+//    } else {
+//        [self loadCuratedNews];
+//        
+//    }
     
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    self.articlesTableView.dataSource = nil;
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length == 0) {
         // NSLog(@"corporate if part");
@@ -177,6 +186,9 @@
 
 
 -(void)loadCuratedNews {
+    [activityIndicator stopAnimating];
+    self.articlesTableView.dataSource = self;
+    self.articlesTableView.delegate = self;
     NSInteger categoryId = [[[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"] integerValue];
     NSLog(@"category id in curated news:%d",categoryId);
     self.devices = [[NSMutableArray alloc]init];
@@ -332,22 +344,20 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"number of");
     // Return the number of rows in the section.
-    if(self.devices.count == 0) {
-        return 1;
+    NSInteger rowCnt;
+    if(self.devices.count != 0) {
+        rowCnt = self.devices.count;
+    } else {
+        rowCnt = 1;
     }
-    return self.devices.count;
+    return rowCnt;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *tableCell;
-    if(self.devices.count == 0) {
-        tableCell = [[UITableViewCell alloc] init];
-        tableCell.textLabel.text = @"No articles to display";
-        tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
-        tableCell.textLabel.font = [UIFont fontWithName:@"OpenSans" size:28];
-        tableCell.textLabel.textColor = [UIColor lightGrayColor];
-    } else {
+    if(self.devices.count != 0) {
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
         
@@ -386,8 +396,6 @@
             }
         }
        // NSLog(@"multiple author array:%@",multipleAuthorArray);
-        
-        
         //cell.authorTitle.text = [author valueForKey:@"title"];
         //[cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         
@@ -403,8 +411,6 @@
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc]init];
         style.lineSpacing = 2;
         cell.descTextView.attributedText = [[NSAttributedString alloc]initWithString:s attributes:@{NSParagraphStyleAttributeName:style,NSFontAttributeName:font,NSForegroundColorAttributeName:textColor}];
-        
-        
         CGFloat width =  [[curatedNews valueForKey:@"outlet"] sizeWithFont:[UIFont fontWithName:@"OpenSans" size:15 ]].width;
         if(width == 0) {
             cell.outletWidthConstraint.constant = 0;
@@ -428,37 +434,7 @@
         CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
         CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.title.font constrainedToSize:maximumLabelSize lineBreakMode:cell.title.lineBreakMode];
         NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
-//        if(expectedLabelSize.height < 60) {
-//            cell.titleHeightConstraint.constant = expectedLabelSize.height-20;
-//        } else {
-//            cell.titleHeightConstraint.constant = expectedLabelSize.height-60;
-//        }
-        
-//        if(expectedLabelSize.height > 80) {
-//            cell.titleHeightConstraint.constant = expectedLabelSize.height-50;
-//        } else {
-            //cell.titleHeightConstraint.constant = expectedLabelSize.height-30;
-       // }
-        
-        
-        
-        //int i=30;
-        
-//        if(expectedLabelSize.height > 180) {
-//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*5;
-//        } else if(expectedLabelSize.height > 150) {
-//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*4;
-//        } else if(expectedLabelSize.height > 120) {
-//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*3;
-//        } else if(expectedLabelSize.height > 90) {
-//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 45*2;
-//        } else if(expectedLabelSize.height > 60) {
-//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 45*1;
-//        } else if(expectedLabelSize.height > 30) {
-//            cell.titleHeightConstraint.constant = expectedLabelSize.height - 30*0;
-//        } else {
-//            cell.titleHeightConstraint.constant = expectedLabelSize.height;
-//        }
+
         
         cell.titleHeightConstraint.constant = expectedLabelSize.height;
         NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
@@ -502,6 +478,12 @@
         cell.checkMarkButton.tag = indexPath.row;
         [cell.checkMarkButton addGestureRecognizer:checkMarkTap];
         tableCell = cell;
+    } else {
+        tableCell = [[UITableViewCell alloc] init];
+        tableCell.textLabel.text = @"No articles to display";
+        tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
+        tableCell.textLabel.font = [UIFont fontWithName:@"OpenSans" size:28];
+        tableCell.textLabel.textColor = [UIColor lightGrayColor];
     }
     
     

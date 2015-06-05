@@ -304,7 +304,20 @@
         TWTRUser *author = tweetObj.author;
         tweetCell.author.text = author.name;
        // NSLog(@"tweet id:%@",tweetObj.tweetID);
-        NSDictionary *tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
+        __block NSDictionary *tweetDic;
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
+            int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
+            NSLog(@"single followers count:%d",followersCount);
+            if(followersCount/1000 == 0) {
+                tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
+            } else {
+                float followersFloatValue = (float)followersCount;
+                tweetCell.followers.text = [NSString stringWithFormat:@"%.01fK",followersFloatValue/1000];
+            }
+        });
+        
+        
         NSLog(@"user id:%@ and tweet id:%@ and dic:%@ and retweet count:%lld and tweet:%@",author.userID,tweetObj.tweetID,tweetDic,tweetObj.retweetCount,tweetObj);
 
         tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
@@ -321,14 +334,7 @@
             tweetCell.favourate.text = [NSString stringWithFormat:@"%lldK",tweetObj.favoriteCount/1000];
         }
         
-        int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
-        NSLog(@"single followers count:%d",followersCount);
-        if(followersCount/1000 == 0) {
-            tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
-        } else {
-            float followersFloatValue = (float)followersCount;
-            tweetCell.followers.text = [NSString stringWithFormat:@"%.01fK",followersFloatValue/1000];
-        }
+        
         
      //   tweetCell.followers.text = [tweetDic objectForKey:@"followers_current"];
         tweetCell.contentView.layer.borderWidth = 1.0f;
@@ -951,13 +957,14 @@
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
     //CAPTURE USER LINK-CLICK.
+    
     if(webView == self.articleWebview) {
         NSURL *url = [request URL];
         NSLog(@"select link:%@",url);
         NSString *urlString = url.absoluteString;
         if (![urlString isEqualToString: @"about:blank"]) {
             
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"socialLinkSelected" object:nil userInfo:@{@"name":@"WebView",@"link":urlString}];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"socialLinkSelected" object:nil userInfo:@{@"name":@"More Info",@"link":urlString}];
             
             return NO;
         }
