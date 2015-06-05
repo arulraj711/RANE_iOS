@@ -319,7 +319,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bJt-tv-4Sj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="644" y="41"/>
+            <point key="canvasLocation" x="1128" y="989"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WGW-F2-N6V">
@@ -1358,7 +1358,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="iNI-7V-thz" firstAttribute="top" secondItem="Agi-99-s4h" secondAttribute="bottom" id="9Jw-yd-8Z0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Agi-99-s4h" secondAttribute="trailing" constant="-6" id="DZw-4S-J3J"/>
                             <constraint firstItem="Agi-99-s4h" firstAttribute="bottom" secondItem="iNI-7V-thz" secondAttribute="top" id="XCZ-Yb-AFC"/>
+                            <constraint firstItem="Agi-99-s4h" firstAttribute="top" secondItem="IEw-Rv-qnH" secondAttribute="bottom" id="gEb-85-Scs"/>
                             <constraint firstItem="Agi-99-s4h" firstAttribute="leading" secondItem="yuv-7X-DYD" secondAttribute="leadingMargin" constant="-6" id="kPa-s4-Yqa"/>
                             <constraint firstItem="Agi-99-s4h" firstAttribute="centerX" secondItem="yuv-7X-DYD" secondAttribute="centerX" id="mY7-yx-Hkk"/>
                             <constraint firstItem="Agi-99-s4h" firstAttribute="top" secondItem="IEw-Rv-qnH" secondAttribute="bottom" id="pfZ-Gu-f0S"/>
@@ -1380,13 +1383,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MI0-HL-m0P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="235" y="-191"/>
+            <point key="canvasLocation" x="499" y="-517"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Es5-RM-L3q">
             <objects>
                 <navigationController storyboardIdentifier="SocialWebView" automaticallyAdjustsScrollViewInsets="NO" id="4AK-s8-F6j" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="1000" height="600"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NSb-3l-Meo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

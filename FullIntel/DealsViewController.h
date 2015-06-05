@@ -41,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIView *rotateView;
 
 
+@property (weak, nonatomic) IBOutlet UILabel *forLabel;
 
 
 

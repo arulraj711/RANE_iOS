@@ -393,6 +393,24 @@
     }
     
 }
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
+(NSTimeInterval)duration {
+    
+    if(toInterfaceOrientation==UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
+        
+        NSLog(@"coming into landscape");
+        
+  _forLabel.hidden=NO;
+        _forLabel.text=@"for";
+        
+    }else if(toInterfaceOrientation==UIInterfaceOrientationPortrait){
+
+        NSLog(@"coming into Portrait");
+        _forLabel.hidden=YES;
+        _forLabel.text=@"";
+    }
+}
+
 
 - (IBAction)requestUpgradeButtonPressed:(id)sender {
     

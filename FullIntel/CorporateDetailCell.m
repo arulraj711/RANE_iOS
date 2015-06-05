@@ -900,6 +900,8 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat y = -scrollView.contentOffset.y;
+    
+    
     //NSLog(@"scroll y value:%f",y);
     if (y > 0) {
         self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+50, self.cachedImageViewSize.size.height+y);
@@ -909,6 +911,8 @@
         
 
     }
+    
+  
     
 }
 
