@@ -230,7 +230,7 @@
     }
     
     
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] integerValue] withFlag:@"up"];
+        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] integerValue] withFlag:@"up" withLastArticleId:@""];
    // }
     
     [refreshControl endRefreshing];
@@ -606,6 +606,7 @@
     [resultDic setObject:@"2" forKey:@"status"];
      NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
     NSLog(@"marked imp read status:%@",number);
+    if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
     if(number == [NSNumber numberWithInt:1]) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
         [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
@@ -613,7 +614,7 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
         [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
     }
-    
+    }
      NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
         UIButton *markedImpBtn = (UIButton *)[tapGesture view];
@@ -741,7 +742,7 @@
         } else {
             inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
         }
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] integerValue] withFlag:@""];
+        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] integerValue] withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
         }
         //[self reloadData];
     }

@@ -16,7 +16,7 @@
 @property (nonatomic,strong) NSMutableArray *articleIdArray;
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
 +(FISharedResources*)sharedResourceManager;
--(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSInteger)categoryId withFlag:(NSString *)updownFlag;
+-(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSInteger)categoryId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
 -(void)getInfluencerListWithAccessToken:(NSString *)details;
 -(void)getCuratedNewsDetailsWithDetails:(NSString *)details;
 -(void)getCuratedNewsAuthorDetailsWithDetails:(NSString *)details withArticleId:(NSString *)articleId;
