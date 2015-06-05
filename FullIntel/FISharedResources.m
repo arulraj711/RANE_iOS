@@ -604,6 +604,7 @@
                 [userComments setValue:[responseObject valueForKey:@"version"] forKey:@"version"];
                 
                 NSArray *commentsArray = [responseObject valueForKey:@"commentList"];
+                NSLog(@"comment array:%@",commentsArray);
                 NSMutableArray *userCommentsArray = [[NSMutableArray alloc]init];
                 for(NSDictionary *commentsDic in commentsArray) {
                     NSManagedObject *comments = [NSEntityDescription insertNewObjectForEntityForName:@"Comments" inManagedObjectContext:managedObjectContext];

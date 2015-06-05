@@ -219,7 +219,7 @@
     [UIView setAnimationDuration:0.4]; // to slide the view up
     
     CGRect rect = self.view.frame;
-    rect.size.height =750;
+    rect.size.height =770;
     self.view.frame = rect;
     
     [UIView commitAnimations];
