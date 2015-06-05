@@ -312,6 +312,7 @@
         [self hideProgressView];
        // NSLog(@"reached end");
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
         } else {
             [self hideProgressView];

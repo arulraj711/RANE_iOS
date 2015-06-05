@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.revealController showViewController:self.revealController.leftViewController];
-    
+    messageString = @"Loading";
    // NSLog(@"list did load");
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"authenticationFailed" object:nil];
@@ -121,8 +121,10 @@
         // NSLog(@"corporate if part");
         [self showLoginPage];
     } else {
-        [self loadCuratedNews];
-        
+        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
+        if(!isFirst) {
+            [self loadCuratedNews];
+        }
     }
 }
 //-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
@@ -203,7 +205,7 @@
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    
+    messageString = @"No articles to display";
     
 //    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
@@ -480,7 +482,7 @@
         tableCell = cell;
     } else {
         tableCell = [[UITableViewCell alloc] init];
-        tableCell.textLabel.text = @"No articles to display";
+        tableCell.textLabel.text = messageString;
         tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
         tableCell.textLabel.font = [UIFont fontWithName:@"OpenSans" size:28];
         tableCell.textLabel.textColor = [UIColor lightGrayColor];

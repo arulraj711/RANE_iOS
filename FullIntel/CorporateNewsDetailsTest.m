@@ -64,6 +64,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [activityIndicator stopAnimating];
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;

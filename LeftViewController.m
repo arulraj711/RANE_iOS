@@ -600,8 +600,7 @@
         // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
         [self.revealController setFrontViewController:navCtlr];
     }else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
-        [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyLogo"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyName"];
+        
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
@@ -776,6 +775,9 @@
    // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
+    [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyLogo"];
+    [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyName"];
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
     // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];

@@ -16,6 +16,7 @@
      MZFormSheetController *formSheet;
     UIActivityIndicatorView *activityIndicator;
     NSInteger rowCount;
+    NSString *messageString;
 }
 @property BOOL isStarting;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *corporateListWidthConstraint;
