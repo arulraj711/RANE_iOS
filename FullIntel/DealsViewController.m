@@ -384,22 +384,15 @@
     }
     
 }
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
-(NSTimeInterval)duration {
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
-    if(toInterfaceOrientation==UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
-        
-        NSLog(@"coming into landscape");
-        
-  _forLabel.hidden=NO;
+    // NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
+    if(fromInterfaceOrientation == 1) {
         _forLabel.text=@"for";
-        
-    }else if(toInterfaceOrientation==UIInterfaceOrientationPortrait){
-
-        NSLog(@"coming into Portrait");
-        _forLabel.hidden=YES;
+    }else {
         _forLabel.text=@"";
     }
+    
 }
 
 

@@ -27,10 +27,12 @@
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 10;
    
-   // NSLog(@"web view url:%@",self.urlString);
+    NSLog(@"web view url:%@",self.urlString);
     NSURL *url = [NSURL URLWithString:self.urlString];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestObj];
+    
+    
     
     _titleString.text=_titleStr;
 }
