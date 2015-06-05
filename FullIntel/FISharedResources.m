@@ -201,7 +201,7 @@
 }
 
 
--(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSInteger)categoryId withFlag:(NSString *)updownFlag {
+-(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSInteger)categoryId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
    // [self showProgressView];
     
     if([self serviceIsReachable]) {
@@ -212,8 +212,10 @@
         NSArray *influencerArray = [responseObject objectForKey:@"articleList"];
             
             if(influencerArray.count == 0) {
-                UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                [window makeToast:@"No more articles to display" duration:2 position:CSToastPositionCenter];
+                if(lastArticleId.length != 0){
+                    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                    [window makeToast:@"No more articles to display" duration:2 position:CSToastPositionCenter];
+                }
             }
             
             if([updownFlag isEqualToString:@"up"]) {
