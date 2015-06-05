@@ -612,7 +612,6 @@
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
     
     ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
- //   ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
     researchViewController.articleId = articleId;
     researchViewController.articleTitle = articleTitle;
     researchViewController.articleUrl = articleUrl;
@@ -634,59 +633,69 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+    
+    
+    SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+    SocialWebViewObj.titleStr=title;
+    SocialWebViewObj.urlString=link;
+    modalController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [self presentViewController:modalController animated:NO completion:nil];
+  
+    
     // UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"modal"];
     
-    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
-    
-    formSheet.presentedFormSheetSize = CGSizeMake(850, 700);
-    //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
-    formSheet.shadowRadius = 2.0;
-    formSheet.shadowOpacity = 0.3;
-    formSheet.shouldDismissOnBackgroundViewTap = YES;
-    formSheet.shouldCenterVertically = YES;
-    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
-    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
-    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
-    // formSheet.landscapeTopInset = 50;
-    // formSheet.portraitTopInset = 100;
-    
-    __weak MZFormSheetController *weakFormSheet = formSheet;
-    
-    
-    // If you want to animate status bar use this code
-    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
-        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
-        if ([navController.topViewController isKindOfClass:[SocialWebView class]]) {
-            SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
-            mzvc.urlString = link;
-            //  mzvc.showStatusBar = NO;
-        }
-        
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
-            }
-        }];
-    };
-    
-    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
-        // Passing data
-        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-        
-        navController.topViewController.title = title;
-        
-        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-        SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
-        mzvc.urlString = link;
-    };
-    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
-    
-    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
-    
-    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-        
-    }];
+//    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+//    
+//    formSheet.presentedFormSheetSize = CGSizeMake(850, 700);
+//    //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
+//    formSheet.shadowRadius = 2.0;
+//    formSheet.shadowOpacity = 0.3;
+//    formSheet.shouldDismissOnBackgroundViewTap = YES;
+//    formSheet.shouldCenterVertically = YES;
+//    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+//    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
+//    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
+//    // formSheet.landscapeTopInset = 50;
+//    // formSheet.portraitTopInset = 100;
+//    
+//    __weak MZFormSheetController *weakFormSheet = formSheet;
+//    
+//    
+//    // If you want to animate status bar use this code
+//    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+//        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
+//        if ([navController.topViewController isKindOfClass:[SocialWebView class]]) {
+//            SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
+//            mzvc.urlString = link;
+//            //  mzvc.showStatusBar = NO;
+//        }
+//        
+//        
+//        [UIView animateWithDuration:0.3 animations:^{
+//            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+//                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+//            }
+//        }];
+//    };
+//    
+//    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+//        // Passing data
+//        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
+//        
+//        navController.topViewController.title = title;
+//        
+//        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+//        SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
+//        mzvc.urlString = link;
+//    };
+//    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+//    
+//    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
+//    
+//    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+//        
+//    }];
     
 }
 
@@ -869,80 +878,96 @@
 -(void)presentWebViewWithLink :(NSIndexPath *)indexPath{
     
     
-    NSString *urlString;
+    NSString *urlString,*titleString;
     
     
     if(indexPath.row==0){
         
         urlString=@"https://www.linkedin.com/pub/john-maddox/7/ab5/18";
+        titleString=@"John Maddox";
     }else if (indexPath.row==1){
         urlString=@"https://www.crunchbase.com/organization/a123systems";
+        titleString=@"A123 Systems";
         
     }else if (indexPath.row==2){
          urlString=@"http://en.wikipedia.org/wiki/CarPlay";
+        titleString=@"Apple Car Play";
         
     }else{
         
         urlString=@"https://www.youtube.com/embed/VQ0bUgAj_cw";
+        titleString=@"The Apple Car";
     }
-    
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-    // UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"modal"];
-    
-    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
-    
-    formSheet.presentedFormSheetSize = CGSizeMake(850, 700);
-    //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
-    formSheet.shadowRadius = 2.0;
-    formSheet.shadowOpacity = 0.3;
-    formSheet.shouldDismissOnBackgroundViewTap = YES;
-    formSheet.shouldCenterVertically = YES;
-    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
-    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
-    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
-    // formSheet.landscapeTopInset = 50;
-    // formSheet.portraitTopInset = 100;
-    
-    __weak MZFormSheetController *weakFormSheet = formSheet;
     
     
-    // If you want to animate status bar use this code
-    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
-        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
-        if ([navController.topViewController isKindOfClass:[SocialWebView class]]) {
-            SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
-            mzvc.urlString = urlString;
-            //  mzvc.showStatusBar = NO;
-        }
-        
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
-            }
-        }];
-    };
+    SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+    SocialWebViewObj.titleStr=titleString;
+    SocialWebViewObj.urlString=urlString;
+    modalController.modalPresentationStyle = UIModalPresentationCustom;
     
-    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
-        // Passing data
-        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-        
-        navController.topViewController.title = @"";
-        
-        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-        SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
-        mzvc.urlString = urlString;
-    };
-    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+    [self presentViewController:modalController animated:NO completion:nil];
     
-    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
-    
-    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-        
-    }];
+//    
+//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+//    
+//    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+//    // UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"modal"];
+//    
+//    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+//    
+//    formSheet.presentedFormSheetSize = CGSizeMake(850, 700);
+//    //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
+//    formSheet.shadowRadius = 2.0;
+//    formSheet.shadowOpacity = 0.3;
+//    formSheet.shouldDismissOnBackgroundViewTap = YES;
+//    formSheet.shouldCenterVertically = YES;
+//    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+//    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
+//    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
+//    // formSheet.landscapeTopInset = 50;
+//    // formSheet.portraitTopInset = 100;
+//    
+//    __weak MZFormSheetController *weakFormSheet = formSheet;
+//    
+//    
+//    // If you want to animate status bar use this code
+//    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+//        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
+//        if ([navController.topViewController isKindOfClass:[SocialWebView class]]) {
+//            SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
+//            mzvc.urlString = urlString;
+//            //  mzvc.showStatusBar = NO;
+//        }
+//        
+//        
+//        [UIView animateWithDuration:0.3 animations:^{
+//            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+//                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+//            }
+//        }];
+//    };
+//    
+//    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+//        // Passing data
+//        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
+//        
+//        navController.topViewController.title = @"";
+//        
+//        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+//        SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
+//        mzvc.urlString = urlString;
+//    };
+//    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+//    
+//    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
+//    
+//    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+//        
+//    }];
     
 }
 @end

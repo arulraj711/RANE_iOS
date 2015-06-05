@@ -83,7 +83,7 @@
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont fontWithName:@"Open Sans" size:18];
     label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text = @"Home";
+    label.text =_titleName;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor]; // change this color
     self.navigationItem.titleView = label;

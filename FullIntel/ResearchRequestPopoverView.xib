@@ -131,6 +131,6 @@
         </view>
     </objects>
     <resources>
-        <image name="close" width="28" height="28"/>
+        <image name="close" width="32" height="32"/>
     </resources>
 </document>

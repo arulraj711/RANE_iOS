@@ -48,7 +48,7 @@
     
 
 
-    self.usernameTextField.text = @"jennifer.fry@example.com";
+    self.usernameTextField.text = @"arul.raj@capestart.com";
     self.passwordTextField.text = @"start";
 
 

@@ -23,4 +23,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *articlesTableView;
 @property (nonatomic,strong) NSNumber *categoryId;
 @property (strong) NSMutableArray *devices;
+
+@property (nonatomic,strong) NSString *titleName;
 @end

@@ -76,10 +76,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlx-Sc-VwE">
-                                        <rect key="frame" x="758" y="15" width="28" height="28"/>
+                                        <rect key="frame" x="757" y="13" width="35" height="35"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="1gq-bm-Ko3"/>
-                                            <constraint firstAttribute="width" constant="28" id="Ohj-gu-Hip"/>
+                                            <constraint firstAttribute="height" constant="35" id="1gq-bm-Ko3"/>
+                                            <constraint firstAttribute="width" constant="35" id="Ohj-gu-Hip"/>
                                         </constraints>
                                         <state key="normal" image="close">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -99,13 +99,13 @@
                                     <constraint firstAttribute="trailing" secondItem="eKs-mj-43X" secondAttribute="trailing" constant="20" id="Fum-25-ekF"/>
                                     <constraint firstAttribute="trailing" secondItem="Hfp-gc-fH4" secondAttribute="trailing" constant="5" id="GTU-kY-LM2"/>
                                     <constraint firstItem="Lgk-up-270" firstAttribute="top" secondItem="Hfp-gc-fH4" secondAttribute="bottom" constant="8" id="Js8-kZ-vte"/>
-                                    <constraint firstItem="zlx-Sc-VwE" firstAttribute="top" secondItem="L3e-gv-bHS" secondAttribute="top" constant="15" id="T4W-Xb-4x7"/>
+                                    <constraint firstItem="zlx-Sc-VwE" firstAttribute="top" secondItem="L3e-gv-bHS" secondAttribute="top" constant="13" id="T4W-Xb-4x7"/>
                                     <constraint firstItem="LVR-1F-qJF" firstAttribute="top" secondItem="IaU-fi-HMI" secondAttribute="bottom" constant="22" id="XoL-oo-aHz"/>
                                     <constraint firstItem="LVR-1F-qJF" firstAttribute="leading" secondItem="L3e-gv-bHS" secondAttribute="leading" id="ZvW-Nb-HdI"/>
                                     <constraint firstItem="IaU-fi-HMI" firstAttribute="top" secondItem="L3e-gv-bHS" secondAttribute="top" constant="18" id="c61-QS-0uS"/>
                                     <constraint firstItem="IaU-fi-HMI" firstAttribute="leading" secondItem="L3e-gv-bHS" secondAttribute="leading" constant="100" id="ceA-yb-fWj"/>
                                     <constraint firstItem="Lgk-up-270" firstAttribute="leading" secondItem="L3e-gv-bHS" secondAttribute="leading" id="njJ-eO-av9"/>
-                                    <constraint firstAttribute="trailing" secondItem="zlx-Sc-VwE" secondAttribute="trailing" constant="14" id="uC3-AR-qFw"/>
+                                    <constraint firstAttribute="trailing" secondItem="zlx-Sc-VwE" secondAttribute="trailing" constant="8" id="uC3-AR-qFw"/>
                                     <constraint firstAttribute="trailing" secondItem="Lgk-up-270" secondAttribute="trailing" id="uUg-o3-J3I"/>
                                     <constraint firstItem="Hfp-gc-fH4" firstAttribute="top" secondItem="LVR-1F-qJF" secondAttribute="bottom" constant="4" id="yfd-tA-kXA"/>
                                 </constraints>
@@ -167,6 +167,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="close" width="28" height="28"/>
+        <image name="close" width="32" height="32"/>
     </resources>
 </document>
