@@ -46,9 +46,14 @@
     [flowLayout setMinimumLineSpacing:0.0f];
     [self.collectionView setPagingEnabled:YES];
     [self.collectionView setCollectionViewLayout:flowLayout];
-    [self.collectionView reloadData];
-    
-   // self.collectionView.contentOffset = CGPointMake(self.collectionView.frame.size.width*2, 0);
+   // [self.collectionView reloadData];
+    self.collectionView.dataSource = nil;
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.alpha = 1.0;
+    activityIndicator.center = self.view.center;
+    activityIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
     
     innerWebView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)];
     
@@ -59,11 +64,12 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-
+    [activityIndicator stopAnimating];
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;
     [self.collectionView setContentOffset:CGPointMake(offset, 0)];
-    
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
 }
 
 
@@ -173,7 +179,7 @@
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-   // NSLog(@"cell indexpath:%@",indexPath);
+    NSLog(@"cell indexpath:%@",indexPath);
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];

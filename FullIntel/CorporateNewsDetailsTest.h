@@ -10,12 +10,13 @@
 #import "FISharedResources.h"
 #import <MessageUI/MessageUI.h>
 
-@interface CorporateNewsDetailsTest : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate> {
+@interface CorporateNewsDetailsTest : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
     NSTimer *oneSecondTicker;
     NSManagedObject *curatedNewsDetail;
     NSManagedObject *curatedNewsAuthorDetail;
      MFMailComposeViewController *mailComposer;
     UIView *innerWebView;
+    UIActivityIndicatorView *activityIndicator;
 }
 @property NSIndexPath *selectedIndexPath;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;

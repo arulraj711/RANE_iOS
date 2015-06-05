@@ -24,6 +24,7 @@
 #import "SavedListPopoverView.h"
 #import "MorePopoverView.h"
 #import "VideoWidgetCell.h"
+#import "SocialWebView.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @implementation CorporateDetailCell
@@ -943,11 +944,17 @@
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
     //CAPTURE USER LINK-CLICK.
-    NSURL *url = [request URL];
-    NSLog(@"select link:%@",url);
-    //yourTextBox.text =   [url absoluteString];
-    
-    
+    if(webView == self.articleWebview) {
+        NSURL *url = [request URL];
+        NSLog(@"select link:%@",url);
+        NSString *urlString = url.absoluteString;
+        if (![urlString isEqualToString: @"about:blank"]) {
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"socialLinkSelected" object:nil userInfo:@{@"name":@"WebView",@"link":urlString}];
+            
+            return NO;
+        }
+    }
     return YES;
 }
 
