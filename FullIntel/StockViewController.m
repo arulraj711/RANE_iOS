@@ -17,6 +17,7 @@
 #import "FIUtils.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FISharedResources.h"
+#import "ViewController.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface StockViewController ()
 
@@ -27,7 +28,7 @@ NHAlignmentFlowLayout *layout;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"authenticationFailed" object:nil];
 
     [self setUpViews];
 }
@@ -155,6 +156,32 @@ NHAlignmentFlowLayout *layout;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+-(void)showLoginPage {
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    UINavigationController *listView = [storyBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+    [self.revealController setFrontViewController:listView];
+    [self.revealController showViewController:self.revealController.leftViewController];
+    
+    NSArray *navArray = self.navigationController.viewControllers;
+    if(navArray.count > 1) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window addSubview:loginView.view];
+    } else {
+        UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window addSubview:loginView.view];
+    }
+    
+    
+    //[self presentViewController:loginView animated:YES completion:nil];
 }
 
 -(void)backBtnPress {

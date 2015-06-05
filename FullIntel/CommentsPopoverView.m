@@ -27,6 +27,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchCommentsForArticleId) name:@"FetchingComments" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CommentsExpire) name:@"CommentsExpire" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(markCommentAsRead) name:@"markCommentAsRead" object:nil];
+    
+    
 //    [[NSNotificationCenter defaultCenter] addObserver:self
 //                                             selector:@selector(changeInputMode:)
 //                                                 name:UITextInputCurrentInputModeDidChangeNotification object:nil];
@@ -50,6 +53,10 @@
     
     
     self.navigationController.navigationBarHidden=YES;
+}
+
+-(void)markCommentAsRead {
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"commentStatusUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithInt:0]}];
 }
 
 -(void)CommentsExpire {
