@@ -683,7 +683,6 @@
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RZo-0W-niV">
                                         <rect key="frame" x="50" y="15" width="50" height="50"/>
-                                        <color key="backgroundColor" red="0.1176470588" green="0.94117647059999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Oxt-V4-5GL"/>
                                             <constraint firstAttribute="width" constant="50" id="iKw-sc-mEt"/>
