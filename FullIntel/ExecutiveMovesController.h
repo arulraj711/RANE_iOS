@@ -29,7 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *sampleDataText;
 
-
+@property (nonatomic,strong) NSString *titleName;
 
 @property (weak, nonatomic) IBOutlet UIView *rotateView;
 @end

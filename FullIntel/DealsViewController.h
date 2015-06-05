@@ -44,7 +44,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *forLabel;
 
 
-
+@property (nonatomic,strong) NSString *titleName;
 
 
 

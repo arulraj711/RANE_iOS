@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *requestUpgradeButton;
 @property (nonatomic,strong) NSMutableArray *influencerArray;
 
+@property (nonatomic,strong) NSString *titleName;
+
 
 @property (weak, nonatomic) IBOutlet UITextView *sampleDataText;
 

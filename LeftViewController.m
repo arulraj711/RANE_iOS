@@ -21,6 +21,11 @@
 #import "ResearchRequestPopoverView.h"
 #import "PresentingAnimator.h"
 #import "DismissingAnimator.h"
+#import "StockViewController.h"
+#import "InfluencerListView.h"
+#import "DealsViewController.h"
+#import "IpAndLegalViewController.h"
+#import "ExecutiveMovesController.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -165,7 +170,7 @@
     NSString *companyLogoImageStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyLogo"];
     NSString *companyNameStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"];
     
-    [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:companyLogoImageStr] placeholderImage:nil];
+    [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:companyLogoImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
     self.companyName.text = [companyNameStr uppercaseString];
     self.companyName.numberOfLines = 1;
     self.companyName.minimumFontSize = 8.;
@@ -520,16 +525,32 @@
     } else if([data.nodeId integerValue] == 7) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"InfluencerView"];
+        
+         InfluencerListView *InfluencerListViewObj=(InfluencerListView *)[[navCtlr viewControllers]objectAtIndex:0];
+        
+        InfluencerListViewObj.titleName=data.name;
+        
         [self.revealController setFrontViewController:navCtlr];
     }else if([data.nodeId integerValue] == 8) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Deals" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"DealsViewController"];
+        
+        DealsViewController *DealsViewControllerObj=(DealsViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+        
+        DealsViewControllerObj.titleName=data.name;
+        
         [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
         navCtlr.navigationBar.tintColor = [UIColor whiteColor];
         [self.revealController setFrontViewController:navCtlr];
     }else if([data.nodeId integerValue] == 2) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"stock" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"StockViewController"];
+        
+        
+        StockViewController *StockViewControllerObj=(StockViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+        
+        StockViewControllerObj.titleName=data.name;
+        
       //  [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
        // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
          [self.revealController setFrontViewController:navCtlr];
@@ -538,12 +559,20 @@
     else if([data.nodeId integerValue] == 4) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"IpAndLegal" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"IpAndLegalViewController"];
+        
+        IpAndLegalViewController *IpAndLegalViewControllerObj=(IpAndLegalViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+        
+        IpAndLegalViewControllerObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
         
 
     } else if([data.nodeId integerValue] == 5) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ExecutiveMoves" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"ExecutiveMoves"];
+        
+        ExecutiveMovesController *ExecutiveMovesControllerObj=(ExecutiveMovesController *)[[navCtlr viewControllers]objectAtIndex:0];
+        
+        ExecutiveMovesControllerObj.titleName=data.name;
 
         //  [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
         // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
@@ -617,18 +646,30 @@
 }
 
 - (IBAction)researchRequestButtonClick:(UIButton *)sender {
-    ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
-    popOverView.transitioningDelegate = self;
+    
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
+    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
+    
+  //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+    
+  //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+ //  popOverView.transitioningDelegate = self;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
-    [self presentViewController:popOverView animated:YES completion:nil];
+    [self presentViewController:popOverView animated:NO completion:nil];
 }
 
 -(void)requestChange:(id)sender {
-    ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
-    popOverView.transitioningDelegate = self;
-    popOverView.fromAddContent = YES;
+    
+    
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
+    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
+    
+    ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+   // ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+ //   popOverView.transitioningDelegate = self;
+    researchViewController.fromAddContent = YES;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
-    [self presentViewController:popOverView animated:YES completion:nil];
+    [self presentViewController:popOverView animated:NO completion:nil];
 }
 
 - (IBAction)addContentButtonClick:(id)sender {

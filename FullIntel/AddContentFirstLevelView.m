@@ -17,6 +17,8 @@
 #import "FIUtils.h"
 @interface AddContentFirstLevelView ()
 
+
+@property (nonatomic, readwrite) BOOL isContentChanged;
 @end
 
 @implementation AddContentFirstLevelView
@@ -29,6 +31,8 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddContentExpire) name:@"AddContentExpire" object:nil];
+    
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSelected) name:@"contentSelected" object:nil];
     
    
     
@@ -71,7 +75,10 @@
     
 }
 
-
+-(void)contentSelected{
+    
+    _isContentChanged=YES;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -149,6 +156,8 @@
 }
 
 - (IBAction)closeAction:(id)sender {
+    
+    
     NSMutableArray *categoryArray = [[NSMutableArray alloc]init];
     NSMutableArray *contentType = [[NSMutableArray alloc]init];
     
@@ -243,7 +252,11 @@
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         NSLog(@"final json format:%@",resultStr);
+        
+        if(_isContentChanged){
+        
         [[FISharedResources sharedResourceManager]manageContentCategoryWithDetails:resultStr withFlag:1];
+        }
         
         //[self.view makeToast:@"Content types and Content categories updated successfully" duration:2 position:CSToastPositionCenter];
         [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];

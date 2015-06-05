@@ -46,13 +46,12 @@
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
     
-    
-    if([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"] !=nil && [[NSUserDefaults standardUserDefaults]objectForKey:@"passWord"] !=nil){
 
-   // self.usernameTextField.text = @"testing@foradobe.com";
-   // self.passwordTextField.text = @"start";
 
-    }
+    self.usernameTextField.text = @"jennifer.fry@example.com";
+    self.passwordTextField.text = @"start";
+
+
 
 }
 - (void)animateImages

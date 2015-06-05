@@ -89,6 +89,16 @@ NHAlignmentFlowLayout *layout;
     [self.navigationItem setLeftBarButtonItem:addButton];
     
     
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:20];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text = _titleName;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
+    
+    
     NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"STOCK WATCH provides stock market information and top stories on a list of companies that you are watching"];
     
     [attriString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"OpenSans-Bold" size:20] range:NSMakeRange(0,11)];
@@ -214,7 +224,7 @@ NHAlignmentFlowLayout *layout;
        
      
        
-       [stockCell.graphImage sd_setImageWithURL:[NSURL URLWithString:stockDetails.imageUrl] placeholderImage:[UIImage imageNamed:@""]];
+       [stockCell.graphImage sd_setImageWithURL:[NSURL URLWithString:stockDetails.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
        
        stockCell.graphImage.alpha=0.1;
        
@@ -252,7 +262,7 @@ NHAlignmentFlowLayout *layout;
     
     Stories *story=(Stories *)[_topStoriesList objectAtIndex:indexPath.row];
     
-    [cell.storyImageView sd_setImageWithURL:[NSURL URLWithString:story.image] placeholderImage:[UIImage imageNamed:@"peoples"]];
+    [cell.storyImageView sd_setImageWithURL:[NSURL URLWithString:story.image] placeholderImage:[UIImage imageNamed:@"FI"]];
     
     cell.storyLabel.text=story.story;
     cell.companyLabel.text=story.resource;

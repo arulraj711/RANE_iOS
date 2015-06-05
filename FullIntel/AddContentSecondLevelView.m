@@ -212,7 +212,7 @@
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
     cell.name.text = contentCategory.name;
     [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
-    [cell.image setContentMode:UIViewContentModeScaleAspectFill];
+    [cell.image setContentMode:UIViewContentModeScaleAspectFit];
     
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         
@@ -229,6 +229,8 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+     [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
     
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
     if(contentCategory.listArray.count != 0) {
@@ -281,6 +283,10 @@
 }
 
 - (IBAction)checkMark:(id)sender {
+    
+    
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
+    
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         [self.selectedIdArray removeObject:contentCategory.categoryId];

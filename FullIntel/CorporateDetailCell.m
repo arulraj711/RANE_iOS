@@ -100,15 +100,21 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    NSLog(@"gesture working in cell:%ld and %ld",(long)otherGestureRecognizer.view.tag,(long)gestureRecognizer.view.tag);
+   // NSLog(@"gesture working in cell:%ld and %ld",(long)otherGestureRecognizer.view.tag,(long)gestureRecognizer.view.tag);
+    
+    BOOL status =NO;
+    
+    if([_detailsWebview isFirstResponder]){
     if((long)otherGestureRecognizer.view.tag == 101){
         self.overlayView.hidden = YES;
     } else {
        // self.overlayView.hidden = NO;
     }
+        status=YES;
+    }
   //  [self.overlayView removeFromSuperview];
     self.overlayView.hidden = YES;
-    return YES;
+    return status;
 }
 
 
@@ -297,8 +303,11 @@
         TWTRUser *author = tweetObj.author;
         tweetCell.author.text = author.name;
        // NSLog(@"tweet id:%@",tweetObj.tweetID);
-        NSDictionary *tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
-        NSLog(@"user id:%@ and tweet id:%@ and dic:%@",author.userID,tweetObj.tweetID,tweetDic);
+       __block NSDictionary *tweetDic;
+               dispatch_async(dispatch_get_main_queue(), ^(void){
+          tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
+               });
+
         tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
         tweetCell.twitterText.text = tweetObj.text;
         if(tweetObj.retweetCount/1000 == 0) {

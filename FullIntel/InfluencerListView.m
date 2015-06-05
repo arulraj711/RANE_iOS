@@ -50,9 +50,9 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:20];
+    label.font = [UIFont fontWithName:@"OpenSans" size:20];
     label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text = @"Home";
+    label.text = _titleName;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor]; // change this color
     self.navigationItem.titleView = label;
@@ -171,7 +171,7 @@
     cell.authorName.text = [author valueForKey:@"name"];
     cell.authorTitle.text = [author valueForKey:@"title"];
     NSLog(@"author image url:%@ and author:%@",[author valueForKey:@"image"],author);
-    [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:nil];
+    [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
     cell.title.text = [influencer valueForKey:@"title"];
     cell.descTextView.text = [influencer valueForKey:@"desc"];
     

@@ -49,12 +49,12 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
     [self.navigationItem setLeftBarButtonItem:addButton];
     
-    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
+    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     addBtnView.backgroundColor = [UIColor clearColor];
     
     UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    [addBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    [addBtn setBackgroundImage:[UIImage imageNamed:@"addcontent"]  forState:UIControlStateNormal];
+    [addBtn setFrame:CGRectMake(0,0,40,40)];
+    [addBtn setImage :[UIImage imageNamed:@"addcontent"]  forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(addContentView) forControlEvents:UIControlEventTouchUpInside];
     [addBtnView addSubview:addBtn];
     UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];

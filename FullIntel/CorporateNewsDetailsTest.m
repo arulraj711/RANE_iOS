@@ -80,11 +80,11 @@
     self.navigationItem.titleView = label;
     
     
-    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 25, 25)];
+    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
     addBtnView.backgroundColor = [UIColor clearColor];
     
     UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    [addBtn setFrame:CGRectMake(0.0f,0.0f,25.0f,25.0f)];
+    [addBtn setFrame:CGRectMake(0.0f,0.0f,35,35)];
     
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
     if(isFIViewSelected) {

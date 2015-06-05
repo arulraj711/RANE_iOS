@@ -876,6 +876,9 @@
 
 -(NSDictionary *)getTweetDetails:(NSString *)details {
      __block NSDictionary *responseDic;
+    
+    
+    
     [FIWebService getTweetDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         responseDic = [responseObject objectAtIndex:0];
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -205,22 +205,67 @@
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.4]; // to slide the view up
     
+    NSDictionary *userInfo = [notification userInfo];
+    
+    CGRect keyboardEndFrame;
+    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+    
+    // Use keyboardEndFrame
+    
+       NSLog(@"view frame height before keyboardDidShow:%f",self.view.frame.size.height);
+    
     CGRect rect = self.view.frame;
-    rect.size.height =450;
+    
+    if(rect.size.height==768){
+
+      rect.size.height=410;
+    }else if(rect.size.height==1024) {
+        rect.size.height=800;
+    }
+  
     self.view.frame = rect;
+    
+        NSLog(@"view frame height after keyboardDidShow:%f",self.view.frame.size.height);
     
     [UIView commitAnimations];
     
 }
-
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    
+    NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
+    if(fromInterfaceOrientation == 1) {
+       
+    }else {
+       
+    }
+    
+}
 -(void)keyboardDidHide:(NSNotification *)notification
 {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.4]; // to slide the view up
     
+    NSDictionary *userInfo = [notification userInfo];
+    
+    CGRect keyboardEndFrame;
+    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+    
+    
+       NSLog(@"view frame height before keyboardDidHide:%f",self.view.frame.size.height);
+    
+    
     CGRect rect = self.view.frame;
-    rect.size.height =770;
+
+    if(rect.size.height==410){
+    rect.size.height =768;
+    }else if(rect.size.height==800){
+      rect.size.height =1024;
+    }
+ 
     self.view.frame = rect;
+    
+    
+    NSLog(@"view frame height after keyboardDidHide:%f",self.view.frame.size.height);
     
     [UIView commitAnimations];
 }

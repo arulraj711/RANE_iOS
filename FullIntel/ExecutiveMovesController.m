@@ -49,6 +49,17 @@
     [self.navigationItem setLeftBarButtonItem:addButton];
     
     
+    NSLog(@"title name :%@",_titleName);
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"OpenSans" size:20];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text = _titleName;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
+    
     NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"EXECUTIVE MOVES provides insight on key personnel changes in the industry that are relevant to you."];
     
     [attriString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"OpenSans-Bold" size:20] range:NSMakeRange(0,15)];
