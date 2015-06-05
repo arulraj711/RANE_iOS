@@ -76,8 +76,14 @@
         }
     }
     
+    NSString *companyLogoImageStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyLogo"];
+    NSString *companyNameStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"];
     
-    
+    [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:companyLogoImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
+    self.companyName.text = [companyNameStr uppercaseString];
+    self.companyName.numberOfLines = 1;
+    self.companyName.minimumFontSize = 8.;
+    self.companyName.adjustsFontSizeToFitWidth = YES;
     
     treeView = [[RATreeView alloc] initWithFrame:self.treeBackView.bounds];
     treeView.delegate = self;
@@ -167,6 +173,17 @@
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
     self.treeView.frame = self.treeBackView.bounds;
+    
+    
+    
+}
+
+-(void)loadMenus {
+    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
+    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
+    
+    
     NSString *companyLogoImageStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyLogo"];
     NSString *companyNameStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"];
     
@@ -177,12 +194,6 @@
     self.companyName.adjustsFontSizeToFitWidth = YES;
     
     
-}
-
--(void)loadMenus {
-    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
-    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
     self.menus = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].menuList];
     [self test:self.menus];
     [treeView reloadData];
@@ -413,9 +424,6 @@
     {
         cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:highColor];
     }
-    
-    
-    
     return cell;
 }
 
@@ -578,7 +586,8 @@
         // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
         [self.revealController setFrontViewController:navCtlr];
     }else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
-        
+        [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyLogo"];
+        [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyName"];
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];

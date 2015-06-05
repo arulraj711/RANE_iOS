@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "FISharedResources.h"
 #import "MZFormSheetController.h"
-@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate> {
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate> {
     NSMutableArray *legendsList;
     NSManagedObject *author;
     UIRefreshControl *refreshControl;
      MZFormSheetController *formSheet;
+    UIActivityIndicatorView *activityIndicator;
+    NSInteger rowCount;
 }
+@property BOOL isStarting;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *corporateListWidthConstraint;
 @property(strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpacing;
