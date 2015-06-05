@@ -31,6 +31,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailButtonClick:) name:@"mailButtonClick" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globeButtonClick:) name:@"globeButtonClick" object:nil];
    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommentsView:) name:@"showCommentsView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentStatusUpdate:) name:@"commentStatusUpdate" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showResearchView:) name:@"showResearchView" object:nil];
     
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showWebView:) name:@"widgetSelected" object:nil];
@@ -45,9 +46,14 @@
     [flowLayout setMinimumLineSpacing:0.0f];
     [self.collectionView setPagingEnabled:YES];
     [self.collectionView setCollectionViewLayout:flowLayout];
-    [self.collectionView reloadData];
-    
-   // self.collectionView.contentOffset = CGPointMake(self.collectionView.frame.size.width*2, 0);
+   // [self.collectionView reloadData];
+    self.collectionView.dataSource = nil;
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.alpha = 1.0;
+    activityIndicator.center = self.view.center;
+    activityIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
     
     innerWebView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)];
     
@@ -58,11 +64,12 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-
+    [activityIndicator stopAnimating];
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;
     [self.collectionView setContentOffset:CGPointMake(offset, 0)];
-    
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
 }
 
 
@@ -144,6 +151,16 @@
     }
 }
 
+-(void)commentStatusUpdate:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
+    // NSNumber  = [userInfo objectForKey:@"status"];
+   // NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+    [curatedNewsDetail setValue:0 forKey:@"unReadComment"];
+    CorporateDetailCell *cell = (CorporateDetailCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    cell.badgeTwo.value = 0;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -162,12 +179,11 @@
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-   // NSLog(@"cell indexpath:%@",indexPath);
+    NSLog(@"cell indexpath:%@",indexPath);
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     cell.cachedImageViewSize = cell.articleImageView.frame;
-    
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
@@ -250,29 +266,6 @@
         curatedNewsDetail = [curatedNews valueForKey:@"details"];
         curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
         
-       // dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-            
-            
-            
-//            NSData *urlData;
-//            NSString *baseURLString =  [curatedNews valueForKey:@"articleUrl"];
-//            //NSString *urlString = [baseURLString stringByAppendingPathComponent:@"myfile"];
-//            
-//            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:baseURLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10.0];
-//            NSURLConnection *connection=[[NSURLConnection alloc] initWithRequest:request delegate:nil];
-//            
-//            if (connection)
-//            {
-//                //urlData = [NSURLConnection sendSynchronousRequest: request];
-//                urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-//                NSString *htmlString = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
-//                [cell.detailWebview loadHTMLString:htmlString baseURL:[NSURL URLWithString:baseURLString]];
-//                //[cell.detailWebview];
-//                //[htmlString release];
-//            }
-//            
-//            //[connection release];
-            
         if(isFIViewSelected) {
             cell.detailsWebview.hidden = YES;
             cell.overlayView.hidden = YES;
@@ -281,6 +274,7 @@
             cell.detailsWebview.hidden = NO;
             cell.overlayView.hidden = NO;
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
                 if([curatedNews valueForKey:@"articleUrlData"] == nil) {
                     NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
                     [curatedNews setValue:string forKey:@"articleUrlData"];
@@ -295,22 +289,9 @@
         NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
         cell.badgeTwo.value = [unreadCnt integerValue];
         
-//        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
-//        [curatedNews setValue:string forKey:@"articleUrlData"];
-        
-        
-        
-        
-            
-//        NSURL *url = [NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]];
-//        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-//        //NSURLRequest *requestObj = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10.0];
-//        [cell.detailsWebview loadRequest:requestObj];
-       // });
-        
         NSNumber *number = [curatedNews valueForKey:@"readStatus"];
         NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
-        NSLog(@"category id for read:%@",categoryStr);
+        //NSLog(@"category id for read:%@",categoryStr);
          //BOOL isRead = [NSNumber numberWithBool:[curatedNews valueForKey:@"readStatus"]];
         if(number == [NSNumber numberWithInt:1]) {
             
@@ -372,10 +353,10 @@
                 
                 NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
                 if(markImpStatus == [NSNumber numberWithInt:1]) {
-                    NSLog(@"mark selected");
+                  //  NSLog(@"mark selected");
                     [cell.markedImpButton setSelected:YES];
                 } else {
-                    NSLog(@"mark not selected");
+                   // NSLog(@"mark not selected");
                     [cell.markedImpButton setSelected:NO];
                 }
                 
@@ -602,12 +583,14 @@
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSString *articleId = [userInfo objectForKey:@"articleId"];
+    NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
     UINavigationController *navCtlr = [storyBoard instantiateViewControllerWithIdentifier:@"commentNav"];
     
      CommentsPopoverView *popOverView=(CommentsPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
     
     popOverView.articleId = articleId;
+    popOverView.selectedIndexPath = indexPath;
    // popOverView.transitioningDelegate = self;
     navCtlr.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:navCtlr animated:NO completion:nil];

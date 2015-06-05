@@ -159,12 +159,18 @@
     NSArray *navArray = self.navigationController.viewControllers;
     if(navArray.count > 1) {
         [self.navigationController popToRootViewControllerAnimated:YES];
+        UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window addSubview:loginView.view];
+    } else {
+        UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window addSubview:loginView.view];
     }
     
-    UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-    UIWindow *window = [[UIApplication sharedApplication]windows][0];
-    [window addSubview:loginView.view];
+    
     //[self presentViewController:loginView animated:YES completion:nil];
 }
 
@@ -222,10 +228,14 @@
 
 -(void)addContentView {
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
-    
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
-    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
-    formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
+    formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+    if(orientation == 1) {
+        formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
+    } else {
+        formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
+    }
     formSheet.shadowRadius = 2.0;
     formSheet.shadowOpacity = 0.3;
     formSheet.shouldDismissOnBackgroundViewTap = YES;
@@ -576,7 +586,6 @@
         }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
             testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
         }
-        
         testView.currentIndex = indexPath.row;
         testView.selectedIndexPath = indexPath;
         [self.navigationController pushViewController:testView animated:YES];

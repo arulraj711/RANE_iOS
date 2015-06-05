@@ -855,6 +855,8 @@
     if([self serviceIsReachable]) {
         [FIWebService commentMarkAsReadWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"markCommentAsRead" object:nil userInfo:nil];
+            
 //            if(![[responseObject objectForKey:@"code"]isEqualToNumber:[NSNumber numberWithInt:102]]) {
 //                UIWindow *window = [[UIApplication sharedApplication]windows][0];
 //                [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];

@@ -24,6 +24,7 @@
 #import "SavedListPopoverView.h"
 #import "MorePopoverView.h"
 #import "VideoWidgetCell.h"
+#import "SocialWebView.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @implementation CorporateDetailCell
@@ -124,12 +125,12 @@
     for(NSManagedObject *relatedPost in self.relatedPostArray) {
         [tweetIds addObject:[relatedPost valueForKey:@"postId"]];
     }
-    NSLog(@"tweet ids:%@",tweetIds);
+   // NSLog(@"tweet ids:%@",tweetIds);
    // NSArray *tweetIds=@[@"20",@"21"];
     
     [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
         [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
-            NSLog(@"Tweet array:%@",tweet);
+           // NSLog(@"Tweet array:%@",tweet);
             tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
             if(tweetArray.count == 0) {
                 self.tweetCollectionViewHeightConstraint.constant = 0;
@@ -303,10 +304,8 @@
         TWTRUser *author = tweetObj.author;
         tweetCell.author.text = author.name;
        // NSLog(@"tweet id:%@",tweetObj.tweetID);
-       __block NSDictionary *tweetDic;
-               dispatch_async(dispatch_get_main_queue(), ^(void){
-          tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
-               });
+        NSDictionary *tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
+        NSLog(@"user id:%@ and tweet id:%@ and dic:%@ and retweet count:%lld and tweet:%@",author.userID,tweetObj.tweetID,tweetDic,tweetObj.retweetCount,tweetObj);
 
         tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
         tweetCell.twitterText.text = tweetObj.text;
@@ -609,7 +608,7 @@
         }
     }
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"showCommentsView" object:nil userInfo:@{@"articleId":self.selectedArticleId}];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"showCommentsView" object:nil userInfo:@{@"articleId":self.selectedArticleId,@"indexPath":self.selectedIndexPath}];
 
 //    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
 //    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
@@ -950,5 +949,20 @@
     [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
+- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
+    //CAPTURE USER LINK-CLICK.
+    if(webView == self.articleWebview) {
+        NSURL *url = [request URL];
+        NSLog(@"select link:%@",url);
+        NSString *urlString = url.absoluteString;
+        if (![urlString isEqualToString: @"about:blank"]) {
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"socialLinkSelected" object:nil userInfo:@{@"name":@"WebView",@"link":urlString}];
+            
+            return NO;
+        }
+    }
+    return YES;
+}
 
 @end

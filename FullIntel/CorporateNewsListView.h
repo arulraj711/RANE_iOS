@@ -13,6 +13,7 @@
     NSMutableArray *legendsList;
     NSManagedObject *author;
     UIRefreshControl *refreshControl;
+     MZFormSheetController *formSheet;
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *corporateListWidthConstraint;
 @property(strong, nonatomic) UIActivityIndicatorView *spinner;

@@ -16,4 +16,5 @@
 @property (nonatomic,strong) NSString *articleId;
 @property (nonatomic,strong) IBOutlet UIView *textBackView;
 @property (nonatomic,strong) IBOutlet UIView *outerView;
+@property NSIndexPath *selectedIndexPath;
 @end
