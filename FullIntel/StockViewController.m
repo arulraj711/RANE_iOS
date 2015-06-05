@@ -92,7 +92,7 @@ NHAlignmentFlowLayout *layout;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:18];
+    label.font = [UIFont fontWithName:@"OpenSans" size:16];
     label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     label.text = _titleName;
     label.textAlignment = NSTextAlignmentCenter;
