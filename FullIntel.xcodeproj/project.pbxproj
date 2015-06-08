@@ -36,6 +36,9 @@
 		A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF674C1B16EC1C007EDD26 /* UIColor+CustomColors.m */; };
 		A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF674F1B16EC4D007EDD26 /* PresentingAnimator.m */; };
 		A0AF67531B16EC67007EDD26 /* DismissingAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF67521B16EC67007EDD26 /* DismissingAnimator.m */; };
+		A0B0F5CA1B256AE300BB1169 /* City-Boston.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C71B256AE300BB1169 /* City-Boston.jpg */; };
+		A0B0F5CB1B256AE300BB1169 /* Eiffel_Tower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C81B256AE300BB1169 /* Eiffel_Tower.jpg */; };
+		A0B0F5CC1B256AE300BB1169 /* san_francisco.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C91B256AE300BB1169 /* san_francisco.jpg */; };
 		A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0BE809F1B206F450055177E /* ResearchRequest.storyboard */; };
 		A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */; };
 		A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C326251B182E2B00FEB164 /* StockResponse.json */; };
@@ -173,7 +176,6 @@
 		F7E81F9C1A97057100F9A8D4 /* carolynryan.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F5C1A97057000F9A8D4 /* carolynryan.jpeg */; };
 		F7E81F9D1A97057100F9A8D4 /* Charles.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F5D1A97057000F9A8D4 /* Charles.jpg */; };
 		F7E81F9E1A97057100F9A8D4 /* deals.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F5E1A97057000F9A8D4 /* deals.jpg */; };
-		F7E81F9F1A97057100F9A8D4 /* ebola_new.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F5F1A97057000F9A8D4 /* ebola_new.jpeg */; };
 		F7E81FA01A97057100F9A8D4 /* Ed.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F601A97057000F9A8D4 /* Ed.jpeg */; };
 		F7E81FA11A97057100F9A8D4 /* google-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F611A97057000F9A8D4 /* google-icon.png */; };
 		F7E81FA21A97057100F9A8D4 /* google_topic.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F621A97057000F9A8D4 /* google_topic.png */; };
@@ -199,7 +201,6 @@
 		F7E81FB61A97057100F9A8D4 /* new-york-city-wallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F761A97057100F9A8D4 /* new-york-city-wallpaper.jpg */; };
 		F7E81FB71A97057100F9A8D4 /* Nick.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F771A97057100F9A8D4 /* Nick.jpeg */; };
 		F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F781A97057100F9A8D4 /* Nilay.jpeg */; };
-		F7E81FB91A97057100F9A8D4 /* NYSE.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F791A97057100F9A8D4 /* NYSE.jpg */; };
 		F7E81FBA1A97057100F9A8D4 /* o-NEW-YORK-facebook.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F7A1A97057100F9A8D4 /* o-NEW-YORK-facebook.jpg */; };
 		F7E81FBB1A97057100F9A8D4 /* obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F7B1A97057100F9A8D4 /* obama.jpg */; };
 		F7E81FBC1A97057100F9A8D4 /* pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F7C1A97057100F9A8D4 /* pattern.png */; };
@@ -277,6 +278,9 @@
 		A0AF674F1B16EC4D007EDD26 /* PresentingAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentingAnimator.m; sourceTree = "<group>"; };
 		A0AF67511B16EC67007EDD26 /* DismissingAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissingAnimator.h; sourceTree = "<group>"; };
 		A0AF67521B16EC67007EDD26 /* DismissingAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissingAnimator.m; sourceTree = "<group>"; };
+		A0B0F5C71B256AE300BB1169 /* City-Boston.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "City-Boston.jpg"; sourceTree = "<group>"; };
+		A0B0F5C81B256AE300BB1169 /* Eiffel_Tower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Eiffel_Tower.jpg; sourceTree = "<group>"; };
+		A0B0F5C91B256AE300BB1169 /* san_francisco.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = san_francisco.jpg; sourceTree = "<group>"; };
 		A0BE809F1B206F450055177E /* ResearchRequest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ResearchRequest.storyboard; sourceTree = "<group>"; };
 		A0BFEF831B13482300DCBDA8 /* AddContentFifthLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentFifthLevelView.h; sourceTree = "<group>"; };
 		A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFifthLevelView.m; sourceTree = "<group>"; };
@@ -487,7 +491,6 @@
 		F7E81F5C1A97057000F9A8D4 /* carolynryan.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carolynryan.jpeg; sourceTree = "<group>"; };
 		F7E81F5D1A97057000F9A8D4 /* Charles.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Charles.jpg; sourceTree = "<group>"; };
 		F7E81F5E1A97057000F9A8D4 /* deals.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = deals.jpg; sourceTree = "<group>"; };
-		F7E81F5F1A97057000F9A8D4 /* ebola_new.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ebola_new.jpeg; sourceTree = "<group>"; };
 		F7E81F601A97057000F9A8D4 /* Ed.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Ed.jpeg; sourceTree = "<group>"; };
 		F7E81F611A97057000F9A8D4 /* google-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google-icon.png"; sourceTree = "<group>"; };
 		F7E81F621A97057000F9A8D4 /* google_topic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google_topic.png; sourceTree = "<group>"; };
@@ -513,7 +516,6 @@
 		F7E81F761A97057100F9A8D4 /* new-york-city-wallpaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "new-york-city-wallpaper.jpg"; sourceTree = "<group>"; };
 		F7E81F771A97057100F9A8D4 /* Nick.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Nick.jpeg; sourceTree = "<group>"; };
 		F7E81F781A97057100F9A8D4 /* Nilay.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Nilay.jpeg; sourceTree = "<group>"; };
-		F7E81F791A97057100F9A8D4 /* NYSE.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NYSE.jpg; sourceTree = "<group>"; };
 		F7E81F7A1A97057100F9A8D4 /* o-NEW-YORK-facebook.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "o-NEW-YORK-facebook.jpg"; sourceTree = "<group>"; };
 		F7E81F7B1A97057100F9A8D4 /* obama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = obama.jpg; sourceTree = "<group>"; };
 		F7E81F7C1A97057100F9A8D4 /* pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pattern.png; sourceTree = "<group>"; };
@@ -1136,7 +1138,6 @@
 				F7E81F5C1A97057000F9A8D4 /* carolynryan.jpeg */,
 				F7E81F5D1A97057000F9A8D4 /* Charles.jpg */,
 				F7E81F5E1A97057000F9A8D4 /* deals.jpg */,
-				F7E81F5F1A97057000F9A8D4 /* ebola_new.jpeg */,
 				F7E81F601A97057000F9A8D4 /* Ed.jpeg */,
 				F7E81F611A97057000F9A8D4 /* google-icon.png */,
 				F7E81F621A97057000F9A8D4 /* google_topic.png */,
@@ -1154,6 +1155,9 @@
 				F7E81F6E1A97057100F9A8D4 /* iwatch.jpg */,
 				F7E81F6F1A97057100F9A8D4 /* iwatch.png */,
 				F7E81F701A97057100F9A8D4 /* Josh.jpeg */,
+				A0B0F5C71B256AE300BB1169 /* City-Boston.jpg */,
+				A0B0F5C81B256AE300BB1169 /* Eiffel_Tower.jpg */,
+				A0B0F5C91B256AE300BB1169 /* san_francisco.jpg */,
 				F7E81F711A97057100F9A8D4 /* kates.jpg */,
 				F7E81F721A97057100F9A8D4 /* mexico.jpg */,
 				F7E81F731A97057100F9A8D4 /* microsoft.png */,
@@ -1162,7 +1166,6 @@
 				F7E81F761A97057100F9A8D4 /* new-york-city-wallpaper.jpg */,
 				F7E81F771A97057100F9A8D4 /* Nick.jpeg */,
 				F7E81F781A97057100F9A8D4 /* Nilay.jpeg */,
-				F7E81F791A97057100F9A8D4 /* NYSE.jpg */,
 				F7E81F7A1A97057100F9A8D4 /* o-NEW-YORK-facebook.jpg */,
 				F7E81F7B1A97057100F9A8D4 /* obama.jpg */,
 				F7E81F7C1A97057100F9A8D4 /* pattern.png */,
@@ -1324,12 +1327,13 @@
 				F7E354E71A947AB0009677D2 /* LeftView.storyboard in Resources */,
 				F7E354E51A947A8B009677D2 /* CenterView.storyboard in Resources */,
 				F7E81FC11A97057100F9A8D4 /* slide_apple.png in Resources */,
+				A0B0F5CC1B256AE300BB1169 /* san_francisco.jpg in Resources */,
+				A0B0F5CA1B256AE300BB1169 /* City-Boston.jpg in Resources */,
 				A0CF5C7B1B1EFE1100DED2D9 /* movesDrill.html in Resources */,
 				F7E81FA81A97057100F9A8D4 /* hp_hero_rtr2iogt_1140x548_v2.jpg in Resources */,
 				F7E81FCA1A97057100F9A8D4 /* tim.jpeg in Resources */,
 				A0E2235F1A91C2F00073814A /* Main.storyboard in Resources */,
 				F7E81FC81A97057100F9A8D4 /* statistics.png in Resources */,
-				F7E81F9F1A97057100F9A8D4 /* ebola_new.jpeg in Resources */,
 				F7E81FC41A97057100F9A8D4 /* sony_topic.jpg in Resources */,
 				F7F876B51AB976B00042404D /* influ_drillin.json in Resources */,
 				A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */,
@@ -1374,6 +1378,7 @@
 				F773CFE91ADE99C7002FC7CF /* addContent.json in Resources */,
 				F7E81F961A97057100F9A8D4 /* apple-watch-model.jpg in Resources */,
 				F7E81FB51A97057100F9A8D4 /* moss.jpeg in Resources */,
+				A0B0F5CB1B256AE300BB1169 /* Eiffel_Tower.jpg in Resources */,
 				F74A55141AB048570009FE4C /* PersonalityWidgetCell.xib in Resources */,
 				F7E81F9D1A97057100F9A8D4 /* Charles.jpg in Resources */,
 				F7E81F941A97057100F9A8D4 /* apple-logo.gif in Resources */,
@@ -1418,7 +1423,6 @@
 				F7CE36F21A95E99D0005AA0A /* RATableViewCell.xib in Resources */,
 				A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */,
 				F7E81FA71A97057100F9A8D4 /* hires_090219-A-6797M-101.jpg in Resources */,
-				F7E81FB91A97057100F9A8D4 /* NYSE.jpg in Resources */,
 				A0CF5C7A1B1EFE1100DED2D9 /* legalDril.html in Resources */,
 				F773CFEC1ADE9C0D002FC7CF /* AddContent.storyboard in Resources */,
 				A0E223611A91C2F00073814A /* Images.xcassets in Resources */,

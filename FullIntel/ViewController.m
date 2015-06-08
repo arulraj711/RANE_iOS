@@ -48,8 +48,8 @@
     
 
 
-    self.usernameTextField.text = @"";
-    self.passwordTextField.text = @"";
+    self.usernameTextField.text = @"prabhujef@gmail.com";
+    self.passwordTextField.text = @"start";
 
 
 
@@ -57,9 +57,8 @@
 - (void)animateImages
 {
     if(self.isAnimated) {
-        NSLog(@"animated images");
     static int count = 0;
-    NSArray *animationImages = @[[UIImage imageNamed:@"NYSE.jpg"],[UIImage imageNamed:@"ebola_new.jpeg"],[UIImage imageNamed:@"new-york-city-wallpaper.jpg"],[UIImage imageNamed:@"o-NEW-YORK-facebook.jpg"]];
+    NSArray *animationImages = @[[UIImage imageNamed:@"City-Boston.jpg"],[UIImage imageNamed:@"Eiffel_Tower.jpg"],[UIImage imageNamed:@"new-york-city-wallpaper.jpg"],[UIImage imageNamed:@"o-NEW-YORK-facebook.jpg"],[UIImage imageNamed:@"san_francisco.jpg"]];
     UIImage *image = [animationImages objectAtIndex:(count % [animationImages count])];
     
     CGRect newframe = CGRectMake(self.backgroundImageView.frame.origin.x, self.backgroundImageView.frame.origin.y, self.backgroundImageView.frame.size.width, self.backgroundImageView.frame.size.height);
