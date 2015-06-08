@@ -91,6 +91,8 @@
     } else {
         self.selectedIdArray = [[NSMutableArray alloc]init];
     }
+    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"fifthLevelSelection"];
+    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"fifthLevelUnSelection"];
     [self.categoryCollectionView reloadData];
     
 }

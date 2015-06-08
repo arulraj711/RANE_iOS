@@ -276,11 +276,17 @@
             cell.overlayView.hidden = NO;
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                 [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+                
+               // [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
+                
+                
                 if([curatedNews valueForKey:@"articleUrlData"] == nil) {
                     NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
                     [curatedNews setValue:string forKey:@"articleUrlData"];
+                    [cell.detailsWebview setScalesPageToFit:YES];
                     [cell.detailsWebview loadHTMLString:string baseURL:nil];
                 } else {
+                    [cell.detailsWebview setScalesPageToFit:YES];
                     [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
                 }
             });
