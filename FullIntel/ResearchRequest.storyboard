@@ -81,7 +81,7 @@
                                             <constraint firstAttribute="height" constant="35" id="1gq-bm-Ko3"/>
                                             <constraint firstAttribute="width" constant="35" id="Ohj-gu-Hip"/>
                                         </constraints>
-                                        <state key="normal" image="close">
+                                        <state key="normal" image="close_gray">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -167,6 +167,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="close" width="32" height="32"/>
+        <image name="close_gray" width="28" height="28"/>
     </resources>
 </document>
