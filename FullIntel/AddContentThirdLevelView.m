@@ -94,6 +94,8 @@
     } else {
         self.selectedIdArray = [[NSMutableArray alloc]init];
     }
+    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"thirdLevelSelection"];
+    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"thirdLevelUnSelection"];
     [self.categoryCollectionView reloadData];
    
 }
