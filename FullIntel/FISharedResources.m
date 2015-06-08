@@ -257,7 +257,13 @@
             [influencer setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
             [influencer setValue:[dic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
             [influencer setValue:[dic objectForKey:@"saveForLater"] forKey:@"saveForLater"];
-            [influencer setValue:[NSNumber numberWithInteger:categoryId] forKey:@"categoryId"];
+            
+//            NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
+//            if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+//                [influencer setValue:[NSNumber numberWithInteger:-3] forKey:@"categoryId"];
+//            } else {
+                [influencer setValue:[NSNumber numberWithInteger:categoryId] forKey:@"categoryId"];
+           // }
             NSArray *outletArray = [dic objectForKey:@"outlet"];
             if(outletArray.count != 0){
                 NSDictionary *outletDic = [outletArray objectAtIndex:0];

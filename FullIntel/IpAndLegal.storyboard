@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -825,6 +825,8 @@
                                         <state key="normal" image="request_upgrade">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="request_upgrade_selected"/>
+                                        <state key="highlighted" image="request_upgrade_selected"/>
                                         <connections>
                                             <action selector="requestUpgradeButtonPressed:" destination="2VA-mo-Y8e" eventType="touchUpInside" id="4M8-wk-WyW"/>
                                         </connections>
@@ -944,6 +946,7 @@
         <image name="peoples" width="30" height="30"/>
         <image name="personality" width="12" height="12"/>
         <image name="request_upgrade" width="200" height="50"/>
+        <image name="request_upgrade_selected" width="200" height="50"/>
         <image name="retweet" width="20" height="20"/>
         <image name="star" width="30" height="30"/>
         <image name="star_blue" width="20" height="20"/>

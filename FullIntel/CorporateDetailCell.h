@@ -17,7 +17,7 @@
 #import "MKNumberBadgeView.h"
 
 @interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDelegate> {
-    NSMutableArray *tweetArray;
+    NSMutableArray *tweetArray,*followersCountArray;
     UCZProgressView *progressView;
     
 }

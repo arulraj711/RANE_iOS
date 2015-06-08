@@ -95,7 +95,7 @@
         <image name="btn" width="400" height="40"/>
         <image name="btn_selected" width="400" height="40"/>
         <image name="company" width="25" height="25"/>
-        <image name="nav_fi" width="25" height="25"/>
+        <image name="nav_fi" width="35" height="35"/>
         <image name="sampleWidget" width="218" height="40"/>
         <image name="tim.jpeg" width="638" height="638"/>
     </resources>

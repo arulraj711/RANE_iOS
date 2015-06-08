@@ -77,13 +77,13 @@
         NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"fifthLevelSelection"];
         if(alreadySelectedArray.count ==0) {
             for(FIContentCategory *category in self.innerArray) {
-                if(category.isSubscribed) {
+               // if(category.isSubscribed) {
                     [self.checkedArray addObject:category.categoryId];
                     [self.selectedIdArray addObject:category.categoryId];
-                } else {
-                    [self.uncheckedArray addObject:category.categoryId];
-                    [self.selectedIdArray removeObject:category.categoryId];
-                }
+//                } else {
+//                    [self.uncheckedArray addObject:category.categoryId];
+//                    [self.selectedIdArray removeObject:category.categoryId];
+//                }
             }
         } else {
             self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];

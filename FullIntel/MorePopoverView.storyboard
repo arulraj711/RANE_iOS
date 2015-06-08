@@ -64,6 +64,8 @@
                                 <state key="normal" image="request_upgrade">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="selected" image="request_upgrade_selected"/>
+                                <state key="highlighted" image="request_upgrade_selected"/>
                                 <connections>
                                     <action selector="requestButtonClick:" destination="pVo-sT-sfc" eventType="touchUpInside" id="7Xd-6p-RUv"/>
                                 </connections>
@@ -85,5 +87,6 @@
     <resources>
         <image name="Facebook" width="15" height="15"/>
         <image name="request_upgrade" width="200" height="50"/>
+        <image name="request_upgrade_selected" width="200" height="50"/>
     </resources>
 </document>

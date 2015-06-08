@@ -295,11 +295,15 @@
     NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:twitterUrl]];
     NSLog(@"result data:%d",data.length);
     NSError* error;
-    NSDictionary* json = [NSJSONSerialization
-                          JSONObjectWithData:data //1
-                          
-                          options:kNilOptions
-                          error:&error];
+    NSDictionary* json;
+    if(data.length > 0) {
+        json = [NSJSONSerialization
+                              JSONObjectWithData:data //1
+                              
+                              options:kNilOptions
+                              error:&error];
+    }
+    
     NSLog(@"tweet json:%@",json);
     success(nil,json);
 }
