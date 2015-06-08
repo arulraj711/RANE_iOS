@@ -38,7 +38,7 @@
     
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails) name:@"CuratedNewsDetails" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails) name:@"CuratedNewsAuthorDetails" object:nil];
+   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails) name:@"CuratedNewsAuthorDetails" object:nil];
     
     // Do any additional setup after loading the view.
     NHAlignmentFlowLayout *layout = [[NHAlignmentFlowLayout alloc] init];

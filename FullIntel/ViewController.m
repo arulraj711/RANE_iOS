@@ -48,8 +48,8 @@
     
 
 
-    self.usernameTextField.text = @"smith@foradobe.com";
-    self.passwordTextField.text = @"start";
+    self.usernameTextField.text = @"";
+    self.passwordTextField.text = @"";
 
 
 

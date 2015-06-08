@@ -574,10 +574,11 @@
 
 - (IBAction)mailButtonClick:(UIButton *)sender {
     //NSLog(@"mail article url:%@",[self.curatedNewsDetail valueForKey:@"articleUrl"]);
-    NSString *articleUrl = [self.curatedNewsDetail valueForKey:@"articleUrl"];
+   // NSString *articleUrl = [self.curatedNewsDetail valueForKey:@"articleUrl"];
+  //  NSLog(@"article url:%@",articleUrl);
     NSString *mailBodyStr;
-    if(articleUrl.length != 0) {
-        mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n\n%@",self.selectedArticleTitle,self.articleDesc,[self.curatedNewsDetail valueForKey:@"articleUrl"]];
+    if(self.selectedArticleUrl.length != 0) {
+        mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n\n%@",self.selectedArticleTitle,self.articleDesc,self.selectedArticleUrl];
     } else {
         mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n",self.selectedArticleTitle,self.articleDesc];
     }
@@ -691,12 +692,12 @@
 }
 
 -(void)loadCuratedNewsDetails:(id)sender {
-    NSNotification *notification = sender;
-    NSDictionary *userInfo = notification.userInfo;
+    //NSNotification *notification = sender;
+   // NSDictionary *userInfo = notification.userInfo;
     //self.selectedArticleId = [userInfo objectForKey:@"articleId"];
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[userInfo objectForKey:@"articleId"]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
         [fetchRequest setPredicate:predicate];
         NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
         if(newPerson.count != 0) {
@@ -727,6 +728,39 @@
                     [self.markedImpButton setSelected:NO];
                 }
                 
+                if([[curatedNewsDetail valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                    NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
+                    if(markImpStatus == [NSNumber numberWithInt:1]) {
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+                    }
+                } else {
+                    
+                }
+                
+                
+//                if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
+//                    
+//                    
+//                    NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
+//                    if(markImpStatus == [NSNumber numberWithInt:1]) {
+//                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+//                        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+//                        [self.markedImpButton setSelected:YES];
+//                    } else {
+//                        NSLog(@"mark not selected");
+//                        [self.markedImpButton setSelected:NO];
+//                    }
+//                    
+//                }
+//                   // if(number == [NSNumber numberWithInt:1]) {
+//                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+//                      //  [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+//                    } else {
+//                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
+//                        //[curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+//                    }
+               // }
+                
                     if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
                         [self.savedForLaterButton setSelected:YES];
                     } else {
@@ -747,8 +781,9 @@
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+    NSLog(@"passing article id:%@",[userInfo objectForKey:@"articleId"]);
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[userInfo objectForKey:@"articleId"]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
         [fetchRequest setPredicate:predicate];
         NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
         NSManagedObject *curatedNews;
