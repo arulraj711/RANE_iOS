@@ -156,6 +156,12 @@
         dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
         
         [reloadArray addObject:dataObj];
+    } else {
+        dataObj = [self.data objectAtIndex:2];
+        int cnt = [dataObj.unReadCount intValue];
+        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        
+        [reloadArray addObject:dataObj];
     }
     
     
@@ -534,15 +540,16 @@
         
         CorporateNewsListViewObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
-        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-        [gradedetails setObject:@"" forKey:@"lastArticleId"];
-        [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
-        [gradedetails setObject:@"3" forKey:@"activityTypeIds"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:-3 withFlag:@"" withLastArticleId:@""];
+//        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+//        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+//        [gradedetails setObject:@"" forKey:@"lastArticleId"];
+//        [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
+//        [gradedetails setObject:@"3" forKey:@"activityTypeIds"];
+//        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+//        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        //[[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:-3 withFlag:@"" withLastArticleId:@""];
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-3] forKey:@"categoryId"];
+       // [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
         
     } else if([data.nodeId integerValue] == 7) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];

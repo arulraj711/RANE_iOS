@@ -121,10 +121,10 @@
         // NSLog(@"corporate if part");
         [self showLoginPage];
     } else {
-        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
-        if(!isFirst) {
+//        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
+//        if(!isFirst) {
             [self loadCuratedNews];
-        }
+        //}
     }
 }
 //-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
@@ -196,7 +196,13 @@
     self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"categoryId == %d",categoryId];
+    NSPredicate *predicate;
+    if(categoryId == -3) {
+        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+    } else {
+       predicate  = [NSPredicate predicateWithFormat:@"categoryId == %d",categoryId];
+    }
+    
     [fetchRequest setPredicate:predicate];
     
     
@@ -209,7 +215,7 @@
     
 //    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
+    NSLog(@"devices:%d",self.devices.count);
     _spinner.hidden = YES;
     [_spinner stopAnimating];
     [self.articlesTableView reloadData];

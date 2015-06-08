@@ -18,6 +18,8 @@
     NSInteger rowCount;
     NSString *messageString;
 }
+
+-(void)loadCuratedNews;
 @property BOOL isStarting;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *corporateListWidthConstraint;
 @property(strong, nonatomic) UIActivityIndicatorView *spinner;

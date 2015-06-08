@@ -318,7 +318,7 @@
         });
         
         
-        NSLog(@"user id:%@ and tweet id:%@ and dic:%@ and retweet count:%lld and tweet:%@",author.userID,tweetObj.tweetID,tweetDic,tweetObj.retweetCount,tweetObj);
+       // NSLog(@"user id:%@ and tweet id:%@ and dic:%@ and retweet count:%lld and tweet:%@",author.userID,tweetObj.tweetID,tweetDic,tweetObj.retweetCount,tweetObj);
 
         tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
         tweetCell.twitterText.text = tweetObj.text;

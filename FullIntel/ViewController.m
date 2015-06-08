@@ -48,8 +48,8 @@
     
 
 
-    self.usernameTextField.text = @"prabhujef@gmail.com";
-    self.passwordTextField.text = @"start";
+   // self.usernameTextField.text = @"prabhujef@gmail.com";
+   // self.passwordTextField.text = @"start";
 
 
 
@@ -202,6 +202,8 @@
     textField.delegate=self;
     
    // textField.text=textString;
+    
+    [self.view endEditing:YES];
     
     [alertView show];
     

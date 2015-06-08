@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "press-btn.png"
+      "filename" : "press-x-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "press-btn@2x.png"
+      "filename" : "press-2x-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "press-btn@3x.png"
+      "filename" : "press-3x-1.png"
     }
   ],
   "info" : {

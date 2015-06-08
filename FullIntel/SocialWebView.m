@@ -30,6 +30,7 @@
     NSLog(@"web view url:%@",self.urlString);
     NSURL *url = [NSURL URLWithString:self.urlString];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    [self.webView setScalesPageToFit:YES];
     [self.webView loadRequest:requestObj];
     
     
