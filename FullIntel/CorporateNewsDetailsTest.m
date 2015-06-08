@@ -567,8 +567,8 @@
     [self.collectionView.collectionViewLayout invalidateLayout];
     
     // Calculate the index of the item that the collectionView is currently displaying
-    CGPoint currentOffset = [self.collectionView contentOffset];
-    self.currentIndex = currentOffset.x / self.collectionView.frame.size.width;
+//    CGPoint currentOffset = [self.collectionView contentOffset];
+//    self.currentIndex = currentOffset.x / self.collectionView.frame.size.width;
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {

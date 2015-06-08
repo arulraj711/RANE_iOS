@@ -108,7 +108,7 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uKX-Eh-g8P">
-                                        <rect key="frame" x="308" y="26" width="25" height="25"/>
+                                        <rect key="frame" x="298" y="26" width="25" height="25"/>
                                         <state key="normal" image="info_button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -120,7 +120,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="VOY-nc-I5c" firstAttribute="top" secondItem="INF-nf-AHx" secondAttribute="bottom" constant="2" id="2F1-yW-GoL"/>
-                                    <constraint firstItem="uKX-Eh-g8P" firstAttribute="leading" secondItem="Szh-bE-irc" secondAttribute="trailing" constant="8" symbolic="YES" id="4tl-QA-1mg"/>
+                                    <constraint firstItem="uKX-Eh-g8P" firstAttribute="leading" secondItem="Szh-bE-irc" secondAttribute="trailing" constant="-2" id="4tl-QA-1mg"/>
                                     <constraint firstItem="INF-nf-AHx" firstAttribute="top" secondItem="qJD-2r-Wir" secondAttribute="bottom" constant="59" id="9vX-0s-aRx"/>
                                     <constraint firstItem="INF-nf-AHx" firstAttribute="top" secondItem="ouB-iA-Gdj" secondAttribute="bottom" constant="10" id="AfK-YE-0qS"/>
                                     <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="ouB-iA-Gdj" secondAttribute="leading" constant="-1" id="BJG-uJ-hAg"/>
