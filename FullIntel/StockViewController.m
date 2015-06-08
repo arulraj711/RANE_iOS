@@ -371,7 +371,8 @@ NHAlignmentFlowLayout *layout;
 
 
 - (IBAction)requestUpgradeButtonPressed:(id)sender {
-    
+    UIButton *btn=(UIButton *)sender;
+    [btn setSelected:YES];
     [FIUtils callRequestionUpdateWithModuleId:2 withFeatureId:11];
 }
 @end

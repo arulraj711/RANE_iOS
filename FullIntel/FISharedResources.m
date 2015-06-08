@@ -219,7 +219,7 @@
             }
             
             if([updownFlag isEqualToString:@"up"]) {
-                if(categoryId == -2 || categoryId == -3) {
+                if(categoryId == -2) {
                     [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
                 }
             }

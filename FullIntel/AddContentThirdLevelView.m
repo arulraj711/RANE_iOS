@@ -79,7 +79,7 @@
         NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"thirdLevelSelection"];
         if(alreadySelectedArray.count ==0) {
             for(FIContentCategory *category in self.innerArray) {
-                //if(category.isSubscribed) {
+               // if(category.isSubscribed) {
                     [self.checkedArray addObject:category.categoryId];
                     [self.selectedIdArray addObject:category.categoryId];
 //                } else {
@@ -104,7 +104,7 @@
     if(self.selectedIdArray.count != 0) {
         [self.previousArray addObject:self.selectedId];
     } else {
-        [self.previousArray removeAllObjects];
+       // [self.previousArray removeAllObjects];
     }
     [delegate thirdLevelDidFinish:self];
     [super viewWillDisappear:animated];

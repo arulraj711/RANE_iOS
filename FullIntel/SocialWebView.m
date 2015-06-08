@@ -27,13 +27,17 @@
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 10;
    
-    NSLog(@"web view url:%@",self.urlString);
-    NSURL *url = [NSURL URLWithString:self.urlString];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [self.webView setScalesPageToFit:YES];
-    [self.webView loadRequest:requestObj];
+   // NSLog(@"web view url:%@",self.urlString);
     
     
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]){
+        NSURL *url = [NSURL URLWithString:self.urlString];
+        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+        [self.webView setScalesPageToFit:YES];
+        [self.webView loadRequest:requestObj];
+    } else {
+        [FIUtils showNoNetworkToast];
+    }
     
     _titleString.text=_titleStr;
 }

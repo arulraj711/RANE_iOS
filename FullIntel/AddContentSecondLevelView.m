@@ -164,6 +164,9 @@
         } else {
             self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
         }
+    
+    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
+    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
         
 //    } else {
 //        self.selectedIdArray = [[NSMutableArray alloc]init];

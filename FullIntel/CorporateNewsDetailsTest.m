@@ -121,7 +121,12 @@
         NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"categoryId == %d",categoryId];
+        NSPredicate *predicate;
+        if(categoryId == -3) {
+            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+        } else {
+            predicate  = [NSPredicate predicateWithFormat:@"categoryId == %d",categoryId];
+        }
         [fetchRequest setPredicate:predicate];
         [fetchRequest setEntity:entity];
         
@@ -283,10 +288,10 @@
                 if([curatedNews valueForKey:@"articleUrlData"] == nil) {
                     NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
                     [curatedNews setValue:string forKey:@"articleUrlData"];
-                    [cell.detailsWebview setScalesPageToFit:YES];
+                   // [cell.detailsWebview setScalesPageToFit:YES];
                     [cell.detailsWebview loadHTMLString:string baseURL:nil];
                 } else {
-                    [cell.detailsWebview setScalesPageToFit:YES];
+                  //  [cell.detailsWebview setScalesPageToFit:YES];
                     [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
                 }
             });

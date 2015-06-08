@@ -214,7 +214,36 @@
     messageString = @"No articles to display";
     
 //    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    if(categoryId == -3) {
+        self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        for(NSManagedObject *curatedNews in self.devices) {
+            if([curatedNews valueForKey:@"details"] == nil) {
+                NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+                [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+                [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+                NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                
+                NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                
+                NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
+                [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+                [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
+                NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
+                
+                NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
+                
+                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                    //Background Thread
+                    [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
+                    [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
+                    
+                });
+            }
+        }
+    }else {
+        self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    }
+    
     NSLog(@"devices:%d",self.devices.count);
     _spinner.hidden = YES;
     [_spinner stopAnimating];

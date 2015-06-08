@@ -549,7 +549,7 @@
 //        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         //[[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:-3 withFlag:@"" withLastArticleId:@""];
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-3] forKey:@"categoryId"];
-       // [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
+        
         
     } else if([data.nodeId integerValue] == 7) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];

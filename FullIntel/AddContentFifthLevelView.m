@@ -101,7 +101,7 @@
     if(self.selectedIdArray.count != 0) {
         [self.previousArray addObject:self.selectedId];
     } else {
-        [self.previousArray removeAllObjects];
+       // [self.previousArray removeAllObjects];
     }
     [delegate fifthLevelDidFinish:self];
     [super viewWillDisappear:animated];
