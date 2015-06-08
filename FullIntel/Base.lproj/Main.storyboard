@@ -72,9 +72,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eqq-sW-IKM">
-                                        <rect key="frame" x="266" y="170" width="123" height="30"/>
+                                        <rect key="frame" x="276" y="170" width="118" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="123" id="i3E-9N-PpW"/>
+                                            <constraint firstAttribute="width" constant="118" id="i3E-9N-PpW"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                         <state key="normal" title="Forgot Password">
@@ -86,7 +86,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOY-nc-I5c">
-                                        <rect key="frame" x="11" y="170" width="65" height="30"/>
+                                        <rect key="frame" x="10" y="170" width="65" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="9Kg-zc-aRv"/>
                                             <constraint firstAttribute="height" constant="30" id="pPh-H9-c1s"/>
@@ -103,21 +103,21 @@
                                     <constraint firstItem="VOY-nc-I5c" firstAttribute="top" secondItem="INF-nf-AHx" secondAttribute="bottom" constant="2" id="2F1-yW-GoL"/>
                                     <constraint firstItem="INF-nf-AHx" firstAttribute="top" secondItem="qJD-2r-Wir" secondAttribute="bottom" constant="59" id="9vX-0s-aRx"/>
                                     <constraint firstItem="INF-nf-AHx" firstAttribute="top" secondItem="ouB-iA-Gdj" secondAttribute="bottom" constant="10" id="AfK-YE-0qS"/>
-                                    <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="ouB-iA-Gdj" secondAttribute="leading" id="BJG-uJ-hAg"/>
-                                    <constraint firstItem="Eqq-sW-IKM" firstAttribute="trailing" secondItem="INF-nf-AHx" secondAttribute="trailing" id="Bg7-xA-fnI"/>
+                                    <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="ouB-iA-Gdj" secondAttribute="leading" constant="-1" id="BJG-uJ-hAg"/>
+                                    <constraint firstItem="Eqq-sW-IKM" firstAttribute="trailing" secondItem="INF-nf-AHx" secondAttribute="trailing" constant="5" id="Bg7-xA-fnI"/>
                                     <constraint firstItem="qJD-2r-Wir" firstAttribute="top" secondItem="St9-FG-tJi" secondAttribute="top" constant="9" id="LsE-GE-Gbp"/>
                                     <constraint firstItem="Eqq-sW-IKM" firstAttribute="top" secondItem="VOY-nc-I5c" secondAttribute="top" id="RYq-s5-nYm"/>
-                                    <constraint firstItem="Eqq-sW-IKM" firstAttribute="trailing" secondItem="ouB-iA-Gdj" secondAttribute="trailing" id="VdA-Um-bVT"/>
+                                    <constraint firstItem="Eqq-sW-IKM" firstAttribute="trailing" secondItem="ouB-iA-Gdj" secondAttribute="trailing" constant="5" id="VdA-Um-bVT"/>
                                     <constraint firstItem="Eqq-sW-IKM" firstAttribute="baseline" secondItem="VOY-nc-I5c" secondAttribute="firstBaseline" id="ZVN-MD-ANE"/>
-                                    <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="qJD-2r-Wir" secondAttribute="leading" id="ZlQ-2G-W9U"/>
+                                    <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="qJD-2r-Wir" secondAttribute="leading" constant="-1" id="ZlQ-2G-W9U"/>
                                     <constraint firstAttribute="width" constant="400" id="ffd-YK-jDF"/>
                                     <constraint firstItem="ouB-iA-Gdj" firstAttribute="top" secondItem="St9-FG-tJi" secondAttribute="top" constant="58" id="hPJ-hY-6LC"/>
                                     <constraint firstAttribute="bottom" secondItem="VOY-nc-I5c" secondAttribute="bottom" constant="5" id="iUV-6I-JdA"/>
-                                    <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="St9-FG-tJi" secondAttribute="leading" constant="11" id="jcx-Ew-D0W"/>
-                                    <constraint firstAttribute="trailing" secondItem="Eqq-sW-IKM" secondAttribute="trailing" constant="11" id="nYQ-vQ-JUU"/>
-                                    <constraint firstItem="Eqq-sW-IKM" firstAttribute="trailing" secondItem="qJD-2r-Wir" secondAttribute="trailing" id="o91-N3-VZc"/>
+                                    <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="St9-FG-tJi" secondAttribute="leading" constant="10" id="jcx-Ew-D0W"/>
+                                    <constraint firstAttribute="trailing" secondItem="Eqq-sW-IKM" secondAttribute="trailing" constant="6" id="nYQ-vQ-JUU"/>
+                                    <constraint firstItem="Eqq-sW-IKM" firstAttribute="trailing" secondItem="qJD-2r-Wir" secondAttribute="trailing" constant="5" id="o91-N3-VZc"/>
                                     <constraint firstItem="VOY-nc-I5c" firstAttribute="baseline" secondItem="Eqq-sW-IKM" secondAttribute="firstBaseline" id="spf-DM-l0c"/>
-                                    <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="INF-nf-AHx" secondAttribute="leading" id="ubA-V0-vfS"/>
+                                    <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="INF-nf-AHx" secondAttribute="leading" constant="-1" id="ubA-V0-vfS"/>
                                     <constraint firstAttribute="height" constant="205" id="wBg-PU-9Va"/>
                                 </constraints>
                             </view>
@@ -131,16 +131,30 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ikE-HK-nCz">
+                                <rect key="frame" x="195" y="127" width="210" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="04H-yB-mkq"/>
+                                    <constraint firstAttribute="width" constant="210" id="3JP-LQ-xGY"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3wL-Bb-qf2">
+                                <rect key="frame" x="478" y="159" width="22" height="22"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="St9-FG-tJi" secondAttribute="centerX" id="9ng-XS-luL"/>
+                            <constraint firstItem="St9-FG-tJi" firstAttribute="top" secondItem="ikE-HK-nCz" secondAttribute="bottom" constant="20" id="CfZ-6x-c4M"/>
                             <constraint firstAttribute="trailingMargin" secondItem="elN-gT-OTN" secondAttribute="trailing" constant="-20" id="Ea9-Kw-8eU"/>
                             <constraint firstItem="BKh-WS-Kgy" firstAttribute="centerX" secondItem="St9-FG-tJi" secondAttribute="centerX" id="NlT-r8-3bU"/>
+                            <constraint firstItem="ikE-HK-nCz" firstAttribute="centerX" secondItem="St9-FG-tJi" secondAttribute="centerX" id="PcX-7u-2Hl"/>
                             <constraint firstItem="elN-gT-OTN" firstAttribute="top" secondItem="ou3-P5-eCO" secondAttribute="bottom" constant="-20" id="QUQ-97-GKu"/>
                             <constraint firstAttribute="centerY" secondItem="St9-FG-tJi" secondAttribute="centerY" id="RxE-Lu-svy"/>
+                            <constraint firstItem="St9-FG-tJi" firstAttribute="top" secondItem="3wL-Bb-qf2" secondAttribute="bottom" constant="16" id="Wb0-WG-TWn"/>
                             <constraint firstItem="aoh-wu-9Il" firstAttribute="top" secondItem="elN-gT-OTN" secondAttribute="bottom" id="bYj-Wm-w6v"/>
                             <constraint firstItem="elN-gT-OTN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="ce5-UG-Air"/>
+                            <constraint firstItem="3wL-Bb-qf2" firstAttribute="trailing" secondItem="St9-FG-tJi" secondAttribute="trailing" id="mb9-Tu-7MX"/>
                             <constraint firstItem="aoh-wu-9Il" firstAttribute="top" secondItem="BKh-WS-Kgy" secondAttribute="bottom" constant="3" id="y69-S5-55B"/>
                         </constraints>
                     </view>
@@ -156,4 +170,7 @@
             <point key="canvasLocation" x="547" y="133"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="splash_logo" width="500" height="109"/>
+    </resources>
 </document>
