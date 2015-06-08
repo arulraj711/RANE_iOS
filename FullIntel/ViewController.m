@@ -204,7 +204,7 @@
         contentMessage = content;
     }
     else {
-        contentMessage = @"FullIntel is a more en productive way to get business intelligence. Our analysts handpic relevant news, compe influencer comments, business information to your company. All mobile enterprise app single place to keep you informed and ready \n\n\n\n www.fullintel.com";
+        contentMessage = @"FullIntel is a more engaging and productive way to get caught up on business intelligence.Our analysts handpick the most relevant news, competitive insights, influencer comments, and other business information that matter most to your company. All delivered to our mobile enterprise app providing a single place to keep your executives informed and ready for business. \n\n www.fullintel.com";
     }
     
     NSString *title = nil;

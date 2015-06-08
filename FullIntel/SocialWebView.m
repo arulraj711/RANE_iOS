@@ -31,6 +31,8 @@
     NSURL *url = [NSURL URLWithString:self.urlString];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView setScalesPageToFit:YES];
+    
+    self.webView.contentMode=UIViewContentModeScaleAspectFit;
     [self.webView loadRequest:requestObj];
     
     
