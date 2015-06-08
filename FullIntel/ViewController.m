@@ -237,7 +237,7 @@
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
     SocialWebViewObj.titleStr=@"Sign Up";
-    SocialWebViewObj.urlString=@"";
+    SocialWebViewObj.urlString=@"http://fullintel.com/newusersignup.html";
     modalController.modalPresentationStyle = UIModalPresentationCustom;
     
     [self presentViewController:modalController animated:NO completion:nil];

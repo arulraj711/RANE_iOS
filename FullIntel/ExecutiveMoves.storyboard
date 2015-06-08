@@ -55,8 +55,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="740-s1-Pai">
                                 <rect key="frame" x="0.0" y="178" width="1000" height="343"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="APA-bG-GPO">
-                                        <rect key="frame" x="0.0" y="-160" width="1000" height="2500"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="APA-bG-GPO">
+                                        <rect key="frame" x="0.0" y="-2200" width="1000" height="2500"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KcF-KD-F6C">
                                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="104"/>
