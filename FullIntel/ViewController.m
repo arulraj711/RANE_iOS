@@ -12,6 +12,8 @@
 #import "FIUtils.h"
 #import "LeftViewController.h"
 #import "FIWebService.h"
+#import "CMPopTipView.h"
+#import "SocialWebView.h"
 //#import "WToast.h"
 //#import "UIImageView+AnimationImages.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -187,6 +189,58 @@
     
     [self showForgetAlert:_usernameTextField.text];
 
+}
+
+- (IBAction)infoButtonPressed:(id)sender {
+    
+    NSString *contentMessage = nil;
+    UIView *contentView = nil;
+    NSNumber *key = [NSNumber numberWithInteger:[(UIView *)sender tag]];
+    id content = [self.contents objectForKey:key];
+    if ([content isKindOfClass:[UIView class]]) {
+        contentView = content;
+    }
+    else if ([content isKindOfClass:[NSString class]]) {
+        contentMessage = content;
+    }
+    else {
+        contentMessage = @"FullIntel is a more en productive way to get business intelligence. Our analysts handpic relevant news, compe influencer comments, business information to your company. All mobile enterprise app single place to keep you informed and ready \n\n\n\n www.fullintel.com";
+    }
+    
+    NSString *title = nil;
+    
+    CMPopTipView *popTipView;
+    if (contentView) {
+        popTipView = [[CMPopTipView alloc] initWithCustomView:contentView];
+    }
+    else if (title) {
+        popTipView = [[CMPopTipView alloc] initWithTitle:title message:contentMessage];
+    }
+    else {
+        popTipView = [[CMPopTipView alloc] initWithMessage:contentMessage];
+    }
+    popTipView.delegate = self;
+    popTipView.dismissTapAnywhere = YES;
+    [popTipView autoDismissAnimated:YES atTimeInterval:10.0];
+    UIButton *button = (UIButton *)sender;
+    [popTipView presentPointingAtView:button inView:self.view animated:YES];
+    self.currentPopTipViewTarget = sender;
+}
+- (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipView
+{
+    //  [self.visiblePopTipViews removeObject:popTipView];
+    self.currentPopTipViewTarget = nil;
+}
+- (IBAction)newUserSignUpButtonPressed:(id)sender {
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+    SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+    SocialWebViewObj.titleStr=@"Sign Up";
+    SocialWebViewObj.urlString=@"";
+    modalController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [self presentViewController:modalController animated:NO completion:nil];
 }
 
 

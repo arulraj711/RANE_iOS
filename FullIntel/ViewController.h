@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AMPopTip.h"
+#import "CMPopTipView.h"
 
-@interface ViewController : UIViewController {
+@interface ViewController : UIViewController<CMPopTipViewDelegate>{
     CGRect oldFrame;
 }
 
@@ -19,5 +21,13 @@
 - (IBAction)signInButtonClicked:(id)sender;
 @property BOOL isAnimated;
 - (IBAction)forgetPasswordButtonPressed:(id)sender;
+
+- (IBAction)infoButtonPressed:(id)sender;
+
+- (IBAction)newUserSignUpButtonPressed:(id)sender;
+@property (nonatomic, strong)	NSDictionary	*contents;
+
+@property (nonatomic, strong) AMPopTip *popTip;
+@property (nonatomic, strong) id currentPopTipViewTarget;
 @end
 
