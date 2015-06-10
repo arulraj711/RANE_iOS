@@ -430,7 +430,7 @@
 }
 
 -(void)getCuratedNewsAuthorDetailsWithDetails:(NSString *)details withArticleId:(NSString *)articleId {
-    if([self serviceIsReachable]) {
+    //if([self serviceIsReachable]) {
     [FIWebService fetchCuratedNewsAuthorDetailsWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
         NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
@@ -530,9 +530,9 @@
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [FIUtils showErrorToast];
     }];
-    } else {
-        [FIUtils showNoNetworkToast];
-    }
+//    } else {
+//        [FIUtils showNoNetworkToast];
+//    }
 }
 
 

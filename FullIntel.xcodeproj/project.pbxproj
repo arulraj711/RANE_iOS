@@ -39,6 +39,7 @@
 		A0B0F5CA1B256AE300BB1169 /* City-Boston.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C71B256AE300BB1169 /* City-Boston.jpg */; };
 		A0B0F5CB1B256AE300BB1169 /* Eiffel_Tower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C81B256AE300BB1169 /* Eiffel_Tower.jpg */; };
 		A0B0F5CC1B256AE300BB1169 /* san_francisco.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C91B256AE300BB1169 /* san_francisco.jpg */; };
+		A0B0F5CE1B28639900BB1169 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0B0F5CD1B28639900BB1169 /* QuartzCore.framework */; };
 		A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0BE809F1B206F450055177E /* ResearchRequest.storyboard */; };
 		A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */; };
 		A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C326251B182E2B00FEB164 /* StockResponse.json */; };
@@ -281,6 +282,7 @@
 		A0B0F5C71B256AE300BB1169 /* City-Boston.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "City-Boston.jpg"; sourceTree = "<group>"; };
 		A0B0F5C81B256AE300BB1169 /* Eiffel_Tower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Eiffel_Tower.jpg; sourceTree = "<group>"; };
 		A0B0F5C91B256AE300BB1169 /* san_francisco.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = san_francisco.jpg; sourceTree = "<group>"; };
+		A0B0F5CD1B28639900BB1169 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A0BE809F1B206F450055177E /* ResearchRequest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ResearchRequest.storyboard; sourceTree = "<group>"; };
 		A0BFEF831B13482300DCBDA8 /* AddContentFifthLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentFifthLevelView.h; sourceTree = "<group>"; };
 		A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFifthLevelView.m; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0B0F5CE1B28639900BB1169 /* QuartzCore.framework in Frameworks */,
 				A010928D1B15AB25003C9F3A /* Foundation.framework in Frameworks */,
 				A053F5251AF9F090002EDC46 /* Accounts.framework in Frameworks */,
 				A0D956801B0C4D9100DB013F /* TwitterKit.framework in Frameworks */,
@@ -583,6 +586,7 @@
 		40CF193F5A4A47D98E563735 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0B0F5CD1B28639900BB1169 /* QuartzCore.framework */,
 				A010928C1B15AB25003C9F3A /* Foundation.framework */,
 				A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */,
 				A0D9567E1B0C4D9100DB013F /* TwitterKitResources.bundle */,

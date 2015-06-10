@@ -166,10 +166,12 @@
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
-    NSLog(@"select indexpath row:%d",indexPath.row);
+    NSNumber *totalComments = [userInfo objectForKey:@"totalComments"];
+    NSLog(@"select indexpath row:%d and total comments:%@",indexPath.row,totalComments);
     // NSNumber  = [userInfo objectForKey:@"status"];
    // NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
     [curatedNewsDetail setValue:[NSNumber numberWithInt:0] forKey:@"unReadComment"];
+    [curatedNewsDetail setValue:totalComments forKey:@"totalComments"];
     CorporateDetailCell *cell = (CorporateDetailCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     
     NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
@@ -303,10 +305,12 @@
                     NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
                     [curatedNews setValue:string forKey:@"articleUrlData"];
                    // [cell.detailsWebview setScalesPageToFit:YES];
-                    [cell.detailsWebview loadHTMLString:string baseURL:nil];
+                    //[cell.detailsWebview loadHTMLString:string baseURL:nil];
+                    [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
                 } else {
-                    [cell.detailsWebview setScalesPageToFit:YES];
-                    [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
+                    //[cell.detailsWebview setScalesPageToFit:YES];
+                    //[cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
+                    [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
                 }
             });
         }
@@ -352,7 +356,8 @@
         cell.selectedArticleId = [curatedNews valueForKey:@"articleId"];
         if(curatedNewsDetail == nil) {
             // NSLog(@"details is null");
-           
+//            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>"];
+//            [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
             [cell.articleWebview loadHTMLString:@"" baseURL:nil];
             NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
             [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -811,6 +816,7 @@
         [sender setSelected:YES];
        // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     }
+    [self.collectionView reloadData];
   //  [sender setSelected:YES];
 //    if(sender.selected) {
 //        [sender setSelected:NO];
