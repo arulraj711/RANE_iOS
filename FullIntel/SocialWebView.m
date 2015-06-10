@@ -28,6 +28,8 @@
     self.outerView.layer.cornerRadius = 10;
    
 
+    [_webView stopLoading];
+    
     NSLog(@"web view url:%@",self.urlString);
     NSURL *url = [NSURL URLWithString:self.urlString];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];

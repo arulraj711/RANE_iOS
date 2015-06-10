@@ -29,6 +29,10 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
+    
+    
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(widgetWebViewTrigger:) name:@"widgetWebViewCalled" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailButtonClick:) name:@"mailButtonClick" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globeButtonClick:) name:@"globeButtonClick" object:nil];
    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommentsView:) name:@"showCommentsView" object:nil];
@@ -670,6 +674,25 @@
     [self presentViewController:popOverView animated:NO completion:nil];
 }
 
+-(void)widgetWebViewTrigger:(id)sender{
+    
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *title = [userInfo objectForKey:@"name"];
+    NSString *link = [userInfo objectForKey:@"link"];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    
+    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"widgetWebView"];
+    
+    
+    SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+    SocialWebViewObj.titleStr=title;
+    SocialWebViewObj.urlString=link;
+    modalController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [self presentViewController:modalController animated:NO completion:nil];
+    
+}
 - (void)socialLinkSelected:(id)sender
 {
     NSNotification *notification = sender;
