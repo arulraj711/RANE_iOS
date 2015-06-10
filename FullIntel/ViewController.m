@@ -136,11 +136,11 @@
 
 -(void)callSignInFunction {
     if([_usernameTextField.text length] == 0) {
-        [self.view makeToast:@"Please check your login info and try again." duration:2 position:CSToastPositionCenter];
+        [self.view makeToast:@"Please check your login info and try again." duration:1 position:CSToastPositionCenter];
     } else if(![self NSStringIsValidEmail:_usernameTextField.text]) {
-        [self.view makeToast:@"Please check your login info and try again." duration:2 position:CSToastPositionCenter];
+        [self.view makeToast:@"Please check your login info and try again." duration:1 position:CSToastPositionCenter];
     }else if([_passwordTextField.text length] == 0) {
-        [self.view makeToast:@"Please check your login info and try again." duration:2 position:CSToastPositionCenter];
+        [self.view makeToast:@"Please check your login info and try again." duration:1 position:CSToastPositionCenter];
     }else {
         
          [[NSUserDefaults standardUserDefaults]setObject:_usernameTextField.text forKey:@"userName"];
@@ -178,7 +178,7 @@
       //  [self dismissViewControllerAnimated:YES completion:nil];
         [self.view removeFromSuperview];
     } else {
-        [self.view makeToast:[notification.object objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+        [self.view makeToast:[notification.object objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
 //        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"FullIntel" message:[notification.object objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 //        [alert show];
     }
@@ -290,11 +290,11 @@
     if(buttonIndex==1){
         
         if([emailTextField.text length] == 0) {
-            [self.view makeToast:@"Please enter the email address associated with your account." duration:2 position:CSToastPositionCenter];
+            [self.view makeToast:@"Please enter the email address associated with your account." duration:1 position:CSToastPositionCenter];
             
             [self showForgetAlert:emailTextField.text];
         } else if(![self NSStringIsValidEmail:emailTextField.text]) {
-            [self.view makeToast:@"Please enter the email address associated with your account." duration:2 position:CSToastPositionCenter];
+            [self.view makeToast:@"Please enter the email address associated with your account." duration:1 position:CSToastPositionCenter];
             
             [self showForgetAlert:emailTextField.text];
         }else{
@@ -319,7 +319,7 @@
         
         NSString *message=[responseObject objectForKey:@"message"];
         
-        [self.view makeToast:message duration:2 position:CSToastPositionCenter];
+        [self.view makeToast:message duration:1 position:CSToastPositionCenter];
         
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

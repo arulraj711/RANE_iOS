@@ -103,7 +103,7 @@
             if([authenticationFlag isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+                [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"logoutSuccess" object:nil];
             }else {
                 
@@ -214,7 +214,7 @@
             if(influencerArray.count == 0) {
                 if(lastArticleId.length != 0){
                     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                    [window makeToast:@"No more articles to display" duration:2 position:CSToastPositionCenter];
+                    [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
                 }
             }
             
@@ -266,15 +266,13 @@
             
             NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
             if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[dic objectForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
-                if(string.length != 0){
-                    [influencer setValue:string forKey:@"articleUrlData"];
+                NSString *str = [dic objectForKey:@"articleUrl"];
+                if(str.length != 0) {
+                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
+                        [influencer setValue:string forKey:@"articleUrlData"];
+                    });
                 }
-                
-                
-            });
             }
             
             
@@ -749,7 +747,7 @@
             if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 if(flag == 1) {
                     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                    [window makeToast:@"Updated content changes." duration:2 position:CSToastPositionCenter];
+                    [window makeToast:@"Updated content changes." duration:1 position:CSToastPositionCenter];
                     NSMutableDictionary *menuDic = [[NSMutableDictionary alloc] init];
                     [menuDic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] forKey:@"securityToken"];
                     NSData *menuJsondata = [NSJSONSerialization dataWithJSONObject:menuDic options:NSJSONWritingPrettyPrinted error:nil];
@@ -809,7 +807,7 @@
         [FIWebService sendResearchRequestWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if(![[responseObject objectForKey:@"code"]isEqualToNumber:[NSNumber numberWithInt:102]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+                [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"ResearchSend" object:nil];
             } else {
                 [self hideProgressView];
@@ -828,7 +826,7 @@
         [FIWebService updateAppViewTypeWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+                [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
             } else {
                 [self hideProgressView];
                 [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
@@ -846,7 +844,7 @@
         [FIWebService featureAccessRequestWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+                [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
             } else {
                 [self hideProgressView];
                 [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
@@ -866,7 +864,7 @@
             
             if(![[responseObject objectForKey:@"code"]isEqualToNumber:[NSNumber numberWithInt:102]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                [window makeToast:[responseObject objectForKey:@"message"] duration:2 position:CSToastPositionCenter];
+                [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
                 [self getCommentsWithDetails:self.getCommentDetailString withArticleId:self.getCommentArticleId];
                 
                 
