@@ -162,6 +162,7 @@
     } else {
         NSLog(@"test flag is FALSE");
     }
+    NSLog(@"selected article id:%@",self.articleIdArray);
 }
 
 -(void)commentStatusUpdate:(id)sender {
@@ -213,7 +214,7 @@
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if(newPerson.count != 0) {
         NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-       // NSLog(@"selected curated news:%@",curatedNews);
+        NSLog(@"selected curated news:%@",curatedNews);
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
         
         NSString *articleImageStr = [curatedNews valueForKey:@"image"];

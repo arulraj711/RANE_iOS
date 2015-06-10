@@ -70,7 +70,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J7C-6M-oH2">
                                                     <rect key="frame" x="0.0" y="0.0" width="130" height="150"/>
-                                                    <color key="backgroundColor" red="1" green="0.20353250649999999" blue="0.26871396730000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaD-Tu-nay">
                                                     <rect key="frame" x="97" y="8" width="25" height="25"/>
@@ -749,6 +749,6 @@
         <image name="addcontent_upgrade" width="90" height="23"/>
         <image name="bluecircle" width="30" height="30"/>
         <image name="bluecircle_checked" width="30" height="30"/>
-        <image name="close" width="28" height="28"/>
+        <image name="close" width="32" height="32"/>
     </resources>
 </document>

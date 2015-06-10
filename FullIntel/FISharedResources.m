@@ -249,7 +249,7 @@
             [influencer setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
             [influencer setValue:[dic objectForKey:@"articleHeading"] forKey:@"title"];
             [influencer setValue:[dic objectForKey:@"articleDescription"] forKey:@"desc"];
-            [influencer setValue:[dic objectForKey:@"articlePublisheddate"] forKey:@"date"];
+            [influencer setValue:[dic objectForKey:@"articleModifiedDate"] forKey:@"date"];
             [influencer setValue:[dic objectForKey:@"articleImageURL"] forKey:@"image"];
             [influencer setValue:[dic objectForKey:@"articleUrl"] forKey:@"articleUrl"];
             [influencer setValue:[dic objectForKey:@"articleTypeId"] forKey:@"articleTypeId"];
@@ -559,7 +559,7 @@
             [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"totalComments"] forKey:@"totalComments"];
             [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"unReadComment"] forKey:@"unReadComment"];
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"articleImageURL"] forKey:@"articleImageURL"];
-        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"article"] forKey:@"article"];
+        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"articleDetailedDescription"] forKey:@"article"];
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"publisheddate"] forKey:@"articlePublisheddate"];
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"articleType"] forKey:@"articleType"];
         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"url"] forKey:@"articleUrl"];

@@ -809,7 +809,7 @@
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-    NSLog(@"passing article id:%@",[userInfo objectForKey:@"articleId"]);
+    //NSLog(@"passing article id:%@",[userInfo objectForKey:@"articleId"]);
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
         [fetchRequest setPredicate:predicate];
