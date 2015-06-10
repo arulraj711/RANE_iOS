@@ -476,14 +476,14 @@
         }
     }
    // NSLog(@"webview height:%f",webView.frame.size.height);
-    if(webView.frame.size.height > 1400) {
+   // if(webView.frame.size.height > 1400) {
 //        self.articleWebview.frame = CGRectMake(self.articleWebview.frame.origin.x, self.articleWebview.frame.origin.y, self.articleWebview.frame.size.width, webView.frame.size.height);
         self.webViewHeightConstraint.constant = webView.frame.size.height;
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
-    } else {
-        self.webViewHeightConstraint.constant = 1400;
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
-    }
+//    } else {
+//        self.webViewHeightConstraint.constant = 1400;
+//        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+//    }
     self.socialLinkCollectionView.delegate = self;
     
     self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];

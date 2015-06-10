@@ -266,15 +266,13 @@
             
             NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
             if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[dic objectForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
-                if(string.length != 0){
-                    [influencer setValue:string forKey:@"articleUrlData"];
+                NSString *str = [dic objectForKey:@"articleUrl"];
+                if(str.length != 0) {
+                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
+                        [influencer setValue:string forKey:@"articleUrlData"];
+                    });
                 }
-                
-                
-            });
             }
             
             
