@@ -295,22 +295,22 @@
                // [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
                 NSLog(@"article url data:%@",[curatedNews valueForKey:@"articleUrlData"]);
                 
-//                if([curatedNews valueForKey:@"articleUrlData"] == nil) {
-//                    NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
-//                    [curatedNews setValue:string forKey:@"articleUrlData"];
-//                   // [cell.detailsWebview setScalesPageToFit:YES];
-//                    [cell.detailsWebview loadHTMLString:string baseURL:nil];
-//                } else {
+                if([curatedNews valueForKey:@"articleUrlData"] == nil) {
+                    NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
+                    [curatedNews setValue:string forKey:@"articleUrlData"];
+                   // [cell.detailsWebview setScalesPageToFit:YES];
+                    [cell.detailsWebview loadHTMLString:string baseURL:nil];
+                } else {
                     [cell.detailsWebview setScalesPageToFit:YES];
                     [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
-               // }
+                }
             });
         }
         
         
         NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
         NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
-        NSLog(@"after changing unread and total comments:%@ and %@",unreadCnt,totalCnt);
+        //NSLog(@"after changing unread and total comments:%@ and %@",unreadCnt,totalCnt);
         if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
             cell.badgeTwo.value = [totalCnt integerValue];
             cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
@@ -329,7 +329,7 @@
             
             NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
             if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                NSLog(@"both type is working");
+               // NSLog(@"both type is working");
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"both"}];
             }else {
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
