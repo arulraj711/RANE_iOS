@@ -93,7 +93,7 @@
 	//self.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
 	//self.shine = YES;
 	self.alignment = NSTextAlignmentCenter;
-	self.fillColor = [UIColor redColor];
+	//self.fillColor = [UIColor redColor];
 	//self.strokeColor = [UIColor whiteColor];
 	//self.strokeWidth = 2.0;
 	self.textColor = [UIColor whiteColor];

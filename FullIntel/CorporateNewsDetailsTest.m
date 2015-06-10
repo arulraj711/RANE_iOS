@@ -17,6 +17,7 @@
 #import "PresentingAnimator.h"
 #import "DismissingAnimator.h"
 #import "ResearchRequestPopoverView.h"
+#define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface CorporateNewsDetailsTest ()
 
@@ -121,7 +122,12 @@
         NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"categoryId == %d",categoryId];
+        NSPredicate *predicate;
+        if(categoryId == -3) {
+            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+        } else {
+            predicate  = [NSPredicate predicateWithFormat:@"categoryId == %d",categoryId];
+        }
         [fetchRequest setPredicate:predicate];
         [fetchRequest setEntity:entity];
         
@@ -138,9 +144,9 @@
             [elementsFromColumn addObject:[fetchedObject valueForKey:@"articleId"]];
         }
         
-        NSLog(@"elementsfrom column:%@",elementsFromColumn);
+        //NSLog(@"elementsfrom column:%@",elementsFromColumn);
         self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
-        NSLog(@"article id array:%@",self.articleIdArray);
+       // NSLog(@"article id array:%@",self.articleIdArray);
         if(self.articleIdArray.count != 0) {
             [self.collectionView reloadData];
         }
@@ -156,11 +162,17 @@
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
+    NSLog(@"select indexpath row:%d",indexPath.row);
     // NSNumber  = [userInfo objectForKey:@"status"];
    // NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
-    [curatedNewsDetail setValue:0 forKey:@"unReadComment"];
+    [curatedNewsDetail setValue:[NSNumber numberWithInt:0] forKey:@"unReadComment"];
     CorporateDetailCell *cell = (CorporateDetailCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-    cell.badgeTwo.value = 0;
+    
+    NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
+   // if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        cell.badgeTwo.value = [totalCnt integerValue];
+        cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
+   // }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -207,6 +219,9 @@
         [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
         [cell.overlayArticleImageView setContentMode:UIViewContentModeScaleAspectFill];
         cell.overlayArticleTitle.text = [curatedNews valueForKey:@"title"];
+        
+        cell.markedImpUserId = [[curatedNews valueForKey:@"markAsImportantUserId"] stringValue];
+        cell.markedImpUserName = [curatedNews valueForKey:@"markAsImportantUserName"];
         
         
         NSString *outletString = [curatedNews valueForKey:@"outlet"];
@@ -278,23 +293,31 @@
                 [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
                 
                // [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
+                NSLog(@"article url data:%@",[curatedNews valueForKey:@"articleUrlData"]);
                 
-                
-                if([curatedNews valueForKey:@"articleUrlData"] == nil) {
-                    NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
-                    [curatedNews setValue:string forKey:@"articleUrlData"];
-                    [cell.detailsWebview setScalesPageToFit:YES];
-                    [cell.detailsWebview loadHTMLString:string baseURL:nil];
-                } else {
+//                if([curatedNews valueForKey:@"articleUrlData"] == nil) {
+//                    NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
+//                    [curatedNews setValue:string forKey:@"articleUrlData"];
+//                   // [cell.detailsWebview setScalesPageToFit:YES];
+//                    [cell.detailsWebview loadHTMLString:string baseURL:nil];
+//                } else {
                     [cell.detailsWebview setScalesPageToFit:YES];
                     [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
-                }
+               // }
             });
         }
         
         
         NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
-        cell.badgeTwo.value = [unreadCnt integerValue];
+        NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
+        NSLog(@"after changing unread and total comments:%@ and %@",unreadCnt,totalCnt);
+        if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            cell.badgeTwo.value = [totalCnt integerValue];
+            cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
+        } else {
+            cell.badgeTwo.value = [unreadCnt integerValue];
+            cell.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
+        }
         
         NSNumber *number = [curatedNews valueForKey:@"readStatus"];
         NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
@@ -303,7 +326,16 @@
         if(number == [NSNumber numberWithInt:1]) {
             
         } else {
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
+            
+            NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
+            if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                NSLog(@"both type is working");
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"both"}];
+            }else {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
+            }
+            
+            
             [[NSNotificationCenter defaultCenter]postNotificationName:@"readStatusUpdate" object:nil userInfo:@{@"indexPath":indexPath,@"status":[NSNumber numberWithBool:YES]}];
         }
         
@@ -551,6 +583,8 @@
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+        NSLog(@"collectionView frame in sizeForItemAtIndexPath :%f :%f :%f : %f",_collectionView.frame.origin.x,_collectionView.frame.origin.y,_collectionView.frame.size.width,_collectionView.frame.size.height);
+    
     return self.collectionView.frame.size;
 }
 
@@ -563,12 +597,16 @@
     // Fade the collectionView out
     [self.collectionView setAlpha:0.0f];
     
+    NSLog(@"collectionView frame :%f :%f :%f : %f",_collectionView.frame.origin.x,_collectionView.frame.origin.y,_collectionView.frame.size.width,_collectionView.frame.size.height);
+    
+        NSLog(@"View frame :%f :%f :%f : %f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+    
     // Suppress the layout errors by invalidating the layout
-    [self.collectionView.collectionViewLayout invalidateLayout];
+ //   [self.collectionView.collectionViewLayout invalidateLayout];
     
     // Calculate the index of the item that the collectionView is currently displaying
-//    CGPoint currentOffset = [self.collectionView contentOffset];
-//    self.currentIndex = currentOffset.x / self.collectionView.frame.size.width;
+    CGPoint currentOffset = [self.collectionView contentOffset];
+    self.currentIndex = currentOffset.x / self.collectionView.frame.size.width;
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -581,7 +619,11 @@
     // Fade the collectionView back in
     [UIView animateWithDuration:0.125f animations:^{
         [self.collectionView setAlpha:1.0f];
+        
+        [self.collectionView reloadData];
     }];
+    
+    
     
 }
 
@@ -837,7 +879,7 @@
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] integerValue] withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
         oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                        selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+       // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
         });
         }
     }

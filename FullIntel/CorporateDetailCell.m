@@ -36,7 +36,7 @@
    // self.socialLinksArray = [[NSMutableArray alloc]init];
     
     
-    self.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
+   // self.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
     self.badgeTwo.hideWhenZero = YES;
     //self.badgeTwo.value = 0;
     
@@ -417,22 +417,22 @@
         [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:1];
       
-        [btn setEnabled:NO];
+        //[btn setEnabled:NO];
     }else if(btn.tag == 1){
         //Company Widget
         [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:3];
-        [btn setEnabled:NO];
+       // [btn setEnabled:NO];
     }else if(btn.tag == 2){
         //Product Widget
         [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:4];
-        [btn setEnabled:NO];
+       // [btn setEnabled:NO];
     }else if(btn.tag == 3) {
         //Video Widget
         [btn setSelected:YES];
         [FIUtils callRequestionUpdateWithModuleId:1 withFeatureId:7];
-        [btn setEnabled:NO];
+       // [btn setEnabled:NO];
     }
     
 }
@@ -652,20 +652,36 @@
     [resultDic setObject:self.selectedArticleId forKey:@"selectedArticleId"];
     [resultDic setObject:@"2" forKey:@"status"];
     
+    NSString *loginUserId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
+    
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     
     if(sender.selected) {
-        [sender setSelected:NO];
-        [resultDic setObject:@"false" forKey:@"isSelected"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+        if([self.markedImpUserId isEqualToString:@"-1"]) {
+            //Analyst
+            [self.contentView makeToast:@"A FullIntel analyst marked this as important. If you like to change, please request via Feedback" duration:1.5 position:CSToastPositionCenter];
+        } else if([self.markedImpUserId isEqualToString:loginUserId]) {
+            //LoginUser
+            
+            [sender setSelected:NO];
+            [resultDic setObject:@"false" forKey:@"isSelected"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            
+            [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+            
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
+            [self.contentView makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
+            
+            
+        } else {
+            //OtherUser
+            NSString *messageStrings = [NSString stringWithFormat:@"If you like to change, please contact %@. who marked this article as important",self.markedImpUserName];
+            [self.contentView makeToast:messageStrings duration:1.5 position:CSToastPositionCenter];
+        }
         
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        
-        [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
-        
-        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
-        [self.contentView makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
     }else {
         [sender setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
@@ -702,6 +718,7 @@
         NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
         if(newPerson.count != 0) {
             NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+            
             NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
             NSLog(@"cell post notification is working:%@",curatedNewsDetail);
             dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -717,7 +734,15 @@
                 NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
                 [self.articleWebview loadHTMLString:htmlString baseURL:nil];
                 NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
-                self.badgeTwo.value = [unreadCnt integerValue];
+                NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
+                if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                    self.badgeTwo.value = [totalCnt integerValue];
+                    self.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
+                } else {
+                    self.badgeTwo.value = [unreadCnt integerValue];
+                    self.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
+                }
+                
                 
                 NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
                 if(markImpStatus == [NSNumber numberWithInt:1]) {
@@ -731,7 +756,7 @@
                 if([[curatedNewsDetail valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
                     NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
                     if(markImpStatus == [NSNumber numberWithInt:1]) {
-                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+//                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
                     }
                 } else {
                     

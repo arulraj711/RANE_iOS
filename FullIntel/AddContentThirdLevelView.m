@@ -30,7 +30,7 @@
     RFQuiltLayout* layout = (id)[self.categoryCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
     layout.blockPixels = CGSizeMake(180,180);
-    
+    //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isChanged"];
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     if(orientation == 1) {
         testLabel = [[UILabel alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
@@ -75,37 +75,53 @@
 
 - (void)loadSelectedCategory
 {
-    if([self.previousArray containsObject:self.selectedId]) {
-        NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"thirdLevelSelection"];
-        if(alreadySelectedArray.count ==0) {
-            for(FIContentCategory *category in self.innerArray) {
-                //if(category.isSubscribed) {
+    
+    if(self.isSelected) {
+        BOOL isChanged = [[NSUserDefaults standardUserDefaults]boolForKey:@"isThirdLevelChanged"];
+        NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:[self.selectedId stringValue]];
+        
+        if(isChanged) {
+            if(alreadySelectedArray.count == 0){
+                for(FIContentCategory *category in self.innerArray) {
                     [self.checkedArray addObject:category.categoryId];
                     [self.selectedIdArray addObject:category.categoryId];
-//                } else {
-//                    [self.uncheckedArray addObject:category.categoryId];
-//                    [self.selectedIdArray removeObject:category.categoryId];
-//                }
+                }
+            } else {
+                self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
             }
         } else {
-            self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
+            for(FIContentCategory *category in self.innerArray) {
+                if(category.isSubscribed) {
+                    [self.checkedArray addObject:category.categoryId];
+                    [self.selectedIdArray addObject:category.categoryId];
+                } else {
+                    [self.uncheckedArray addObject:category.categoryId];
+                    [self.selectedIdArray removeObject:category.categoryId];
+                }
+            }
         }
-        
     } else {
         self.selectedIdArray = [[NSMutableArray alloc]init];
+        [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     }
-    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"thirdLevelSelection"];
-    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"thirdLevelUnSelection"];
     [self.categoryCollectionView reloadData];
    
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
-    if(self.selectedIdArray.count != 0) {
-        [self.previousArray addObject:self.selectedId];
+    if(self.selectedIdArray.count == 0) {
+        [self.previousArray removeObject:self.selectedId];
+        //self.selectedIdArray = [[NSMutableArray alloc]init];
+        //[[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     } else {
-        [self.previousArray removeAllObjects];
+        [self.previousArray addObject:self.selectedId];
     }
+    
+//    if(self.selectedIdArray.count != 0) {
+//        [self.previousArray addObject:self.selectedId];
+//    } else {
+//        [self.previousArray removeAllObjects];
+//    }
     [delegate thirdLevelDidFinish:self];
     [super viewWillDisappear:animated];
 }
@@ -160,7 +176,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:indexPath];
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
     if(contentCategory.listArray.count != 0) {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
@@ -170,6 +186,11 @@
     thirdLevel.title = contentCategory.name;
     thirdLevel.previousArray = self.selectedIdArray;
     thirdLevel.selectedId = contentCategory.categoryId;
+        if(cell.checkMarkButton.isSelected) {
+            thirdLevel.isSelected = YES;
+        } else {
+            thirdLevel.isSelected = NO;
+        }
     [self.navigationController pushViewController:thirdLevel animated:YES];
     }
 }
@@ -181,6 +202,7 @@
 
 - (IBAction)checkMark:(id)sender {
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
+    
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         [self.selectedIdArray removeObject:contentCategory.categoryId];
         [sender setSelected:NO];
@@ -198,6 +220,10 @@
         // }
     }
     
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isThirdLevelChanged"];
+    
+    //NSLog(@"selected id array after removal:%@",self.selectedIdArray);
+    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"thirdLevelSelection"];
     [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"thirdLevelUnSelection"];
 }

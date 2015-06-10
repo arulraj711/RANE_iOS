@@ -56,26 +56,34 @@
 
 - (void)loadSelectedCategory
 {
-    if([self.previousArray containsObject:self.selectedId]) {
-        NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"fourthLevelSelection"];
-        if(alreadySelectedArray.count ==0) {
-            for(FIContentCategory *category in self.innerArray) {
-               // if(category.isSubscribed) {
+    if(self.isSelected) {
+        BOOL isChanged = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFourthLevelChanged"];
+        NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:[self.selectedId stringValue]];
+        
+        if(isChanged) {
+            if(alreadySelectedArray.count == 0){
+                for(FIContentCategory *category in self.innerArray) {
                     [self.checkedArray addObject:category.categoryId];
                     [self.selectedIdArray addObject:category.categoryId];
-//                } else {
-//                    [self.uncheckedArray addObject:category.categoryId];
-//                    [self.selectedIdArray removeObject:category.categoryId];
-//                }
+                }
+            } else {
+                self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
             }
         } else {
-            self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
+            for(FIContentCategory *category in self.innerArray) {
+                if(category.isSubscribed) {
+                    [self.checkedArray addObject:category.categoryId];
+                    [self.selectedIdArray addObject:category.categoryId];
+                } else {
+                    [self.uncheckedArray addObject:category.categoryId];
+                    [self.selectedIdArray removeObject:category.categoryId];
+                }
+            }
         }
     } else {
         self.selectedIdArray = [[NSMutableArray alloc]init];
+        [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     }
-    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"fourthLevelSelection"];
-    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"fourthLevelUnSelection"];
     [self.categoryCollectionView reloadData];
     
 }
@@ -102,10 +110,12 @@
 
 
 -(void) viewWillDisappear:(BOOL)animated {
-    if(self.selectedIdArray.count != 0) {
-        [self.previousArray addObject:self.selectedId];
+    if(self.selectedIdArray.count == 0) {
+        [self.previousArray removeObject:self.selectedId];
+        //self.selectedIdArray = [[NSMutableArray alloc]init];
+        //[[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     } else {
-        [self.previousArray removeAllObjects];
+        [self.previousArray addObject:self.selectedId];
     }
     [delegate fourthLevelDidFinish:self];
     [super viewWillDisappear:animated];
@@ -154,7 +164,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:indexPath];
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
     if(contentCategory.listArray.count != 0) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
@@ -164,6 +174,11 @@
         thirdLevel.title = contentCategory.name;
         thirdLevel.previousArray = self.selectedIdArray;
         thirdLevel.selectedId = contentCategory.categoryId;
+        if(cell.checkMarkButton.isSelected) {
+            thirdLevel.isSelected = YES;
+        } else {
+            thirdLevel.isSelected = NO;
+        }
         [self.navigationController pushViewController:thirdLevel animated:YES];
     }
 }
@@ -191,6 +206,8 @@
             [self.uncheckedArray removeObject:contentCategory.categoryId];
             // }
         }
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFourthLevelChanged"];
+    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"fourthLevelSelection"];
     [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"fourthLevelUnSelection"];
 }

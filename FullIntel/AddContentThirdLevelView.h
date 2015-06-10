@@ -23,7 +23,7 @@
 @property (nonatomic,strong) NSMutableArray *innerArray;
 @property (nonatomic,strong) NSMutableArray *selectedIdArray;
 @property (nonatomic,strong) NSMutableArray *previousArray;
-
+@property BOOL isSelected;
 @property (nonatomic,strong) NSNumber *selectedId;
 @property (nonatomic,strong) NSMutableArray *checkedArray;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;

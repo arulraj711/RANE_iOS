@@ -256,7 +256,29 @@
             [influencer setValue:[dic objectForKey:@"articleType"] forKey:@"articleType"];
             [influencer setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
             [influencer setValue:[dic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
+            NSNumber *markImp = [dic valueForKey:@"markAsImportant"];
+            if([markImp isEqualToNumber:[NSNumber numberWithInt:1]]){
+                NSDictionary *markedImpDictionary = [dic objectForKey:@"markAsImportantUserDetail"];
+                [influencer setValue:[markedImpDictionary objectForKey:@"name"] forKey:@"markAsImportantUserName"];
+                [influencer setValue:[markedImpDictionary objectForKey:@"userId"] forKey:@"markAsImportantUserId"];
+            }
             [influencer setValue:[dic objectForKey:@"saveForLater"] forKey:@"saveForLater"];
+            
+            NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
+            if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[dic objectForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
+                if(string.length != 0){
+                    [influencer setValue:string forKey:@"articleUrlData"];
+                }
+                
+                
+            });
+            }
+            
+            
+            
             
 //            NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
 //            if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {

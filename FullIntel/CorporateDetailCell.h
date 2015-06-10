@@ -101,7 +101,8 @@
 @property (nonatomic, strong)	NSDictionary	*contents;
 
 @property (retain) IBOutlet MKNumberBadgeView* badgeTwo;
-
+@property (nonatomic,strong) NSString *markedImpUserId;
+@property (nonatomic,strong) NSString *markedImpUserName;
 @property (nonatomic,strong) AMRatingControl *starRating;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;
 @property CGRect cachedImageViewSize;
