@@ -97,8 +97,10 @@
     
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
     if(isFIViewSelected) {
+        NSLog(@"fi view is selected");
         [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_globe"]  forState:UIControlStateNormal];
     } else {
+        NSLog(@"fi view is not selected");
         [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_fi"]  forState:UIControlStateNormal];
     }
     [addBtn addTarget:self action:@selector(globeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -304,9 +306,14 @@
                     //[cell.detailsWebview loadHTMLString:string baseURL:nil];
                     [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
                 } else {
-                    //[cell.detailsWebview setScalesPageToFit:YES];
-                    //[cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
-                    [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
+                    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                        [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
+                    } else {
+                        
+                        [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
+                    }
+                    
+                    
                 }
             });
         }

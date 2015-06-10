@@ -206,10 +206,10 @@
     [fetchRequest setPredicate:predicate];
     
     
-    NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-    
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
+//    NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+//    
+//    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
+//    [fetchRequest setSortDescriptors:sortDescriptors];
     
     messageString = @"No articles to display";
     
