@@ -583,7 +583,7 @@
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-        NSLog(@"collectionView frame in sizeForItemAtIndexPath :%f :%f :%f : %f",_collectionView.frame.origin.x,_collectionView.frame.origin.y,_collectionView.frame.size.width,_collectionView.frame.size.height);
+
     
     return self.collectionView.frame.size;
 }
@@ -597,9 +597,6 @@
     // Fade the collectionView out
     [self.collectionView setAlpha:0.0f];
     
-    NSLog(@"collectionView frame :%f :%f :%f : %f",_collectionView.frame.origin.x,_collectionView.frame.origin.y,_collectionView.frame.size.width,_collectionView.frame.size.height);
-    
-        NSLog(@"View frame :%f :%f :%f : %f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
     
     // Suppress the layout errors by invalidating the layout
  //   [self.collectionView.collectionViewLayout invalidateLayout];
