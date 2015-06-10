@@ -650,7 +650,7 @@
     [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
     [resultDic setObject:@"2" forKey:@"status"];
      NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
-    NSLog(@"marked imp read status:%@",number);
+   // NSLog(@"marked imp read status:%@",number);
     if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
     if(number == [NSNumber numberWithInt:1]) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
