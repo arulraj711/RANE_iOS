@@ -56,7 +56,13 @@
 }
 
 -(void)markCommentAsRead {
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"commentStatusUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithInt:0]}];
+    
+    NSLog(@"before comments count:%d",self.commentsArray.count);
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"commentStatusUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithInt:0],@"totalComments":[NSNumber numberWithInt:self.commentsArray.count]}];
+    
+    
+    //[[NSNotificationCenter defaultCenter]postNotificationName:@"commentStatusUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithInt:0]}];
 }
 
 -(void)CommentsExpire {

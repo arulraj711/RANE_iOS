@@ -72,7 +72,7 @@
     NSNumber *number = [userInfo objectForKey:@"status"];
     NSLog(@"selected number:%@",number);
     if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
-       // [self.detailsWebview removeFromSuperview];
+        //[self.detailsWebview removeFromSuperview];
         self.detailsWebview.hidden = YES;
         self.overlayView.hidden = YES;
         self.isFIViewSelected = YES;
@@ -461,7 +461,7 @@
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.querySelector('meta[name=viewport]').setAttribute('content', 'width=%d;', false); ", (int)webView.frame.size.width]];
    // NSLog(@"heihgt:%f",webView.scrollView.contentSize.height);
     CGSize mWebViewTextSize = [webView sizeThatFits:CGSizeMake(1.0f, 1.0f)];  // Pass about any size
     CGRect mWebViewFrame = webView.frame;
@@ -721,6 +721,10 @@
             
             NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
             NSLog(@"cell post notification is working:%@",curatedNewsDetail);
+            
+            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+            [self.articleWebview loadHTMLString:htmlString baseURL:nil];
+            
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 
                  NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
@@ -731,8 +735,7 @@
                     self.webViewHeightConstraint.constant = 940;
                 }
                 
-                NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
-                [self.articleWebview loadHTMLString:htmlString baseURL:nil];
+                
                 NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
                 NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
                 if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
