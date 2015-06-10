@@ -32,7 +32,23 @@
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView setScalesPageToFit:YES];
     
-    self.webView.contentMode=UIViewContentModeScaleAspectFit;
+    CGRect frame=_webView.frame;
+    
+    frame.size.height=1;
+    
+    _webView.frame=frame;
+    
+    CGSize fittingSize=[_webView sizeThatFits:CGSizeZero];
+    
+    frame.size=fittingSize;
+    
+    
+    _webView.frame=frame;
+    
+    
+    
+//    
+//    self.webView.contentMode=UIViewContentModeScaleAspectFit;
     [self.webView loadRequest:requestObj];
     
     
