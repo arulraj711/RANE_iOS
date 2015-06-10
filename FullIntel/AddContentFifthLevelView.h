@@ -24,6 +24,7 @@
 @property (nonatomic,strong) NSMutableArray *checkedArray;
 - (IBAction)backButtonClicked:(id)sender;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
+@property BOOL isSelected;
 @end
 
 @protocol FifthLevelDelegate

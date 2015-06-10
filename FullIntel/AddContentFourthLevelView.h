@@ -24,6 +24,7 @@
 @property (nonatomic,strong) NSNumber *selectedId;
 @property (nonatomic,strong) NSMutableArray *checkedArray;
 - (IBAction)backButtonClicked:(id)sender;
+@property BOOL isSelected;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
 @end
 

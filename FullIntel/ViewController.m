@@ -243,6 +243,17 @@
     [self presentViewController:modalController animated:NO completion:nil];
 }
 
+- (IBAction)privacyPolicyButtonPressed:(id)sender {
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+    SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+    SocialWebViewObj.titleStr=@"Privacy Policy";
+    SocialWebViewObj.urlString=@"http://www.fullintel.com/common/privacy";
+    modalController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [self presentViewController:modalController animated:NO completion:nil];
+}
+
 
 -(void)showForgetAlert:(NSString *)textString{
 

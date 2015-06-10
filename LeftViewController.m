@@ -124,26 +124,39 @@
 -(void)updateMenuCount:(id)sender {
     
     RADataObject *dataObj;
+    RADataObject *anotherDataObj;
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSString *type = [userInfo objectForKey:@"type"];
     NSMutableArray *reloadArray = [[NSMutableArray alloc]init];
-    if([type isEqualToString:@"-1"]) {
+    NSLog(@"type value:%@",type);
+    if([type isEqualToString:@"both"]) {
         dataObj = [self.data objectAtIndex:2];
         int cnt = [dataObj.unReadCount intValue];
         dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
         
+        anotherDataObj = [self.data objectAtIndex:0];
+        int nextCnt = [anotherDataObj.unReadCount intValue];
+        anotherDataObj.unReadCount = [NSNumber numberWithInt:nextCnt-1];
+        
+        [reloadArray addObject:dataObj];
+        [reloadArray addObject:anotherDataObj];
+        
+    }else if([type isEqualToString:@"-1"]) {
+        dataObj = [self.data objectAtIndex:2];
+        int cnt = [dataObj.unReadCount intValue];
+        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
         [reloadArray addObject:dataObj];
     }else if([type isEqualToString:@"-2"]) {
         NSNumber *num = [userInfo objectForKey:@"isSelected"];
-        NSLog(@"selected number:%@",num);
+       // NSLog(@"selected number:%@",num);
         if([num isEqualToNumber:[NSNumber numberWithInt:1]]){
             dataObj = [self.data objectAtIndex:0];
             int cnt = [dataObj.unReadCount intValue];
             dataObj.unReadCount = [NSNumber numberWithInt:cnt+1];
             [reloadArray addObject:dataObj];
         } else if([num isEqualToNumber:[NSNumber numberWithInt:0]]) {
-            NSLog(@"come inside");
+            //NSLog(@"come inside");
             dataObj = [self.data objectAtIndex:0];
             int cnt = [dataObj.unReadCount intValue];
             dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];

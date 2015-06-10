@@ -73,35 +73,44 @@
 
 - (void)loadSelectedCategory
 {
-    if([self.previousArray containsObject:self.selectedId]) {
-        NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"fifthLevelSelection"];
-        if(alreadySelectedArray.count ==0) {
-            for(FIContentCategory *category in self.innerArray) {
-               // if(category.isSubscribed) {
+    if(self.isSelected) {
+        BOOL isChanged = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFifthLevelChanged"];
+        NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:[self.selectedId stringValue]];
+        
+        if(isChanged) {
+            if(alreadySelectedArray.count == 0){
+                for(FIContentCategory *category in self.innerArray) {
                     [self.checkedArray addObject:category.categoryId];
                     [self.selectedIdArray addObject:category.categoryId];
-//                } else {
-//                    [self.uncheckedArray addObject:category.categoryId];
-//                    [self.selectedIdArray removeObject:category.categoryId];
-//                }
+                }
+            } else {
+                self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
             }
         } else {
-            self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
+            for(FIContentCategory *category in self.innerArray) {
+                if(category.isSubscribed) {
+                    [self.checkedArray addObject:category.categoryId];
+                    [self.selectedIdArray addObject:category.categoryId];
+                } else {
+                    [self.uncheckedArray addObject:category.categoryId];
+                    [self.selectedIdArray removeObject:category.categoryId];
+                }
+            }
         }
     } else {
         self.selectedIdArray = [[NSMutableArray alloc]init];
+        [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     }
-    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"fifthLevelSelection"];
-    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"fifthLevelUnSelection"];
     [self.categoryCollectionView reloadData];
-    
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
-    if(self.selectedIdArray.count != 0) {
-        [self.previousArray addObject:self.selectedId];
+    if(self.selectedIdArray.count == 0) {
+        [self.previousArray removeObject:self.selectedId];
+        //self.selectedIdArray = [[NSMutableArray alloc]init];
+        //[[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     } else {
-       // [self.previousArray removeAllObjects];
+        [self.previousArray addObject:self.selectedId];
     }
     [delegate fifthLevelDidFinish:self];
     [super viewWillDisappear:animated];
@@ -166,6 +175,8 @@
         [self.uncheckedArray removeObject:contentCategory.categoryId];
         // }
     }
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFourthLevelChanged"];
+    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"fifthLevelSelection"];
     [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"fifthLevelUnSelection"];
 }

@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "1000logo.png"
+      "filename" : "newlogo-1000.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "logo-2000.png"
+      "filename" : "newlogo-2000.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "logo30000.png"
+      "filename" : "newlogo-3000.png"
     }
   ],
   "info" : {

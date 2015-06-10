@@ -432,6 +432,9 @@
                 cell.authorName.text = [authorObject valueForKey:@"name"];
             }
         }
+        
+        
+        
        // NSLog(@"multiple author array:%@",multipleAuthorArray);
         //cell.authorTitle.text = [author valueForKey:@"title"];
         //[cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
@@ -634,9 +637,14 @@
 }
 
 -(void)markedImpAction:(UITapGestureRecognizer *)tapGesture {
-    
     NSInteger selectedTag = [tapGesture view].tag;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
+    
+    NSString *markedImpUserId = [[curatedNews valueForKey:@"markAsImportantUserId"] stringValue];
+    NSString *markedImpUserName = [curatedNews valueForKey:@"markAsImportantUserName"];
+    NSString *loginUserId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
+    
+    
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
@@ -656,19 +664,36 @@
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
         UIButton *markedImpBtn = (UIButton *)[tapGesture view];
         if(markedImpBtn.selected) {
-            [markedImpBtn setSelected:NO];
-            [resultDic setObject:@"false" forKey:@"isSelected"];
-            [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
-            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
-            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-            [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
+            
+            if([markedImpUserId isEqualToString:@"-1"]) {
+                //Analyst
+                [self.view makeToast:@"A FullIntel analyst marked this as important. If you like to change, please request via Feedback" duration:1.5 position:CSToastPositionCenter];
+            } else if([markedImpUserId isEqualToString:loginUserId]) {
+                //LoginUser
+                
+                [markedImpBtn setSelected:NO];
+                [resultDic setObject:@"false" forKey:@"isSelected"];
+                [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
+                
+                
+            } else {
+                //OtherUser
+                NSString *messageStrings = [NSString stringWithFormat:@"If you like to change, please contact %@. who marked this article as important",markedImpUserName];
+                [self.view makeToast:messageStrings duration:1.5 position:CSToastPositionCenter];
+            }
+            
+            
         }else {
             [markedImpBtn setSelected:YES];
             [resultDic setObject:@"true" forKey:@"isSelected"];
             [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
             [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+            [curatedNews setValue:loginUserId forKey:@"markAsImportantUserId"];
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];

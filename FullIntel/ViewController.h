@@ -25,6 +25,7 @@
 - (IBAction)infoButtonPressed:(id)sender;
 
 - (IBAction)newUserSignUpButtonPressed:(id)sender;
+- (IBAction)privacyPolicyButtonPressed:(id)sender;
 @property (nonatomic, strong)	NSDictionary	*contents;
 
 @property (nonatomic, strong) AMPopTip *popTip;

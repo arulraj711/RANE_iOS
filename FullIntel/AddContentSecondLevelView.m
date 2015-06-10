@@ -128,6 +128,7 @@
 - (void)thirdLevelDidFinish:(AddContentThirdLevelView*)thirdLevel {
    // NSLog(@"delegate method is working fine");
     self.selectedIdArray = thirdLevel.previousArray;
+    NSLog(@"selected id array:%@",self.selectedIdArray);
     [self.categoryCollectionView reloadData];
 }
 
@@ -165,8 +166,8 @@
             self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
         }
     
-    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
-    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
+   // [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
+  //  [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
         
 //    } else {
 //        self.selectedIdArray = [[NSMutableArray alloc]init];
@@ -232,7 +233,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:indexPath];
      [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
     
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
@@ -244,6 +245,12 @@
     thirdLevel.title = contentCategory.name;
     thirdLevel.previousArray = self.selectedIdArray;
     thirdLevel.selectedId = contentCategory.categoryId;
+        if(cell.checkMarkButton.isSelected) {
+            thirdLevel.isSelected = YES;
+        } else {
+            thirdLevel.isSelected = NO;
+        }
+        
     [self.navigationController pushViewController:thirdLevel animated:YES];
     }
     
