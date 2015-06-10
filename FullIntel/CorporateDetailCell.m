@@ -652,7 +652,7 @@
     [resultDic setObject:self.selectedArticleId forKey:@"selectedArticleId"];
     [resultDic setObject:@"2" forKey:@"status"];
     
-    NSString *loginUserId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
+    NSString *loginUserId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"]];
     
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     
@@ -686,9 +686,9 @@
         [sender setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-        
+        self.markedImpUserId = loginUserId;
         [self.curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
-        
+        //[self.curatedNewsDetail setValue:[NSNumber numberWithInt:[loginUserId intValue]] forKey:@"markAsImportantUserId"];
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];

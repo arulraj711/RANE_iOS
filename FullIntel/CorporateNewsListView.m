@@ -642,7 +642,14 @@
     
     NSString *markedImpUserId = [[curatedNews valueForKey:@"markAsImportantUserId"] stringValue];
     NSString *markedImpUserName = [curatedNews valueForKey:@"markAsImportantUserName"];
-    NSString *loginUserId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
+    NSString *loginUserIdString = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"]];
+    
+    NSLog(@"markedUserId:%@ and markedUserName:%@ and loginUserId:%@ and intvalue:%d",markedImpUserId,markedImpUserName,loginUserIdString,[loginUserIdString intValue]);
+    
+//    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+//    f.numberStyle = NSNumberFormatterDecimalStyle;
+//    NSNumber *loginUserId = [f numberFromString:loginUserIdString];
+    
     
     
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
@@ -668,7 +675,7 @@
             if([markedImpUserId isEqualToString:@"-1"]) {
                 //Analyst
                 [self.view makeToast:@"A FullIntel analyst marked this as important. If you like to change, please request via Feedback" duration:1.5 position:CSToastPositionCenter];
-            } else if([markedImpUserId isEqualToString:loginUserId]) {
+            } else if([markedImpUserId isEqualToString:loginUserIdString]) {
                 //LoginUser
                 
                 [markedImpBtn setSelected:NO];
@@ -693,7 +700,7 @@
             [resultDic setObject:@"true" forKey:@"isSelected"];
             [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
             [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
-            [curatedNews setValue:loginUserId forKey:@"markAsImportantUserId"];
+            [curatedNews setValue:[NSNumber numberWithInt:[loginUserIdString intValue]] forKey:@"markAsImportantUserId"];
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
