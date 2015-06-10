@@ -22,4 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleString;
 @property (weak, nonatomic) IBOutlet UIView *outerView;
 
+
+@property (weak, nonatomic) IBOutlet UIView *shadowBoxView;
+
+
 @end

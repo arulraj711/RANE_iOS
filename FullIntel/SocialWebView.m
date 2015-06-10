@@ -11,6 +11,7 @@
 #import "FISharedResources.h"
 #import "FIUtils.h"
 #import "UIView+Toast.h"
+#import <QuartzCore/QuartzCore.h>
 @interface SocialWebView ()
 
 @end
@@ -26,33 +27,18 @@
     
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 10;
-   
+    
+    
+    
+    CALayer *layer=[_shadowBoxView layer];
+    layer.shadowColor=[[UIColor blackColor] CGColor];
+    layer.shadowOpacity=1.0f;
+    layer.shadowRadius=3.0f;
+    layer.shadowOffset=CGSizeMake(0.0f,0.0f);
+    
 
-//    NSLog(@"web view url:%@",self.urlString);
-//    NSURL *url = [NSURL URLWithString:self.urlString];
-//    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-//   // [self.webView setScalesPageToFit:YES];
-//    self.webView.scalesPageToFit = YES;
-//    CGRect frame=_webView.frame;
-//    
-//    frame.size.height=1;
-//    
-//    _webView.frame=frame;
-//    
-//    CGSize fittingSize=[_webView sizeThatFits:CGSizeZero];
-//    
-//    frame.size=fittingSize;
-//    
-//    
-//    _webView.frame=frame;
     
-    
-    
-//    
-//    self.webView.contentMode=UIViewContentModeScaleAspectFit;
-   // [self.webView loadRequest:requestObj];
-    
-    NSLog(@"social view frame:%f and %f",self.outerView.frame.size.width,self.outerView.frame.size.height);
+   
 
     if([[FISharedResources sharedResourceManager]serviceIsReachable]){
         NSURL *url = [NSURL URLWithString:self.urlString];
@@ -113,6 +99,9 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    
+    NSLog(@"webViewDidFinishLoad");
+    
     [timer invalidate];
     [progressView removeFromSuperview];
     [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.querySelector('meta[name=viewport]').setAttribute('content', 'width=%d;', false); ", (int)webView.frame.size.width]];

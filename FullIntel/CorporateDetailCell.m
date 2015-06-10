@@ -1027,7 +1027,7 @@
         NSString *urlString = url.absoluteString;
         if (![urlString isEqualToString: @"about:blank"]) {
             
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"socialLinkSelected" object:nil userInfo:@{@"name":@"More Info",@"link":urlString}];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"widgetWebViewCalled" object:nil userInfo:@{@"name":@"More Info",@"link":urlString}];
             
             return NO;
         }
