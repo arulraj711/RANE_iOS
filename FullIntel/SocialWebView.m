@@ -31,7 +31,7 @@
     
     
     CALayer *layer=[_shadowBoxView layer];
-    layer.shadowColor=[[UIColor blackColor] CGColor];
+    layer.shadowColor=[[UIColor grayColor] CGColor];
     layer.shadowOpacity=1.0f;
     layer.shadowRadius=3.0f;
     layer.shadowOffset=CGSizeMake(0.0f,0.0f);
