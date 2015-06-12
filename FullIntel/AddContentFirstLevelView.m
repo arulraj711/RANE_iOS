@@ -62,6 +62,86 @@
     
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
     [[FISharedResources sharedResourceManager]manageContentCategoryWithDetails:resultStr withFlag:0];
+    
+    
+    
+    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [Btn setFrame:CGRectMake(0, 0, 60, 30)];
+   // [Btn setBackgroundImage:[UIImage imageNamed:@"close"]  forState:UIControlStateNormal];
+    
+     [Btn setTitle:@"Cancel" forState:UIControlStateNormal];
+    
+    Btn.titleLabel.font= [UIFont fontWithName:@"OpenSans" size:17];
+    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+    
+    
+    
+//        UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 150, 30)];
+//        searchBtnView.backgroundColor = [UIColor clearColor];
+//        UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//        [searchBtn setFrame:CGRectMake(0, 0, 150, 30)];
+//     //   [searchBtn setBackgroundImage:[UIImage imageNamed:@"researchReq"]  forState:UIControlStateNormal];
+//    
+//    
+////    searchBtn.titleLabel.font= [UIFont fontWithName:@"OpenSans" size:17];
+////       [searchBtn setTitle:@"Research Request" forState:UIControlStateNormal];
+////        [searchBtn addTarget:self action:@selector(requestChange:) forControlEvents:UIControlEventTouchUpInside];
+////        [searchBtnView addSubview:searchBtn];
+////        UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
+    
+    
+        [[UIBarButtonItem appearance]setTintColor:[UIColor whiteColor]];
+     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:addButton,  nil]];
+    
+    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+    addBtnView.backgroundColor = [UIColor clearColor];
+    
+    UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    [addBtn setFrame:CGRectMake(0,0,50,30)];
+   // [addBtn setImage :[UIImage imageNamed:@"checkMark"]  forState:UIControlStateNormal];
+    
+      [addBtn setTitle:@"Save" forState:UIControlStateNormal];
+    
+    addBtn.titleLabel.font= [UIFont fontWithName:@"OpenSans" size:17];
+    [addBtn addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBtnView addSubview:addBtn];
+    UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
+    
+
+    
+    //    UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
+    //    searchBtnView.backgroundColor = [UIColor clearColor];
+    //    UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    //    [searchBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    //    [searchBtn setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
+    //    [searchBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    //    [searchBtnView addSubview:searchBtn];
+    //    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
+    //
+    //    UIView *settingsBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
+    //    settingsBtnView.backgroundColor = [UIColor clearColor];
+    //    UIButton *settingsBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    //    [settingsBtn setFrame:CGRectMake(0.0f,0.0f,15.0f,15.0f)];
+    //    [settingsBtn setBackgroundImage:[UIImage imageNamed:@"settings"]  forState:UIControlStateNormal];
+    //    [settingsBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    //    [settingsBtnView addSubview:settingsBtn];
+    //    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithCustomView:settingsBtnView];
+    
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,  nil]];
+    
+    
+    _requestChangeButton.layer.cornerRadius=5.0f;
+    _requestChangeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
+    _requestChangeButton.layer.borderWidth=1.0f;
+}
+
+
+-(void)backBtnPress{
+    
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -92,6 +172,9 @@
     // Access to form sheet controller
     MZFormSheetController *controller = self.navigationController.formSheetController;
     controller.shouldDismissOnBackgroundViewTap = YES;
+    
+    
+    
     
 }
 

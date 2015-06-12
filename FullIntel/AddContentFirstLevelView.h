@@ -20,6 +20,7 @@
 @property (nonatomic,strong) NSMutableArray *selectedIdArray;
 @property (nonatomic,strong) NSMutableArray *checkedArray;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
+@property (weak, nonatomic) IBOutlet UIButton *requestChangeButton;
 
 - (IBAction)checkMark:(id)sender;
 @end

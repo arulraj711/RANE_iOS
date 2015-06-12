@@ -738,7 +738,7 @@
     
     formSheet.shadowRadius = 2.0;
     formSheet.shadowOpacity = 0.3;
-    formSheet.shouldDismissOnBackgroundViewTap = YES;
+    formSheet.shouldDismissOnBackgroundViewTap = NO;
     formSheet.shouldCenterVertically = YES;
     formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
     __weak MZFormSheetController *weakFormSheet = formSheet;
