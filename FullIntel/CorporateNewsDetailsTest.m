@@ -162,6 +162,7 @@
     } else {
         NSLog(@"test flag is FALSE");
     }
+    NSLog(@"selected article id:%@",self.articleIdArray);
 }
 
 -(void)commentStatusUpdate:(id)sender {
@@ -172,13 +173,29 @@
     NSLog(@"select indexpath row:%d and total comments:%@",indexPath.row,totalComments);
     // NSNumber  = [userInfo objectForKey:@"status"];
    // NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
-    [curatedNewsDetail setValue:[NSNumber numberWithInt:0] forKey:@"unReadComment"];
-    [curatedNewsDetail setValue:totalComments forKey:@"totalComments"];
+    
+    
     CorporateDetailCell *cell = (CorporateDetailCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     
-    NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
+    
+    
+    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];
+    [fetchRequest setPredicate:predicate];
+    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    if(newPerson.count != 0) {
+        NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+        NSManagedObject *curatedNewsDetails = [curatedNews valueForKey:@"details"];
+        [curatedNewsDetails setValue:[NSNumber numberWithInt:0] forKey:@"unReadComment"];
+        [curatedNewsDetails setValue:totalComments forKey:@"totalComments"];
+        [curatedNews setValue:curatedNewsDetails forKey:@"details"];
+    }
+    [managedObjectContext save:nil];
+    
+    //NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
    // if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        cell.badgeTwo.value = [totalCnt integerValue];
+        cell.badgeTwo.value =[totalComments integerValue];
         cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
    // }
 }
@@ -213,15 +230,15 @@
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if(newPerson.count != 0) {
         NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-       // NSLog(@"selected curated news:%@",curatedNews);
+        NSLog(@"selected curated news:%@",curatedNews);
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
         
         NSString *articleImageStr = [curatedNews valueForKey:@"image"];
         [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"bannerImage"]];
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
         cell.cachedImageViewSize = cell.articleImageView.frame;
-        cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
-        cell.overlayArticleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
+        cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
+        cell.overlayArticleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
         cell.overlayArticleDesc.text = [curatedNews valueForKey:@"desc"];
         
         [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
@@ -325,7 +342,7 @@
         
         NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
         NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
-        //NSLog(@"after changing unread and total comments:%@ and %@",unreadCnt,totalCnt);
+        NSLog(@"after changing unread and total comments:%@ and %@",unreadCnt,totalCnt);
         if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
             cell.badgeTwo.value = [totalCnt integerValue];
             cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
@@ -338,7 +355,7 @@
         NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
         //NSLog(@"category id for read:%@",categoryStr);
          //BOOL isRead = [NSNumber numberWithBool:[curatedNews valueForKey:@"readStatus"]];
-        if(number == [NSNumber numberWithInt:1]) {
+        if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
             
         } else {
             
@@ -391,13 +408,13 @@
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 
                 
-                NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
+//                NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
                 
-                if([userAccountTypeId isEqualToString:@"3"]) {
-                    cell.webViewHeightConstraint.constant = 400;
-                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
-                    cell.webViewHeightConstraint.constant = 940;
-                }
+//                if([userAccountTypeId isEqualToString:@"3"]) {
+//                    cell.webViewHeightConstraint.constant = 400;
+//                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
+//                    cell.webViewHeightConstraint.constant = 400;
+//                }
                 
                 
                 
@@ -406,8 +423,8 @@
                 [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
                 
                 
-                NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
-                if(markImpStatus == [NSNumber numberWithInt:1]) {
+                NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
+                if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
                   //  NSLog(@"mark selected");
                     [cell.markedImpButton setSelected:YES];
                 } else {

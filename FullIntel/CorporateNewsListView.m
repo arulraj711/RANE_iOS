@@ -206,10 +206,10 @@
     [fetchRequest setPredicate:predicate];
     
     
-//    NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-//    
-//    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
-//    [fetchRequest setSortDescriptors:sortDescriptors];
+    NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
     
     messageString = @"No articles to display";
     
@@ -280,6 +280,7 @@
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
     formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+    
     if(orientation == 1) {
         formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
     } else {
@@ -413,7 +414,7 @@
             }
         }
        // NSLog(@"curated news legends list:%d",legendsList.count);
-        NSString *dateStr = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"date"] doubleValue]];
+        NSString *dateStr = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
         cell.articleDate.text = dateStr;
         [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];

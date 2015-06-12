@@ -1272,7 +1272,7 @@
                                                                         <constraint firstAttribute="width" constant="299" id="roA-O8-JqS"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
-                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DCQ-dR-VT2">
@@ -2582,7 +2582,7 @@
                                                                         <constraint firstAttribute="height" constant="21" id="ifh-u3-J4n"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
-                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jp8-hY-XkW">
@@ -3629,7 +3629,7 @@
                                                                         <constraint firstAttribute="width" constant="299" id="wQs-xN-cnd"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
-                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KHK-Ee-DSk">
@@ -3738,6 +3738,7 @@
                                             <outlet property="locationImageTopConstarint" destination="oXZ-c6-qzh" id="6ux-Ax-iJR"/>
                                             <outlet property="locationLabelHeightConstraint" destination="1fd-ne-htj" id="ggD-uB-Sgb"/>
                                             <outlet property="locationLabelTopConstraint" destination="YFN-RG-Vos" id="caH-gd-Xv2"/>
+                                            <outlet property="markedImpButton" destination="LTr-aa-idS" id="uHW-xD-dDz"/>
                                             <outlet property="outletIcon" destination="8AS-NO-CDn" id="glY-JP-rZT"/>
                                             <outlet property="outletIconHeightConstraint" destination="HQo-aA-yTA" id="Pj8-YB-eri"/>
                                             <outlet property="outletImageTopConstraint" destination="m2z-80-pTf" id="JcW-eT-uC2"/>
@@ -3751,6 +3752,7 @@
                                             <outlet property="overlayArticleTitle" destination="nsh-Mp-AGW" id="yF3-RY-LLb"/>
                                             <outlet property="overlayView" destination="51t-iw-ak5" id="SMH-Wd-JzC"/>
                                             <outlet property="ratingControl" destination="tJw-Ts-tk6" id="zu2-dQ-bg5"/>
+                                            <outlet property="savedForLaterButton" destination="Yvy-zq-AH2" id="MFe-CD-ZFh"/>
                                             <outlet property="scrollView" destination="zNe-BC-vf1" id="aHV-Kg-6e6"/>
                                             <outlet property="socialLinkCollectionView" destination="Pp8-Pp-bO8" id="sSC-UD-imb"/>
                                             <outlet property="socialLinkDivider" destination="VBF-Gm-e1X" id="OUE-xu-1H3"/>

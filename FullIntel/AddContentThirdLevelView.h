@@ -27,6 +27,7 @@
 @property (nonatomic,strong) NSNumber *selectedId;
 @property (nonatomic,strong) NSMutableArray *checkedArray;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
+@property (nonatomic,strong) NSMutableArray *previousUnCheckArray;
 @end
 
 @protocol ThirdLevelDelegate

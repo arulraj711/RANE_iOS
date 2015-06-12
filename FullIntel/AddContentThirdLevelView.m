@@ -23,9 +23,15 @@
     [super viewDidLoad];
     self.selectTopicsLabel.hidden = YES;
     //self.titleLabel.text = self.title;
-    self.selectedIdArray = [[NSMutableArray alloc]init];
+//    self.selectedIdArray = [[NSMutableArray alloc]init];
+//    self.uncheckedArray = [[NSMutableArray alloc]init];
+    NSMutableArray *firstArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"thirdLevelSelection"];
+    self.selectedIdArray = [[NSMutableArray alloc]initWithArray:firstArray];
+    NSMutableArray *secondArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"thirdLevelUnSelection"];
+    self.uncheckedArray = [[NSMutableArray alloc]initWithArray:secondArray];
+    
     self.checkedArray = [[NSMutableArray alloc]init];
-    self.uncheckedArray = [[NSMutableArray alloc]init];
+    //self.uncheckedArray = [[NSMutableArray alloc]init];
     // Do any additional setup after loading the view.
     RFQuiltLayout* layout = (id)[self.categoryCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
@@ -75,16 +81,16 @@
 
 - (void)loadSelectedCategory
 {
-    
     if(self.isSelected) {
         BOOL isChanged = [[NSUserDefaults standardUserDefaults]boolForKey:@"isThirdLevelChanged"];
         NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:[self.selectedId stringValue]];
-        
+       // NSLog(@"already selected array:%d",alreadySelectedArray.count);
         if(isChanged) {
             if(alreadySelectedArray.count == 0){
                 for(FIContentCategory *category in self.innerArray) {
                     [self.checkedArray addObject:category.categoryId];
                     [self.selectedIdArray addObject:category.categoryId];
+                    [self.uncheckedArray removeObject:category.categoryId];
                 }
             } else {
                 self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
@@ -104,17 +110,20 @@
         self.selectedIdArray = [[NSMutableArray alloc]init];
         [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     }
+    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"thirdLevelSelection"];
+    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"thirdLevelUnSelection"];
     [self.categoryCollectionView reloadData];
    
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
     if(self.selectedIdArray.count == 0) {
-        [self.previousArray removeObject:self.selectedId];
+       // [self.previousArray removeObject:self.selectedId];
         //self.selectedIdArray = [[NSMutableArray alloc]init];
         //[[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     } else {
         [self.previousArray addObject:self.selectedId];
+        [self.previousUnCheckArray removeObject:self.selectedId];
     }
     
 //    if(self.selectedIdArray.count != 0) {
@@ -129,7 +138,12 @@
 
 - (void)fourthLevelDidFinish:(AddContentFourthLevelView*)thirdLevel {
     self.selectedIdArray = thirdLevel.previousArray;
-    NSLog(@"selected array from previous:%@",self.selectedIdArray);
+//    for(int i =0; i <self.selectedIdArray.count;i++) {
+//        [self.uncheckedArray removeObject:[self.selectedIdArray objectAtIndex:i]];
+//    }
+//    NSLog(@"selected array from previous:%@",self.selectedIdArray);
+//    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"thirdLevelSelection"];
+//     [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"thirdLevelUnSelection"];
     [self.categoryCollectionView reloadData];
 }
 
@@ -210,6 +224,9 @@
         // } else {
         [self.uncheckedArray addObject:contentCategory.categoryId];
         // }
+        NSMutableArray *testArray = [[NSMutableArray alloc]init];
+        [[NSUserDefaults standardUserDefaults]setObject:testArray forKey:[contentCategory.categoryId stringValue]];
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFourthLevelChanged"];
     } else {
         [self.selectedIdArray addObject:contentCategory.categoryId];
         [sender setSelected:YES];

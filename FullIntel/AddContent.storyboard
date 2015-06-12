@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -12,6 +12,7 @@
             <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
@@ -70,7 +71,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J7C-6M-oH2">
                                                     <rect key="frame" x="0.0" y="0.0" width="130" height="150"/>
-                                                    <color key="backgroundColor" red="1" green="0.20353250649999999" blue="0.26871396730000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaD-Tu-nay">
                                                     <rect key="frame" x="97" y="8" width="25" height="25"/>
@@ -183,41 +184,45 @@
                                 <rect key="frame" x="0.0" y="238" width="800" height="1"/>
                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGS-3Z-pV4">
+                                <rect key="frame" x="631" y="11" width="140" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="7io-oG-tLe"/>
+                                    <constraint firstAttribute="width" constant="140" id="dXq-Lr-ydu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                <state key="normal" title="Request Change">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="requestChange:" destination="ngJ-7S-5Ay" eventType="touchUpInside" id="uB9-M4-4Ax"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="QIY-U0-NE2" secondAttribute="trailing" constant="-6" id="AHr-Wz-3qA"/>
                             <constraint firstItem="JP1-Ds-C95" firstAttribute="top" secondItem="QIY-U0-NE2" secondAttribute="bottom" constant="22" id="EHS-hh-jub"/>
                             <constraint firstItem="QIY-U0-NE2" firstAttribute="top" secondItem="SrL-Lq-UyM" secondAttribute="bottom" constant="59" id="M8v-vx-iD3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MGS-3Z-pV4" secondAttribute="trailing" constant="13" id="Uvi-9v-tWC"/>
                             <constraint firstItem="QIY-U0-NE2" firstAttribute="leading" secondItem="rWo-g7-aF9" secondAttribute="leadingMargin" constant="-6" id="b01-PY-VDa"/>
                             <constraint firstItem="JP1-Ds-C95" firstAttribute="leading" secondItem="rWo-g7-aF9" secondAttribute="leadingMargin" constant="-16" id="jjF-vX-9RX"/>
+                            <constraint firstItem="MGS-3Z-pV4" firstAttribute="top" secondItem="SrL-Lq-UyM" secondAttribute="bottom" constant="11" id="xiW-6L-JIy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JP1-Ds-C95" secondAttribute="trailing" constant="-16" id="yOw-nh-lsk"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="BxM-fH-EpW">
-                        <barButtonItem key="leftBarButtonItem" title="Request Change" id="bWF-uI-Hit">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="requestChange:" destination="ngJ-7S-5Ay" id="EkG-Kt-bSI"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="close" id="lsR-lb-fqg">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="closeAction:" destination="ngJ-7S-5Ay" id="eEp-1Z-BHK"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="BxM-fH-EpW"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="800" height="650"/>
                     <connections>
                         <outlet property="contentCollectionView" destination="JP1-Ds-C95" id="jQU-S5-Xey"/>
+                        <outlet property="requestChangeButton" destination="MGS-3Z-pV4" id="sEj-re-ubv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLo-5q-AJr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="332" y="-155"/>
+            <point key="canvasLocation" x="590" y="-163"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="esa-Kz-sk7">
@@ -749,6 +754,5 @@
         <image name="addcontent_upgrade" width="90" height="23"/>
         <image name="bluecircle" width="30" height="30"/>
         <image name="bluecircle_checked" width="30" height="30"/>
-        <image name="close" width="28" height="28"/>
     </resources>
 </document>

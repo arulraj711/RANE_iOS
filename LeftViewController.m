@@ -581,8 +581,8 @@
         
         DealsViewControllerObj.titleName=data.name;
         
-        [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-        navCtlr.navigationBar.tintColor = [UIColor whiteColor];
+//        [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+//        navCtlr.navigationBar.tintColor = [UIColor whiteColor];
         [self.revealController setFrontViewController:navCtlr];
     }else if([data.nodeId integerValue] == 2) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"stock" bundle:nil];
@@ -737,7 +737,7 @@
     
     formSheet.shadowRadius = 2.0;
     formSheet.shadowOpacity = 0.3;
-    formSheet.shouldDismissOnBackgroundViewTap = YES;
+    formSheet.shouldDismissOnBackgroundViewTap = NO;
     formSheet.shouldCenterVertically = YES;
     formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
     __weak MZFormSheetController *weakFormSheet = formSheet;
