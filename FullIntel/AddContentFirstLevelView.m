@@ -108,6 +108,9 @@
 
 
 -(void)loadContentCategory {
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isThirdLevelChanged"];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFourthLevelChanged"];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFifthLevelChanged"];
     self.contentTypeArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentTypeList];
     self.contentCategoryArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentCategoryList];
     for(FIContentCategory *category in self.contentTypeArray) {

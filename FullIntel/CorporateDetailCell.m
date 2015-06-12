@@ -125,12 +125,12 @@
     for(NSManagedObject *relatedPost in self.relatedPostArray) {
         [tweetIds addObject:[relatedPost valueForKey:@"postId"]];
     }
-   // NSLog(@"tweet ids:%@",tweetIds);
+  //  NSLog(@"tweet ids:%@",tweetIds);
    // NSArray *tweetIds=@[@"20",@"21"];
     
     [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
         [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
-           // NSLog(@"Tweet array:%@",tweet);
+           NSLog(@"Tweet array:%@",tweet);
             tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
             if(tweetArray.count == 0) {
                 self.tweetCollectionViewHeightConstraint.constant = 0;
@@ -669,7 +669,24 @@
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             
-            [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+            
+            NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
+            [fetchRequest setPredicate:predicate];
+            NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+            if(newPerson.count != 0) {
+                NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+                NSManagedObject *curatedNewsDetails = [curatedNews valueForKey:@"details"];
+                [curatedNewsDetails setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                
+                [curatedNews setValue:curatedNewsDetails forKey:@"details"];
+            }
+            [managedObjectContext save:nil];
+            
+            
+            
+//            [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
             
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
@@ -687,7 +704,25 @@
         [resultDic setObject:@"true" forKey:@"isSelected"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
         self.markedImpUserId = loginUserId;
-        [self.curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+        
+        
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
+        [fetchRequest setPredicate:predicate];
+        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        if(newPerson.count != 0) {
+            NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+            NSManagedObject *curatedNewsDetails = [curatedNews valueForKey:@"details"];
+            [curatedNewsDetails setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+            
+            [curatedNews setValue:curatedNewsDetails forKey:@"details"];
+        }
+        [managedObjectContext save:nil];
+        
+        
+        
+       // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
         //[self.curatedNewsDetail setValue:[NSNumber numberWithInt:[loginUserId intValue]] forKey:@"markAsImportantUserId"];
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
@@ -722,17 +757,24 @@
             NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
             NSLog(@"cell post notification is working:%@",curatedNewsDetail);
             
-            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
-            [self.articleWebview loadHTMLString:htmlString baseURL:nil];
+            
+           
             
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 
                  NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
                 
-                if([userAccountTypeId isEqualToString:@"3"]) {
-                    self.webViewHeightConstraint.constant = 400;
-                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
-                    self.webViewHeightConstraint.constant = 940;
+//                if([userAccountTypeId isEqualToString:@"3"]) {
+//                    self.webViewHeightConstraint.constant = 400;
+//                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
+//                    self.webViewHeightConstraint.constant = 400;
+//                }
+                
+                if([curatedNewsDetail valueForKey:@"article"] == nil){
+                    [self.articleWebview loadHTMLString:@"" baseURL:nil];
+                } else {
+                    NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+                    [self.articleWebview loadHTMLString:htmlString baseURL:nil];
                 }
                 
                 
@@ -748,7 +790,7 @@
                 
                 
                 NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
-                if(markImpStatus == [NSNumber numberWithInt:1]) {
+                if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
                     NSLog(@"mark selected");
                     [self.markedImpButton setSelected:YES];
                 } else {
@@ -758,7 +800,7 @@
                 
                 if([[curatedNewsDetail valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
                     NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
-                    if(markImpStatus == [NSNumber numberWithInt:1]) {
+                    if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
 //                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
                     }
                 } else {

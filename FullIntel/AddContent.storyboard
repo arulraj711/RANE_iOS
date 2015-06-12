@@ -201,7 +201,7 @@
                                 <action selector="requestChange:" destination="ngJ-7S-5Ay" id="EkG-Kt-bSI"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="close" id="lsR-lb-fqg">
+                        <barButtonItem key="rightBarButtonItem" image="checkMark" id="lsR-lb-fqg">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="closeAction:" destination="ngJ-7S-5Ay" id="eEp-1Z-BHK"/>
@@ -749,6 +749,6 @@
         <image name="addcontent_upgrade" width="90" height="23"/>
         <image name="bluecircle" width="30" height="30"/>
         <image name="bluecircle_checked" width="30" height="30"/>
-        <image name="close" width="32" height="32"/>
+        <image name="checkMark" width="32" height="32"/>
     </resources>
 </document>

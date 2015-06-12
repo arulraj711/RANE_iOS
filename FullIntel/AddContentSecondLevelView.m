@@ -126,9 +126,11 @@
 }
 
 - (void)thirdLevelDidFinish:(AddContentThirdLevelView*)thirdLevel {
-   // NSLog(@"delegate method is working fine");
+   // NSLog(@"delegate method is working fine:%@",self.selectedIdArray);
     self.selectedIdArray = thirdLevel.previousArray;
-    NSLog(@"selected id array:%@",self.selectedIdArray);
+    //NSLog(@"second selected id array:%@ and unchecked array:%@ and %@",self.selectedIdArray,self.uncheckedArray,thirdLevel.previousUnCheckArray);
+//    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
+//    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
     [self.categoryCollectionView reloadData];
 }
 
@@ -144,6 +146,7 @@
 
 - (void)loadSelectedCategory:(id)sender
 {
+    NSLog(@"load seleced is working");
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     self.innerArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"innerArray"]];
@@ -244,6 +247,7 @@
     thirdLevel.innerArray = contentCategory.listArray;
     thirdLevel.title = contentCategory.name;
     thirdLevel.previousArray = self.selectedIdArray;
+        thirdLevel.previousUnCheckArray = self.uncheckedArray;
     thirdLevel.selectedId = contentCategory.categoryId;
         if(cell.checkMarkButton.isSelected) {
             thirdLevel.isSelected = YES;
@@ -304,6 +308,10 @@
         [self.checkedArray removeObject:contentCategory.categoryId];
         // } else {
         [self.uncheckedArray addObject:contentCategory.categoryId];
+        NSMutableArray *testArray = [[NSMutableArray alloc]init];
+        [[NSUserDefaults standardUserDefaults]setObject:testArray forKey:[contentCategory.categoryId stringValue]];
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isThirdLevelChanged"];
+        
         // }
     } else {
         [self.selectedIdArray addObject:contentCategory.categoryId];

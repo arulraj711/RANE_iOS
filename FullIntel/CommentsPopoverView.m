@@ -105,7 +105,10 @@
     [resultDic setObject:commentIdArray forKey:@"commentList"];
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    [[FISharedResources sharedResourceManager]markCommentAsReadWithDetails:resultStr];
+    if(commentIdArray.count != 0){
+        [[FISharedResources sharedResourceManager]markCommentAsReadWithDetails:resultStr];
+    }
+    
     
 //    "{
 //    ""userId"":""3"",

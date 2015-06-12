@@ -22,9 +22,12 @@
     // Do any additional setup after loading the view.
     self.selectTopicsLabel.hidden = YES;
     //self.titleLabel.text = self.title;
-    self.selectedIdArray = [[NSMutableArray alloc]init];
+    NSMutableArray *firstArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"fifthLevelSelection"];
+    NSMutableArray *secondArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"fifthLevelUnSelection"];
+    self.selectedIdArray = [[NSMutableArray alloc]initWithArray:firstArray];
+    self.uncheckedArray = [[NSMutableArray alloc]initWithArray:secondArray];
     self.checkedArray = [[NSMutableArray alloc]init];
-    self.uncheckedArray = [[NSMutableArray alloc]init];
+    
     // Do any additional setup after loading the view.
     RFQuiltLayout* layout = (id)[self.categoryCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
@@ -106,7 +109,7 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     if(self.selectedIdArray.count == 0) {
-        [self.previousArray removeObject:self.selectedId];
+        //[self.previousArray removeObject:self.selectedId];
         //self.selectedIdArray = [[NSMutableArray alloc]init];
         //[[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     } else {
@@ -175,7 +178,7 @@
         [self.uncheckedArray removeObject:contentCategory.categoryId];
         // }
     }
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFourthLevelChanged"];
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFifthLevelChanged"];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"fifthLevelSelection"];
     [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"fifthLevelUnSelection"];

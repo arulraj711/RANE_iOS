@@ -250,6 +250,7 @@
             [influencer setValue:[dic objectForKey:@"articleHeading"] forKey:@"title"];
             [influencer setValue:[dic objectForKey:@"articleDescription"] forKey:@"desc"];
             [influencer setValue:[dic objectForKey:@"articleModifiedDate"] forKey:@"date"];
+            [influencer setValue:[dic objectForKey:@"articlePublishedDate"] forKey:@"publishedDate"];
             [influencer setValue:[dic objectForKey:@"articleImageURL"] forKey:@"image"];
             [influencer setValue:[dic objectForKey:@"articleUrl"] forKey:@"articleUrl"];
             [influencer setValue:[dic objectForKey:@"articleTypeId"] forKey:@"articleTypeId"];
