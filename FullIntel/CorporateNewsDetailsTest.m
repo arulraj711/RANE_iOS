@@ -103,9 +103,11 @@
     if(isFIViewSelected) {
         NSLog(@"fi view is selected");
         [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_globe"]  forState:UIControlStateNormal];
+        [addBtn setSelected:YES];
     } else {
         NSLog(@"fi view is not selected");
         [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_fi"]  forState:UIControlStateNormal];
+        [addBtn setSelected:NO];
     }
     [addBtn addTarget:self action:@selector(globeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [addBtnView addSubview:addBtn];
@@ -832,13 +834,17 @@
 -(void)globeButtonClick:(UIButton *)sender {
     
     if(sender.selected) {
+        NSLog(@"sender selected");
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
         [sender setSelected:NO];
-       // [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:0]}];
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     } else {
+        NSLog(@"sender is not selected");
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
         [sender setSelected:YES];
-       // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:1]}];
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
     }
     [self.collectionView reloadData];
   //  [sender setSelected:YES];
@@ -864,12 +870,12 @@
 //    button.frame = CGRectMake(0, 10, 28, 28);
 //    UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 //    self.navigationItem.rightBarButtonItem = customBarItem;
-    BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
-    if(isFIViewSelected) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:0]}];
-    } else {
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:1]}];
-    }
+//    BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
+//    if(isFIViewSelected) {
+//        
+//    } else {
+//        
+//    }
     
     
     
