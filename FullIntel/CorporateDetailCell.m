@@ -765,7 +765,7 @@
                  NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
                 
 //                if([userAccountTypeId isEqualToString:@"3"]) {
-//                    self.webViewHeightConstraint.constant = 400;
+                    self.webViewHeightConstraint.constant = 200;
 //                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
 //                    self.webViewHeightConstraint.constant = 400;
 //                }

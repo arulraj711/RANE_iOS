@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.34999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oB7-wK-NEh">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.34999999999999998" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oB7-wK-NEh">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
@@ -41,7 +41,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="400" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rgo-Dy-1Hq">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rgo-Dy-1Hq">
                                                             <rect key="frame" x="20" y="7" width="45" height="45"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="45" id="0zv-n0-06m"/>
@@ -92,7 +92,7 @@
                                                 <connections>
                                                     <outlet property="date" destination="LkJ-w2-usz" id="1hG-3U-xKv"/>
                                                     <outlet property="message" destination="gEA-oF-0mV" id="7Kz-MT-tv2"/>
-                                                    <outlet property="userImage" destination="rgo-Dy-1Hq" id="RFU-Kr-NbS"/>
+                                                    <outlet property="receiverImage" destination="rgo-Dy-1Hq" id="KNR-DL-ypB"/>
                                                     <outlet property="userName" destination="xLZ-D6-qLv" id="ef1-jg-ubV"/>
                                                 </connections>
                                             </tableViewCell>
@@ -173,8 +173,8 @@
                     <connections>
                         <outlet property="backImgeView" destination="oB7-wK-NEh" id="9hL-k0-jmP"/>
                         <outlet property="commentsTableView" destination="Zjt-lA-j21" id="xfV-lk-JWG"/>
-                        <outlet property="imageView" destination="GKk-8N-O22" id="YY2-cr-0hP"/>
                         <outlet property="outerView" destination="36T-kw-A3h" id="BGd-rX-shU"/>
+                        <outlet property="senderImage" destination="GKk-8N-O22" id="kgB-74-5Sf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NiX-8L-8As" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -64,6 +64,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"customerid"] forKey:@"customerId"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"userid"] forKey:@"userId"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"firstName"] forKey:@"firstName"];
+            [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"photoUrl"] forKey:@"photoUrl"];
             [[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"userAccountTypeId"] forKey:@"userAccountTypeId"];
             NSString *appViewType = [NSString stringWithFormat:@"%@",[responseObject valueForKey:@"appViewTypeId"]];
             
@@ -219,9 +220,10 @@
             }
             
             if([updownFlag isEqualToString:@"up"]) {
-//                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
-//                    [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
-//                } else if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+                    [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
+                }
+//                else if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
 //                    [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
 //                }
                 
@@ -649,6 +651,7 @@
                     [comments setValue:[commentsDic valueForKey:@"unLikeCount"] forKey:@"unLikeCount"];
                     [comments setValue:[commentsDic valueForKey:@"userId"] forKey:@"userId"];
                     [comments setValue:[commentsDic valueForKey:@"userName"] forKey:@"userName"];
+                    [comments setValue:[commentsDic valueForKey:@"photoUrl"] forKey:@"photoUrl"];
                     [userCommentsArray addObject:comments];
                 }
                 NSOrderedSet *commentsObj = [[NSOrderedSet alloc]initWithArray:userCommentsArray];

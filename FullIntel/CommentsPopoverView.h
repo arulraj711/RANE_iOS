@@ -10,7 +10,7 @@
 
 @interface CommentsPopoverView : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (nonatomic,strong) NSMutableArray *commentsArray;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *senderImage;
 @property (nonatomic,strong) IBOutlet UITableView *commentsTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *backImgeView;
 @property (nonatomic,strong) NSString *articleId;

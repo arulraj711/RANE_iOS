@@ -69,7 +69,12 @@
     [gradedetails setObject:contentTypeId forKey:@"contentTypeId"];
     [gradedetails setObject:[NSNumber numberWithInteger:listSize] forKey:@"listSize"];
     [gradedetails setObject:activityTypeId forKey:@"activityTypeIds"];
-    [gradedetails setObject:categoryId forKey:@"categoryId"];
+    if(categoryId == nil) {
+        [gradedetails setObject:@"" forKey:@"categoryId"];
+    } else {
+        [gradedetails setObject:categoryId forKey:@"categoryId"];
+    }
+    
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
     
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];

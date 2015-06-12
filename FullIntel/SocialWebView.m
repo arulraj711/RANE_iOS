@@ -23,8 +23,9 @@
     // Do any additional setup after loading the view.
     
   //  NSString *fullURL = @"http://conecode.com";
-    
-    
+    NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
+    NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [self.outerView setBackgroundColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 10;
     

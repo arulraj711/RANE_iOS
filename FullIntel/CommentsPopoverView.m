@@ -11,6 +11,7 @@
 #import "FISharedResources.h"
 #import "UIImageView+Letters.h"
 #import "UIView+Toast.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface CommentsPopoverView ()
 
@@ -25,6 +26,9 @@
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 10;
     
+    self.senderImage.layer.masksToBounds = YES;
+    self.senderImage.layer.cornerRadius = 20.0f;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchCommentsForArticleId) name:@"FetchingComments" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CommentsExpire) name:@"CommentsExpire" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(markCommentAsRead) name:@"markCommentAsRead" object:nil];
@@ -36,7 +40,16 @@
     
     NSString *username = [[NSUserDefaults standardUserDefaults]objectForKey:@"username"];
     
-   [self.imageView setImageWithString:username color:[UIColor lightGrayColor] circular:true fontName:@"Open Sans"];
+    NSString *userImage = [[NSUserDefaults standardUserDefaults]objectForKey:@"photoUrl"];
+    
+    if(userImage.length != 0) {
+        [self.senderImage sd_setImageWithURL:[NSURL URLWithString:userImage] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
+        [self.senderImage setContentMode:UIViewContentModeScaleAspectFill];
+    } else {
+        [self.senderImage setImageWithString:username color:[UIColor lightGrayColor] circular:true fontName:@"Open Sans"];
+    }
+    
+   
     [self fetchCommentsForArticleId];
     
     self.backImgeView.userInteractionEnabled = YES;
@@ -57,7 +70,7 @@
 
 -(void)markCommentAsRead {
     
-    NSLog(@"before comments count:%d",self.commentsArray.count);
+    //NSLog(@"before comments count:%d",self.commentsArray.count);
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"commentStatusUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithInt:0],@"totalComments":[NSNumber numberWithInt:self.commentsArray.count]}];
     
@@ -160,7 +173,14 @@
         
         cell.message.text = mystring;
         NSString *name = [comment valueForKey:@"userName"];
-        [cell.userImage setImageWithString:name color:[UIColor lightGrayColor] circular:true fontName:@"Open Sans"];
+        
+        NSString *receiverImageUrl = [comment valueForKey:@"photoUrl"];
+        if(receiverImageUrl.length != 0){
+            [cell.receiverImage sd_setImageWithURL:[NSURL URLWithString:receiverImageUrl] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
+            
+        } else {
+            [cell.receiverImage setImageWithString:name color:[UIColor lightGrayColor] circular:true fontName:@"Open Sans"];
+        }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         tableCell = cell;
     }

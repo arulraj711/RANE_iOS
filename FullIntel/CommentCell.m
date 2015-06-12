@@ -12,6 +12,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.receiverImage.layer.masksToBounds = YES;
+    self.receiverImage.layer.cornerRadius = 22.0f;
+    [self.receiverImage setContentMode:UIViewContentModeScaleAspectFill];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
