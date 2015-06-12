@@ -160,12 +160,12 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"authenticationFailed" object:nil];
 }
 
-- (BOOL)clearEntity:(NSString *)entity withCategoryId:(NSInteger)categoryId{
+- (BOOL)clearEntity:(NSString *)entity withCategoryId:(NSNumber *)categoryId{
     NSManagedObjectContext *myContext = [self managedObjectContext];
     NSFetchRequest *fetchAllObjects = [[NSFetchRequest alloc] init];
     [fetchAllObjects setEntity:[NSEntityDescription entityForName:entity inManagedObjectContext:myContext]];
     [fetchAllObjects setIncludesPropertyValues:NO]; //only fetch the managedObjectID
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"categoryId == %d",categoryId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
     [fetchAllObjects setPredicate:predicate];
     NSError *error = nil;
     NSArray *allObjects = [myContext executeFetchRequest:fetchAllObjects error:&error];
@@ -201,7 +201,7 @@
 }
 
 
--(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSInteger)categoryId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
+-(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
    // [self showProgressView];
     
     if([self serviceIsReachable]) {
@@ -219,9 +219,12 @@
             }
             
             if([updownFlag isEqualToString:@"up"]) {
-                if(categoryId == -2 || categoryId == -3) {
-                    [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
-                }
+//                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+//                    [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
+//                } else if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+//                    [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
+//                }
+                
             }
             
         for(NSDictionary *dic in influencerArray) {
@@ -233,7 +236,7 @@
             
             
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"categoryId == %d AND articleId == %@",categoryId,[dic objectForKey:@"id"]];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[dic objectForKey:@"id"]];
             [fetchRequest setPredicate:predicate];
             //    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
             NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
@@ -279,12 +282,12 @@
             
             
             
-//            NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
+           // NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
 //            if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
 //                [influencer setValue:[NSNumber numberWithInteger:-3] forKey:@"categoryId"];
 //            } else {
-                [influencer setValue:[NSNumber numberWithInteger:categoryId] forKey:@"categoryId"];
-           // }
+                [influencer setValue:categoryId forKey:@"categoryId"];
+          //  }
             NSArray *outletArray = [dic objectForKey:@"outlet"];
             if(outletArray.count != 0){
                 NSDictionary *outletDic = [outletArray objectAtIndex:0];

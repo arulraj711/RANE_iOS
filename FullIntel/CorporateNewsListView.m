@@ -191,16 +191,16 @@
     [activityIndicator stopAnimating];
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
-    NSInteger categoryId = [[[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"] integerValue];
-    NSLog(@"category id in curated news:%d",categoryId);
+    NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
+    NSLog(@"category id in curated news:%@",categoryId);
     self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate;
-    if(categoryId == -3) {
+    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
         predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
     } else {
-       predicate  = [NSPredicate predicateWithFormat:@"categoryId == %d",categoryId];
+       predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
     }
     
     [fetchRequest setPredicate:predicate];
@@ -214,7 +214,7 @@
     messageString = @"No articles to display";
     
 //    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    if(categoryId == -3) {
+    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
         for(NSManagedObject *curatedNews in self.devices) {
             if([curatedNews valueForKey:@"details"] == nil) {
@@ -255,19 +255,19 @@
     //TODO: refresh your data
     //if(self.devices.count == 0) {
     
-    NSString *categoryStr = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
-    NSInteger category = categoryStr.integerValue;
+    NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+   // NSInteger category = categoryStr.integerValue;
     NSString *inputJson;
-    if(category == -2) {
-        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:@""];
-    } else if(category == -3) {
-        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:@""];
+    if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:[NSNumber numberWithInt:0]];
+    } else if([category isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:[NSNumber numberWithInt:0]];
     } else {
-        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:categoryStr];
+        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:category];
     }
     
     
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] integerValue] withFlag:@"up" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"up" withLastArticleId:@""];
    // }
     
     [refreshControl endRefreshing];
@@ -803,16 +803,16 @@
         NSManagedObject *curatedNews = [self.devices lastObject];
         NSString *inputJson;
         
-        NSString *categoryStr = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
-        NSInteger category = categoryStr.integerValue;
-        if(category == -2) {
-            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:@""];
-        } else if(category == -3) {
-            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:@""];
+        NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+       // NSInteger category = categoryStr.integerValue;
+        if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:[NSNumber numberWithInt:0]];
+        } else if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:[NSNumber numberWithInt:0]];
         } else {
             inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
         }
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] integerValue] withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
         }
         //[self reloadData];
     }
