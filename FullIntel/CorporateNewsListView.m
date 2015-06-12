@@ -675,7 +675,7 @@
             
             if([markedImpUserId isEqualToString:@"-1"]) {
                 //Analyst
-                [self.view makeToast:@"A FullIntel analyst marked this as important. If you like to change, please request via Feedback" duration:1.5 position:CSToastPositionCenter];
+                [self.view makeToast:@"A FullIntel analyst marked this as important. If you like to change, please request via Feedback" duration:2.0 position:CSToastPositionCenter];
             } else if([markedImpUserId isEqualToString:loginUserIdString]) {
                 //LoginUser
                 
@@ -692,7 +692,7 @@
             } else {
                 //OtherUser
                 NSString *messageStrings = [NSString stringWithFormat:@"If you like to change, please contact %@. who marked this article as important",markedImpUserName];
-                [self.view makeToast:messageStrings duration:1.5 position:CSToastPositionCenter];
+                [self.view makeToast:messageStrings duration:2.0 position:CSToastPositionCenter];
             }
             
             
