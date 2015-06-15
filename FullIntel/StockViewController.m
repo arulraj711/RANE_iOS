@@ -113,9 +113,9 @@ NHAlignmentFlowLayout *layout;
     _topStoriesList=[[NSMutableArray alloc]init];
     
     
-    _requestUpgradeButton.layer.borderColor=[[UIColor blackColor]CGColor];
-    _requestUpgradeButton.layer.borderWidth=1.5;
-    _requestUpgradeButton.layer.cornerRadius=5.0;
+//    _requestUpgradeButton.layer.borderColor=[[UIColor blackColor]CGColor];
+//    _requestUpgradeButton.layer.borderWidth=1.5;
+//    _requestUpgradeButton.layer.cornerRadius=5.0;
     
     [FIWebService getStockListDetails:@"Mock" onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         

@@ -72,9 +72,9 @@
     
     
     
-    _requestUpgradeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
-    _requestUpgradeButton.layer.borderWidth=1.5;
-    _requestUpgradeButton.layer.cornerRadius=5.0;
+//    _requestUpgradeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
+//    _requestUpgradeButton.layer.borderWidth=1.5;
+//    _requestUpgradeButton.layer.cornerRadius=5.0;
     
     _rotateView.transform = CGAffineTransformMakeRotation(-0.6);
 }

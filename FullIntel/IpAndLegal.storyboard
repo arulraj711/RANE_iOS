@@ -825,8 +825,8 @@
                                         <state key="normal" image="request_upgrade">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="request_upgrade_selected"/>
-                                        <state key="highlighted" image="request_upgrade_selected"/>
+                                        <state key="selected" image="request_btn_selected"/>
+                                        <state key="highlighted" image="request_btn_pressed"/>
                                         <connections>
                                             <action selector="requestUpgradeButtonPressed:" destination="2VA-mo-Y8e" eventType="touchUpInside" id="4M8-wk-WyW"/>
                                         </connections>
@@ -945,8 +945,9 @@
         <image name="outlet" width="20" height="20"/>
         <image name="peoples" width="30" height="30"/>
         <image name="personality" width="12" height="12"/>
+        <image name="request_btn_pressed" width="200" height="50"/>
+        <image name="request_btn_selected" width="200" height="50"/>
         <image name="request_upgrade" width="200" height="50"/>
-        <image name="request_upgrade_selected" width="200" height="50"/>
         <image name="retweet" width="20" height="20"/>
         <image name="star" width="30" height="30"/>
         <image name="star_blue" width="20" height="20"/>

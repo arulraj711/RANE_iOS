@@ -112,6 +112,7 @@
     }
 }
 - (IBAction)requestButtonClick:(id)sender {
+    [sender setSelected:YES];
     [FIUtils callRequestionUpdateWithModuleId:10 withFeatureId:10];
 }
 @end

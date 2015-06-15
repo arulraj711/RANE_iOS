@@ -99,17 +99,17 @@
                         <color key="backgroundColor" red="0.64313725489999995" green="0.074509803920000006" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oNC-QE-sIS">
-                        <rect key="frame" x="-1" y="306" width="400" height="40"/>
+                        <rect key="frame" x="-1" y="307" width="400" height="40"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                         <state key="normal" image="btn">
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <state key="selected" image="btn_selected"/>
-                        <state key="highlighted" image="btn_selected"/>
+                        <state key="highlighted" image="btn_pressed"/>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9xY-em-6Bn">
-                        <rect key="frame" x="-1" y="303" width="400" height="1"/>
+                        <rect key="frame" x="-1" y="306" width="400" height="1"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                 </subviews>
@@ -124,8 +124,9 @@
     </objects>
     <resources>
         <image name="btn" width="400" height="40"/>
+        <image name="btn_pressed" width="400" height="40"/>
         <image name="btn_selected" width="400" height="40"/>
-        <image name="nav_fi" width="25" height="25"/>
+        <image name="nav_fi" width="35" height="35"/>
         <image name="sampleWidget" width="218" height="40"/>
         <image name="signal" width="25" height="25"/>
     </resources>

@@ -44,9 +44,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"authenticationFailed" object:nil];
     
-    _requestUpgradeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
-    _requestUpgradeButton.layer.borderWidth=1.5;
-    _requestUpgradeButton.layer.cornerRadius=5.0;
+//    _requestUpgradeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
+//    _requestUpgradeButton.layer.borderWidth=1.5;
+//    _requestUpgradeButton.layer.cornerRadius=5.0;
   
     
     NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"DEALS provides stock market information and top stories on a list of companies that you are watching"];

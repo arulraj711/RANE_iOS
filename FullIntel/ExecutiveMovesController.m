@@ -40,9 +40,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"authenticationFailed" object:nil];
     // Do any additional setup after loading the view.
     
-    _requestUpgradeButton.layer.borderColor=[[UIColor blackColor]CGColor];
-    _requestUpgradeButton.layer.borderWidth=1.5;
-    _requestUpgradeButton.layer.cornerRadius=5.0;
+//    _requestUpgradeButton.layer.borderColor=[[UIColor blackColor]CGColor];
+//    _requestUpgradeButton.layer.borderWidth=1.5;
+//    _requestUpgradeButton.layer.cornerRadius=5.0;
     
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     

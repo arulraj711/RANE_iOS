@@ -71,7 +71,7 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jhc-H6-Dn3">
-                        <rect key="frame" x="1" y="270" width="400" height="1"/>
+                        <rect key="frame" x="1" y="275" width="400" height="1"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euJ-aN-SAr">
@@ -82,7 +82,7 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <state key="selected" image="btn_selected"/>
-                        <state key="highlighted" image="btn_selected"/>
+                        <state key="highlighted" image="btn_pressed"/>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JgN-Pr-ISh">
                         <rect key="frame" x="1" y="316" width="400" height="5"/>
@@ -100,6 +100,7 @@
     </objects>
     <resources>
         <image name="btn" width="400" height="40"/>
+        <image name="btn_pressed" width="400" height="40"/>
         <image name="btn_selected" width="400" height="40"/>
         <image name="nav_fi" width="35" height="35"/>
         <image name="sampleWidget" width="218" height="40"/>

@@ -86,7 +86,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="request_upgrade_selected"/>
-                                <state key="highlighted" image="request_upgrade_selected"/>
+                                <state key="highlighted" image="request_upgrade_pressed"/>
                                 <connections>
                                     <action selector="requestButtonClick:" destination="5dj-q7-cK4" eventType="touchUpInside" id="jvT-OW-7te"/>
                                 </connections>
@@ -108,6 +108,7 @@
     <resources>
         <image name="circle" width="30" height="30"/>
         <image name="request_upgrade" width="200" height="50"/>
+        <image name="request_upgrade_pressed" width="200" height="50"/>
         <image name="request_upgrade_selected" width="200" height="50"/>
     </resources>
 </document>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -96,9 +96,11 @@
                                             <constraint firstAttribute="width" constant="200" id="9vz-CK-z4I"/>
                                             <constraint firstAttribute="height" constant="50" id="hqp-iN-qG0"/>
                                         </constraints>
-                                        <state key="normal" image="request_upgrade">
+                                        <state key="normal" image="request_btn">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="request_btn_selected"/>
+                                        <state key="highlighted" image="request_btn_pressed"/>
                                         <connections>
                                             <action selector="requestUpgradeButtonClick:" destination="gQX-4n-LT1" eventType="touchUpInside" id="KeP-Nb-JFj"/>
                                         </connections>
@@ -556,7 +558,9 @@
         <image name="more" width="30" height="30"/>
         <image name="peoples" width="30" height="30"/>
         <image name="personality" width="12" height="12"/>
-        <image name="request_upgrade" width="200" height="50"/>
+        <image name="request_btn" width="200" height="50"/>
+        <image name="request_btn_pressed" width="200" height="50"/>
+        <image name="request_btn_selected" width="200" height="50"/>
         <image name="star" width="30" height="30"/>
     </resources>
 </document>
