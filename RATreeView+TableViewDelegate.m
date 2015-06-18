@@ -32,6 +32,13 @@
 
 #pragma mark - Configuring Rows for the Table View
 
+-(void)directLoad {
+    NSLog(@"direct load function calling");
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if ([self.delegate respondsToSelector:@selector(treeView:heightForRowForItem:)]) {
@@ -98,6 +105,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   // NSLog(@"didselect row at indexpath:%ld",(long)indexPath.row);
   RATreeNode *treeNode = [self treeNodeForIndexPath:indexPath];
   if ([self.delegate respondsToSelector:@selector(treeView:didSelectRowForItem:)]) {
     [self.delegate treeView:self didSelectRowForItem:treeNode.item];
@@ -281,6 +289,7 @@
 
 - (void)expandCellForTreeNode:(RATreeNode *)treeNode informDelegate:(BOOL)informDelegate
 {
+    NSLog(@"expandCellForTreeNode");
   if (informDelegate) {
     if ([self.delegate respondsToSelector:@selector(treeView:willExpandRowForItem:)]) {
       [self.delegate treeView:self willExpandRowForItem:treeNode.item];

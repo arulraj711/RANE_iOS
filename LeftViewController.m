@@ -118,6 +118,7 @@
     if(self.data.count > 1) {
         [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         [self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
 }
 
@@ -221,6 +222,7 @@
     if(accessToken.length > 0) {
         [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         [self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
     
 }

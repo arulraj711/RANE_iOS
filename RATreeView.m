@@ -115,6 +115,10 @@
   tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   tableView.backgroundColor = [UIColor clearColor];
   tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:(id<UITableViewDelegate>)self selector:@selector(directLoad) name:@"directLoad" object:nil];
+    
+    
   [self addSubview:tableView];
   [self setTableView:tableView];
   
