@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AMPopTip.h"
+//#import "AMPopTip.h"
 #import "CMPopTipView.h"
 
 @interface ViewController : UIViewController<CMPopTipViewDelegate>{
@@ -28,7 +28,7 @@
 - (IBAction)privacyPolicyButtonPressed:(id)sender;
 @property (nonatomic, strong)	NSDictionary	*contents;
 
-@property (nonatomic, strong) AMPopTip *popTip;
+//@property (nonatomic, strong) AMPopTip *popTip;
 @property (nonatomic, strong) id currentPopTipViewTarget;
 @end
 

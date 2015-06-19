@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RFQuiltLayout.h"
 #import "AddContentThirdLevelView.h"
-#import "AMPopTip.h"
+//#import "AMPopTip.h"
 #import "CMPopTipView.h"
 @protocol SecondLevelDelegate;
 @interface AddContentSecondLevelView : UIViewController<RFQuiltLayoutDelegate,ThirdLevelDelegate,UICollectionViewDataSource,UICollectionViewDelegate,CMPopTipViewDelegate>{
@@ -32,7 +32,7 @@
 
 
 
-@property (nonatomic, strong) AMPopTip *popTip;
+//@property (nonatomic, strong) AMPopTip *popTip;
 @property (nonatomic, strong) id currentPopTipViewTarget;
 @property (nonatomic, strong)	NSDictionary	*contents;
 

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3BA3145765EFD5E9465E072A /* libPods-FullIntel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39AF10A475C726FDFCE5E99E /* libPods-FullIntel.a */; };
-		A003B19C1B1839F400857F35 /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = A003B19B1B1839F400857F35 /* AMPopTip.m */; };
 		A003B19F1B1841FF00857F35 /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = A003B19E1B1841FF00857F35 /* CMPopTipView.m */; };
 		A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A01B186D1200857F35 /* a123-logo.jpg */; };
 		A003B1A31B18710400857F35 /* large_apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A21B18710400857F35 /* large_apple.jpg */; };
@@ -143,12 +142,10 @@
 		F7E354E31A947A19009677D2 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E354E21A947A19009677D2 /* LeftViewController.m */; };
 		F7E354E71A947AB0009677D2 /* LeftView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7E354E61A947AB0009677D2 /* LeftView.storyboard */; };
 		F7E3687B1ABBF1DA0083F38E /* CommentsPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E368791ABBF1DA0083F38E /* CommentsPopoverView.m */; };
-		F7E3687C1ABBF1DA0083F38E /* CommentsPopoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E3687A1ABBF1DA0083F38E /* CommentsPopoverView.xib */; };
 		F7E368821ABC18F70083F38E /* MailPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E368801ABC18F70083F38E /* MailPopoverView.m */; };
 		F7E368831ABC18F70083F38E /* MailPopoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E368811ABC18F70083F38E /* MailPopoverView.xib */; };
 		F7E368881ABC1C6F0083F38E /* SavedListPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E368861ABC1C6F0083F38E /* SavedListPopoverView.m */; };
 		F7E3688E1ABC1D060083F38E /* ResearchRequestPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E3688C1ABC1D060083F38E /* ResearchRequestPopoverView.m */; };
-		F7E3688F1ABC1D060083F38E /* ResearchRequestPopoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E3688D1ABC1D060083F38E /* ResearchRequestPopoverView.xib */; };
 		F7E368941ABC1DB80083F38E /* MorePopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E368921ABC1DB80083F38E /* MorePopoverView.m */; };
 		F7E81F8C1A97057100F9A8D4 /* -iwatch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F4C1A97057000F9A8D4 /* -iwatch.jpg */; };
 		F7E81F931A97057100F9A8D4 /* about_walt.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7E81F531A97057000F9A8D4 /* about_walt.jpg */; };
@@ -201,7 +198,6 @@
 		F7E85EA91A9F3B710022B4D5 /* Influencer.json in Resources */ = {isa = PBXBuildFile; fileRef = F7E85EA81A9F3B710022B4D5 /* Influencer.json */; };
 		F7EBB2671ACA763F008C90DF /* FIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F7EBB2661ACA763F008C90DF /* FIUtils.m */; };
 		F7EC59171AA7084B00CED53F /* NHAlignmentFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F7EC59161AA7084B00CED53F /* NHAlignmentFlowLayout.m */; };
-		F7EC6D5D1ADFB38D00A43CCA /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F7EC6D5C1ADFB38D00A43CCA /* MBProgressHUD.m */; };
 		F7ECACCB1AB0730000B57AB6 /* StockWidgetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ECACC91AB0730000B57AB6 /* StockWidgetCell.m */; };
 		F7ECACCC1AB0730000B57AB6 /* StockWidgetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7ECACCA1AB0730000B57AB6 /* StockWidgetCell.xib */; };
 		F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ECBC631ABFDA78004741A5 /* SavedListCell.m */; };
@@ -213,8 +209,6 @@
 /* Begin PBXFileReference section */
 		39AF10A475C726FDFCE5E99E /* libPods-FullIntel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FullIntel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90EF9BD902798B39A9DB8F3B /* Pods-FullIntel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.debug.xcconfig"; sourceTree = "<group>"; };
-		A003B19A1B1839F400857F35 /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTip.h; sourceTree = "<group>"; };
-		A003B19B1B1839F400857F35 /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPopTip.m; sourceTree = "<group>"; };
 		A003B19D1B1841FF00857F35 /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
 		A003B19E1B1841FF00857F35 /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
 		A003B1A01B186D1200857F35 /* a123-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "a123-logo.jpg"; sourceTree = "<group>"; };
@@ -426,7 +420,6 @@
 		F7E354E61A947AB0009677D2 /* LeftView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LeftView.storyboard; path = FullIntel/LeftView.storyboard; sourceTree = "<group>"; };
 		F7E368781ABBF1DA0083F38E /* CommentsPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsPopoverView.h; sourceTree = "<group>"; };
 		F7E368791ABBF1DA0083F38E /* CommentsPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsPopoverView.m; sourceTree = "<group>"; };
-		F7E3687A1ABBF1DA0083F38E /* CommentsPopoverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsPopoverView.xib; sourceTree = "<group>"; };
 		F7E3687F1ABC18F70083F38E /* MailPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailPopoverView.h; sourceTree = "<group>"; };
 		F7E368801ABC18F70083F38E /* MailPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailPopoverView.m; sourceTree = "<group>"; };
 		F7E368811ABC18F70083F38E /* MailPopoverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailPopoverView.xib; sourceTree = "<group>"; };
@@ -434,7 +427,6 @@
 		F7E368861ABC1C6F0083F38E /* SavedListPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedListPopoverView.m; sourceTree = "<group>"; };
 		F7E3688B1ABC1D060083F38E /* ResearchRequestPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResearchRequestPopoverView.h; sourceTree = "<group>"; };
 		F7E3688C1ABC1D060083F38E /* ResearchRequestPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResearchRequestPopoverView.m; sourceTree = "<group>"; };
-		F7E3688D1ABC1D060083F38E /* ResearchRequestPopoverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResearchRequestPopoverView.xib; sourceTree = "<group>"; };
 		F7E368911ABC1DB80083F38E /* MorePopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MorePopoverView.h; sourceTree = "<group>"; };
 		F7E368921ABC1DB80083F38E /* MorePopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MorePopoverView.m; sourceTree = "<group>"; };
 		F7E81F4C1A97057000F9A8D4 /* -iwatch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "-iwatch.jpg"; sourceTree = "<group>"; };
@@ -494,8 +486,6 @@
 		F7EC59161AA7084B00CED53F /* NHAlignmentFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHAlignmentFlowLayout.m; sourceTree = "<group>"; };
 		F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		F7EC6D591ADF848000A43CCA /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
-		F7EC6D5B1ADFB38D00A43CCA /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		F7EC6D5C1ADFB38D00A43CCA /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		F7ECACC81AB0730000B57AB6 /* StockWidgetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockWidgetCell.h; sourceTree = "<group>"; };
 		F7ECACC91AB0730000B57AB6 /* StockWidgetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockWidgetCell.m; sourceTree = "<group>"; };
 		F7ECACCA1AB0730000B57AB6 /* StockWidgetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockWidgetCell.xib; sourceTree = "<group>"; };
@@ -556,8 +546,6 @@
 			children = (
 				A003B19D1B1841FF00857F35 /* CMPopTipView.h */,
 				A003B19E1B1841FF00857F35 /* CMPopTipView.m */,
-				A003B19A1B1839F400857F35 /* AMPopTip.h */,
-				A003B19B1B1839F400857F35 /* AMPopTip.m */,
 			);
 			name = PopTip;
 			sourceTree = "<group>";
@@ -703,7 +691,6 @@
 			isa = PBXGroup;
 			children = (
 				A0CF5C241B1DD97200DED2D9 /* MockPages */,
-				F7EC6D5A1ADFB37200A43CCA /* ProgressView */,
 				F773CFEA1ADE99DC002FC7CF /* AddContent */,
 				F7AE107F1AC01E040091E1C7 /* Influencer */,
 				F7E368771ABBF1710083F38E /* Popover_View */,
@@ -987,7 +974,6 @@
 				A0AF674A1B16EBF6007EDD26 /* CustomPopAnimation */,
 				F7E368781ABBF1DA0083F38E /* CommentsPopoverView.h */,
 				F7E368791ABBF1DA0083F38E /* CommentsPopoverView.m */,
-				F7E3687A1ABBF1DA0083F38E /* CommentsPopoverView.xib */,
 				A0DB6FC01B0AF40C00F6E2F4 /* Comments.storyboard */,
 				A0DB6FC21B0B2BB400F6E2F4 /* CommentCell.h */,
 				A0DB6FC31B0B2BB400F6E2F4 /* CommentCell.m */,
@@ -1022,7 +1008,6 @@
 			children = (
 				F7E3688B1ABC1D060083F38E /* ResearchRequestPopoverView.h */,
 				F7E3688C1ABC1D060083F38E /* ResearchRequestPopoverView.m */,
-				F7E3688D1ABC1D060083F38E /* ResearchRequestPopoverView.xib */,
 				A0BE809F1B206F450055177E /* ResearchRequest.storyboard */,
 			);
 			name = ResearchRequest_Popover;
@@ -1153,15 +1138,6 @@
 			name = BadgeView;
 			sourceTree = "<group>";
 		};
-		F7EC6D5A1ADFB37200A43CCA /* ProgressView */ = {
-			isa = PBXGroup;
-			children = (
-				F7EC6D5B1ADFB38D00A43CCA /* MBProgressHUD.h */,
-				F7EC6D5C1ADFB38D00A43CCA /* MBProgressHUD.m */,
-			);
-			name = ProgressView;
-			sourceTree = "<group>";
-		};
 		F7EDA00D1AC1646500A5C601 /* LeftMenuCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1265,7 +1241,6 @@
 				F78B42FA1ABA89A300AB7FFB /* CorporateNewsListView.storyboard in Resources */,
 				A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */,
 				F7EDA00C1AC136CD00A5C601 /* influencer_list.json in Resources */,
-				F7E3687C1ABBF1DA0083F38E /* CommentsPopoverView.xib in Resources */,
 				A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */,
 				F7E81FBF1A97057100F9A8D4 /* samsung_topic.jpg in Resources */,
 				A0CF5C611B1DD98B00DED2D9 /* PersonalityExecutiveCell.xib in Resources */,
@@ -1287,7 +1262,6 @@
 				F74A55141AB048570009FE4C /* PersonalityWidgetCell.xib in Resources */,
 				F7E81F9D1A97057100F9A8D4 /* Charles.jpg in Resources */,
 				F7E81F941A97057100F9A8D4 /* apple-logo.gif in Resources */,
-				F7E3688F1ABC1D060083F38E /* ResearchRequestPopoverView.xib in Resources */,
 				A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */,
 				F7E81FB61A97057100F9A8D4 /* new-york-city-wallpaper.jpg in Resources */,
 				A0CF5C581B1DD98B00DED2D9 /* ExecutiveMoveCell.xib in Resources */,
@@ -1438,7 +1412,6 @@
 				F7CE36E11A95E9490005AA0A /* RATreeNodeCollectionController.m in Sources */,
 				F7CE36EA1A95E9490005AA0A /* RATreeView+UIScrollView.m in Sources */,
 				A0E223531A91C2F00073814A /* main.m in Sources */,
-				A003B19C1B1839F400857F35 /* AMPopTip.m in Sources */,
 				F7EBB2671ACA763F008C90DF /* FIUtils.m in Sources */,
 				F74A55131AB048570009FE4C /* PersonalityWidgetCell.m in Sources */,
 				A0066EEC1B03082D008B4623 /* CorporateNewsDetailsView.m in Sources */,
@@ -1448,7 +1421,6 @@
 				F7EC59171AA7084B00CED53F /* NHAlignmentFlowLayout.m in Sources */,
 				F7E0049B1AB152C500390D51 /* ProductWidgetCell.m in Sources */,
 				A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */,
-				F7EC6D5D1ADFB38D00A43CCA /* MBProgressHUD.m in Sources */,
 				A0DEC3E41AE94FF10046E8BB /* SocialWebView.m in Sources */,
 				F7CE36E31A95E9490005AA0A /* RATreeNodeItem+Private.m in Sources */,
 				F7E368881ABC1C6F0083F38E /* SavedListPopoverView.m in Sources */,

@@ -11,7 +11,7 @@
 #import "FISharedResources.h"
 #import "AMRatingControl.h"
 #import "MZFormSheetController.h"
-#import "AMPopTip.h"
+//#import "AMPopTip.h"
 #import "CMPopTipView.h"
 #import "UCZProgressView.h"
 #import "MKNumberBadgeView.h"
@@ -96,7 +96,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *bioTitleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bioDivider;
 
-@property (nonatomic, strong) AMPopTip *popTip;
+//@property (nonatomic, strong) AMPopTip *popTip;
 @property (nonatomic, strong) id currentPopTipViewTarget;
 @property (nonatomic, strong)	NSDictionary	*contents;
 

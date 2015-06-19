@@ -11,7 +11,7 @@
 #import "FIMenu.h"
 #import "Reachability.h"
 #import "LeftViewController.h"
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 #import "FIUtils.h"
 #import "FIContentCategory.h"
 #import "UIView+Toast.h"
@@ -980,25 +980,7 @@
     return myData != nil;
 }
 
-- (void)showProgressHUDForViewWithTitle:(NSString*)title withDetail:(NSString*)detail;
-{
-    MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] windows][0] animated:YES];
-    [hud setLabelText:title];
-    [hud setDetailsLabelText:detail];
-}
 
-- (void)showProgressHUDForView
-{
-    
-    NSLog(@"showProgressHUDForView is running");
-    [self showProgressHUDForViewWithTitle:nil withDetail:nil];
-}
-
-- (void)hideProgressHUDForView
-{ NSLog(@"hideProgressHUDForView is running");
-    
-    [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] windows][0] animated:YES];
-}
 
 - (void)showProgressView
 {
