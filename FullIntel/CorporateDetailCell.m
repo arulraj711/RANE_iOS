@@ -33,13 +33,7 @@
     // Initialization code
     self.authorImageView.layer.masksToBounds = YES;
     self.authorImageView.layer.cornerRadius = 25.0f;
-   // self.socialLinksArray = [[NSMutableArray alloc]init];
-    
-    
-   // self.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
     self.badgeTwo.hideWhenZero = YES;
-    //self.badgeTwo.value = 0;
-    
     self.overlayArticleImageView.layer.masksToBounds = YES;
     self.overlayArticleImageView.layer.cornerRadius = 10.0f;
     self.overlayArticleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
@@ -70,7 +64,7 @@
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSNumber *number = [userInfo objectForKey:@"status"];
-    NSLog(@"selected number:%@",number);
+    //NSLog(@"selected number:%@",number);
     if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
         //[self.detailsWebview removeFromSuperview];
         self.detailsWebview.hidden = YES;
@@ -101,10 +95,7 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-   // NSLog(@"gesture working in cell:%ld and %ld",(long)otherGestureRecognizer.view.tag,(long)gestureRecognizer.view.tag);
-    
     BOOL status =NO;
-    
     if([_detailsWebview isFirstResponder]){
     if((long)otherGestureRecognizer.view.tag == 101){
         self.overlayView.hidden = YES;
@@ -125,12 +116,9 @@
     for(NSManagedObject *relatedPost in self.relatedPostArray) {
         [tweetIds addObject:[relatedPost valueForKey:@"postId"]];
     }
-  //  NSLog(@"tweet ids:%@",tweetIds);
-   // NSArray *tweetIds=@[@"20",@"21"];
-    
     [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
         [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
-           NSLog(@"Tweet array:%@",tweet);
+           //NSLog(@"Tweet array:%@",tweet);
             tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
             if(tweetArray.count == 0) {
                 self.tweetCollectionViewHeightConstraint.constant = 0;
@@ -221,12 +209,6 @@
 
 #pragma mark - UICollectionView Datasource
 
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-//{
-//    
-//    return UIEdgeInsetsMake(0, 0, 0, 0);
-//}
-
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     // NSLog(@"imp collection view:%d",self.socialLinksArray.count);
     NSInteger itemCount;
@@ -308,7 +290,7 @@
         dispatch_async(dispatch_get_main_queue(), ^(void){
             tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
             int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
-            NSLog(@"single followers count:%d",followersCount);
+           // NSLog(@"single followers count:%d",followersCount);
             if(followersCount/1000 == 0) {
                 tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
             } else {
@@ -404,7 +386,7 @@
 
 -(void)socialTap:(UITapGestureRecognizer *)tapGesture {
     NSInteger row = tapGesture.view.tag;
-    NSLog(@"social tap working for row:%d",row);
+   // NSLog(@"social tap working for row:%d",row);
 }
 
 
@@ -439,7 +421,7 @@
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"did select social link");
+    //NSLog(@"did select social link");
 
     if(collectionView == self.socialLinkCollectionView) {
         
@@ -500,11 +482,7 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-//    self.timer = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
-//    progressView = [[UCZProgressView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width/2-50, self.contentView.frame.size.height/2-50, 100, 100)];
-//    progressView.translatesAutoresizingMaskIntoConstraints = NO;
-//    progressView.backgroundColor = [UIColor clearColor];
-  //  [self.contentView addSubview:progressView];
+
 }
 
 
@@ -521,15 +499,6 @@
 
 
 - (IBAction)researchRequestButtonClick:(UIButton *)sender {
-//    ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
-//    popOverView.articleId = self.selectedArticleId;
-//    popOverView.articleTitle = self.selectedArticleTitle;
-//    popOverView.articleUrl = self.selectedArticleUrl;
-//    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
-//    self.popOver.popoverContentSize=CGSizeMake(400, 260);
-//    //self.popOver.delegate = self;
-//    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    
      [[NSNotificationCenter defaultCenter]postNotificationName:@"showResearchView" object:nil userInfo:@{@"articleId":self.selectedArticleId,@"articleTitle":self.selectedArticleTitle,@"articleUrl":self.selectedArticleUrl}];
 }
 
@@ -573,9 +542,6 @@
 
 
 - (IBAction)mailButtonClick:(UIButton *)sender {
-    //NSLog(@"mail article url:%@",[self.curatedNewsDetail valueForKey:@"articleUrl"]);
-   // NSString *articleUrl = [self.curatedNewsDetail valueForKey:@"articleUrl"];
-  //  NSLog(@"article url:%@",articleUrl);
     NSString *mailBodyStr;
     if(self.selectedArticleUrl.length != 0) {
         mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n\n%@",self.selectedArticleTitle,self.articleDesc,self.selectedArticleUrl];
@@ -588,7 +554,7 @@
 }
 
 - (IBAction)commentsButtonClick:(UIButton *)sender {
-    NSLog(@"selected article id for comment:%@",self.selectedArticleId);
+    //NSLog(@"selected article id for comment:%@",self.selectedArticleId);
     NSMutableDictionary *commentsDic = [[NSMutableDictionary alloc] init];
     [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [commentsDic setObject:self.selectedArticleId forKey:@"articleId"];
@@ -608,7 +574,7 @@
     NSArray *filterArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if(filterArray.count != 0) {
         NSManagedObject *curatedNews = [filterArray objectAtIndex:0];
-        NSLog(@"comments:%@",[curatedNews valueForKey:@"comments"]);
+        //NSLog(@"comments:%@",[curatedNews valueForKey:@"comments"]);
         NSManagedObject *userComments = [curatedNews valueForKey:@"comments"];
         if(userComments == nil) {
             [[FISharedResources sharedResourceManager]getCommentsWithDetails:commentsResultStr withArticleId:self.selectedArticleId];
@@ -616,33 +582,6 @@
     }
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"showCommentsView" object:nil userInfo:@{@"articleId":self.selectedArticleId,@"indexPath":self.selectedIndexPath}];
-
-//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
-//    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
-//    popOverView.articleId = self.selectedArticleId;
-//    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
-//    self.popOver.popoverContentSize=CGSizeMake(400, 300);
-//    //self.popOver.delegate = self;
-//    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    
-    
-    
-    
-//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
-//    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
-//    popOverView.articleId = self.selectedArticleId;
-//    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
-//    self.popOver.popoverContentSize=CGSizeMake(400, 600);
-//    //self.popOver.delegate = self;
-//    NSLog(@"heightttt:%f",self.contentView.frame.size.height);
-//    //   UIWindow *window = [[UIApplication sharedApplication]windows][0];
-//    CGRect rect = CGRectMake(self.contentView.frame.size.width/2, (self.contentView.frame.size.height-64)/2, 1, 1);
-//    //[popOverController presentPopoverFromRect:rect inView:view permittedArrowDirections:0 animated:YES];
-//    
-//    // [self.popOver presentPopoverFromBarButtonItem:sender
-//    //  permittedArrowDirections:0
-//    //    animated:YES];
-//    [self.popOver presentPopoverFromRect:sender.frame inView:self.contentView permittedArrowDirections:0 animated:YES];
 }
 
 
@@ -683,11 +622,6 @@
                 [curatedNews setValue:curatedNewsDetails forKey:@"details"];
             }
             [managedObjectContext save:nil];
-            
-            
-            
-//            [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
-            
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
             [self.contentView makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
@@ -704,8 +638,6 @@
         [resultDic setObject:@"true" forKey:@"isSelected"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
         self.markedImpUserId = loginUserId;
-        
-        
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
@@ -719,11 +651,6 @@
             [curatedNews setValue:curatedNewsDetails forKey:@"details"];
         }
         [managedObjectContext save:nil];
-        
-        
-        
-       // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
-        //[self.curatedNewsDetail setValue:[NSNumber numberWithInt:[loginUserId intValue]] forKey:@"markAsImportantUserId"];
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
@@ -736,16 +663,10 @@
 }
 
 - (IBAction)globeButtonClick:(UIButton *)sender {
-    NSLog(@"globe button click");
-    
-    
     [[NSNotificationCenter defaultCenter]postNotificationName:@"globeButtonClick" object:nil userInfo:@{@"url":[self.curatedNewsDetail valueForKey:@"articleUrl"]}];
 }
 
 -(void)loadCuratedNewsDetails:(id)sender {
-    //NSNotification *notification = sender;
-   // NSDictionary *userInfo = notification.userInfo;
-    //self.selectedArticleId = [userInfo objectForKey:@"articleId"];
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
@@ -755,12 +676,7 @@
             NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
             
             NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
-            NSLog(@"cell post notification is working:%@",curatedNewsDetail);
-            
-            
-           
-            
-            dispatch_async(dispatch_get_main_queue(), ^(void){
+                dispatch_async(dispatch_get_main_queue(), ^(void){
                 
                  NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
                 
@@ -791,10 +707,10 @@
                 
                 NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
                 if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                    NSLog(@"mark selected");
+                   // NSLog(@"mark selected");
                     [self.markedImpButton setSelected:YES];
                 } else {
-                    NSLog(@"mark not selected");
+                    //NSLog(@"mark not selected");
                     [self.markedImpButton setSelected:NO];
                 }
                 
@@ -1065,7 +981,7 @@
     
     if(webView == self.articleWebview) {
         NSURL *url = [request URL];
-        NSLog(@"select link:%@",url);
+        //NSLog(@"select link:%@",url);
         NSString *urlString = url.absoluteString;
         if (![urlString isEqualToString: @"about:blank"]) {
             

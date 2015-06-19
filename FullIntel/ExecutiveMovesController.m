@@ -53,7 +53,7 @@
     [self.navigationItem setLeftBarButtonItem:addButton];
     
     
-    NSLog(@"title name :%@",_titleName);
+   // NSLog(@"title name :%@",_titleName);
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     label.backgroundColor = [UIColor clearColor];
@@ -150,10 +150,10 @@
     
     
     if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
-        NSLog(@"left view opened");
+       // NSLog(@"left view opened");
         [self.revealController showViewController:self.revealController.frontViewController];
     } else {
-        NSLog(@"left view closed");
+       // NSLog(@"left view closed");
         [self.revealController showViewController:self.revealController.leftViewController];
     }
     

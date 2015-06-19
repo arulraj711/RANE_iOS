@@ -131,7 +131,7 @@
     return UIEdgeInsetsMake(5, 5, 5, 10);
 }
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    NSLog(@"imp collection view");
+    //NSLog(@"imp collection view");
     return self.innerArray.count;
 }
 

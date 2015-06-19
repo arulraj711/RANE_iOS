@@ -88,7 +88,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-     NSLog(@"legends collection view count:%d",self.legendsArray.count);
+     //NSLog(@"legends collection view count:%d",self.legendsArray.count);
     return self.legendsArray.count;
 }
 

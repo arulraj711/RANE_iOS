@@ -33,7 +33,7 @@
 #pragma mark - Configuring Rows for the Table View
 
 -(void)directLoad {
-    NSLog(@"direct load function calling");
+  //  NSLog(@"direct load function calling");
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
@@ -289,7 +289,7 @@
 
 - (void)expandCellForTreeNode:(RATreeNode *)treeNode informDelegate:(BOOL)informDelegate
 {
-    NSLog(@"expandCellForTreeNode");
+   // NSLog(@"expandCellForTreeNode");
   if (informDelegate) {
     if ([self.delegate respondsToSelector:@selector(treeView:willExpandRowForItem:)]) {
       [self.delegate treeView:self willExpandRowForItem:treeNode.item];

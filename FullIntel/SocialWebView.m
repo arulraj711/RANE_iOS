@@ -101,7 +101,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     
-    NSLog(@"webViewDidFinishLoad");
+    //NSLog(@"webViewDidFinishLoad");
     
     [timer invalidate];
     [progressView removeFromSuperview];

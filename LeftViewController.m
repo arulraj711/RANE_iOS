@@ -130,7 +130,7 @@
     NSDictionary *userInfo = notification.userInfo;
     NSString *type = [userInfo objectForKey:@"type"];
     NSMutableArray *reloadArray = [[NSMutableArray alloc]init];
-    NSLog(@"type value:%@",type);
+    //NSLog(@"type value:%@",type);
     if([type isEqualToString:@"both"]) {
         dataObj = [self.data objectAtIndex:2];
         int cnt = [dataObj.unReadCount intValue];
@@ -366,7 +366,7 @@
 
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item
 {
-    NSLog(@"cell for item:%@",item);
+   // NSLog(@"cell for item:%@",item);
     
     RADataObject *dataObject = item;
     NSInteger level = [self.treeView levelForCellForItem:item];

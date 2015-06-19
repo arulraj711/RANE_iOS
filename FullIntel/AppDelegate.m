@@ -75,7 +75,7 @@
 //}
 
 -(void)test {
-    NSLog(@"inside test function");
+   // NSLog(@"inside test function");
     UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
     [navCtlr popViewControllerAnimated:YES];
 }

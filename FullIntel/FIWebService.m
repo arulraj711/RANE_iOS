@@ -15,7 +15,7 @@
 @implementation FIWebService
 + (void)getResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 {
-    NSLog(@"get ress for function ");
+    //NSLog(@"get ress for function ");
     
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/",STAGE_URL,urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
@@ -103,7 +103,7 @@
                                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
     NSDictionary *JSON = [self dictionaryWithFileName:@"influencer_new"];
-    NSLog(@"JSON:%@",JSON);
+   // NSLog(@"JSON:%@",JSON);
     
     success(nil,JSON);
     
@@ -279,7 +279,7 @@
     
     
     NSDictionary *JSON = [self dictionaryWithFileName:@"StockResponse"];
-    NSLog(@"JSON:%@",JSON);
+    //NSLog(@"JSON:%@",JSON);
     
     success(nil,JSON);
     
@@ -292,9 +292,9 @@
 //    NSLog(@" tweet JSON:%@",json);
     
     NSString *twitterUrl = [NSString stringWithFormat:@"https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=%@",withScreenName];
-    NSLog(@"twitter url:%@",twitterUrl);
+    //NSLog(@"twitter url:%@",twitterUrl);
     NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:twitterUrl]];
-    NSLog(@"result data:%d",data.length);
+    //NSLog(@"result data:%d",data.length);
     NSError* error;
     NSDictionary* json;
     if(data.length > 0) {
@@ -305,7 +305,7 @@
                               error:&error];
     }
     
-    NSLog(@"tweet json:%@",json);
+    //NSLog(@"tweet json:%@",json);
     success(nil,json);
 }
 

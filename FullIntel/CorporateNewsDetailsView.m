@@ -219,7 +219,7 @@
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"cell indexpath:%@",indexPath);
+   // NSLog(@"cell indexpath:%@",indexPath);
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -232,7 +232,7 @@
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if(newPerson.count != 0) {
         NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-        NSLog(@"selected curated news:%@",curatedNews);
+       // NSLog(@"selected curated news:%@",curatedNews);
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
         
         NSString *articleImageStr = [curatedNews valueForKey:@"image"];
@@ -254,7 +254,7 @@
         NSString *outletString = [curatedNews valueForKey:@"outlet"];
         
         CGFloat width =  [outletString sizeWithFont:[UIFont fontWithName:@"OpenSans" size:14 ]].width;
-        NSLog(@"outlet text width:%f",width);
+        //NSLog(@"outlet text width:%f",width);
         if(width == 0) {
             
         }
@@ -320,7 +320,7 @@
                 [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
                 
                // [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
-                NSLog(@"article url data:%@",[curatedNews valueForKey:@"articleUrlData"]);
+                //NSLog(@"article url data:%@",[curatedNews valueForKey:@"articleUrlData"]);
                 
                 if([curatedNews valueForKey:@"articleUrlData"] == nil) {
                     NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
@@ -344,7 +344,7 @@
         
         NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
         NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
-        NSLog(@"after changing unread and total comments:%@ and %@",unreadCnt,totalCnt);
+        //NSLog(@"after changing unread and total comments:%@ and %@",unreadCnt,totalCnt);
         if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
             cell.badgeTwo.value = [totalCnt integerValue];
             cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
@@ -613,7 +613,7 @@
 
 
 -(void)removeOverlay:(UITapGestureRecognizer *)gesture {
-    NSLog(@"remove overlay working");
+   // NSLog(@"remove overlay working");
     
 }
 
@@ -733,10 +733,6 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-    
-    //[modalController.navigationBar setTintColor:[UIColor redColor]];
-   // [[UINavigationBar appearance] setBarTintColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
-    
     SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
     socialWebViewObj.titleStr=title;
     socialWebViewObj.urlString=link;
@@ -744,66 +740,10 @@
     modalController.modalPresentationStyle = UIModalPresentationCustom;
     
     [self presentViewController:modalController animated:NO completion:nil];
-  
-    
-    // UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"modal"];
-    
-//    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
-//    
-//    formSheet.presentedFormSheetSize = CGSizeMake(850, 700);
-//    //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
-//    formSheet.shadowRadius = 2.0;
-//    formSheet.shadowOpacity = 0.3;
-//    formSheet.shouldDismissOnBackgroundViewTap = YES;
-//    formSheet.shouldCenterVertically = YES;
-//    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
-//    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
-//    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
-//    // formSheet.landscapeTopInset = 50;
-//    // formSheet.portraitTopInset = 100;
-//    
-//    __weak MZFormSheetController *weakFormSheet = formSheet;
-//    
-//    
-//    // If you want to animate status bar use this code
-//    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
-//        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
-//        if ([navController.topViewController isKindOfClass:[SocialWebView class]]) {
-//            SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
-//            mzvc.urlString = link;
-//            //  mzvc.showStatusBar = NO;
-//        }
-//        
-//        
-//        [UIView animateWithDuration:0.3 animations:^{
-//            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-//                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
-//            }
-//        }];
-//    };
-//    
-//    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
-//        // Passing data
-//        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-//        
-//        navController.topViewController.title = title;
-//        
-//        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-//        SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
-//        mzvc.urlString = link;
-//    };
-//    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
-//    
-//    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
-//    
-//    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-//        
-//    }];
-    
 }
 
 -(void)mailButtonClick:(id)sender {
-    NSLog(@"one");
+    //NSLog(@"one");
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSString *title = [userInfo objectForKey:@"title"];
@@ -824,10 +764,10 @@
 -(void)mailComposeController:(MFMailComposeViewController *)controller
          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if (result) {
-        NSLog(@"Result : %d",result);
+        //NSLog(@"Result : %d",result);
     }
     if (error) {
-        NSLog(@"Error : %@",error);
+        //NSLog(@"Error : %@",error);
     }
     //[self dismissModalViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -837,81 +777,20 @@
 -(void)globeButtonClick:(UIButton *)sender {
     
     if(sender.selected) {
-        NSLog(@"sender selected");
+        //NSLog(@"sender selected");
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
         [sender setSelected:NO];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:0]}];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     } else {
-        NSLog(@"sender is not selected");
+        //NSLog(@"sender is not selected");
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
         [sender setSelected:YES];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:1]}];
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
     }
     [self.collectionView reloadData];
-  //  [sender setSelected:YES];
-//    if(sender.selected) {
-//        [sender setSelected:NO];
-//       // [sender setImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
-//    } else {
-//        [sender setSelected:YES];
-//        //[sender ];
-//       // [sender setImage:[UIImage imageNamed:@"nav_globe"] forState:(UIControlStateSelected | UIControlStateHighlighted)];
-//       // [addBtn setImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateHighlighted];
-//    }
-    //NSNotification *notification = sender;
-   // NSDictionary *userInfo = notification.userInfo;
-    //NSString *articleUrl = [curatedNewsDetail valueForKey:@"articleUrl"];
-    
-    
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button addTarget:self action:@selector(closeWebView)
-//     forControlEvents:UIControlEventTouchUpInside];
-//    [button setImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlSelected];
-//    // [button setTitle:@"Show View" forState:UIControlStateNormal];
-//    button.frame = CGRectMake(0, 10, 28, 28);
-//    UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-//    self.navigationItem.rightBarButtonItem = customBarItem;
-//    BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
-//    if(isFIViewSelected) {
-//        
-//    } else {
-//        
-//    }
-    
-    
-    
-    
-    
-    
-//    [UIView animateWithDuration:0.2
-//                          delay:0.1
-//                        options: UIViewAnimationOptionCurveEaseIn
-//                     animations:^{
-//                         innerWebView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-80);
-//                         
-//                         
-//                         UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, innerWebView.frame.size.width, innerWebView.frame.size.height)];
-//                         webView.backgroundColor = [UIColor whiteColor];
-//                         NSURL *url = [NSURL URLWithString:articleUrl];
-//                         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-//                         [webView loadRequest:requestObj];
-//                         [innerWebView addSubview:webView];
-//                         innerWebView.backgroundColor = [UIColor whiteColor];
-//                         self.navigationItem.hidesBackButton = YES;
-//                         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//                         [button addTarget:self action:@selector(closeWebView)
-//                          forControlEvents:UIControlEventTouchUpInside];
-//                         [button setImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
-//                         // [button setTitle:@"Show View" forState:UIControlStateNormal];
-//                         button.frame = CGRectMake(0, 10, 28, 28);
-//                         UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-//                         self.navigationItem.rightBarButtonItem = customBarItem;
-//                     }
-//                     completion:^(BOOL finished){
-//                     }];
-//    [self.view addSubview:innerWebView];
+  
 }
 
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
@@ -978,7 +857,7 @@
     NSDictionary *userInfo = notification.userInfo;
     NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
     
-    NSLog(@"indexPath row:%ld",(long)indexPath.row);
+    //NSLog(@"indexPath row:%ld",(long)indexPath.row);
     
     [self presentWebViewWithLink:indexPath];
     
@@ -1018,64 +897,5 @@
     modalController.modalPresentationStyle = UIModalPresentationCustom;
     
     [self presentViewController:modalController animated:NO completion:nil];
-    
-//    
-//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-//    
-//    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-//    // UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"modal"];
-//    
-//    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
-//    
-//    formSheet.presentedFormSheetSize = CGSizeMake(850, 700);
-//    //    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
-//    formSheet.shadowRadius = 2.0;
-//    formSheet.shadowOpacity = 0.3;
-//    formSheet.shouldDismissOnBackgroundViewTap = YES;
-//    formSheet.shouldCenterVertically = YES;
-//    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
-//    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTop;
-//    // formSheet.keyboardMovementStyle = MZFormSheetKeyboardMovementStyleMoveToTopInset;
-//    // formSheet.landscapeTopInset = 50;
-//    // formSheet.portraitTopInset = 100;
-//    
-//    __weak MZFormSheetController *weakFormSheet = formSheet;
-//    
-//    
-//    // If you want to animate status bar use this code
-//    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
-//        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
-//        if ([navController.topViewController isKindOfClass:[SocialWebView class]]) {
-//            SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
-//            mzvc.urlString = urlString;
-//            //  mzvc.showStatusBar = NO;
-//        }
-//        
-//        
-//        [UIView animateWithDuration:0.3 animations:^{
-//            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-//                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
-//            }
-//        }];
-//    };
-//    
-//    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
-//        // Passing data
-//        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-//        
-//        navController.topViewController.title = @"";
-//        
-//        navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-//        SocialWebView *mzvc = (SocialWebView *)navController.topViewController;
-//        mzvc.urlString = urlString;
-//    };
-//    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
-//    
-//    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
-//    
-//    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-//        
-//    }];
-    
 }
 @end

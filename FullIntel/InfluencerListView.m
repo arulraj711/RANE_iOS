@@ -89,7 +89,7 @@
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Influencer"];
     self.influencerArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    NSLog(@"influencer array count:%d",self.influencerArray.count);
+    //NSLog(@"influencer array count:%d",self.influencerArray.count);
     [self.influencerTableView reloadData];
 }
 
@@ -98,7 +98,7 @@
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Influencer"];
     self.influencerArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    NSLog(@"influencer array count:%d",self.influencerArray.count);
+    //NSLog(@"influencer array count:%d",self.influencerArray.count);
     [self.influencerTableView reloadData];
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -129,10 +129,10 @@
 
 -(void)backBtnPress {
     if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
-        NSLog(@"left view opened");
+        //NSLog(@"left view opened");
         [self.revealController showViewController:self.revealController.frontViewController];
     } else {
-        NSLog(@"left view closed");
+        //NSLog(@"left view closed");
         [self.revealController showViewController:self.revealController.leftViewController];
     }
 }
@@ -170,7 +170,7 @@
     NSManagedObject *author = [authorArray objectAtIndex:0];
     cell.authorName.text = [author valueForKey:@"name"];
     cell.authorTitle.text = [author valueForKey:@"title"];
-    NSLog(@"author image url:%@ and author:%@",[author valueForKey:@"image"],author);
+    //NSLog(@"author image url:%@ and author:%@",[author valueForKey:@"image"],author);
     [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
     cell.title.text = [influencer valueForKey:@"title"];
     cell.descTextView.text = [influencer valueForKey:@"desc"];

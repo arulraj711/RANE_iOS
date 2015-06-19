@@ -512,15 +512,15 @@
 
 - (void)reloadRowsForItems:(NSArray *)items withRowAnimation:(RATreeViewRowAnimation)animation
 {
-    NSLog(@"reload items:%@",items);
+   // NSLog(@"reload items:%@",items);
   NSMutableArray *indexes = [NSMutableArray array];
   UITableViewRowAnimation tableViewRowAnimation = [RATreeView tableViewRowAnimationForTreeViewRowAnimation:animation];
   for (id item in items) {
     NSIndexPath *indexPath = [self indexPathForItem:item];
-      NSLog(@"selected index path:%ld",(long)indexPath.row);
+     // NSLog(@"selected index path:%ld",(long)indexPath.row);
     [indexes addObject:indexPath];
   }
-    NSLog(@"reload indexes:%@",indexes);
+   // NSLog(@"reload indexes:%@",indexes);
   [self.tableView reloadRowsAtIndexPaths:indexes withRowAnimation:tableViewRowAnimation];
 }
 

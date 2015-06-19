@@ -33,11 +33,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CommentsExpire) name:@"CommentsExpire" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(markCommentAsRead) name:@"markCommentAsRead" object:nil];
     
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(changeInputMode:)
-//                                                 name:UITextInputCurrentInputModeDidChangeNotification object:nil];
-    
     NSString *username = [[NSUserDefaults standardUserDefaults]objectForKey:@"username"];
     
     NSString *userImage = [[NSUserDefaults standardUserDefaults]objectForKey:@"photoUrl"];
@@ -48,7 +43,6 @@
     } else {
         [self.senderImage setImageWithString:username color:[UIColor lightGrayColor] circular:true fontName:@"Open Sans"];
     }
-    
    
     [self fetchCommentsForArticleId];
     
@@ -60,11 +54,7 @@
 
 
 -(void)viewWillAppear:(BOOL)animated{
-    
-    
     [super viewWillAppear:animated];
-    
-    
     self.navigationController.navigationBarHidden=YES;
 }
 
@@ -73,9 +63,6 @@
     //NSLog(@"before comments count:%d",self.commentsArray.count);
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"commentStatusUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithInt:0],@"totalComments":[NSNumber numberWithInt:self.commentsArray.count]}];
-    
-    
-    //[[NSNotificationCenter defaultCenter]postNotificationName:@"commentStatusUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithInt:0]}];
 }
 
 -(void)CommentsExpire {
@@ -93,7 +80,7 @@
     NSArray *filterArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if(filterArray.count != 0) {
         NSManagedObject *curatedNews = [filterArray objectAtIndex:0];
-        NSLog(@"comments:%@",[curatedNews valueForKey:@"comments"]);
+        //NSLog(@"comments:%@",[curatedNews valueForKey:@"comments"]);
         NSManagedObject *userComments = [curatedNews valueForKey:@"comments"];
         NSSet *commentSet = [userComments valueForKey:@"comments"];
         self.commentsArray = [[NSMutableArray alloc]initWithArray:[commentSet allObjects]];
@@ -121,24 +108,6 @@
     if(commentIdArray.count != 0){
         [[FISharedResources sharedResourceManager]markCommentAsReadWithDetails:resultStr];
     }
-    
-    
-//    "{
-//    ""userId"":""3"",
-//    ""securityToken"":""51595184fcf885dd67a912d8ece7cd0755d440a4"",
-//    ""customerId"": ""1"",
-//    ""commentList"":[ {
-//        ""id"":""3""
-//    },
-//    {
-//        ""id"":""4""
-//    }],
-//    ""articleId"": ""3799265c-254b-4c79-8c32-96edfeeb2bb3"",
-//    ""activityTypeId"":""1"",
-//    ""version"": 1
-//}"
-    
-    
     [self.commentsTableView reloadData];
 }
 
@@ -212,10 +181,6 @@
             [window makeToast:@"Please enter a comment." duration:1 position:CSToastPositionCenter];
         }
     }
-    
-    
-   
-    
     return YES;
 }
 
@@ -248,7 +213,7 @@
     
     // Use keyboardEndFrame
     
-       NSLog(@"view frame height before keyboardDidShow:%f",self.view.frame.size.height);
+       //NSLog(@"view frame height before keyboardDidShow:%f",self.view.frame.size.height);
     
     CGRect rect = self.view.frame;
     
@@ -261,14 +226,14 @@
   
     self.view.frame = rect;
     
-        NSLog(@"view frame height after keyboardDidShow:%f",self.view.frame.size.height);
+        //NSLog(@"view frame height after keyboardDidShow:%f",self.view.frame.size.height);
     
     [UIView commitAnimations];
     
 }
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
-    NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
+   // NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
     if(fromInterfaceOrientation == 1) {
        
     }else {
@@ -287,7 +252,7 @@
     [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
     
     
-       NSLog(@"view frame height before keyboardDidHide:%f",self.view.frame.size.height);
+      // NSLog(@"view frame height before keyboardDidHide:%f",self.view.frame.size.height);
     
     
     CGRect rect = self.view.frame;
@@ -301,7 +266,7 @@
     self.view.frame = rect;
     
     
-    NSLog(@"view frame height after keyboardDidHide:%f",self.view.frame.size.height);
+    //NSLog(@"view frame height after keyboardDidHide:%f",self.view.frame.size.height);
     
     [UIView commitAnimations];
 }
@@ -309,7 +274,7 @@
 -(void)changeInputMode:(NSNotification *)notification
 {
     NSString *inputMethod = [[UITextInputMode currentInputMode] primaryLanguage];
-    NSLog(@"inputMethod=%@",inputMethod);
+    //NSLog(@"inputMethod=%@",inputMethod);
     if([inputMethod isEqualToString:@"emoji"]) {
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.4]; // to slide the view up
@@ -322,112 +287,4 @@
     }
     
 }
-
-
-
-//-(void)keyboardWillAppear {
-//    // Move current view up / down with Animation
-////    if (self.view.frame.origin.y >= 0)
-////    {
-////        [self moveViewUp:YES];
-////    }
-////    else if (self.view.frame.origin.y < 0)
-////    {
-////        [self moveViewUp:NO];
-////    }
-//    
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:0.4]; // to slide the view up
-//    
-//    CGRect rect = self.view.frame;
-//    rect.size.height -= k_KEYBOARD_OFFSET;
-//    self.view.frame = rect;
-//    
-//    [UIView commitAnimations];
-//}
-//
-//-(void)keyboardWillDisappear {
-////    if (self.view.frame.origin.y >= 0)
-////    {
-////        [self moveViewUp:YES];
-////    }
-////    else if (self.view.frame.origin.y < 0)
-////    {
-////        [self moveViewUp:NO];
-////    }
-//    
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:0.4]; // to slide the view up
-//    
-//    CGRect rect = self.view.frame;
-//    rect.size.height += k_KEYBOARD_OFFSET;
-//    self.view.frame = rect;
-//    
-//    [UIView commitAnimations];
-//}
-//
-//-(void)textFieldDidBeginEditing:(UITextField *)sender
-//{
-//    //if ([sender isEqual:txtEmail]) // txtEmail is UITextField control for email address
-//   // {
-//        //move the main view up, so the keyboard will not hide it.
-//        if  (self.view.frame.origin.y >= 0)
-//        {
-//           // [self moveViewUp:YES];
-//        }
-//   // }
-//}
-//
-////Custom method to move the view up/down whenever the keyboard is appeared / disappeared
-//-(void)moveViewUp:(BOOL)bMovedUp
-//{
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:0.4]; // to slide the view up
-//    
-//    CGRect rect = self.view.frame;
-//    if (bMovedUp) {
-//        // 1. move the origin of view up so that the text field will come above the keyboard
-//        //rect.origin.y -= k_KEYBOARD_OFFSET;
-//        
-//        // 2. increase the height of the view to cover up the area behind the keyboard
-//        rect.size.height -= k_KEYBOARD_OFFSET;
-//        NSLog(@"show height:%f",rect.size.height);
-//    } else {
-//        // revert to normal state of the view.
-//        //rect.origin.y += k_KEYBOARD_OFFSET;
-//        rect.size.height += k_KEYBOARD_OFFSET;
-//        NSLog(@"hide height:%f",rect.size.height);
-//    }
-//    
-//    self.view.frame = rect;
-//    
-//    [UIView commitAnimations];
-//}
-//
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    // register keyboard notifications to appear / disappear the keyboard
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillAppear)
-//                                                 name:UIKeyboardWillShowNotification
-//                                               object:nil];
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillDisappear)
-//                                                 name:UIKeyboardWillHideNotification
-//                                               object:nil];
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    // unregister for keyboard notifications while moving to the other screen.
-//    [[NSNotificationCenter defaultCenter] removeObserver:self
-//                                                    name:UIKeyboardWillShowNotification
-//                                                  object:nil];
-//    
-//    [[NSNotificationCenter defaultCenter] removeObserver:self
-//                                                    name:UIKeyboardWillHideNotification
-//                                                  object:nil];
-//}
-
 @end

@@ -57,7 +57,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"did select more tableview");
+   // NSLog(@"did select more tableview");
 //    if(indexPath.row == 0) {
 //        [self targetedShare:SLServiceTypeFacebook];
 //    } else if(indexPath.row == 1) {

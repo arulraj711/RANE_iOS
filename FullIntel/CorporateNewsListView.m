@@ -192,7 +192,7 @@
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
-    NSLog(@"category id in curated news:%@",categoryId);
+   // NSLog(@"category id in curated news:%@",categoryId);
     self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
@@ -244,7 +244,7 @@
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     }
     
-    NSLog(@"devices:%d",self.devices.count);
+    //NSLog(@"devices:%d",self.devices.count);
     _spinner.hidden = YES;
     [_spinner stopAnimating];
     [self.articlesTableView reloadData];
@@ -372,17 +372,17 @@
 -(void)backBtnPress {
     
     if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
-        NSLog(@"left view opened");
+       // NSLog(@"left view opened");
         [self.revealController showViewController:self.revealController.frontViewController];
     } else {
-        NSLog(@"left view closed");
+       // NSLog(@"left view closed");
         [self.revealController showViewController:self.revealController.leftViewController];
     }
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"number of");
+   // NSLog(@"number of");
     // Return the number of rows in the section.
     NSInteger rowCnt;
     if(self.devices.count != 0) {
@@ -433,9 +433,6 @@
                 cell.authorName.text = [authorObject valueForKey:@"name"];
             }
         }
-        
-        
-        
        // NSLog(@"multiple author array:%@",multipleAuthorArray);
         //cell.authorTitle.text = [author valueForKey:@"title"];
         //[cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
@@ -474,12 +471,12 @@
         cell.outlet.text = [curatedNews valueForKey:@"outlet"];
         CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
         CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.title.font constrainedToSize:maximumLabelSize lineBreakMode:cell.title.lineBreakMode];
-        NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
+        //NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
 
         
         cell.titleHeightConstraint.constant = expectedLabelSize.height;
         NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
-        NSLog(@"marked important staus:%@",number);
+        //NSLog(@"marked important staus:%@",number);
         if(number == [NSNumber numberWithInt:1]) {
             
             [cell.markedImpButton setSelected:YES];
@@ -645,7 +642,7 @@
     NSString *markedImpUserName = [curatedNews valueForKey:@"markAsImportantUserName"];
     NSString *loginUserIdString = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"]];
     
-    NSLog(@"markedUserId:%@ and markedUserName:%@ and loginUserId:%@ and intvalue:%d",markedImpUserId,markedImpUserName,loginUserIdString,[loginUserIdString intValue]);
+    //NSLog(@"markedUserId:%@ and markedUserName:%@ and loginUserId:%@ and intvalue:%d",markedImpUserId,markedImpUserName,loginUserIdString,[loginUserIdString intValue]);
     
 //    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
 //    f.numberStyle = NSNumberFormatterDecimalStyle;
@@ -738,7 +735,7 @@
     }else {
         [savedBtn setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
-        NSLog(@"curated news detail:%@",curatedNewsDetail);
+        //NSLog(@"curated news detail:%@",curatedNewsDetail);
         if(curatedNewsDetail == nil) {
             // NSLog(@"details is null");
             NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];

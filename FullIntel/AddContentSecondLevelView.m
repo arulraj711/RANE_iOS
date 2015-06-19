@@ -39,7 +39,7 @@
     layout = (id)[self.categoryCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    NSLog(@"current device orientation:%ld",(long)orientation);
+    //NSLog(@"current device orientation:%ld",(long)orientation);
     if(orientation == 1) {
         layout.blockPixels = CGSizeMake(170,200);
     }else {
@@ -146,7 +146,7 @@
 
 - (void)loadSelectedCategory:(id)sender
 {
-    NSLog(@"load seleced is working");
+   // NSLog(@"load seleced is working");
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     self.innerArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"innerArray"]];
@@ -154,7 +154,7 @@
    // NSLog(@"second level previous array:%@ and selected id:%@",self.previousArray,self.selectedId);
     //if([self.previousArray containsObject:self.selectedId]) {
         NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"secondLevelSelection"];
-        NSLog(@"already selected array count:%d",alreadySelectedArray.count);
+       // NSLog(@"already selected array count:%d",alreadySelectedArray.count);
         if(alreadySelectedArray.count ==0) {
             for(FIContentCategory *category in self.innerArray) {
                 if(category.isSubscribed) {
@@ -175,7 +175,7 @@
 //    } else {
 //        self.selectedIdArray = [[NSMutableArray alloc]init];
 //    }
-    NSLog(@"second level selected id array:%@",self.selectedIdArray);
+   // NSLog(@"second level selected id array:%@",self.selectedIdArray);
     [self.categoryCollectionView reloadData];
 
     

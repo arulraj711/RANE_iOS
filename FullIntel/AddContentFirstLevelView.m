@@ -39,7 +39,7 @@
     layout = (id)[self.contentCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    NSLog(@"current device orientation:%ld",(long)orientation);
+    //NSLog(@"current device orientation:%ld",(long)orientation);
     if(orientation == 1) {
         layout.blockPixels = CGSizeMake(120,150);
     }else {
@@ -218,7 +218,7 @@
 }
 
 - (void)secondLevelDidFinish:(AddContentSecondLevelView*)secondLevel {
-     NSLog(@"first level delegate method is working fine:%@",secondLevel.previousArray);
+    // NSLog(@"first level delegate method is working fine:%@",secondLevel.previousArray);
     if(secondLevel.previousArray != 0) {
         self.selectedIdArray = secondLevel.previousArray;
     } else {
@@ -337,7 +337,7 @@
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        NSLog(@"final json format:%@",resultStr);
+       // NSLog(@"final json format:%@",resultStr);
         
         if(_isContentChanged){
         
@@ -417,9 +417,9 @@
 
 -(void)upgradeTap:(UITapGestureRecognizer *)sender {
     UIView *view = sender.view;
-    NSLog(@"tag value:%d",view.tag);
+    //NSLog(@"tag value:%d",view.tag);
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:view.tag];
-    NSLog(@"slected name:%@ and id:%@",contentCategory.name,contentCategory.categoryId);
+    //NSLog(@"slected name:%@ and id:%@",contentCategory.name,contentCategory.categoryId);
     if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:2]]) {
         //Stock Watch
         [FIUtils callRequestionUpdateWithModuleId:2 withFeatureId:15];
@@ -462,7 +462,7 @@
        // }
     }
     
-    NSLog(@"after selection:%@ and checked:%@ and unchecked:%@",self.selectedIdArray,self.checkedArray,self.uncheckedArray);
+    //NSLog(@"after selection:%@ and checked:%@ and unchecked:%@",self.selectedIdArray,self.checkedArray,self.uncheckedArray);
 
 }
 

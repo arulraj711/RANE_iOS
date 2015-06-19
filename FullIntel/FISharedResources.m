@@ -502,7 +502,7 @@
             NSMutableArray *socialMediaArray = [[NSMutableArray alloc]init];
             for(NSDictionary *socialMediaDic in authorSocialMediaArray) {
                 NSManagedObject *authorSocialMedia = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorSocialMedia" inManagedObjectContext:managedObjectContext];
-                NSLog(@"social isactive:%@",[socialMediaDic valueForKey:@"isactive"]);
+               // NSLog(@"social isactive:%@",[socialMediaDic valueForKey:@"isactive"]);
                 [authorSocialMedia setValue:[socialMediaDic valueForKey:@"isactive"] forKey:@"isactive"];
                 [authorSocialMedia setValue:[socialMediaDic valueForKey:@"mediatype"] forKey:@"mediatype"];
                 [authorSocialMedia setValue:[socialMediaDic valueForKey:@"mediatypeId"] forKey:@"mediatypeId"];
@@ -639,7 +639,7 @@
                 [userComments setValue:[responseObject valueForKey:@"version"] forKey:@"version"];
                 
                 NSArray *commentsArray = [responseObject valueForKey:@"commentList"];
-                NSLog(@"comment array:%@",commentsArray);
+               // NSLog(@"comment array:%@",commentsArray);
                 NSMutableArray *userCommentsArray = [[NSMutableArray alloc]init];
                 for(NSDictionary *commentsDic in commentsArray) {
                     NSManagedObject *comments = [NSEntityDescription insertNewObjectForEntityForName:@"Comments" inManagedObjectContext:managedObjectContext];

@@ -159,7 +159,7 @@
 }
 
 -(void)afterLogin:(NSNotification *)notification {
-    NSLog(@"notification object:%@",notification.object);
+   // NSLog(@"notification object:%@",notification.object);
     
     if([[notification.object objectForKey:@"statusCode"] intValue]==200 && [[notification.object objectForKey:@"logicStatusCode"]intValue] == 1) {
        
@@ -278,16 +278,6 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     UITextField *emailTextField = [alertView textFieldAtIndex:0];
-    NSLog(@"%@",emailTextField.text);
-    
-    NSLog(@"Button Index:%ld",(long)buttonIndex);
-
-    
-    
-    
-    
-    
-    
     if(buttonIndex==1){
         
         if([emailTextField.text length] == 0) {

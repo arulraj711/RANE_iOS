@@ -119,7 +119,7 @@
         cell =(LegendCollectionViewCell*) [cv dequeueReusableCellWithReuseIdentifier:@"LegendCell" forIndexPath:indexPath];
         UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(7.5, 7.5, 15, 15)];
         NSString *imageName = [NSString stringWithFormat:@"%@_white",[self.legendsArray objectAtIndex:indexPath.row]];
-        NSLog(@"detail view image name:%@",imageName);
+       // NSLog(@"detail view image name:%@",imageName);
         iconImage.image = [UIImage imageNamed:imageName];
         
         [cell.contentView addSubview:iconImage];

@@ -198,10 +198,10 @@ NHAlignmentFlowLayout *layout;
 
     
     if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
-        NSLog(@"left view opened");
+        //NSLog(@"left view opened");
         [self.revealController showViewController:self.revealController.frontViewController];
     } else {
-        NSLog(@"left view closed");
+       // NSLog(@"left view closed");
         [self.revealController showViewController:self.revealController.leftViewController];
     }
     
@@ -309,14 +309,14 @@ NHAlignmentFlowLayout *layout;
 
     if(toInterfaceOrientation==UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
 
-        NSLog(@"view size in Landscape :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+       // NSLog(@"view size in Landscape :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
 
         layout.alignment = NHAlignmentTopLeftAligned;
         self.stockCollectionView.collectionViewLayout = layout;
 
     }else if(toInterfaceOrientation==UIInterfaceOrientationPortrait){
 
-          NSLog(@"view size in Portrait :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+         // NSLog(@"view size in Portrait :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
 
         layout.alignment = NHAlignmentJustified;
         self.stockCollectionView.collectionViewLayout = layout;
@@ -355,14 +355,14 @@ NHAlignmentFlowLayout *layout;
     
     if(fromInterfaceOrientation==UIInterfaceOrientationLandscapeLeft || fromInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
         
-        NSLog(@"view size in Landscape :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+       // NSLog(@"view size in Landscape :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
         
         layout.alignment = NHAlignmentTopLeftAligned;
         self.stockCollectionView.collectionViewLayout = layout;
         
     }else if(fromInterfaceOrientation==UIInterfaceOrientationPortrait){
         
-        NSLog(@"view size in Portrait :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+       // NSLog(@"view size in Portrait :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
         
         layout.alignment = NHAlignmentJustified;
         self.stockCollectionView.collectionViewLayout = layout;
