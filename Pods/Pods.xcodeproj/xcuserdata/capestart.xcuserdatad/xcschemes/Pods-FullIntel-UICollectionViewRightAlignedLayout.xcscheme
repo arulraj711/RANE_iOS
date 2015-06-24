@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DD19316AE063415FAD80D113"
+               BlueprintIdentifier = "466464A250FDA1C6E36414E7"
                BuildableName = "libPods-FullIntel-UICollectionViewRightAlignedLayout.a"
                BlueprintName = "Pods-FullIntel-UICollectionViewRightAlignedLayout"
                ReferencedContainer = "container:Pods.xcodeproj">
