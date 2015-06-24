@@ -43,7 +43,7 @@
     
     [PFUser logInWithUsernameInBackground: [[NSUserDefaults standardUserDefaults]objectForKey:@"userName"] password:[[NSUserDefaults standardUserDefaults]objectForKey:@"passWord"]
                                     block:^(PFUser *user, NSError *error) {
-                                        if (user) {
+                                        if (user.isNew) {
                                             // Do stuff after successful login.
                                             
                                             [[FISharedResources sharedResourceManager] markedImportantModuleObject];

@@ -106,7 +106,7 @@
         
         [FIWebService logoutWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([authenticationFlag isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                
+                [PFUser logOut];
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"logoutSuccess" object:nil];
