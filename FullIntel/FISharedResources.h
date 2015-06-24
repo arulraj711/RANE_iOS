@@ -38,6 +38,7 @@
 - (void)showProgressView;
 - (void)hideProgressView;
 - (BOOL)serviceIsReachable;
+-(void)markedImportantModuleObject;
 @property (nonatomic,strong) NSMutableArray *menuList;
 @property (nonatomic,strong) NSMutableArray *contentCategoryList;
 @property (nonatomic,strong) NSMutableArray *contentTypeList;

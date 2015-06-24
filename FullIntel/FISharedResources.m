@@ -16,6 +16,7 @@
 #import "FIContentCategory.h"
 #import "UIView+Toast.h"
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 
 @implementation FISharedResources
@@ -53,7 +54,10 @@
     if([self serviceIsReachable]) {
        // [self showProgressHUDForView];
         [FIWebService loginProcessWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+            
+            
+            
+            
             NSDictionary *preferenceDic = [responseObject objectForKey:@"preferences"];
             [[NSUserDefaults standardUserDefaults]setObject:[preferenceDic objectForKey:@"headerColor"] forKey:@"headerColor"];
             [[NSUserDefaults standardUserDefaults]setObject:[preferenceDic objectForKey:@"highlightColor"] forKey:@"highlightColor"];
@@ -994,9 +998,18 @@
 
 - (void)hideProgressView
 {
-    
-    
     [progressView removeFromSuperview];
+}
+
+
+#pragma mark ParseObjectCreation Methods
+-(void)markedImportantModuleObject{
+    
+    PFObject *maleRespond = [PFObject objectWithClassName:@"MarkedImportant"];
+    maleRespond[@"author"]=[PFUser currentUser];
+    maleRespond[@"markedImpCount"] =@0;
+    [maleRespond saveInBackground];
+    
 }
 
 @end

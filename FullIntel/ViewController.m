@@ -14,6 +14,7 @@
 #import "FIWebService.h"
 #import "CMPopTipView.h"
 #import "SocialWebView.h"
+#import <Parse/Parse.h>
 //#import "WToast.h"
 //#import "UIImageView+AnimationImages.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -36,6 +37,8 @@
     self.passwordTextField.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];;
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 5.0f;
+    
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -145,6 +148,37 @@
         
          [[NSUserDefaults standardUserDefaults]setObject:_usernameTextField.text forKey:@"userName"];
          [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"passWord"];
+        
+        PFUser *user = [PFUser user];
+        user.username = _usernameTextField.text;
+        user.password = _passwordTextField.text;
+        // user.email = @"email@example.com";
+        
+        // other fields can be set if you want to save more information
+        //   user[@"phone"] = @"650-555-0000";
+        
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                // Hooray! Let them use the app now.
+                
+                NSLog(@"User SignUp successfully");
+                
+               // [[PFUser currentUser] setObject:profileInfo forKey:@"profile"];
+                [[PFUser currentUser] saveInBackground];
+                
+                
+            } else {
+                NSString *errorString = [error userInfo][@"error"];
+                
+                NSLog(@"error :%@",errorString);
+                // Show the errorString somewhere and let the user try again.
+            }
+        }];
+        
+        
+       
+        
+        
         
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         [gradedetails setObject:_usernameTextField.text forKey:@"email"];

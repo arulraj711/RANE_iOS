@@ -14,6 +14,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import <TwitterKit/TwitterKit.h>
 #import "FIUtils.h"
+#import <Parse/Parse.h>
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
@@ -27,6 +28,20 @@
 
     
     [Fabric with:@[CrashlyticsKit,TwitterKit]];
+    
+    
+    
+    // [Optional] Power your app with Local Datastore. For more info, go to
+    // https://parse.com/docs/ios_guide#localdatastore/iOS
+    [Parse enableLocalDatastore];
+    
+    // Initialize Parse.
+    [Parse setApplicationId:@"j62pJjU7mdLOJB6IBq4cOG4JgBEJBjowFbcsZNDb"
+                  clientKey:@"r0Jy41kdPyujC1XEmbgAHY7y6RGBnncrUcjxjqPE"];
+    
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

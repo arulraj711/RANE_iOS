@@ -17,6 +17,7 @@
 #import "FIUtils.h"
 #import "AddContentFirstLevelView.h"
 #import "ResearchRequestPopoverView.h"
+#import <Parse/Parse.h>
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface CorporateNewsListView ()
@@ -39,6 +40,27 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readStatusUpdate:) name:@"readStatusUpdate" object:nil];
     
+    
+    [PFUser logInWithUsernameInBackground: [[NSUserDefaults standardUserDefaults]objectForKey:@"userName"] password:[[NSUserDefaults standardUserDefaults]objectForKey:@"passWord"]
+                                    block:^(PFUser *user, NSError *error) {
+                                        if (user) {
+                                            // Do stuff after successful login.
+                                            
+                                            [[FISharedResources sharedResourceManager] markedImportantModuleObject];
+                                            
+//                                            NSLog(@"coming into male in createUsers:%@ and %@",user,[PFUser currentUser]);
+//                                            
+//                                            PFObject *editObject = [PFObject objectWithClassName:@"TestProfile"];
+//                                            editObject[@"author"]=[PFUser currentUser];
+//                                            //editObject[@"CorporateLoad"] =@"";
+//                                            [editObject saveInBackground];
+                                            
+                                        } else {
+                                            // The login failed. Check error to see why.
+                                            
+                                            NSLog(@"Error in logIn");
+                                        }
+                                    }];
     
    // [self.revealController showViewController:self.revealController.leftViewController];
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
@@ -692,6 +714,19 @@
                 [self.view makeToast:messageStrings duration:2.0 position:CSToastPositionCenter];
             }
             
+            //update markedimportant count in parse
+            PFQuery *postQuery = [PFQuery queryWithClassName:@"MarkedImportant"];
+            [postQuery whereKey:@"author" equalTo:[PFUser currentUser]];
+            [postQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (!error) {
+                    // Reload table
+                    PFObject *share=[objects objectAtIndex:0];
+                    NSInteger selectCount=[[share objectForKey:@"markedImpCount"]integerValue];
+                    selectCount--;
+                    [share setObject:[NSNumber numberWithInteger:selectCount] forKey:@"markedImpCount"];
+                    [share saveInBackground];
+                }
+            }];
             
         }else {
             [markedImpBtn setSelected:YES];
@@ -703,6 +738,20 @@
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
+            
+            //update markedimportant count in parse
+            PFQuery *postQuery = [PFQuery queryWithClassName:@"MarkedImportant"];
+            [postQuery whereKey:@"author" equalTo:[PFUser currentUser]];
+            [postQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (!error) {
+                    // Reload table
+                    PFObject *share=[objects objectAtIndex:0];
+                    NSInteger selectCount=[[share objectForKey:@"markedImpCount"]integerValue];
+                    selectCount++;
+                    [share setObject:[NSNumber numberWithInteger:selectCount] forKey:@"markedImpCount"];
+                    [share saveInBackground];
+                }
+            }];
         }
     } else {
         [FIUtils showNoNetworkToast];
