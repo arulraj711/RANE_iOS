@@ -11,6 +11,7 @@
 #import <Social/Social.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FIUtils.h"
+#import "SocialWebView.h"
 @interface MorePopoverView ()
 
 @end
@@ -58,13 +59,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    // NSLog(@"did select more tableview");
-//    if(indexPath.row == 0) {
-//        [self targetedShare:SLServiceTypeFacebook];
-//    } else if(indexPath.row == 1) {
-//        [self targetedShare:SLServiceTypeTwitter];
-//    } else if(indexPath.row == 2) {
-//        [self targetedShare:@""];
-//    }
+    if(indexPath.row == 0) {
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        
+        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+        SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        socialWebViewObj.titleStr=@"LinkedIn Share";
+        NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",self.articleUrl,self.articleTitle,self.articleDesc];
+        NSLog(@"linked in url:%@",urlString);
+       NSString* urlTextEscaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSLog(@"after link:%@",urlTextEscaped);
+        socialWebViewObj.urlString=urlTextEscaped;
+        modalController.modalPresentationStyle = UIModalPresentationCustom;
+        
+        [self presentViewController:modalController animated:NO completion:nil];
+        
+    } else if(indexPath.row == 1) {
+        [self targetedShare:SLServiceTypeFacebook];
+        
+    } else if(indexPath.row == 2) {
+        //[self targetedShare:@""];
+       [self targetedShare:SLServiceTypeTwitter];
+    } else {
+        [self targetedShare:@""];
+    }
     
     
     
@@ -92,9 +110,9 @@
         SLComposeViewController *shareView = [SLComposeViewController composeViewControllerForServiceType:serviceType];
         
         [shareView setInitialText:self.articleTitle];
-//        UIImageView *image = [[UIImageView alloc]init];
-//        [image sd_setImageWithURL:[NSURL URLWithString:self.articleImageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
-//        [shareView addImage:image.image];
+        UIImageView *image = [[UIImageView alloc]init];
+        [image sd_setImageWithURL:[NSURL URLWithString:self.articleImageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
+        [shareView addImage:image.image];
         //[shareView removeAllImages];
         [shareView addURL:[NSURL URLWithString:self.articleUrl]];
         [self presentViewController:shareView animated:YES completion:nil];

@@ -21,6 +21,7 @@
 - (IBAction)signInButtonClicked:(id)sender;
 @property BOOL isAnimated;
 - (IBAction)forgetPasswordButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *logoIcon;
 
 - (IBAction)infoButtonPressed:(id)sender;
 

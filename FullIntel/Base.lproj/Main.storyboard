@@ -198,6 +198,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundImageView" destination="elN-gT-OTN" id="gfU-7q-JKt"/>
+                        <outlet property="logoIcon" destination="Szh-bE-irc" id="5tD-bz-DQY"/>
                         <outlet property="outerView" destination="St9-FG-tJi" id="Jtd-Dd-m4P"/>
                         <outlet property="passwordTextField" destination="ouB-iA-Gdj" id="6DU-ws-khm"/>
                         <outlet property="usernameTextField" destination="qJD-2r-Wir" id="fiX-7S-tvI"/>

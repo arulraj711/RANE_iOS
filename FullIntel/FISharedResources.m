@@ -133,6 +133,27 @@
         // [self showProgressHUDForView];
         [FIWebService validateUserOnResumeWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                //Update read/unread status in DB
+                NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                NSPredicate *predicate  = [NSPredicate predicateWithFormat:@"isReadStatusSync == %@",[NSNumber numberWithBool:YES]];
+                [fetchRequest setPredicate:predicate];
+                NSArray *syncArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                NSLog(@"sync array count:%lu",(unsigned long)syncArray.count);
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    for(NSManagedObject *curatedNews in syncArray) {
+                        [self updateReadStatusInBackgroundWithArticleId:[curatedNews valueForKey:@"articleId"] withStatus:1];
+                        NSFetchRequest *fetchRequest1 = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                        NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"articleId == %@",[curatedNews valueForKey:@"articleId"]];
+                        [fetchRequest1 setPredicate:predicate1];
+                        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest1 error:nil] mutableCopy];
+                        if(newPerson.count != 0) {
+                            NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+                            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isReadStatusSync"];
+                        }
+                        [managedObjectContext save:nil];
+                    }
+                });
             } else {
                 [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
             }
@@ -145,6 +166,17 @@
     }
 }
 
+
+-(void)updateReadStatusInBackgroundWithArticleId:(NSString *)articleId withStatus:(int)status {
+    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [resultDic setObject:articleId forKey:@"selectedArticleId"];
+    [resultDic setObject:@"1" forKey:@"status"];
+    [resultDic setObject:@"true" forKey:@"isSelected"];
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+    [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+}
 
 -(void)showLoginView:(NSNumber *)authFlag {
     NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
@@ -208,93 +240,90 @@
     if([self serviceIsReachable]) {
     [FIWebService fetchCuratedNewsListWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-       // [self clearEntity:@"CuratedNews"];
         [self hideProgressView];
-        NSArray *influencerArray = [responseObject objectForKey:@"articleList"];
+        NSArray *curatedNewsArray = [responseObject objectForKey:@"articleList"];
             
-            if(influencerArray.count == 0) {
+            //Handle Pagination
+            if(curatedNewsArray.count == 0) {
                 if(lastArticleId.length != 0){
                     UIWindow *window = [[UIApplication sharedApplication]windows][0];
                     [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
                 }
             }
             
+            //Handle pull down to refresh
             if([updownFlag isEqualToString:@"up"]) {
                 if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
                     [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
                 }
-//                else if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-//                    [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
-//                }
-                
             }
             
-        for(NSDictionary *dic in influencerArray) {
+        for(NSDictionary *dic in curatedNewsArray) {
             
             NSManagedObjectContext *context;
             // Create a new managed object
-            NSManagedObject *influencer;
+            NSManagedObject *curatedNews;
+            NSManagedObject *curatedNewsDrillIn;
             context = [self managedObjectContext];
             
             
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[dic objectForKey:@"id"]];
             [fetchRequest setPredicate:predicate];
-            //    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
             NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
             
             if(existingArray.count != 0) {
-                influencer = [existingArray objectAtIndex:0];
+                //Excisting Object
+                curatedNews = [existingArray objectAtIndex:0];
             } else {
-                influencer = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
+                //Create new object
+                curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
+                
+                
+                [curatedNews setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
                 [_articleIdArray addObject:[dic objectForKey:@"id"]];
             }
             
+            //Set values in local db
+            [curatedNews setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
+            [curatedNews setValue:[dic objectForKey:@"articleHeading"] forKey:@"title"];
+            [curatedNews setValue:[dic objectForKey:@"articleDescription"] forKey:@"desc"];
+            [curatedNews setValue:[dic objectForKey:@"articleModifiedDate"] forKey:@"date"];
+            [curatedNews setValue:[dic objectForKey:@"articlePublishedDate"] forKey:@"publishedDate"];
+            [curatedNews setValue:[dic objectForKey:@"articleImageURL"] forKey:@"image"];
+            [curatedNews setValue:[dic objectForKey:@"articleUrl"] forKey:@"articleUrl"];
+            [curatedNews setValue:[dic objectForKey:@"articleTypeId"] forKey:@"articleTypeId"];
+            [curatedNews setValue:[dic objectForKey:@"articleType"] forKey:@"articleType"];
+            [curatedNews setValue:[dic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
             
-            [influencer setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
-            [influencer setValue:[dic objectForKey:@"articleHeading"] forKey:@"title"];
-            [influencer setValue:[dic objectForKey:@"articleDescription"] forKey:@"desc"];
-            [influencer setValue:[dic objectForKey:@"articleModifiedDate"] forKey:@"date"];
-            [influencer setValue:[dic objectForKey:@"articlePublishedDate"] forKey:@"publishedDate"];
-            [influencer setValue:[dic objectForKey:@"articleImageURL"] forKey:@"image"];
-            [influencer setValue:[dic objectForKey:@"articleUrl"] forKey:@"articleUrl"];
-            [influencer setValue:[dic objectForKey:@"articleTypeId"] forKey:@"articleTypeId"];
-            [influencer setValue:[dic objectForKey:@"articleType"] forKey:@"articleType"];
-            [influencer setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
-            [influencer setValue:[dic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
+            
             NSNumber *markImp = [dic valueForKey:@"markAsImportant"];
             if([markImp isEqualToNumber:[NSNumber numberWithInt:1]]){
                 NSDictionary *markedImpDictionary = [dic objectForKey:@"markAsImportantUserDetail"];
-                [influencer setValue:[markedImpDictionary objectForKey:@"name"] forKey:@"markAsImportantUserName"];
-                [influencer setValue:[markedImpDictionary objectForKey:@"userId"] forKey:@"markAsImportantUserId"];
+                [curatedNews setValue:[markedImpDictionary objectForKey:@"name"] forKey:@"markAsImportantUserName"];
+                [curatedNews setValue:[markedImpDictionary objectForKey:@"userId"] forKey:@"markAsImportantUserId"];
             }
-            [influencer setValue:[dic objectForKey:@"saveForLater"] forKey:@"saveForLater"];
+            [curatedNews setValue:[dic objectForKey:@"saveForLater"] forKey:@"saveForLater"];
             
+            //Fetch saved for later data in background
             NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
             if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 NSString *str = [dic objectForKey:@"articleUrl"];
                 if(str.length != 0) {
                     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                         NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
-                        [influencer setValue:string forKey:@"articleUrlData"];
+                        [curatedNews setValue:string forKey:@"articleUrlData"];
                     });
                 }
             }
-            
-            
-            
-            
-           // NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
-//            if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-//                [influencer setValue:[NSNumber numberWithInteger:-3] forKey:@"categoryId"];
-//            } else {
-                [influencer setValue:categoryId forKey:@"categoryId"];
-          //  }
+            [curatedNews setValue:categoryId forKey:@"categoryId"];
+            //Set outlet info
             NSArray *outletArray = [dic objectForKey:@"outlet"];
             if(outletArray.count != 0){
                 NSDictionary *outletDic = [outletArray objectAtIndex:0];
-                 [influencer setValue:[outletDic objectForKey:@"outletname"] forKey:@"outlet"];
+                 [curatedNews setValue:[outletDic objectForKey:@"outletname"] forKey:@"outlet"];
             }
+            //Set author info
             NSArray *authorArray = [dic objectForKey:@"author"];
             NSMutableArray *authorList = [[NSMutableArray alloc]init];
             for(NSDictionary *dict in authorArray) {
@@ -306,11 +335,10 @@
                 [authorList addObject:author];
                 
             }
-          //  NSLog(@"middle");
             NSOrderedSet *Obj = [[NSOrderedSet alloc]initWithArray:authorList];
-            [influencer setValue:Obj forKey:@"author"];
-          
-            NSSet *legendsSet1 = [influencer valueForKey:@"legends"];
+            [curatedNews setValue:Obj forKey:@"author"];
+          //Set legend list info
+            NSSet *legendsSet1 = [curatedNews valueForKey:@"legends"];
             if(legendsSet1.count == 0) {
                 NSArray *legendsArray = [dic objectForKey:@"legendList"];
                 NSMutableArray *legendsList = [[NSMutableArray alloc]init];
@@ -327,10 +355,17 @@
                     
                 }
                 NSSet *legendsSet = [NSSet setWithArray:legendsList];
-                [influencer setValue:legendsSet forKey:@"legends"];
+                [curatedNews setValue:legendsSet forKey:@"legends"];
             }
             
             
+            //Set CuratedNewsDetails
+            curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:context];
+            [curatedNewsDrillIn setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
+//            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"totalComments"] forKey:@"totalComments"];
+//            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"unReadComment"] forKey:@"unReadComment"];
+            [curatedNewsDrillIn setValue:[dic objectForKey:@"articleDetailedDescription"] forKey:@"article"];
+            [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
             
             NSError *error = nil;
             // Save the object to persistent store

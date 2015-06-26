@@ -10,6 +10,9 @@
 #import "AFNetworking.h"
 
 @interface FIWebService : NSObject
+
++(NSString *) getServerURL;
++(void) setServerURL:(NSString *)url;
 +(void)fetchCuratedNewsListWithAccessToken:(NSString*)details
                onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;

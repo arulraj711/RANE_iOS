@@ -15,4 +15,5 @@
 - (IBAction)requestButtonClick:(id)sender;
 @property (nonatomic,strong) NSString *articleImageUrl;
 @property (nonatomic,strong) NSString *articleUrl;
+@property (nonatomic,strong) NSString *articleDesc;
 @end

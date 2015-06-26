@@ -52,6 +52,20 @@
     self.revealController.animationDuration = 0.25;
     
     
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
+    }
+    
+    
+    
    // [self.revealController showViewController:self.revealController.leftViewController];
     
     // Step 4: Apply.
@@ -61,18 +75,23 @@
     return YES;
 }
 
-//#pragma mark - PKRevealing
-//
-//- (void)revealController:(PKRevealController *)revealController didChangeToState:(PKRevealControllerState)state
-//{
-//    NSLog(@"%@ (%d)", NSStringFromSelector(_cmd), (int)state);
-//}
-//
-//- (void)revealController:(PKRevealController *)revealController willChangeToState:(PKRevealControllerState)next
-//{
-//    PKRevealControllerState current = revealController.state;
-//    NSLog(@"%@ (%d -> %d)", NSStringFromSelector(_cmd), (int)current, (int)next);
-//}
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+
+{
+    
+    NSLog(@"coming into get device token");
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"token :%@",token);
+    
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:token forKey:@"deviceToken"];
+    
+    // [[SMUSharedResources sharedResourceManager] setRemoteNotificationDeviceToken:token];
+    
+    
+}
 
 -(void)test {
    // NSLog(@"inside test function");

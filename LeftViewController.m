@@ -115,7 +115,8 @@
     [treeView reloadData];
     
     
-    if(self.data.count > 1) {
+    if(self.data.count > 2) {
+        NSLog(@"come selectrow method");
         [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         [self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
@@ -237,6 +238,26 @@
         [self.data addObject:dataObj];
     }
     //self.data = [NSArray arrayWithObjects:phone, computer, car, bike, house, flats, motorbike, drinks, food, nil];
+    
+    RADataObject *folderDataObj = [[RADataObject alloc]init];
+    folderDataObj.name = @"FOLDER";
+    NSMutableArray *insideArray = [[NSMutableArray alloc]init];
+    [insideArray addObject:@"RSS"];
+    [insideArray addObject:@"PROJECT VECTRA"];
+    [insideArray addObject:@"WATCH LAUNCH"];
+    [insideArray addObject:@"BOSTON OUTREACH"];
+    [insideArray addObject:@"COOL ARTICLES"];
+    NSMutableArray *childArray = [[NSMutableArray alloc]init];
+    //NSArray *menuArray = menu.listArray;
+    for(int i=0; i<insideArray.count; i++) {
+        RADataObject *insideMenu = [[RADataObject alloc]init];
+        insideMenu.name = [insideArray objectAtIndex:i];
+        [childArray addObject:insideMenu];
+    }
+    folderDataObj.children = childArray;
+    [self.data addObject:folderDataObj];
+    
+    
     RADataObject *dataObj = [[RADataObject alloc]init];
     dataObj.name = @"LOGOUT";
     dataObj.children = nil;
@@ -426,7 +447,12 @@
         left = 40 + 11 + 20 * level;
         cell.iconImage.hidden = NO;
         cell.iconImage.image = [UIImage imageNamed:@"logout"];
-    } else {
+    } else if([[dataObject.name uppercaseString]isEqualToString:@"FOLDER"]) {
+        
+        left = 40 + 11 + 20 * level;
+        cell.iconImage.hidden = NO;
+        cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
+    }else {
         left = 34 + 20 * level;
         cell.iconImage.hidden = YES;
     }

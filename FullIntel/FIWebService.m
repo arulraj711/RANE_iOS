@@ -12,12 +12,23 @@
 #define LIVE_URL @"http://fullintel.com/services/mv01/sv00/appuser"
 #define STAGE_URL @"http://104.236.78.199/services/mv01/sv00/appuser"
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
+NSString *url = @"http://104.236.78.199";
+#define FUNCTION_URL @"services/mv01/sv00/appuser"
 @implementation FIWebService
+
++(NSString *) getServerURL{
+    return url;
+}
+
++(void) setServerURL:(NSString *)urls {
+    url = urls;
+}
+
 + (void)getResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 {
     //NSLog(@"get ress for function ");
     
-    NSString *postURL = [NSString stringWithFormat:@"%@/%@/",STAGE_URL,urlPath];
+    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@/",url,FUNCTION_URL,urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
     [requestURL setHTTPMethod:@"POST"];

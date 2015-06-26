@@ -967,8 +967,9 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MorePopoverView" bundle:nil];
     
     MorePopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MorePopoverView"];
-    //popOverView.articleTitle = [curatedNewsDetail valueForKey:@"articleHeading"];
-   // popOverView.articleUrl = [curatedNewsDetail valueForKey:@"articleUrl"];
+    popOverView.articleTitle = self.selectedArticleTitle;
+    popOverView.articleUrl = self.selectedArticleUrl;
+    popOverView.articleDesc = self.articleDesc;
     //popOverView.articleImageUrl = [curatedNewsDetail valueForKey:@"articleImageURL"];
     self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
     self.popOver.popoverContentSize=CGSizeMake(350, 250);
@@ -978,10 +979,11 @@
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
     //CAPTURE USER LINK-CLICK.
-    
+    NSURL *url = [request URL];
+    NSLog(@"select link:%@",url);
     if(webView == self.articleWebview) {
-        NSURL *url = [request URL];
-        //NSLog(@"select link:%@",url);
+       // NSURL *url = [request URL];
+        NSLog(@"select link:%@",url);
         NSString *urlString = url.absoluteString;
         if (![urlString isEqualToString: @"about:blank"]) {
             

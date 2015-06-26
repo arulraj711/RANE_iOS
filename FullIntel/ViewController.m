@@ -14,6 +14,7 @@
 #import "FIWebService.h"
 #import "CMPopTipView.h"
 #import "SocialWebView.h"
+#import "FIWebService.h"
 //#import "WToast.h"
 //#import "UIImageView+AnimationImages.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -36,6 +37,14 @@
     self.passwordTextField.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];;
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 5.0f;
+    
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressEvent:)];
+    self.logoIcon.userInteractionEnabled = YES;
+    longPress.minimumPressDuration = 3;
+   // longPress.numberOfTouches = 1;
+    [self.logoIcon addGestureRecognizer:longPress];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -187,8 +196,37 @@
 
 - (IBAction)forgetPasswordButtonPressed:(id)sender {
     
-    [self showForgetAlert:_usernameTextField.text];
+    [self showForgetAlert:_usernameTextField.text withFlag:@""];
 
+}
+
+
+
+-(void)longPressEvent:(UILongPressGestureRecognizer *)recognizer {
+    //NSLog(@"long press event is working");
+    if(recognizer.state == UIGestureRecognizerStateBegan) {
+        // [self showForgetAlert:_usernameTextField.text withFlag:[FIWebService getServerURL]];
+        
+        
+        UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"API Root Domain" message:@"Please click save button to change the server URL." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
+        
+        alertView.alertViewStyle=UIAlertViewStylePlainTextInput;
+        alertView.tag = 101;
+        UITextField *textField=[alertView textFieldAtIndex:0];
+        textField.keyboardType=UIKeyboardTypeEmailAddress;
+        textField.returnKeyType=UIReturnKeySend;
+        textField.delegate=self;
+        //if(flag.length != 0) {
+            textField.text=[FIWebService getServerURL];
+        //}
+        
+        [self.view endEditing:YES];
+        
+        [alertView show];
+        
+        
+    }
+   
 }
 
 - (IBAction)infoButtonPressed:(id)sender {
@@ -238,7 +276,8 @@
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
     SocialWebViewObj.titleStr=@"Sign Up";
-    SocialWebViewObj.urlString=@"http://fullintel.com/newusersignup.html";
+    NSString *signUpUrlString = [NSString stringWithFormat:@"%@/newusersignup.html",[FIWebService getServerURL]];
+    SocialWebViewObj.urlString=signUpUrlString;
     modalController.modalPresentationStyle = UIModalPresentationCustom;
     
     [self presentViewController:modalController animated:NO completion:nil];
@@ -249,14 +288,15 @@
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
     SocialWebViewObj.titleStr=@"Privacy Policy";
-    SocialWebViewObj.urlString=@"http://www.fullintel.com/common/privacy";
+    NSString *privacyUrlString = [NSString stringWithFormat:@"%@/common/privacy",[FIWebService getServerURL]];
+    SocialWebViewObj.urlString=privacyUrlString;
     modalController.modalPresentationStyle = UIModalPresentationCustom;
     
     [self presentViewController:modalController animated:NO completion:nil];
 }
 
 
--(void)showForgetAlert:(NSString *)textString{
+-(void)showForgetAlert:(NSString *)textString withFlag:(NSString *)flag{
 
     UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Forgot Password" message:@"Please enter the email address associated with your account." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
     
@@ -266,9 +306,10 @@
     textField.keyboardType=UIKeyboardTypeEmailAddress;
     textField.returnKeyType=UIReturnKeySend;
     textField.delegate=self;
-    
-   // textField.text=textString;
-    
+    if(flag.length != 0) {
+        textField.text=flag;
+    }
+
     [self.view endEditing:YES];
     
     [alertView show];
@@ -278,22 +319,31 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     UITextField *emailTextField = [alertView textFieldAtIndex:0];
-    if(buttonIndex==1){
+    
+    if(alertView.tag == 101) {
+        if(buttonIndex == 1) {
+            [FIWebService setServerURL:emailTextField.text];
+        }
         
-        if([emailTextField.text length] == 0) {
-            [self.view makeToast:@"Please enter the email address associated with your account." duration:1 position:CSToastPositionCenter];
+    }else {
+        if(buttonIndex==1){
             
-            [self showForgetAlert:emailTextField.text];
-        } else if(![self NSStringIsValidEmail:emailTextField.text]) {
-            [self.view makeToast:@"Please enter the email address associated with your account." duration:1 position:CSToastPositionCenter];
-            
-            [self showForgetAlert:emailTextField.text];
-        }else{
-        
-       
-            [self callForgotPasswordWithEmail:emailTextField.text];
-       }
+            if([emailTextField.text length] == 0) {
+                [self.view makeToast:@"Please enter the email address associated with your account." duration:1 position:CSToastPositionCenter];
+                
+                [self showForgetAlert:emailTextField.text withFlag:@""];
+            } else if(![self NSStringIsValidEmail:emailTextField.text]) {
+                [self.view makeToast:@"Please enter the email address associated with your account." duration:1 position:CSToastPositionCenter];
+                
+                [self showForgetAlert:emailTextField.text withFlag:@""];
+            }else{
+                
+                
+                [self callForgotPasswordWithEmail:emailTextField.text];
+            }
+        }
     }
+    
 }
 
 

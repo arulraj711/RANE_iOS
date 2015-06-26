@@ -370,7 +370,7 @@
             }
             
             
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"readStatusUpdate" object:nil userInfo:@{@"indexPath":indexPath,@"status":[NSNumber numberWithBool:YES]}];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"readStatusUpdate" object:nil userInfo:@{@"indexPath":indexPath,@"status":[NSNumber numberWithBool:YES],@"articleId":[self.articleIdArray objectAtIndex:indexPath.row]}];
         }
         
         
@@ -380,6 +380,7 @@
         cell.selectedArticleTitle = [curatedNews valueForKey:@"title"];
         cell.selectedArticleUrl = [curatedNews valueForKey:@"articleUrl"];
         cell.selectedArticleId = [curatedNews valueForKey:@"articleId"];
+        NSLog(@"before fetching curatednewsdetails:%@",curatedNewsDetail);
         if(curatedNewsDetail == nil) {
             // NSLog(@"details is null");
 //            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>"];
@@ -401,9 +402,21 @@
             
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                 //Background Thread
-                [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
-                [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
-                
+//                [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
+//                [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
+                if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                } else {
+                    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+                    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+                    [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+                    [resultDic setObject:@"1" forKey:@"status"];
+                    [resultDic setObject:@"true" forKey:@"isSelected"];
+                    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                    // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+                    [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                }
+
             });
             
         } else {

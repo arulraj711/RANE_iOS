@@ -40,6 +40,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readStatusUpdate:) name:@"readStatusUpdate" object:nil];
     
     
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+    NSString *tzName = [timeZone name];
+    
+    NSLog(@"current time zone:%@ and %@",tzName,timeZone);
+    
    // [self.revealController showViewController:self.revealController.leftViewController];
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -358,9 +363,28 @@
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
+    NSString *articleId = [userInfo objectForKey:@"articleId"];
     // NSNumber  = [userInfo objectForKey:@"status"];
-    NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
-    [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
+    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",articleId];
+    [fetchRequest setPredicate:predicate];
+    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    if(newPerson.count != 0) {
+        NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+        [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
+        
+        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+           // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+        } else {
+            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+        }
+        
+        
+    }
+    [managedObjectContext save:nil];
+//    NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+//    [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
     [self updateReadUnReadStatusForRow:indexPath];
 }
 
