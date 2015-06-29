@@ -365,14 +365,109 @@
 //            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"totalComments"] forKey:@"totalComments"];
 //            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"unReadComment"] forKey:@"unReadComment"];
             [curatedNewsDrillIn setValue:[dic objectForKey:@"articleDetailedDescription"] forKey:@"article"];
+            //Set Related Post
+            NSArray *relatedPostArray = [dic objectForKey:@"articleRelatedPosts"];
+            NSMutableArray *postArray = [[NSMutableArray alloc]init];
+            for(NSDictionary *postDic in relatedPostArray) {
+                NSManagedObject *relatedPost = [NSEntityDescription insertNewObjectForEntityForName:@"RelatedPost" inManagedObjectContext:context];
+                [relatedPost setValue:[postDic valueForKey:@"postId"] forKey:@"postId"];
+                [relatedPost setValue:[postDic valueForKey:@"socialMediaUsername"] forKey:@"socialMediaUsername"];
+                [relatedPost setValue:[postDic valueForKey:@"tweetURL"] forKey:@"tweetURL"];
+                [postArray addObject:relatedPost];
+            }
+            
+            NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:postArray];
+            [curatedNewsDrillIn setValue:outletObj forKey:@"relatedPost"];
             [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
+            
+            
+            //Set CuratedNews Author Details
+            NSArray *authorDetailsArray = [dic objectForKey:@"articleContact"];
+            //NSLog(@"before author count:%lu",(unsigned long)authorDetailsArray.count);
+            NSMutableArray *authorDetailsList = [[NSMutableArray alloc]init];
+            for(NSDictionary *dic in authorDetailsArray) {
+                NSManagedObject *authorDetails;
+                authorDetails = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetailAuthor" inManagedObjectContext:context];
+                [authorDetails setValue:[dic valueForKey:@"id"] forKey:@"id"];
+                [authorDetails setValue:[dic valueForKey:@"firstName"] forKey:@"firstName"];
+                [authorDetails setValue:[dic valueForKey:@"lastName"] forKey:@"lastName"];
+                [authorDetails setValue:[dic valueForKey:@"city"] forKey:@"city"];
+                [authorDetails setValue:[dic valueForKey:@"country"] forKey:@"country"];
+                [authorDetails setValue:[dic valueForKey:@"imageURL"] forKey:@"imageURL"];
+                [authorDetails setValue:[dic valueForKey:@"bibliography"] forKey:@"bibliography"];
+                [authorDetails setValue:[dic valueForKey:@"isInfluencer"] forKey:@"isInfluencer"];
+                [authorDetails setValue:[dic valueForKey:@"starRating"] forKey:@"starRating"];
+                
+                
+                NSArray *authorOutletArray = [dic valueForKey:@"outlet"];
+                NSMutableArray *outletArray = [[NSMutableArray alloc]init];
+                for(NSDictionary *outletDic in authorOutletArray) {
+                    NSManagedObject *authorOutlet = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorOutlet" inManagedObjectContext:context];
+                    [authorOutlet setValue:[outletDic valueForKey:@"id"] forKey:@"id"];
+                    [authorOutlet setValue:[outletDic valueForKey:@"outletname"] forKey:@"outletname"];
+                    [outletArray addObject:authorOutlet];
+                }
+                NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:outletArray];
+                [authorDetails setValue:outletObj forKey:@"authorOutlet"];
+                
+                NSArray *authorWorkTitleArray = [dic valueForKey:@"worktitle"];
+                NSMutableArray *workTitleArray = [[NSMutableArray alloc]init];
+                for(NSDictionary *workTitleDic in authorWorkTitleArray) {
+                    NSManagedObject *authorWorkTitle = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorWorkTitle" inManagedObjectContext:context];
+                    [authorWorkTitle setValue:[workTitleDic valueForKey:@"id"] forKey:@"id"];
+                    [authorWorkTitle setValue:[workTitleDic valueForKey:@"title"] forKey:@"title"];
+                    [workTitleArray addObject:authorWorkTitle];
+                }
+                NSOrderedSet *worktitleObj = [[NSOrderedSet alloc]initWithArray:workTitleArray];
+                [authorDetails setValue:worktitleObj forKey:@"authorWorkTitle"];
+                
+                
+                NSArray *authorBeatArray = [dic valueForKey:@"beats"];
+                NSMutableArray *beatArray = [[NSMutableArray alloc]init];
+                for(NSDictionary *beatDic in authorBeatArray) {
+                    NSManagedObject *authorBeat = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorBeat" inManagedObjectContext:context];
+                    [authorBeat setValue:[beatDic valueForKey:@"id"] forKey:@"id"];
+                    [authorBeat setValue:[beatDic valueForKey:@"name"] forKey:@"name"];
+                    [beatArray addObject:authorBeat];
+                }
+                NSOrderedSet *beatObj = [[NSOrderedSet alloc]initWithArray:beatArray];
+                [authorDetails setValue:beatObj forKey:@"authorBeat"];
+                
+                NSArray *authorSocialMediaArray = [dic valueForKey:@"socialmedia"];
+                NSMutableArray *socialMediaArray = [[NSMutableArray alloc]init];
+                for(NSDictionary *socialMediaDic in authorSocialMediaArray) {
+                    NSManagedObject *authorSocialMedia = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorSocialMedia" inManagedObjectContext:context];
+                    // NSLog(@"social isactive:%@",[socialMediaDic valueForKey:@"isactive"]);
+                    [authorSocialMedia setValue:[socialMediaDic valueForKey:@"isactive"] forKey:@"isactive"];
+                    [authorSocialMedia setValue:[socialMediaDic valueForKey:@"mediatype"] forKey:@"mediatype"];
+                    [authorSocialMedia setValue:[socialMediaDic valueForKey:@"mediatypeId"] forKey:@"mediatypeId"];
+                    [authorSocialMedia setValue:[socialMediaDic valueForKey:@"url"] forKey:@"url"];
+                    [authorSocialMedia setValue:[socialMediaDic valueForKey:@"username"] forKey:@"username"];
+                    [socialMediaArray addObject:authorSocialMedia];
+                }
+                NSOrderedSet *socialMediaObj = [[NSOrderedSet alloc]initWithArray:socialMediaArray];
+                [authorDetails setValue:socialMediaObj forKey:@"authorSocialMedia"];
+                
+                [authorDetailsList addObject:authorDetails];
+            }
+            
+            
+          //  [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
+            
+            
+           // NSLog(@"author list count:%lu",(unsigned long)authorDetailsList.count);
+            NSOrderedSet *authorObj = [[NSOrderedSet alloc]initWithArray:authorDetailsList];
+            [curatedNews setValue:authorObj forKey:@"authorDetails"];
+            
             
             NSError *error = nil;
             // Save the object to persistent store
             if (![context save:&error]) {
                // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+                NSLog(@"one");
             }else {
               //  NSLog(@"else part:%@",error);
+                NSLog(@"two");
             }
 
         }

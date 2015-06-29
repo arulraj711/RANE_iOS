@@ -69,7 +69,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
+    //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [activityIndicator stopAnimating];
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;
@@ -124,7 +124,7 @@
         NSLog(@"test flag is TRUE");
         
         NSInteger categoryId = [[[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"] integerValue];
-        NSLog(@"category id in curated news:%d",categoryId);
+       // NSLog(@"category id in curated news:%d",categoryId);
         
         self.collectionView.scrollEnabled = YES;
         NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
@@ -172,7 +172,7 @@
     NSDictionary *userInfo = notification.userInfo;
     NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
     NSNumber *totalComments = [userInfo objectForKey:@"totalComments"];
-    NSLog(@"select indexpath row:%d and total comments:%@",indexPath.row,totalComments);
+   // NSLog(@"select indexpath row:%d and total comments:%@",indexPath.row,totalComments);
     // NSNumber  = [userInfo objectForKey:@"status"];
    // NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
     
@@ -386,19 +386,19 @@
 //            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>"];
 //            [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
             [cell.articleWebview loadHTMLString:@"" baseURL:nil];
-            NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
-            [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-            [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
-            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-            
-            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            
-            NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
-            [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-            [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
-            NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
-            
-            NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
+//            NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+//            [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+//            [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+//            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+//            
+//            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+//            
+//            NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
+//            [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+//            [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
+//            NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
+//            
+//            NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
             
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                 //Background Thread
@@ -816,7 +816,7 @@
     
     
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
-       // NSLog(@"reached end");
+        NSLog(@"reached end article count:%d",self.articleIdArray.count);
         
         if(self.articleIdArray.count != 0) {
             self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -830,7 +830,7 @@
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
         oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                        selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
-       // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
         });
         }
     }

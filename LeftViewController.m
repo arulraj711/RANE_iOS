@@ -118,7 +118,7 @@
     if(self.data.count > 2) {
         NSLog(@"come selectrow method");
         [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
-        [self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
+        //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
 }
@@ -201,6 +201,7 @@
 }
 
 -(void)loadMenus {
+    NSLog(@"load menu calling twice");
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
@@ -222,7 +223,7 @@
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0) {
         [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
-        [self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
+        //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
     
@@ -549,7 +550,7 @@
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-2] forKey:@"categoryId"];
         
     } else if([data.nodeId integerValue] == 1) {
-        
+        NSLog(@"row selection calling");
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         
@@ -568,7 +569,8 @@
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        if(accessToken.length > 0) {
+        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
+        if(accessToken.length > 0 && !isFirst) {
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withFlag:@"" withLastArticleId:@""];
         }
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
@@ -824,7 +826,7 @@
    // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyLogo"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyName"];
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];

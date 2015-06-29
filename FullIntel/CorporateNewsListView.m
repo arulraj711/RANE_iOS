@@ -126,10 +126,10 @@
         // NSLog(@"corporate if part");
         [self showLoginPage];
     } else {
-//        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
-//        if(!isFirst) {
+        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
+        if(isFirst) {
             [self loadCuratedNews];
-        //}
+        }
     }
 }
 //-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
@@ -193,6 +193,7 @@
 
 
 -(void)loadCuratedNews {
+    NSLog(@"load curated news list");
     [activityIndicator stopAnimating];
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
@@ -221,30 +222,30 @@
 //    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-        for(NSManagedObject *curatedNews in self.devices) {
-            if([curatedNews valueForKey:@"details"] == nil) {
-                NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
-                [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-                [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
-                NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-                
-                NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-                
-                NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
-                [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-                [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
-                NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
-                
-                NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
-                
-                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                    //Background Thread
-                    [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
-                    [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
-                    
-                });
-            }
-        }
+//        for(NSManagedObject *curatedNews in self.devices) {
+//            if([curatedNews valueForKey:@"details"] == nil) {
+//                NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+//                [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+//                [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+//                NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+//                
+//                NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+//                
+//                NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
+//                [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+//                [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
+//                NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
+//                
+//                NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
+//                
+//                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+//                    //Background Thread
+//                    [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
+//                    [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
+//                    
+//                });
+//            }
+//        }
     }else {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     }
@@ -800,7 +801,9 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView
                   willDecelerate:(BOOL)decelerate{
-    if(self.devices.count > 9){
+    //NSLog(@"tableview scroll dragging");
+    if(self.devices.count != 0){
+        //NSLog(@"stepppp");
     CGPoint offset = self.articlesTableView.contentOffset;
     CGRect bounds = self.articlesTableView.bounds;
     CGSize size = self.articlesTableView.contentSize;
@@ -811,7 +814,7 @@
     
     float reload_distance = 50;
     if(y > h + reload_distance) {
-        //NSLog(@"load more data");
+       // NSLog(@"load more data");
         
       _spinner = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _spinner.frame=CGRectMake(0, 0, 310, 44);
