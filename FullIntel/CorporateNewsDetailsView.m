@@ -380,6 +380,7 @@
         cell.selectedArticleTitle = [curatedNews valueForKey:@"title"];
         cell.selectedArticleUrl = [curatedNews valueForKey:@"articleUrl"];
         cell.selectedArticleId = [curatedNews valueForKey:@"articleId"];
+        cell.selectedArticleImageUrl = [curatedNews valueForKey:@"image"];
         NSLog(@"before fetching curatednewsdetails:%@",curatedNewsDetail);
         if(curatedNewsDetail == nil) {
             // NSLog(@"details is null");

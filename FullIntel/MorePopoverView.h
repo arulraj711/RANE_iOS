@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface MorePopoverView : UIViewController
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+@interface MorePopoverView : UIViewController<FBSDKLoginButtonDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *moreTableView;
 @property (nonatomic,strong) NSMutableArray *moreInforArray;
 @property (nonatomic,strong) NSString *articleTitle;

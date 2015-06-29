@@ -970,7 +970,7 @@
     popOverView.articleTitle = self.selectedArticleTitle;
     popOverView.articleUrl = self.selectedArticleUrl;
     popOverView.articleDesc = self.articleDesc;
-    //popOverView.articleImageUrl = [curatedNewsDetail valueForKey:@"articleImageURL"];
+    popOverView.articleImageUrl = self.selectedArticleImageUrl;
     self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
     self.popOver.popoverContentSize=CGSizeMake(350, 250);
     //self.popOver.delegate = self;

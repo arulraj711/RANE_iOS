@@ -13,6 +13,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <TwitterKit/TwitterKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "FIUtils.h"
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
@@ -24,9 +25,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
-    
-    [Fabric with:@[CrashlyticsKit,TwitterKit]];
+    [[Twitter sharedInstance] startWithConsumerKey:@"5SFUoRnKqdK579pDWxYKlQZxt" consumerSecret:@"junQ5JKwosra5x31ADHYK9ctrpittnnhUFeP8AHYnxrTnwsO8Y"];
+    [Fabric with:@[[Twitter sharedInstance]]];
+    [Fabric with:@[CrashlyticsKit]];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

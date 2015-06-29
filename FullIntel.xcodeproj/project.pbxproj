@@ -30,6 +30,8 @@
 		A07A05BE1AF78EBC0016AD46 /* AddContentThirdLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BD1AF78EBC0016AD46 /* AddContentThirdLevelView.m */; };
 		A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */; };
 		A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A087980C1ADFE47D00D93114 /* FirstLevelCell.m */; };
+		A0946C1E1B4155E500C77C96 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0946C1D1B4155E500C77C96 /* FBSDKCoreKit.framework */; };
+		A0946C201B415D3C00C77C96 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0946C1F1B415D3C00C77C96 /* FBSDKLoginKit.framework */; };
 		A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */; };
 		A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D591ADF848000A43CCA /* OpenSans-Semibold.ttf */; };
 		A0A678631B1C159400FB2AEA /* influencer_new.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A678621B1C159400FB2AEA /* influencer_new.json */; };
@@ -243,6 +245,8 @@
 		A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFourthLevelView.m; sourceTree = "<group>"; };
 		A087980B1ADFE47D00D93114 /* FirstLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLevelCell.h; sourceTree = "<group>"; };
 		A087980C1ADFE47D00D93114 /* FirstLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLevelCell.m; sourceTree = "<group>"; };
+		A0946C1D1B4155E500C77C96 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		A0946C1F1B415D3C00C77C96 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		A0A678621B1C159400FB2AEA /* influencer_new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = influencer_new.json; sourceTree = "<group>"; };
 		A0AF674B1B16EC1C007EDD26 /* UIColor+CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColors.h"; sourceTree = "<group>"; };
 		A0AF674C1B16EC1C007EDD26 /* UIColor+CustomColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CustomColors.m"; sourceTree = "<group>"; };
@@ -503,6 +507,7 @@
 			files = (
 				A0B0F5CE1B28639900BB1169 /* QuartzCore.framework in Frameworks */,
 				A010928D1B15AB25003C9F3A /* Foundation.framework in Frameworks */,
+				A0946C201B415D3C00C77C96 /* FBSDKLoginKit.framework in Frameworks */,
 				A053F5251AF9F090002EDC46 /* Accounts.framework in Frameworks */,
 				A0D956801B0C4D9100DB013F /* TwitterKit.framework in Frameworks */,
 				A0D9567C1B0C4C0200DB013F /* Crashlytics.framework in Frameworks */,
@@ -512,6 +517,7 @@
 				A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */,
 				F75295781A933F2100CD9087 /* CoreImage.framework in Frameworks */,
 				F75295761A933EB700CD9087 /* CoreGraphics.framework in Frameworks */,
+				A0946C1E1B4155E500C77C96 /* FBSDKCoreKit.framework in Frameworks */,
 				F75295741A933E9A00CD9087 /* UIKit.framework in Frameworks */,
 				3BA3145765EFD5E9465E072A /* libPods-FullIntel.a in Frameworks */,
 			);
@@ -523,6 +529,8 @@
 		40CF193F5A4A47D98E563735 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0946C1F1B415D3C00C77C96 /* FBSDKLoginKit.framework */,
+				A0946C1D1B4155E500C77C96 /* FBSDKCoreKit.framework */,
 				A0B0F5CD1B28639900BB1169 /* QuartzCore.framework */,
 				A010928C1B15AB25003C9F3A /* Foundation.framework */,
 				A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */,
@@ -1568,6 +1576,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					/Users/capestart/Documents/FacebookSDK,
 				);
 				INFOPLIST_FILE = FullIntel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -1587,6 +1596,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					/Users/capestart/Documents/FacebookSDK,
 				);
 				INFOPLIST_FILE = FullIntel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

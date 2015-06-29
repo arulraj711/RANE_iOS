@@ -12,6 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FIUtils.h"
 #import "SocialWebView.h"
+#import <TwitterKit/TwitterKit.h>
 @interface MorePopoverView ()
 
 @end
@@ -79,7 +80,49 @@
         
     } else if(indexPath.row == 2) {
         //[self targetedShare:@""];
-       [self targetedShare:SLServiceTypeTwitter];
+      // [self targetedShare:SLServiceTypeTwitter];
+        TWTRLogInButton* logInButton =  [TWTRLogInButton
+                                         buttonWithLogInCompletion:
+                                         ^(TWTRSession* session, NSError* error) {
+                                             if (session) {
+                                                 NSLog(@"signed in as %@", [session userName]);
+                                             } else {
+                                                 NSLog(@"error: %@", [error localizedDescription]);
+                                             }
+                                         }];
+        logInButton.center = self.view.center;
+        [self.view addSubview:logInButton];
+        
+        
+            [[Twitter sharedInstance] logInWithCompletion:^
+             (TWTRSession *session, NSError *error) {
+                 if (session) {
+                     NSLog(@"signed in as %@", [session userName]);
+                     [logInButton removeFromSuperview];
+                     
+                     TWTRComposer *composer = [[TWTRComposer alloc] init];
+                     
+                     [composer setText:self.articleTitle];
+                     UIImageView *image = [[UIImageView alloc]init];
+                     NSLog(@"article image:%@",self.articleImageUrl);
+                     [image sd_setImageWithURL:[NSURL URLWithString:self.articleImageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
+                     [composer setImage:image.image];
+                     [composer setURL:[NSURL URLWithString:self.articleUrl]];
+                     [composer showWithCompletion:^(TWTRComposerResult result) {
+                         if (result == TWTRComposerResultCancelled) {
+                             NSLog(@"Tweet composition cancelled");
+                         }
+                         else {
+                             NSLog(@"Sending Tweet!");
+                         }
+                     }];
+                     
+                 } else {
+                     NSLog(@"error: %@", [error localizedDescription]);
+                 }
+             }];
+        
+        
     } else {
         [self targetedShare:@""];
     }

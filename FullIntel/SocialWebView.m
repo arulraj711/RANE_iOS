@@ -92,6 +92,7 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
+    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('footer').style.display = 'none'"];
 //    timer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
 //    progressView = [[UCZProgressView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-50, self.view.frame.size.height/2-50, 100, 100)];
 //    progressView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -106,6 +107,8 @@
     [timer invalidate];
     [progressView removeFromSuperview];
     [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.querySelector('meta[name=viewport]').setAttribute('content', 'width=%d;', false); ", (int)webView.frame.size.width]];
+    
+    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('footer').style.display = 'none'"];
 }
 
 

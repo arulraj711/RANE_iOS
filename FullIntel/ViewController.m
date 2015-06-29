@@ -15,6 +15,7 @@
 #import "CMPopTipView.h"
 #import "SocialWebView.h"
 #import "FIWebService.h"
+#import <TwitterKit/TwitterKit.h>
 //#import "WToast.h"
 //#import "UIImageView+AnimationImages.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -45,6 +46,30 @@
    // longPress.numberOfTouches = 1;
     [self.logoIcon addGestureRecognizer:longPress];
     
+    
+//    TWTRLogInButton* logInButton =  [TWTRLogInButton
+//                                     buttonWithLogInCompletion:
+//                                     ^(TWTRSession* session, NSError* error) {
+//                                         if (session) {
+//                                             NSLog(@"signed in as %@", [session userName]);
+//                                         } else {
+//                                             NSLog(@"error: %@", [error localizedDescription]);
+//                                         }
+//                                     }];
+//    logInButton.center = self.view.center;
+//    [self.view addSubview:logInButton];
+//    
+//    
+//    
+//    [[Twitter sharedInstance] logInWithCompletion:^
+//     (TWTRSession *session, NSError *error) {
+//         if (session) {
+//             NSLog(@"signed in as %@", [session userName]);
+//             [logInButton removeFromSuperview];
+//         } else {
+//             NSLog(@"error: %@", [error localizedDescription]);
+//         }
+//     }];
 }
 
 -(void)viewDidAppear:(BOOL)animated {

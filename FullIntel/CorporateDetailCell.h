@@ -114,6 +114,7 @@
 @property (nonatomic,strong) NSString *selectedArticleId;
 @property (nonatomic,strong) NSString *selectedArticleTitle;
 @property (nonatomic,strong) NSString *selectedArticleUrl;
+@property (nonatomic,strong) NSString *selectedArticleImageUrl;
 @property (nonatomic,strong) NSMutableArray *relatedPostArray;
 - (IBAction)researchRequestButtonClick:(UIButton *)sender;
 - (IBAction)saveButtonClick:(UIButton *)sender;

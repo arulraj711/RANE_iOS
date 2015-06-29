@@ -25,6 +25,7 @@
 			<string>com.capestart.fi</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>fb1592619037685070</string>
 				<string>fullintel</string>
 			</array>
 		</dict>
@@ -78,5 +79,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>FacebookAppID</key>
+	<string>1592619037685070</string>
+	<key>FacebookDisplayName</key>
+	<string>FI</string>
 </dict>
 </plist>
