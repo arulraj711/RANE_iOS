@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SavedListPopoverView : UIViewController
+@interface SavedListPopoverView : UIViewController<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *savedListTableView;
+- (IBAction)checkedButtonAction:(UIButton *)sender;
+- (IBAction)createFolderAction:(UIButton *)sender;
 @property (nonatomic,strong) NSMutableArray *savedListArray;
 - (IBAction)requestButtonClick:(id)sender;
+@property (nonatomic,strong) IBOutlet UIButton *saveButton;
 @end

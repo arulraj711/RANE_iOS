@@ -22,6 +22,8 @@
 -(void)getCuratedNewsAuthorDetailsWithDetails:(NSString *)details withArticleId:(NSString *)articleId;
 -(void)getInfluencerDetailsWithDetails:(NSString *)details;
 -(void)getMenuListWithAccessToken:(NSString *)accessToken;
+-(void)getFolderListWithAccessToken:(NSString *)accessToken;
+-(void)createFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)checkLoginUserWithDetails:(NSString *)details;
 -(void)logoutUserWithDetails:(NSString *)details withFlag:(NSNumber*)authenticationFlag;
 -(void)validateUserOnResumeWithDetails:(NSString *)details;
@@ -39,6 +41,7 @@
 - (void)hideProgressView;
 - (BOOL)serviceIsReachable;
 @property (nonatomic,strong) NSMutableArray *menuList;
+@property (nonatomic,strong) NSMutableArray *folderList;
 @property (nonatomic,strong) NSMutableArray *contentCategoryList;
 @property (nonatomic,strong) NSMutableArray *contentTypeList;
 @property (nonatomic,strong) NSString *getCommentArticleId;

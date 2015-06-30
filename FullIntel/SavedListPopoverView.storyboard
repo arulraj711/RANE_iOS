@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Folder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNu-Rc-Skb">
-                                <rect key="frame" x="75" y="30" width="200" height="21"/>
+                                <rect key="frame" x="75" y="28" width="200" height="21"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="22"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -54,10 +54,16 @@
                                                     <state key="normal" image="circle">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <state key="selected" image="circle_checked"/>
+                                                    <state key="highlighted" image="circle_checked"/>
+                                                    <connections>
+                                                        <action selector="checkedButtonAction:" destination="5dj-q7-cK4" eventType="touchUpInside" id="Noc-e2-cgL"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="checkedButton" destination="k19-VG-Old" id="7Z5-SD-aYS"/>
                                             <outlet property="name" destination="7zX-pA-vjn" id="oAk-Re-yz7"/>
                                         </connections>
                                     </tableViewCell>
@@ -67,34 +73,23 @@
                                     <outlet property="delegate" destination="5dj-q7-cK4" id="yKA-0h-jOP"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOt-GQ-lWt">
-                                <rect key="frame" x="170" y="290" width="60" height="30"/>
-                                <color key="backgroundColor" red="0.20392156859999999" green="0.52941176469999995" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lCV-9s-2I2">
-                                <rect key="frame" x="0.0" y="0.0" width="350" height="267"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obp-XS-XoL">
-                                <rect key="frame" x="75" y="109" width="200" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="request_upgrade">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="request_upgrade_selected"/>
-                                <state key="highlighted" image="request_upgrade_pressed"/>
-                                <connections>
-                                    <action selector="requestButtonClick:" destination="5dj-q7-cK4" eventType="touchUpInside" id="jvT-OW-7te"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uiw-2M-mCR">
-                                <rect key="frame" x="289" y="30" width="22" height="22"/>
+                                <rect key="frame" x="16" y="27" width="22" height="22"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="createFolderAction:" destination="5dj-q7-cK4" eventType="touchUpInside" id="pIY-me-aKQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOt-GQ-lWt">
+                                <rect key="frame" x="285" y="27" width="60" height="22"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled" title="Save">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                         </subviews>
@@ -103,18 +98,17 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="350" height="267"/>
                     <connections>
+                        <outlet property="saveButton" destination="cOt-GQ-lWt" id="mUi-Rx-7CI"/>
                         <outlet property="savedListTableView" destination="B3f-un-Luu" id="2sK-AE-uUf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JW6-b6-3nK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="289"/>
+            <point key="canvasLocation" x="228" y="177.5"/>
         </scene>
     </scenes>
     <resources>
         <image name="circle" width="30" height="30"/>
-        <image name="request_upgrade" width="200" height="50"/>
-        <image name="request_upgrade_pressed" width="200" height="50"/>
-        <image name="request_upgrade_selected" width="200" height="50"/>
+        <image name="circle_checked" width="30" height="30"/>
     </resources>
 </document>

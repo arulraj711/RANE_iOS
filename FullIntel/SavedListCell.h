@@ -11,5 +11,6 @@
 @interface SavedListCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *name;
+@property (nonatomic,strong) IBOutlet UIButton *checkedButton;
 
 @end

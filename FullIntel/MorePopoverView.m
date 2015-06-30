@@ -13,6 +13,7 @@
 #import "FIUtils.h"
 #import "SocialWebView.h"
 #import <TwitterKit/TwitterKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 @interface MorePopoverView ()
 
 @end
@@ -24,13 +25,13 @@
     // Do any additional setup after loading the view from its nib.
     _moreInforArray = [[NSMutableArray alloc]init];
     [_moreInforArray addObject:@"Linkedin"];
-    [_moreInforArray addObject:@"Facebook"];
     [_moreInforArray addObject:@"Twitter"];
-    [_moreInforArray addObject:@"Google Plus"];
-    [_moreInforArray addObject:@"Evernote"];
-    [_moreInforArray addObject:@"Pocket"];
-    [_moreInforArray addObject:@"Buffer"];
-    [_moreInforArray addObject:@"Instapaper"];
+    [_moreInforArray addObject:@"Facebook"];
+//    [_moreInforArray addObject:@"Google Plus"];
+//    [_moreInforArray addObject:@"Evernote"];
+//    [_moreInforArray addObject:@"Pocket"];
+//    [_moreInforArray addObject:@"Buffer"];
+//    [_moreInforArray addObject:@"Instapaper"];
     [self.moreTableView reloadData];
 }
 
@@ -49,7 +50,7 @@
     
     MoreViewCell *cell = (MoreViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
-    if(indexPath.row == 2) {
+    if(indexPath.row == 1) {
         cell.iconImage.image = [UIImage imageNamed:@"twitter"];
     } else {
         cell.iconImage.image = [UIImage imageNamed:[_moreInforArray objectAtIndex:indexPath.row]];
@@ -75,30 +76,37 @@
         
         [self presentViewController:modalController animated:NO completion:nil];
         
-    } else if(indexPath.row == 1) {
-        [self targetedShare:SLServiceTypeFacebook];
-        
     } else if(indexPath.row == 2) {
+        
+        FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+        content.contentURL = [NSURL URLWithString:self.articleUrl];
+        [FBSDKShareDialog showFromViewController:self
+                                     withContent:content
+                                        delegate:nil];
+        
+      //  [self targetedShare:SLServiceTypeFacebook];
+        
+    } else if(indexPath.row == 1) {
         //[self targetedShare:@""];
       // [self targetedShare:SLServiceTypeTwitter];
-        TWTRLogInButton* logInButton =  [TWTRLogInButton
-                                         buttonWithLogInCompletion:
-                                         ^(TWTRSession* session, NSError* error) {
-                                             if (session) {
-                                                 NSLog(@"signed in as %@", [session userName]);
-                                             } else {
-                                                 NSLog(@"error: %@", [error localizedDescription]);
-                                             }
-                                         }];
-        logInButton.center = self.view.center;
-        [self.view addSubview:logInButton];
+      //  MoreViewCell *cell = (MoreViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        
+//        [TWTRLogInButton
+//         buttonWithLogInCompletion:
+//         ^(TWTRSession* session, NSError* error) {
+//             if (session) {
+//                 NSLog(@"signed in as %@", [session userName]);
+//             } else {
+//                 NSLog(@"error: %@", [error localizedDescription]);
+//             }
+//         }];
         
         
             [[Twitter sharedInstance] logInWithCompletion:^
              (TWTRSession *session, NSError *error) {
                  if (session) {
                      NSLog(@"signed in as %@", [session userName]);
-                     [logInButton removeFromSuperview];
+                    // [logInButton removeFromSuperview];
                      
                      TWTRComposer *composer = [[TWTRComposer alloc] init];
                      
@@ -118,7 +126,18 @@
                      }];
                      
                  } else {
-                     NSLog(@"error: %@", [error localizedDescription]);
+//                     NSLog(@"error: %@", [error localizedDescription]);
+//                     TWTRLogInButton* logInButton =  [TWTRLogInButton
+//                                                      buttonWithLogInCompletion:
+//                                                      ^(TWTRSession* session, NSError* error) {
+//                                                          if (session) {
+//                                                              NSLog(@"signed in as %@", [session userName]);
+//                                                          } else {
+//                                                              NSLog(@"error: %@", [error localizedDescription]);
+//                                                          }
+//                                                      }];
+//                     logInButton.center = self.view.center;
+//                     [self.view addSubview:logInButton];
                  }
              }];
         

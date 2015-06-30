@@ -16,6 +16,7 @@
 #import "FIContentCategory.h"
 #import "UIView+Toast.h"
 #import "AppDelegate.h"
+#import "FIFolder.h"
 
 
 @implementation FISharedResources
@@ -34,6 +35,7 @@
 
 -(void)initDefaults {
     _menuList = [[NSMutableArray alloc]init];
+    _folderList = [[NSMutableArray alloc]init];
     _contentCategoryList = [[NSMutableArray alloc]init];
     _articleIdArray = [[NSMutableArray alloc]init];
 }
@@ -871,6 +873,48 @@
         [FIUtils showErrorToast];
     }];
     } else {
+        [FIUtils showNoNetworkToast];
+    }
+}
+
+-(void)getFolderListWithAccessToken:(NSString *)accessToken {
+    if([self serviceIsReachable]) {
+        
+        [FIWebService fetchFolderListWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            
+            NSArray *folderArray = responseObject;
+            [_folderList removeAllObjects];
+            for(NSDictionary *dic in folderArray) {
+                FIFolder *folder = [[FIFolder alloc]init];
+                [folder createFolderFromDic:dic];
+                [_folderList addObject:folder];
+            }
+            [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_folderList] forKey:@"FolderList"];
+          //  [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
+           // [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+            
+//
+//            } else {
+//                [self hideProgressView];
+//                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+//            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    } else {
+        [FIUtils showNoNetworkToast];
+    }
+}
+
+-(void)createFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken {
+    if([self serviceIsReachable]) {
+        [FIWebService createFolderWithDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self getFolderListWithAccessToken:accessToken];
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    }else {
         [FIUtils showNoNetworkToast];
     }
 }

@@ -27,6 +27,7 @@
 #import "IpAndLegalViewController.h"
 #import "ExecutiveMovesController.h"
 #import "CorporateNewsListView.h"
+#import "FIFolder.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -240,23 +241,31 @@
     }
     //self.data = [NSArray arrayWithObjects:phone, computer, car, bike, house, flats, motorbike, drinks, food, nil];
     
-    RADataObject *folderDataObj = [[RADataObject alloc]init];
-    folderDataObj.name = @"FOLDER";
-    NSMutableArray *insideArray = [[NSMutableArray alloc]init];
-    [insideArray addObject:@"RSS"];
-    [insideArray addObject:@"PROJECT VECTRA"];
-    [insideArray addObject:@"WATCH LAUNCH"];
-    [insideArray addObject:@"BOSTON OUTREACH"];
-    [insideArray addObject:@"COOL ARTICLES"];
-    NSMutableArray *childArray = [[NSMutableArray alloc]init];
-    //NSArray *menuArray = menu.listArray;
-    for(int i=0; i<insideArray.count; i++) {
-        RADataObject *insideMenu = [[RADataObject alloc]init];
-        insideMenu.name = [insideArray objectAtIndex:i];
-        [childArray addObject:insideMenu];
+    NSMutableArray *folderArray;
+    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"FolderList"];
+    if (dataRepresentingSavedArray != nil)
+    {
+        NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+       // NSLog(@"folder array:%@",oldSavedArray);
+        folderArray = [[NSMutableArray alloc]initWithArray:oldSavedArray];
     }
-    folderDataObj.children = childArray;
-    [self.data addObject:folderDataObj];
+    
+    
+    
+//    RADataObject *folderDataObj = [[RADataObject alloc]init];
+//    folderDataObj.name = @"FOLDER";
+//    NSMutableArray *childArray = [[NSMutableArray alloc]init];
+//    //NSArray *menuArray = menu.listArray;
+//    for(int i=0; i<folderArray.count; i++) {
+//        RADataObject *insideMenu = [[RADataObject alloc]init];
+//        FIFolder *folder = [folderArray objectAtIndex:i];
+//        insideMenu.nodeId = folder.folderId;
+//        insideMenu.name = folder.folderName;
+//        [childArray addObject:insideMenu];
+//    }
+//    folderDataObj.children = childArray;
+//    [self.data addObject:folderDataObj];
     
     
     RADataObject *dataObj = [[RADataObject alloc]init];

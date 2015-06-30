@@ -24,7 +24,7 @@ NSString *url = @"http://stage.fullintel.com";
     url = urls;
 }
 
-+ (void)getResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++ (void)getResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     //NSLog(@"get ress for function ");
     
@@ -55,6 +55,70 @@ NSString *url = @"http://stage.fullintel.com";
     [[NSOperationQueue mainQueue] addOperation:requestOperation];
     
 }
+
+
++ (void)postQueryResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails withSecurityToken:(NSString *)securityToken onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    //NSLog(@"get ress for function ");
+    
+    NSString *postURL = [NSString stringWithFormat:@"http://192.168.1.39:9090/%@/%@?security_token=%@",@"FI/api/v1",urlPath,securityToken];
+    NSURL *url = [NSURL URLWithString:postURL];
+    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
+    [requestURL setHTTPMethod:@"POST"];
+    [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSASCIIStringEncoding];
+         NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
+         NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,postDetails);
+         // NSLog(@"response object:%@",responseObject);
+         id JSON = [NSJSONSerialization JSONObjectWithData:metOfficeData options:kNilOptions error:nil];
+         NSLog(@"\n=========RESPONSE=========\n%@\n===========================",JSON);
+         success(operation, JSON);
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"\n=========REQUEST=========\n%@",operation.request);
+         NSLog(@"\n=========RESPONSE(ERROR)=========\n%@\n==================",error);
+         
+         if(error.code != -999)
+             failure(operation, error);
+         
+     }];
+    [[NSOperationQueue mainQueue] addOperation:requestOperation];
+    
+}
+
+
++ (void)getQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *postURL = [NSString stringWithFormat:@"http://192.168.1.39:9090/%@/%@?security_token=%@",@"FI/api/v1",urlPath,securityToken];
+    NSURL *url = [NSURL URLWithString:postURL];
+    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
+    [requestURL setHTTPMethod:@"GET"];
+   // [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
+   // [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSASCIIStringEncoding];
+         NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
+         NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,securityToken);
+         // NSLog(@"response object:%@",responseObject);
+         id JSON = [NSJSONSerialization JSONObjectWithData:metOfficeData options:kNilOptions error:nil];
+         NSLog(@"\n=========RESPONSE=========\n%@\n===========================",JSON);
+         success(operation, JSON);
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"\n=========REQUEST=========\n%@",operation.request);
+         NSLog(@"\n=========RESPONSE(ERROR)=========\n%@\n==================",error);
+         
+         if(error.code != -999)
+             failure(operation, error);
+         
+     }];
+    [[NSOperationQueue mainQueue] addOperation:requestOperation];
+}
+
+
 +(void)fetchCuratedNewsListWithAccessToken:(NSString*)details
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
@@ -142,6 +206,32 @@ NSString *url = @"http://stage.fullintel.com";
         failure(operation, error);
         
     }];
+}
+
+
++(void)fetchFolderListWithAccessToken:(NSString*)accessToken
+                          onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                          onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    [self getQueryResultsForFunctionName:@"folders" withSecurityToken:@"484887ed8f33767c3117deb393e6fc0c299b204c" onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
+
++(void)createFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)securityToken
+                    onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    [self postQueryResultsForFunctionName:@"folder" withPostDetails:details withSecurityToken:@"484887ed8f33767c3117deb393e6fc0c299b204c" onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+    
 }
 
 

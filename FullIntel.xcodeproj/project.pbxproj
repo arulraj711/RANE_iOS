@@ -30,6 +30,8 @@
 		A07A05BE1AF78EBC0016AD46 /* AddContentThirdLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BD1AF78EBC0016AD46 /* AddContentThirdLevelView.m */; };
 		A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */; };
 		A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A087980C1ADFE47D00D93114 /* FirstLevelCell.m */; };
+		A08860801B427B9500939D51 /* FIFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = A088607F1B427B9500939D51 /* FIFolder.m */; };
+		A08860821B42910D00939D51 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A08860811B42910D00939D51 /* FBSDKShareKit.framework */; };
 		A0946C1E1B4155E500C77C96 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0946C1D1B4155E500C77C96 /* FBSDKCoreKit.framework */; };
 		A0946C201B415D3C00C77C96 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0946C1F1B415D3C00C77C96 /* FBSDKLoginKit.framework */; };
 		A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */; };
@@ -245,6 +247,9 @@
 		A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFourthLevelView.m; sourceTree = "<group>"; };
 		A087980B1ADFE47D00D93114 /* FirstLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLevelCell.h; sourceTree = "<group>"; };
 		A087980C1ADFE47D00D93114 /* FirstLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLevelCell.m; sourceTree = "<group>"; };
+		A088607E1B427B9500939D51 /* FIFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIFolder.h; sourceTree = "<group>"; };
+		A088607F1B427B9500939D51 /* FIFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIFolder.m; sourceTree = "<group>"; };
+		A08860811B42910D00939D51 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		A0946C1D1B4155E500C77C96 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		A0946C1F1B415D3C00C77C96 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		A0A678621B1C159400FB2AEA /* influencer_new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = influencer_new.json; sourceTree = "<group>"; };
@@ -513,6 +518,7 @@
 				A0D9567C1B0C4C0200DB013F /* Crashlytics.framework in Frameworks */,
 				A02C54C61AEF5E0000E65011 /* Social.framework in Frameworks */,
 				A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */,
+				A08860821B42910D00939D51 /* FBSDKShareKit.framework in Frameworks */,
 				A0D956821B0C4D9100DB013F /* TwitterCore.framework in Frameworks */,
 				A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */,
 				F75295781A933F2100CD9087 /* CoreImage.framework in Frameworks */,
@@ -529,6 +535,7 @@
 		40CF193F5A4A47D98E563735 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A08860811B42910D00939D51 /* FBSDKShareKit.framework */,
 				A0946C1F1B415D3C00C77C96 /* FBSDKLoginKit.framework */,
 				A0946C1D1B4155E500C77C96 /* FBSDKCoreKit.framework */,
 				A0B0F5CD1B28639900BB1169 /* QuartzCore.framework */,
@@ -1115,6 +1122,8 @@
 				F7EBB2661ACA763F008C90DF /* FIUtils.m */,
 				A07A05B31AF74CE60016AD46 /* FIContentCategory.h */,
 				A07A05B41AF74CE60016AD46 /* FIContentCategory.m */,
+				A088607E1B427B9500939D51 /* FIFolder.h */,
+				A088607F1B427B9500939D51 /* FIFolder.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1440,6 +1449,7 @@
 				F78B42F81ABA896E00AB7FFB /* CorporateNewsListView.m in Sources */,
 				A0CF5C6E1B1DD98B00DED2D9 /* StockCell.m in Sources */,
 				A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */,
+				A08860801B427B9500939D51 /* FIFolder.m in Sources */,
 				F732C7D11AC930680071A4D8 /* InfluencerDetailsView.m in Sources */,
 				F7C1AB611ABFF41C00D8588A /* MoreViewCell.m in Sources */,
 				A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */,
