@@ -31,7 +31,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -57,6 +57,10 @@
 			</dict>
 		</array>
 	</dict>
+	<key>FacebookAppID</key>
+	<string>1592619037685070</string>
+	<key>FacebookDisplayName</key>
+	<string>FI</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
@@ -79,9 +83,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>FacebookAppID</key>
-	<string>1592619037685070</string>
-	<key>FacebookDisplayName</key>
-	<string>FI</string>
 </dict>
 </plist>
