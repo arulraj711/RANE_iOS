@@ -38,7 +38,8 @@
     layer.shadowOffset=CGSizeMake(0.0f,0.0f);
     
 
-    
+    UIScrollView *scrollView = [self.webView.subviews objectAtIndex:0];
+    scrollView.delegate = self;//self must be UIScrollViewDelegate
    
 
     if([[FISharedResources sharedResourceManager]serviceIsReachable]){
@@ -111,6 +112,12 @@
     [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('footer').style.display = 'none'"];
 }
 
+
+
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return nil;
+}
 
 - (void)cancelWeb
 {

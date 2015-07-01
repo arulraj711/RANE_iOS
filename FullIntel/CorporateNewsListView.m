@@ -193,11 +193,12 @@
 
 
 -(void)loadCuratedNews {
-    NSLog(@"load curated news list");
+    
     [activityIndicator stopAnimating];
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
+    NSLog(@"load curated news list:%@",categoryId);
    // NSLog(@"category id in curated news:%@",categoryId);
     self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
@@ -219,7 +220,8 @@
     
     messageString = @"No articles to display";
     
-//    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSLog(@"curated news list count:%lu",(unsigned long)newPerson.count);
     if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 //        for(NSManagedObject *curatedNews in self.devices) {

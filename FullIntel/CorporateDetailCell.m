@@ -956,6 +956,7 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
     
     SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+    popOverView.selectedArticleId = self.selectedArticleId;
     self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
     self.popOver.popoverContentSize=CGSizeMake(350, 267);
     //self.popOver.delegate = self;

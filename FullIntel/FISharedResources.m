@@ -280,7 +280,7 @@
             } else {
                 //Create new object
                 curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
-                
+                [curatedNews setValue:categoryId forKey:@"categoryId"];
                 
                 [curatedNews setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
                 [_articleIdArray addObject:[dic objectForKey:@"id"]];
@@ -318,7 +318,7 @@
                     });
                 }
             }
-            [curatedNews setValue:categoryId forKey:@"categoryId"];
+            
             //Set outlet info
             NSArray *outletArray = [dic objectForKey:@"outlet"];
             if(outletArray.count != 0){
@@ -854,7 +854,7 @@
 
 -(void)getMenuListWithAccessToken:(NSString *)accessToken {
     if([self serviceIsReachable]) {
-    _menuList = [[NSMutableArray alloc]init];
+   // _menuList = [[NSMutableArray alloc]init];
     [FIWebService fetchMenuListWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
         NSArray *menuArray = [responseObject objectForKey:@"menuList"];
@@ -864,7 +864,7 @@
             [_menuList addObject:menu];
         }
         [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+        
         } else {
             [self hideProgressView];
             [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
@@ -881,24 +881,22 @@
     if([self serviceIsReachable]) {
         
         [FIWebService fetchFolderListWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            
-            NSArray *folderArray = responseObject;
-            [_folderList removeAllObjects];
-            for(NSDictionary *dic in folderArray) {
-                FIFolder *folder = [[FIFolder alloc]init];
-                [folder createFolderFromDic:dic];
-                [_folderList addObject:folder];
+            if([responseObject isKindOfClass:[NSArray class]]){
+                NSArray *folderArray = responseObject;
+                [_folderList removeAllObjects];
+                for(NSDictionary *dic in folderArray) {
+                    FIFolder *folder = [[FIFolder alloc]init];
+                    [folder createFolderFromDic:dic];
+                    [_folderList addObject:folder];
+                }
+                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_folderList] forKey:@"FolderList"];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+            } else if([responseObject isKindOfClass:[NSDictionary class]]){
+                if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
+                    [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+                }
             }
-            [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_folderList] forKey:@"FolderList"];
-          //  [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
-           // [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
             
-//
-//            } else {
-//                [self hideProgressView];
-//                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
-//            }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [FIUtils showErrorToast];
         }];
@@ -919,6 +917,30 @@
     }
 }
 
+
+-(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId {
+    if([self serviceIsReachable]) {
+        [FIWebService saveArticlesToFolderWithDetails:details withSecurityToken:accessToken withFolderId:folderId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self getFolderListWithAccessToken:accessToken];
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    } else {
+        [FIUtils showNoNetworkToast];
+    }
+}
+
+-(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId {
+    if([self serviceIsReachable]) {
+        [FIWebService removeArticlesFromFolderWithDetails:details withSecurityToken:accessToken withFolderId:folderId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self getFolderListWithAccessToken:accessToken];
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    }else {
+        [FIUtils showNoNetworkToast];
+    }
+}
 
 -(void)manageContentCategoryWithDetails:(NSString *)details  withFlag:(NSInteger)flag{
     if([self serviceIsReachable]) {

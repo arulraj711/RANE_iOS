@@ -217,10 +217,22 @@
     self.companyName.minimumFontSize = 8.;
     self.companyName.adjustsFontSizeToFitWidth = YES;
     
+    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+    if (dataRepresentingSavedArray != nil)
+    {
+        NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+        if (oldSavedArray != nil) {
+             self.menus = [[NSMutableArray alloc]initWithArray:oldSavedArray];
+        }
+    }
     
-    self.menus = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].menuList];
+    
+   
+    NSLog(@"menu count:%lu",(unsigned long)self.menus.count);
     [self test:self.menus];
     [treeView reloadData];
+    NSLog(@"data count:%lu",(unsigned long)self.data.count);
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0) {
         [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
@@ -253,19 +265,21 @@
     
     
     
-//    RADataObject *folderDataObj = [[RADataObject alloc]init];
-//    folderDataObj.name = @"FOLDER";
-//    NSMutableArray *childArray = [[NSMutableArray alloc]init];
-//    //NSArray *menuArray = menu.listArray;
-//    for(int i=0; i<folderArray.count; i++) {
-//        RADataObject *insideMenu = [[RADataObject alloc]init];
-//        FIFolder *folder = [folderArray objectAtIndex:i];
-//        insideMenu.nodeId = folder.folderId;
-//        insideMenu.name = folder.folderName;
-//        [childArray addObject:insideMenu];
-//    }
-//    folderDataObj.children = childArray;
-//    [self.data addObject:folderDataObj];
+    RADataObject *folderDataObj = [[RADataObject alloc]init];
+    folderDataObj.name = @"FOLDER";
+    folderDataObj.isFolder = YES;
+    NSMutableArray *childArray = [[NSMutableArray alloc]init];
+    //NSArray *menuArray = menu.listArray;
+    for(int i=0; i<folderArray.count; i++) {
+        RADataObject *insideMenu = [[RADataObject alloc]init];
+        FIFolder *folder = [folderArray objectAtIndex:i];
+        insideMenu.nodeId = folder.folderId;
+        insideMenu.name = [folder.folderName uppercaseString];
+        insideMenu.isFolder = YES;
+        [childArray addObject:insideMenu];
+    }
+    folderDataObj.children = childArray;
+    [self.data addObject:folderDataObj];
     
     
     RADataObject *dataObj = [[RADataObject alloc]init];
@@ -431,41 +445,40 @@
     }else {
         cell.expandButton.hidden = YES;
     }
-//    __weak typeof(self) weakSelf = self;
-//    cell.additionButtonTapAction = ^(id sender){
-//        if (![weakSelf.treeView isCellForItemExpanded:dataObject] || weakSelf.treeView.isEditing) {
-//            return;
-//        }
-//        RADataObject *newDataObject = [[RADataObject alloc] initWithName:@"Added value" children:@[]];
-//        [dataObject addChild:newDataObject];
-//        [weakSelf.treeView insertItemsAtIndexes:[NSIndexSet indexSetWithIndex:0] inParent:dataObject withAnimation:RATreeViewRowAnimationLeft];
-//        [weakSelf.treeView reloadRowsForItems:@[dataObject] withRowAnimation:RATreeViewRowAnimationNone];
-//    };
+
     
     
     
     CGFloat left;
-    if([dataObject.nodeId integerValue] == 9) {
-        left = 40 + 11 + 20 * level;
-        cell.iconImage.hidden = NO;
-        cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
-    } else if([dataObject.nodeId integerValue] == 6) {
-        left = 40 + 11 + 20 * level;
-        cell.iconImage.hidden = NO;
-        cell.iconImage.image = [UIImage imageNamed:@"savedForLater"];
-    } else if([[dataObject.name uppercaseString] isEqualToString:@"LOGOUT"]) {
-        left = 40 + 11 + 20 * level;
-        cell.iconImage.hidden = NO;
-        cell.iconImage.image = [UIImage imageNamed:@"logout"];
-    } else if([[dataObject.name uppercaseString]isEqualToString:@"FOLDER"]) {
-        
-        left = 40 + 11 + 20 * level;
-        cell.iconImage.hidden = NO;
-        cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
-    }else {
-        left = 34 + 20 * level;
-        cell.iconImage.hidden = YES;
+    if(!dataObject.isFolder) {
+        if([dataObject.nodeId integerValue] == 9) {
+            left = 40 + 11 + 20 * level;
+            cell.iconImage.hidden = NO;
+            cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
+        } else if([dataObject.nodeId integerValue] == 6) {
+            left = 40 + 11 + 20 * level;
+            cell.iconImage.hidden = NO;
+            cell.iconImage.image = [UIImage imageNamed:@"savedForLater"];
+        } else if([[dataObject.name uppercaseString] isEqualToString:@"LOGOUT"]) {
+            left = 40 + 11 + 20 * level;
+            cell.iconImage.hidden = NO;
+            cell.iconImage.image = [UIImage imageNamed:@"logout"];
+        } else {
+            left = 34 + 20 * level;
+            cell.iconImage.hidden = YES;
+        }
+    } else {
+        if([[dataObject.name uppercaseString]isEqualToString:@"FOLDER"]) {
+            
+            left = 40 + 11 + 20 * level;
+            cell.iconImage.hidden = NO;
+            cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
+        }else {
+            left = 34 + 20 * level;
+            cell.iconImage.hidden = YES;
+        }
     }
+    
     CGRect titleFrame = cell.customTitleLabel.frame;
     titleFrame.origin.x = left;
     cell.customTitleLabel.frame = titleFrame;
@@ -538,7 +551,7 @@
         NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
         
         cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
-    if([data.nodeId integerValue] == 9) {
+    if([data.nodeId integerValue] == 9 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         
@@ -558,7 +571,7 @@
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-2] withFlag:@"" withLastArticleId:@""];
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-2] forKey:@"categoryId"];
         
-    } else if([data.nodeId integerValue] == 1) {
+    } else if([data.nodeId integerValue] == 1 && !data.isFolder) {
         NSLog(@"row selection calling");
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
@@ -584,7 +597,7 @@
         }
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
         
-    } else if([data.nodeId integerValue] == 6) {
+    } else if([data.nodeId integerValue] == 6 && !data.isFolder) {
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-3] forKey:@"categoryId"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
@@ -593,18 +606,7 @@
         
         CorporateNewsListViewObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
-//        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-//        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-//        [gradedetails setObject:@"" forKey:@"lastArticleId"];
-//        [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
-//        [gradedetails setObject:@"3" forKey:@"activityTypeIds"];
-//        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-//        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        //[[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:-3 withFlag:@"" withLastArticleId:@""];
-        
-        
-        
-    } else if([data.nodeId integerValue] == 7) {
+    } else if([data.nodeId integerValue] == 7 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"InfluencerView"];
         
@@ -613,32 +615,21 @@
         InfluencerListViewObj.titleName=data.name;
         
         [self.revealController setFrontViewController:navCtlr];
-    }else if([data.nodeId integerValue] == 8) {
+    }else if([data.nodeId integerValue] == 8 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Deals" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"DealsViewController"];
         
         DealsViewController *DealsViewControllerObj=(DealsViewController *)[[navCtlr viewControllers]objectAtIndex:0];
-        
         DealsViewControllerObj.titleName=data.name;
-        
-//        [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-//        navCtlr.navigationBar.tintColor = [UIColor whiteColor];
         [self.revealController setFrontViewController:navCtlr];
-    }else if([data.nodeId integerValue] == 2) {
+    }else if([data.nodeId integerValue] == 2 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"stock" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"StockViewController"];
-        
-        
         StockViewController *StockViewControllerObj=(StockViewController *)[[navCtlr viewControllers]objectAtIndex:0];
-        
         StockViewControllerObj.titleName=data.name;
-        
-      //  [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-       // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
          [self.revealController setFrontViewController:navCtlr];
-
     }
-    else if([data.nodeId integerValue] == 4) {
+    else if([data.nodeId integerValue] == 4 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"IpAndLegal" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"IpAndLegalViewController"];
         
@@ -648,16 +639,12 @@
         [self.revealController setFrontViewController:navCtlr];
         
 
-    } else if([data.nodeId integerValue] == 5) {
+    } else if([data.nodeId integerValue] == 5 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ExecutiveMoves" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"ExecutiveMoves"];
         
         ExecutiveMovesController *ExecutiveMovesControllerObj=(ExecutiveMovesController *)[[navCtlr viewControllers]objectAtIndex:0];
-        
         ExecutiveMovesControllerObj.titleName=data.name;
-
-        //  [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-        // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
         [self.revealController setFrontViewController:navCtlr];
     }else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         
@@ -672,7 +659,6 @@
     
     if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
     } else {
-
         if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
 
        // NSLog(@"empty node id");
@@ -684,11 +670,17 @@
         
         CorporateNewsListViewObj.titleName=data.name;
         
-        [self.revealController setFrontViewController:navCtlr];
-        NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:data.nodeId];
-        [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
         
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withFlag:@"" withLastArticleId:@""];
+        NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:data.nodeId];
+        
+        if(data.isFolder) {
+            
+        } else {
+            [self.revealController setFrontViewController:navCtlr];
+            [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withFlag:@"" withLastArticleId:@""];
+        }
+        
         }
     }
 }

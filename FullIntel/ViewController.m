@@ -208,7 +208,7 @@
         
         NSString *resultJson = [[NSString alloc]initWithData:menuJsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:resultJson];
-       // [[FISharedResources sharedResourceManager]getFolderListWithAccessToken:[notification.object objectForKey:@"securityToken"]];
+        [[FISharedResources sharedResourceManager]getFolderListWithAccessToken:[notification.object objectForKey:@"securityToken"]];
          //[[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:-1 withFlag:@""];
       //  [self dismissViewControllerAnimated:YES completion:nil];
         [self.view removeFromSuperview];

@@ -29,6 +29,14 @@
         NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
         // NSLog(@"folder array:%@",oldSavedArray);
         _savedListArray = [[NSMutableArray alloc]initWithArray:oldSavedArray];
+        selectedArray = [[NSMutableArray alloc]init];
+        unselectedArray = [[NSMutableArray alloc]init];
+        for(FIFolder *folder in self.savedListArray) {
+            if([folder.folderArticlesIDArray containsObject:self.selectedArticleId]) {
+                [selectedArray addObject:folder.folderId];
+            }
+        }
+        
     }
     [self.saveButton setEnabled:NO];
     [self.savedListTableView reloadData];
@@ -51,11 +59,18 @@
     cell.checkedButton.tag = indexPath.row;
     FIFolder *folder = [_savedListArray objectAtIndex:indexPath.row];
     NSLog(@"folder id array:%@",folder.folderArticlesIDArray);
-    if([folder.folderArticlesIDArray containsObject:@"2148cebf-b17c-40e8-adc4-7869fe1d9c09"]) {
+//    if([folder.folderArticlesIDArray containsObject:self.selectedArticleId]) {
+//        [cell.checkedButton setSelected:YES];
+//    } else {
+//        [cell.checkedButton setSelected:NO];
+//    }
+    
+    if([selectedArray containsObject:folder.folderId]) {
         [cell.checkedButton setSelected:YES];
     } else {
         [cell.checkedButton setSelected:NO];
     }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.name.text = folder.folderName;
     return cell;
@@ -67,17 +82,22 @@
 }
 
 - (IBAction)checkedButtonAction:(UIButton *)sender {
-    NSLog(@"tag value:%d",sender.tag);
+    NSLog(@"tag value:%ld",(long)sender.tag);
     [self.saveButton setEnabled:YES];
-    if(sender.selected) {
-        [sender setSelected:NO];
+//    if(sender.selected) {
+//        [sender setSelected:NO];
+//        FIFolder *folder = [_savedListArray objectAtIndex:sender.tag];
+//        [selectedArray removeObject:folder.folderId];
+////        FIFolder *folder = [_savedListArray objectAtIndex:sender.tag];
+////        [folder.folderArticlesIDArray removeObject:self.selectedArticleId];
+//    }else {
+//        [sender setSelected:YES];
         FIFolder *folder = [_savedListArray objectAtIndex:sender.tag];
-        [folder.folderArticlesIDArray removeObject:@"2148cebf-b17c-40e8-adc4-7869fe1d9c09"];
-    }else {
-        [sender setSelected:YES];
-        FIFolder *folder = [_savedListArray objectAtIndex:sender.tag];
-        [folder.folderArticlesIDArray addObject:@"2148cebf-b17c-40e8-adc4-7869fe1d9c09"];
-    }
+    unselectedArray = [[NSMutableArray alloc]initWithArray:selectedArray];
+        [selectedArray removeAllObjects];
+        [selectedArray addObject:folder.folderId];
+   // }
+    [self.savedListTableView reloadData];
 }
 
 - (IBAction)createFolderAction:(UIButton *)sender {
@@ -122,7 +142,7 @@
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderdetails options:NSJSONWritingPrettyPrinted error:nil];
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-       // [[FISharedResources sharedResourceManager]createFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+        [[FISharedResources sharedResourceManager]createFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -130,4 +150,19 @@
     
 }
 
+- (IBAction)savedAction:(id)sender {
+    NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
+    [folderdetails setObject:self.selectedArticleId forKey:@"articleId"];
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderdetails options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+    [[FISharedResources sharedResourceManager]saveArticleToFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFolderId:[selectedArray objectAtIndex:0]];
+
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        if(unselectedArray.count != 0) {
+            [[FISharedResources sharedResourceManager]removeArticleToFolderWithDetails:self.selectedArticleId withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFolderId:[unselectedArray objectAtIndex:0]];
+        }
+    });
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

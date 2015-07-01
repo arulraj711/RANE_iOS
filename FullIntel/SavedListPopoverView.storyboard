@@ -91,6 +91,9 @@
                                 <state key="disabled" title="Save">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="savedAction:" destination="5dj-q7-cK4" eventType="touchUpInside" id="hLz-kl-w0b"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

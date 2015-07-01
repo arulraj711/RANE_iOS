@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UCZProgressView.h"
 
-@interface SocialWebView : UIViewController {
+@interface SocialWebView : UIViewController<UIScrollViewDelegate> {
     UCZProgressView *progressView;
     NSTimer *timer;
 }
