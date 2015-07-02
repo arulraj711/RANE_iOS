@@ -1008,6 +1008,17 @@
     }
 }
 
+-(void)updatePushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken {
+    if([self serviceIsReachable]) {
+        [FIWebService pushNotificationWithDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //[self getFolderListWithAccessToken:accessToken];
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    } else {
+        [FIUtils showNoNetworkToast];
+    }
+}
 
 -(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId {
     if([self serviceIsReachable]) {

@@ -158,8 +158,26 @@
         NSString *resultJson = [[NSString alloc]initWithData:menuJsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:resultJson];
         [[FISharedResources sharedResourceManager]getFolderListWithAccessToken:[notification.object objectForKey:@"securityToken"]];
-         //[[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:-1 withFlag:@""];
-      //  [self dismissViewControllerAnimated:YES completion:nil];
+        
+        NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+        NSString *tzName = [timeZone name];
+        
+        NSLog(@"current time zone:%@ and %ld and timezone:%@ and %@",tzName,(long)timeZone.secondsFromGMT,timeZone.abbreviation,timeZone);
+        
+        NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
+        [pushDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"] forKey:@"deviceToken"];
+        [pushDic setObject:timeZone.name forKey:@"locale"];
+        [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
+        [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
+        [pushDic setObject:[NSNumber numberWithInteger:timeZone.secondsFromGMT] forKey:@"offset"];
+        NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
+         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+             
+             [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
+         });
+        
         [self.view removeFromSuperview];
     } else {
         [self.view makeToast:[notification.object objectForKey:@"message"] duration:1 position:CSToastPositionCenter];

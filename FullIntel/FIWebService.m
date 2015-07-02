@@ -265,6 +265,22 @@ NSString *url = @"http://stage.fullintel.com";
     
 }
 
+
++(void)pushNotificationWithDetails:(NSString*)details withSecurityToken:(NSString *)securityToken
+                     onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                     onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    NSString *functionName = [NSString stringWithFormat:@"customer/device?security_token=%@",securityToken];
+    [self postQueryResultsForFunctionName:functionName withPostDetails:details withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
+
+
 +(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId
                              onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                              onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {

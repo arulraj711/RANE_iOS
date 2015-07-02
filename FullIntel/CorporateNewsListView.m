@@ -40,10 +40,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readStatusUpdate:) name:@"readStatusUpdate" object:nil];
     
     
-    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
-    NSString *tzName = [timeZone name];
+   
     
-    NSLog(@"current time zone:%@ and %@",tzName,timeZone);
+    
     
    // [self.revealController showViewController:self.revealController.leftViewController];
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
