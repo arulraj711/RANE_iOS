@@ -27,7 +27,7 @@ NSString *url = @"http://stage.fullintel.com";
 + (void)getResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     //NSLog(@"get ress for function ");
-    
+    NSLog(@"start  time--->%f",CFAbsoluteTimeGetCurrent());
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@/",url,FUNCTION_URL,urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
@@ -37,6 +37,7 @@ NSString *url = @"http://stage.fullintel.com";
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         NSLog(@"end  time--->%f",CFAbsoluteTimeGetCurrent());
          NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSASCIIStringEncoding];
          NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
          NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,postDetails);
@@ -263,6 +264,22 @@ NSString *url = @"http://stage.fullintel.com";
     }];
     
 }
+
++(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId
+                             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    NSString *functionName = [NSString stringWithFormat:@"folder/%@/articles?security_token=%@",folderId,securityToken];
+    [self getQueryResultsForFunctionName:functionName withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
+
+
 
 +(void)saveArticlesToFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSString *)folderId
                      onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

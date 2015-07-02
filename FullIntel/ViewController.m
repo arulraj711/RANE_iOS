@@ -45,31 +45,6 @@
     longPress.minimumPressDuration = 3;
    // longPress.numberOfTouches = 1;
     [self.logoIcon addGestureRecognizer:longPress];
-    
-    
-//    TWTRLogInButton* logInButton =  [TWTRLogInButton
-//                                     buttonWithLogInCompletion:
-//                                     ^(TWTRSession* session, NSError* error) {
-//                                         if (session) {
-//                                             NSLog(@"signed in as %@", [session userName]);
-//                                         } else {
-//                                             NSLog(@"error: %@", [error localizedDescription]);
-//                                         }
-//                                     }];
-//    logInButton.center = self.view.center;
-//    [self.view addSubview:logInButton];
-//    
-//    
-//    
-//    [[Twitter sharedInstance] logInWithCompletion:^
-//     (TWTRSession *session, NSError *error) {
-//         if (session) {
-//             NSLog(@"signed in as %@", [session userName]);
-//             [logInButton removeFromSuperview];
-//         } else {
-//             NSLog(@"error: %@", [error localizedDescription]);
-//         }
-//     }];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -81,14 +56,6 @@
     UIView *rPaddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
-    
-
-
-   // self.usernameTextField.text = @"prabhujef@gmail.com";
-   // self.passwordTextField.text = @"start";
-
-
-
 }
 - (void)animateImages
 {
@@ -116,24 +83,6 @@
 -(void)viewDidDisappear:(BOOL)animated {
     self.isAnimated = NO;
 }
-
-//- (void)crossfade {
-//    [UIView animateWithDuration:3.0
-//                          delay:0.0
-//                        options:UIViewAnimationOptionTransitionCurlUp
-//                     animations:^{ self.backgroundImageView.alpha = 1; }
-//                     completion:^(BOOL finished){
-//                     
-//                         [UIView animateWithDuration:3.0
-//                                               delay:0.0
-//                                             options:UIViewAnimationOptionTransitionCurlUp
-//                                          animations:^{ self.backgroundImageView.alpha = 0.3; }
-//                                          completion:^(BOOL finished){}
-//                          ];
-//                     }
-//     ];
-//}
-
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

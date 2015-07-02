@@ -24,6 +24,7 @@
 -(void)getMenuListWithAccessToken:(NSString *)accessToken;
 -(void)getFolderListWithAccessToken:(NSString *)accessToken;
 -(void)createFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
+-(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId;
 -(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId;
 -(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId;
 -(void)checkLoginUserWithDetails:(NSString *)details;

@@ -198,23 +198,31 @@
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
-    NSLog(@"load curated news list:%@",categoryId);
+    NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
+    NSLog(@"load curated news list:%@ and folderid:%@",categoryId,folderId);
    // NSLog(@"category id in curated news:%@",categoryId);
     self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate;
-    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+    if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+            NSLog(@"if part");
+            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+        } else {
+            NSLog(@"else part");
+            predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
+        }
     } else {
-       predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
+        predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
     }
+    
     
     [fetchRequest setPredicate:predicate];
     
     
     NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-    
+    NSLog(@"date:%@",date);
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
@@ -224,30 +232,7 @@
     NSLog(@"curated news list count:%lu",(unsigned long)newPerson.count);
     if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-//        for(NSManagedObject *curatedNews in self.devices) {
-//            if([curatedNews valueForKey:@"details"] == nil) {
-//                NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
-//                [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-//                [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
-//                NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-//                
-//                NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-//                
-//                NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
-//                [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-//                [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
-//                NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
-//                
-//                NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
-//                
-//                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-//                    //Background Thread
-//                    [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
-//                    [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
-//                    
-//                });
-//            }
-//        }
+
     }else {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     }

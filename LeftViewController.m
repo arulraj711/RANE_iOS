@@ -656,33 +656,53 @@
         [[FISharedResources sharedResourceManager] logoutUserWithDetails:resultStr withFlag:[NSNumber numberWithInt:1]];
         
     }
-    
+    NSLog(@"left click:%@",data.nodeId);
     if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
-    } else {
-        if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
-
-       // NSLog(@"empty node id");
-    }else {
+        [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+    } else if(data.isFolder){
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-        
         CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
-        
         CorporateNewsListViewObj.titleName=data.name;
-        
-        
-        NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:data.nodeId];
-        
-        if(data.isFolder) {
-            
-        } else {
+        if(data.nodeId != nil) {
+            [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"folderId"];
             [self.revealController setFrontViewController:navCtlr];
-            [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
-            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId];
         }
         
+    } else {
+        if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
+            [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+            // NSLog(@"empty node id");
+        }else {
+            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+            
+            CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+            
+            CorporateNewsListViewObj.titleName=data.name;
+            
+            
+            NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:data.nodeId];
+            
+//            if(data.isFolder) {
+//                NSLog(@"folder click and folder id:%@",data.nodeId);
+//                if(data.nodeId != nil) {
+//                    [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"folderId"];
+//                    [self.revealController setFrontViewController:navCtlr];
+//                    [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId];
+//                }
+//                
+//            } else {
+                [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+                [self.revealController setFrontViewController:navCtlr];
+                [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
+                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withFlag:@"" withLastArticleId:@""];
+           // }
+            
         }
     }
+    
 }
 
 

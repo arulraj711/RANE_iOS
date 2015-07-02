@@ -36,6 +36,9 @@
 +(void)removeArticlesFromFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSString *)folderId
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId
+                                      onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                      onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 +(void)loginProcessWithDetails:(NSString*)details
               onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

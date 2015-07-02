@@ -74,7 +74,9 @@
         socialWebViewObj.urlString=urlTextEscaped;
         modalController.modalPresentationStyle = UIModalPresentationCustom;
         
-        [self presentViewController:modalController animated:NO completion:nil];
+        [self presentViewController:modalController animated:NO completion:^{
+           // [self dismissViewControllerAnimated:YES completion:nil];
+        }];
         
     } else if(indexPath.row == 2) {
         

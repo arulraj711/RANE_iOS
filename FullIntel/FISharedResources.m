@@ -280,13 +280,16 @@
             } else {
                 //Create new object
                 curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
-                [curatedNews setValue:categoryId forKey:@"categoryId"];
+                
                 
                 [curatedNews setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
                 [_articleIdArray addObject:[dic objectForKey:@"id"]];
             }
             
             //Set values in local db
+            [curatedNews setValue:categoryId forKey:@"categoryId"];
+            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isFolder"];
+            [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [curatedNews setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
             [curatedNews setValue:[dic objectForKey:@"articleHeading"] forKey:@"title"];
             [curatedNews setValue:[dic objectForKey:@"articleDescription"] forKey:@"desc"];
@@ -904,6 +907,94 @@
         [FIUtils showNoNetworkToast];
     }
 }
+
+-(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId {
+    if([self serviceIsReachable]) {
+        [FIWebService fetchArticlesFromFolderWithSecurityToken:accessToken withFolderId:[folderId stringValue] onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if([responseObject isKindOfClass:[NSArray class]]){
+                NSArray *curatedNewsArray = responseObject;
+                //Handle Pagination
+                if(curatedNewsArray.count == 0) {
+                    //if(lastArticleId.length != 0){
+                    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                    [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
+                    //}
+                }
+                //NSLog(@"incoming category id:%@",categoryId);
+                
+                for(NSDictionary *dic in curatedNewsArray) {
+                    
+                    NSManagedObjectContext *context;
+                    // Create a new managed object
+                    NSManagedObject *curatedNews;
+                   // NSManagedObject *curatedNewsDrillIn;
+                    context = [self managedObjectContext];
+                    
+                    NSDictionary *articleDic = [dic objectForKey:@"article"];
+                    NSLog(@"article dic:%@",articleDic);
+                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[articleDic objectForKey:@"id"]];
+                    [fetchRequest setPredicate:predicate];
+                    NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                    NSLog(@"existing array:%@",existingArray);
+                    if(existingArray.count != 0) {
+                        NSLog(@"yes");
+                        //Excisting Object
+                        curatedNews = [existingArray objectAtIndex:0];
+                    } else {
+                        NSLog(@"no");
+                        //Create new object
+                        curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
+                        //[curatedNews setValue:categoryId forKey:@"categoryId"];
+                        
+                       // [curatedNews setValue:[articleDic objectForKey:@"readStatus"] forKey:@"readStatus"];
+                        [_articleIdArray addObject:[articleDic objectForKey:@"id"]];
+                    }
+                    
+                    //Set values in local db
+                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isFolder"];
+                    [curatedNews setValue:folderId forKey:@"folderId"];
+                    [curatedNews setValue:[articleDic objectForKey:@"id"] forKey:@"articleId"];
+                    [curatedNews setValue:[articleDic objectForKey:@"heading"] forKey:@"title"];
+                    [curatedNews setValue:[articleDic objectForKey:@"articleDescription"] forKey:@"desc"];
+                    [curatedNews setValue:[articleDic objectForKey:@"modifiedDate"] forKey:@"date"];
+                    [curatedNews setValue:[articleDic objectForKey:@"publishedDate"] forKey:@"publishedDate"];
+                    [curatedNews setValue:[articleDic objectForKey:@"articleImage"] forKey:@"image"];
+                    [curatedNews setValue:[articleDic objectForKey:@"articleURL"] forKey:@"articleUrl"];
+                    [curatedNews setValue:[articleDic objectForKey:@"articleTypeId"] forKey:@"articleTypeId"];
+                    [curatedNews setValue:[articleDic objectForKey:@"articleType"] forKey:@"articleType"];
+                    [curatedNews setValue:[articleDic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
+                    
+                    
+                    
+                    NSError *error = nil;
+                    // Save the object to persistent store
+                    if (![context save:&error]) {
+                        // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+                        NSLog(@"one");
+                    }else {
+                        //  NSLog(@"else part:%@",error);
+                        NSLog(@"two");
+                    }
+
+                }
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
+                //[[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
+            }else if([responseObject isKindOfClass:[NSDictionary class]]){
+                if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
+                    [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+                }
+            }
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    } else {
+        
+    }
+}
+
 
 -(void)createFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken {
     if([self serviceIsReachable]) {

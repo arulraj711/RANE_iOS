@@ -61,7 +61,9 @@
         <attribute name="categoryId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="folderId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isFolder" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isReadStatusSync" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="markAsImportant" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="markAsImportantUserId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -291,7 +293,7 @@
         <element name="Company_Widget" positionX="-171" positionY="9" width="128" height="120"/>
         <element name="CuratedAuthor" positionX="-846" positionY="-1404" width="128" height="163"/>
         <element name="CuratedLegends" positionX="-153" positionY="-306" width="128" height="88"/>
-        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="390"/>
+        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="420"/>
         <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="270"/>
         <element name="CuratedNewsDetailAuthor" positionX="-2423" positionY="-1269" width="128" height="238"/>
         <element name="Influ_Drillin" positionX="-479" positionY="-18" width="128" height="268"/>

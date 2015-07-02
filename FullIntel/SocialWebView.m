@@ -38,8 +38,8 @@
     layer.shadowOffset=CGSizeMake(0.0f,0.0f);
     
 
-    UIScrollView *scrollView = [self.webView.subviews objectAtIndex:0];
-    scrollView.delegate = self;//self must be UIScrollViewDelegate
+//    UIScrollView *scrollView = [self.webView.subviews objectAtIndex:0];
+//    scrollView.delegate = self;//self must be UIScrollViewDelegate
    
 
     if([[FISharedResources sharedResourceManager]serviceIsReachable]){
