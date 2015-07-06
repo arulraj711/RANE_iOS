@@ -32,5 +32,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *customTitleLabel;
 @property (strong, nonatomic) IBOutlet JSCustomBadge *badgeView;
 @property (nonatomic,strong) IBOutlet UIImageView *iconImage;
+@property (nonatomic,strong) IBOutlet UIImageView *rssImage;
 @property (nonatomic,strong) IBOutlet UILabel *countLabel;
 @end

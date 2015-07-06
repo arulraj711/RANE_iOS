@@ -32,6 +32,9 @@
 //    [_moreInforArray addObject:@"Pocket"];
 //    [_moreInforArray addObject:@"Buffer"];
 //    [_moreInforArray addObject:@"Instapaper"];
+    
+    self.moreTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     [self.moreTableView reloadData];
 }
 

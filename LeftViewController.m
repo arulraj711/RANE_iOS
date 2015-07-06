@@ -479,6 +479,12 @@
         }
     }
     
+    if([[dataObject.name uppercaseString]isEqualToString:@"RSS"]) {
+        cell.rssImage.hidden = NO;
+    } else {
+        cell.rssImage.hidden = YES;
+    }
+    
     CGRect titleFrame = cell.customTitleLabel.frame;
     titleFrame.origin.x = left;
     cell.customTitleLabel.frame = titleFrame;
