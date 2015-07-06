@@ -40,6 +40,7 @@
     }
     [self.saveButton setEnabled:NO];
     [self.savedListTableView reloadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -137,6 +138,14 @@
     UITextField *emailTextField = [alertView textFieldAtIndex:0];
     
     if(buttonIndex == 1) {
+        
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.alpha = 1.0;
+        activityIndicator.center = self.view.center;
+        activityIndicator.hidesWhenStopped = YES;
+        [self.view addSubview:activityIndicator];
+        [activityIndicator startAnimating];
+        self.view.userInteractionEnabled = NO;
         NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
         [folderdetails setObject:emailTextField.text forKey:@"folderName"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderdetails options:NSJSONWritingPrettyPrinted error:nil];
@@ -145,12 +154,27 @@
         [[FISharedResources sharedResourceManager]createFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     }
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self dismissViewControllerAnimated:YES completion:nil];
 
     
 }
 
+-(void)stopFolderLoading {
+    [activityIndicator stopAnimating];
+    self.view.userInteractionEnabled = YES;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
 - (IBAction)savedAction:(id)sender {
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.alpha = 1.0;
+    activityIndicator.center = self.view.center;
+    activityIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+    self.view.userInteractionEnabled = NO;
     NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
     [folderdetails setObject:self.selectedArticleId forKey:@"articleId"];
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderdetails options:NSJSONWritingPrettyPrinted error:nil];
@@ -163,6 +187,6 @@
         }
     });
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

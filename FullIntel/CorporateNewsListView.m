@@ -28,9 +28,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.revealController showViewController:self.revealController.leftViewController];
-    messageString = @"Loading";
+    messageString = @"Loading...";
    // NSLog(@"list did load");
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopLoading) name:@"StopLoading" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"authenticationFailed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestChange:) name:@"requestChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(markedImportantUpdate:) name:@"markedImportantUpdate" object:nil];
@@ -112,7 +115,7 @@
 //        // NSLog(@"corporate if part");
 //        [self showLoginPage];
 //    } else {
-//        [self loadCuratedNews];
+     //   [self loadCuratedNews];
 //        
 //    }
     
@@ -125,10 +128,10 @@
         // NSLog(@"corporate if part");
         [self showLoginPage];
     } else {
-        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
-        if(isFirst) {
+//        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
+//        if(isFirst) {
             [self loadCuratedNews];
-        }
+//        }
     }
 }
 //-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
@@ -189,11 +192,14 @@
     //[self presentViewController:loginView animated:YES completion:nil];
 }
 
-
+-(void)stopLoading {
+    messageString = @"No articles to display";
+    [activityIndicator stopAnimating];
+}
 
 -(void)loadCuratedNews {
     
-    [activityIndicator stopAnimating];
+    
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
@@ -225,10 +231,18 @@
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    messageString = @"No articles to display";
+   
     
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     NSLog(@"curated news list count:%lu",(unsigned long)newPerson.count);
+    if(newPerson.count != 0) {
+        // messageString = @"No articles to display";
+//    } else {
+        [activityIndicator stopAnimating];
+    }
+//    if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]] && newPerson.count == 0) {
+//        [activityIndicator stopAnimating];
+//    }
     if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 
@@ -236,7 +250,7 @@
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     }
     
-    //NSLog(@"devices:%d",self.devices.count);
+    NSLog(@"devices:%d",self.devices.count);
     _spinner.hidden = YES;
     [_spinner stopAnimating];
     [self.articlesTableView reloadData];

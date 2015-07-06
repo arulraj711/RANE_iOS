@@ -123,19 +123,25 @@
     if(testFlag) {
         NSLog(@"test flag is TRUE");
         
-        NSInteger categoryId = [[[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"] integerValue];
-       // NSLog(@"category id in curated news:%d",categoryId);
+        NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
+        NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
         
         self.collectionView.scrollEnabled = YES;
         NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
         NSPredicate *predicate;
-        if(categoryId == -3) {
-            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+        if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+            } else {
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
+            }
         } else {
-            predicate  = [NSPredicate predicateWithFormat:@"categoryId == %d",categoryId];
+            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
         }
+        
+        
         [fetchRequest setPredicate:predicate];
         [fetchRequest setEntity:entity];
         
