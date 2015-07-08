@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SavedListPopoverView : UIViewController<UITextFieldDelegate> {
+@interface SavedListPopoverView : UIViewController<UITextFieldDelegate,UITableViewDelegate> {
     NSMutableArray *selectedArray;
     NSMutableArray *unselectedArray;
     UIActivityIndicatorView *activityIndicator;

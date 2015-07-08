@@ -111,6 +111,7 @@
 
 
 -(void)loadTweetsFromPost {
+    
     NSMutableArray *tweetIds = [[NSMutableArray alloc]init];
     
     for(NSManagedObject *relatedPost in self.relatedPostArray) {
@@ -976,6 +977,7 @@
     self.popOver.popoverContentSize=CGSizeMake(350, 250);
     //self.popOver.delegate = self;
     [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
 }
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {

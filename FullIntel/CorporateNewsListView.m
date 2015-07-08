@@ -70,21 +70,16 @@
 //    searchBtnView.backgroundColor = [UIColor clearColor];
 //    UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
 //    [searchBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-//    [searchBtn setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
+//    [searchBtn setBackgroundImage:[UIImage imageNamed:@"rss_whiteicon"]  forState:UIControlStateNormal];
+//    [searchBtn setTitle:@"RSS" forState:UIControlStateNormal];
 //    [searchBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
 //    [searchBtnView addSubview:searchBtn];
 //    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
-//    
-//    UIView *settingsBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
-//    settingsBtnView.backgroundColor = [UIColor clearColor];
-//    UIButton *settingsBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-//    [settingsBtn setFrame:CGRectMake(0.0f,0.0f,15.0f,15.0f)];
-//    [settingsBtn setBackgroundImage:[UIImage imageNamed:@"settings"]  forState:UIControlStateNormal];
-//    [settingsBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-//    [settingsBtnView addSubview:settingsBtn];
-//    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithCustomView:settingsBtnView];
-
-    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,  nil]];
+//
+    
+    
+    [self addRightBarItems];
+    
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     label.backgroundColor = [UIColor clearColor];
@@ -119,6 +114,26 @@
 //        
 //    }
     
+}
+
+-(void)addRightBarItems {
+    UIView *rssBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
+    UIButton *rssButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
+    [rssButton setImage:[UIImage imageNamed:@"rss_whiteicon"] forState:UIControlStateNormal];
+    [rssButton setImageEdgeInsets:UIEdgeInsetsMake(0,62,0,0)];
+    [rssButton setTitle:@"Export" forState:UIControlStateNormal];
+    [rssButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    rssButton.titleLabel.font = [UIFont fontWithName:@"OpenSans" size:14];
+    [rssButton setTitleEdgeInsets: UIEdgeInsetsMake(0,0,0,40)];
+    [rssButton addTarget:self action:@selector(openRSSField) forControlEvents:UIControlEventTouchUpInside];
+    [rssBtnView addSubview:rssButton];
+    UIBarButtonItem *RSSButton = [[UIBarButtonItem alloc] initWithCustomView:rssBtnView];
+    BOOL isRssField = [[NSUserDefaults standardUserDefaults]boolForKey:@"isRSSField"];
+    if(isRssField) {
+        [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:RSSButton, nil]];
+    } else {
+        //[self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,nil]];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -236,9 +251,10 @@
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     NSLog(@"curated news list count:%lu",(unsigned long)newPerson.count);
     if(newPerson.count != 0) {
-        // messageString = @"No articles to display";
-//    } else {
+        [self addRightBarItems];
         [activityIndicator stopAnimating];
+    } else {
+        self.navigationItem.rightBarButtonItems = nil;
     }
 //    if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]] && newPerson.count == 0) {
 //        [activityIndicator stopAnimating];
@@ -280,6 +296,36 @@
 //    [self.influencerTableView reloadData];
 }
 
+
+-(void)openRSSField {
+    mailComposer = [[MFMailComposeViewController alloc]init];
+    mailComposer.mailComposeDelegate = self;
+    [mailComposer setSubject:@"FullIntel news feed"];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
+                                                                           fontWithName:@"Open Sans" size:18], NSFontAttributeName,
+                                [UIColor whiteColor], NSForegroundColorAttributeName, nil];
+    mailComposer.navigationBar.titleTextAttributes = attributes;
+    // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    NSString *mailBodyString = [[NSUserDefaults standardUserDefaults]objectForKey:@"RSSURL"];
+    
+    [mailComposer setMessageBody:mailBodyString isHTML:NO];
+    [self presentViewController:mailComposer animated:YES completion:nil];
+}
+
+#pragma mark - mail compose delegate
+-(void)mailComposeController:(MFMailComposeViewController *)controller
+         didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    if (result) {
+        //NSLog(@"Result : %d",result);
+    }
+    if (error) {
+        //NSLog(@"Error : %@",error);
+    }
+    //[self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
 
 -(void)addContentView {
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];

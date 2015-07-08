@@ -40,7 +40,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showResearchView:) name:@"showResearchView" object:nil];
     
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showWebView:) name:@"widgetSelected" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(linkedinSelection:) name:@"linkedinSelection" object:nil];
     
     
     [self addCustomNavRightButton];
@@ -206,6 +206,34 @@
         cell.badgeTwo.value =[totalComments integerValue];
         cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
    // }
+}
+
+
+-(void)linkedinSelection:(id)sender {
+    
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *articleUrl = [userInfo objectForKey:@"artileUrl"];
+    NSString *articleTitle = [userInfo objectForKey:@"articleTitle"];
+    NSString *articleDesc = [userInfo objectForKey:@"articleDescription"];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    
+    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+    SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+    socialWebViewObj.titleStr=@"LinkedIn Share";
+    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",articleUrl,articleTitle,articleDesc];
+    NSLog(@"linked in url:%@",urlString);
+    NSString* urlTextEscaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"after link:%@",urlTextEscaped);
+    socialWebViewObj.urlString=urlTextEscaped;
+    modalController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [self presentViewController:modalController animated:NO completion:^{
+        // [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {

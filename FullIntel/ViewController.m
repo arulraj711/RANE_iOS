@@ -142,8 +142,6 @@
 }
 
 -(void)afterLogin:(NSNotification *)notification {
-   // NSLog(@"notification object:%@",notification.object);
-    
     if([[notification.object objectForKey:@"statusCode"] intValue]==200 && [[notification.object objectForKey:@"logicStatusCode"]intValue] == 1) {
        
        [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
@@ -160,10 +158,6 @@
         [[FISharedResources sharedResourceManager]getFolderListWithAccessToken:[notification.object objectForKey:@"securityToken"] withFlag:NO];
         
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
-        NSString *tzName = [timeZone name];
-        
-        NSLog(@"current time zone:%@ and %ld and timezone:%@ and %@",tzName,(long)timeZone.secondsFromGMT,timeZone.abbreviation,timeZone);
-        
         NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
         [pushDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"] forKey:@"deviceToken"];
         [pushDic setObject:timeZone.name forKey:@"locale"];

@@ -96,6 +96,9 @@
 		A0E2235F1A91C2F00073814A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E2235D1A91C2F00073814A /* Main.storyboard */; };
 		A0E223611A91C2F00073814A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0E223601A91C2F00073814A /* Images.xcassets */; };
 		A0E223641A91C2F00073814A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0E223621A91C2F00073814A /* LaunchScreen.xib */; };
+		A0E4B1171B4BB76B0029D389 /* FolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E4B1161B4BB76B0029D389 /* FolderViewController.m */; };
+		A0E4B1191B4BB77E0029D389 /* FolderView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E4B1181B4BB77D0029D389 /* FolderView.storyboard */; };
+		A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E4B11B1B4BF90A0029D389 /* FolderCell.m */; };
 		A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ECBDEE1AEA499700B140C8 /* RFQuiltLayout.m */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
 		F708D9EE1AB1A19B001FF59F /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = F708D9ED1AB1A19A001FF59F /* test.html */; };
@@ -343,6 +346,11 @@
 		A0E223631A91C2F00073814A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		A0E2236E1A91C2F00073814A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E2236F1A91C2F00073814A /* FullIntelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullIntelTests.m; sourceTree = "<group>"; };
+		A0E4B1151B4BB76B0029D389 /* FolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderViewController.h; sourceTree = "<group>"; };
+		A0E4B1161B4BB76B0029D389 /* FolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderViewController.m; sourceTree = "<group>"; };
+		A0E4B1181B4BB77D0029D389 /* FolderView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FolderView.storyboard; sourceTree = "<group>"; };
+		A0E4B11A1B4BF90A0029D389 /* FolderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderCell.h; sourceTree = "<group>"; };
+		A0E4B11B1B4BF90A0029D389 /* FolderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderCell.m; sourceTree = "<group>"; };
 		A0ECBDED1AEA499700B140C8 /* RFQuiltLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFQuiltLayout.h; sourceTree = "<group>"; };
 		A0ECBDEE1AEA499700B140C8 /* RFQuiltLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFQuiltLayout.m; sourceTree = "<group>"; };
 		A0F118B21AE7E0420047FE13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -705,6 +713,7 @@
 		A0E2234F1A91C2F00073814A /* FullIntel */ = {
 			isa = PBXGroup;
 			children = (
+				A0E4B1141B4BB74D0029D389 /* Folder Page */,
 				A0CF5C241B1DD97200DED2D9 /* MockPages */,
 				F773CFEA1ADE99DC002FC7CF /* AddContent */,
 				F7AE107F1AC01E040091E1C7 /* Influencer */,
@@ -752,6 +761,18 @@
 				A0E2236E1A91C2F00073814A /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A0E4B1141B4BB74D0029D389 /* Folder Page */ = {
+			isa = PBXGroup;
+			children = (
+				A0E4B1151B4BB76B0029D389 /* FolderViewController.h */,
+				A0E4B1161B4BB76B0029D389 /* FolderViewController.m */,
+				A0E4B1181B4BB77D0029D389 /* FolderView.storyboard */,
+				A0E4B11A1B4BF90A0029D389 /* FolderCell.h */,
+				A0E4B11B1B4BF90A0029D389 /* FolderCell.m */,
+			);
+			name = "Folder Page";
 			sourceTree = "<group>";
 		};
 		A0ECBDEC1AEA497500B140C8 /* CollectionViewLayout */ = {
@@ -1327,6 +1348,7 @@
 				F7E81FBA1A97057100F9A8D4 /* o-NEW-YORK-facebook.jpg in Resources */,
 				F7E81FC31A97057100F9A8D4 /* sony.ico in Resources */,
 				A041F0021B2ADA9E00B5600C /* LegendCollectionViewCell.xib in Resources */,
+				A0E4B1191B4BB77E0029D389 /* FolderView.storyboard in Resources */,
 				F7E81F9C1A97057100F9A8D4 /* carolynryan.jpeg in Resources */,
 				F7ECACCC1AB0730000B57AB6 /* StockWidgetCell.xib in Resources */,
 				F7E81FAB1A97057100F9A8D4 /* ipads.jpg in Resources */,
@@ -1354,14 +1376,14 @@
 		};
 		A0D956781B0C4B5C00DB013F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run c2277e37646d9edc0b0ccd4da52ac04f8a45e6cb 92960752ffaafd587fab1b08ace6158bb86c6c99f685a38791e3b640c510877c";
 		};
@@ -1403,6 +1425,7 @@
 				F7E85EA31A9F28970022B4D5 /* FIWebService.m in Sources */,
 				F7CE36F01A95E99D0005AA0A /* RADataObject.m in Sources */,
 				F7E85EA61A9F28B60022B4D5 /* FISharedResources.m in Sources */,
+				A0E4B1171B4BB76B0029D389 /* FolderViewController.m in Sources */,
 				A0CF5C6A1B1DD98B00DED2D9 /* NumberOfPatternsCell.m in Sources */,
 				A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */,
 				A0CF5C641B1DD98B00DED2D9 /* StockViewController.m in Sources */,
@@ -1445,6 +1468,7 @@
 				A0CF5C671B1DD98B00DED2D9 /* CompetitorCell.m in Sources */,
 				F7CE36C31A95E9230005AA0A /* RATreeView.m in Sources */,
 				F7CE36F11A95E99D0005AA0A /* RATableViewCell.m in Sources */,
+				A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */,
 				A0CF5C6D1B1DD98B00DED2D9 /* TimeLineCell.m in Sources */,
 				F78B42F81ABA896E00AB7FFB /* CorporateNewsListView.m in Sources */,
 				A0CF5C6E1B1DD98B00DED2D9 /* StockCell.m in Sources */,

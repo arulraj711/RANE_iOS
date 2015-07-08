@@ -11,6 +11,7 @@
 #import "FIUtils.h"
 #import "FIFolder.h"
 #import "FISharedResources.h"
+#import "UIView+Toast.h"
 
 @interface SavedListPopoverView ()
 
@@ -22,6 +23,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
    // NSMutableArray *folderArray;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
+    [self fetchFolderDetails];
+}
+
+-(void)fetchFolderDetails {
     NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
     NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"FolderList"];
     if (dataRepresentingSavedArray != nil)
@@ -40,8 +47,8 @@
     }
     [self.saveButton setEnabled:NO];
     [self.savedListTableView reloadData];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -76,6 +83,16 @@
     cell.name.text = folder.folderName;
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.saveButton setEnabled:YES];
+    FIFolder *folder = [_savedListArray objectAtIndex:indexPath.row];
+    unselectedArray = [[NSMutableArray alloc]initWithArray:selectedArray];
+    [selectedArray removeAllObjects];
+    [selectedArray addObject:folder.folderId];
+    [self.savedListTableView reloadData];
+}
+
 
 - (IBAction)requestButtonClick:(id)sender {
     [sender setSelected:YES];
@@ -135,34 +152,38 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    UITextField *emailTextField = [alertView textFieldAtIndex:0];
+    UITextField *folderNameTextField = [alertView textFieldAtIndex:0];
     
     if(buttonIndex == 1) {
+        if(folderNameTextField.text.length == 0) {
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            [window makeToast:@"￼Please enter a folder name." duration:1 position:CSToastPositionCenter];
+        } else {
+            activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            activityIndicator.alpha = 1.0;
+            activityIndicator.center = self.view.center;
+            activityIndicator.hidesWhenStopped = YES;
+            [self.view addSubview:activityIndicator];
+            [activityIndicator startAnimating];
+            self.view.userInteractionEnabled = NO;
+            NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
+            [folderdetails setObject:folderNameTextField.text forKey:@"folderName"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderdetails options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            [[FISharedResources sharedResourceManager]createFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+        }
         
-        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        activityIndicator.alpha = 1.0;
-        activityIndicator.center = self.view.center;
-        activityIndicator.hidesWhenStopped = YES;
-        [self.view addSubview:activityIndicator];
-        [activityIndicator startAnimating];
-        self.view.userInteractionEnabled = NO;
-        NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
-        [folderdetails setObject:emailTextField.text forKey:@"folderName"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderdetails options:NSJSONWritingPrettyPrinted error:nil];
-        
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager]createFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     }
     
     //[self dismissViewControllerAnimated:YES completion:nil];
-
-    
 }
 
 -(void)stopFolderLoading {
     [activityIndicator stopAnimating];
     self.view.userInteractionEnabled = YES;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self fetchFolderDetails];
+   // [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

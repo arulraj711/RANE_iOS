@@ -28,6 +28,7 @@
 #import "ExecutiveMovesController.h"
 #import "CorporateNewsListView.h"
 #import "FIFolder.h"
+#import "FolderViewController.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -267,6 +268,7 @@
     
     RADataObject *folderDataObj = [[RADataObject alloc]init];
     folderDataObj.name = @"FOLDER";
+    folderDataObj.nodeId = [NSNumber numberWithInt:-100];
     folderDataObj.isFolder = YES;
     NSMutableArray *childArray = [[NSMutableArray alloc]init];
     //NSArray *menuArray = menu.listArray;
@@ -671,12 +673,28 @@
         CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
         CorporateNewsListViewObj.titleName=data.name;
         if(data.nodeId != nil) {
-            [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"folderId"];
-            [self.revealController setFrontViewController:navCtlr];
-            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId];
+            if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]){
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
+//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
+//                UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+//               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+//                [self.revealController setFrontViewController:navCtlr];
+            } else {
+                if([[data.name uppercaseString]isEqualToString:@"RSS"]) {
+                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isRSSField"];
+                } else {
+                    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
+                }
+                
+                [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"folderId"];
+                [self.revealController setFrontViewController:navCtlr];
+                [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId];
+            }
+            
         }
         
     } else {
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
         if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             // NSLog(@"empty node id");

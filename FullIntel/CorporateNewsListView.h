@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "FISharedResources.h"
 #import "MZFormSheetController.h"
-@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate> {
+#import <MessageUI/MessageUI.h>
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate> {
     NSMutableArray *legendsList;
     NSManagedObject *author;
     UIRefreshControl *refreshControl;
@@ -17,6 +18,7 @@
     UIActivityIndicatorView *activityIndicator;
     NSInteger rowCount;
     NSString *messageString;
+    MFMailComposeViewController *mailComposer;
 }
 
 -(void)loadCuratedNews;

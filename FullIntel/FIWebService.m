@@ -148,6 +148,37 @@ NSString *url = @"http://stage.fullintel.com";
     [[NSOperationQueue mainQueue] addOperation:requestOperation];
 }
 
+
++ (void)putQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken withDetails:(NSString *)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
+    NSURL *url = [NSURL URLWithString:postURL];
+    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
+    [requestURL setHTTPMethod:@"PUT"];
+     [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
+     [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSASCIIStringEncoding];
+         NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
+         NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,securityToken);
+         // NSLog(@"response object:%@",responseObject);
+         id JSON = [NSJSONSerialization JSONObjectWithData:metOfficeData options:kNilOptions error:nil];
+         NSLog(@"\n=========RESPONSE=========\n%@\n===========================",JSON);
+         success(operation, JSON);
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"\n=========REQUEST=========\n%@",operation.request);
+         NSLog(@"\n=========RESPONSE(ERROR)=========\n%@\n==================",error);
+         
+         if(error.code != -999)
+             failure(operation, error);
+         
+     }];
+    [[NSOperationQueue mainQueue] addOperation:requestOperation];
+}
+
+
+
 +(void)fetchCuratedNewsListWithAccessToken:(NSString*)details
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
@@ -326,6 +357,19 @@ NSString *url = @"http://stage.fullintel.com";
     }];
 }
 
+
++(void)renameFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSNumber *)folderId
+                                 onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *functionName = [NSString stringWithFormat:@"folder/%@?security_token=%@",folderId,securityToken];
+    [self putQueryResultsForFunctionName:functionName withSecurityToken:securityToken withDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
 
 +(void)getCommentsWithDetails:(NSString*)details
                     onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

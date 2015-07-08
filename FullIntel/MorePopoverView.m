@@ -65,21 +65,26 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    // NSLog(@"did select more tableview");
     if(indexPath.row == 0) {
-        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         
-        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-        SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
-        socialWebViewObj.titleStr=@"LinkedIn Share";
-        NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",self.articleUrl,self.articleTitle,self.articleDesc];
-        NSLog(@"linked in url:%@",urlString);
-       NSString* urlTextEscaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSLog(@"after link:%@",urlTextEscaped);
-        socialWebViewObj.urlString=urlTextEscaped;
-        modalController.modalPresentationStyle = UIModalPresentationCustom;
         
-        [self presentViewController:modalController animated:NO completion:^{
-           // [self dismissViewControllerAnimated:YES completion:nil];
-        }];
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"linkedinSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
+        
+//        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+//        
+//        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+//        SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+//        socialWebViewObj.titleStr=@"LinkedIn Share";
+//        NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",self.articleUrl,self.articleTitle,self.articleDesc];
+//        NSLog(@"linked in url:%@",urlString);
+//       NSString* urlTextEscaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        NSLog(@"after link:%@",urlTextEscaped);
+//        socialWebViewObj.urlString=urlTextEscaped;
+//        modalController.modalPresentationStyle = UIModalPresentationCustom;
+//        
+//        [self presentViewController:modalController animated:NO completion:^{
+//           // [self dismissViewControllerAnimated:YES completion:nil];
+//        }];
         
     } else if(indexPath.row == 2) {
         

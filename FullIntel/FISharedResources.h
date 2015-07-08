@@ -28,6 +28,7 @@
 -(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId;
 -(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId;
 -(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId;
+-(void)renameFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId;
 -(void)checkLoginUserWithDetails:(NSString *)details;
 -(void)logoutUserWithDetails:(NSString *)details withFlag:(NSNumber*)authenticationFlag;
 -(void)validateUserOnResumeWithDetails:(NSString *)details;
