@@ -284,6 +284,26 @@
         cell.markedImpUserId = [[curatedNews valueForKey:@"markAsImportantUserId"] stringValue];
         cell.markedImpUserName = [curatedNews valueForKey:@"markAsImportantUserName"];
         
+        NSNumber *number = [curatedNews valueForKey:@"readStatus"];
+        NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+        NSLog(@"news read status:%@",number);
+        //BOOL isRead = [NSNumber numberWithBool:[curatedNews valueForKey:@"readStatus"]];
+        if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            
+        } else {
+            
+            NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
+            if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                // NSLog(@"both type is working");
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"both"}];
+            }else {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
+            }
+            
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"readStatusUpdate" object:nil userInfo:@{@"indexPath":indexPath,@"status":[NSNumber numberWithBool:YES],@"articleId":[self.articleIdArray objectAtIndex:indexPath.row]}];
+        }
+        
         
         NSString *outletString = [curatedNews valueForKey:@"outlet"];
         
@@ -387,25 +407,7 @@
             cell.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
         }
         
-        NSNumber *number = [curatedNews valueForKey:@"readStatus"];
-        NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
-        NSLog(@"news read status:%@",number);
-         //BOOL isRead = [NSNumber numberWithBool:[curatedNews valueForKey:@"readStatus"]];
-        if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            
-        } else {
-            
-            NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
-            if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-               // NSLog(@"both type is working");
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"both"}];
-            }else {
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
-            }
-            
-            
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"readStatusUpdate" object:nil userInfo:@{@"indexPath":indexPath,@"status":[NSNumber numberWithBool:YES],@"articleId":[self.articleIdArray objectAtIndex:indexPath.row]}];
-        }
+       
         
         
         cell.curatedNewsDetail = curatedNewsDetail;

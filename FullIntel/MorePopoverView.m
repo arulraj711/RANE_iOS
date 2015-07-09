@@ -99,58 +99,34 @@
         
     } else if(indexPath.row == 1) {
         //[self targetedShare:@""];
-      // [self targetedShare:SLServiceTypeTwitter];
-      //  MoreViewCell *cell = (MoreViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+       [self targetedShare:SLServiceTypeTwitter];
         
-//        [TWTRLogInButton
-//         buttonWithLogInCompletion:
-//         ^(TWTRSession* session, NSError* error) {
-//             if (session) {
-//                 NSLog(@"signed in as %@", [session userName]);
-//             } else {
-//                 NSLog(@"error: %@", [error localizedDescription]);
-//             }
-//         }];
-        [[Twitter sharedInstance] startWithConsumerKey:@"ux10WvGZWXKaUcIJL6W6lwrer" consumerSecret:@"0qCvJo2vElwgGsYeZynYIOqPwsWjMRW5BEOqRghP0HmfyuO4wI"];
-//        [Fabric with:@[[Twitter sharedInstance]]];
-            [[Twitter sharedInstance] logInWithCompletion:^
-             (TWTRSession *session, NSError *error) {
-                 if (session) {
-                     NSLog(@"signed in as %@", [session userName]);
-                    // [logInButton removeFromSuperview];
-                     
-                     TWTRComposer *composer = [[TWTRComposer alloc] init];
-                     
-                     [composer setText:self.articleTitle];
-                     UIImageView *image = [[UIImageView alloc]init];
-                     NSLog(@"article image:%@",self.articleImageUrl);
-                     [image sd_setImageWithURL:[NSURL URLWithString:self.articleImageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
-                     [composer setImage:image.image];
-                     [composer setURL:[NSURL URLWithString:self.articleUrl]];
-                     [composer showWithCompletion:^(TWTRComposerResult result) {
-                         if (result == TWTRComposerResultCancelled) {
-                             NSLog(@"Tweet composition cancelled");
-                         }
-                         else {
-                             NSLog(@"Sending Tweet!");
-                         }
-                     }];
-                     
-                 } else {
-//                     NSLog(@"error: %@", [error localizedDescription]);
-//                     TWTRLogInButton* logInButton =  [TWTRLogInButton
-//                                                      buttonWithLogInCompletion:
-//                                                      ^(TWTRSession* session, NSError* error) {
-//                                                          if (session) {
-//                                                              NSLog(@"signed in as %@", [session userName]);
-//                                                          } else {
-//                                                              NSLog(@"error: %@", [error localizedDescription]);
-//                                                          }
-//                                                      }];
-//                     logInButton.center = self.view.center;
-//                     [self.view addSubview:logInButton];
-                 }
-             }];
+//            [[Twitter sharedInstance] logInWithCompletion:^
+//             (TWTRSession *session, NSError *error) {
+//                 if (session) {
+//                     NSLog(@"signed in as %@", [session userName]);
+//                    // [logInButton removeFromSuperview];
+//                     
+//                     TWTRComposer *composer = [[TWTRComposer alloc] init];
+//                     
+//                     [composer setText:self.articleTitle];
+//                     UIImageView *image = [[UIImageView alloc]init];
+//                     NSLog(@"article image:%@",self.articleImageUrl);
+//                     [image sd_setImageWithURL:[NSURL URLWithString:self.articleImageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
+//                     [composer setImage:image.image];
+//                     [composer setURL:[NSURL URLWithString:self.articleUrl]];
+//                     [composer showWithCompletion:^(TWTRComposerResult result) {
+//                         if (result == TWTRComposerResultCancelled) {
+//                             NSLog(@"Tweet composition cancelled");
+//                         }
+//                         else {
+//                             NSLog(@"Sending Tweet!");
+//                         }
+//                     }];
+//                     
+//                 } else {
+//                 }
+//             }];
         
         
     } else {
@@ -193,8 +169,8 @@
         
         UIAlertView *alert;
         alert = [[UIAlertView alloc]
-                 initWithTitle:@"You do not have this service"
-                 message:nil
+                 initWithTitle:@"Twitter"
+                 message:@"You can't send a tweet right now.Please make sure you have at least one Twitter account setup."
                  delegate:self
                  cancelButtonTitle:@"OK"
                  otherButtonTitles:nil];

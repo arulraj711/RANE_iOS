@@ -277,7 +277,10 @@
     //TODO: refresh your data
     //if(self.devices.count == 0) {
     
+    NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+    // NSInteger category = categoryStr.integerValue;
+    if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
    // NSInteger category = categoryStr.integerValue;
     NSString *inputJson;
     if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
@@ -291,7 +294,9 @@
     
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"up" withLastArticleId:@""];
    // }
-    
+    } else {
+        [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId];
+    }
     [refreshControl endRefreshing];
 //    [self.influencerTableView reloadData];
 }
@@ -300,15 +305,14 @@
 -(void)openRSSField {
     mailComposer = [[MFMailComposeViewController alloc]init];
     mailComposer.mailComposeDelegate = self;
-    [mailComposer setSubject:@"FullIntel news feed"];
+    [mailComposer setSubject:@"FullIntel RSS feed"];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
                                                                            fontWithName:@"Open Sans" size:18], NSFontAttributeName,
                                 [UIColor whiteColor], NSForegroundColorAttributeName, nil];
     mailComposer.navigationBar.titleTextAttributes = attributes;
     // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
-    
-    NSString *mailBodyString = [[NSUserDefaults standardUserDefaults]objectForKey:@"RSSURL"];
-    
+    NSString *rssString = [[NSUserDefaults standardUserDefaults]objectForKey:@"RSSURL"];
+    NSString *mailBodyString = [NSString stringWithFormat:@"%@\n\n%@\n\n%@",@"Hi There,",@"Please use the following URL to receive RSS feed from FullIntel Application.",rssString];
     [mailComposer setMessageBody:mailBodyString isHTML:NO];
     [self presentViewController:mailComposer animated:YES completion:nil];
 }
@@ -411,21 +415,27 @@
     NSDictionary *userInfo = notification.userInfo;
     NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
     NSString *articleId = [userInfo objectForKey:@"articleId"];
+    NSLog(@"updated articleid:%@",articleId);
     // NSNumber  = [userInfo objectForKey:@"status"];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",articleId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",articleId];
     [fetchRequest setPredicate:predicate];
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSLog(@"new person array count:%d",newPerson.count);
     if(newPerson.count != 0) {
-        NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-        [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
-        
-        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-           // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
-        } else {
-            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+        //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+        for(NSManagedObject *curatedNews in newPerson) {
+            NSLog(@"for loop update");
+            [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
+            
+            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+            } else {
+                [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+            }
         }
+        
         
         
     }
@@ -872,18 +882,22 @@
         
         NSManagedObject *curatedNews = [self.devices lastObject];
         NSString *inputJson;
-        
+        NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
         NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
        // NSInteger category = categoryStr.integerValue;
-        if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
-            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:nil];
-        } else if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
-            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:nil];
+        if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:nil];
+            } else if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:nil];
+            } else {
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+            }
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
         } else {
-            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId];
         }
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
-        }
+    }
         //[self reloadData];
     }
 }

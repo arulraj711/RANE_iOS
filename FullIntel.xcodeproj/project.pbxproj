@@ -34,6 +34,8 @@
 		A08860821B42910D00939D51 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A08860811B42910D00939D51 /* FBSDKShareKit.framework */; };
 		A0946C1E1B4155E500C77C96 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0946C1D1B4155E500C77C96 /* FBSDKCoreKit.framework */; };
 		A0946C201B415D3C00C77C96 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0946C1F1B415D3C00C77C96 /* FBSDKLoginKit.framework */; };
+		A098EA171B4E6AF8003FC501 /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A098EA151B4E6AF8003FC501 /* DigitsKit.framework */; };
+		A098EA181B4E6AF8003FC501 /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A098EA161B4E6AF8003FC501 /* DigitsKitResources.bundle */; };
 		A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */; };
 		A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D591ADF848000A43CCA /* OpenSans-Semibold.ttf */; };
 		A0A678631B1C159400FB2AEA /* influencer_new.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A678621B1C159400FB2AEA /* influencer_new.json */; };
@@ -255,6 +257,8 @@
 		A08860811B42910D00939D51 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		A0946C1D1B4155E500C77C96 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		A0946C1F1B415D3C00C77C96 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		A098EA151B4E6AF8003FC501 /* DigitsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DigitsKit.framework; sourceTree = SOURCE_ROOT; };
+		A098EA161B4E6AF8003FC501 /* DigitsKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DigitsKitResources.bundle; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle; sourceTree = SOURCE_ROOT; };
 		A0A678621B1C159400FB2AEA /* influencer_new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = influencer_new.json; sourceTree = "<group>"; };
 		A0AF674B1B16EC1C007EDD26 /* UIColor+CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColors.h"; sourceTree = "<group>"; };
 		A0AF674C1B16EC1C007EDD26 /* UIColor+CustomColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CustomColors.m"; sourceTree = "<group>"; };
@@ -531,6 +535,7 @@
 				A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */,
 				F75295781A933F2100CD9087 /* CoreImage.framework in Frameworks */,
 				F75295761A933EB700CD9087 /* CoreGraphics.framework in Frameworks */,
+				A098EA171B4E6AF8003FC501 /* DigitsKit.framework in Frameworks */,
 				A0946C1E1B4155E500C77C96 /* FBSDKCoreKit.framework in Frameworks */,
 				F75295741A933E9A00CD9087 /* UIKit.framework in Frameworks */,
 				3BA3145765EFD5E9465E072A /* libPods-FullIntel.a in Frameworks */,
@@ -543,6 +548,8 @@
 		40CF193F5A4A47D98E563735 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A098EA151B4E6AF8003FC501 /* DigitsKit.framework */,
+				A098EA161B4E6AF8003FC501 /* DigitsKitResources.bundle */,
 				A08860811B42910D00939D51 /* FBSDKShareKit.framework */,
 				A0946C1F1B415D3C00C77C96 /* FBSDKLoginKit.framework */,
 				A0946C1D1B4155E500C77C96 /* FBSDKCoreKit.framework */,
@@ -1269,6 +1276,7 @@
 				F7E368831ABC18F70083F38E /* MailPopoverView.xib in Resources */,
 				F7E81FBD1A97057100F9A8D4 /* sam_img.png in Resources */,
 				F7E81FB31A97057100F9A8D4 /* microsoft.png in Resources */,
+				A098EA181B4E6AF8003FC501 /* DigitsKitResources.bundle in Resources */,
 				A0CF5C601B1DD98B00DED2D9 /* NumberOfPatternsCell.xib in Resources */,
 				F7E81FAC1A97057100F9A8D4 /* iphone.jpg in Resources */,
 				F7E81FC51A97057100F9A8D4 /* sony_topic.png in Resources */,

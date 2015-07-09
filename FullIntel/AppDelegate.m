@@ -11,6 +11,7 @@
 #import "LeftViewController.h"
 #import "FISharedResources.h"
 #import <Fabric/Fabric.h>
+#import <DigitsKit/DigitsKit.h>
 #import <Crashlytics/Crashlytics.h>
 #import <TwitterKit/TwitterKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -25,12 +26,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //[[Twitter sharedInstance] startWithConsumerKey:@"lEJQRlkFDatgQmZrU24r3gVIM" consumerSecret:@"P401aFimzxdfFRFmKHTSw97vUENnB1pAQBJo8moGEoajMqNOIl"];
+   // [[Twitter sharedInstance] startWithConsumerKey:@"lEJQRlkFDatgQmZrU24r3gVIM" consumerSecret:@"P401aFimzxdfFRFmKHTSw97vUENnB1pAQBJo8moGEoajMqNOIl"];
 //    [Fabric with:@[[Twitter sharedInstance]]];
 //    [Fabric with:@[CrashlyticsKit]];
     
     
-    [Fabric with:@[TwitterKit, CrashlyticsKit]];
+    [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
+
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
