@@ -14,6 +14,7 @@
 #import "SocialWebView.h"
 #import <TwitterKit/TwitterKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import <Fabric/Fabric.h>
 @interface MorePopoverView ()
 
 @end
@@ -110,8 +111,8 @@
 //                 NSLog(@"error: %@", [error localizedDescription]);
 //             }
 //         }];
-        
-        
+        [[Twitter sharedInstance] startWithConsumerKey:@"ux10WvGZWXKaUcIJL6W6lwrer" consumerSecret:@"0qCvJo2vElwgGsYeZynYIOqPwsWjMRW5BEOqRghP0HmfyuO4wI"];
+//        [Fabric with:@[[Twitter sharedInstance]]];
             [[Twitter sharedInstance] logInWithCompletion:^
              (TWTRSession *session, NSError *error) {
                  if (session) {

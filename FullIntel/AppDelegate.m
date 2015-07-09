@@ -25,10 +25,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[Twitter sharedInstance] startWithConsumerKey:@"5SFUoRnKqdK579pDWxYKlQZxt" consumerSecret:@"junQ5JKwosra5x31ADHYK9ctrpittnnhUFeP8AHYnxrTnwsO8Y"];
-    [Fabric with:@[[Twitter sharedInstance]]];
-    [Fabric with:@[CrashlyticsKit]];
+    //[[Twitter sharedInstance] startWithConsumerKey:@"lEJQRlkFDatgQmZrU24r3gVIM" consumerSecret:@"P401aFimzxdfFRFmKHTSw97vUENnB1pAQBJo8moGEoajMqNOIl"];
+//    [Fabric with:@[[Twitter sharedInstance]]];
+//    [Fabric with:@[CrashlyticsKit]];
     
+    
+    [Fabric with:@[TwitterKit, CrashlyticsKit]];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

@@ -214,7 +214,7 @@
 
 -(void)loadCuratedNews {
     
-    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
@@ -266,7 +266,7 @@
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     }
     
-    NSLog(@"devices:%d",self.devices.count);
+    //NSLog(@"devices:%d",self.devices.count);
     _spinner.hidden = YES;
     [_spinner stopAnimating];
     [self.articlesTableView reloadData];

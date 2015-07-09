@@ -117,7 +117,27 @@
     for(NSManagedObject *relatedPost in self.relatedPostArray) {
         [tweetIds addObject:[relatedPost valueForKey:@"postId"]];
     }
+    NSLog(@"tweet ids:%@",tweetIds);
+    NSLog(@"tweeter share instance:%@",[Twitter sharedInstance].guestSession);
+    
+    if([[Twitter sharedInstance]session]) {
+        NSLog(@"twitter session exist");
+    } else {
+        NSLog(@"no twitter session");
+//        [[[Twitter sharedInstance] APIClient]loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
+//            NSLog(@"error rrrr:%@",error);
+//        }];
+    }
+    
+//    TWTRAPIClient *clientObj = [[TWTRAPIClient alloc]initWithConsumerKey:@"5SFUoRnKqdK579pDWxYKlQZxt" consumerSecret:@"junQ5JKwosra5x31ADHYK9ctrpittnnhUFeP8AHYnxrTnwsO8Y"];
+//    NSLog(@"client object:%@",clientObj);
+//    [clientObj loadTweetWithID:@"616259987921367040" completion:^(TWTRTweet *tweet, NSError *error) {
+//        NSLog(@"loaded tweets:%@",tweet);
+//        NSLog(@"error message:%@",error);
+//    }];
+    
     [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
+        NSLog(@"tweet error:%@",error);
         [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
            //NSLog(@"Tweet array:%@",tweet);
             tweetArray = [[NSMutableArray alloc]initWithArray:tweet];

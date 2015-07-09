@@ -1068,12 +1068,12 @@
                     //            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"unReadComment"] forKey:@"unReadComment"];
                     [curatedNewsDrillIn setValue:NULL_TO_NIL([articleDic objectForKey:@"articleDetailedDescription"]) forKey:@"article"];
 //                    //Set Related Post
-                    NSArray *relatedPostArray = [articleDic objectForKey:@"articleRelatedPosts"];
+                    NSArray *relatedPostArray = NULL_TO_NIL([articleDic objectForKey:@"articleRelatedPosts"]);
                     NSMutableArray *postArray = [[NSMutableArray alloc]init];
                     for(NSDictionary *postDic in relatedPostArray) {
                         NSManagedObject *relatedPost = [NSEntityDescription insertNewObjectForEntityForName:@"RelatedPost" inManagedObjectContext:context];
-                        [relatedPost setValue:[postDic valueForKey:@"postId"] forKey:@"postId"];
-                        [relatedPost setValue:[postDic valueForKey:@"socialMediaUsername"] forKey:@"socialMediaUsername"];
+                        [relatedPost setValue:NULL_TO_NIL([postDic valueForKey:@"postId"]) forKey:@"postId"];
+                        [relatedPost setValue:NULL_TO_NIL([postDic valueForKey:@"socialMediaUsername"]) forKey:@"socialMediaUsername"];
                         [relatedPost setValue:[postDic valueForKey:@"tweetURL"] forKey:@"tweetURL"];
                         [postArray addObject:relatedPost];
                     }

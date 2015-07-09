@@ -389,7 +389,7 @@
         
         NSNumber *number = [curatedNews valueForKey:@"readStatus"];
         NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
-        //NSLog(@"category id for read:%@",categoryStr);
+        NSLog(@"news read status:%@",number);
          //BOOL isRead = [NSNumber numberWithBool:[curatedNews valueForKey:@"readStatus"]];
         if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
             
@@ -415,46 +415,8 @@
         cell.selectedArticleUrl = [curatedNews valueForKey:@"articleUrl"];
         cell.selectedArticleId = [curatedNews valueForKey:@"articleId"];
         cell.selectedArticleImageUrl = [curatedNews valueForKey:@"image"];
-        NSLog(@"before fetching curatednewsdetails:%@",curatedNewsDetail);
-        if(curatedNewsDetail == nil) {
-            // NSLog(@"details is null");
-//            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>"];
-//            [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
-            [cell.articleWebview loadHTMLString:@"" baseURL:nil];
-//            NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
-//            [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-//            [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
-//            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-//            
-//            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-//            
-//            NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
-//            [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-//            [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
-//            NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
-//            
-//            NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
-            
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                //Background Thread
-//                [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
-//                [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
-                if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                } else {
-                    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
-                    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-                    [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
-                    [resultDic setObject:@"1" forKey:@"status"];
-                    [resultDic setObject:@"true" forKey:@"isSelected"];
-                    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-                    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-                    // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
-                    [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-                }
-
-            });
-            
-        } else {
+        //NSLog(@"before fetching curatednewsdetails:%@",curatedNewsDetail);
+        
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 
                 
@@ -466,6 +428,20 @@
 //                    cell.webViewHeightConstraint.constant = 400;
 //                }
                 
+                
+                if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                } else {
+                    NSLog(@"come inside read update");
+                    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+                    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+                    [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+                    [resultDic setObject:@"1" forKey:@"status"];
+                    [resultDic setObject:@"true" forKey:@"isSelected"];
+                    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                    // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+                    [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                }
                 
                 
                 
@@ -493,7 +469,7 @@
                 cell.relatedPostArray = postArray;
                 [cell loadTweetsFromPost];
             });
-        }
+        
         
         
         

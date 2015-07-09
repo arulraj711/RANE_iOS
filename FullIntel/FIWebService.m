@@ -291,7 +291,9 @@ NSString *url = @"http://stage.fullintel.com";
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation, error);
-        
+//        NSError* error1;
+//        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+//        NSLog(@"folder create error:%@ and json:%@",error.userInfo,json);
     }];
     
 }
