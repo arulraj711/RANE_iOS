@@ -139,11 +139,11 @@
      coachMarks = @[
                             @{
                                 @"rect": [NSValue valueWithCGRect:CGRectMake(5, 185, 260, 40)],
-                                @"caption": @"Add Content"
+                                @"caption": @"You can subscribe more categories or remove any categories you dislike"
                                 },
                             @{
                                 @"rect": [NSValue valueWithCGRect:CGRectMake(self.treeBackView.frame.origin.x, self.treeBackView.frame.origin.y, self.treeBackView.frame.size.width, self.view.frame.size.height-550)],
-                                @"caption": @"Table Content"
+                                @"caption": @"List of all articles available"
                                 }
                             
                             ];
@@ -162,6 +162,10 @@
         
          [[NSNotificationCenter defaultCenter]postNotificationName:@"FirstTimeTutorialCreated" object:nil];
         
+        self.revealController.recognizesPanningOnFrontView=NO;
+        self.revealController.recognizesResetTapOnFrontViewInPresentationMode=NO;
+        self.revealController.recognizesResetTapOnFrontView=NO;
+        
     }
     
 }
@@ -170,8 +174,8 @@
     
      [[NSNotificationCenter defaultCenter]postNotificationName:@"FirstTimeTutorialCompleted" object:nil];
     
-//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MenuCoachShown"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MenuCoachShown"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [coachMarksView removeFromSuperview];
 }
@@ -193,7 +197,7 @@
     
     // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
 
- //   [self addCoachView];
+    [self addCoachView];
   
 }
 -(void)updateMenuCount:(id)sender {

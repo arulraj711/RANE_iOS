@@ -146,22 +146,6 @@
                        
                        ];
             
-        }else if ([position isEqualToString:@"landscape"]){
-            
-            coachMarks = @[
-                           @{
-                               @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+130,50,50)],
-                               @"caption": @"Mark Important"
-                               },
-                           @{
-                               @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+185,50,50)],
-                               @"caption": @"Save Later"
-                               }
-                           
-                           ];
-            
-            
-            
         }else{
             
             coachMarks = @[
@@ -199,48 +183,58 @@
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     
     //Ignoring specific orientations
-    if ( orientation == UIDeviceOrientationUnknown) {
+    if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown || orientation == UIDeviceOrientationUnknown) {
         return;
     }
     
-    if(orientation==UIInterfaceOrientationLandscapeLeft || orientation==UIInterfaceOrientationLandscapeRight){
-        
-        // NSLog(@"view size in Landscape :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
-        
-        NSLog(@"Landscape");
-        
-        [self addCoachMarkView:@"Landscape"];
-
-        
-    }else if(orientation==UIInterfaceOrientationPortrait){
-          NSLog(@"Portrait");
-        
-        [self addCoachMarkView:@"Portrait"];
-    }
-    
     // We need to allow a slight pause before running handler to make sure rotation has been processed by the view hierarchy
-  
+    [self performSelectorOnMainThread:@selector(handleDeviceOrientationChange:) withObject:coachMarksView waitUntilDone:NO];
 }
 
+- (void)handleDeviceOrientationChange:(WSCoachMarksView*)coachMarksView {
+    
+    // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MenuCoachShown"];
+    if (coachMarksShown == YES) {
+    
+    [self addCoachMarkView:@""];
+        
+    }
+}
 -(void)addOverLayView{
     
     [overlayView removeFromSuperview];
     
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MenuCoachShown"];
+    if (coachMarksShown == NO) {
+    
     overlayView =[[UIView alloc]initWithFrame:self.view.frame];
     
     overlayView.backgroundColor=[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:0.9];
+        
+        
+//    UITapGestureRecognizer *phoneNumberTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeOverlay)];
+//    
+//        [overlayView addGestureRecognizer:phoneNumberTap];
+        
     
     [self.view addSubview:overlayView];
     
     [self.navigationController.view addSubview:overlayView];
+
     
+        
+    }
+   
     
 
-    self.revealController.recognizesPanningOnFrontView=NO;
+}
+
+-(void)removeOverlay{
     
-    
-    self.revealController.disablesFrontViewInteraction=YES;
-   
+      [overlayView removeFromSuperview];
 }
 
 -(void)removeOverLayView{
@@ -251,9 +245,10 @@
     
 
     self.revealController.recognizesPanningOnFrontView=YES;
+    self.revealController.recognizesResetTapOnFrontViewInPresentationMode=YES;
+    self.revealController.recognizesResetTapOnFrontView=YES;
 
-    
-    
+
     
     [self addCoachMarkView:@"firstTime"];
     

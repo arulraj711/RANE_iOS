@@ -176,64 +176,107 @@
     NSLog(@"selected article id:%@",self.articleIdArray);
     
     [self addCoachMarkView:@"landscape"];
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
    
 }
 
 -(void)addCoachMarkView:(NSString *)position{
         
         
-        [coachMarksView removeFromSuperview];
+    [coachMarksView removeFromSuperview];
         
-        BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"DrillDownCoachShown"];
-        if (coachMarksShown == NO) {
-            
-            
-         if ([position isEqualToString:@"landscape"]){
-                
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"DrillDownCoachShown"];
+    if (coachMarksShown == NO) {
+
                 coachMarks = @[
                                @{
-                                   @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-350,self.view.frame.origin.y+self.view.frame.size.height-120,50,50)],
-                                   @"caption": @"Mark Important"
+                                   @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-360,self.view.frame.origin.y+self.view.frame.size.height-128,350,50)],
+                                   @"caption": @"Tool Box to perform actions in Article"
                                    },
-                               @{
-                                   @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-400,self.view.frame.origin.y+self.view.frame.size.height-200,50,50)],
-                                   @"caption": @"Save Later"
-                                   }
                                
                                ];
                 
                 
                 
-            }else{
-                
-                coachMarks = @[
-                               @{
-                                   @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+130,50,50)],
-                                   @"caption": @"Mark Important"
-                                   },
-                               @{
-                                   @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+185,50,50)],
-                                   @"caption": @"Save Later"
-                                   }
-                               
-                               ];
-                
-                
-            }
             coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) coachMarks:coachMarks];
             coachMarksView.delegate=self;
             [self.view addSubview:coachMarksView];
+    
+    
+
             [coachMarksView start];
             
-        }
+    }
 }
+
+-(void)addCoachMarkViewInNavigationBar{
+    
+    
+    [coachMarksView removeFromSuperview];
+
+        
+        coachMarks = @[
+                       @{
+                           @"rect": [NSValue valueWithCGRect:CGRectMake(self.navigationController.view.frame.origin.x+self.navigationController.view.frame.size.width-63,self.navigationController.view.frame.origin.y+20,50,40)],
+                           @"caption": @"Switch to Webview"
+                           },
+                       
+                       ];
+        
+        
+        
+        coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, self.navigationController.view.frame.size.height) coachMarks:coachMarks];
+        coachMarksView.delegate=self;
+        [self.navigationController.view addSubview:coachMarksView];
+        
+        
+        
+        [coachMarksView start];
+        
+    
+}
+
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    
+    //Obtaining the current device orientation
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    //Ignoring specific orientations
+    if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown || orientation == UIDeviceOrientationUnknown) {
+        return;
+    }
+    
+    // We need to allow a slight pause before running handler to make sure rotation has been processed by the view hierarchy
+    [self performSelectorOnMainThread:@selector(handleDeviceOrientationChange:) withObject:coachMarksView waitUntilDone:NO];
+}
+
+- (void)handleDeviceOrientationChange:(WSCoachMarksView*)coachMarksView {
+    
+    // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
+
+    [self addCoachMarkView:@""];
+}
+
 - (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksViews{
     
     
-//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DrillDownCoachShown"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DrillDownCoachShown"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+//
     [coachMarksView removeFromSuperview];
+    
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"DrillDownNavigationShown"];
+    if (coachMarksShown == NO) {
+    
+    [self addCoachMarkViewInNavigationBar];
+        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DrillDownNavigationShown"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    }
 }
 
 
