@@ -170,14 +170,24 @@
         UIAlertView *alert;
         alert = [[UIAlertView alloc]
                  initWithTitle:@"Twitter"
-                 message:@"You can't send a tweet right now.Please make sure you have at least one Twitter account setup."
+                 message:@"You can't send a tweet right now. Please make sure you have at least one Twitter account setup in device Settings -> Twitter -> Add Account."
                  delegate:self
-                 cancelButtonTitle:@"OK"
-                 otherButtonTitles:nil];
+                 cancelButtonTitle:@"Settings"
+                 otherButtonTitles:@"OK",nil];
         
         [alert show];
     }
 }
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if(buttonIndex == 0) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
+}
+
+
 - (IBAction)requestButtonClick:(id)sender {
     [sender setSelected:YES];
     [FIUtils callRequestionUpdateWithModuleId:10 withFeatureId:10];

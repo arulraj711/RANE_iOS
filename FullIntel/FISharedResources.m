@@ -1217,7 +1217,7 @@
                         [relatedPost setValue:[postDic valueForKey:@"tweetURL"] forKey:@"tweetURL"];
                         [postArray addObject:relatedPost];
                     }
-                    NSLog(@"related post array count:%d",postArray.count);
+                   // NSLog(@"related post array count:%d",postArray.count);
                     NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:postArray];
                     [curatedNewsDrillIn setValue:outletObj forKey:@"relatedPost"];
                     [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
@@ -1250,7 +1250,7 @@
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
-        NSLog(@"subview array count:%d",subViewArray.count);
+      //  NSLog(@"subview array count:%d",subViewArray.count);
         if(subViewArray.count == 1) {
             [self showBannerView];
         }
@@ -1271,7 +1271,7 @@
     }else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
-        NSLog(@"subview array count:%d",subViewArray.count);
+       // NSLog(@"subview array count:%d",subViewArray.count);
         if(subViewArray.count == 1) {
             [self showBannerView];
         }
