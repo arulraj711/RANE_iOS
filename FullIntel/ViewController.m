@@ -38,8 +38,6 @@
     self.passwordTextField.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];;
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 5.0f;
-    
-    
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressEvent:)];
     self.logoIcon.userInteractionEnabled = YES;
     longPress.minimumPressDuration = 3;
@@ -159,7 +157,23 @@
         
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
         NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
-        [pushDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"] forKey:@"deviceToken"];
+        
+        NSString *deviceTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
+        if(deviceTokenStr.length != 0) {
+            [pushDic setObject:deviceTokenStr forKey:@"deviceToken"];
+        } else {
+            [pushDic setObject:@"12345" forKey:@"deviceToken"];
+        }
+        
+        NSDate *currentTime = [NSDate date];
+        NSDateFormatter *_formatter=[[NSDateFormatter alloc]init];
+        [_formatter setLocale:[NSLocale currentLocale]];
+        [_formatter setDateFormat:@"yyyy-mm-dd hh:mm:ss"];
+        NSString *dateStr=[_formatter stringFromDate:currentTime];
+       // NSLog(@"final date format:%@",dateStr);
+        
+        //[pushDic setObject:dateStr forKey:@"lastSeenAt"];
+        
         [pushDic setObject:timeZone.name forKey:@"locale"];
         [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
         [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
@@ -167,9 +181,10 @@
         NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
         
         NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
+        NSLog(@"push notification json:%@",pushResultJson);
          dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
              
-             [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
+             [[FISharedResources sharedResourceManager]pushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
          });
         
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -347,7 +362,7 @@
         
         NSString *message=[responseObject objectForKey:@"message"];
         
-        [self.view makeToast:message duration:1 position:CSToastPositionCenter];
+        [self.view makeToast:message duration:2 position:CSToastPositionCenter];
         
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

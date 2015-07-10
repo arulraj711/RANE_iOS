@@ -675,10 +675,10 @@
         if(data.nodeId != nil) {
             if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]){
                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
-//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
-//                UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
+                UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
 //               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
-//                [self.revealController setFrontViewController:navCtlr];
+                [self.revealController setFrontViewController:navCtlr];
             } else {
                 if([[data.name uppercaseString]isEqualToString:@"RSS"]) {
                     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isRSSField"];
@@ -688,7 +688,7 @@
                 
                 [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"folderId"];
                 [self.revealController setFrontViewController:navCtlr];
-                [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId];
+                [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5]];
             }
             
         }

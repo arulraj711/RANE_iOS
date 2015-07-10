@@ -31,6 +31,7 @@
     messageString = @"Loading...";
    // NSLog(@"list did load");
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failToLoad) name:@"CuratedNewsFail" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopLoading) name:@"StopLoading" object:nil];
     
@@ -275,6 +276,12 @@
  //   [self.revealController showViewController:self.revealController.leftViewController];
 }
 
+-(void)failToLoad {
+    self.spinner.hidden = YES;
+    [self.spinner stopAnimating];
+}
+
+
 - (void)refreshTable {
     //TODO: refresh your data
     //if(self.devices.count == 0) {
@@ -297,7 +304,7 @@
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"up" withLastArticleId:@""];
    // }
     } else {
-        [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId];
+        [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5]];
     }
     [refreshControl endRefreshing];
 //    [self.influencerTableView reloadData];
@@ -788,7 +795,13 @@
             [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
         }
     } else {
-        [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [[FISharedResources sharedResourceManager] showBannerView];
+        }
+        //[FIUtils showNoNetworkToast];
     }
     
     
@@ -853,7 +866,13 @@
         [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
     }
     } else {
-        [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [[FISharedResources sharedResourceManager] showBannerView];
+        }
+        //[FIUtils showNoNetworkToast];
     }
 }
 
@@ -897,7 +916,7 @@
             }
             [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
         } else {
-            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId];
+            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:self.devices.count] withLimit:[NSNumber numberWithInt:5]];
         }
     }
         //[self reloadData];

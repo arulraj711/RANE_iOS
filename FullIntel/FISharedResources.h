@@ -24,8 +24,9 @@
 -(void)getMenuListWithAccessToken:(NSString *)accessToken;
 -(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag;
 -(void)createFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
+-(void)pushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)updatePushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
--(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId;
+-(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit;
 -(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId;
 -(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId;
 -(void)renameFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId;
@@ -44,6 +45,8 @@
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)showProgressView;
 - (void)hideProgressView;
+-(void)showBannerView;
+-(void)closeBannerView;
 - (BOOL)serviceIsReachable;
 @property (nonatomic,strong) NSMutableArray *menuList;
 @property (nonatomic,strong) NSMutableArray *folderList;

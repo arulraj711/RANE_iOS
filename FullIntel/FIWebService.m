@@ -314,11 +314,26 @@ NSString *url = @"http://stage.fullintel.com";
 }
 
 
-+(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId
++(void)updatePushNotificationWithDetails:(NSString*)details withSecurityToken:(NSString *)securityToken
+                         onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                         onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    //NSLog(@"calling update push");
+    NSString *functionName = [NSString stringWithFormat:@"customer/device?security_token=%@",securityToken];
+    [self putQueryResultsForFunctionName:functionName withSecurityToken:securityToken withDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
+
+
++(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit
                              onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                              onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
-    NSString *functionName = [NSString stringWithFormat:@"folder/%@/articles?security_token=%@",folderId,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"folder/%@/articles?security_token=%@&offset=%@&limit=%@",folderId,securityToken,offset,limit];
     [self getQueryResultsForFunctionName:functionName withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);

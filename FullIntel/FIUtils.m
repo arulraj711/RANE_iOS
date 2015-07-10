@@ -137,4 +137,56 @@
     [[FISharedResources sharedResourceManager]featureAccessRequestWithDetails:resultStr];
     
 }
+
+//+(void)showNoNetworkBanner {
+//    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//    NSLog(@"Unreachable width:%f and resize:%f and another:%f",window.frame.size.width,window.frame.size.width/2,(window.frame.size.width/2)-(200/2));
+//    UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake((window.frame.size.width/2)-(300/2), 0, 300, 64)];
+//    backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
+//    
+//    UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 200, 64)];
+//    errorLabel.text = @"No Network Connection";
+//    errorLabel.textColor = [UIColor whiteColor];
+//    errorLabel.textAlignment = NSTextAlignmentCenter;
+//    [backgrView addSubview:errorLabel];
+//    backgrView.layer.cornerRadius = 25.0f;
+//    backgrView.layer.masksToBounds = YES;
+//    
+//    
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [button addTarget:self
+//               action:@selector(closeBannerView)
+//     forControlEvents:UIControlEventTouchUpInside];
+//    [button setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+//    //[button setTitle:@"Show View" forState:UIControlStateNormal];
+//    button.frame = CGRectMake(300-50, 0, 40, 40);
+//    [backgrView addSubview:button];
+//    
+//    // backgrView.alpha = 0.6;
+//    [window addSubview:backgrView];
+//}
+//
+//+(void)hideNoNetworkBanner {
+//    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//    
+//    NSArray *subViewArray = [window subviews];
+//    //NSLog(@"window array count:%d",subViewArray.count);
+//    if(subViewArray.count > 1) {
+//        id obj = [subViewArray lastObject];
+//        [obj removeFromSuperview];
+//    }
+//}
+
+//-(void)closeBannerView {
+//    //[FIUtils hideNoNetworkBanner];
+//    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//    
+//    NSArray *subViewArray = [window subviews];
+//    //NSLog(@"window array count:%d",subViewArray.count);
+//    if(subViewArray.count > 1) {
+//        id obj = [subViewArray lastObject];
+//        [obj removeFromSuperview];
+//    }
+//}
+
 @end

@@ -21,4 +21,6 @@
 +(void)makeRoundedView:(UIView*)view;
 +(void)callRequestionUpdateWithModuleId:(NSInteger)moduleId
                           withFeatureId:(NSInteger)featureId;
++(void)showNoNetworkBanner;
++(void)hideNoNetworkBanner;
 @end

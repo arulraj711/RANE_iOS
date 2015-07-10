@@ -451,7 +451,13 @@
         if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"socialLinkSelected" object:nil userInfo:@{@"name":titleStr,@"link":[socialLink valueForKey:@"url"]}];
         } else {
-            [FIUtils showNoNetworkToast];
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            NSArray *subViewArray = [window subviews];
+           // NSLog(@"subview array count:%d",subViewArray.count);
+            if(subViewArray.count == 1) {
+                [[FISharedResources sharedResourceManager] showBannerView];
+            }
+           // [FIUtils showNoNetworkToast];
         }
     }
     
@@ -556,7 +562,13 @@
         [self.contentView makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
     }
     } else {
-        [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [[FISharedResources sharedResourceManager] showBannerView];
+        }
+        //[FIUtils showNoNetworkToast];
     }
 }
 
@@ -677,7 +689,13 @@
         [self.contentView makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
     }
     } else {
-        [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [[FISharedResources sharedResourceManager] showBannerView];
+        }
+       // [FIUtils showNoNetworkToast];
     }
     
 }

@@ -36,13 +36,16 @@
 +(void)pushNotificationWithDetails:(NSString*)details withSecurityToken:(NSString *)securityToken
                          onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                          onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)updatePushNotificationWithDetails:(NSString*)details withSecurityToken:(NSString *)securityToken
+                               onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                               onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 +(void)removeArticlesFromFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSString *)folderId
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 +(void)renameFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSNumber *)folderId
                      onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                      onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
-+(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId
++(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit
                                       onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                       onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 

@@ -50,7 +50,13 @@
        // self.webView.scalesPageToFit = NO;
         [self.webView loadRequest:requestObj];
     } else {
-        [FIUtils showNoNetworkToast];
+        //[FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [[FISharedResources sharedResourceManager] showBannerView];
+        }
     }
 
     

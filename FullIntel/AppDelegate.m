@@ -97,9 +97,7 @@
     [self.window makeKeyAndVisible];
     
     
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        [FISharedResources sharedResourceManager];
-    });
+    [FISharedResources sharedResourceManager];
     
     
     return YES;
@@ -178,6 +176,50 @@
     }
 }
 
+
+-(void)applicationDidEnterBackground:(UIApplication *)application {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    NSLog(@"application enter in background:%@",accessToken);
+    
+    if(accessToken.length > 0) {
+        NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+        NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
+        
+        NSString *deviceTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
+        if(deviceTokenStr.length != 0) {
+            [pushDic setObject:deviceTokenStr forKey:@"deviceToken"];
+        } else {
+            [pushDic setObject:@"" forKey:@"deviceToken"];
+        }
+        NSDate *currentTime = [NSDate date];
+        NSDateFormatter *_formatter=[[NSDateFormatter alloc]init];
+        [_formatter setLocale:[NSLocale currentLocale]];
+        [_formatter setDateFormat:@"yyyy-mm-dd hh:mm:ss"];
+        NSString *dateStr=[_formatter stringFromDate:currentTime];
+        // NSLog(@"final date format:%@",dateStr);
+        
+       // [pushDic setObject:dateStr forKey:@"lastSeenAt"];
+        [pushDic setObject:timeZone.name forKey:@"locale"];
+        [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
+        [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
+        [pushDic setObject:[NSNumber numberWithInteger:timeZone.secondsFromGMT] forKey:@"offset"];
+        NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
+        //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        NSLog(@"enter back");
+            [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:accessToken];
+       // });
+    }
+}
+
+
+-(void)applicationWillEnterForeground:(UIApplication *)application {
+    NSLog(@"app enter foreground");
+    //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        [FISharedResources sharedResourceManager];
+   // });
+}
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

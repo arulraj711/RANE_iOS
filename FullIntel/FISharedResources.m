@@ -39,6 +39,9 @@
     // Add Observer
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
     
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
     _menuList = [[NSMutableArray alloc]init];
     _folderList = [[NSMutableArray alloc]init];
     _contentCategoryList = [[NSMutableArray alloc]init];
@@ -55,42 +58,91 @@
 }
 
 
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    
+    //Obtaining the current device orientation
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    //Ignoring specific orientations
+    if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown || orientation == UIDeviceOrientationUnknown) {
+        return;
+    }
+    //[self closeBannerView];
+//    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//    NSArray *subViewArray = [window subviews];
+//    NSLog(@"subview array count:%d",subViewArray.count);
+//    if(subViewArray.count == 1) {
+//        [self closeBannerView];
+//        [self showBannerView];
+//    }
+}
+
 - (void)reachabilityDidChange:(NSNotification *)notification {
     Reachability *reachability = (Reachability *)[notification object];
     
     if ([reachability isReachable]) {
         NSLog(@"Reachable");
-        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        
-        NSArray *subViewArray = [window subviews];
-        NSLog(@"window array count:%d",subViewArray.count);
-        if(subViewArray.count > 1) {
-            id obj = [subViewArray lastObject];
-            [obj removeFromSuperview];
-        }
+        [self closeBannerView];
         
     } else {
-        NSLog(@"Unreachable");
-        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, window.frame.size.width, 64)];
-        backgrView.backgroundColor = [UIColor redColor];
+        [self showBannerView];
         
-        UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, window.frame.size.width, 64)];
-        errorLabel.text = @"No Network Connection";
-        errorLabel.textColor = [UIColor whiteColor];
-        errorLabel.textAlignment = NSTextAlignmentCenter;
-        [backgrView addSubview:errorLabel];
-        
-        
-       // backgrView.alpha = 0.6;
-        [window addSubview:backgrView];
     }
 }
 
+-(void)showBannerView {
+    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+    NSLog(@"Unreachable width:%f and resize:%f and another:%f",window.frame.size.width,window.frame.size.width/2,(window.frame.size.width/2)-(200/2));
+    UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake((window.frame.size.width/2)-(300/2), 70, 300, 44)];
+    backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
+    
+    UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 200, 44)];
+    errorLabel.text = @"No Network Connection";
+    errorLabel.textColor = [UIColor whiteColor];
+    errorLabel.textAlignment = NSTextAlignmentCenter;
+    [backgrView addSubview:errorLabel];
+    backgrView.layer.cornerRadius = 20.0f;
+    backgrView.layer.masksToBounds = YES;
+    
+    UIView *buttonBackView = [[UIView alloc]initWithFrame:CGRectMake(300-50, 0, 50, 44)];
+    buttonBackView.backgroundColor = [UIColor clearColor];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self
+               action:@selector(closeBannerView)
+     forControlEvents:UIControlEventTouchUpInside];
+    [button setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+    //[button setTitle:@"Show View" forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 14, 16, 16);
+    [buttonBackView addSubview:button];
+    
+    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeBannerView)];
+    buttonBackView.userInteractionEnabled = YES;
+    [buttonBackView addGestureRecognizer:tapEvent];
+    
+    
+    [backgrView addSubview:buttonBackView];
+    
+    // backgrView.alpha = 0.6;
+    [window addSubview:backgrView];
+}
+
+
+-(void)closeBannerView {
+    //[FIUtils hideNoNetworkBanner];
+    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+    
+    NSArray *subViewArray = [window subviews];
+    //NSLog(@"window array count:%d",subViewArray.count);
+    if(subViewArray.count > 1) {
+        id obj = [subViewArray lastObject];
+        [obj removeFromSuperview];
+    }
+}
 
 -(void)checkLoginUserWithDetails:(NSString *)details{
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-    window.userInteractionEnabled = NO;
+    //window.userInteractionEnabled = NO;
     if([self serviceIsReachable]) {
        // [self showProgressHUDForView];
         [FIWebService loginProcessWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -129,9 +181,12 @@
         }];
         
     } else {
-        //window.userInteractionEnabled = YES;
-        //[FIUtils showNoNetworkToast];
-        //[self hideProgressHUDForView];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
     
 }
@@ -164,7 +219,12 @@
         }];
         
     } else {
-        //[FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -203,7 +263,12 @@
         }];
         
     } else {
-     //   [FIUtils showNoNetworkToast];
+//        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//        NSArray *subViewArray = [window subviews];
+//        NSLog(@"subview array count:%d",subViewArray.count);
+//        if(subViewArray.count == 1) {
+//            [self showBannerView];
+//        }
     }
 }
 
@@ -530,6 +595,13 @@
     }];
     } else {
         //[FIUtils showNoNetworkToast];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsFail" object:nil];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -603,7 +675,12 @@
         [FIUtils showErrorToast];
     }];
     } else {
-        //[FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -784,7 +861,12 @@
         [FIUtils showErrorToast];
     }];
     } else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -842,7 +924,12 @@
             [FIUtils showErrorToast];
         }];
     } else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -890,7 +977,12 @@
         [FIUtils showErrorToast];
     }];
     } else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -915,7 +1007,12 @@
         [FIUtils showErrorToast];
     }];
     } else {
-     //   [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -946,23 +1043,27 @@
             [FIUtils showErrorToast];
         }];
     } else {
-      //  [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+       // NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
--(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId {
+-(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit{
     if([self serviceIsReachable]) {
-        [FIWebService fetchArticlesFromFolderWithSecurityToken:accessToken withFolderId:[folderId stringValue] onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService fetchArticlesFromFolderWithSecurityToken:accessToken withFolderId:[folderId stringValue] withOffset:offset withLimit:limit  onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([responseObject isKindOfClass:[NSArray class]]){
                 NSArray *curatedNewsArray = responseObject;
                 //Handle Pagination
-//                if(curatedNewsArray.count == 0) {
-//                    //if(lastArticleId.length != 0){
-//                    UIWindow *window = [[UIApplication sharedApplication]windows][0];
-//                    [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
-//                    //}
-//                }
-                //NSLog(@"incoming category id:%@",categoryId);
+                if(curatedNewsArray.count == 0) {
+                    if(![offset isEqualToNumber:[NSNumber numberWithInt:0]]){
+                        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                        [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
+                    }
+                }
                 
                 for(NSDictionary *dic in curatedNewsArray) {
                     
@@ -1147,7 +1248,12 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -1163,11 +1269,16 @@
             [FIUtils showErrorToast];
         }];
     }else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
--(void)updatePushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken {
+-(void)pushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken {
     if([self serviceIsReachable]) {
         [FIWebService pushNotificationWithDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             //[self getFolderListWithAccessToken:accessToken];
@@ -1175,9 +1286,32 @@
             [FIUtils showErrorToast];
         }];
     } else {
-       // [FIUtils showNoNetworkToast];
+//        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//        NSArray *subViewArray = [window subviews];
+//        NSLog(@"subview array count:%d",subViewArray.count);
+//        if(subViewArray.count == 1) {
+//            [self showBannerView];
+//        }
     }
 }
+
+-(void)updatePushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken {
+    if([self serviceIsReachable]) {
+        [FIWebService updatePushNotificationWithDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //[self getFolderListWithAccessToken:accessToken];
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    }else {
+//        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//        NSArray *subViewArray = [window subviews];
+//        NSLog(@"subview array count:%d",subViewArray.count);
+//        if(subViewArray.count == 1) {
+//            [self showBannerView];
+//        }
+    }
+}
+
 
 -(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId {
     if([self serviceIsReachable]) {
@@ -1190,7 +1324,12 @@
             [FIUtils showErrorToast];
         }];
     } else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -1202,7 +1341,12 @@
             [FIUtils showErrorToast];
         }];
     }else {
-     //   [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -1214,7 +1358,12 @@
             [FIUtils showErrorToast];
         }];
     } else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -1259,7 +1408,12 @@
             [FIUtils showErrorToast];
         }];
     } else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -1276,7 +1430,12 @@
         [FIUtils showErrorToast];
     }];
     } else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -1296,7 +1455,12 @@
             [FIUtils showErrorToast];
         }];
     } else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -1314,7 +1478,12 @@
             [FIUtils showErrorToast];
         }];
     } else {
-      //  [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -1332,7 +1501,12 @@
             [FIUtils showErrorToast];
         }];
     } else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -1355,7 +1529,12 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        //[FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -1379,7 +1558,12 @@
             [FIUtils showErrorToast];
         }];
     } else {
-       // [FIUtils showNoNetworkToast];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
