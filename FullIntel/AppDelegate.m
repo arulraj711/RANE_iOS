@@ -91,8 +91,19 @@
     NSLog(@"token :%@",token);
     
     
+    
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    
+    if([token length]!=0)
+    {
+    
+
     [def setObject:token forKey:@"deviceToken"];
+        
+    }else{
+        
+      [def setObject:@"123123123123123123123" forKey:@"deviceToken"];
+    }
     
     // [[SMUSharedResources sharedResourceManager] setRemoteNotificationDeviceToken:token];
     

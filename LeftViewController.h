@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "RATreeView.h"
 #import "MZFormSheetController.h"
-@interface LeftViewController : UIViewController <RATreeViewDataSource,RATreeViewDelegate,MZFormSheetBackgroundWindowDelegate,UIViewControllerTransitioningDelegate>{
+#import "WSCoachMarksView.h"
+
+@interface LeftViewController : UIViewController <RATreeViewDataSource,RATreeViewDelegate,MZFormSheetBackgroundWindowDelegate,UIViewControllerTransitioningDelegate,WSCoachMarksViewDelegate>{
     RATreeView *treeView;
     MZFormSheetController *formSheet;
+    WSCoachMarksView *coachMarksView;
+    NSArray *coachMarks;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;
 @property (weak, nonatomic) IBOutlet UIButton *researchButton;

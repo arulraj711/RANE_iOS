@@ -44,7 +44,9 @@
     
     
    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addOverLayView) name:@"FirstTimeTutorialCreated" object:nil];
     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeOverLayView) name:@"FirstTimeTutorialCompleted" object:nil];
     
     
    // [self.revealController showViewController:self.revealController.leftViewController];
@@ -114,8 +116,148 @@
 //        
 //    }
     
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+  
+    
 }
 
+-(void)addCoachMarkView:(NSString *)position{
+    
+    
+    [coachMarksView removeFromSuperview];
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ListCoachShown"];
+    if (coachMarksShown == NO) {
+        
+        
+        if([position isEqualToString:@"firstTime"]){
+        
+        coachMarks = @[
+                       @{
+                           @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-100,self.view.frame.origin.y+110,50,50)],
+                           @"caption": @"Mark Important"
+                           },
+                       @{
+                           @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-100,self.view.frame.origin.y+165,50,50)],
+                           @"caption": @"Save Later"
+                           }
+                       
+                       ];
+            
+        }else if ([position isEqualToString:@"landscape"]){
+            
+            coachMarks = @[
+                           @{
+                               @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+130,50,50)],
+                               @"caption": @"Mark Important"
+                               },
+                           @{
+                               @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+185,50,50)],
+                               @"caption": @"Save Later"
+                               }
+                           
+                           ];
+            
+            
+            
+        }else{
+            
+            coachMarks = @[
+                           @{
+                               @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+130,50,50)],
+                               @"caption": @"Mark Important"
+                               },
+                           @{
+                               @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+185,50,50)],
+                               @"caption": @"Save Later"
+                               }
+                           
+                           ];
+            
+            
+        }
+        coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) coachMarks:coachMarks];
+        coachMarksView.delegate=self;
+        [self.view addSubview:coachMarksView];
+        [coachMarksView start];
+        
+    }
+}
+- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksViews{
+    
+    
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ListCoachShown"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [coachMarksView removeFromSuperview];
+}
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    
+    //Obtaining the current device orientation
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    //Ignoring specific orientations
+    if ( orientation == UIDeviceOrientationUnknown) {
+        return;
+    }
+    
+    if(orientation==UIInterfaceOrientationLandscapeLeft || orientation==UIInterfaceOrientationLandscapeRight){
+        
+        // NSLog(@"view size in Landscape :%f :%f :%f :%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+        
+        NSLog(@"Landscape");
+        
+        [self addCoachMarkView:@"Landscape"];
+
+        
+    }else if(orientation==UIInterfaceOrientationPortrait){
+          NSLog(@"Portrait");
+        
+        [self addCoachMarkView:@"Portrait"];
+    }
+    
+    // We need to allow a slight pause before running handler to make sure rotation has been processed by the view hierarchy
+  
+}
+
+-(void)addOverLayView{
+    
+    [overlayView removeFromSuperview];
+    
+    overlayView =[[UIView alloc]initWithFrame:self.view.frame];
+    
+    overlayView.backgroundColor=[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:0.9];
+    
+    [self.view addSubview:overlayView];
+    
+    [self.navigationController.view addSubview:overlayView];
+    
+    
+
+    self.revealController.recognizesPanningOnFrontView=NO;
+    
+    
+    self.revealController.disablesFrontViewInteraction=YES;
+   
+}
+
+-(void)removeOverLayView{
+    
+    
+    [overlayView removeFromSuperview];
+    
+    
+
+    self.revealController.recognizesPanningOnFrontView=YES;
+
+    
+    
+    
+    [self addCoachMarkView:@"firstTime"];
+    
+}
 -(void)addRightBarItems {
     UIView *rssBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
     UIButton *rssButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];

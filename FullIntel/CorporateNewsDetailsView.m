@@ -68,6 +68,9 @@
     
 }
 
+
+
+
 -(void)viewDidAppear:(BOOL)animated {
     //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [activityIndicator stopAnimating];
@@ -171,7 +174,68 @@
         NSLog(@"test flag is FALSE");
     }
     NSLog(@"selected article id:%@",self.articleIdArray);
+    
+    [self addCoachMarkView:@"landscape"];
+   
 }
+
+-(void)addCoachMarkView:(NSString *)position{
+        
+        
+        [coachMarksView removeFromSuperview];
+        
+        BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"DrillDownCoachShown"];
+        if (coachMarksShown == NO) {
+            
+            
+         if ([position isEqualToString:@"landscape"]){
+                
+                coachMarks = @[
+                               @{
+                                   @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-350,self.view.frame.origin.y+self.view.frame.size.height-120,50,50)],
+                                   @"caption": @"Mark Important"
+                                   },
+                               @{
+                                   @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-400,self.view.frame.origin.y+self.view.frame.size.height-200,50,50)],
+                                   @"caption": @"Save Later"
+                                   }
+                               
+                               ];
+                
+                
+                
+            }else{
+                
+                coachMarks = @[
+                               @{
+                                   @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+130,50,50)],
+                                   @"caption": @"Mark Important"
+                                   },
+                               @{
+                                   @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+185,50,50)],
+                                   @"caption": @"Save Later"
+                                   }
+                               
+                               ];
+                
+                
+            }
+            coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) coachMarks:coachMarks];
+            coachMarksView.delegate=self;
+            [self.view addSubview:coachMarksView];
+            [coachMarksView start];
+            
+        }
+}
+- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksViews{
+    
+    
+//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DrillDownCoachShown"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+    [coachMarksView removeFromSuperview];
+}
+
 
 -(void)commentStatusUpdate:(id)sender {
     NSNotification *notification = sender;

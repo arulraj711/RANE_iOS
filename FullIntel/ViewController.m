@@ -159,7 +159,11 @@
         
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
         NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
+        
+        if([[[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"] length]!=0){
+        
         [pushDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"] forKey:@"deviceToken"];
+        }
         [pushDic setObject:timeZone.name forKey:@"locale"];
         [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
         [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
@@ -169,7 +173,7 @@
         NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
          dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
              
-             [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
+      //       [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
          });
         
         [self.view removeFromSuperview];
