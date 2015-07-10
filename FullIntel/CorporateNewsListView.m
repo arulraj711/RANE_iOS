@@ -194,13 +194,15 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        [window addSubview:loginView.view];
+        [self presentViewController:loginView animated:YES completion:nil];
+//        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//        [window addSubview:loginView.view];
     } else {
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        [window addSubview:loginView.view];
+        [self presentViewController:loginView animated:YES completion:nil];
+//        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//        [window addSubview:loginView.view];
     }
     
     

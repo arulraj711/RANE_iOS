@@ -34,6 +34,11 @@
 }
 
 -(void)initDefaults {
+    
+    
+    // Add Observer
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
+    
     _menuList = [[NSMutableArray alloc]init];
     _folderList = [[NSMutableArray alloc]init];
     _contentCategoryList = [[NSMutableArray alloc]init];
@@ -48,6 +53,40 @@
     }
     return context;
 }
+
+
+- (void)reachabilityDidChange:(NSNotification *)notification {
+    Reachability *reachability = (Reachability *)[notification object];
+    
+    if ([reachability isReachable]) {
+        NSLog(@"Reachable");
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"window array count:%d",subViewArray.count);
+        if(subViewArray.count > 1) {
+            id obj = [subViewArray lastObject];
+            [obj removeFromSuperview];
+        }
+        
+    } else {
+        NSLog(@"Unreachable");
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, window.frame.size.width, 64)];
+        backgrView.backgroundColor = [UIColor redColor];
+        
+        UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, window.frame.size.width, 64)];
+        errorLabel.text = @"No Network Connection";
+        errorLabel.textColor = [UIColor whiteColor];
+        errorLabel.textAlignment = NSTextAlignmentCenter;
+        [backgrView addSubview:errorLabel];
+        
+        
+       // backgrView.alpha = 0.6;
+        [window addSubview:backgrView];
+    }
+}
+
 
 -(void)checkLoginUserWithDetails:(NSString *)details{
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -90,8 +129,8 @@
         }];
         
     } else {
-        window.userInteractionEnabled = YES;
-        [FIUtils showNoNetworkToast];
+        //window.userInteractionEnabled = YES;
+        //[FIUtils showNoNetworkToast];
         //[self hideProgressHUDForView];
     }
     
@@ -125,7 +164,7 @@
         }];
         
     } else {
-        [FIUtils showNoNetworkToast];
+        //[FIUtils showNoNetworkToast];
     }
 }
 
@@ -164,7 +203,7 @@
         }];
         
     } else {
-        [FIUtils showNoNetworkToast];
+     //   [FIUtils showNoNetworkToast];
     }
 }
 
@@ -490,7 +529,7 @@
         [FIUtils showErrorToast];
     }];
     } else {
-        [FIUtils showNoNetworkToast];
+        //[FIUtils showNoNetworkToast];
     }
 }
 
@@ -564,7 +603,7 @@
         [FIUtils showErrorToast];
     }];
     } else {
-        [FIUtils showNoNetworkToast];
+        //[FIUtils showNoNetworkToast];
     }
 }
 
@@ -745,7 +784,7 @@
         [FIUtils showErrorToast];
     }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -803,7 +842,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -851,7 +890,7 @@
         [FIUtils showErrorToast];
     }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -876,7 +915,7 @@
         [FIUtils showErrorToast];
     }];
     } else {
-        [FIUtils showNoNetworkToast];
+     //   [FIUtils showNoNetworkToast];
     }
 }
 
@@ -907,7 +946,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+      //  [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1124,7 +1163,7 @@
             [FIUtils showErrorToast];
         }];
     }else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1136,7 +1175,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1151,7 +1190,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1163,7 +1202,7 @@
             [FIUtils showErrorToast];
         }];
     }else {
-        [FIUtils showNoNetworkToast];
+     //   [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1175,7 +1214,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1220,7 +1259,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1237,7 +1276,7 @@
         [FIUtils showErrorToast];
     }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1257,7 +1296,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1275,7 +1314,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+      //  [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1293,7 +1332,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 
@@ -1316,7 +1355,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+        //[FIUtils showNoNetworkToast];
     }
 }
 
@@ -1340,7 +1379,7 @@
             [FIUtils showErrorToast];
         }];
     } else {
-        [FIUtils showNoNetworkToast];
+       // [FIUtils showNoNetworkToast];
     }
 }
 

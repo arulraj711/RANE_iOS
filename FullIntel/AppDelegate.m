@@ -16,6 +16,7 @@
 #import <TwitterKit/TwitterKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "FIUtils.h"
+#import "Reachability.h"
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
@@ -33,6 +34,22 @@
     
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
 
+    
+    
+    // Initialize Reachability
+    Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+//    reachability.reachableBlock = ^(Reachability *reachability) {
+//        NSLog(@"Network is reachable.");
+//    };
+//    
+//    reachability.unreachableBlock = ^(Reachability *reachability) {
+//        NSLog(@"Network is unreachable.");
+//    };
+    
+    // Start Monitoring
+    [reachability startNotifier];
+    
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -78,6 +95,13 @@
     self.window.rootViewController = self.revealController;
     
     [self.window makeKeyAndVisible];
+    
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        [FISharedResources sharedResourceManager];
+    });
+    
+    
     return YES;
 }
 
@@ -162,6 +186,7 @@
 }
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {
+    
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0) {
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];

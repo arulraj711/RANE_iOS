@@ -172,7 +172,7 @@
              [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
          });
         
-        [self.view removeFromSuperview];
+        [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         [self.view makeToast:[notification.object objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
 //        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"FullIntel" message:[notification.object objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
