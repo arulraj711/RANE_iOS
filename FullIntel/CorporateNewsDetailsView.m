@@ -42,6 +42,8 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showWebView:) name:@"widgetSelected" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(linkedinSelection:) name:@"linkedinSelection" object:nil];
     
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLinkSelection:) name:@"fbSelection" object:nil];
+    
     
     [self addCustomNavRightButton];
     oneSecondTicker = [[NSTimer alloc] init];
@@ -208,6 +210,37 @@
    // }
 }
 
+-(void)fbLinkSelection:(id)sender {
+    
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *articleUrl = [userInfo objectForKey:@"artileUrl"];
+    NSString *articleTitle = [userInfo objectForKey:@"articleTitle"];
+    NSString *articleDesc = [userInfo objectForKey:@"articleDescription"];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    
+    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+    SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+    socialWebViewObj.titleStr=@"";
+    
+    
+//    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",articleUrl,articleTitle,articleDesc];
+    
+    NSString *urlString=[NSString stringWithFormat:@"https://www.facebook.com/dialog/feed?_path=feed&app_id=679882412141918&client_id=679882412141918&redirect_uri=https://www.facebook.com&display=popup&caption=%@&link=%@&from_login=1",articleTitle,articleUrl];
+    
+    NSLog(@"linked in url:%@",urlString);
+    NSString* urlTextEscaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"after link:%@",urlTextEscaped);
+    socialWebViewObj.urlString=urlTextEscaped;
+    modalController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [self presentViewController:modalController animated:NO completion:^{
+        // [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+}
 
 -(void)linkedinSelection:(id)sender {
     

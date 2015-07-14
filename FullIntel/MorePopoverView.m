@@ -89,13 +89,32 @@
         
     } else if(indexPath.row == 2) {
         
-        FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-        content.contentURL = [NSURL URLWithString:self.articleUrl];
-        [FBSDKShareDialog showFromViewController:self
-                                     withContent:content
-                                        delegate:nil];
+       // FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+//        content.contentURL = [NSURL URLWithString:self.articleUrl];
+//        [FBSDKShareDialog showFromViewController:self
+//                                     withContent:content
+//                                        delegate:nil];
+        
+//        FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
+//        dialog.fromViewController = self;
+//         dialog.content = content;
+//        dialog.mode = FBSDKShareDialogModeShareSheet;
+//        [dialog show];
+        
+//        FBSDKShareLinkContent *content = [FBSDKShareLinkContent new];
+//        content.contentURL = [NSURL URLWithString:self.articleUrl];
+//        content.contentTitle =self.articleTitle;
+//        content.contentDescription =self.articleDesc;
+//        FBSDKShareDialog *shareDialog = [FBSDKShareDialog new];
+//        [shareDialog setMode:FBSDKShareDialogModeAutomatic];
+//        [shareDialog setShareContent:content];
+//        [shareDialog setFromViewController:self];
+//        [shareDialog show];
         
       //  [self targetedShare:SLServiceTypeFacebook];
+        
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"fbSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
+        
         
     } else if(indexPath.row == 1) {
         //[self targetedShare:@""];
