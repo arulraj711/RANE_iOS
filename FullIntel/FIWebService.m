@@ -94,6 +94,7 @@ NSString *url = @"http://stage.fullintel.com";
 + (void)getQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
+    NSLog(@"url string:%@",url);
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
     [requestURL setHTTPMethod:@"GET"];
    // [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
@@ -273,6 +274,7 @@ NSString *url = @"http://stage.fullintel.com";
                           onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                           onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName = [NSString stringWithFormat:@"folders?security_token=%@",accessToken];
+    NSLog(@"fetch folder function name:%@",functionName);
     [self getQueryResultsForFunctionName:functionName withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);

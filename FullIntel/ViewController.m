@@ -153,7 +153,7 @@
         
         NSString *resultJson = [[NSString alloc]initWithData:menuJsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:resultJson];
-        [[FISharedResources sharedResourceManager]getFolderListWithAccessToken:[notification.object objectForKey:@"securityToken"] withFlag:NO];
+        
         
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
         NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];

@@ -177,7 +177,18 @@
     if(serviceType.length > 0 && [SLComposeViewController isAvailableForServiceType:serviceType]){
         SLComposeViewController *shareView = [SLComposeViewController composeViewControllerForServiceType:serviceType];
         
-        [shareView setInitialText:self.articleTitle];
+        // define the range you're interested in
+        NSRange stringRange = {0, MIN([self.articleTitle length], 94)};
+//        
+//        // adjust the range to include dependent chars
+        stringRange = [self.articleTitle rangeOfComposedCharacterSequencesForRange:stringRange];
+//        
+//        // Now you can create the short string
+        NSString *shortString = [self.articleTitle substringWithRange:stringRange];
+        NSLog(@"article title:%@",self.articleTitle);
+        NSLog(@"short string:%@",shortString);
+        NSLog(@"article image url:%@",self.articleImageUrl);
+        [shareView setInitialText:shortString];
         UIImageView *image = [[UIImageView alloc]init];
         [image sd_setImageWithURL:[NSURL URLWithString:self.articleImageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
         [shareView addImage:image.image];

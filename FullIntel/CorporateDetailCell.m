@@ -1011,7 +1011,7 @@
     popOverView.articleDesc = self.articleDesc;
     popOverView.articleImageUrl = self.selectedArticleImageUrl;
     self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
-    self.popOver.popoverContentSize=CGSizeMake(350, 250);
+    self.popOver.popoverContentSize=CGSizeMake(350, 150);
     //self.popOver.delegate = self;
     [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     

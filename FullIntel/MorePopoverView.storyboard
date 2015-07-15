@@ -19,7 +19,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wkg-8c-KiU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Afb-OX-RZc">
-                        <rect key="frame" x="0.0" y="0.0" width="350" height="250"/>
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="57d-kT-Nrs">
@@ -58,7 +58,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="350" height="250"/>
+                    <size key="freeformSize" width="350" height="150"/>
                     <connections>
                         <outlet property="moreTableView" destination="57d-kT-Nrs" id="oy7-Px-WY4"/>
                     </connections>

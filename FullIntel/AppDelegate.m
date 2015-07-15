@@ -178,6 +178,7 @@
 
 
 -(void)applicationDidEnterBackground:(UIApplication *)application {
+    NSLog(@"app enter in backgound");
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     NSLog(@"application enter in background:%@",accessToken);
     
@@ -191,11 +192,11 @@
         } else {
             [pushDic setObject:@"" forKey:@"deviceToken"];
         }
-        NSDate *currentTime = [NSDate date];
-        NSDateFormatter *_formatter=[[NSDateFormatter alloc]init];
-        [_formatter setLocale:[NSLocale currentLocale]];
-        [_formatter setDateFormat:@"yyyy-mm-dd hh:mm:ss"];
-        NSString *dateStr=[_formatter stringFromDate:currentTime];
+//        NSDate *currentTime = [NSDate date];
+//        NSDateFormatter *_formatter=[[NSDateFormatter alloc]init];
+//        [_formatter setLocale:[NSLocale currentLocale]];
+//        [_formatter setDateFormat:@"yyyy-mm-dd hh:mm:ss"];
+//        NSString *dateStr=[_formatter stringFromDate:currentTime];
         // NSLog(@"final date format:%@",dateStr);
         
        // [pushDic setObject:dateStr forKey:@"lastSeenAt"];

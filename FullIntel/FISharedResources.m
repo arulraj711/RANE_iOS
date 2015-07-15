@@ -998,7 +998,7 @@
             [_menuList addObject:menu];
         }
         [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
-        
+        [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO];
         } else {
             [self hideProgressView];
             [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
@@ -1017,6 +1017,7 @@
 }
 
 -(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag {
+    NSLog(@"call folder list API");
     if([self serviceIsReachable]) {
         
         [FIWebService fetchFolderListWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
