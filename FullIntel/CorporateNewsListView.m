@@ -115,8 +115,39 @@
 //        
 //    }
     
+//    UIPanGestureRecognizer *panGesture=[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(closeMenu)];
+//    
+//    [self.view addGestureRecognizer:panGesture];
+    
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    
+    NSLog(@"touch began");
+    
+    [self closeMenu];
+    
+    [super touchesBegan:touches withEvent:event];
+    
+    
+}
+
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    
+    NSLog(@"scrollViewWillBeginDecelerating");
+    
+    [self closeMenu];
+}
+-(void)closeMenu{
+    
+  
+    
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        // NSLog(@"left view opened");
+        [self.revealController showViewController:self.revealController.frontViewController];
+    }
+}
 -(void)addRightBarItems {
     UIView *rssBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
     UIButton *rssButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
@@ -710,8 +741,14 @@
         [checkMarkBtn setSelected:YES];
     }
 }
-
-
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+//    
+//    [self closeMenu];
+//}
+//- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+//    
+//    [self closeMenu];
+//}
 - (void)scrollViewDidScroll: (UIScrollView*)scroll {
     // UITableView only moves in one direction, y axis
     CGFloat currentOffset = scroll.contentOffset.y;
