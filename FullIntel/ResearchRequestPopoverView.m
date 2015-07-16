@@ -21,6 +21,16 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(researchSend) name:@"ResearchSend" object:nil];
     
+    
+    
+    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+    NSArray *subViewArray = [window subviews];
+     NSLog(@"subview array count:%d",subViewArray.count);
+    if(subViewArray.count == 1) {
+        [[FISharedResources sharedResourceManager] showBannerView];
+    }
+    
+    
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 10;
     if(self.fromAddContent) {

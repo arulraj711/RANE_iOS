@@ -139,6 +139,12 @@
     
     [self closeMenu];
 }
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self closeMenu];
+}
+
+
 -(void)closeMenu{
     
   

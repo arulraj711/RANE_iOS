@@ -27,8 +27,8 @@
 -(void)pushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)updatePushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit;
--(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId;
--(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId;
+-(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId;
+-(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId;
 -(void)renameFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId;
 -(void)checkLoginUserWithDetails:(NSString *)details;
 -(void)logoutUserWithDetails:(NSString *)details withFlag:(NSNumber*)authenticationFlag;

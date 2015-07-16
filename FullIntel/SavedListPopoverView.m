@@ -87,9 +87,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.saveButton setEnabled:YES];
     FIFolder *folder = [_savedListArray objectAtIndex:indexPath.row];
-    unselectedArray = [[NSMutableArray alloc]initWithArray:selectedArray];
-    [selectedArray removeAllObjects];
-    [selectedArray addObject:folder.folderId];
+   // unselectedArray = [[NSMutableArray alloc]initWithArray:selectedArray];
+    if([selectedArray containsObject:folder.folderId]) {
+        [selectedArray removeObject:folder.folderId];
+        [unselectedArray addObject:folder.folderId];
+    } else {
+        [selectedArray addObject:folder.folderId];
+        [unselectedArray removeObject:folder.folderId];
+    }
+    
     [self.savedListTableView reloadData];
 }
 
@@ -102,19 +108,16 @@
 - (IBAction)checkedButtonAction:(UIButton *)sender {
     NSLog(@"tag value:%ld",(long)sender.tag);
     [self.saveButton setEnabled:YES];
-//    if(sender.selected) {
-//        [sender setSelected:NO];
-//        FIFolder *folder = [_savedListArray objectAtIndex:sender.tag];
-//        [selectedArray removeObject:folder.folderId];
-////        FIFolder *folder = [_savedListArray objectAtIndex:sender.tag];
-////        [folder.folderArticlesIDArray removeObject:self.selectedArticleId];
-//    }else {
-//        [sender setSelected:YES];
-        FIFolder *folder = [_savedListArray objectAtIndex:sender.tag];
-    unselectedArray = [[NSMutableArray alloc]initWithArray:selectedArray];
-        [selectedArray removeAllObjects];
+    FIFolder *folder = [_savedListArray objectAtIndex:sender.tag];
+    // unselectedArray = [[NSMutableArray alloc]initWithArray:selectedArray];
+    if([selectedArray containsObject:folder.folderId]) {
+        [selectedArray removeObject:folder.folderId];
+        [unselectedArray addObject:folder.folderId];
+    } else {
         [selectedArray addObject:folder.folderId];
-   // }
+        [unselectedArray removeObject:folder.folderId];
+    }
+    
     [self.savedListTableView reloadData];
 }
 
@@ -196,15 +199,31 @@
     [self.view addSubview:activityIndicator];
     [activityIndicator startAnimating];
     self.view.userInteractionEnabled = NO;
-    NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
-    [folderdetails setObject:self.selectedArticleId forKey:@"articleId"];
-    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderdetails options:NSJSONWritingPrettyPrinted error:nil];
+    NSMutableArray *folderArray = [[NSMutableArray alloc]init];
+    for(int i=0;i<selectedArray.count;i++) {
+        NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
+        [folderdetails setObject:[selectedArray objectAtIndex:i] forKey:@"id"];
+        [folderArray addObject:folderdetails];
+    }
+    
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderArray options:NSJSONWritingPrettyPrinted error:nil];
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    [[FISharedResources sharedResourceManager]saveArticleToFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFolderId:[selectedArray objectAtIndex:0]];
+    [[FISharedResources sharedResourceManager]saveArticleToFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withArticleId:self.selectedArticleId];
 
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         if(unselectedArray.count != 0) {
-            [[FISharedResources sharedResourceManager]removeArticleToFolderWithDetails:self.selectedArticleId withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFolderId:[unselectedArray objectAtIndex:0]];
+            
+            NSMutableArray *unselectedFolderArray = [[NSMutableArray alloc]init];
+            for(int i=0;i<unselectedArray.count;i++) {
+                NSMutableDictionary *unselectedFolderDetails = [[NSMutableDictionary alloc] init];
+                [unselectedFolderDetails setObject:[unselectedArray objectAtIndex:i] forKey:@"id"];
+                [unselectedFolderArray addObject:unselectedFolderDetails];
+            }
+            
+            NSData *unselectedJsonData = [NSJSONSerialization dataWithJSONObject:unselectedFolderArray options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *unselectedResultStr = [[NSString alloc]initWithData:unselectedJsonData encoding:NSUTF8StringEncoding];
+            
+            [[FISharedResources sharedResourceManager]removeArticleToFolderWithDetails:unselectedResultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withArticleId:self.selectedArticleId];
         }
     });
     

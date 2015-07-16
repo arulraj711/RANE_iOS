@@ -121,13 +121,13 @@ NSString *url = @"http://stage.fullintel.com";
 }
 
 
-+ (void)deleteQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
++ (void)deleteQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken withDetails:(NSString *)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
     [requestURL setHTTPMethod:@"DELETE"];
-    // [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
-    // [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
@@ -287,7 +287,7 @@ NSString *url = @"http://stage.fullintel.com";
 +(void)createFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)securityToken
                     onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                     onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *functionName = [NSString stringWithFormat:@"folder?security_token=%@",securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"folders?security_token=%@",securityToken];
     [self postQueryResultsForFunctionName:functionName withPostDetails:details withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -335,7 +335,7 @@ NSString *url = @"http://stage.fullintel.com";
                              onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                              onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
-    NSString *functionName = [NSString stringWithFormat:@"folder/%@/articles?security_token=%@&offset=%@&limit=%@",folderId,securityToken,offset,limit];
+    NSString *functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&offset=%@&limit=%@",folderId,securityToken,offset,limit];
     [self getQueryResultsForFunctionName:functionName withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -347,11 +347,11 @@ NSString *url = @"http://stage.fullintel.com";
 
 
 
-+(void)saveArticlesToFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSString *)folderId
++(void)saveArticlesToFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSString *)articleId
                      onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                      onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
-    NSString *functionName = [NSString stringWithFormat:@"folder/%@/article?security_token=%@",folderId,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"articles/%@/folders?security_token=%@",articleId,securityToken];
     [self postQueryResultsForFunctionName:functionName withPostDetails:details withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -361,13 +361,13 @@ NSString *url = @"http://stage.fullintel.com";
     }];
 }
 
-+(void)removeArticlesFromFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSString *)folderId
++(void)removeArticlesFromFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withArticleId:(NSString *)articleId
                              onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                              onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
-    NSString *functionName = [NSString stringWithFormat:@"folder/%@/article/%@?security_token=%@",folderId,details,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"articles/%@/folders?security_token=%@",articleId,securityToken];
     
-    [self deleteQueryResultsForFunctionName:functionName withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self deleteQueryResultsForFunctionName:functionName withSecurityToken:securityToken withDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -380,7 +380,7 @@ NSString *url = @"http://stage.fullintel.com";
 +(void)renameFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSNumber *)folderId
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *functionName = [NSString stringWithFormat:@"folder/%@?security_token=%@",folderId,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"folders/%@?security_token=%@",folderId,securityToken];
     [self putQueryResultsForFunctionName:functionName withSecurityToken:securityToken withDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);

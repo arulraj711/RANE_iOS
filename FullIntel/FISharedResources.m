@@ -92,39 +92,49 @@
 
 -(void)showBannerView {
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-    NSLog(@"Unreachable width:%f and resize:%f and another:%f",window.frame.size.width,window.frame.size.width/2,(window.frame.size.width/2)-(200/2));
-    UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake((window.frame.size.width/2)-(300/2), 70, 300, 44)];
-    backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
+    NSLog(@"Unreachable width:%f and resize:%f and another:%f",window.frame.size.width,window.frame.size.width/2,(window.frame.size.width/2)-(300/2));
     
-    UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 200, 44)];
-    errorLabel.text = @"No Network Connection";
-    errorLabel.textColor = [UIColor whiteColor];
-    errorLabel.textAlignment = NSTextAlignmentCenter;
-    [backgrView addSubview:errorLabel];
-    backgrView.layer.cornerRadius = 20.0f;
-    backgrView.layer.masksToBounds = YES;
-    
-    UIView *buttonBackView = [[UIView alloc]initWithFrame:CGRectMake(300-50, 0, 50, 44)];
+    UIView *buttonBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, window.frame.size.width , window.frame.size.height)];
     buttonBackView.backgroundColor = [UIColor clearColor];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button addTarget:self
-               action:@selector(closeBannerView)
-     forControlEvents:UIControlEventTouchUpInside];
-    [button setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-    //[button setTitle:@"Show View" forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, 14, 16, 16);
-    [buttonBackView addSubview:button];
+    
+    UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake((window.frame.size.width/2)-(400/2), 70, 400, 80)];
+    backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
+    
+    UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 360, 80)];
+    errorLabel.text = @"It appears that you are not connected to the internet and some features are not available when you are offline.";
+    errorLabel.textColor = [UIColor whiteColor];
+    errorLabel.textAlignment = NSTextAlignmentLeft;
+    errorLabel.numberOfLines = 3;
+    errorLabel.font = [UIFont fontWithName:@"Open Sans" size:15];
+    [backgrView addSubview:errorLabel];
+    backgrView.layer.cornerRadius = 10.0f;
+    backgrView.layer.masksToBounds = YES;
+    
+    
+    
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [button addTarget:self
+//               action:@selector(closeBannerView)
+//     forControlEvents:UIControlEventTouchUpInside];
+//    [button setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+//    //[button setTitle:@"Show View" forState:UIControlStateNormal];
+//    button.frame = CGRectMake(0, 32, 16, 16);
+//    [buttonBackView addSubview:button];
+    
+    
+    
+    
+    [buttonBackView addSubview:backgrView];
+    
     
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeBannerView)];
     buttonBackView.userInteractionEnabled = YES;
     [buttonBackView addGestureRecognizer:tapEvent];
     
-    
-    [backgrView addSubview:buttonBackView];
-    
     // backgrView.alpha = 0.6;
-    [window addSubview:backgrView];
+    [window addSubview:buttonBackView];
+    
 }
 
 
@@ -1273,9 +1283,10 @@
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
        // NSLog(@"subview array count:%d",subViewArray.count);
-        if(subViewArray.count == 1) {
+        if(subViewArray.count == 2) {
             [self showBannerView];
         }
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
     }
 }
 
@@ -1314,9 +1325,9 @@
 }
 
 
--(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId {
+-(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId {
     if([self serviceIsReachable]) {
-        [FIWebService saveArticlesToFolderWithDetails:details withSecurityToken:accessToken withFolderId:folderId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService saveArticlesToFolderWithDetails:details withSecurityToken:accessToken withFolderId:articleId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             UIWindow *window = [[UIApplication sharedApplication]windows][0];
             [window makeToast:@"Saved to folder successfully." duration:2 position:CSToastPositionCenter];
             //[[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
@@ -1328,15 +1339,16 @@
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
         NSLog(@"subview array count:%d",subViewArray.count);
-        if(subViewArray.count == 1) {
+        if(subViewArray.count == 2) {
             [self showBannerView];
         }
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
     }
 }
 
--(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSString *)folderId {
+-(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId {
     if([self serviceIsReachable]) {
-        [FIWebService removeArticlesFromFolderWithDetails:details withSecurityToken:accessToken withFolderId:folderId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService removeArticlesFromFolderWithDetails:details withSecurityToken:accessToken withArticleId:articleId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self getFolderListWithAccessToken:accessToken withFlag:YES];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [FIUtils showErrorToast];
@@ -1348,6 +1360,7 @@
         if(subViewArray.count == 1) {
             [self showBannerView];
         }
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
     }
 }
 
@@ -1459,7 +1472,7 @@
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
         NSLog(@"subview array count:%d",subViewArray.count);
-        if(subViewArray.count == 1) {
+        if(subViewArray.count == 2) {
             [self showBannerView];
         }
     }
@@ -1533,7 +1546,7 @@
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
         NSLog(@"subview array count:%d",subViewArray.count);
-        if(subViewArray.count == 1) {
+        if(subViewArray.count == 2) {
             [self showBannerView];
         }
     }
