@@ -12,7 +12,7 @@
 #define LIVE_URL @"http://fullintel.com/services/mv01/sv00/appuser"
 #define STAGE_URL @"http://104.236.78.199/services/mv01/sv00/appuser"
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
-NSString *url = @"http://stage.fullintel.com";
+NSString *url = @"http://stage.fullintel.com/1.1.0";
 #define FUNCTION_URL @"services/mv01/sv00/appuser"
 @implementation FIWebService
 
@@ -24,10 +24,21 @@ NSString *url = @"http://stage.fullintel.com";
     url = urls;
 }
 
+
++(void)getResponseTimeFromTimeStamp:(double)timeStamp {
+    float milliseconds = timeStamp*1000;
+    float seconds = milliseconds / 1000.0;
+    float minutes = seconds / 60.0;
+    float hours = minutes / 60.0;
+    NSLog(@"Response seconds:%f and minutes:%f and hours:%f",seconds,minutes,hours);
+}
+
 + (void)getResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     //NSLog(@"get ress for function ");
-    NSLog(@"start  time--->%f",CFAbsoluteTimeGetCurrent());
+    //NSLog(@"start  time--->%f",CFAbsoluteTimeGetCurrent());
+    NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
+//    NSLog(@"start time in ms------>%f",startTimeInMiliseconds);
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@/",url,FUNCTION_URL,urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
@@ -37,7 +48,12 @@ NSString *url = @"http://stage.fullintel.com";
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         NSLog(@"end  time--->%f",CFAbsoluteTimeGetCurrent());
+         //NSLog(@"end  time--->%f",CFAbsoluteTimeGetCurrent());
+         double currentt = [[NSDate new] timeIntervalSince1970];
+         NSTimeInterval differ= [[NSDate dateWithTimeIntervalSince1970:currentt] timeIntervalSinceDate:[NSDate dateWithTimeIntervalSince1970:startTimeInMiliseconds]];
+         //NSLog(@"differ: %f", differ*1000);
+         [self getResponseTimeFromTimeStamp:differ];
+         
          NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSASCIIStringEncoding];
          NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
          NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,postDetails);
@@ -46,9 +62,12 @@ NSString *url = @"http://stage.fullintel.com";
          NSLog(@"\n=========RESPONSE=========\n%@\n===========================",JSON);
          success(operation, JSON);
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         double currentt = [[NSDate new] timeIntervalSince1970];
+         NSTimeInterval differ= [[NSDate dateWithTimeIntervalSince1970:currentt] timeIntervalSinceDate:[NSDate dateWithTimeIntervalSince1970:startTimeInMiliseconds]];
+         //NSLog(@"differ: %f", differ*1000);
+         [self getResponseTimeFromTimeStamp:differ];
          NSLog(@"\n=========REQUEST=========\n%@",operation.request);
          NSLog(@"\n=========RESPONSE(ERROR)=========\n%@\n==================",error);
-         
          if(error.code != -999)
          failure(operation, error);
          
@@ -61,7 +80,7 @@ NSString *url = @"http://stage.fullintel.com";
 + (void)postQueryResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails withSecurityToken:(NSString *)securityToken onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     //NSLog(@"get ress for function ");
-    
+    NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
@@ -71,6 +90,11 @@ NSString *url = @"http://stage.fullintel.com";
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         double currentt = [[NSDate new] timeIntervalSince1970];
+         NSTimeInterval differ= [[NSDate dateWithTimeIntervalSince1970:currentt] timeIntervalSinceDate:[NSDate dateWithTimeIntervalSince1970:startTimeInMiliseconds]];
+         //NSLog(@"differ: %f", differ*1000);
+         [self getResponseTimeFromTimeStamp:differ];
+         
          NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSASCIIStringEncoding];
          NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
          NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,postDetails);
@@ -79,6 +103,13 @@ NSString *url = @"http://stage.fullintel.com";
          NSLog(@"\n=========RESPONSE=========\n%@\n===========================",JSON);
          success(operation, JSON);
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         double currentt = [[NSDate new] timeIntervalSince1970];
+         NSTimeInterval differ= [[NSDate dateWithTimeIntervalSince1970:currentt] timeIntervalSinceDate:[NSDate dateWithTimeIntervalSince1970:startTimeInMiliseconds]];
+         //NSLog(@"differ: %f", differ*1000);
+         [self getResponseTimeFromTimeStamp:differ];
+         
+         
          NSLog(@"\n=========REQUEST=========\n%@",operation.request);
          NSLog(@"\n=========RESPONSE(ERROR)=========\n%@\n==================",error);
          
@@ -92,6 +123,7 @@ NSString *url = @"http://stage.fullintel.com";
 
 
 + (void)getQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSLog(@"url string:%@",url);
@@ -102,6 +134,12 @@ NSString *url = @"http://stage.fullintel.com";
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         
+         double currentt = [[NSDate new] timeIntervalSince1970];
+         NSTimeInterval differ= [[NSDate dateWithTimeIntervalSince1970:currentt] timeIntervalSinceDate:[NSDate dateWithTimeIntervalSince1970:startTimeInMiliseconds]];
+         //NSLog(@"differ: %f", differ*1000);
+         [self getResponseTimeFromTimeStamp:differ];
+         
          NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSASCIIStringEncoding];
          NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
          NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,securityToken);
@@ -110,6 +148,12 @@ NSString *url = @"http://stage.fullintel.com";
          NSLog(@"\n=========RESPONSE=========\n%@\n===========================",JSON);
          success(operation, JSON);
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         double currentt = [[NSDate new] timeIntervalSince1970];
+         NSTimeInterval differ= [[NSDate dateWithTimeIntervalSince1970:currentt] timeIntervalSinceDate:[NSDate dateWithTimeIntervalSince1970:startTimeInMiliseconds]];
+         //NSLog(@"differ: %f", differ*1000);
+         [self getResponseTimeFromTimeStamp:differ];
+         
          NSLog(@"\n=========REQUEST=========\n%@",operation.request);
          NSLog(@"\n=========RESPONSE(ERROR)=========\n%@\n==================",error);
          
@@ -122,6 +166,8 @@ NSString *url = @"http://stage.fullintel.com";
 
 
 + (void)deleteQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken withDetails:(NSString *)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSLog(@"inside remove articles");
+    NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
@@ -131,6 +177,12 @@ NSString *url = @"http://stage.fullintel.com";
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         
+         double currentt = [[NSDate new] timeIntervalSince1970];
+         NSTimeInterval differ= [[NSDate dateWithTimeIntervalSince1970:currentt] timeIntervalSinceDate:[NSDate dateWithTimeIntervalSince1970:startTimeInMiliseconds]];
+         //NSLog(@"differ: %f", differ*1000);
+         [self getResponseTimeFromTimeStamp:differ];
+         
          NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSASCIIStringEncoding];
          NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
          NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,securityToken);
@@ -139,6 +191,12 @@ NSString *url = @"http://stage.fullintel.com";
          NSLog(@"\n=========RESPONSE=========\n%@\n===========================",JSON);
          success(operation, JSON);
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         double currentt = [[NSDate new] timeIntervalSince1970];
+         NSTimeInterval differ= [[NSDate dateWithTimeIntervalSince1970:currentt] timeIntervalSinceDate:[NSDate dateWithTimeIntervalSince1970:startTimeInMiliseconds]];
+         //NSLog(@"differ: %f", differ*1000);
+         [self getResponseTimeFromTimeStamp:differ];
+         
          NSLog(@"\n=========REQUEST=========\n%@",operation.request);
          NSLog(@"\n=========RESPONSE(ERROR)=========\n%@\n==================",error);
          
@@ -151,6 +209,7 @@ NSString *url = @"http://stage.fullintel.com";
 
 
 + (void)putQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken withDetails:(NSString *)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
@@ -160,6 +219,12 @@ NSString *url = @"http://stage.fullintel.com";
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         
+         double currentt = [[NSDate new] timeIntervalSince1970];
+         NSTimeInterval differ= [[NSDate dateWithTimeIntervalSince1970:currentt] timeIntervalSinceDate:[NSDate dateWithTimeIntervalSince1970:startTimeInMiliseconds]];
+         //NSLog(@"differ: %f", differ*1000);
+         [self getResponseTimeFromTimeStamp:differ];
+         
          NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSASCIIStringEncoding];
          NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
          NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,securityToken);
@@ -168,6 +233,12 @@ NSString *url = @"http://stage.fullintel.com";
          NSLog(@"\n=========RESPONSE=========\n%@\n===========================",JSON);
          success(operation, JSON);
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         double currentt = [[NSDate new] timeIntervalSince1970];
+         NSTimeInterval differ= [[NSDate dateWithTimeIntervalSince1970:currentt] timeIntervalSinceDate:[NSDate dateWithTimeIntervalSince1970:startTimeInMiliseconds]];
+         //NSLog(@"differ: %f", differ*1000);
+         [self getResponseTimeFromTimeStamp:differ];
+         
          NSLog(@"\n=========REQUEST=========\n%@",operation.request);
          NSLog(@"\n=========RESPONSE(ERROR)=========\n%@\n==================",error);
          

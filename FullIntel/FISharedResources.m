@@ -129,6 +129,7 @@
     
     
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeBannerView)];
+    tapEvent.numberOfTouchesRequired = 1;
     buttonBackView.userInteractionEnabled = YES;
     [buttonBackView addGestureRecognizer:tapEvent];
     
@@ -186,14 +187,21 @@
 
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             window.userInteractionEnabled = YES;
-            [FIUtils showErrorToast];
+           // [FIUtils showErrorToast];
+            
+            
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            
             //[self hideProgressHUDForView];
         }];
         
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
-        NSLog(@"subview array count:%d",subViewArray.count);
+        //NSLog(@"subview array count:%d",subViewArray.count);
         if(subViewArray.count == 1) {
             [self showBannerView];
         }
@@ -230,11 +238,8 @@
         
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        NSArray *subViewArray = [window subviews];
-        NSLog(@"subview array count:%d",subViewArray.count);
-        if(subViewArray.count == 1) {
-            [self showBannerView];
-        }
+        [window makeToast:@"You have logged out." duration:1 position:CSToastPositionCenter];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"logoutSuccess" object:nil];
     }
 }
 
@@ -253,7 +258,7 @@
                 NSLog(@"sync array count:%lu",(unsigned long)syncArray.count);
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     for(NSManagedObject *curatedNews in syncArray) {
-                        [self updateReadStatusInBackgroundWithArticleId:[curatedNews valueForKey:@"articleId"] withStatus:1];
+                        [self updateUserActivitiesInBackgroundWithArticleId:[curatedNews valueForKey:@"articleId"] withStatus:1 withSelectedStatus:YES];
                         NSFetchRequest *fetchRequest1 = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
                         NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"articleId == %@",[curatedNews valueForKey:@"articleId"]];
                         [fetchRequest1 setPredicate:predicate1];
@@ -265,6 +270,28 @@
                         [managedObjectContext save:nil];
                     }
                 });
+                
+                NSFetchRequest *fetchRequest1 = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                NSPredicate *predicate1  = [NSPredicate predicateWithFormat:@"isMarkedImpStatusSync == %@",[NSNumber numberWithBool:YES]];
+                [fetchRequest1 setPredicate:predicate1];
+                NSArray *syncArray1 =[[managedObjectContext executeFetchRequest:fetchRequest1 error:nil] mutableCopy];
+               // NSLog(@"marked imp sync array count:%lu",(unsigned long)syncArray1.count);
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    for(NSManagedObject *curatedNews in syncArray1) {
+                        [self updateUserActivitiesInBackgroundWithArticleId:[curatedNews valueForKey:@"articleId"] withStatus:2 withSelectedStatus:[[curatedNews valueForKey:@"markAsImportant"] boolValue]];
+                        NSFetchRequest *fetchRequest1 = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                        NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"articleId == %@",[curatedNews valueForKey:@"articleId"]];
+                        [fetchRequest1 setPredicate:predicate1];
+                        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest1 error:nil] mutableCopy];
+                        if(newPerson.count != 0) {
+                            NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+                            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isMarkedImpStatusSync"];
+                        }
+                        [managedObjectContext save:nil];
+                    }
+                });
+                
+                
             } else {
                 [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
             }
@@ -283,12 +310,12 @@
 }
 
 
--(void)updateReadStatusInBackgroundWithArticleId:(NSString *)articleId withStatus:(int)status {
+-(void)updateUserActivitiesInBackgroundWithArticleId:(NSString *)articleId withStatus:(int)status withSelectedStatus:(BOOL)selectedStatus{
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [resultDic setObject:articleId forKey:@"selectedArticleId"];
-    [resultDic setObject:@"1" forKey:@"status"];
-    [resultDic setObject:@"true" forKey:@"isSelected"];
+    [resultDic setObject:[NSNumber numberWithInt:status] forKey:@"status"];
+    [resultDic setObject:[NSNumber numberWithBool:selectedStatus] forKey:@"isSelected"];
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
     [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
@@ -329,6 +356,31 @@
 
     return (saveError == nil);
 }
+
+-(void)updateFolderId:(NSString *)entity withFolderId:(NSNumber *)folderId {
+    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
+    [fetchRequest setPredicate:predicate];
+    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    // NSLog(@"new person array count:%d",newPerson.count);
+    if(newPerson.count != 0) {
+        //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+        for(NSManagedObject *curatedNews in newPerson) {
+            // NSLog(@"for loop update");
+            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isFolder"];
+            [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
+            
+            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+            } else {
+                [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
+            }
+        }
+    }
+    [managedObjectContext save:nil];
+}
+
 
 -(BOOL)clearEntity:(NSString *)entity {
     NSManagedObjectContext *myContext = [self managedObjectContext];
@@ -608,7 +660,7 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsFail" object:nil];
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
-        NSLog(@"subview array count:%d",subViewArray.count);
+     //   NSLog(@"subview array count:%d",subViewArray.count);
         if(subViewArray.count == 1) {
             [self showBannerView];
         }
@@ -687,7 +739,7 @@
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
-        NSLog(@"subview array count:%d",subViewArray.count);
+        //NSLog(@"subview array count:%d",subViewArray.count);
         if(subViewArray.count == 1) {
             [self showBannerView];
         }
@@ -873,7 +925,7 @@
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
-        NSLog(@"subview array count:%d",subViewArray.count);
+        //NSLog(@"subview array count:%d",subViewArray.count);
         if(subViewArray.count == 1) {
             [self showBannerView];
         }
@@ -936,7 +988,7 @@
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
-        NSLog(@"subview array count:%d",subViewArray.count);
+        //NSLog(@"subview array count:%d",subViewArray.count);
         if(subViewArray.count == 1) {
             [self showBannerView];
         }
@@ -989,7 +1041,7 @@
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
-        NSLog(@"subview array count:%d",subViewArray.count);
+       // NSLog(@"subview array count:%d",subViewArray.count);
         if(subViewArray.count == 1) {
             [self showBannerView];
         }
@@ -1008,7 +1060,7 @@
             [_menuList addObject:menu];
         }
         [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
-        [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO];
+        [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
         } else {
             [self hideProgressView];
             [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
@@ -1019,14 +1071,14 @@
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
-        NSLog(@"subview array count:%d",subViewArray.count);
+        //NSLog(@"subview array count:%d",subViewArray.count);
         if(subViewArray.count == 1) {
             [self showBannerView];
         }
     }
 }
 
--(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag {
+-(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag withCreatedFlag:(BOOL)createdFlag {
     NSLog(@"call folder list API");
     if([self serviceIsReachable]) {
         
@@ -1040,9 +1092,14 @@
                     [_folderList addObject:folder];
                 }
                 [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_folderList] forKey:@"FolderList"];
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
-                if(flag) {
+                
+                if(flag && createdFlag) {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+                } else if(flag) {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+                }else {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
                 }
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
@@ -1051,7 +1108,12 @@
             }
             
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            //[FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1063,7 +1125,7 @@
     }
 }
 
--(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit{
+-(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit withUpFlag:(BOOL)flag{
     if([self serviceIsReachable]) {
         [FIWebService fetchArticlesFromFolderWithSecurityToken:accessToken withFolderId:[folderId stringValue] withOffset:offset withLimit:limit  onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([responseObject isKindOfClass:[NSArray class]]){
@@ -1075,7 +1137,15 @@
                         [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
                     }
                 }
+                //Handle pull down to refresh
+                if(flag) {
+                    [self updateFolderId:@"CuratedNews" withFolderId:folderId];
+                }
                 
+                if([offset isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                    [self updateFolderId:@"CuratedNews" withFolderId:folderId];
+                }
+               
                 for(NSDictionary *dic in curatedNewsArray) {
                     
                     NSManagedObjectContext *context;
@@ -1099,12 +1169,20 @@
                         NSLog(@"no");
                         //Create new object
                         curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
+                        
                         [_articleIdArray addObject:[articleDic objectForKey:@"id"]];
                     }
                     
+//                    if(flag) {
+//                        [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
+//                    } else {
+                        [curatedNews setValue:folderId forKey:@"folderId"];
+                   // }
+                    
                     //Set values in local db
                     [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isFolder"];
-                    [curatedNews setValue:folderId forKey:@"folderId"];
+                    NSLog(@"incoming folder id:%@",folderId);
+                    
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"id"]) forKey:@"articleId"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"heading"]) forKey:@"title"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleDescription"]) forKey:@"desc"];
@@ -1256,7 +1334,12 @@
             }
             
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+           // [FIUtils showErrorToast];
         }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1274,10 +1357,18 @@
         [FIWebService createFolderWithDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             UIWindow *window = [[UIApplication sharedApplication]windows][0];
             [window makeToast:@"Folder created successfully." duration:2 position:CSToastPositionCenter];
+            
             //[[NSNotificationCenter defaultCenter]postNotificationName:@"FolderCreated" object:nil];
-            [self getFolderListWithAccessToken:accessToken withFlag:YES];
+            [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:YES];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            //NSLog(@"error response:%@",operation.responseObject);
+            
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+           // [FIUtils showErrorToast];
         }];
     }else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1330,10 +1421,16 @@
         [FIWebService saveArticlesToFolderWithDetails:details withSecurityToken:accessToken withFolderId:articleId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             UIWindow *window = [[UIApplication sharedApplication]windows][0];
             [window makeToast:@"Saved to folder successfully." duration:2 position:CSToastPositionCenter];
-            //[[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
-            [self getFolderListWithAccessToken:accessToken withFlag:YES];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
+            [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:NO];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            //[FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1349,9 +1446,15 @@
 -(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId {
     if([self serviceIsReachable]) {
         [FIWebService removeArticlesFromFolderWithDetails:details withSecurityToken:accessToken withArticleId:articleId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self getFolderListWithAccessToken:accessToken withFlag:YES];
+            //[[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+            [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:NO];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            //[FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     }else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1367,9 +1470,14 @@
 -(void)renameFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId {
     if([self serviceIsReachable]) {
         [FIWebService renameFolderWithDetails:details withSecurityToken:accessToken withFolderId:folderId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self getFolderListWithAccessToken:accessToken withFlag:YES];
+            [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:NO];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            //[FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];

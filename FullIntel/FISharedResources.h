@@ -22,14 +22,15 @@
 -(void)getCuratedNewsAuthorDetailsWithDetails:(NSString *)details withArticleId:(NSString *)articleId;
 -(void)getInfluencerDetailsWithDetails:(NSString *)details;
 -(void)getMenuListWithAccessToken:(NSString *)accessToken;
--(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag;
+-(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag withCreatedFlag:(BOOL)createdFlag;
 -(void)createFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)pushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)updatePushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
--(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit;
+-(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit withUpFlag:(BOOL)flag;
 -(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId;
 -(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId;
 -(void)renameFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId;
+-(void)updateUserActivitiesInBackgroundWithArticleId:(NSString *)articleId withStatus:(int)status withSelectedStatus:(BOOL)selectedStatus;
 -(void)checkLoginUserWithDetails:(NSString *)details;
 -(void)logoutUserWithDetails:(NSString *)details withFlag:(NSNumber*)authenticationFlag;
 -(void)validateUserOnResumeWithDetails:(NSString *)details;
@@ -40,6 +41,7 @@
 -(void)addCommentsWithDetails:(NSString *)details;
 -(void)updateAppViewTypeWithDetails:(NSString *)details;
 -(void)featureAccessRequestWithDetails:(NSString *)details;
+-(void)updateFolderId:(NSString *)entity withFolderId:(NSNumber *)folderId;
 -(NSDictionary *)getTweetDetails:(NSString *)details;
 -(void)markCommentAsReadWithDetails:(NSString *)details;
 - (NSManagedObjectContext *)managedObjectContext;

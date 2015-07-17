@@ -109,6 +109,11 @@
     [window makeToast:@"Oops..! Something is wrong. Please try again later." duration:1 position:CSToastPositionCenter];
 }
 
++(void)showErrorWithMessage:(NSString *)message {
+    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+    [window makeToast:message duration:1 position:CSToastPositionCenter];
+}
+
 +(void)showNoNetworkToast {
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
     [window makeToast:@"￼Oops..! Please check your internet connection." duration:1 position:CSToastPositionCenter];

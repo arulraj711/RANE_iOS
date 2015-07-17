@@ -178,16 +178,19 @@
         SLComposeViewController *shareView = [SLComposeViewController composeViewControllerForServiceType:serviceType];
         
         // define the range you're interested in
-        NSRange stringRange = {0, MIN([self.articleTitle length], 94)};
+        
+        NSString *twitterTitleString = [NSString stringWithFormat:@"Shared from FullIntel : %@",self.articleTitle];
+        
+        NSRange stringRange = {0, MIN([twitterTitleString length], 94)};
 //        
 //        // adjust the range to include dependent chars
-        stringRange = [self.articleTitle rangeOfComposedCharacterSequencesForRange:stringRange];
+        stringRange = [twitterTitleString rangeOfComposedCharacterSequencesForRange:stringRange];
 //        
 //        // Now you can create the short string
-        NSString *shortString = [self.articleTitle substringWithRange:stringRange];
-        NSLog(@"article title:%@",self.articleTitle);
-        NSLog(@"short string:%@",shortString);
-        NSLog(@"article image url:%@",self.articleImageUrl);
+        NSString *shortString = [twitterTitleString substringWithRange:stringRange];
+        NSLog(@"article title:%@",shortString);
+        //NSLog(@"short string:%@",shortString);
+        //NSLog(@"article image url:%@",self.articleImageUrl);
         [shareView setInitialText:shortString];
         UIImageView *image = [[UIImageView alloc]init];
         [image sd_setImageWithURL:[NSURL URLWithString:self.articleImageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];

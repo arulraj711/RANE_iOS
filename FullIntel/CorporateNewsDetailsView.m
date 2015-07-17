@@ -256,7 +256,8 @@
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
     socialWebViewObj.titleStr=@"LinkedIn Share";
-    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",articleUrl,articleTitle,articleDesc];
+    NSString *linkedinTitleString = [NSString stringWithFormat:@"Shared from FullIntel : %@",articleTitle];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=fullintel.com",articleUrl,linkedinTitleString,articleDesc];
     NSLog(@"linked in url:%@",urlString);
     NSString* urlTextEscaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"after link:%@",urlTextEscaped);

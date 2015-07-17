@@ -11,7 +11,8 @@
 @interface SavedListPopoverView : UIViewController<UITextFieldDelegate,UITableViewDelegate> {
     NSMutableArray *selectedArray;
     NSMutableArray *unselectedArray;
-    UIActivityIndicatorView *activityIndicator;
+    NSMutableArray *intermediateArray;
+    UIActivityIndicatorView *activityIndicator,*activityIndicator1;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *savedListTableView;

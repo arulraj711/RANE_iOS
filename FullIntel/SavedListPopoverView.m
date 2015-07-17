@@ -37,10 +37,11 @@
         // NSLog(@"folder array:%@",oldSavedArray);
         _savedListArray = [[NSMutableArray alloc]initWithArray:oldSavedArray];
         selectedArray = [[NSMutableArray alloc]init];
+        intermediateArray = [[NSMutableArray alloc]init];
         unselectedArray = [[NSMutableArray alloc]init];
         for(FIFolder *folder in self.savedListArray) {
             if([folder.folderArticlesIDArray containsObject:self.selectedArticleId]) {
-                [selectedArray addObject:folder.folderId];
+                [intermediateArray addObject:folder.folderId];
             }
         }
         
@@ -73,7 +74,7 @@
 //        [cell.checkedButton setSelected:NO];
 //    }
     
-    if([selectedArray containsObject:folder.folderId]) {
+    if([intermediateArray containsObject:folder.folderId]) {
         [cell.checkedButton setSelected:YES];
     } else {
         [cell.checkedButton setSelected:NO];
@@ -88,12 +89,14 @@
     [self.saveButton setEnabled:YES];
     FIFolder *folder = [_savedListArray objectAtIndex:indexPath.row];
    // unselectedArray = [[NSMutableArray alloc]initWithArray:selectedArray];
-    if([selectedArray containsObject:folder.folderId]) {
-        [selectedArray removeObject:folder.folderId];
+    if([intermediateArray containsObject:folder.folderId]) {
+        [intermediateArray removeObject:folder.folderId];
         [unselectedArray addObject:folder.folderId];
+        //[selectedArray removeObject:folder.folderId];
     } else {
-        [selectedArray addObject:folder.folderId];
+        [intermediateArray addObject:folder.folderId];
         [unselectedArray removeObject:folder.folderId];
+        [selectedArray addObject:folder.folderId];
     }
     
     [self.savedListTableView reloadData];
@@ -110,12 +113,14 @@
     [self.saveButton setEnabled:YES];
     FIFolder *folder = [_savedListArray objectAtIndex:sender.tag];
     // unselectedArray = [[NSMutableArray alloc]initWithArray:selectedArray];
-    if([selectedArray containsObject:folder.folderId]) {
-        [selectedArray removeObject:folder.folderId];
+    if([intermediateArray containsObject:folder.folderId]) {
+        [intermediateArray removeObject:folder.folderId];
         [unselectedArray addObject:folder.folderId];
+        //[selectedArray removeObject:folder.folderId];
     } else {
-        [selectedArray addObject:folder.folderId];
+        [intermediateArray addObject:folder.folderId];
         [unselectedArray removeObject:folder.folderId];
+        [selectedArray addObject:folder.folderId];
     }
     
     [self.savedListTableView reloadData];
@@ -145,7 +150,23 @@
    // if(textField == _usernameTextField) {
        // [_passwordTextField becomeFirstResponder];
     //}else if(textField==_passwordTextField){
-        [textField resignFirstResponder];
+      //  [textField resignFirstResponder];
+    NSLog(@"text field should return");
+    activityIndicator1 = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator1.alpha = 1.0;
+    activityIndicator1.center = self.view.center;
+    activityIndicator1.hidesWhenStopped = YES;
+    [self.view addSubview:activityIndicator1];
+    [activityIndicator1 startAnimating];
+    self.view.userInteractionEnabled = NO;
+//    NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
+//    [folderdetails setObject:textField.text forKey:@"folderName"];
+//    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderdetails options:NSJSONWritingPrettyPrinted error:nil];
+//    
+//    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+//    [[FISharedResources sharedResourceManager]createFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+//    
+    //[textField resignFirstResponder];
        // [self callSignInFunction];
     //}
 
@@ -155,6 +176,7 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSLog(@"alert view delegate");
     UITextField *folderNameTextField = [alertView textFieldAtIndex:0];
     
     if(buttonIndex == 1) {
@@ -182,8 +204,11 @@
     //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+
 -(void)stopFolderLoading {
     [activityIndicator stopAnimating];
+    [activityIndicator1 stopAnimating];
     self.view.userInteractionEnabled = YES;
     [self fetchFolderDetails];
    // [self dismissViewControllerAnimated:YES completion:nil];
@@ -192,6 +217,7 @@
 
 
 - (IBAction)savedAction:(id)sender {
+    NSLog(@"selected array count:%d and unselected count:%d",selectedArray.count,unselectedArray.count);
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.alpha = 1.0;
     activityIndicator.center = self.view.center;
@@ -200,6 +226,7 @@
     [activityIndicator startAnimating];
     self.view.userInteractionEnabled = NO;
     NSMutableArray *folderArray = [[NSMutableArray alloc]init];
+    if(selectedArray.count != 0) {
     for(int i=0;i<selectedArray.count;i++) {
         NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
         [folderdetails setObject:[selectedArray objectAtIndex:i] forKey:@"id"];
@@ -208,8 +235,9 @@
     
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderArray options:NSJSONWritingPrettyPrinted error:nil];
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        NSLog(@"save article request:%@",resultStr);
     [[FISharedResources sharedResourceManager]saveArticleToFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withArticleId:self.selectedArticleId];
-
+    }
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         if(unselectedArray.count != 0) {
             
@@ -218,11 +246,13 @@
                 NSMutableDictionary *unselectedFolderDetails = [[NSMutableDictionary alloc] init];
                 [unselectedFolderDetails setObject:[unselectedArray objectAtIndex:i] forKey:@"id"];
                 [unselectedFolderArray addObject:unselectedFolderDetails];
+//                NSNumber *folderId = [NSNumber numberWithInt:[[unselectedArray objectAtIndex:i] integerValue]];
+//                [[FISharedResources sharedResourceManager]updateFolderId:@"CuratedNews" withFolderId:folderId];
             }
             
             NSData *unselectedJsonData = [NSJSONSerialization dataWithJSONObject:unselectedFolderArray options:NSJSONWritingPrettyPrinted error:nil];
             NSString *unselectedResultStr = [[NSString alloc]initWithData:unselectedJsonData encoding:NSUTF8StringEncoding];
-            
+            NSLog(@"remove articles request:%@",unselectedResultStr);
             [[FISharedResources sharedResourceManager]removeArticleToFolderWithDetails:unselectedResultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withArticleId:self.selectedArticleId];
         }
     });

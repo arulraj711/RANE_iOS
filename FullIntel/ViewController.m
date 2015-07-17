@@ -166,7 +166,7 @@
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             
-        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
+       // BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
         if(accessToken.length > 0) {
             [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withFlag:@"" withLastArticleId:@""];
         }
@@ -180,31 +180,22 @@
         NSString *deviceTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
         if(deviceTokenStr.length != 0) {
             [pushDic setObject:deviceTokenStr forKey:@"deviceToken"];
+            [pushDic setObject:timeZone.name forKey:@"locale"];
+            [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
+            [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
+            [pushDic setObject:[NSNumber numberWithInteger:timeZone.secondsFromGMT] forKey:@"offset"];
+            NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
+            NSLog(@"push notification json:%@",pushResultJson);
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                
+                [[FISharedResources sharedResourceManager]pushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
+            });
         } else {
-            [pushDic setObject:@"12345" forKey:@"deviceToken"];
+            
         }
         
-        NSDate *currentTime = [NSDate date];
-        NSDateFormatter *_formatter=[[NSDateFormatter alloc]init];
-        [_formatter setLocale:[NSLocale currentLocale]];
-        [_formatter setDateFormat:@"yyyy-mm-dd hh:mm:ss"];
-        NSString *dateStr=[_formatter stringFromDate:currentTime];
-       // NSLog(@"final date format:%@",dateStr);
-        
-        //[pushDic setObject:dateStr forKey:@"lastSeenAt"];
-        
-        [pushDic setObject:timeZone.name forKey:@"locale"];
-        [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
-        [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
-        [pushDic setObject:[NSNumber numberWithInteger:timeZone.secondsFromGMT] forKey:@"offset"];
-        NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
-        
-        NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
-        NSLog(@"push notification json:%@",pushResultJson);
-         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-             
-             [[FISharedResources sharedResourceManager]pushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
-         });
         
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {

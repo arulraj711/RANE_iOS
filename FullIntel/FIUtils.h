@@ -23,4 +23,5 @@
                           withFeatureId:(NSInteger)featureId;
 +(void)showNoNetworkBanner;
 +(void)hideNoNetworkBanner;
++(void)showErrorWithMessage:(NSString *)message;
 @end

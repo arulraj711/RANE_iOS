@@ -78,11 +78,13 @@
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
     {
+        NSLog(@"one");
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
     else
     {
+        NSLog(@"two");
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
@@ -189,28 +191,19 @@
         NSString *deviceTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
         if(deviceTokenStr.length != 0) {
             [pushDic setObject:deviceTokenStr forKey:@"deviceToken"];
-        } else {
-            [pushDic setObject:@"" forKey:@"deviceToken"];
-        }
-//        NSDate *currentTime = [NSDate date];
-//        NSDateFormatter *_formatter=[[NSDateFormatter alloc]init];
-//        [_formatter setLocale:[NSLocale currentLocale]];
-//        [_formatter setDateFormat:@"yyyy-mm-dd hh:mm:ss"];
-//        NSString *dateStr=[_formatter stringFromDate:currentTime];
-        // NSLog(@"final date format:%@",dateStr);
-        
-       // [pushDic setObject:dateStr forKey:@"lastSeenAt"];
-        [pushDic setObject:timeZone.name forKey:@"locale"];
-        [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
-        [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
-        [pushDic setObject:[NSNumber numberWithInteger:timeZone.secondsFromGMT] forKey:@"offset"];
-        NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
-        
-        NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
-        //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        NSLog(@"enter back");
+            [pushDic setObject:timeZone.name forKey:@"locale"];
+            [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
+            [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
+            [pushDic setObject:[NSNumber numberWithInteger:timeZone.secondsFromGMT] forKey:@"offset"];
+            NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
+            //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            NSLog(@"enter back");
             [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:accessToken];
-       // });
+        } else {
+            
+        }
     }
 }
 
