@@ -133,7 +133,7 @@
     
     UITextField *textField=[alertView textFieldAtIndex:0];
     textField.keyboardType=UIKeyboardTypeEmailAddress;
-    textField.returnKeyType=UIReturnKeySend;
+    textField.returnKeyType=UIReturnKeyDone;
     textField.delegate=self;
    // if(flag.length != 0) {
       //  textField.text=flag;

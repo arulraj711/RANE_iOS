@@ -94,7 +94,7 @@
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
     NSLog(@"Unreachable width:%f and resize:%f and another:%f",window.frame.size.width,window.frame.size.width/2,(window.frame.size.width/2)-(300/2));
     
-    UIView *buttonBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, window.frame.size.width , window.frame.size.height)];
+    buttonBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, window.frame.size.width , window.frame.size.height)];
     buttonBackView.backgroundColor = [UIColor clearColor];
     
     
@@ -138,6 +138,21 @@
     
 }
 
+
+
+//-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    NSLog(@"touches began calling");
+//    UITouch *touch= [touches anyObject];
+//    if ([touch view] == buttonBackView)
+//    {
+//        NSLog(@"inside touch view");
+//        //Action
+//        NSLog(@"buttonback touch is working");
+//        [self closeBannerView];
+//    }
+//    
+//}
 
 -(void)closeBannerView {
     //[FIUtils hideNoNetworkBanner];
@@ -233,7 +248,9 @@
             
             
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            [window makeToast:@"You have logged out." duration:1 position:CSToastPositionCenter];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"logoutSuccess" object:nil];
         }];
         
     } else {
@@ -1386,7 +1403,7 @@
         [FIWebService pushNotificationWithDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             //[self getFolderListWithAccessToken:accessToken];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+           // [FIUtils showErrorToast];
         }];
     } else {
 //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1403,7 +1420,7 @@
         [FIWebService updatePushNotificationWithDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             //[self getFolderListWithAccessToken:accessToken];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+           // [FIUtils showErrorToast];
         }];
     }else {
 //        UIWindow *window = [[UIApplication sharedApplication]windows][0];

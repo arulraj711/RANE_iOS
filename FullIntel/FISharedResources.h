@@ -12,6 +12,7 @@
 #import "UCZProgressView.h"
 @interface FISharedResources : NSObject {
     UCZProgressView *progressView;
+    UIView *buttonBackView;
 }
 @property (nonatomic,strong) NSMutableArray *articleIdArray;
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
