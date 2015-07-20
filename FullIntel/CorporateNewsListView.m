@@ -296,6 +296,10 @@
     } else {
         self.navigationItem.rightBarButtonItems = nil;
     }
+    
+    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]] && newPerson.count == 0) {
+        [self stopLoading];
+    }
 //    if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]] && newPerson.count == 0) {
 //        [activityIndicator stopAnimating];
 //    }

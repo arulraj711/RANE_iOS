@@ -187,13 +187,13 @@
 
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             window.userInteractionEnabled = YES;
-           // [FIUtils showErrorToast];
+            [FIUtils showErrorToast];
             
             
-            NSError* error1;
-            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
-            NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+//            NSError* error1;
+//            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+//            NSLog(@"error JSON:%@",errorJson);
+//            [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
             
             //[self hideProgressHUDForView];
         }];
