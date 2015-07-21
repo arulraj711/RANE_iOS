@@ -257,7 +257,7 @@ NSString *url = @"http://fullintel.com/1.1.0";
 //    NSDictionary *JSON = [self dictionaryWithFileName:@"corporate_news_list"];
 //    NSLog(@"curated news JSON:%@",JSON);
 //    success(nil,JSON);
-    
+    NSLog(@"get curated news calling");
     [self getResultsForFunctionName:@"articles" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -330,7 +330,7 @@ NSString *url = @"http://fullintel.com/1.1.0";
                           onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
 //    NSDictionary *JSON = [self dictionaryWithFileName:@"menu"];
 //    success(nil,JSON);
-    
+    NSLog(@"fetch menu calling");
     [self getResultsForFunctionName:@"usermainmenu" withPostDetails:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);

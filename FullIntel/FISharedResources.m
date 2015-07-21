@@ -498,7 +498,7 @@
             if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 NSString *str = [dic objectForKey:@"articleUrl"];
                 if(str.length != 0) {
-                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
                         NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
                         [curatedNews setValue:string forKey:@"articleUrlData"];
                     });

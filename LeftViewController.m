@@ -69,7 +69,8 @@
         
         NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
         NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
-        if (dataRepresentingSavedArray != nil)
+        NSLog(@"data value:%@ and length:%d",dataRepresentingSavedArray,dataRepresentingSavedArray.length);
+        if (dataRepresentingSavedArray.length != 0)
         {
             NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
             if (oldSavedArray != nil)
