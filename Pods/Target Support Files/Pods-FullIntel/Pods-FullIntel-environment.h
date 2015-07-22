@@ -114,6 +114,12 @@
 #define COCOAPODS_VERSION_MINOR_UIImageView_Letters 1
 #define COCOAPODS_VERSION_PATCH_UIImageView_Letters 1
 
+// WSCoachMarksView
+#define COCOAPODS_POD_AVAILABLE_WSCoachMarksView
+#define COCOAPODS_VERSION_MAJOR_WSCoachMarksView 0
+#define COCOAPODS_VERSION_MINOR_WSCoachMarksView 2
+#define COCOAPODS_VERSION_PATCH_WSCoachMarksView 0
+
 // pop
 #define COCOAPODS_POD_AVAILABLE_pop
 #define COCOAPODS_VERSION_MAJOR_pop 1

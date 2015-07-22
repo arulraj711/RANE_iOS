@@ -9,14 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "FISharedResources.h"
 #import <MessageUI/MessageUI.h>
+#import "WSCoachMarksView.h"
 
-@interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
+@interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate,WSCoachMarksViewDelegate> {
     NSTimer *oneSecondTicker;
     NSManagedObject *curatedNewsDetail;
     NSManagedObject *curatedNewsAuthorDetail;
      MFMailComposeViewController *mailComposer;
     UIView *innerWebView;
     UIActivityIndicatorView *activityIndicator;
+    
+    WSCoachMarksView *coachMarksView;
+    NSArray *coachMarks;
 }
 @property NSIndexPath *selectedIndexPath;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;

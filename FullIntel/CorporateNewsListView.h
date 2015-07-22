@@ -10,7 +10,9 @@
 #import "FISharedResources.h"
 #import "MZFormSheetController.h"
 #import <MessageUI/MessageUI.h>
-@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate> {
+#import "WSCoachMarksView.h"
+
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate> {
     NSMutableArray *legendsList;
     NSManagedObject *author;
     UIRefreshControl *refreshControl;
@@ -19,6 +21,10 @@
     NSInteger rowCount;
     NSString *messageString;
     MFMailComposeViewController *mailComposer;
+    UIView *overlayView;
+    
+    WSCoachMarksView *coachMarksView;
+    NSArray *coachMarks;
 }
 
 -(void)loadCuratedNews;

@@ -45,7 +45,9 @@
     
     
    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addOverLayView) name:@"FirstTimeTutorialCreated" object:nil];
     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeOverLayView) name:@"FirstTimeTutorialCompleted" object:nil];
     
     
    // [self.revealController showViewController:self.revealController.leftViewController];
@@ -115,31 +117,134 @@
 //        
 //    }
     
+
 //    UIPanGestureRecognizer *panGesture=[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(closeMenu)];
 //    
 //    [self.view addGestureRecognizer:panGesture];
     
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    
-    
-    NSLog(@"touch began");
-    
-    [self closeMenu];
-    
-    [super touchesBegan:touches withEvent:event];
-    
-    
-}
+
 
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     
     NSLog(@"scrollViewWillBeginDecelerating");
     
     [self closeMenu];
+
+
+    
 }
 
+-(void)addCoachMarkView:(NSString *)position{
+    
+    
+    [coachMarksView removeFromSuperview];
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ListCoachShown"];
+    if (coachMarksShown == NO) {
+        
+        
+        if([position isEqualToString:@"firstTime"]){
+        
+        coachMarks = @[
+                       @{
+                           @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-100,self.view.frame.origin.y+110,50,50)],
+                           @"caption": @"Mark Important"
+                           },
+                       @{
+                           @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-100,self.view.frame.origin.y+165,50,50)],
+                           @"caption": @"Save Later"
+                           }
+                       
+                       ];
+            
+        }else{
+            
+            coachMarks = @[
+                           @{
+                               @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+130,50,50)],
+                               @"caption": @"Mark Important"
+                               },
+                           @{
+                               @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+185,50,50)],
+                               @"caption": @"Save Later"
+                               }
+                           
+                           ];
+            
+            
+        }
+        coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) coachMarks:coachMarks];
+        coachMarksView.delegate=self;
+        [self.view addSubview:coachMarksView];
+        [coachMarksView start];
+        
+    }
+}
+- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksViews{
+    
+    
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ListCoachShown"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [coachMarksView removeFromSuperview];
+}
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    
+    //Obtaining the current device orientation
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    //Ignoring specific orientations
+    if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown || orientation == UIDeviceOrientationUnknown) {
+        return;
+    }
+    
+    // We need to allow a slight pause before running handler to make sure rotation has been processed by the view hierarchy
+    [self performSelectorOnMainThread:@selector(handleDeviceOrientationChange:) withObject:coachMarksView waitUntilDone:NO];
+}
+
+- (void)handleDeviceOrientationChange:(WSCoachMarksView*)coachMarksView {
+    
+    // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MenuCoachShown"];
+    if (coachMarksShown == YES) {
+    
+    [self addCoachMarkView:@""];
+        
+    }
+
+}
+-(void)addOverLayView{
+    
+    [overlayView removeFromSuperview];
+    
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MenuCoachShown"];
+    if (coachMarksShown == NO) {
+    
+    overlayView =[[UIView alloc]initWithFrame:self.view.frame];
+    
+    overlayView.backgroundColor=[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:0.9];
+        
+        
+//    UITapGestureRecognizer *phoneNumberTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeOverlay)];
+//    
+//        [overlayView addGestureRecognizer:phoneNumberTap];
+        
+    
+    [self.view addSubview:overlayView];
+    
+    [self.navigationController.view addSubview:overlayView];
+
+    }
+    
+}
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self closeMenu];
 }
@@ -153,6 +258,30 @@
         // NSLog(@"left view opened");
         [self.revealController showViewController:self.revealController.frontViewController];
     }
+    
+
+}
+
+-(void)removeOverlay{
+    
+      [overlayView removeFromSuperview];
+}
+
+-(void)removeOverLayView{
+    
+    
+    [overlayView removeFromSuperview];
+    
+    
+
+    self.revealController.recognizesPanningOnFrontView=YES;
+    self.revealController.recognizesResetTapOnFrontViewInPresentationMode=YES;
+    self.revealController.recognizesResetTapOnFrontView=YES;
+
+
+    
+    [self addCoachMarkView:@"firstTime"];
+    
 }
 -(void)addRightBarItems {
     UIView *rssBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];

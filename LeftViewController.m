@@ -101,6 +101,10 @@
    // NSLog(@"menu array count in viewdidload:%lu",(unsigned long)objectArray.count);
     
     
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    
     self.isFirstTime = YES;
     
     
@@ -126,6 +130,77 @@
     }
 }
 
+-(void)addCoachView{
+    
+    [coachMarksView removeFromSuperview];
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MenuCoachShown"];
+    if (coachMarksShown == NO) {
+    
+     coachMarks = @[
+                            @{
+                                @"rect": [NSValue valueWithCGRect:CGRectMake(5, 185, 260, 40)],
+                                @"caption": @"You can subscribe more categories or remove any categories you dislike"
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.treeBackView.frame.origin.x, self.treeBackView.frame.origin.y, self.treeBackView.frame.size.width, self.view.frame.size.height-550)],
+                                @"caption": @"List of all articles available"
+                                }
+                            
+                            ];
+     coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, 280, self.view.frame.size.height) coachMarks:coachMarks];
+        coachMarksView.delegate=self;
+    [self.view addSubview:coachMarksView];
+    [coachMarksView start];
+        
+    }
+    
+}
+
+- (void)coachMarksView:(WSCoachMarksView*)coachMarksView didNavigateToIndex:(NSInteger)index{
+    
+    if(index==0){
+        
+         [[NSNotificationCenter defaultCenter]postNotificationName:@"FirstTimeTutorialCreated" object:nil];
+        
+        self.revealController.recognizesPanningOnFrontView=NO;
+        self.revealController.recognizesResetTapOnFrontViewInPresentationMode=NO;
+        self.revealController.recognizesResetTapOnFrontView=NO;
+        
+    }
+    
+}
+
+- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksViews{
+    
+     [[NSNotificationCenter defaultCenter]postNotificationName:@"FirstTimeTutorialCompleted" object:nil];
+    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MenuCoachShown"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [coachMarksView removeFromSuperview];
+}
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    
+    //Obtaining the current device orientation
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    //Ignoring specific orientations
+    if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown || orientation == UIDeviceOrientationUnknown) {
+        return;
+    }
+    
+    // We need to allow a slight pause before running handler to make sure rotation has been processed by the view hierarchy
+    [self performSelectorOnMainThread:@selector(handleDeviceOrientationChange:) withObject:coachMarksView waitUntilDone:NO];
+}
+
+- (void)handleDeviceOrientationChange:(WSCoachMarksView*)coachMarksView {
+    
+    // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
+
+    [self addCoachView];
+  
+}
 -(void)updateMenuCount:(id)sender {
     
     RADataObject *dataObj;
@@ -242,6 +317,8 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
     
+    
+    [self addCoachView];
 }
 
 -(void)test:(NSMutableArray *)array {
