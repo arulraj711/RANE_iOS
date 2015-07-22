@@ -17,6 +17,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "FIUtils.h"
 #import "Reachability.h"
+#import "Localytics.h"
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
@@ -31,6 +32,8 @@
 //    [Fabric with:@[[Twitter sharedInstance]]];
 //    [Fabric with:@[CrashlyticsKit]];
     
+    
+    [Localytics autoIntegrate:@"7542005dbec8fe6e8bd5eaf-8ce2bea0-1999-11e5-dd06-0011f98033c1" launchOptions:launchOptions];
     
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
 

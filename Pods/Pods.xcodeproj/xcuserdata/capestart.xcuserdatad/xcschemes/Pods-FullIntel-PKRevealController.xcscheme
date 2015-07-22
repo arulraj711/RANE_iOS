@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C01B0DAFF4525C6ED044722"
+               BlueprintIdentifier = "959051E11DDD46DCE1662EDB"
                BuildableName = "libPods-FullIntel-PKRevealController.a"
                BlueprintName = "Pods-FullIntel-PKRevealController"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -54,6 +54,12 @@
 #define COCOAPODS_VERSION_MINOR_AMRatingControl 3
 #define COCOAPODS_VERSION_PATCH_AMRatingControl 0
 
+// Localytics
+#define COCOAPODS_POD_AVAILABLE_Localytics
+#define COCOAPODS_VERSION_MAJOR_Localytics 3
+#define COCOAPODS_VERSION_MINOR_Localytics 4
+#define COCOAPODS_VERSION_PATCH_Localytics 0
+
 // MZAppearance
 #define COCOAPODS_POD_AVAILABLE_MZAppearance
 #define COCOAPODS_VERSION_MAJOR_MZAppearance 1
