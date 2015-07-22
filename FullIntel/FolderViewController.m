@@ -25,11 +25,32 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
     [self fetchFolderDetails];
     
+    
+    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+    [self.navigationItem setLeftBarButtonItem:addButton];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)backBtnPress {
+    
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        // NSLog(@"left view opened");
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        // NSLog(@"left view closed");
+        [self.revealController showViewController:self.revealController.leftViewController];
+    }
+    
 }
 
 -(void)fetchFolderDetails{
