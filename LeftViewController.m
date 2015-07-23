@@ -722,6 +722,12 @@
         [self.revealController setFrontViewController:navCtlr];
     }else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         
+
+         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"MenuCoachShown"];
+          [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ListCoachShown"];
+         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"DrillDownCoachShown"];
+         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"DrillDownNavigationShown"];
+        
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];

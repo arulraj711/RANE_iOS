@@ -264,8 +264,8 @@
 - (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksViews{
     
     
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DrillDownCoachShown"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DrillDownCoachShown"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
 //
     [coachMarksView removeFromSuperview];
     

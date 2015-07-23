@@ -17,6 +17,7 @@
 #import "UIView+Toast.h"
 #import "AppDelegate.h"
 #import "FIFolder.h"
+#import <Localytics/Localytics.h>
 #define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
 
 @implementation FISharedResources
@@ -185,6 +186,24 @@
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"firstName"]) forKey:@"firstName"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoUrl"]) forKey:@"photoUrl"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
+            
+            
+            [Localytics setCustomerId:NULL_TO_NIL([responseObject valueForKey:@"userid"])];
+            
+            // First name
+            [Localytics setCustomerFirstName:NULL_TO_NIL([responseObject valueForKey:@"firstName"])];
+            
+            // Last name
+//            [Localytics setCustomerLastName:@"Aggarwal"];
+//            
+//            // Full name
+//            [Localytics setCustomerFullName:@"Mohana Aggarwal"];
+//            
+            // Customer email
+            [Localytics setCustomerEmail:@"mohana@email.com"];
+            
+            
+            
             NSString *appViewType = [NSString stringWithFormat:@"%@",NULL_TO_NIL([responseObject valueForKey:@"appViewTypeId"])];
             
             if([appViewType isEqualToString:@"1"]) {
@@ -234,6 +253,10 @@
                 
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+                
+
+                
+                
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"logoutSuccess" object:nil];
             }else {
                 
