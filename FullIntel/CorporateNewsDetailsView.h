@@ -22,7 +22,7 @@
     WSCoachMarksView *coachMarksView;
     NSArray *coachMarks;
 }
-@property NSIndexPath *selectedIndexPath;
+//@property NSIndexPath *selectedIndexPath;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *articleIdArray;

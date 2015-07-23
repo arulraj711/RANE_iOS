@@ -33,6 +33,8 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failToLoad) name:@"CuratedNewsFail" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newsLetterNavigationToArticle:) name:@"NewsLetterNavigation" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopLoading) name:@"StopLoading" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"authenticationFailed" object:nil];
@@ -891,8 +893,55 @@
             testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
        // }
         testView.currentIndex = indexPath.row;
-        testView.selectedIndexPath = indexPath;
+        //testView.selectedIndexPath = indexPath;
         [self.navigationController pushViewController:testView animated:YES];
+    }
+}
+
+
+-(void)newsLetterNavigationToArticle:(id)sender {
+    if(self.devices.count != 0) {
+        NSNotification *notification = sender;
+        NSDictionary *userInfo = notification.userInfo;
+        NSString *articleId = [userInfo objectForKey:@"articleId"];
+        
+        
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",articleId];
+        [fetchRequest setPredicate:predicate];
+        NSArray *filterArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        NSUInteger index;
+        
+        if(filterArray.count != 0) {
+            NSManagedObject *curatedNews=[filterArray objectAtIndex:0];
+            index = [self.devices indexOfObject:curatedNews];
+        }
+        
+        
+        
+        
+        NSLog(@"article list:%@",self.devices);
+        NSLog(@"incoming articleid:%@ and index:%d",articleId,index);
+        
+        if(NSNotFound == index) {
+            NSLog(@"not found");
+        } else {
+            
+            [self.revealController showViewController:self.revealController.frontViewController];
+            //UpgradeView
+            UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
+            CorporateNewsDetailsView *testView;
+            //        if([userAccountTypeId isEqualToString:@"3"]) {
+            //            testView = [storyBoard instantiateViewControllerWithIdentifier:@"NormalView"];
+            //        }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
+            testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
+            // }
+            testView.currentIndex = index;
+            //testView.selectedIndexPath = indexPath;
+            [self.navigationController pushViewController:testView animated:YES];
+        }
     }
 }
 
