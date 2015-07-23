@@ -924,7 +924,7 @@
         
         
         NSLog(@"article list:%@",self.devices);
-        NSLog(@"incoming articleid:%@ and index:%d",articleId,index);
+       // NSLog(@"incoming articleid:%@ and index:%d",articleId,index);
         
         if(NSNotFound == index) {
             NSLog(@"not found");
@@ -933,7 +933,7 @@
             [self.revealController showViewController:self.revealController.frontViewController];
             //UpgradeView
             UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-            NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
+           // NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
             CorporateNewsDetailsView *testView;
             //        if([userAccountTypeId isEqualToString:@"3"]) {
             //            testView = [storyBoard instantiateViewControllerWithIdentifier:@"NormalView"];
