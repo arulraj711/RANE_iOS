@@ -33,6 +33,8 @@
 //    [Fabric with:@[CrashlyticsKit]];
     
     
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
+    
     [Localytics autoIntegrate:@"7542005dbec8fe6e8bd5eaf-8ce2bea0-1999-11e5-dd06-0011f98033c1" launchOptions:launchOptions];
     
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
@@ -107,6 +109,35 @@
     
     return YES;
 }
+
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    NSLog(@"Calling Application Bundle ID: %@", sourceApplication);
+    NSLog(@"URL scheme:%@", [url scheme]);
+    NSLog(@"URL query: %@", [url query]);
+    
+    if([url query].length != 0) {
+        NSArray *subStrings = [[url query] componentsSeparatedByString:@"="]; //or rather @" - "
+        //NSString *firstString = [subStrings objectAtIndex:0];
+        NSString *queryString = [subStrings objectAtIndex:1];
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        if(accessToken.length != 0) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"articleId":queryString}];
+        }
+    }
+    
+    
+    
+   // NSLog(@"first string:%@ and second string:%@",firstString,lastString);
+    
+    
+    
+    
+    return YES;
+}
+
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 
