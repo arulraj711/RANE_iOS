@@ -312,6 +312,8 @@
     } else {
 //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
 //        if(isFirst) {
+        
+        [Localytics tagScreen:@"NewsListPage"];
             [self loadCuratedNews];
 //        }
     }
@@ -925,6 +927,10 @@
 }
 
 -(void)markedImpAction:(UITapGestureRecognizer *)tapGesture {
+    
+    
+    
+    
     NSInteger selectedTag = [tapGesture view].tag;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
     
@@ -938,7 +944,8 @@
 //    f.numberStyle = NSNumberFormatterDecimalStyle;
 //    NSNumber *loginUserId = [f numberFromString:loginUserIdString];
     
-    
+    NSDictionary *dictionary = @{@"userId":markedImpUserId, @"userName":markedImpUserName,@"article_Name":[curatedNews valueForKey:@"articleId"]};
+    [Localytics tagEvent:@"Marked Important" attributes:dictionary];
     
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -1069,6 +1076,9 @@
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     UIButton *savedBtn = (UIButton *)[tapGesture view];
     if(savedBtn.selected) {
+        
+        
+
         [savedBtn setSelected:NO];
         [resultDic setObject:@"false" forKey:@"isSelected"];
         [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
@@ -1079,6 +1089,11 @@
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
     }else {
+        
+        NSDictionary *dictionary = @{@"userId":[[curatedNews valueForKey:@"markAsImportantUserId"]stringValue], @"userName":[curatedNews valueForKey:@"markAsImportantUserName"],@"article_Name":[curatedNews valueForKey:@"articleId"]};
+        [Localytics tagEvent:@"Save Later" attributes:dictionary];
+        
+        
         [savedBtn setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
         //NSLog(@"curated news detail:%@",curatedNewsDetail);

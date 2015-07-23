@@ -11,6 +11,7 @@
 #import "MZFormSheetController.h"
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
+#import "Localytics.h"
 
 @interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate> {
     NSMutableArray *legendsList;

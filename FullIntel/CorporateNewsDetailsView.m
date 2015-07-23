@@ -76,6 +76,8 @@
 -(void)viewDidAppear:(BOOL)animated {
     //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [activityIndicator stopAnimating];
+    
+      [Localytics tagScreen:@"NewDetailsPage"];
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;
     [self.collectionView setContentOffset:CGPointMake(offset, 0)];
@@ -264,8 +266,8 @@
 - (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksViews{
     
     
-//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DrillDownCoachShown"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DrillDownCoachShown"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 //
     [coachMarksView removeFromSuperview];
     

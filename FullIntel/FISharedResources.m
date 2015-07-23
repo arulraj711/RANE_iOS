@@ -188,7 +188,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
             
             
-            [Localytics setCustomerId:NULL_TO_NIL([responseObject valueForKey:@"userid"])];
+            [Localytics setCustomerId:NULL_TO_NIL([responseObject valueForKey:@"customerid"])];
             
             // First name
             [Localytics setCustomerFirstName:NULL_TO_NIL([responseObject valueForKey:@"firstName"])];
@@ -200,7 +200,6 @@
 //            [Localytics setCustomerFullName:@"Mohana Aggarwal"];
 //            
             // Customer email
-            [Localytics setCustomerEmail:@"mohana@email.com"];
             
             
             

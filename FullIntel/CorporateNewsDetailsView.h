@@ -10,7 +10,7 @@
 #import "FISharedResources.h"
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
-
+#import "Localytics.h"
 @interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate,WSCoachMarksViewDelegate> {
     NSTimer *oneSecondTicker;
     NSManagedObject *curatedNewsDetail;
