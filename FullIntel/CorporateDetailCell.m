@@ -310,12 +310,13 @@
         dispatch_async(dispatch_get_main_queue(), ^(void){
             tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
             int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
-           // NSLog(@"single followers count:%d",followersCount);
+            NSLog(@"single followers count:%d",followersCount);
             if(followersCount/1000 == 0) {
                 tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
             } else {
-                float followersFloatValue = (float)followersCount;
-                tweetCell.followers.text = [NSString stringWithFormat:@"%.01fK",followersFloatValue/1000];
+                float followersFloatValue = (float)followersCount/1000;
+                NSLog(@"follwers float:%f",followersFloatValue);
+                tweetCell.followers.text = [NSString stringWithFormat:@"%dK",followersCount/1000];
             }
         });
         
