@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D131" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="AuthorBeat" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="AuthorOutlet" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="outletname" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="AuthorSocialMedia" syncable="YES">
+        <attribute name="isactive" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="mediatype" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mediatypeId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="AuthorWorkTitle" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Comments" syncable="YES">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdDate" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="likeCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parentId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photoUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unLikeCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Company_Widget" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widget_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widget_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wiki_link" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CuratedAuthor" syncable="YES">
+        <attribute name="avg_return" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="infl_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stock_projection" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stock_status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="success_rate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CuratedLegends" syncable="YES">
+        <attribute name="flag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CuratedNews" syncable="YES">
+        <attribute name="articleId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleTypeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="articleUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleUrlData" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="folderId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isFolder" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isMarkedImpStatusSync" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isReadStatusSync" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="markAsImportant" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="markAsImportantUserId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="markAsImportantUserName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="outlet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="publishedDate" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="readStatus" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="saveForLater" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="author" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CuratedAuthor" syncable="YES"/>
+        <relationship name="authorDetails" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CuratedNewsDetailAuthor" syncable="YES"/>
+        <relationship name="comments" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserComments" syncable="YES"/>
+        <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuratedNewsDetail" syncable="YES"/>
+        <relationship name="legends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CuratedLegends" syncable="YES"/>
+    </entity>
+    <entity name="CuratedNewsDetail" syncable="YES">
+        <attribute name="article" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleHeading" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleImageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articlePublisheddate" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="articleType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleTypeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="articleUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="markAsImportant" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="outletname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readStatus" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="saveForLater" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="totalComments" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="unReadComment" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="relatedPost" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="RelatedPost" syncable="YES"/>
+    </entity>
+    <entity name="CuratedNewsDetailAuthor" syncable="YES">
+        <attribute name="bibliography" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isInfluencer" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="starRating" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="authorBeat" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AuthorBeat" syncable="YES"/>
+        <relationship name="authorOutlet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AuthorOutlet" syncable="YES"/>
+        <relationship name="authorSocialMedia" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AuthorSocialMedia" syncable="YES"/>
+        <relationship name="authorWorkTitle" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AuthorWorkTitle" syncable="YES"/>
+    </entity>
+    <entity name="Influ_Drillin" syncable="YES">
+        <attribute name="article_image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="article_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="outlet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="company_widget" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company_Widget" syncable="YES"/>
+        <relationship name="influencer_author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Influencer_Author" syncable="YES"/>
+        <relationship name="legends" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuratedLegends" syncable="YES"/>
+        <relationship name="personality_widget" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Personality_Widget" syncable="YES"/>
+        <relationship name="product_widget" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product_Widget" syncable="YES"/>
+        <relationship name="stock_widget" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stock_Widget" syncable="YES"/>
+        <relationship name="value_widget" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Value_Widget" syncable="YES"/>
+    </entity>
+    <entity name="Influencer" syncable="YES">
+        <attribute name="articleId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="outlet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="read" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="author" optional="YES" toMany="YES" deletionRule="No Action" ordered="YES" destinationEntity="InfluencerAuthor" syncable="YES"/>
+        <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InfluencerDetail" syncable="YES"/>
+        <relationship name="legends" optional="YES" toMany="YES" deletionRule="No Action" ordered="YES" destinationEntity="InfluencerLegends" syncable="YES"/>
+    </entity>
+    <entity name="Influencer_Author" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="outlet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="InfluencerAuthor" syncable="YES">
+        <attribute name="avg_return" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="infl_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stock_projection" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stock_status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="success_rate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="InfluencerDetail" syncable="YES">
+        <attribute name="articleId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="markAsImportant" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="outlet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readStatus" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="saveForLater" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="InfluencerLegends" syncable="YES">
+        <attribute name="flag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MarkedImportant" syncable="YES">
+        <attribute name="articleId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleTypeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="articleUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="markAsImportant" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="outlet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readStatus" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="saveForLater" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="author" optional="YES" toMany="YES" deletionRule="No Action" ordered="YES" destinationEntity="MarkedImportantAuthor" syncable="YES"/>
+        <relationship name="details" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="MarkedImportantDetail" syncable="YES"/>
+        <relationship name="legends" optional="YES" toMany="YES" deletionRule="No Action" ordered="YES" destinationEntity="MarkedImportantLegends" syncable="YES"/>
+    </entity>
+    <entity name="MarkedImportantAuthor" syncable="YES">
+        <attribute name="avg_return" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="infl_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stock_projection" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stock_status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="success_rate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MarkedImportantDetail" syncable="YES">
+        <attribute name="article" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleHeading" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleImageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articlePublisheddate" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="articleType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleTypeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="articleUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="markAsImportant" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="outletname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readStatus" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="saveForLater" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="author" optional="YES" toMany="YES" deletionRule="No Action" ordered="YES" destinationEntity="MarkedImportantDetailAuthor" syncable="YES"/>
+    </entity>
+    <entity name="MarkedImportantDetailAuthor" syncable="YES">
+        <attribute name="avg_return" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="infl_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stock_projection" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stock_status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="success_rate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MarkedImportantLegends" syncable="YES">
+        <attribute name="flag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Menu" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Menu" inverseName="list" inverseEntity="Menu" syncable="YES"/>
+    </entity>
+    <entity name="Personality_Widget" syncable="YES">
+        <attribute name="about" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkedin" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widget_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widget_type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Product_Widget" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="product" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widget_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widget_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wiki_link" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="RelatedPost" syncable="YES">
+        <attribute name="postId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="socialMediaUsername" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tweetURL" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Stock_Widget" syncable="YES">
+        <attribute name="down" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favour" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ticker" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="up" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widget_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widget_type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="UserComments" syncable="YES">
+        <attribute name="customerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="securityToken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Comments" syncable="YES"/>
+    </entity>
+    <entity name="Value_Widget" syncable="YES">
+        <attribute name="more_info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="smart_sub_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="smart_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widget_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widget_type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="AuthorBeat" positionX="-2187" positionY="-1359" width="128" height="73"/>
+        <element name="AuthorOutlet" positionX="-2079" positionY="-1440" width="128" height="75"/>
+        <element name="AuthorSocialMedia" positionX="-2270" positionY="-1452" width="128" height="118"/>
+        <element name="AuthorWorkTitle" positionX="-2187" positionY="-1260" width="128" height="73"/>
+        <element name="Comments" positionX="-1989" positionY="-1260" width="128" height="180"/>
+        <element name="Company_Widget" positionX="-171" positionY="9" width="128" height="120"/>
+        <element name="CuratedAuthor" positionX="-846" positionY="-1404" width="128" height="163"/>
+        <element name="CuratedLegends" positionX="-153" positionY="-306" width="128" height="88"/>
+        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="435"/>
+        <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="270"/>
+        <element name="CuratedNewsDetailAuthor" positionX="-2423" positionY="-1269" width="128" height="238"/>
+        <element name="Influ_Drillin" positionX="-479" positionY="-18" width="128" height="268"/>
+        <element name="Influencer" positionX="-1098" positionY="-225" width="128" height="195"/>
+        <element name="Influencer_Author" positionX="-380" positionY="-153" width="128" height="118"/>
+        <element name="InfluencerAuthor" positionX="-837" positionY="-271" width="128" height="163"/>
+        <element name="InfluencerDetail" positionX="-758" positionY="9" width="128" height="193"/>
+        <element name="InfluencerLegends" positionX="-828" positionY="-72" width="128" height="88"/>
+        <element name="MarkedImportant" positionX="-936" positionY="-1341" width="128" height="268"/>
+        <element name="MarkedImportantAuthor" positionX="-1080" positionY="-1539" width="128" height="163"/>
+        <element name="MarkedImportantDetail" positionX="-1053" positionY="-1224" width="128" height="238"/>
+        <element name="MarkedImportantDetailAuthor" positionX="-1548" positionY="-1405" width="128" height="163"/>
+        <element name="MarkedImportantLegends" positionX="-954" positionY="-1521" width="128" height="88"/>
+        <element name="Menu" positionX="-540" positionY="-315" width="128" height="73"/>
+        <element name="Personality_Widget" positionX="-153" positionY="27" width="128" height="163"/>
+        <element name="Product_Widget" positionX="-137" positionY="216" width="128" height="133"/>
+        <element name="RelatedPost" positionX="-2691" positionY="-1476" width="128" height="90"/>
+        <element name="Stock_Widget" positionX="-234" positionY="-99" width="128" height="180"/>
+        <element name="UserComments" positionX="-1863" positionY="-1431" width="128" height="118"/>
+        <element name="Value_Widget" positionX="-110" positionY="-153" width="128" height="135"/>
+    </elements>
+</model>
