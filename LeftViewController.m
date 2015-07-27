@@ -420,16 +420,28 @@
     NSInteger numberOfChildren = [dataObject.children count];
     
     NSString *detailText = [NSString localizedStringWithFormat:@"Number of children %@", [@(numberOfChildren) stringValue]];
-    BOOL expanded = [self.treeView isCellForItemExpanded:item];
+    
    
     RATableViewCell *cell = [self.treeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     cell.backgroundColor = [FIUtils colorWithHexString:stringWithoutSpaces];
-    [cell setupWithTitle:dataObject.name detailText:detailText level:level additionButtonHidden:!expanded];
+    [cell setupWithTitle:dataObject.name detailText:detailText level:level additionButtonHidden:NO];
     UIView *selectionColor = [[UIView alloc] init];
     selectionColor.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1];
     //cell.selectedBackgroundView = selectionColor;
+    
+    
+    
+    BOOL expanded = [self.treeView isCellForItemExpanded:item];
+    if(expanded) {
+        [cell.expandButton setSelected:YES];
+    } else{
+        [cell.expandButton setSelected:NO];
+    }
+    
+    
+    
     if(![[dataObject.name uppercaseString] isEqualToString:@"MARKED IMPORTANT"]) {
         UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
         separatorLineView.backgroundColor = [UIColor colorWithRed:(220/255.0) green:(223/255.0) blue:(224/255.0) alpha:1];
