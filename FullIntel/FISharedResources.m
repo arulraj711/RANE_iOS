@@ -227,6 +227,7 @@
 
 -(void)logoutUserWithDetails:(NSString *)details withFlag:(NSNumber*)authenticationFlag {
     
+    
     if([self serviceIsReachable]) {
         
         [FIWebService logoutWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -273,7 +274,9 @@
                 [fetchRequest setPredicate:predicate];
                 NSArray *syncArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
                 NSLog(@"sync array count:%lu",(unsigned long)syncArray.count);
-                dispatch_async(dispatch_get_main_queue(), ^(void){
+                dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+                
+                dispatch_async(queue_a, ^{
                     for(NSManagedObject *curatedNews in syncArray) {
                         [self updateUserActivitiesInBackgroundWithArticleId:[curatedNews valueForKey:@"articleId"] withStatus:1 withSelectedStatus:YES];
                         NSFetchRequest *fetchRequest1 = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
@@ -293,7 +296,9 @@
                 [fetchRequest1 setPredicate:predicate1];
                 NSArray *syncArray1 =[[managedObjectContext executeFetchRequest:fetchRequest1 error:nil] mutableCopy];
                // NSLog(@"marked imp sync array count:%lu",(unsigned long)syncArray1.count);
-                dispatch_async(dispatch_get_main_queue(), ^(void){
+                //dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+                
+                dispatch_async(queue_a, ^{
                     for(NSManagedObject *curatedNews in syncArray1) {
                         [self updateUserActivitiesInBackgroundWithArticleId:[curatedNews valueForKey:@"articleId"] withStatus:2 withSelectedStatus:[[curatedNews valueForKey:@"markAsImportant"] boolValue]];
                         NSFetchRequest *fetchRequest1 = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
@@ -421,7 +426,7 @@
 
 -(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
    // [self showProgressView];
-    
+    NSLog(@"refresh list with flag:%@ and categoryId:%@",updownFlag,categoryId);
     if([self serviceIsReachable]) {
     [FIWebService fetchCuratedNewsListWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {

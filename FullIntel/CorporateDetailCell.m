@@ -490,10 +490,14 @@
         }
     }
    // NSLog(@"webview height:%f",webView.frame.size.height);
-   // if(webView.frame.size.height > 1400) {
+    if(webView.frame.size.height < 1400) {
 //        self.articleWebview.frame = CGRectMake(self.articleWebview.frame.origin.x, self.articleWebview.frame.origin.y, self.articleWebview.frame.size.width, webView.frame.size.height);
         self.webViewHeightConstraint.constant = webView.frame.size.height;
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+    } else{
+        self.webViewHeightConstraint.constant= 1400;
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, 2800);
+    }
 //    } else {
 //        self.webViewHeightConstraint.constant = 1400;
 //        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
@@ -720,7 +724,11 @@
             NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
             
             NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
-                dispatch_async(dispatch_get_main_queue(), ^(void){
+            
+            
+            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+            
+            dispatch_async(queue_a, ^{
                 
                  NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
                 
@@ -819,7 +827,9 @@
         NSManagedObject *curatedNews;
         if(newPerson.count != 0) {
             curatedNews = [newPerson objectAtIndex:0];
-            dispatch_async(dispatch_get_main_queue(), ^(void){
+            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+            
+            dispatch_async(queue_a, ^{
                 
                 NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
                 NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];

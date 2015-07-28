@@ -327,9 +327,12 @@
         } else {
             
             NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
+            NSNumber *saveForLaterStatus = [curatedNews valueForKey:@"saveForLater"];
             if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 // NSLog(@"both type is working");
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"both"}];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothMarkImp"}];
+            }else if([saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothSavedForLater"}];
             }else {
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
             }
@@ -452,8 +455,8 @@
         cell.selectedArticleId = [curatedNews valueForKey:@"articleId"];
         cell.selectedArticleImageUrl = [curatedNews valueForKey:@"image"];
         //NSLog(@"before fetching curatednewsdetails:%@",curatedNewsDetail);
-        
-            dispatch_async(dispatch_get_main_queue(), ^(void){
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+            
                 
                 
 //                NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
@@ -512,8 +515,7 @@
         if(curatedNewsAuthorDetail == nil) {
             
         } else {
-            
-            dispatch_async(dispatch_get_main_queue(), ^(void){
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
             
             NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
             NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
@@ -808,16 +810,22 @@
     NSDictionary *userInfo = notification.userInfo;
     NSString *title = [userInfo objectForKey:@"title"];
     NSString *body = [userInfo objectForKey:@"body"];
-    mailComposer = [[MFMailComposeViewController alloc]init];
-    mailComposer.mailComposeDelegate = self;
-    [mailComposer setSubject:title];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
-                                                                fontWithName:@"Open Sans" size:18], NSFontAttributeName,
-                                [UIColor whiteColor], NSForegroundColorAttributeName, nil];
-    mailComposer.navigationBar.titleTextAttributes = attributes;
-   // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
-    [mailComposer setMessageBody:body isHTML:NO];
-    [self presentViewController:mailComposer animated:YES completion:nil];
+    
+    
+    if ([MFMailComposeViewController canSendMail]) {
+        mailComposer = [[MFMailComposeViewController alloc]init];
+        mailComposer.mailComposeDelegate = self;
+        [mailComposer setSubject:title];
+        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
+                                                                               fontWithName:@"Open Sans" size:18], NSFontAttributeName,
+                                    [UIColor whiteColor], NSForegroundColorAttributeName, nil];
+        mailComposer.navigationBar.titleTextAttributes = attributes;
+        // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
+        [mailComposer setMessageBody:body isHTML:NO];
+        [self presentViewController:mailComposer animated:YES completion:nil];
+    }else{
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"mailto:test@test.com"]];
+    }
 }
 
 #pragma mark - mail compose delegate
@@ -873,7 +881,9 @@
             
             self.collectionView.scrollEnabled = NO;
         NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[self.articleIdArray lastObject] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
+            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+            
+            dispatch_async(queue_a, ^{
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
         oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                        selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];

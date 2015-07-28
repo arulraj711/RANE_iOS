@@ -69,7 +69,7 @@
         
         NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
         NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
-        if (dataRepresentingSavedArray != nil)
+        if (dataRepresentingSavedArray.length != 0)
         {
             NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
             if (oldSavedArray != nil)
@@ -129,12 +129,13 @@
     
     RADataObject *dataObj;
     RADataObject *anotherDataObj;
+    RADataObject *savedForLaterDataObj;
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSString *type = [userInfo objectForKey:@"type"];
     NSMutableArray *reloadArray = [[NSMutableArray alloc]init];
     //NSLog(@"type value:%@",type);
-    if([type isEqualToString:@"both"]) {
+    if([type isEqualToString:@"bothMarkImp"]) {
         dataObj = [self.data objectAtIndex:2];
         int cnt = [dataObj.unReadCount intValue];
         dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
@@ -142,9 +143,21 @@
         anotherDataObj = [self.data objectAtIndex:0];
         int nextCnt = [anotherDataObj.unReadCount intValue];
         anotherDataObj.unReadCount = [NSNumber numberWithInt:nextCnt-1];
-        
+    
         [reloadArray addObject:dataObj];
         [reloadArray addObject:anotherDataObj];
+        
+    } else if([type isEqualToString:@"bothSavedForLater"]){
+        dataObj = [self.data objectAtIndex:2];
+        int cnt = [dataObj.unReadCount intValue];
+        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        
+        savedForLaterDataObj= [self.data objectAtIndex:1];
+        int savedForLaterCnt = [savedForLaterDataObj.unReadCount intValue];
+        savedForLaterDataObj.unReadCount = [NSNumber numberWithInt:savedForLaterCnt-1];
+        
+        [reloadArray addObject:dataObj];
+        [reloadArray addObject:savedForLaterDataObj];
         
     }else if([type isEqualToString:@"-1"]) {
         dataObj = [self.data objectAtIndex:2];
@@ -168,11 +181,20 @@
         }
         
     } else if([type isEqualToString:@"-3"]) {
-        dataObj = [self.data objectAtIndex:1];
-        int cnt = [dataObj.unReadCount intValue];
-        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
-        
-        [reloadArray addObject:dataObj];
+        NSNumber *num = [userInfo objectForKey:@"isSelected"];
+        // NSLog(@"selected number:%@",num);
+        if([num isEqualToNumber:[NSNumber numberWithInt:1]]){
+            dataObj = [self.data objectAtIndex:1];
+            int cnt = [dataObj.unReadCount intValue];
+            dataObj.unReadCount = [NSNumber numberWithInt:cnt+1];
+            [reloadArray addObject:dataObj];
+        } else if([num isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            //NSLog(@"come inside");
+            dataObj = [self.data objectAtIndex:1];
+            int cnt = [dataObj.unReadCount intValue];
+            dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+            [reloadArray addObject:dataObj];
+        }
     } else {
         dataObj = [self.data objectAtIndex:2];
         int cnt = [dataObj.unReadCount intValue];

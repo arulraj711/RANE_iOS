@@ -207,7 +207,7 @@
             
             NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
             NSLog(@"push notification json:%@",pushResultJson);
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
                 
                 [[FISharedResources sharedResourceManager]pushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
             });
