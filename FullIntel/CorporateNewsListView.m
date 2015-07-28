@@ -268,7 +268,16 @@
     if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
         if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
             NSLog(@"if part");
-            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+            BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+            if(savedForLaterIsNew){
+//                NSLog(@"saved for later new");
+                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+            } else {
+                NSLog(@"saved for later old");
+                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+            }
+           // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
+            
         } else {
             NSLog(@"else part");
             predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
@@ -337,6 +346,7 @@
     if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
         inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:nil];
     } else if([category isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
         inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:nil];
     } else {
         inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:category];
@@ -1061,7 +1071,8 @@
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
             if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:nil];
-            } else if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+            } else if([category isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:nil];
             } else {
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];

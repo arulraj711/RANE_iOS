@@ -231,8 +231,31 @@
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]validateUserOnResumeWithDetails:resultStr];
+        
+        
     }
 }
+
+
+-(void)getLastCuratedNewsArticleId{
+    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSPredicate *predicate;
+    predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",[NSNumber numberWithInt:-1]];
+    [fetchRequest setPredicate:predicate];
+    NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    NSArray *existingCuratedNewsArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSManagedObject *curatedNews = [existingCuratedNewsArray lastObject];
+   NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
+    [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[NSNumber numberWithInt:-1] withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+
+
+}
+
+
+
 
 
 #pragma mark - Core Data stack

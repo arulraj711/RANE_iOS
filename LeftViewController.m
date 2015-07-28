@@ -135,7 +135,23 @@
     NSString *type = [userInfo objectForKey:@"type"];
     NSMutableArray *reloadArray = [[NSMutableArray alloc]init];
     //NSLog(@"type value:%@",type);
-    if([type isEqualToString:@"bothMarkImp"]) {
+    
+    if([type isEqualToString:@"all"]) {
+        dataObj = [self.data objectAtIndex:2];
+        int cnt = [dataObj.unReadCount intValue];
+        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        
+        anotherDataObj = [self.data objectAtIndex:0];
+        int nextCnt = [anotherDataObj.unReadCount intValue];
+        anotherDataObj.unReadCount = [NSNumber numberWithInt:nextCnt-1];
+        
+        savedForLaterDataObj= [self.data objectAtIndex:1];
+        int savedForLaterCnt = [savedForLaterDataObj.unReadCount intValue];
+        savedForLaterDataObj.unReadCount = [NSNumber numberWithInt:savedForLaterCnt-1];
+        [reloadArray addObject:dataObj];
+        [reloadArray addObject:anotherDataObj];
+        [reloadArray addObject:savedForLaterDataObj];
+    } else if([type isEqualToString:@"bothMarkImp"]) {
         dataObj = [self.data objectAtIndex:2];
         int cnt = [dataObj.unReadCount intValue];
         dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
@@ -633,7 +649,7 @@
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         
         CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
-        
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
         CorporateNewsListViewObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
     } else if([data.nodeId integerValue] == 7 && !data.isFolder) {

@@ -443,7 +443,26 @@
             
             //Handle pull down to refresh
             if([updownFlag isEqualToString:@"up"]) {
-                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                    NSManagedObjectContext *myContext = [self managedObjectContext];
+                    NSFetchRequest *fetchAllObjects = [[NSFetchRequest alloc] init];
+                    [fetchAllObjects setEntity:[NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:myContext]];
+                    [fetchAllObjects setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+                    [fetchAllObjects setPredicate:predicate];
+                    NSError *error = nil;
+                    NSArray *allObjects = [myContext executeFetchRequest:fetchAllObjects error:&error];
+                    for (NSManagedObject *object in allObjects) {
+                        [myContext deleteObject:object];
+                    }
+                    
+                    NSError *saveError = nil;
+                    if (![myContext save:&saveError]) {
+                        
+                    }
+                    
+                    //return (saveError == nil);
+                } else if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
                     [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
                 }
             }
@@ -503,7 +522,7 @@
             if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 NSString *str = [dic objectForKey:@"articleUrl"];
                 if(str.length != 0) {
-                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
                         NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
                         [curatedNews setValue:string forKey:@"articleUrlData"];
                     });
@@ -1712,6 +1731,8 @@
 }
 
 
+
+
 -(NSDictionary *)getTweetDetails:(NSString *)details {
      __block NSDictionary *responseDic;
     
@@ -1794,8 +1815,6 @@
 
 - (void)hideProgressView
 {
-    
-    
     [progressView removeFromSuperview];
 }
 

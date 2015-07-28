@@ -328,7 +328,10 @@
             
             NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
             NSNumber *saveForLaterStatus = [curatedNews valueForKey:@"saveForLater"];
-            if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            
+            if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]] && [saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"all"}];
+            } else if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 // NSLog(@"both type is working");
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothMarkImp"}];
             }else if([saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
