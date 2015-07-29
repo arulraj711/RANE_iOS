@@ -101,6 +101,7 @@
 		A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E4B11B1B4BF90A0029D389 /* FolderCell.m */; };
 		A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ECBDEE1AEA499700B140C8 /* RFQuiltLayout.m */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
+		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
 		F708D9EE1AB1A19B001FF59F /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = F708D9ED1AB1A19A001FF59F /* test.html */; };
@@ -359,6 +360,7 @@
 		A0F118B31AE7E0420047FE13 /* FullIntelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullIntelTests.m; sourceTree = "<group>"; };
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
+		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F552A8241B6666670003B7C1 /* FullIntel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -1031,6 +1033,7 @@
 				F7E3687F1ABC18F70083F38E /* MailPopoverView.h */,
 				F7E368801ABC18F70083F38E /* MailPopoverView.m */,
 				F7E368811ABC18F70083F38E /* MailPopoverView.xib */,
+				F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */,
 			);
 			name = Mail_Popover;
 			sourceTree = "<group>";
@@ -1303,6 +1306,7 @@
 				F7E81FAA1A97057100F9A8D4 /* ionic.png in Resources */,
 				F7E81FA21A97057100F9A8D4 /* google_topic.png in Resources */,
 				F773CFE91ADE99C7002FC7CF /* addContent.json in Resources */,
+				F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */,
 				F7E81F961A97057100F9A8D4 /* apple-watch-model.jpg in Resources */,
 				F7E81FB51A97057100F9A8D4 /* moss.jpeg in Resources */,
 				A0B0F5CB1B256AE300BB1169 /* Eiffel_Tower.jpg in Resources */,

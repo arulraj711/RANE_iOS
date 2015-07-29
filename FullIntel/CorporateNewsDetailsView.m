@@ -17,6 +17,7 @@
 #import "PresentingAnimator.h"
 #import "DismissingAnimator.h"
 #import "ResearchRequestPopoverView.h"
+#import "MailPopoverView.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface CorporateNewsDetailsView ()
@@ -827,9 +828,38 @@
         [mailComposer setMessageBody:body isHTML:NO];
         [self presentViewController:mailComposer animated:YES completion:nil];
     }else{
-        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"mailto:test@test.com"]];
+        UIAlertView *alert;
+        alert = [[UIAlertView alloc]
+                 initWithTitle:@"Mail"
+                 message:@"You can't send a mail right now."
+                 delegate:self
+                 cancelButtonTitle:@"Cancel"
+                 otherButtonTitles:@"Settings",@"Send FI Mail",nil];
+        
+        [alert show];
     }
 }
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if(buttonIndex == 1) {
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"mailto:test@test.com"]];
+    } else if(buttonIndex == 2) {
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"MailStoryboard" bundle:nil];
+        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"mailNav"];
+        
+        MailPopoverView *mailViewController=(MailPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+//        researchViewController.articleId = articleId;
+//        researchViewController.articleTitle = articleTitle;
+//        researchViewController.articleUrl = articleUrl;
+        popOverView.transitioningDelegate = self;
+        popOverView.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:popOverView animated:NO completion:nil];
+    }
+}
+
 
 #pragma mark - mail compose delegate
 -(void)mailComposeController:(MFMailComposeViewController *)controller
