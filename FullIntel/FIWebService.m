@@ -355,6 +355,23 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
     }];
 }
 
+
++(void)sendMailWithAccessToken:(NSString*)accessToken withDetails:(NSString *)details
+                            onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                            onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *functionName = [NSString stringWithFormat:@"article/mail?security_token=%@",accessToken];
+    [self postQueryResultsForFunctionName:functionName withPostDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        //        NSError* error1;
+        //        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+        //        NSLog(@"folder create error:%@ and json:%@",error.userInfo,json);
+    }];
+}
+
+
 +(void)createFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)securityToken
                     onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                     onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {

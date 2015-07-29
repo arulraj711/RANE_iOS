@@ -649,7 +649,21 @@
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         
         CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
+        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
+            NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+            [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+            [gradedetails setObject:@"" forKey:@"lastArticleId"];
+            [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
+            [gradedetails setObject:@"3" forKey:@"activityTypeIds"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-3] withFlag:@"" withLastArticleId:@""];
+        } else {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
+        }
+        
         CorporateNewsListViewObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
     } else if([data.nodeId integerValue] == 7 && !data.isFolder) {

@@ -307,24 +307,29 @@
         tweetCell.author.text = author.name;
        // NSLog(@"tweet id:%@",tweetObj.tweetID);
         __block NSDictionary *tweetDic;
-        dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
-        dispatch_async(queue_a, ^(void){
-            if(tweetCell.followers.text.length != 0){
-                tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
-                int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
-                NSLog(@"single followers count:%d",followersCount);
-                if(followersCount/1000 == 0) {
-                    tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
-                } else {
-                    float followersFloatValue = (float)followersCount/1000;
-                    NSLog(@"follwers float:%f",followersFloatValue);
-                    tweetCell.followers.text = [NSString stringWithFormat:@"%dK",followersCount/1000];
+        
+        
+        if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
+            dispatch_queue_t queue_a = dispatch_queue_create("test", 0);
+            dispatch_async(queue_a, ^(void){
+                if(tweetCell.followers.text.length != 0){
+                    tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
+                    int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
+                    NSLog(@"single followers count:%d",followersCount);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if(followersCount/1000 == 0) {
+                            tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
+                        } else {
+                            float followersFloatValue = (float)followersCount/1000;
+                            NSLog(@"follwers float:%f",followersFloatValue);
+                            tweetCell.followers.text = [NSString stringWithFormat:@"%dK",followersCount/1000];
+                        }
+                    });
+                    
                 }
-            }
-            
-        });
-        
-        
+                
+            });
+        }
         
        // NSLog(@"user id:%@ and tweet id:%@ and dic:%@ and retweet count:%lld and tweet:%@",author.userID,tweetObj.tweetID,tweetDic,tweetObj.retweetCount,tweetObj);
 
@@ -726,10 +731,10 @@
             NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
             
             
-            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+//            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+//            
+//            dispatch_async(queue_a, ^{
             
-            dispatch_async(queue_a, ^{
-                
                  NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
                 
 //                if([userAccountTypeId isEqualToString:@"3"]) {
@@ -810,7 +815,7 @@
                 NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
                 self.relatedPostArray = postArray;
                 [self loadTweetsFromPost];
-            });
+           // });
         }
 }
 
@@ -827,9 +832,9 @@
         NSManagedObject *curatedNews;
         if(newPerson.count != 0) {
             curatedNews = [newPerson objectAtIndex:0];
-            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
-            
-            dispatch_async(queue_a, ^{
+//            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+//            
+//            dispatch_async(queue_a, ^{
                 
                 NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
                 NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
@@ -977,7 +982,7 @@
                 }
                 
                 
-            });
+            //});
         }
     
     

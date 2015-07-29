@@ -99,15 +99,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(BOOL) NSStringIsValidEmail:(NSString *)checkString
-{
-    BOOL stricterFilter = YES; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
-    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
-    NSString *laxString = @".+@([A-Za-z0-9]+\\.)+[A-Za-z]{2}[A-Za-z]*";
-    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:checkString];
-}
+
 
 - (IBAction)signInButtonClicked:(id)sender {
     [_usernameTextField resignFirstResponder];
@@ -118,7 +110,7 @@
 -(void)callSignInFunction {
     if([_usernameTextField.text length] == 0) {
         [self.view makeToast:@"Please check your login info and try again." duration:1 position:CSToastPositionCenter];
-    } else if(![self NSStringIsValidEmail:_usernameTextField.text]) {
+    } else if(![FIUtils NSStringIsValidEmail:_usernameTextField.text]) {
         [self.view makeToast:@"Please check your login info and try again." duration:1 position:CSToastPositionCenter];
     }else if([_passwordTextField.text length] == 0) {
         [self.view makeToast:@"Please check your login info and try again." duration:1 position:CSToastPositionCenter];
@@ -174,15 +166,18 @@
         //        });
         
         
+        dispatch_queue_t globalConcurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         
-        dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
         
-        dispatch_async(queue_a, ^{
+       // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+        
+        dispatch_async(globalConcurrentQueue, ^{
             NSLog(@"A - 1");
             [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:resultJson];
         });
         
-        dispatch_async(queue_a, ^{
+        dispatch_async(globalConcurrentQueue, ^{
             NSLog(@"A - 2");
             if(accessToken.length > 0) {
                 [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withFlag:@"" withLastArticleId:@""];
@@ -364,7 +359,7 @@
                 [self.view makeToast:@"Please enter the email address associated with your account." duration:1 position:CSToastPositionCenter];
                 
                 [self showForgetAlert:emailTextField.text withFlag:@""];
-            } else if(![self NSStringIsValidEmail:emailTextField.text]) {
+            } else if(![FIUtils NSStringIsValidEmail:emailTextField.text]) {
                 [self.view makeToast:@"Please enter the email address associated with your account." duration:1 position:CSToastPositionCenter];
                 
                 [self showForgetAlert:emailTextField.text withFlag:@""];

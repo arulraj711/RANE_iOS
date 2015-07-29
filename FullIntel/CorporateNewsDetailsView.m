@@ -126,6 +126,9 @@
     if(testFlag) {
         NSLog(@"test flag is TRUE");
         
+        [self.activityIndicator stopAnimating];
+        [oneSecondTicker invalidate];
+        
         NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
         NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
         
@@ -168,8 +171,7 @@
             [self.collectionView reloadData];
         }
         
-        [self.activityIndicator stopAnimating];
-        [oneSecondTicker invalidate];
+        
     } else {
         NSLog(@"test flag is FALSE");
     }
@@ -411,7 +413,6 @@
         } else {
             cell.detailsWebview.hidden = NO;
             cell.overlayView.hidden = NO;
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                 [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
                 
                // [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
@@ -433,7 +434,7 @@
                     
                     
                 }
-            });
+            
         }
         
         
@@ -459,7 +460,7 @@
         cell.selectedArticleId = [curatedNews valueForKey:@"articleId"];
         cell.selectedArticleImageUrl = [curatedNews valueForKey:@"image"];
         //NSLog(@"before fetching curatednewsdetails:%@",curatedNewsDetail);
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
             
                 
                 
@@ -483,15 +484,22 @@
                     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
                     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
                     // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+
                     [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                    });
                 }
                 
                 
-                
+//                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+        dispatch_queue_t queue_a = dispatch_queue_create("test", 0);
+        dispatch_async(queue_a, ^(void){
                 NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
-                
-                
+            });
+                //});
+        });
                 NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
                 if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
                   //  NSLog(@"mark selected");
@@ -511,7 +519,7 @@
                 NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
                 cell.relatedPostArray = postArray;
                 [cell loadTweetsFromPost];
-            });
+           // });
         
         
         
@@ -519,7 +527,7 @@
         if(curatedNewsAuthorDetail == nil) {
             
         } else {
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+            //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
             
             NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
             NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
@@ -668,7 +676,7 @@
                     cell.bioLabel.hidden = YES;
                 }
             
-                });
+               // });
         }
     }
     return cell;
@@ -831,11 +839,11 @@
     }else{
         UIAlertView *alert;
         alert = [[UIAlertView alloc]
-                 initWithTitle:@"Mail"
-                 message:@"You can't send a mail right now."
+                 initWithTitle:@"Email an Article"
+                 message:@"You have not setup a mail box in your device.Please go to settings and configure mail account or send mail via FullIntel App"
                  delegate:self
                  cancelButtonTitle:@"Cancel"
-                 otherButtonTitles:@"Settings",@"Send FI Mail",nil];
+                 otherButtonTitles:@"Go to Settings",@"Send via FullIntel",nil];
         
         [alert show];
     }
@@ -915,14 +923,14 @@
             
             self.collectionView.scrollEnabled = NO;
         NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[self.articleIdArray lastObject] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
-            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
-            
-            dispatch_async(queue_a, ^{
+//            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+//            
+//            dispatch_async(queue_a, ^{
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
         oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                        selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
-        });
+       // });
         }
     }
 }

@@ -14,7 +14,6 @@
 		A003B1A71B1873D900857F35 /* VideoWidgetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A003B1A51B1873D900857F35 /* VideoWidgetCell.m */; };
 		A003B1A81B1873D900857F35 /* VideoWidgetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A61B1873D900857F35 /* VideoWidgetCell.xib */; };
 		A003B1AA1B1874A200857F35 /* Apple_Car.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A91B1874A200857F35 /* Apple_Car.jpg */; };
-		A0066EEC1B03082D008B4623 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */; };
 		A010928D1B15AB25003C9F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A010928C1B15AB25003C9F3A /* Foundation.framework */; };
 		A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A010C1C01B1F32AF00BF053D /* john_maddox.jpg */; };
@@ -102,6 +101,7 @@
 		A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ECBDEE1AEA499700B140C8 /* RFQuiltLayout.m */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
+		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
 		F708D9EE1AB1A19B001FF59F /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = F708D9ED1AB1A19A001FF59F /* test.html */; };
@@ -1424,6 +1424,7 @@
 			files = (
 				F7E3688E1ABC1D060083F38E /* ResearchRequestPopoverView.m in Sources */,
 				F773CFE71ADE4370002FC7CF /* JSCustomBadge.m in Sources */,
+				F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */,
 				F7CE36E51A95E9490005AA0A /* RATreeView+Enums.m in Sources */,
 				A0E223591A91C2F00073814A /* FullIntel.xcdatamodeld in Sources */,
 				F7CE36E81A95E9490005AA0A /* RATreeView+TableViewDataSource.m in Sources */,
@@ -1467,7 +1468,6 @@
 				A0E223531A91C2F00073814A /* main.m in Sources */,
 				F7EBB2671ACA763F008C90DF /* FIUtils.m in Sources */,
 				F74A55131AB048570009FE4C /* PersonalityWidgetCell.m in Sources */,
-				A0066EEC1B03082D008B4623 /* CorporateNewsDetailsView.m in Sources */,
 				A0CF5C5F1B1DD98B00DED2D9 /* IpAndLegalViewController.m in Sources */,
 				F7CE36E21A95E9490005AA0A /* RATreeNodeController.m in Sources */,
 				F7ECACCB1AB0730000B57AB6 /* StockWidgetCell.m in Sources */,

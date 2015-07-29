@@ -185,6 +185,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"firstName"]) forKey:@"firstName"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoUrl"]) forKey:@"photoUrl"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
+            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
             NSString *appViewType = [NSString stringWithFormat:@"%@",NULL_TO_NIL([responseObject valueForKey:@"appViewTypeId"])];
             
             if([appViewType isEqualToString:@"1"]) {
@@ -1700,6 +1701,41 @@
         }
     }
 }
+
+-(void)sendMailWithAccessToken:(NSString *)accessToken withDetails:(NSString *)details {
+    if([self serviceIsReachable]) {
+        [FIWebService sendMailWithAccessToken:accessToken withDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            [window makeToast:@"Mail Sent Successfully" duration:1 position:CSToastPositionCenter];
+            
+//            if(![NULL_TO_NIL([responseObject objectForKey:@"code"])isEqualToNumber:[NSNumber numberWithInt:102]]) {
+//                UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//                [window makeToast:NULL_TO_NIL([responseObject objectForKey:@"message"]) duration:1 position:CSToastPositionCenter];
+//                
+//                
+//                
+//            } else {
+//                [self hideProgressView];
+//                [self showLoginView:NULL_TO_NIL([responseObject objectForKey:@"success"])];
+//            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 2) {
+            [self showBannerView];
+        }
+    }
+}
+
+
+
+
 
 -(void)markCommentAsReadWithDetails:(NSString *)details {
     if([self serviceIsReachable]) {
