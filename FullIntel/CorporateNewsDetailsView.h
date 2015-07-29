@@ -17,6 +17,10 @@
      MFMailComposeViewController *mailComposer;
     UIView *innerWebView;
     UIActivityIndicatorView *activityIndicator;
+    NSString *mailArticleId;
+    NSString *mailTitle;
+    NSString *mailBody;
+    
 }
 @property NSIndexPath *selectedIndexPath;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;

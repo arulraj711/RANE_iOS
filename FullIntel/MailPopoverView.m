@@ -17,6 +17,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.mailTitleLabel.text = self.mailSubject;
+    self.subjectTextField.text = self.mailSubject;
+    self.mailBodyTextView.text = self.mailBody;
+    
+//    self.outerView.layer.masksToBounds = YES;
+//    self.outerView.layer.cornerRadius = 10.0f;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,13 +42,13 @@
 }
 */
 
+- (IBAction)cancelAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
 - (IBAction)sendButtonClick:(id)sender {
-    mailComposer = [[MFMailComposeViewController alloc]init];
-    mailComposer.mailComposeDelegate = self;
-    [mailComposer setSubject:self.mailSubject];
-    [mailComposer setMessageBody:self.mailBody isHTML:NO];
-     //[self presentModalViewController:mailComposer animated:YES];
-    [self presentViewController:mailComposer animated:YES completion:nil];
+    
 }
 
 #pragma mark - mail compose delegate

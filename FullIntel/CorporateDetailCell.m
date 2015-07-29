@@ -591,7 +591,7 @@
         mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n",self.selectedArticleTitle,self.articleDesc];
     }
    // NSLog(@"mail body string:%@ and title:%@",mailBodyStr,self.selectedArticleTitle);
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"title":self.selectedArticleTitle,@"body":mailBodyStr}];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"articleId":self.selectedArticleId,@"title":self.selectedArticleTitle,@"body":mailBodyStr}];
     //}
 }
 

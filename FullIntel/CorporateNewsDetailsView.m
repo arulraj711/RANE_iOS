@@ -812,20 +812,21 @@
     //NSLog(@"one");
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
-    NSString *title = [userInfo objectForKey:@"title"];
-    NSString *body = [userInfo objectForKey:@"body"];
+    mailArticleId = [userInfo objectForKey:@"articleId"];
+    mailTitle = [userInfo objectForKey:@"title"];
+    mailBody = [userInfo objectForKey:@"body"];
     
     
     if ([MFMailComposeViewController canSendMail]) {
         mailComposer = [[MFMailComposeViewController alloc]init];
         mailComposer.mailComposeDelegate = self;
-        [mailComposer setSubject:title];
+        [mailComposer setSubject:mailTitle];
         NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
                                                                                fontWithName:@"Open Sans" size:18], NSFontAttributeName,
                                     [UIColor whiteColor], NSForegroundColorAttributeName, nil];
         mailComposer.navigationBar.titleTextAttributes = attributes;
         // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
-        [mailComposer setMessageBody:body isHTML:NO];
+        [mailComposer setMessageBody:mailBody isHTML:NO];
         [self presentViewController:mailComposer animated:YES completion:nil];
     }else{
         UIAlertView *alert;
@@ -851,9 +852,9 @@
         UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"mailNav"];
         
         MailPopoverView *mailViewController=(MailPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
-//        researchViewController.articleId = articleId;
-//        researchViewController.articleTitle = articleTitle;
-//        researchViewController.articleUrl = articleUrl;
+        mailViewController.articleId= mailArticleId;
+        mailViewController.mailSubject = mailTitle;
+        mailViewController.mailBody = mailBody;
         popOverView.transitioningDelegate = self;
         popOverView.modalPresentationStyle = UIModalPresentationCustom;
         [self presentViewController:popOverView animated:NO completion:nil];
