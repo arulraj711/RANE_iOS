@@ -139,7 +139,14 @@
         NSPredicate *predicate;
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+                BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+                if(savedForLaterIsNew){
+                    //                NSLog(@"saved for later new");
+                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                } else {
+                    NSLog(@"saved for later old");
+                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+                }
             } else {
                 predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
             }
@@ -929,7 +936,7 @@
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
         oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                        selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+        //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
        // });
         }
     }
