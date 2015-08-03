@@ -16,9 +16,11 @@
 #import "UCZProgressView.h"
 #import "MKNumberBadgeView.h"
 
-@interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDelegate> {
+@interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
     NSMutableArray *tweetArray,*followersCountArray;
     UCZProgressView *progressView;
+    UICollectionView *socialcollectionView;
+    NSMutableArray *tweetIds;
     
 }
 @property BOOL isFIViewSelected;
