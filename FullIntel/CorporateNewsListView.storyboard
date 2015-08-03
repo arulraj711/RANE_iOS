@@ -2076,10 +2076,6 @@
                                                                                     </connections>
                                                                                 </collectionViewCell>
                                                                             </cells>
-                                                                            <connections>
-                                                                                <outlet property="dataSource" destination="Ihx-d5-IbV" id="4xG-EH-ME9"/>
-                                                                                <outlet property="delegate" destination="Ihx-d5-IbV" id="kYu-ok-lBc"/>
-                                                                            </connections>
                                                                         </collectionView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgl-ay-LPK">
                                                                             <rect key="frame" x="34" y="2565" width="512" height="41"/>
