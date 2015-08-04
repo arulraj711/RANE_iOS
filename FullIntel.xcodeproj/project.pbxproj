@@ -104,6 +104,7 @@
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
+		F5DAAA541B7080E80059425C /* TweetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5DAAA531B7080E80059425C /* TweetsCell.xib */; };
 		F5F727271B6F809400DE7980 /* SocialLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5F727261B6F809400DE7980 /* SocialLinkCell.xib */; };
 		F708D9EE1AB1A19B001FF59F /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = F708D9ED1AB1A19A001FF59F /* test.html */; };
 		F717CC931AB1AF6900F66B53 /* back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F717CC921AB1AF6900F66B53 /* back.jpg */; };
@@ -365,6 +366,7 @@
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F552A8241B6666670003B7C1 /* FullIntel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 2.xcdatamodel"; sourceTree = "<group>"; };
+		F5DAAA531B7080E80059425C /* TweetsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsCell.xib; sourceTree = "<group>"; };
 		F5F727261B6F809400DE7980 /* SocialLinkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLinkCell.xib; sourceTree = "<group>"; };
 		F708D9ED1AB1A19A001FF59F /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		F717CC901AB1ADB100F66B53 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
@@ -591,6 +593,7 @@
 				F5F727261B6F809400DE7980 /* SocialLinkCell.xib */,
 				A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */,
 				A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */,
+				F5DAAA531B7080E80059425C /* TweetsCell.xib */,
 			);
 			name = CorporateDetailCell;
 			sourceTree = "<group>";
@@ -1278,6 +1281,7 @@
 				F7F876B51AB976B00042404D /* influ_drillin.json in Resources */,
 				A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */,
 				A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */,
+				F5DAAA541B7080E80059425C /* TweetsCell.xib in Resources */,
 				A0CF5C5D1B1DD98B00DED2D9 /* IpAndLegal.storyboard in Resources */,
 				F7F3C05B1AA42CC700E653CB /* menu.json in Resources */,
 				F7E368831ABC18F70083F38E /* MailPopoverView.xib in Resources */,

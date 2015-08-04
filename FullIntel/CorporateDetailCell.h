@@ -19,7 +19,7 @@
 @interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
     NSMutableArray *tweetArray,*followersCountArray;
     UCZProgressView *progressView;
-    UICollectionView *socialcollectionView;
+    UICollectionView *socialcollectionView,*tweetsCollectionView;
     NSMutableArray *tweetIds;
     
 }

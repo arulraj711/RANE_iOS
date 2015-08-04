@@ -1868,10 +1868,6 @@
                                                                                     </connections>
                                                                                 </collectionViewCell>
                                                                             </cells>
-                                                                            <connections>
-                                                                                <outlet property="dataSource" destination="Ihx-d5-IbV" id="6cK-2P-boe"/>
-                                                                                <outlet property="delegate" destination="Ihx-d5-IbV" id="EGU-3E-NHf"/>
-                                                                            </connections>
                                                                         </collectionView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Author" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4G-2z-ZH3">
                                                                             <rect key="frame" x="44" y="2320" width="512" height="41"/>

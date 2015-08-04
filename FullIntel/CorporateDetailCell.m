@@ -155,7 +155,7 @@
                // self.aboutAuthorVerticalConstraint.constant = 44;
                 
             }
-            [self.tweetsCollectionView reloadData];
+            [tweetsCollectionView reloadData];
         }];
     }];
 }
@@ -222,7 +222,7 @@
     }
     else if(collectionView == socialcollectionView) {
         return CGSizeMake(50, 50);
-    } else if(collectionView == self.tweetsCollectionView) {
+    } else if(collectionView == tweetsCollectionView) {
         return CGSizeMake(320, 300);
     }
     return CGSizeMake(30, 30);
@@ -238,15 +238,17 @@
 //    }else
     if(view == socialcollectionView){
         itemCount = self.socialLinksArray.count;
-    }else if(view == self.tweetsCollectionView) {
+    }else if(view == tweetsCollectionView) {
         itemCount = tweetArray.count;
     }else {
         itemCount = 4;
     }
+    NSLog(@"number of items :%d",itemCount);
     return itemCount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"collectionview cellfor item method");
     UICollectionViewCell *collectionCell;
 //    if(cv == self.legendsCollectionView) {
 //        [self.legendsCollectionView registerClass:[LegendCollectionViewCell class]
@@ -272,6 +274,7 @@
 //    } else
     
     if(cv == socialcollectionView) {
+        NSLog(@"one");
        // NSLog(@"inside social link collectionview cellfor item");
         
         [socialcollectionView registerClass:[SocialLinkCell class]
@@ -305,36 +308,40 @@
         //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
         collectionCell = socialCell;
         
-    } else if(cv == self.tweetsCollectionView) {
+    } else if(cv == tweetsCollectionView) {
+        NSLog(@"come inside tweets collecionview");
+        [tweetsCollectionView registerClass:[TweetsCell class]
+                 forCellWithReuseIdentifier:@"Cell"];
+        [tweetsCollectionView registerNib:[UINib nibWithNibName:@"TweetsCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
         TweetsCell *tweetCell =(TweetsCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
         TWTRTweet *tweetObj = [tweetArray objectAtIndex:indexPath.row];
         TWTRUser *author = tweetObj.author;
         tweetCell.author.text = author.name;
        // NSLog(@"tweet id:%@",tweetObj.tweetID);
-        __block NSDictionary *tweetDic;
-        
-        
-        if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
-            dispatch_queue_t queue_a = dispatch_queue_create("test", 0);
-            dispatch_async(queue_a, ^(void){
-                if(tweetCell.followers.text.length != 0){
-                    tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
-                    int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
-                    NSLog(@"single followers count:%d",followersCount);
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if(followersCount/1000 == 0) {
-                            tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
-                        } else {
-                            float followersFloatValue = (float)followersCount/1000;
-                            NSLog(@"follwers float:%f",followersFloatValue);
-                            tweetCell.followers.text = [NSString stringWithFormat:@"%dK",followersCount/1000];
-                        }
-                    });
-                    
-                }
-                
-            });
-        }
+//        __block NSDictionary *tweetDic;
+//        
+//        
+//        if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
+//            dispatch_queue_t queue_a = dispatch_queue_create("test", 0);
+//            dispatch_async(queue_a, ^(void){
+//                if(tweetCell.followers.text.length != 0){
+//                    tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
+//                    int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
+//                    NSLog(@"single followers count:%d",followersCount);
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        if(followersCount/1000 == 0) {
+//                            tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
+//                        } else {
+//                            float followersFloatValue = (float)followersCount/1000;
+//                            NSLog(@"follwers float:%f",followersFloatValue);
+//                            tweetCell.followers.text = [NSString stringWithFormat:@"%dK",followersCount/1000];
+//                        }
+//                    });
+//                    
+//                }
+//                
+//            });
+//        }
         
        // NSLog(@"user id:%@ and tweet id:%@ and dic:%@ and retweet count:%lld and tweet:%@",author.userID,tweetObj.tweetID,tweetDic,tweetObj.retweetCount,tweetObj);
 
@@ -359,6 +366,7 @@
         tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:237.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1] CGColor];
         collectionCell = tweetCell;
     }else {
+        NSLog(@"else part");
 //        [socialcollectionView registerClass:[SocialLinkCell class]
 //                 forCellWithReuseIdentifier:@"Cell"];
 //        [socialcollectionView registerNib:[UINib nibWithNibName:@"SocialLinkCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
@@ -478,15 +486,37 @@
 //        self.articleWebview.frame = CGRectMake(self.articleWebview.frame.origin.x, self.articleWebview.frame.origin.y, self.articleWebview.frame.size.width, webView.frame.size.height);
         self.webViewHeightConstraint.constant = webView.frame.size.height;
     
+    UICollectionViewFlowLayout* tweetFlowLayout = [[UICollectionViewFlowLayout alloc]init];
+    tweetFlowLayout.itemSize = CGSizeMake(100, 100);
+    [tweetFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    
+    
+    tweetsCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, webView.frame.size.height+self.articleWebview.frame.origin.y+100, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
+    
+    
+    
+    UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCell" bundle:nil];
+    [tweetsCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
+    [tweetsCollectionView registerClass:[TweetsCell class] forCellWithReuseIdentifier:@"Cell"];
+    tweetsCollectionView.delegate = self;
+    tweetsCollectionView.dataSource = self;
+    tweetsCollectionView.hidden = NO;
+    tweetsCollectionView.backgroundColor = [UIColor clearColor];
+    [self loadTweetsFromPost];
+    [self.scrollView addSubview:tweetsCollectionView];
+    
+    
+    
+    
     
     UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.itemSize = CGSizeMake(100, 100);
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     
     if(self.relatedPostArray.count == 0) {
-        socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, webView.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsCollectionView.frame.size.height+200, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+        socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, webView.frame.size.height+self.articleWebview.frame.origin.y+self.tweetCollectionViewHeightConstraint.constant+200, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
     } else {
-        socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, webView.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsCollectionView.frame.size.height+250, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+        socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, webView.frame.size.height+self.articleWebview.frame.origin.y+self.tweetCollectionViewHeightConstraint.constant+250, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
     }
     
     
@@ -510,6 +540,11 @@
     
     socialcollectionView.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:socialcollectionView];
+    
+    
+    
+    
+    
     
     
     
@@ -540,6 +575,7 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     socialcollectionView.hidden = YES;
+    tweetsCollectionView.hidden = YES;
 //socialcollectionView.backgroundColor = [UIColor greenColor];
 }
 
