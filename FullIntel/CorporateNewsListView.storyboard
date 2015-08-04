@@ -1615,8 +1615,8 @@
                                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNe-BC-vf1">
                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="520"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dU-Et-Fnu">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="5000"/>
+                                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0dU-Et-Fnu">
+                                                                    <rect key="frame" x="0.0" y="-2000" width="1000" height="5000"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fvy-aP-B9D">
                                                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="426"/>
@@ -1912,7 +1912,7 @@
                                                                             </constraints>
                                                                         </view>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AARON M. KESSLER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBL-Uq-eGq">
-                                                                            <rect key="frame" x="193" y="2396" width="279" height="44"/>
+                                                                            <rect key="frame" x="193" y="2396" width="423" height="44"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="44" id="m1B-RK-LDE"/>
                                                                             </constraints>
@@ -1920,14 +1920,6 @@
                                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Influencer_icon" translatesAutoresizingMaskIntoConstraints="NO" id="pqg-vu-WVb">
-                                                                            <rect key="frame" x="484" y="2392" width="32" height="42"/>
-                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="32" id="Gu6-qE-YGV"/>
-                                                                                <constraint firstAttribute="height" constant="42" id="qCx-gP-Oac"/>
-                                                                            </constraints>
-                                                                        </imageView>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workTitle" translatesAutoresizingMaskIntoConstraints="NO" id="oax-vi-SMr">
                                                                             <rect key="frame" x="192" y="2441" width="15" height="15"/>
                                                                             <constraints>
@@ -1936,9 +1928,9 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uR8-iY-vSK">
-                                                                            <rect key="frame" x="209" y="2438" width="320" height="21"/>
+                                                                            <rect key="frame" x="209" y="2438" width="407" height="21"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="320" id="HeS-GC-uFA"/>
+                                                                                <constraint firstAttribute="width" constant="407" id="HeS-GC-uFA"/>
                                                                                 <constraint firstAttribute="height" constant="21" id="ph1-Rt-Gy4"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
@@ -1953,10 +1945,10 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9b-lq-bFD">
-                                                                            <rect key="frame" x="209" y="2463" width="320" height="21"/>
+                                                                            <rect key="frame" x="209" y="2463" width="407" height="21"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="21" id="ZVe-sb-O6e"/>
-                                                                                <constraint firstAttribute="width" constant="320" id="jCN-d8-OLT"/>
+                                                                                <constraint firstAttribute="width" constant="407" id="jCN-d8-OLT"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1970,10 +1962,10 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYc-3r-O7W">
-                                                                            <rect key="frame" x="209" y="2488" width="320" height="21"/>
+                                                                            <rect key="frame" x="209" y="2488" width="407" height="21"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="21" id="1fd-ne-htj"/>
-                                                                                <constraint firstAttribute="width" constant="320" id="du1-15-hdl"/>
+                                                                                <constraint firstAttribute="width" constant="407" id="du1-15-hdl"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1987,10 +1979,10 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjs-iK-Q7k">
-                                                                            <rect key="frame" x="209" y="2513" width="350" height="40"/>
+                                                                            <rect key="frame" x="209" y="2513" width="407" height="40"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="40" id="aWF-SQ-xdg"/>
-                                                                                <constraint firstAttribute="width" constant="350" id="cA8-WQ-ERA"/>
+                                                                                <constraint firstAttribute="width" constant="407" id="cA8-WQ-ERA"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                                             <color key="textColor" red="0.1176470588" green="0.54901960780000003" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1999,6 +1991,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Social Links" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bIx-Ax-dtf">
                                                                             <rect key="frame" x="650" y="2392" width="300" height="29"/>
                                                                             <constraints>
+                                                                                <constraint firstAttribute="width" constant="300" id="1e8-wO-TId"/>
                                                                                 <constraint firstAttribute="height" constant="29" id="dJe-5e-5YQ"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="30"/>
@@ -2128,6 +2121,7 @@
                                                                         <constraint firstItem="Y60-sY-Tb1" firstAttribute="top" secondItem="d82-th-qD9" secondAttribute="bottom" constant="165" id="Llw-Ot-M2m"/>
                                                                         <constraint firstItem="B7o-KZ-7xb" firstAttribute="leading" secondItem="xqM-HL-v0a" secondAttribute="trailing" constant="5" id="Mvp-k8-ubm"/>
                                                                         <constraint firstAttribute="trailing" secondItem="j07-En-Sd7" secondAttribute="trailing" constant="34" id="NPh-Ib-DAl"/>
+                                                                        <constraint firstItem="bIx-Ax-dtf" firstAttribute="leading" secondItem="sBL-Uq-eGq" secondAttribute="trailing" constant="34" id="Ndo-Fl-LgH"/>
                                                                         <constraint firstItem="WYK-b0-b0T" firstAttribute="leading" secondItem="0dU-Et-Fnu" secondAttribute="leading" constant="44" id="Oqq-J9-mFG"/>
                                                                         <constraint firstItem="HN2-Zq-HFe" firstAttribute="top" secondItem="hAC-uZ-VHb" secondAttribute="bottom" constant="10" id="RS0-bG-JSJ"/>
                                                                         <constraint firstAttribute="trailing" secondItem="Pp8-Pp-bO8" secondAttribute="trailing" constant="50" id="SXy-4J-Whs"/>
@@ -2149,7 +2143,6 @@
                                                                         <constraint firstAttribute="trailing" secondItem="bIx-Ax-dtf" secondAttribute="trailing" constant="50" id="afk-YJ-0Hb"/>
                                                                         <constraint firstAttribute="trailing" secondItem="d82-th-qD9" secondAttribute="trailing" constant="34" id="azZ-bT-QZ5"/>
                                                                         <constraint firstItem="tJw-Ts-tk6" firstAttribute="top" secondItem="Y60-sY-Tb1" secondAttribute="bottom" constant="4" id="b7E-JT-kLQ"/>
-                                                                        <constraint firstItem="bIx-Ax-dtf" firstAttribute="top" secondItem="pqg-vu-WVb" secondAttribute="top" id="bfH-m8-Yc2"/>
                                                                         <constraint firstItem="AVf-gQ-EAT" firstAttribute="top" secondItem="jgl-ay-LPK" secondAttribute="bottom" constant="10" id="cFF-ue-FpW"/>
                                                                         <constraint firstItem="s9b-lq-bFD" firstAttribute="top" secondItem="uR8-iY-vSK" secondAttribute="bottom" constant="4" id="cUw-YH-2tg"/>
                                                                         <constraint firstItem="k4G-2z-ZH3" firstAttribute="top" secondItem="j07-En-Sd7" secondAttribute="bottom" constant="44" id="crv-ge-Qtf"/>
@@ -2162,10 +2155,8 @@
                                                                         <constraint firstItem="HN2-Zq-HFe" firstAttribute="leading" secondItem="1P3-1d-HsQ" secondAttribute="trailing" constant="8" id="gqc-vB-Wnh"/>
                                                                         <constraint firstItem="j07-En-Sd7" firstAttribute="leading" secondItem="0dU-Et-Fnu" secondAttribute="leading" constant="34" id="hzx-Ur-xsN"/>
                                                                         <constraint firstItem="oax-vi-SMr" firstAttribute="top" secondItem="sBL-Uq-eGq" secondAttribute="bottom" constant="1" id="jK0-oG-9dn"/>
-                                                                        <constraint firstItem="pqg-vu-WVb" firstAttribute="leading" secondItem="sBL-Uq-eGq" secondAttribute="trailing" constant="12" id="jha-Qp-SqC"/>
                                                                         <constraint firstAttribute="trailing" secondItem="aWL-oA-5U9" secondAttribute="trailing" constant="40" id="jpe-85-brk"/>
                                                                         <constraint firstItem="gGi-tL-puK" firstAttribute="top" secondItem="RTk-RP-7cO" secondAttribute="bottom" constant="24" id="kme-gr-TiY"/>
-                                                                        <constraint firstItem="pqg-vu-WVb" firstAttribute="top" secondItem="d82-th-qD9" secondAttribute="bottom" constant="20" id="lJ1-4Y-gy9"/>
                                                                         <constraint firstItem="sBL-Uq-eGq" firstAttribute="leading" secondItem="1P3-1d-HsQ" secondAttribute="trailing" constant="9" id="lc1-3N-7d8"/>
                                                                         <constraint firstItem="8AS-NO-CDn" firstAttribute="top" secondItem="oax-vi-SMr" secondAttribute="bottom" constant="10" id="m2z-80-pTf"/>
                                                                         <constraint firstItem="O6B-JC-KqV" firstAttribute="top" secondItem="RTk-RP-7cO" secondAttribute="bottom" constant="29" id="mzK-Vr-qcJ"/>
@@ -2556,7 +2547,6 @@
                                             <outlet property="bioTitleLabel" destination="jgl-ay-LPK" id="d2y-I9-Ckg"/>
                                             <outlet property="bottomView" destination="Y11-Aj-5aY" id="Aa7-xW-6aj"/>
                                             <outlet property="detailsWebview" destination="gQQ-1Z-JLz" id="gCZ-Iu-zGa"/>
-                                            <outlet property="influencerIconImage" destination="pqg-vu-WVb" id="Exe-fT-hjG"/>
                                             <outlet property="locationIcon" destination="hAC-uZ-VHb" id="0du-0r-Q75"/>
                                             <outlet property="locationIconHeightConstraint" destination="i6z-1G-De7" id="tIH-ue-j1x"/>
                                             <outlet property="locationImageTopConstarint" destination="oXZ-c6-qzh" id="6ux-Ax-iJR"/>

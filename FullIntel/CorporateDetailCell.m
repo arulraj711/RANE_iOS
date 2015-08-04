@@ -514,9 +514,9 @@
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     
     if(self.relatedPostArray.count == 0) {
-        socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, webView.frame.size.height+self.articleWebview.frame.origin.y+self.tweetCollectionViewHeightConstraint.constant+200, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+        socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, webView.frame.size.height+self.articleWebview.frame.origin.y+0+200, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
     } else {
-        socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, webView.frame.size.height+self.articleWebview.frame.origin.y+self.tweetCollectionViewHeightConstraint.constant+250, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+        socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, webView.frame.size.height+self.articleWebview.frame.origin.y+300+250, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
     }
     
     

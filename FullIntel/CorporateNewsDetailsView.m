@@ -525,7 +525,7 @@
                 NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
                 NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
                 cell.relatedPostArray = postArray;
-              //  [cell loadTweetsFromPost];
+                [cell loadTweetsFromPost];
            // });
         
         
@@ -870,7 +870,7 @@
         mailViewController.articleId= mailArticleId;
         mailViewController.mailSubject = mailTitle;
         mailViewController.mailBody = mailBody;
-        popOverView.transitioningDelegate = self;
+       // popOverView.transitioningDelegate = self;
         popOverView.modalPresentationStyle = UIModalPresentationCustom;
         [self presentViewController:popOverView animated:NO completion:nil];
     }

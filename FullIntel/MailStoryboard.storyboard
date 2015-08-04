@@ -96,7 +96,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A4i-zK-gvT">
-                                        <rect key="frame" x="43" y="78" width="727" height="30"/>
+                                        <rect key="frame" x="52" y="78" width="727" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="C3Z-Ek-qMA"/>
                                         </constraints>
@@ -142,7 +142,7 @@
                                         </constraints>
                                     </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rzN-iy-ymm">
-                                        <rect key="frame" x="5" y="170" width="790" height="313"/>
+                                        <rect key="frame" x="5" y="170" width="790" height="305"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -156,7 +156,7 @@
                                     <constraint firstItem="pJO-C4-3UB" firstAttribute="leading" secondItem="INz-CE-3YF" secondAttribute="leading" id="1EJ-mI-Zxa"/>
                                     <constraint firstItem="dvk-YL-iWU" firstAttribute="leading" secondItem="INz-CE-3YF" secondAttribute="leading" constant="16" id="1gI-cg-lz1"/>
                                     <constraint firstItem="rzN-iy-ymm" firstAttribute="leading" secondItem="INz-CE-3YF" secondAttribute="leading" constant="5" id="2Oy-Q7-QMo"/>
-                                    <constraint firstItem="A4i-zK-gvT" firstAttribute="leading" secondItem="dvk-YL-iWU" secondAttribute="trailing" constant="-2" id="8Mv-ME-Rhn"/>
+                                    <constraint firstItem="A4i-zK-gvT" firstAttribute="leading" secondItem="dvk-YL-iWU" secondAttribute="trailing" constant="7" id="8Mv-ME-Rhn"/>
                                     <constraint firstItem="cy0-BX-CQg" firstAttribute="leading" secondItem="XEK-fV-PEn" secondAttribute="trailing" constant="3" id="BSg-b6-cYx"/>
                                     <constraint firstItem="A4i-zK-gvT" firstAttribute="top" secondItem="sfN-SL-n2d" secondAttribute="bottom" constant="28" id="F9h-ll-oCc"/>
                                     <constraint firstAttribute="trailing" secondItem="bGJ-th-pLT" secondAttribute="trailing" id="IbE-Ky-W8x"/>
@@ -168,13 +168,13 @@
                                     <constraint firstItem="rzN-iy-ymm" firstAttribute="top" secondItem="bGJ-th-pLT" secondAttribute="bottom" constant="8" id="VZ3-sc-4Ov"/>
                                     <constraint firstAttribute="trailing" secondItem="rzN-iy-ymm" secondAttribute="trailing" constant="5" id="W78-ON-CVf"/>
                                     <constraint firstAttribute="trailing" secondItem="pJO-C4-3UB" secondAttribute="trailing" id="YLs-96-N8Q"/>
-                                    <constraint firstAttribute="trailing" secondItem="A4i-zK-gvT" secondAttribute="trailing" constant="30" id="doC-n4-Rb3"/>
+                                    <constraint firstAttribute="trailing" secondItem="A4i-zK-gvT" secondAttribute="trailing" constant="21" id="doC-n4-Rb3"/>
                                     <constraint firstItem="sfN-SL-n2d" firstAttribute="leading" secondItem="INz-CE-3YF" secondAttribute="leading" id="ekK-kv-1A0"/>
                                     <constraint firstAttribute="trailing" secondItem="cy0-BX-CQg" secondAttribute="trailing" constant="19" id="gKi-Ob-KEj"/>
                                     <constraint firstItem="bGJ-th-pLT" firstAttribute="leading" secondItem="INz-CE-3YF" secondAttribute="leading" id="hEW-Ci-6Vx"/>
                                     <constraint firstItem="XEK-fV-PEn" firstAttribute="top" secondItem="pJO-C4-3UB" secondAttribute="bottom" constant="8" id="lty-NY-6yz"/>
                                     <constraint firstItem="pJO-C4-3UB" firstAttribute="top" secondItem="A4i-zK-gvT" secondAttribute="bottom" constant="5" id="ota-Re-dvE"/>
-                                    <constraint firstAttribute="bottom" secondItem="rzN-iy-ymm" secondAttribute="bottom" id="rfr-Ch-1Mk"/>
+                                    <constraint firstAttribute="bottom" secondItem="rzN-iy-ymm" secondAttribute="bottom" constant="8" id="rfr-Ch-1Mk"/>
                                     <constraint firstItem="dvk-YL-iWU" firstAttribute="top" secondItem="sfN-SL-n2d" secondAttribute="bottom" constant="28" id="t3D-VO-yGM"/>
                                 </constraints>
                             </view>
