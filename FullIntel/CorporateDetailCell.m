@@ -318,30 +318,30 @@
         TWTRUser *author = tweetObj.author;
         tweetCell.author.text = author.name;
        // NSLog(@"tweet id:%@",tweetObj.tweetID);
-//        __block NSDictionary *tweetDic;
-//        
-//        
-//        if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
-//            dispatch_queue_t queue_a = dispatch_queue_create("test", 0);
-//            dispatch_async(queue_a, ^(void){
-//                if(tweetCell.followers.text.length != 0){
-//                    tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
-//                    int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
-//                    NSLog(@"single followers count:%d",followersCount);
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        if(followersCount/1000 == 0) {
-//                            tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
-//                        } else {
-//                            float followersFloatValue = (float)followersCount/1000;
-//                            NSLog(@"follwers float:%f",followersFloatValue);
-//                            tweetCell.followers.text = [NSString stringWithFormat:@"%dK",followersCount/1000];
-//                        }
-//                    });
-//                    
-//                }
-//                
-//            });
-//        }
+        __block NSDictionary *tweetDic;
+        
+        
+        if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
+            dispatch_queue_t queue_a = dispatch_queue_create("test", 0);
+            dispatch_async(queue_a, ^(void){
+                if(tweetCell.followers.text.length != 0){
+                    tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
+                    int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
+                    NSLog(@"single followers count:%d",followersCount);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if(followersCount/1000 == 0) {
+                            tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
+                        } else {
+                            float followersFloatValue = (float)followersCount/1000;
+                            NSLog(@"follwers float:%f",followersFloatValue);
+                            tweetCell.followers.text = [NSString stringWithFormat:@"%dK",followersCount/1000];
+                        }
+                    });
+                    
+                }
+                
+            });
+        }
         
        // NSLog(@"user id:%@ and tweet id:%@ and dic:%@ and retweet count:%lld and tweet:%@",author.userID,tweetObj.tweetID,tweetDic,tweetObj.retweetCount,tweetObj);
 
