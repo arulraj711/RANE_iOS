@@ -17,10 +17,10 @@
 #import "MKNumberBadgeView.h"
 
 @interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
-    NSMutableArray *tweetArray,*followersCountArray;
+    NSMutableArray *tweetArray;
     UCZProgressView *progressView;
     UICollectionView *socialcollectionView,*tweetsCollectionView;
-    NSMutableArray *tweetIds;
+    NSMutableArray *tweetIds,*followersArray,*tweetScreenNameArray;
     
 }
 @property BOOL isFIViewSelected;

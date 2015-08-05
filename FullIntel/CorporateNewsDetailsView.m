@@ -525,7 +525,7 @@
                 NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
                 NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
                 cell.relatedPostArray = postArray;
-                [cell loadTweetsFromPost];
+                //[cell loadTweetsFromPost];
            // });
         
         

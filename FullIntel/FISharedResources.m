@@ -1139,7 +1139,7 @@
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
                 } else if(flag) {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
                 }else {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
                 }
@@ -1154,7 +1154,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {
@@ -1379,7 +1384,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
            // [FIUtils showErrorToast];
         }];
@@ -1408,7 +1418,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
            // [FIUtils showErrorToast];
         }];
@@ -1463,7 +1478,7 @@
         [FIWebService saveArticlesToFolderWithDetails:details withSecurityToken:accessToken withFolderId:articleId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             UIWindow *window = [[UIApplication sharedApplication]windows][0];
             [window makeToast:@"Saved to folder successfully." duration:2 position:CSToastPositionCenter];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+           // [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
             [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:NO];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1471,7 +1486,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {
@@ -1495,7 +1515,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     }else {
@@ -1518,7 +1543,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {
@@ -1721,7 +1751,16 @@
 //                [self showLoginView:NULL_TO_NIL([responseObject objectForKey:@"success"])];
 //            }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1769,13 +1808,13 @@
 
 
 
--(NSDictionary *)getTweetDetails:(NSString *)details {
-     __block NSDictionary *responseDic;
+-(NSArray *)getTweetDetails:(NSString *)details {
+     __block NSArray *responseDic;
     
     
     
     [FIWebService getTweetDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        responseDic = [responseObject objectAtIndex:0];
+        responseDic = responseObject;
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [FIUtils showErrorToast];
     }];
