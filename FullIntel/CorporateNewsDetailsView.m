@@ -847,10 +847,10 @@
         UIAlertView *alert;
         alert = [[UIAlertView alloc]
                  initWithTitle:@"Email an Article"
-                 message:@"You have not setup a mail box in your device.Please go to settings and configure mail account or send mail via FullIntel App"
+                 message:@"It looks like thee is no email setup on  this device. Please select one of the following options"
                  delegate:self
                  cancelButtonTitle:@"Cancel"
-                 otherButtonTitles:@"Go to Settings",@"Send via FullIntel",nil];
+                 otherButtonTitles:@"Setup Email",@"Email via FullIntel",nil];
         
         [alert show];
     }
