@@ -29,6 +29,7 @@
 #import "CorporateNewsListView.h"
 #import "FIFolder.h"
 #import "FolderViewController.h"
+#import "FISharedResources.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -130,56 +131,34 @@
     }
 }
 
--(void)addCoachView{
-    
-    [coachMarksView removeFromSuperview];
-    
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MenuCoachShown"];
-    if (coachMarksShown == NO) {
-    
-     coachMarks = @[
-                            @{
-                                @"rect": [NSValue valueWithCGRect:CGRectMake(5, 185, 260, 40)],
-                                @"caption": @"You can subscribe more categories or remove any categories you dislike"
-                                },
-                            @{
-                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.treeBackView.frame.origin.x, self.treeBackView.frame.origin.y, self.treeBackView.frame.size.width, self.view.frame.size.height-550)],
-                                @"caption": @"List of all articles available"
-                                }
-                            
-                            ];
-     coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, 280, self.view.frame.size.height) coachMarks:coachMarks];
-        coachMarksView.delegate=self;
-    [self.view addSubview:coachMarksView];
-    [coachMarksView start];
-        
-    }
-    
-}
+//-(void)addCoachView{
+//    
+//    [coachMarksView removeFromSuperview];
+//    
+//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MenuCoachShown"];
+//    if (coachMarksShown == NO) {
+//    
+//     coachMarks = @[
+//                            @{
+//                                @"rect": [NSValue valueWithCGRect:CGRectMake(5, 185, 260, 40)],
+//                                @"caption": @"You can subscribe more categories or remove any categories you dislike"
+//                                },
+//                            @{
+//                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.treeBackView.frame.origin.x, self.treeBackView.frame.origin.y, self.treeBackView.frame.size.width, self.view.frame.size.height-550)],
+//                                @"caption": @"List of all articles available"
+//                                }
+//                            
+//                            ];
+//     coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, 280, self.view.frame.size.height) coachMarks:coachMarks];
+//        coachMarksView.delegate=self;
+//    [self.view addSubview:coachMarksView];
+//    [coachMarksView start];
+//        
+//    }
+//    
+//}
 
-- (void)coachMarksView:(WSCoachMarksView*)coachMarksView didNavigateToIndex:(NSInteger)index{
-    
-    if(index==0){
-        
-         [[NSNotificationCenter defaultCenter]postNotificationName:@"FirstTimeTutorialCreated" object:nil];
-        
-        self.revealController.recognizesPanningOnFrontView=NO;
-        self.revealController.recognizesResetTapOnFrontViewInPresentationMode=NO;
-        self.revealController.recognizesResetTapOnFrontView=NO;
-        
-    }
-    
-}
 
-- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksViews{
-    
-     [[NSNotificationCenter defaultCenter]postNotificationName:@"FirstTimeTutorialCompleted" object:nil];
-    
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MenuCoachShown"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [coachMarksView removeFromSuperview];
-}
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     
     //Obtaining the current device orientation
@@ -198,7 +177,6 @@
     
     // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
 
-    [self addCoachView];
   
 }
 -(void)updateMenuCount:(id)sender {
@@ -307,6 +285,9 @@
 //        self.treeView.contentInset = UIEdgeInsetsMake(heightPadding, 0.0, 0.0, 0.0);
 //        self.treeView.contentOffset = CGPointMake(0.0, -heightPadding);
 //    }
+    
+    [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Main Menu"];
+    
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
@@ -356,7 +337,6 @@
     }
     
     
-    [self addCoachView];
 }
 
 -(void)test:(NSMutableArray *)array {
@@ -752,6 +732,8 @@
         
         InfluencerListViewObj.titleName=data.name;
         
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Influencer List View"];
+        
         [self.revealController setFrontViewController:navCtlr];
     }else if([data.nodeId integerValue] == 8 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Deals" bundle:nil];
@@ -759,12 +741,18 @@
         
         DealsViewController *DealsViewControllerObj=(DealsViewController *)[[navCtlr viewControllers]objectAtIndex:0];
         DealsViewControllerObj.titleName=data.name;
+        
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Deals View"];
+        
         [self.revealController setFrontViewController:navCtlr];
     }else if([data.nodeId integerValue] == 2 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"stock" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"StockViewController"];
         StockViewController *StockViewControllerObj=(StockViewController *)[[navCtlr viewControllers]objectAtIndex:0];
         StockViewControllerObj.titleName=data.name;
+        
+          [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Stock View"];
+        
          [self.revealController setFrontViewController:navCtlr];
     }
     else if([data.nodeId integerValue] == 4 && !data.isFolder) {
@@ -774,6 +762,9 @@
         IpAndLegalViewController *IpAndLegalViewControllerObj=(IpAndLegalViewController *)[[navCtlr viewControllers]objectAtIndex:0];
         
         IpAndLegalViewControllerObj.titleName=data.name;
+        
+                  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"IpAndLegal View"];
+        
         [self.revealController setFrontViewController:navCtlr];
         
 
@@ -784,13 +775,14 @@
         ExecutiveMovesController *ExecutiveMovesControllerObj=(ExecutiveMovesController *)[[navCtlr viewControllers]objectAtIndex:0];
         ExecutiveMovesControllerObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
+        
+           [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ExecutiveMoves View"];
+        
     }else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         
 
-         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"MenuCoachShown"];
-          [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ListCoachShown"];
-         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"DrillDownCoachShown"];
-         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"DrillDownNavigationShown"];
+        
+             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Log Out"];
         
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -817,6 +809,9 @@
                 [self.revealController setFrontViewController:navCtlr];
             } else {
                 if([[data.name uppercaseString]isEqualToString:@"RSS"]) {
+                    
+                    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"RSS Folder"];
+                    
                     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isRSSField"];
                 } else {
                     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
@@ -906,6 +901,8 @@
 
 - (IBAction)researchRequestButtonClick:(UIButton *)sender {
     
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequest"];
+    
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
     
@@ -920,6 +917,8 @@
 -(void)requestChange:(id)sender {
     
     
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Request Change"];
+    
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
     
@@ -933,6 +932,8 @@
 
 - (IBAction)addContentButtonClick:(id)sender {
     
+    
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Add Content Main Menu"];
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
    

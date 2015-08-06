@@ -12,6 +12,7 @@
 #import "FIContentCategory.h"
 #import "AddContentFifthLevelView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "Localytics.h"
 
 @interface AddContentFourthLevelView ()
 
@@ -55,7 +56,15 @@
     [self.categoryCollectionView reloadData];
     [self loadSelectedCategory];
 }
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
+    [Localytics tagScreen:@"Add Content Sub topics"];
+    
+    
+}
 
 - (void)loadSelectedCategory
 {

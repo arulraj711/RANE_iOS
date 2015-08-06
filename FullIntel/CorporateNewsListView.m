@@ -17,6 +17,7 @@
 #import "FIUtils.h"
 #import "AddContentFirstLevelView.h"
 #import "ResearchRequestPopoverView.h"
+#import "Localytics.h"
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface CorporateNewsListView ()
@@ -142,60 +143,6 @@
     
 }
 
--(void)addCoachMarkView:(NSString *)position{
-    
-    
-    [coachMarksView removeFromSuperview];
-    
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ListCoachShown"];
-    if (coachMarksShown == NO) {
-        
-        
-        if([position isEqualToString:@"firstTime"]){
-        
-        coachMarks = @[
-                       @{
-                           @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-100,self.view.frame.origin.y+110,50,50)],
-                           @"caption": @"Mark Important"
-                           },
-                       @{
-                           @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-100,self.view.frame.origin.y+165,50,50)],
-                           @"caption": @"Save Later"
-                           }
-                       
-                       ];
-            
-        }else{
-            
-            coachMarks = @[
-                           @{
-                               @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+130,50,50)],
-                               @"caption": @"Mark Important"
-                               },
-                           @{
-                               @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-120,self.view.frame.origin.y+185,50,50)],
-                               @"caption": @"Save Later"
-                               }
-                           
-                           ];
-            
-            
-        }
-        coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) coachMarks:coachMarks];
-        coachMarksView.delegate=self;
-        [self.view addSubview:coachMarksView];
-        [coachMarksView start];
-        
-    }
-}
-- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksViews{
-    
-    
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ListCoachShown"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [coachMarksView removeFromSuperview];
-}
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     
     //Obtaining the current device orientation
@@ -214,39 +161,10 @@
     
     // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
     
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MenuCoachShown"];
-    if (coachMarksShown == YES) {
-    
-    [self addCoachMarkView:@""];
-        
-    }
+
 
 }
--(void)addOverLayView{
-    
-    [overlayView removeFromSuperview];
-    
-    
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MenuCoachShown"];
-    if (coachMarksShown == NO) {
-    
-    overlayView =[[UIView alloc]initWithFrame:self.view.frame];
-    
-    overlayView.backgroundColor=[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:0.9];
-        
-        
-//    UITapGestureRecognizer *phoneNumberTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeOverlay)];
-//    
-//        [overlayView addGestureRecognizer:phoneNumberTap];
-        
-    
-    [self.view addSubview:overlayView];
-    
-    [self.navigationController.view addSubview:overlayView];
 
-    }
-    
-}
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self closeMenu];
 }
@@ -281,8 +199,7 @@
     self.revealController.recognizesResetTapOnFrontView=YES;
 
 
-    
-    [self addCoachMarkView:@"firstTime"];
+
     
 }
 -(void)addRightBarItems {
@@ -314,8 +231,9 @@
     } else {
 //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
 //        if(isFirst) {
+    
         
-        [Localytics tagScreen:@"NewsListPage"];
+            [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated News List"];
             [self loadCuratedNews];
 //        }
     }
@@ -497,6 +415,9 @@
 
 -(void)openRSSField {
     if ([MFMailComposeViewController canSendMail]) {
+        
+        
+     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"OpenRSSField"];
         // Yes we can send mail.
         mailComposer = [[MFMailComposeViewController alloc]init];
         mailComposer.mailComposeDelegate = self;
@@ -540,6 +461,9 @@
 }
 
 -(void)addContentView {
+    
+      [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"AddContent Curated List"];
+    
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
@@ -1013,8 +937,6 @@
 //    f.numberStyle = NSNumberFormatterDecimalStyle;
 //    NSNumber *loginUserId = [f numberFromString:loginUserIdString];
     
-    NSDictionary *dictionary = @{@"userId":markedImpUserId, @"userName":markedImpUserName,@"article_Name":[curatedNews valueForKey:@"articleId"]};
-    [Localytics tagEvent:@"Marked Important" attributes:dictionary];
     
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -1078,6 +1000,9 @@
                 [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
                 [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
                 
+                NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"]};
+                [Localytics tagEvent:@"Remove Marked Important" attributes:dictionary];
+                
                 
             } else {
                 //OtherUser
@@ -1119,6 +1044,10 @@
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
+            
+            
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"]};
+            [Localytics tagEvent:@"Marked Important" attributes:dictionary];
         }
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1170,10 +1099,11 @@
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+        
+        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"]};
+        [Localytics tagEvent:@"Remove Save Later" attributes:dictionary];
     }else {
         
-        NSDictionary *dictionary = @{@"userId":[[curatedNews valueForKey:@"markAsImportantUserId"]stringValue], @"userName":[curatedNews valueForKey:@"markAsImportantUserName"],@"article_Name":[curatedNews valueForKey:@"articleId"]};
-        [Localytics tagEvent:@"Save Later" attributes:dictionary];
         
         
         [savedBtn setSelected:YES];
@@ -1211,6 +1141,9 @@
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+        
+        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"]};
+        [Localytics tagEvent:@"Save Later" attributes:dictionary];
     }
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1247,6 +1180,8 @@
         _spinner.hidden=NO;
         
         self.articlesTableView.tableFooterView = _spinner;
+        
+             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"NextListFetch"];
         
         NSManagedObject *curatedNews = [self.devices lastObject];
         NSString *inputJson;

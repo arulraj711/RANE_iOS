@@ -189,19 +189,18 @@
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
             
             
+            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
+            
+            
+            //[[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SignInClicked"];
+            
             [Localytics setCustomerId:NULL_TO_NIL([responseObject valueForKey:@"customerid"])];
             
-            // First name
+
             [Localytics setCustomerFirstName:NULL_TO_NIL([responseObject valueForKey:@"firstName"])];
             
-            // Last name
-//            [Localytics setCustomerLastName:@"Aggarwal"];
-//            
-//            // Full name
-//            [Localytics setCustomerFullName:@"Mohana Aggarwal"];
-//            
-            // Customer email
-            
+            [Localytics setCustomerEmail:NULL_TO_NIL([responseObject valueForKey:@"email"])];
+
             
             
             NSString *appViewType = [NSString stringWithFormat:@"%@",NULL_TO_NIL([responseObject valueForKey:@"appViewTypeId"])];
@@ -1727,7 +1726,7 @@
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
                 [self getCommentsWithDetails:self.getCommentDetailString withArticleId:self.getCommentArticleId];
-                
+                  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Post Comment"];
                 
             } else {
                 [self hideProgressView];
@@ -1906,5 +1905,18 @@
 {
     [progressView removeFromSuperview];
 }
+-(void)saveDetailsInLocalyticsWithName:(NSString *)name{
+    
+    
+    
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+    [Localytics tagEvent:name attributes:dictionary];
+}
 
+- (void)tagScreenInLocalytics:(NSString *)name;
+{
+
+
+    [Localytics tagScreen:name];;
+}
 @end

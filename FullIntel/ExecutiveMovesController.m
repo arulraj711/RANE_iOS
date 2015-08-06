@@ -94,7 +94,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
 
+    
+       [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Executive Moves"];
+}
 -(void)showLoginPage {
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];

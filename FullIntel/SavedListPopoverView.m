@@ -217,6 +217,8 @@
 
 
 - (IBAction)savedAction:(id)sender {
+    
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SaveFolderClick"];
     NSLog(@"selected array count:%d and unselected count:%d",selectedArray.count,unselectedArray.count);
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.alpha = 1.0;

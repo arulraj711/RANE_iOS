@@ -15,6 +15,7 @@
 #import "UIView+Toast.h"
 #import "AddContentSecondLevelView.h"
 #import "FIUtils.h"
+#import "Localytics.h"
 @interface AddContentFirstLevelView ()
 
 
@@ -140,6 +141,8 @@
 
 -(void)backBtnPress{
     
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CancelChangesInAddContent"];
+    
     [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -187,6 +190,8 @@
         [self.navigationController.formSheetController setNeedsStatusBarAppearanceUpdate];
     }];
     
+    
+    [Localytics tagScreen:@"Add Content Module"];
 }
 
 
@@ -233,6 +238,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     
      [[NSNotificationCenter defaultCenter]postNotificationName:@"requestChange" object:nil userInfo:nil];
+    
+      [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestChangeInAddContent"];
 }
 
 
@@ -246,6 +253,8 @@
     
     NSMutableArray *categoryArray = [[NSMutableArray alloc]init];
     NSMutableArray *contentType = [[NSMutableArray alloc]init];
+    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SaveChangesInAddContent"];
     
     NSMutableArray *secondLevelSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"secondLevelSelection"];
     for(int i=0;i<secondLevelSelection.count;i++) {
@@ -410,6 +419,10 @@
     secondLevel.title = contentCategory.name;
     secondLevel.previousArray = self.selectedIdArray;
     secondLevel.selectedId = contentCategory.categoryId;
+        
+        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"contentCategory":contentCategory.name};
+        [Localytics tagEvent:@"Topic Click" attributes:dictionary];
+        
     [self.navigationController pushViewController:secondLevel animated:YES];
     }
     
@@ -438,6 +451,8 @@
     }
     
     [self.view makeToast:@"Your request has been sent." duration:1 position:CSToastPositionCenter];
+    
+
 }
 
 - (IBAction)checkMark:(id)sender {
@@ -451,6 +466,8 @@
             [self.uncheckedArray addObject:contentCategory.categoryId];
        // }
         
+         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestCheckMarkDeSelect"];
+        
     } else {
         [self.selectedIdArray addObject:contentCategory.categoryId];
         [sender setSelected:YES];
@@ -460,6 +477,8 @@
        // } else {
             [self.uncheckedArray removeObject:contentCategory.categoryId];
        // }
+        
+           [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestCheckMarkSelect"];
     }
     
     //NSLog(@"after selection:%@ and checked:%@ and unchecked:%@",self.selectedIdArray,self.checkedArray,self.uncheckedArray);

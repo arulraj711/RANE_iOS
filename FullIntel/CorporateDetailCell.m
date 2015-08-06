@@ -25,6 +25,7 @@
 #import "MorePopoverView.h"
 #import "VideoWidgetCell.h"
 #import "SocialWebView.h"
+#import "Localytics.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @implementation CorporateDetailCell
@@ -666,6 +667,12 @@
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
         [self.contentView makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+        
+        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+        
+        
+        [Localytics tagEvent:@"Remove Save Later in Drill" attributes:dictionary];
+        
     }else {
         [sender setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
@@ -677,6 +684,11 @@
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
         [self.contentView makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+        
+        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+        
+        
+        [Localytics tagEvent:@"Save Later in Drill" attributes:dictionary];
     }
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -691,6 +703,9 @@
 
 
 - (IBAction)mailButtonClick:(UIButton *)sender {
+    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MailClick"];
+    
     NSString *mailBodyStr;
     if(self.selectedArticleUrl.length != 0) {
         mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n\n%@",self.selectedArticleTitle,self.articleDesc,self.selectedArticleUrl];
@@ -703,6 +718,8 @@
 }
 
 - (IBAction)commentsButtonClick:(UIButton *)sender {
+    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CommentClick"];
     //NSLog(@"selected article id for comment:%@",self.selectedArticleId);
     NSMutableDictionary *commentsDic = [[NSMutableDictionary alloc] init];
     [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -775,6 +792,11 @@
             [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO],@"articleId":self.selectedArticleId}];
             [self.contentView makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
             
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+            
+            
+            [Localytics tagEvent:@"Remove Mark Important in Drill" attributes:dictionary];
+            
             
         } else {
             //OtherUser
@@ -804,6 +826,11 @@
         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES],@"articleId":self.selectedArticleId}];
         [self.contentView makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
+        
+        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+        
+        
+        [Localytics tagEvent:@"Mark Important in Drill" attributes:dictionary];
     }
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1108,6 +1135,8 @@
 
 - (IBAction)savedListButtonClick:(UIButton *)sender {
     
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderClick"];
+    
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
     
     SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
@@ -1119,6 +1148,8 @@
 }
 
 - (IBAction)moreButtonClick:(UIButton *)sender {
+    
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SocialSharingClick"];
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MorePopoverView" bundle:nil];
     

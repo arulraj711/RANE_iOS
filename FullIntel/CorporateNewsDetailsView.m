@@ -75,7 +75,9 @@
     //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [activityIndicator stopAnimating];
     
-      [Localytics tagScreen:@"NewDetailsPage"];
+    
+    
+    [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated List Detailed View"];
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;
     [self.collectionView setContentOffset:CGPointMake(offset, 0)];
@@ -186,68 +188,12 @@
     }
     NSLog(@"selected article id:%@",self.articleIdArray);
     
-    [self addCoachMarkView:@"landscape"];
     
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
    
 }
 
--(void)addCoachMarkView:(NSString *)position{
-        
-        
-    [coachMarksView removeFromSuperview];
-        
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"DrillDownCoachShown"];
-    if (coachMarksShown == NO) {
-
-                coachMarks = @[
-                               @{
-                                   @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-360,self.view.frame.origin.y+self.view.frame.size.height-128,350,50)],
-                                   @"caption": @"Tool Box to perform actions in Article"
-                                   },
-                               
-                               ];
-                
-                
-                
-            coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) coachMarks:coachMarks];
-            coachMarksView.delegate=self;
-            [self.view addSubview:coachMarksView];
-    
-    
-
-            [coachMarksView start];
-            
-    }
-}
-
--(void)addCoachMarkViewInNavigationBar{
-    
-    
-    [coachMarksView removeFromSuperview];
-
-        
-        coachMarks = @[
-                       @{
-                           @"rect": [NSValue valueWithCGRect:CGRectMake(self.navigationController.view.frame.origin.x+self.navigationController.view.frame.size.width-63,self.navigationController.view.frame.origin.y+20,50,40)],
-                           @"caption": @"Switch to Webview"
-                           },
-                       
-                       ];
-        
-        
-        
-        coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, self.navigationController.view.frame.size.height) coachMarks:coachMarks];
-        coachMarksView.delegate=self;
-        [self.navigationController.view addSubview:coachMarksView];
-        
-        
-        
-        [coachMarksView start];
-        
-    
-}
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     
@@ -267,28 +213,9 @@
     
     // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
 
-    [self addCoachMarkView:@""];
+
 }
 
-- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksViews{
-    
-    
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DrillDownCoachShown"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-//
-    [coachMarksView removeFromSuperview];
-    
-    
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"DrillDownNavigationShown"];
-    if (coachMarksShown == NO) {
-    
-    [self addCoachMarkViewInNavigationBar];
-        
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DrillDownNavigationShown"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-    }
-}
 
 
 -(void)commentStatusUpdate:(id)sender {
@@ -995,6 +922,8 @@
 -(void)globeButtonClick:(UIButton *)sender {
     
     if(sender.selected) {
+        
+              [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchFullIntelView"];
         //NSLog(@"sender selected");
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
         [sender setSelected:NO];
@@ -1002,6 +931,8 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     } else {
         //NSLog(@"sender is not selected");
+             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchWebView"];
+        
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
         [sender setSelected:YES];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:1]}];

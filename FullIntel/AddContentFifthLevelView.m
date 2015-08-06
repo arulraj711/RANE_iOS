@@ -10,6 +10,7 @@
 #import "SecondLevelCell.h"
 #import "FIContentCategory.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "Localytics.h"
 
 @interface AddContentFifthLevelView ()
 
@@ -58,6 +59,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
+    [Localytics tagScreen:@"Add Content Sub topics"];
+    
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {

@@ -11,6 +11,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FIContentCategory.h"
 #import "AddContentThirdLevelView.h"
+#import "Localytics.h"
 
 @interface AddContentSecondLevelView ()
 
@@ -70,6 +71,14 @@
     [self.view addSubview:testLabel];
     [self.view addSubview:infoButton];
     [self.view addSubview:availableTopic];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
+    [Localytics tagScreen:@"Add Content Topics"];
 }
 
 //-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {

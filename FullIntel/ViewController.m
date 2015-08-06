@@ -16,6 +16,7 @@
 #import "SocialWebView.h"
 #import "FIWebService.h"
 #import <TwitterKit/TwitterKit.h>
+#import "Localytics.h"
 //#import "WToast.h"
 //#import "UIImageView+AnimationImages.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -258,6 +259,8 @@
 
 - (IBAction)infoButtonPressed:(id)sender {
     
+    [Localytics tagEvent:@"Info Clicked"];
+    
     NSString *contentMessage = nil;
     UIView *contentView = nil;
     NSNumber *key = [NSNumber numberWithInteger:[(UIView *)sender tag]];
@@ -299,6 +302,8 @@
 }
 - (IBAction)newUserSignUpButtonPressed:(id)sender {
     
+        [Localytics tagEvent:@"SignUpClicked"];
+    
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
@@ -311,6 +316,8 @@
 }
 
 - (IBAction)privacyPolicyButtonPressed:(id)sender {
+    
+          [Localytics tagEvent:@"PrivacyClicked"];
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
@@ -375,6 +382,8 @@
 
 
 -(void)callForgotPasswordWithEmail:(NSString *)email{
+    
+          [Localytics tagEvent:@"ForgotPasswordWithEmail"];
     
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
     [gradedetails setObject:email forKey:@"email"];

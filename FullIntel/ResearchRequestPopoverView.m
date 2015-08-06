@@ -98,6 +98,8 @@
     //NSLog(@"request input:%@",resultStr);
     [[FISharedResources sharedResourceManager]sendResearchRequestWithDetails:resultStr];
     
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SendResearchRequest"];
+    
 }
 
 -(void)researchSend {
@@ -105,5 +107,7 @@
 }
 - (IBAction)closeAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:NULL];
+    
+      [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CloseResearchRequest"];
 }
 @end

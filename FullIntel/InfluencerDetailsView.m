@@ -20,6 +20,7 @@
 #import "MorePopoverView.h"
 #import "UIView+Toast.h"
 #import "FISharedResources.h"
+#import "Localytics.h"
 
 @interface InfluencerDetailsView ()
 
@@ -70,6 +71,12 @@
     [_articleWebview loadHTMLString:htmlString baseURL:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+        [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Influencer"];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

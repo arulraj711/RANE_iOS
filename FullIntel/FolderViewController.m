@@ -102,8 +102,12 @@
     [pb setString:folder.rssFeedUrl];
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
     [window makeToast:@"RSS url copied successfully" duration:1 position:CSToastPositionCenter];
+    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"RSSFolderClick"];
 }
 - (IBAction)editButtonClick:(UIButton *)sender {
+    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"EditFolder"];
     self.isdeleteFlag = NO;
     UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Rename Folder" message:@"Please enter the folder name." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
     
