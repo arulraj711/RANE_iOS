@@ -401,7 +401,16 @@
     if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
         if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
             NSLog(@"if part");
-            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+            BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+            if(savedForLaterIsNew){
+//                NSLog(@"saved for later new");
+                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+            } else {
+                NSLog(@"saved for later old");
+                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+            }
+           // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
+            
         } else {
             NSLog(@"else part");
             predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
@@ -430,9 +439,9 @@
         self.navigationItem.rightBarButtonItems = nil;
     }
     
-    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]] && newPerson.count == 0) {
-        [self stopLoading];
-    }
+//    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]] && newPerson.count == 0) {
+//        [self stopLoading];
+//    }
 //    if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]] && newPerson.count == 0) {
 //        [activityIndicator stopAnimating];
 //    }
@@ -487,19 +496,34 @@
 
 
 -(void)openRSSField {
-    mailComposer = [[MFMailComposeViewController alloc]init];
-    mailComposer.mailComposeDelegate = self;
-    [mailComposer setSubject:@"FullIntel RSS feed"];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
-                                                                           fontWithName:@"Open Sans" size:18], NSFontAttributeName,
-                                [UIColor whiteColor], NSForegroundColorAttributeName, nil];
-    mailComposer.navigationBar.titleTextAttributes = attributes;
-    // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
-    NSString *rssString = [[NSUserDefaults standardUserDefaults]objectForKey:@"RSSURL"];
-    NSString *mailBodyString = [NSString stringWithFormat:@"%@\n\n%@\n\n%@",@"Hi There,",@"Please use the following URL to receive RSS feed from FullIntel Application.",rssString];
-    [mailComposer setMessageBody:mailBodyString isHTML:NO];
-    [self presentViewController:mailComposer animated:YES completion:nil];
+    if ([MFMailComposeViewController canSendMail]) {
+        // Yes we can send mail.
+        mailComposer = [[MFMailComposeViewController alloc]init];
+        mailComposer.mailComposeDelegate = self;
+        [mailComposer setSubject:@"FullIntel RSS feed"];
+        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
+                                                                               fontWithName:@"Open Sans" size:18], NSFontAttributeName,
+                                    [UIColor whiteColor], NSForegroundColorAttributeName, nil];
+        mailComposer.navigationBar.titleTextAttributes = attributes;
+        // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
+        NSString *rssString = [[NSUserDefaults standardUserDefaults]objectForKey:@"RSSURL"];
+        if(rssString.length != 0) {
+            NSString *mailBodyString = [NSString stringWithFormat:@"%@\n\n%@\n\n%@",@"Hi There,",@"Please use the following URL to receive RSS feed from FullIntel Application.",rssString];
+            [mailComposer setMessageBody:mailBodyString isHTML:NO];
+        }
+        
+        [self presentViewController:mailComposer animated:YES completion:nil];
+    } else{
+        NSString *rssString = [[NSUserDefaults standardUserDefaults]objectForKey:@"RSSURL"];
+        UIPasteboard *pb = [UIPasteboard generalPasteboard];
+        [pb setString:rssString];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window makeToast:@"A link to the RSS feed is copied to your clipboard" duration:1.5 position:CSToastPositionCenter];
+    }
 }
+
+
+
 
 #pragma mark - mail compose delegate
 -(void)mailComposeController:(MFMailComposeViewController *)controller
@@ -895,7 +919,7 @@
             testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
        // }
         testView.currentIndex = indexPath.row;
-        //testView.selectedIndexPath = indexPath;
+        testView.selectedIndexPath = indexPath;
         [self.navigationController pushViewController:testView animated:YES];
     }
 }
@@ -976,10 +1000,6 @@
 }
 
 -(void)markedImpAction:(UITapGestureRecognizer *)tapGesture {
-    
-    
-    
-    
     NSInteger selectedTag = [tapGesture view].tag;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
     
@@ -1121,13 +1141,26 @@
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
     [resultDic setObject:@"3" forKey:@"status"];
+    
+    
+    NSNumber *number = [curatedNews valueForKey:@"saveForLater"];
+    // NSLog(@"marked imp read status:%@",number);
+    if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        if(number == [NSNumber numberWithInt:1]) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-3",@"isSelected":[NSNumber numberWithBool:NO]}];
+            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+        } else {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-3",@"isSelected":[NSNumber numberWithBool:YES]}];
+            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
+        }
+    }
+    
+    
+    
     NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     UIButton *savedBtn = (UIButton *)[tapGesture view];
     if(savedBtn.selected) {
-        
-        
-
         [savedBtn setSelected:NO];
         [resultDic setObject:@"false" forKey:@"isSelected"];
         [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
@@ -1161,8 +1194,8 @@
             NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
             
             NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
-            
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+           
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
                 //Background Thread
                 [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
                 [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
@@ -1223,7 +1256,8 @@
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
             if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"2" categoryId:nil];
-            } else if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+            } else if([category isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"3" categoryId:nil];
             } else {
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];

@@ -12,7 +12,7 @@
 #define LIVE_URL @"http://fullintel.com/services/mv01/sv00/appuser"
 #define STAGE_URL @"http://104.236.78.199/services/mv01/sv00/appuser"
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
-NSString *url = @"http://stage.fullintel.com/1.1.0";
+NSString *url = @"http://fullintel.com/1.1.0";
 #define FUNCTION_URL @"services/mv01/sv00/appuser"
 @implementation FIWebService
 
@@ -41,7 +41,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
 //    NSLog(@"start time in ms------>%f",startTimeInMiliseconds);
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@/",url,FUNCTION_URL,urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
-    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
+    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"POST"];
     [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
     [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -83,7 +83,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
-    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
+    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"POST"];
     [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
     [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -127,7 +127,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSLog(@"url string:%@",url);
-    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
+    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"GET"];
    // [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
    // [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -170,7 +170,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
-    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
+    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"DELETE"];
     [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
     [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -212,7 +212,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
-    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:10];
+    NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"PUT"];
      [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
      [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -257,7 +257,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
 //    NSDictionary *JSON = [self dictionaryWithFileName:@"corporate_news_list"];
 //    NSLog(@"curated news JSON:%@",JSON);
 //    success(nil,JSON);
-    NSLog(@"get curated news calling");
+    
     [self getResultsForFunctionName:@"articles" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -330,7 +330,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
                           onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
 //    NSDictionary *JSON = [self dictionaryWithFileName:@"menu"];
 //    success(nil,JSON);
-    NSLog(@"fetch menu calling");
+    
     [self getResultsForFunctionName:@"usermainmenu" withPostDetails:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -354,6 +354,23 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
         
     }];
 }
+
+
++(void)sendMailWithAccessToken:(NSString*)accessToken withDetails:(NSString *)details
+                            onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                            onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *functionName = [NSString stringWithFormat:@"article/mail?security_token=%@",accessToken];
+    [self postQueryResultsForFunctionName:functionName withPostDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        //        NSError* error1;
+        //        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+        //        NSLog(@"folder create error:%@ and json:%@",error.userInfo,json);
+    }];
+}
+
 
 +(void)createFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)securityToken
                     onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

@@ -7,6 +7,9 @@
 //
 
 #import "MailPopoverView.h"
+#import "FIUtils.h"
+#import "FISharedResources.h"
+#import "UIView+Toast.h"
 
 @interface MailPopoverView ()
 
@@ -17,6 +20,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.mailTitleLabel.text = self.mailSubject;
+    self.subjectTextField.text = self.mailSubject;
+    self.mailBodyTextView.text = self.mailBody;
+    self.toAddressTextField.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"];
+    
+//    self.outerView.layer.masksToBounds = YES;
+//    self.outerView.layer.cornerRadius = 10.0f;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,13 +46,51 @@
 }
 */
 
+- (IBAction)cancelAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
 - (IBAction)sendButtonClick:(id)sender {
-    mailComposer = [[MFMailComposeViewController alloc]init];
-    mailComposer.mailComposeDelegate = self;
-    [mailComposer setSubject:self.mailSubject];
-    [mailComposer setMessageBody:self.mailBody isHTML:NO];
-     //[self presentModalViewController:mailComposer animated:YES];
-    [self presentViewController:mailComposer animated:YES completion:nil];
+    
+    if(self.toAddressTextField.text.length != 0){
+        NSArray *toAddressArray = [self.toAddressTextField.text componentsSeparatedByString:@","];
+        NSLog(@"comma sep array:%d",toAddressArray.count);
+        BOOL validateToAddressField = YES;
+        if(toAddressArray.count > 1){
+            for(NSString *toAddressString in toAddressArray){
+                if([FIUtils NSStringIsValidEmail:toAddressString]){
+                    validateToAddressField = YES;
+                } else {
+                    validateToAddressField = NO;
+                    return;
+                }
+            }
+        } else {
+            validateToAddressField = [FIUtils NSStringIsValidEmail:self.toAddressTextField.text];
+        }
+        
+        
+        if(validateToAddressField){
+            NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+            
+            [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"] forKey:@"from"];
+            [gradedetails setObject:self.toAddressTextField.text forKey:@"to"];
+            [gradedetails setObject:@"" forKey:@"cc"];
+            [gradedetails setObject:self.subjectTextField.text forKey:@"subject"];
+            [gradedetails setObject:self.mailBodyTextView.text forKey:@"mailBody"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            NSLog(@"mail jsoin:%@",resultStr);
+            [[FISharedResources sharedResourceManager]sendMailWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withDetails:resultStr];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [self.view makeToast:@"Please check the email address." duration:1 position:CSToastPositionCenter];
+        }
+    } else {
+        [self.view makeToast:@"Please enter a email address." duration:1 position:CSToastPositionCenter];
+    }
 }
 
 #pragma mark - mail compose delegate

@@ -205,12 +205,14 @@
     
     RADataObject *dataObj;
     RADataObject *anotherDataObj;
+    RADataObject *savedForLaterDataObj;
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSString *type = [userInfo objectForKey:@"type"];
     NSMutableArray *reloadArray = [[NSMutableArray alloc]init];
     //NSLog(@"type value:%@",type);
-    if([type isEqualToString:@"both"]) {
+    
+    if([type isEqualToString:@"all"]) {
         dataObj = [self.data objectAtIndex:2];
         int cnt = [dataObj.unReadCount intValue];
         dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
@@ -219,8 +221,35 @@
         int nextCnt = [anotherDataObj.unReadCount intValue];
         anotherDataObj.unReadCount = [NSNumber numberWithInt:nextCnt-1];
         
+        savedForLaterDataObj= [self.data objectAtIndex:1];
+        int savedForLaterCnt = [savedForLaterDataObj.unReadCount intValue];
+        savedForLaterDataObj.unReadCount = [NSNumber numberWithInt:savedForLaterCnt-1];
         [reloadArray addObject:dataObj];
         [reloadArray addObject:anotherDataObj];
+        [reloadArray addObject:savedForLaterDataObj];
+    } else if([type isEqualToString:@"bothMarkImp"]) {
+        dataObj = [self.data objectAtIndex:2];
+        int cnt = [dataObj.unReadCount intValue];
+        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        
+        anotherDataObj = [self.data objectAtIndex:0];
+        int nextCnt = [anotherDataObj.unReadCount intValue];
+        anotherDataObj.unReadCount = [NSNumber numberWithInt:nextCnt-1];
+    
+        [reloadArray addObject:dataObj];
+        [reloadArray addObject:anotherDataObj];
+        
+    } else if([type isEqualToString:@"bothSavedForLater"]){
+        dataObj = [self.data objectAtIndex:2];
+        int cnt = [dataObj.unReadCount intValue];
+        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        
+        savedForLaterDataObj= [self.data objectAtIndex:1];
+        int savedForLaterCnt = [savedForLaterDataObj.unReadCount intValue];
+        savedForLaterDataObj.unReadCount = [NSNumber numberWithInt:savedForLaterCnt-1];
+        
+        [reloadArray addObject:dataObj];
+        [reloadArray addObject:savedForLaterDataObj];
         
     }else if([type isEqualToString:@"-1"]) {
         dataObj = [self.data objectAtIndex:2];
@@ -244,11 +273,20 @@
         }
         
     } else if([type isEqualToString:@"-3"]) {
-        dataObj = [self.data objectAtIndex:1];
-        int cnt = [dataObj.unReadCount intValue];
-        dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
-        
-        [reloadArray addObject:dataObj];
+        NSNumber *num = [userInfo objectForKey:@"isSelected"];
+        // NSLog(@"selected number:%@",num);
+        if([num isEqualToNumber:[NSNumber numberWithInt:1]]){
+            dataObj = [self.data objectAtIndex:1];
+            int cnt = [dataObj.unReadCount intValue];
+            dataObj.unReadCount = [NSNumber numberWithInt:cnt+1];
+            [reloadArray addObject:dataObj];
+        } else if([num isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            //NSLog(@"come inside");
+            dataObj = [self.data objectAtIndex:1];
+            int cnt = [dataObj.unReadCount intValue];
+            dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+            [reloadArray addObject:dataObj];
+        }
     } else {
         dataObj = [self.data objectAtIndex:2];
         int cnt = [dataObj.unReadCount intValue];
@@ -296,7 +334,7 @@
     
     NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
     NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
-    if (dataRepresentingSavedArray != nil)
+    if (dataRepresentingSavedArray.length != 0)
     {
         NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
         if (oldSavedArray != nil) {
@@ -498,16 +536,28 @@
     NSInteger numberOfChildren = [dataObject.children count];
     
     NSString *detailText = [NSString localizedStringWithFormat:@"Number of children %@", [@(numberOfChildren) stringValue]];
-    BOOL expanded = [self.treeView isCellForItemExpanded:item];
+    
    
     RATableViewCell *cell = [self.treeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     cell.backgroundColor = [FIUtils colorWithHexString:stringWithoutSpaces];
-    [cell setupWithTitle:dataObject.name detailText:detailText level:level additionButtonHidden:!expanded];
+    [cell setupWithTitle:dataObject.name detailText:detailText level:level additionButtonHidden:NO];
     UIView *selectionColor = [[UIView alloc] init];
     selectionColor.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1];
     //cell.selectedBackgroundView = selectionColor;
+    
+    
+    
+    BOOL expanded = [self.treeView isCellForItemExpanded:item];
+    if(expanded) {
+        [cell.expandButton setSelected:YES];
+    } else{
+        [cell.expandButton setSelected:NO];
+    }
+    
+    
+    
     if(![[dataObject.name uppercaseString] isEqualToString:@"MARKED IMPORTANT"]) {
         UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
         separatorLineView.backgroundColor = [UIColor colorWithRed:(220/255.0) green:(223/255.0) blue:(224/255.0) alpha:1];
@@ -677,6 +727,20 @@
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         
         CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
+            NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+            [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+            [gradedetails setObject:@"" forKey:@"lastArticleId"];
+            [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
+            [gradedetails setObject:@"3" forKey:@"activityTypeIds"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-3] withFlag:@"" withLastArticleId:@""];
+        } else {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
+        }
         
         CorporateNewsListViewObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];

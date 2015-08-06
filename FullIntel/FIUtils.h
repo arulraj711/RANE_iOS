@@ -24,4 +24,5 @@
 +(void)showNoNetworkBanner;
 +(void)hideNoNetworkBanner;
 +(void)showErrorWithMessage:(NSString *)message;
++(BOOL) NSStringIsValidEmail:(NSString *)checkString;
 @end

@@ -103,6 +103,9 @@
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
 		A0F36E1E1B5E23F0008D3AB1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F36E1C1B5E23F0008D3AB1 /* FBSDKCoreKit.framework */; };
 		A0F36E1F1B5E23F0008D3AB1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F36E1D1B5E23F0008D3AB1 /* FBSDKLoginKit.framework */; };
+		F54F91261B7332C000AE0C11 /* SocialLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F91251B7332C000AE0C11 /* SocialLinkCell.xib */; };
+		F54F91281B7332D100AE0C11 /* TweetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F91271B7332D100AE0C11 /* TweetsCell.xib */; };
+		F54F912A1B7332FC00AE0C11 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54F91291B7332FC00AE0C11 /* MailStoryboard.storyboard */; };
 		F708D9EE1AB1A19B001FF59F /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = F708D9ED1AB1A19A001FF59F /* test.html */; };
 		F717CC931AB1AF6900F66B53 /* back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F717CC921AB1AF6900F66B53 /* back.jpg */; };
 		F717CC941AB1B2E400F66B53 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F717CC901AB1ADB100F66B53 /* OpenSans-Light.ttf */; };
@@ -361,6 +364,10 @@
 		A0F36E1C1B5E23F0008D3AB1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		A0F36E1D1B5E23F0008D3AB1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
+		F54F91251B7332C000AE0C11 /* SocialLinkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLinkCell.xib; sourceTree = "<group>"; };
+		F54F91271B7332D100AE0C11 /* TweetsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsCell.xib; sourceTree = "<group>"; };
+		F54F91291B7332FC00AE0C11 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
+		F54F912B1B7333DE00AE0C11 /* FullIntel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 2.xcdatamodel"; sourceTree = "<group>"; };
 		F708D9ED1AB1A19A001FF59F /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		F717CC901AB1ADB100F66B53 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		F717CC911AB1ADB100F66B53 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -583,6 +590,8 @@
 		A0066EED1B030B10008B4623 /* CorporateDetailCell */ = {
 			isa = PBXGroup;
 			children = (
+				F54F91251B7332C000AE0C11 /* SocialLinkCell.xib */,
+				F54F91271B7332D100AE0C11 /* TweetsCell.xib */,
 				A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */,
 				A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */,
 			);
@@ -1029,6 +1038,7 @@
 			children = (
 				F7E3687F1ABC18F70083F38E /* MailPopoverView.h */,
 				F7E368801ABC18F70083F38E /* MailPopoverView.m */,
+				F54F91291B7332FC00AE0C11 /* MailStoryboard.storyboard */,
 				F7E368811ABC18F70083F38E /* MailPopoverView.xib */,
 			);
 			name = Mail_Popover;
@@ -1295,6 +1305,7 @@
 				A0E223641A91C2F00073814A /* LaunchScreen.xib in Resources */,
 				A0CF5C551B1DD98B00DED2D9 /* CompetitorCell.xib in Resources */,
 				F7E81FA61A97057100F9A8D4 /* hero-bg-fade.png in Resources */,
+				F54F912A1B7332FC00AE0C11 /* MailStoryboard.storyboard in Resources */,
 				F7E81FC71A97057100F9A8D4 /* stat2.png in Resources */,
 				F7E81FB11A97057100F9A8D4 /* kates.jpg in Resources */,
 				F7E81F9A1A97057100F9A8D4 /* business-technology.jpg in Resources */,
@@ -1307,6 +1318,7 @@
 				F74A55141AB048570009FE4C /* PersonalityWidgetCell.xib in Resources */,
 				F7E81F9D1A97057100F9A8D4 /* Charles.jpg in Resources */,
 				F7E81F941A97057100F9A8D4 /* apple-logo.gif in Resources */,
+				F54F91261B7332C000AE0C11 /* SocialLinkCell.xib in Resources */,
 				A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */,
 				F7E81FB61A97057100F9A8D4 /* new-york-city-wallpaper.jpg in Resources */,
 				A0CF5C581B1DD98B00DED2D9 /* ExecutiveMoveCell.xib in Resources */,
@@ -1336,6 +1348,7 @@
 				A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */,
 				A0D956811B0C4D9100DB013F /* TwitterKitResources.bundle in Resources */,
 				F7C1AB5E1ABFEFB100D8588A /* MorePopoverView.storyboard in Resources */,
+				F54F91281B7332D100AE0C11 /* TweetsCell.xib in Resources */,
 				F7CE36F21A95E99D0005AA0A /* RATableViewCell.xib in Resources */,
 				A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */,
 				A0CF5C7A1B1EFE1100DED2D9 /* legalDril.html in Resources */,
@@ -1674,9 +1687,10 @@
 		A0E223571A91C2F00073814A /* FullIntel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				F54F912B1B7333DE00AE0C11 /* FullIntel 2.xcdatamodel */,
 				A0E223581A91C2F00073814A /* FullIntel.xcdatamodel */,
 			);
-			currentVersion = A0E223581A91C2F00073814A /* FullIntel.xcdatamodel */;
+			currentVersion = F54F912B1B7333DE00AE0C11 /* FullIntel 2.xcdatamodel */;
 			path = FullIntel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

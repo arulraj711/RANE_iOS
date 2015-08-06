@@ -17,6 +17,7 @@
 #import "PresentingAnimator.h"
 #import "DismissingAnimator.h"
 #import "ResearchRequestPopoverView.h"
+#import "MailPopoverView.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface CorporateNewsDetailsView ()
@@ -69,9 +70,6 @@
     [self getArticleIdListFromDB];
     
 }
-
-
-
 
 -(void)viewDidAppear:(BOOL)animated {
     //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
@@ -130,6 +128,9 @@
     if(testFlag) {
         NSLog(@"test flag is TRUE");
         
+        [self.activityIndicator stopAnimating];
+        [oneSecondTicker invalidate];
+        
         NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
         NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
         
@@ -140,7 +141,14 @@
         NSPredicate *predicate;
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+                BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+                if(savedForLaterIsNew){
+                    //                NSLog(@"saved for later new");
+                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                } else {
+                    NSLog(@"saved for later old");
+                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+                }
             } else {
                 predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
             }
@@ -172,8 +180,7 @@
             [self.collectionView reloadData];
         }
         
-        [self.activityIndicator stopAnimating];
-        [oneSecondTicker invalidate];
+        
     } else {
         NSLog(@"test flag is FALSE");
     }
@@ -436,9 +443,15 @@
         } else {
             
             NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
-            if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            NSNumber *saveForLaterStatus = [curatedNews valueForKey:@"saveForLater"];
+            
+            if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]] && [saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"all"}];
+            } else if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 // NSLog(@"both type is working");
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"both"}];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothMarkImp"}];
+            }else if([saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothSavedForLater"}];
             }else {
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
             }
@@ -640,16 +653,16 @@
             
             
             if(self.socialLinksArray.count == 0) {
-                cell.socialLinkLabel.hidden = YES;
-                cell.socialLinkDivider.hidden = YES;
-                cell.socialLinkCollectionView.hidden = YES;
+                //cell.socialLinkLabel.hidden = YES;
+                //cell.socialLinkDivider.hidden = YES;
+                //cell.socialLinkCollectionView.hidden = YES;
             } else {
                 cell.socialLinksArray = self.socialLinksArray;
                 cell.socialLinkLabel.hidden = NO;
                 cell.socialLinkDivider.hidden = NO;
-                cell.socialLinkCollectionView.hidden = NO;
+               // cell.socialLinkCollectionView.hidden = NO;
                 
-                [cell.socialLinkCollectionView reloadData];
+               // [cell.socialLinkCollectionView reloadData];
             }
             
             [cell.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
@@ -915,19 +928,55 @@
     //NSLog(@"one");
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
-    NSString *title = [userInfo objectForKey:@"title"];
-    NSString *body = [userInfo objectForKey:@"body"];
-    mailComposer = [[MFMailComposeViewController alloc]init];
-    mailComposer.mailComposeDelegate = self;
-    [mailComposer setSubject:title];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
-                                                                fontWithName:@"Open Sans" size:18], NSFontAttributeName,
-                                [UIColor whiteColor], NSForegroundColorAttributeName, nil];
-    mailComposer.navigationBar.titleTextAttributes = attributes;
-   // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
-    [mailComposer setMessageBody:body isHTML:NO];
-    [self presentViewController:mailComposer animated:YES completion:nil];
+    mailArticleId = [userInfo objectForKey:@"articleId"];
+    mailTitle = [userInfo objectForKey:@"title"];
+    mailBody = [userInfo objectForKey:@"body"];
+    
+    
+    if ([MFMailComposeViewController canSendMail]) {
+        mailComposer = [[MFMailComposeViewController alloc]init];
+        mailComposer.mailComposeDelegate = self;
+        [mailComposer setSubject:mailTitle];
+        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
+                                                                               fontWithName:@"Open Sans" size:18], NSFontAttributeName,
+                                    [UIColor whiteColor], NSForegroundColorAttributeName, nil];
+        mailComposer.navigationBar.titleTextAttributes = attributes;
+        // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
+        [mailComposer setMessageBody:mailBody isHTML:NO];
+        [self presentViewController:mailComposer animated:YES completion:nil];
+    }else{
+        UIAlertView *alert;
+        alert = [[UIAlertView alloc]
+                 initWithTitle:@"Email an Article"
+                 message:@"You have not setup a mail box in your device.Please go to settings and configure mail account or send mail via FullIntel App"
+                 delegate:self
+                 cancelButtonTitle:@"Cancel"
+                 otherButtonTitles:@"Go to Settings",@"Send via FullIntel",nil];
+        
+        [alert show];
+    }
 }
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if(buttonIndex == 1) {
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"mailto:test@test.com"]];
+    } else if(buttonIndex == 2) {
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"MailStoryboard" bundle:nil];
+        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"mailNav"];
+        
+        MailPopoverView *mailViewController=(MailPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+        mailViewController.articleId= mailArticleId;
+        mailViewController.mailSubject = mailTitle;
+        mailViewController.mailBody = mailBody;
+       // popOverView.transitioningDelegate = self;
+        popOverView.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:popOverView animated:NO completion:nil];
+    }
+}
+
 
 #pragma mark - mail compose delegate
 -(void)mailComposeController:(MFMailComposeViewController *)controller

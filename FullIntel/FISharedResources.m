@@ -185,6 +185,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userid"]) forKey:@"userId"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"firstName"]) forKey:@"firstName"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoUrl"]) forKey:@"photoUrl"];
+            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
             
             
@@ -245,6 +246,7 @@
 
 -(void)logoutUserWithDetails:(NSString *)details withFlag:(NSNumber*)authenticationFlag {
     
+    
     if([self serviceIsReachable]) {
         
         [FIWebService logoutWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -252,10 +254,6 @@
                 
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
-                
-
-                
-                
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"logoutSuccess" object:nil];
             }else {
                 
@@ -443,7 +441,7 @@
 
 -(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
    // [self showProgressView];
-    
+    NSLog(@"refresh list with flag:%@ and categoryId:%@",updownFlag,categoryId);
     if([self serviceIsReachable]) {
     [FIWebService fetchCuratedNewsListWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
@@ -460,7 +458,26 @@
             
             //Handle pull down to refresh
             if([updownFlag isEqualToString:@"up"]) {
-                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                    NSManagedObjectContext *myContext = [self managedObjectContext];
+                    NSFetchRequest *fetchAllObjects = [[NSFetchRequest alloc] init];
+                    [fetchAllObjects setEntity:[NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:myContext]];
+                    [fetchAllObjects setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+                    [fetchAllObjects setPredicate:predicate];
+                    NSError *error = nil;
+                    NSArray *allObjects = [myContext executeFetchRequest:fetchAllObjects error:&error];
+                    for (NSManagedObject *object in allObjects) {
+                        [myContext deleteObject:object];
+                    }
+                    
+                    NSError *saveError = nil;
+                    if (![myContext save:&saveError]) {
+                        
+                    }
+                    
+                    //return (saveError == nil);
+                } else if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
                     [self clearEntity:@"CuratedNews" withCategoryId:categoryId];
                 }
             }
@@ -1136,7 +1153,7 @@
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
                 } else if(flag) {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
                 }else {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
                 }
@@ -1151,7 +1168,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {
@@ -1376,7 +1398,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
            // [FIUtils showErrorToast];
         }];
@@ -1405,7 +1432,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
            // [FIUtils showErrorToast];
         }];
@@ -1460,7 +1492,7 @@
         [FIWebService saveArticlesToFolderWithDetails:details withSecurityToken:accessToken withFolderId:articleId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             UIWindow *window = [[UIApplication sharedApplication]windows][0];
             [window makeToast:@"Saved to folder successfully." duration:2 position:CSToastPositionCenter];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+           // [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
             [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:NO];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1468,7 +1500,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {
@@ -1492,7 +1529,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     }else {
@@ -1515,7 +1557,12 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            [FIUtils showErrorWithMessage:[errorJson objectForKey:@"message"]];
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {
@@ -1699,6 +1746,50 @@
     }
 }
 
+-(void)sendMailWithAccessToken:(NSString *)accessToken withDetails:(NSString *)details {
+    if([self serviceIsReachable]) {
+        [FIWebService sendMailWithAccessToken:accessToken withDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            [window makeToast:@"Mail Sent Successfully" duration:1 position:CSToastPositionCenter];
+            
+//            if(![NULL_TO_NIL([responseObject objectForKey:@"code"])isEqualToNumber:[NSNumber numberWithInt:102]]) {
+//                UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//                [window makeToast:NULL_TO_NIL([responseObject objectForKey:@"message"]) duration:1 position:CSToastPositionCenter];
+//                
+//                
+//                
+//            } else {
+//                [self hideProgressView];
+//                [self showLoginView:NULL_TO_NIL([responseObject objectForKey:@"success"])];
+//            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 2) {
+            [self showBannerView];
+        }
+    }
+}
+
+
+
+
+
 -(void)markCommentAsReadWithDetails:(NSString *)details {
     if([self serviceIsReachable]) {
         [FIWebService commentMarkAsReadWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1729,13 +1820,15 @@
 }
 
 
--(NSDictionary *)getTweetDetails:(NSString *)details {
-     __block NSDictionary *responseDic;
+
+
+-(NSArray *)getTweetDetails:(NSString *)details {
+     __block NSArray *responseDic;
     
     
     
     [FIWebService getTweetDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        responseDic = [responseObject objectAtIndex:0];
+        responseDic = responseObject;
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [FIUtils showErrorToast];
     }];
@@ -1811,8 +1904,6 @@
 
 - (void)hideProgressView
 {
-    
-    
     [progressView removeFromSuperview];
 }
 

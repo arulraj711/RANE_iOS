@@ -24,6 +24,7 @@
 -(void)getInfluencerDetailsWithDetails:(NSString *)details;
 -(void)getMenuListWithAccessToken:(NSString *)accessToken;
 -(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag withCreatedFlag:(BOOL)createdFlag;
+-(void)sendMailWithAccessToken:(NSString *)accessToken withDetails:(NSString *)details;
 -(void)createFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)pushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)updatePushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
@@ -43,7 +44,7 @@
 -(void)updateAppViewTypeWithDetails:(NSString *)details;
 -(void)featureAccessRequestWithDetails:(NSString *)details;
 -(void)updateFolderId:(NSString *)entity withFolderId:(NSNumber *)folderId;
--(NSDictionary *)getTweetDetails:(NSString *)details;
+-(NSArray *)getTweetDetails:(NSString *)details;
 -(void)markCommentAsReadWithDetails:(NSString *)details;
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)showProgressView;
