@@ -182,10 +182,10 @@
             if(accessToken.length > 0) {
                 [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withFlag:@"" withLastArticleId:@""];
             }
-            [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+           
         });
         
-        
+         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
         
         
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
