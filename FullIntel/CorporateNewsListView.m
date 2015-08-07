@@ -53,6 +53,8 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeOverLayView) name:@"FirstTimeTutorialCompleted" object:nil];
     
     
+    self.devices = [[NSMutableArray alloc]init];
+    
    // [self.revealController showViewController:self.revealController.leftViewController];
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -238,6 +240,13 @@
 //        }
     }
 }
+
+
+-(void)fetchNewDataWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    NSLog(@"background fetch is working");
+}
+
+
 //-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
 //    
 //    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
@@ -304,7 +313,8 @@
 }
 
 -(void)loadCuratedNews {
-    
+    dispatch_queue_t queue_a = dispatch_queue_create("load", 0);
+    dispatch_async(queue_a, ^(void){
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
@@ -312,7 +322,6 @@
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSLog(@"load curated news list:%@ and folderid:%@",categoryId,folderId);
    // NSLog(@"category id in curated news:%@",categoryId);
-    self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate;
@@ -345,9 +354,6 @@
     NSLog(@"date:%@",date);
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
-    
-   
-    
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     NSLog(@"curated news list count:%lu",(unsigned long)newPerson.count);
     if(newPerson.count != 0) {
@@ -356,24 +362,20 @@
     } else {
         self.navigationItem.rightBarButtonItems = nil;
     }
-    
-//    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]] && newPerson.count == 0) {
-//        [self stopLoading];
-//    }
-//    if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]] && newPerson.count == 0) {
-//        [activityIndicator stopAnimating];
-//    }
     if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 
     }else {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     }
-    
     //NSLog(@"devices:%d",self.devices.count);
-    _spinner.hidden = YES;
-    [_spinner stopAnimating];
-    [self.articlesTableView reloadData];
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _spinner.hidden = YES;
+            [_spinner stopAnimating];
+            [self.articlesTableView reloadData];
+        });
+    });
  //   [self.revealController showViewController:self.revealController.leftViewController];
 }
 
