@@ -125,60 +125,51 @@
         NSLog(@"twitter session exist");
     } else {
         NSLog(@"no twitter session");
-
-        
-        
-    
-    [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
-        NSLog(@"tweet error:%@",error);
-        [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
-           //NSLog(@"Tweet array:%@",tweet);
-            tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
-            
-            tweetScreenNameArray= [[NSMutableArray alloc]init];
-            
-            for(TWTRTweet *tweetObj in tweetArray) {
-                TWTRUser *author = tweetObj.author;
-                [tweetScreenNameArray addObject:author.screenName];
-            }
-            NSLog(@"tweet array:%d and screennamearray:%d",tweetArray.count,tweetScreenNameArray.count);
-            if(tweetScreenNameArray.count != 0) {
-                if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
-                    
-                    NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
-                    followersArray=[[NSMutableArray alloc]initWithArray:followArray];
-                    NSLog(@"followers array:%@",followersArray);
+        [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
+            NSLog(@"tweet error:%@",error);
+            [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
+                //NSLog(@"Tweet array:%@",tweet);
+                tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
+                
+                tweetScreenNameArray= [[NSMutableArray alloc]init];
+                
+                for(TWTRTweet *tweetObj in tweetArray) {
+                    TWTRUser *author = tweetObj.author;
+                    [tweetScreenNameArray addObject:author.screenName];
+                }
+                NSLog(@"tweet array:%d and screennamearray:%d",tweetArray.count,tweetScreenNameArray.count);
+                if(tweetScreenNameArray.count != 0) {
+                    if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
+                        
+                        NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
+                        followersArray=[[NSMutableArray alloc]initWithArray:followArray];
+                        NSLog(@"followers array:%@",followersArray);
+                        
+                    }
+                } else {
+                    followersArray=[[NSMutableArray alloc]init];
+                }
+                
+                [tweetsCollectionView reloadData];
+                if(tweetArray.count == 0) {
+                    self.tweetCollectionViewHeightConstraint.constant = 0;
+                    self.tweetLabelHeightConstraint.constant = 0;
+                    self.tweetLabel.hidden = YES;
+                    self.tweetDividerImageView.hidden = YES;
+                    // self.aboutAuthorVerticalConstraint.constant = 0;
+                }else {
+                    self.tweetCollectionViewHeightConstraint.constant = 300;
+                    self.tweetLabelHeightConstraint.constant = 41;
+                    self.tweetLabel.hidden = NO;
+                    self.tweetDividerImageView.hidden = NO;
+                    // self.aboutAuthorVerticalConstraint.constant = 44;
                     
                 }
-            } else {
-                followersArray=[[NSMutableArray alloc]init];
-            }
-            
-            [tweetsCollectionView reloadData];
-            
-            
-            if(tweetArray.count == 0) {
-                self.tweetCollectionViewHeightConstraint.constant = 0;
-                self.tweetLabelHeightConstraint.constant = 0;
-                self.tweetLabel.hidden = YES;
-                self.tweetDividerImageView.hidden = YES;
-               // self.aboutAuthorVerticalConstraint.constant = 0;
-            }else {
-                self.tweetCollectionViewHeightConstraint.constant = 300;
-                self.tweetLabelHeightConstraint.constant = 41;
-                self.tweetLabel.hidden = NO;
-                self.tweetDividerImageView.hidden = NO;
-               // self.aboutAuthorVerticalConstraint.constant = 44;
                 
-            }
-            
+            }];
         }];
-    }];
-    
     }
-    
-    
-    
+
 }
 
 
