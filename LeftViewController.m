@@ -52,6 +52,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestChange:) name:@"requestChange" object:nil];
     
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openFolderView:) name:@"openFolderView" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMenuCount:) name:@"updateMenuCount" object:nil];
     
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addContentButtonClick:) name:@"TutorialTrigger" object:nil];
@@ -131,6 +133,35 @@
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
+}
+
+-(void)openFolderView:(id)sender {
+    NSLog(@"open folder view");
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSNumber *folderId = [userInfo objectForKey:@"folderId"];
+    NSLog(@"selected folder id:%@ and data count:%d",folderId,self.data.count);
+    RADataObject *folderDataObj = [self.data objectAtIndex:8];
+//    for(RADataObject *dataObject in self.data) {
+//        NSLog(@"selected %@ and coming %@",folderId,dataObject.nodeId);
+//        if(dataObject.nodeId != nil) {
+//            if([folderId isEqualToNumber:dataObject.nodeId]) {
+//                folderDataObj = dataObject;
+//                //return;
+//            }
+//        }
+//    }
+    NSLog(@"selected data object:%@ and children count:%d",folderDataObj,folderDataObj.children.count);
+    [self.treeView expandRowForItem:folderDataObj];
+    for(RADataObject *testObject in folderDataObj.children) {
+        if([folderId isEqualToNumber:testObject.nodeId]) {
+            NSLog(@"selcted folder:%@ and name:%@",testObject,testObject.name);
+            [self.treeView selectRowForItem:testObject animated:YES scrollPosition:RATreeViewScrollPositionTop];
+            [self treeView:self.treeView didSelectRowForItem:testObject];
+            
+        }
+    }
+    
 }
 
 //-(void)addCoachView{

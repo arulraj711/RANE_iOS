@@ -328,6 +328,26 @@
                 });
                 
                 
+                NSFetchRequest *fetchRequest2 = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                NSPredicate *predicate2  = [NSPredicate predicateWithFormat:@"isSavedForLaterStatusSync == %@",[NSNumber numberWithBool:YES]];
+                [fetchRequest2 setPredicate:predicate2];
+                NSArray *syncArray2 =[[managedObjectContext executeFetchRequest:fetchRequest2 error:nil] mutableCopy];
+                // NSLog(@"marked imp sync array count:%lu",(unsigned long)syncArray1.count);
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    for(NSManagedObject *curatedNews in syncArray2) {
+                        [self updateUserActivitiesInBackgroundWithArticleId:[curatedNews valueForKey:@"articleId"] withStatus:3 withSelectedStatus:[[curatedNews valueForKey:@"saveForLater"] boolValue]];
+                        NSFetchRequest *fetchRequest2 = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                        NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"articleId == %@",[curatedNews valueForKey:@"articleId"]];
+                        [fetchRequest2 setPredicate:predicate2];
+                        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest2 error:nil] mutableCopy];
+                        if(newPerson.count != 0) {
+                            NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+                            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isSavedForLaterStatusSync"];
+                        }
+                        [managedObjectContext save:nil];
+                    }
+                });
+                
             } else {
                 [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
             }
@@ -410,7 +430,7 @@
             if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
                 // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
             } else {
-                [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
+              //  [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
             }
         }
     }
