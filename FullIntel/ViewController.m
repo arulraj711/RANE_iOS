@@ -55,6 +55,8 @@
     UIView *rPaddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.passwordTextField.leftView = rPaddingView;
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+    
+    [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Log In View"];
 }
 - (void)animateImages
 {

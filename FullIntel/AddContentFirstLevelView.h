@@ -11,6 +11,7 @@
 #import "AddContentSecondLevelView.h"
 @interface AddContentFirstLevelView : UIViewController<RFQuiltLayoutDelegate,UICollectionViewDelegate,SecondLevelDelegate> {
     RFQuiltLayout* layout;
+     NSTimer *popAnimationTimer;
 }
 - (IBAction)closeAction:(id)sender;
 - (IBAction)requestChange:(id)sender;
@@ -21,6 +22,8 @@
 @property (nonatomic,strong) NSMutableArray *checkedArray;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
 @property (weak, nonatomic) IBOutlet UIButton *requestChangeButton;
+
+@property (weak, nonatomic) IBOutlet UIView *tutorialDescriptionView;
 
 - (IBAction)checkMark:(id)sender;
 @end

@@ -18,6 +18,8 @@
     UIButton *infoButton;
     UICollectionView *collectionView;
     RFQuiltLayout* layout;
+    NSTimer *popAnimationTimer;
+    UITapGestureRecognizer *tapEvent;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *categoryCollectionView;
 - (IBAction)checkMark:(id)sender;
@@ -30,6 +32,7 @@
 @property (nonatomic,strong) NSMutableArray *previousArray;
 @property (nonatomic,strong) NSNumber *selectedId;
 
+@property (weak, nonatomic) IBOutlet UIView *tutorialContentView;
 
 
 //@property (nonatomic, strong) AMPopTip *popTip;

@@ -12,6 +12,7 @@
 #import "FIContentCategory.h"
 #import "AddContentThirdLevelView.h"
 #import "Localytics.h"
+#import "pop.h"
 
 @interface AddContentSecondLevelView ()
 
@@ -51,6 +52,11 @@
     [self.categoryCollectionView reloadData];
     //[self loadSelectedCategory];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSelectedCategory:) name:@"selectedCategory" object:nil];
+    
+    
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SecondLevelTutorialTrigger) name:@"SecondLevelTutorialTrigger" object:nil];
+    
+
  //   UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     
     
@@ -71,8 +77,73 @@
     [self.view addSubview:testLabel];
     [self.view addSubview:infoButton];
     [self.view addSubview:availableTopic];
+    
+
+    _tutorialContentView.hidden=YES;
+    
+    _tutorialContentView.layer.cornerRadius=5.0f;
+    
+    
+    tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(stopSecondTutorial:)];
+    
+    [self.view addGestureRecognizer:tapEvent];
 }
 
+-(void)stopSecondTutorial:(UITapGestureRecognizer *)sender{
+    
+    NSLog(@"triggerSecondTutorial");
+    
+    _tutorialContentView.hidden=YES;
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuTutorialTrigger" object:nil];
+    
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SecondTutorialShown"];
+    
+    [popAnimationTimer invalidate];
+    
+    [_categoryCollectionView reloadData];
+    
+    _tutorialContentView.hidden=YES;
+    
+    [self.view removeGestureRecognizer:tapEvent];
+
+    
+}
+
+-(void)SecondLevelTutorialTrigger{
+    
+    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SecondTutorialShown"];
+    
+    
+    [_categoryCollectionView reloadData];
+    
+    _tutorialContentView.hidden=NO;
+    
+}
+
+-(void)permformAnimation:(NSTimer *)timer{
+    
+    
+
+    
+    SecondLevelCell *cell=timer.userInfo;
+    
+    [self animateFirstCell:cell];
+    
+}
+-(void)animateFirstCell:(SecondLevelCell *)cell{
+    
+    [cell.layer removeAllAnimations];
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+    scaleAnimation.springBounciness = 10;
+    scaleAnimation.springSpeed=10;
+    [cell.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+    
+    
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -241,10 +312,32 @@
     cell.checkMarkButton.tag = indexPath.row;
     cell.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     cell.contentView.layer.borderWidth = 1.0f;
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
+    if (coachMarksShown == YES) {
+        
+        
+        if(indexPath.row==0){
+        
+        NSLog(@"animate first cell");
+        
+        cell.layer.borderWidth=1.0;
+        cell.layer.borderColor=[[UIColor redColor]CGColor];
+        
+    
+    popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
+        }
+    }else{
+        
+        cell.layer.borderWidth=0.0;
+
+    }
+    
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:indexPath];
      [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
     

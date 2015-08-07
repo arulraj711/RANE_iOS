@@ -54,6 +54,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMenuCount:) name:@"updateMenuCount" object:nil];
     
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addContentButtonClick:) name:@"TutorialTrigger" object:nil];
+    
     self.addContentButton.layer.cornerRadius = 5.0f;
     self.addContentButton.layer.masksToBounds = YES;
     self.addContentButton.layer.borderWidth = 1.0f;
@@ -337,6 +339,8 @@
     }
     
     
+    
+     [self presentTutorialPopViewController];
 }
 
 -(void)test:(NSMutableArray *)array {
@@ -422,7 +426,20 @@
 //    self.treeView.frame = self.treeBackView.bounds;
 }
 
-
+-(void)presentTutorialPopViewController{
+    
+    
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
+    
+    //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+    
+    //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+    //  popOverView.transitioningDelegate = self;
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:popOverView animated:NO completion:nil];
+    
+}
 #pragma mark - Actions
 
 - (void)editButtonTapped:(id)sender

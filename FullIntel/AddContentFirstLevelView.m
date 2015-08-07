@@ -16,6 +16,7 @@
 #import "AddContentSecondLevelView.h"
 #import "FIUtils.h"
 #import "Localytics.h"
+#import "pop.h"
 @interface AddContentFirstLevelView ()
 
 
@@ -136,15 +137,60 @@
     _requestChangeButton.layer.cornerRadius=5.0f;
     _requestChangeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
     _requestChangeButton.layer.borderWidth=1.0f;
+    
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    if (coachMarksShown == YES) {
+    _tutorialDescriptionView.hidden=YES;
+        
+    }else{
+        
+        _tutorialDescriptionView.hidden=NO;
+    }
+    
+      _tutorialDescriptionView.layer.cornerRadius=5.0f;
+    
+    
+    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
+
+    [self.view addGestureRecognizer:tapEvent];
+}
+
+-(void)triggerSecondTutorial{
+
+    
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    if (coachMarksShown == NO) {
+        _tutorialDescriptionView.hidden=YES;
+    
+    _tutorialDescriptionView.hidden=YES;
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"SecondLevelTutorialTrigger" object:nil];
+    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialShown"];
+    
+    [popAnimationTimer invalidate];
+    
+    [_contentCollectionView reloadData];
+        
+    }
+    
 }
 
 
 -(void)backBtnPress{
     
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    if (coachMarksShown == YES) {
+    
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CancelChangesInAddContent"];
     
     [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
+        
+    }
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -234,12 +280,18 @@
 
 
 - (IBAction)requestChange:(id)sender {
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    if (coachMarksShown == YES) {
+    
     [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
     
      [[NSNotificationCenter defaultCenter]postNotificationName:@"requestChange" object:nil userInfo:nil];
     
       [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestChangeInAddContent"];
+        
+    }
 }
 
 
@@ -250,6 +302,8 @@
 
 - (IBAction)closeAction:(id)sender {
     
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    if (coachMarksShown == YES) {
     
     NSMutableArray *categoryArray = [[NSMutableArray alloc]init];
     NSMutableArray *contentType = [[NSMutableArray alloc]init];
@@ -357,6 +411,8 @@
         [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+        
+    }
     
 }
 
@@ -406,9 +462,49 @@
         //[self.selectedIdArray removeObject:contentCategory.categoryId];
         [cell.checkMarkButton setSelected:NO];
     }
+    
+    
+    if(indexPath.row==0){
+        
+            BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+            if (coachMarksShown == NO) {
+        
+        NSLog(@"animate first cell");
+        
+        cell.layer.borderWidth=1.0;
+        cell.layer.borderColor=[[UIColor redColor]CGColor];
+        
+        popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
+        
+       // [self animateFirstCell:cell];
+            }else{
+                
+                 cell.layer.borderWidth=0.0;
+            }
+    }
     return cell;
 }
+-(void)permformAnimation:(NSTimer *)timer{
+    
 
+    
+    FirstLevelCell *cell=timer.userInfo;
+    
+    [self animateFirstCell:cell];
+    
+}
+-(void)animateFirstCell:(FirstLevelCell *)cell{
+    
+    [cell.layer removeAllAnimations];
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+    scaleAnimation.springBounciness = 10;
+    scaleAnimation.springSpeed=10;
+    [cell.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+    
+    
+}
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
     if(contentCategory.listArray.count != 0) {
