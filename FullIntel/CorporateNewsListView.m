@@ -110,8 +110,8 @@
     activityIndicator.alpha = 1.0;
     activityIndicator.center = self.view.center;
     activityIndicator.hidesWhenStopped = YES;
-    [self.view addSubview:activityIndicator];
-    [activityIndicator startAnimating];
+   // [self.view addSubview:activityIndicator];
+   // [activityIndicator startAnimating];
     
 //    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
 //    if(accessToken.length == 0) {
@@ -873,8 +873,8 @@
         
         
         
-        NSLog(@"article list:%@",self.devices);
-       // NSLog(@"incoming articleid:%@ and index:%d",articleId,index);
+       // NSLog(@"article list:%@",self.devices);
+        NSLog(@"incoming articleid:%@ and index:%d",articleId,index);
         
         if(NSNotFound == index) {
             NSLog(@"not found");

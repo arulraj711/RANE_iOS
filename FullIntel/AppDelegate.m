@@ -136,16 +136,67 @@
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     NSLog(@"Calling Application Bundle ID: %@", sourceApplication);
-    NSLog(@"URL scheme:%@", [url scheme]);
+    NSLog(@"URL scheme:%@ and url:%@", [url scheme],url);
     NSLog(@"URL query: %@", [url query]);
     
     if([url query].length != 0) {
-        NSArray *subStrings = [[url query] componentsSeparatedByString:@"="]; //or rather @" - "
-        //NSString *firstString = [subStrings objectAtIndex:0];
-        NSString *queryString = [subStrings objectAtIndex:1];
+        NSArray *subStrings = [[url query] componentsSeparatedByString:@"&"]; //or rather @" - "
+        
+        NSString *objectIdString = [subStrings objectAtIndex:0];
+        NSArray *objectIdArray = [objectIdString componentsSeparatedByString:@"="];
+        NSString *encodedObjectId = [objectIdArray objectAtIndex:1];
+        
+        // NSData from the Base64 encoded str
+        NSData *firstDecodedObjectData = [[NSData alloc]initWithBase64EncodedString:encodedObjectId options:0];
+        
+        // Decoded NSString from the NSData
+        NSString *decodedObjectId = [[NSString alloc]
+                                   initWithData:firstDecodedObjectData encoding:NSUTF8StringEncoding];
+        NSLog(@"Decoded: %@", decodedObjectId);
+        // NSData from the Base64 encoded str
+        NSData *secondDecodedObjectData = [[NSData alloc]
+                                           initWithBase64EncodedString:decodedObjectId
+                                           options:0];
+        
+        // Decoded NSString from the NSData
+        NSString *objectId = [[NSString alloc]
+                                    initWithData:secondDecodedObjectData encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"email:%@",objectId);
+        
+        
+        
+        NSString *itemIdString = [subStrings objectAtIndex:1];
+        NSArray *itemIdArray = [itemIdString componentsSeparatedByString:@"="];
+        NSString *encodedItemId = [itemIdArray objectAtIndex:1];
+        
+        // NSData from the Base64 encoded str
+        NSData *firstDecodedItemData = [[NSData alloc]initWithBase64EncodedString:encodedItemId options:0];
+        
+        // Decoded NSString from the NSData
+        NSString *decodedItemId = [[NSString alloc]
+                                     initWithData:firstDecodedItemData encoding:NSUTF8StringEncoding];
+        NSLog(@"Decoded: %@", decodedItemId);
+        // NSData from the Base64 encoded str
+        NSData *secondDecodedItemData = [[NSData alloc]
+                                           initWithBase64EncodedString:decodedItemId
+                                           options:0];
+        
+        // Decoded NSString from the NSData
+        NSString *itemId = [[NSString alloc]
+                              initWithData:secondDecodedItemData encoding:NSUTF8StringEncoding];
+    
+        NSLog(@"article id:%@",itemId);
         NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        NSString *customerEmail = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"customerEmail"]];
         if(accessToken.length != 0) {
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"articleId":queryString}];
+            if([customerEmail isEqualToString:objectId]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"articleId":itemId}];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Does not match with logined details" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                [alert show];
+            }
+            
         }
     }
     
