@@ -145,7 +145,7 @@
         <!--Folder View Controller-->
         <scene sceneID="gTr-a4-B47">
             <objects>
-                <viewController id="kDE-8t-dsI" customClass="FolderViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FolderView" id="kDE-8t-dsI" customClass="FolderViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L5k-W1-9y3"/>
                         <viewControllerLayoutGuide type="bottom" id="foE-nK-kmA"/>
@@ -219,7 +219,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTQ-Hq-ZbT">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTQ-Hq-ZbT">
                                                     <rect key="frame" x="593" y="14" width="30" height="30"/>
                                                     <state key="normal" image="edit">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -228,7 +228,7 @@
                                                         <action selector="editButtonClick:" destination="kDE-8t-dsI" eventType="touchUpInside" id="7l8-67-gyj"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9V-YX-Z1W">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9V-YX-Z1W">
                                                     <rect key="frame" x="641" y="14" width="30" height="30"/>
                                                     <state key="normal" image="delete">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -243,7 +243,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcN-xf-ndM">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcN-xf-ndM">
                                                     <rect key="frame" x="615" y="13" width="30" height="30"/>
                                                     <state key="normal" image="rss">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -307,16 +307,13 @@
         <!--Navigation Controller-->
         <scene sceneID="aVN-xi-hW7">
             <objects>
-                <navigationController storyboardIdentifier="FolderView" automaticallyAdjustsScrollViewInsets="NO" id="G26-Zu-l49" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="G26-Zu-l49" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="C1D-li-aUa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="kDE-8t-dsI" kind="relationship" relationship="rootViewController" id="BPz-98-Glf"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C3i-NQ-XiX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -324,9 +321,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="delete" width="32" height="32"/>
-        <image name="edit" width="32" height="32"/>
-        <image name="rss" width="32" height="32"/>
+        <image name="delete" width="30" height="30"/>
+        <image name="edit" width="30" height="30"/>
+        <image name="rss" width="30" height="30"/>
         <image name="twitter_blue" width="30" height="30"/>
     </resources>
 </document>

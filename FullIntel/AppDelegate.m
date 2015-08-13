@@ -62,7 +62,9 @@
    
     
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+    UIViewController *viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+    
+    UINavigationController *navCtlr = [[UINavigationController alloc]initWithRootViewController:viewCtlr];
     
     NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
     NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
@@ -186,11 +188,21 @@
         NSString *itemId = [[NSString alloc]
                               initWithData:secondDecodedItemData encoding:NSUTF8StringEncoding];
     
-        NSLog(@"article id:%@",itemId);
+        
+        
+        NSManagedObjectContext *context = [self managedObjectContext];
+        
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND categoryId == %@",itemId,[NSNumber numberWithInt:-1]];
+        [fetchRequest setPredicate:predicate];
+        NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        
+        NSLog(@"article id:%@ and existing array:%d",itemId,existingArray.count);
         NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-        NSString *customerEmail = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"customerEmail"]];
+       // NSString *customerEmail = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"customerEmail"]];
         if(accessToken.length != 0) {
-            if([customerEmail isEqualToString:objectId]) {
+            if(existingArray.count != 0) {
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"articleId":itemId}];
             } else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Does not match with logined details" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];

@@ -716,14 +716,8 @@
         
         cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
     if([data.nodeId integerValue] == 9 && !data.isFolder) {
-        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         
-        CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
         
-        CorporateNewsListViewObj.titleName=data.name;
-        
-        [self.revealController setFrontViewController:navCtlr];
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
         [gradedetails setObject:@"" forKey:@"lastArticleId"];
@@ -734,27 +728,52 @@
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-2] withFlag:@"" withLastArticleId:@""];
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-2] forKey:@"categoryId"];
+        UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+        if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
+            CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+            
+            CorporateNewsListViewObj.titleName=data.name;
+            [CorporateNewsListViewObj updateNewsTitle];
+        } else {
+            NSLog(@"else part");
+            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            CorporateNewsListView *curatedNews = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+            curatedNews.titleName=data.name;
+            [curatedNews updateNewsTitle];
+            UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+            navCtlr.viewControllers = [NSArray arrayWithObject:curatedNews];
+        }
         
     } else if([data.nodeId integerValue] == 1 && !data.isFolder) {
         NSLog(@"row selection calling");
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
-        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         
-        CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
         
-        CorporateNewsListViewObj.titleName=data.name;
-        [self.revealController setFrontViewController:navCtlr];
+        
+        UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+        if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
+            CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+            
+            CorporateNewsListViewObj.titleName=data.name;
+            [CorporateNewsListViewObj updateNewsTitle];
+        } else {
+            NSLog(@"else part");
+            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            CorporateNewsListView *curatedNews = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+            curatedNews.titleName=data.name;
+            [curatedNews updateNewsTitle];
+            UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+            navCtlr.viewControllers = [NSArray arrayWithObject:curatedNews];
+        }
+        
+        
+        
         
         
         
         
     } else if([data.nodeId integerValue] == 6 && !data.isFolder) {
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-3] forKey:@"categoryId"];
-        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-        
-        CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
         if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
             NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
@@ -770,8 +789,21 @@
             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
         }
         
-        CorporateNewsListViewObj.titleName=data.name;
-        [self.revealController setFrontViewController:navCtlr];
+        UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+        if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
+            CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+            
+            CorporateNewsListViewObj.titleName=data.name;
+            [CorporateNewsListViewObj updateNewsTitle];
+        } else {
+            NSLog(@"else part");
+            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            CorporateNewsListView *curatedNews = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+            curatedNews.titleName=data.name;
+            [curatedNews updateNewsTitle];
+            UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+            navCtlr.viewControllers = [NSArray arrayWithObject:curatedNews];
+        }
     } else if([data.nodeId integerValue] == 7 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"InfluencerView"];
@@ -844,17 +876,19 @@
     if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
     } else if(data.isFolder){
-        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-        CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
-        CorporateNewsListViewObj.titleName=data.name;
+//        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+//        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+//        CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+//        CorporateNewsListViewObj.titleName=data.name;
         if(data.nodeId != nil) {
             if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]){
                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
-                UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+                FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
 //               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
-                [self.revealController setFrontViewController:navCtlr];
+                UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+                navCtlr.viewControllers = [NSArray arrayWithObject:folderView];
+                //[self.revealController setFrontViewController:navCtlr];
             } else {
                 if([[data.name uppercaseString]isEqualToString:@"RSS"]) {
                     
@@ -866,8 +900,23 @@
                 }
                 
                 [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"folderId"];
-                [self.revealController setFrontViewController:navCtlr];
                 [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
+                
+                UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+                if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
+                    CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+                    
+                    CorporateNewsListViewObj.titleName=data.name;
+                    [CorporateNewsListViewObj updateNewsTitle];
+                } else {
+                    NSLog(@"else part");
+                    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+                    CorporateNewsListView *curatedNews = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+                    curatedNews.titleName=data.name;
+                    [curatedNews updateNewsTitle];
+                    UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+                    navCtlr.viewControllers = [NSArray arrayWithObject:curatedNews];
+                }
             }
             
         }
@@ -878,31 +927,27 @@
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             // NSLog(@"empty node id");
         }else {
-            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-            UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-            
-            CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
-            
-            CorporateNewsListViewObj.titleName=data.name;
-            
-            
             NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:data.nodeId];
-            
-//            if(data.isFolder) {
-//                NSLog(@"folder click and folder id:%@",data.nodeId);
-//                if(data.nodeId != nil) {
-//                    [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"folderId"];
-//                    [self.revealController setFrontViewController:navCtlr];
-//                    [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId];
-//                }
-//                
-//            } else {
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
-                [self.revealController setFrontViewController:navCtlr];
+            
                 [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
                 [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withFlag:@"" withLastArticleId:@""];
-           // }
-            
+           
+            UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+            if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
+                CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+                
+                CorporateNewsListViewObj.titleName=data.name;
+                [CorporateNewsListViewObj updateNewsTitle];
+            } else {
+                NSLog(@"else part");
+                UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+                CorporateNewsListView *curatedNews = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+                curatedNews.titleName=data.name;
+                [curatedNews updateNewsTitle];
+                UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+                navCtlr.viewControllers = [NSArray arrayWithObject:curatedNews];
+            }
         }
     }
     

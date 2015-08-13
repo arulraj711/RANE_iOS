@@ -87,19 +87,6 @@
     
     
     [self addRightBarItems];
-    
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text =_titleName;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
-    
-    
-   
     refreshControl = [[UIRefreshControl alloc]init];
     [self.articlesTableView addSubview:refreshControl];
     [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
@@ -133,7 +120,35 @@
     
 }
 
-
+-(void)updateNewsTitle {
+    
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =_titleName;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
+    
+    
+    self.devices = [[NSMutableArray alloc]init];
+    self.articlesTableView.dataSource = nil;
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length == 0) {
+        // NSLog(@"corporate if part");
+        [self showLoginPage];
+    } else {
+        //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
+        //        if(isFirst) {
+        
+        
+        [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated News List"];
+        [self loadCuratedNews];
+        //        }
+    }
+}
 
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     
