@@ -19,9 +19,11 @@
 		A010928D1B15AB25003C9F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A010928C1B15AB25003C9F3A /* Foundation.framework */; };
 		A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A010C1C01B1F32AF00BF053D /* john_maddox.jpg */; };
 		A02C54C61AEF5E0000E65011 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02C54C51AEF5E0000E65011 /* Social.framework */; };
+		A038E5921B7B42DE00D0E24D /* MainListTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A038E5911B7B42DE00D0E24D /* MainListTutorialViewController.m */; };
 		A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0406BA01B05CE5F00985CF8 /* TweetsCell.m */; };
 		A041F0011B2ADA9E00B5600C /* LegendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A041EFFF1B2ADA9E00B5600C /* LegendCollectionViewCell.m */; };
 		A041F0021B2ADA9E00B5600C /* LegendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A041F0001B2ADA9E00B5600C /* LegendCollectionViewCell.xib */; };
+		A0487AA21B7A163E00E90CE1 /* LeftMenuTutorialPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0487AA11B7A163E00E90CE1 /* LeftMenuTutorialPopViewController.m */; };
 		A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A050A4861B1DF2B30043C477 /* Deals.storyboard */; };
 		A053F5251AF9F090002EDC46 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A053F5241AF9F090002EDC46 /* Accounts.framework */; };
 		A06EECA21B73523700E284C9 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A06EEC9F1B73523700E284C9 /* Tutorial.storyboard */; };
@@ -238,11 +240,15 @@
 		A010928C1B15AB25003C9F3A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A010C1C01B1F32AF00BF053D /* john_maddox.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john_maddox.jpg; sourceTree = "<group>"; };
 		A02C54C51AEF5E0000E65011 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		A038E5901B7B42DE00D0E24D /* MainListTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainListTutorialViewController.h; sourceTree = "<group>"; };
+		A038E5911B7B42DE00D0E24D /* MainListTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainListTutorialViewController.m; sourceTree = "<group>"; };
 		A0406B9F1B05CE5F00985CF8 /* TweetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsCell.h; sourceTree = "<group>"; };
 		A0406BA01B05CE5F00985CF8 /* TweetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsCell.m; sourceTree = "<group>"; };
 		A041EFFE1B2ADA9E00B5600C /* LegendCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendCollectionViewCell.h; sourceTree = "<group>"; };
 		A041EFFF1B2ADA9E00B5600C /* LegendCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegendCollectionViewCell.m; sourceTree = "<group>"; };
 		A041F0001B2ADA9E00B5600C /* LegendCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LegendCollectionViewCell.xib; sourceTree = "<group>"; };
+		A0487AA01B7A163E00E90CE1 /* LeftMenuTutorialPopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuTutorialPopViewController.h; sourceTree = "<group>"; };
+		A0487AA11B7A163E00E90CE1 /* LeftMenuTutorialPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuTutorialPopViewController.m; sourceTree = "<group>"; };
 		A050A4861B1DF2B30043C477 /* Deals.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Deals.storyboard; sourceTree = "<group>"; };
 		A053F5241AF9F090002EDC46 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		A06EEC9F1B73523700E284C9 /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
@@ -609,6 +615,10 @@
 				A06EEC9F1B73523700E284C9 /* Tutorial.storyboard */,
 				A06EECA01B73523700E284C9 /* TutorialPopViewController.h */,
 				A06EECA11B73523700E284C9 /* TutorialPopViewController.m */,
+				A0487AA01B7A163E00E90CE1 /* LeftMenuTutorialPopViewController.h */,
+				A0487AA11B7A163E00E90CE1 /* LeftMenuTutorialPopViewController.m */,
+				A038E5901B7B42DE00D0E24D /* MainListTutorialViewController.h */,
+				A038E5911B7B42DE00D0E24D /* MainListTutorialViewController.m */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -1466,6 +1476,7 @@
 				A0CF5C6A1B1DD98B00DED2D9 /* NumberOfPatternsCell.m in Sources */,
 				A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */,
 				A0CF5C641B1DD98B00DED2D9 /* StockViewController.m in Sources */,
+				A0487AA21B7A163E00E90CE1 /* LeftMenuTutorialPopViewController.m in Sources */,
 				A0E223561A91C2F00073814A /* AppDelegate.m in Sources */,
 				A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */,
 				F7E3687B1ABBF1DA0083F38E /* CommentsPopoverView.m in Sources */,
@@ -1525,6 +1536,7 @@
 				A0DEC3DE1AE8E31D0046E8BB /* SocialLinkCell.m in Sources */,
 				F78B42FE1ABA8F4800AB7FFB /* CorporateNewsCell.m in Sources */,
 				A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */,
+				A038E5921B7B42DE00D0E24D /* MainListTutorialViewController.m in Sources */,
 				A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */,
 				A003B19F1B1841FF00857F35 /* CMPopTipView.m in Sources */,
 				A041F0011B2ADA9E00B5600C /* LegendCollectionViewCell.m in Sources */,

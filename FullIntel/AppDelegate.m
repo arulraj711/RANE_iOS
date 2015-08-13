@@ -218,6 +218,8 @@
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     NSLog(@"application enter in background:%@",accessToken);
     
+ 
+    
     if(accessToken.length > 0) {
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
         NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
@@ -234,6 +236,9 @@
             NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
             //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             NSLog(@"enter back");
+            
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Minimize app"];
+            
             [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:accessToken];
         } else {
             
