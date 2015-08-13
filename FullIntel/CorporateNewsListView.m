@@ -57,6 +57,8 @@
     
     
     
+    self.devices = [[NSMutableArray alloc]init];
+    
    // [self.revealController showViewController:self.revealController.leftViewController];
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -112,8 +114,8 @@
     activityIndicator.alpha = 1.0;
     activityIndicator.center = self.view.center;
     activityIndicator.hidesWhenStopped = YES;
-    [self.view addSubview:activityIndicator];
-    [activityIndicator startAnimating];
+   // [self.view addSubview:activityIndicator];
+   // [activityIndicator startAnimating];
     
 //    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
 //    if(accessToken.length == 0) {
@@ -247,6 +249,13 @@
 //        }
     }
 }
+
+
+-(void)fetchNewDataWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    NSLog(@"background fetch is working");
+}
+
+
 //-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
 //    
 //    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
@@ -313,7 +322,8 @@
 }
 
 -(void)loadCuratedNews {
-    
+    dispatch_queue_t queue_a = dispatch_queue_create("load", 0);
+    dispatch_async(queue_a, ^(void){
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
@@ -321,7 +331,6 @@
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSLog(@"load curated news list:%@ and folderid:%@",categoryId,folderId);
    // NSLog(@"category id in curated news:%@",categoryId);
-    self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate;
@@ -354,9 +363,6 @@
     NSLog(@"date:%@",date);
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
-    
-   
-    
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     NSLog(@"curated news list count:%lu",(unsigned long)newPerson.count);
     if(newPerson.count != 0) {
@@ -365,24 +371,20 @@
     } else {
         self.navigationItem.rightBarButtonItems = nil;
     }
-    
-//    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]] && newPerson.count == 0) {
-//        [self stopLoading];
-//    }
-//    if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]] && newPerson.count == 0) {
-//        [activityIndicator stopAnimating];
-//    }
     if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 
     }else {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     }
-    
     //NSLog(@"devices:%d",self.devices.count);
-    _spinner.hidden = YES;
-    [_spinner stopAnimating];
-    [self.articlesTableView reloadData];
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _spinner.hidden = YES;
+            [_spinner stopAnimating];
+            [self.articlesTableView reloadData];
+        });
+    });
  //   [self.revealController showViewController:self.revealController.leftViewController];
 }
 
@@ -923,8 +925,8 @@
         
         
         
-        NSLog(@"article list:%@",self.devices);
-       // NSLog(@"incoming articleid:%@ and index:%d",articleId,index);
+       // NSLog(@"article list:%@",self.devices);
+        NSLog(@"incoming articleid:%@ and index:%d",articleId,index);
         
         if(NSNotFound == index) {
             NSLog(@"not found");
@@ -1006,7 +1008,7 @@
     }
     }
      NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
-    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+    //if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
         UIButton *markedImpBtn = (UIButton *)[tapGesture view];
         if(markedImpBtn.selected) {
             
@@ -1023,33 +1025,30 @@
                 
                 
                 
-//                NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-//                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-//                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",[curatedNews valueForKey:@"articleId"]];
-//                [fetchRequest setPredicate:predicate];
-//                NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-//                // NSLog(@"new person array count:%d",newPerson.count);
-//                if(newPerson.count != 0) {
-//                    //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-//                    for(NSManagedObject *curatedNews in newPerson) {
-//                        // NSLog(@"for loop update");
-//                        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
-//                        
-//                        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-//                            // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
-//                        } else {
-//                            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
-//                        }
-//                    }
-//                }
-//                [managedObjectContext save:nil];
+                NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",[curatedNews valueForKey:@"articleId"]];
+                [fetchRequest setPredicate:predicate];
+                NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                // NSLog(@"new person array count:%d",newPerson.count);
+                if(newPerson.count != 0) {
+                    //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+                    for(NSManagedObject *curatedNews in newPerson) {
+                        // NSLog(@"for loop update");
+                        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                        
+                        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                        } else {
+                            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
+                        }
+                    }
+                }
+                [managedObjectContext save:nil];
                 
-                
-                
-                
-                NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-                NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-                [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+    
                 [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
                 
                 NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
@@ -1070,46 +1069,44 @@
             [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
             [curatedNews setValue:[NSNumber numberWithInt:[loginUserIdString intValue]] forKey:@"markAsImportantUserId"];
             
-//            NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-//            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-//            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",[curatedNews valueForKey:@"articleId"]];
-//            [fetchRequest setPredicate:predicate];
-//            NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-//             NSLog(@"marked imp array count:%d",newPerson.count);
-//            if(newPerson.count != 0) {
-//                //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-//                for(NSManagedObject *curatedNews in newPerson) {
-//                     NSLog(@"for loop update");
-//                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
-//                    
-//                    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-//                        // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
-//                    } else {
-//                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
-//                    }
-//                }
-//            }
-//            [managedObjectContext save:nil];
+            NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",[curatedNews valueForKey:@"articleId"]];
+            [fetchRequest setPredicate:predicate];
+            NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+             NSLog(@"marked imp array count:%d",newPerson.count);
+            if(newPerson.count != 0) {
+                //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+                for(NSManagedObject *curatedNews in newPerson) {
+                     NSLog(@"for loop update");
+                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+                    
+                    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                    } else {
+                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
+                    }
+                }
+            }
+            [managedObjectContext save:nil];
             
-            
-            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
             
             
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Marked Important" attributes:dictionary];
         }
-    } else {
-        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        NSArray *subViewArray = [window subviews];
-        //NSLog(@"subview array count:%d",subViewArray.count);
-        if(subViewArray.count == 1) {
-            [[FISharedResources sharedResourceManager] showBannerView];
-        }
-        //[FIUtils showNoNetworkToast];
-    }
+//    } else {
+//        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//        NSArray *subViewArray = [window subviews];
+//        //NSLog(@"subview array count:%d",subViewArray.count);
+//        if(subViewArray.count == 1) {
+//            [[FISharedResources sharedResourceManager] showBannerView];
+//        }
+//        //[FIUtils showNoNetworkToast];
+//    }
     
     
 }
@@ -1139,17 +1136,35 @@
     
     
     NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
-    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+    //if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     UIButton *savedBtn = (UIButton *)[tapGesture view];
     if(savedBtn.selected) {
         [savedBtn setSelected:NO];
         [resultDic setObject:@"false" forKey:@"isSelected"];
-        [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
-        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
         
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",[curatedNews valueForKey:@"articleId"]];
+        [fetchRequest setPredicate:predicate];
+        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        if(newPerson.count != 0) {
+            for(NSManagedObject *curatedNews in newPerson) {
+                // NSLog(@"for loop update");
+                [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+                [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+                
+                if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                    
+                    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                    [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                } else {
+                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isSavedForLaterStatusSync"];
+                }
+            }
+        }
+        [managedObjectContext save:nil];
+        
         [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
         
         NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
@@ -1160,52 +1175,45 @@
         
         [savedBtn setSelected:YES];
         [resultDic setObject:@"true" forKey:@"isSelected"];
-        //NSLog(@"curated news detail:%@",curatedNewsDetail);
-        if(curatedNewsDetail == nil) {
-            // NSLog(@"details is null");
-            NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
-            [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-            [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
-            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-            
-            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            
-            NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
-            [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-            [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
-            NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
-            
-            NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
-           
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
-                //Background Thread
-                [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
-                [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
+        
+        
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",[curatedNews valueForKey:@"articleId"]];
+        [fetchRequest setPredicate:predicate];
+        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        if(newPerson.count != 0) {
+            for(NSManagedObject *curatedNews in newPerson) {
+                // NSLog(@"for loop update");
+                [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
+                [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
                 
-            });
-            
+                if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                    
+                    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                    [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                } else {
+                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isSavedForLaterStatusSync"];
+                }
+            }
         }
+        [managedObjectContext save:nil];
         
-        [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
-        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-        
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
         [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
         
         NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
         [Localytics tagEvent:@"Save Later" attributes:dictionary];
     }
-    } else {
-        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        NSArray *subViewArray = [window subviews];
-        //NSLog(@"subview array count:%d",subViewArray.count);
-        if(subViewArray.count == 1) {
-            [[FISharedResources sharedResourceManager] showBannerView];
-        }
-        //[FIUtils showNoNetworkToast];
-    }
+//    } else {
+//        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//        NSArray *subViewArray = [window subviews];
+//        //NSLog(@"subview array count:%d",subViewArray.count);
+//        if(subViewArray.count == 1) {
+//            [[FISharedResources sharedResourceManager] showBannerView];
+//        }
+//        //[FIUtils showNoNetworkToast];
+//    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView

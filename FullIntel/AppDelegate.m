@@ -94,7 +94,7 @@
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
     
-    
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
    // [self.revealController showViewController:self.revealController.leftViewController];
     
@@ -110,21 +110,93 @@
     return YES;
 }
 
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    
+    NSDate *fetchStart = [NSDate date];
+    
+    UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+    
+    CorporateNewsListView *viewController = [[navCtlr viewControllers] objectAtIndex:0];
+    
+    [viewController fetchNewDataWithCompletionHandler:^(UIBackgroundFetchResult result) {
+        completionHandler(result);
+        [self syncCuratedNewsList];
+        NSDate *fetchEnd = [NSDate date];
+        NSTimeInterval timeElapsed = [fetchEnd timeIntervalSinceDate:fetchStart];
+        NSLog(@"Background Fetch Duration: %f seconds", timeElapsed);
+        
+    }];
+}
+
+
+
+
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     NSLog(@"Calling Application Bundle ID: %@", sourceApplication);
-    NSLog(@"URL scheme:%@", [url scheme]);
+    NSLog(@"URL scheme:%@ and url:%@", [url scheme],url);
     NSLog(@"URL query: %@", [url query]);
     
     if([url query].length != 0) {
-        NSArray *subStrings = [[url query] componentsSeparatedByString:@"="]; //or rather @" - "
-        //NSString *firstString = [subStrings objectAtIndex:0];
-        NSString *queryString = [subStrings objectAtIndex:1];
+        NSArray *subStrings = [[url query] componentsSeparatedByString:@"&"]; //or rather @" - "
+        
+        NSString *objectIdString = [subStrings objectAtIndex:0];
+        NSArray *objectIdArray = [objectIdString componentsSeparatedByString:@"="];
+        NSString *encodedObjectId = [objectIdArray objectAtIndex:1];
+        
+        // NSData from the Base64 encoded str
+        NSData *firstDecodedObjectData = [[NSData alloc]initWithBase64EncodedString:encodedObjectId options:0];
+        
+        // Decoded NSString from the NSData
+        NSString *decodedObjectId = [[NSString alloc]
+                                   initWithData:firstDecodedObjectData encoding:NSUTF8StringEncoding];
+        NSLog(@"Decoded: %@", decodedObjectId);
+        // NSData from the Base64 encoded str
+        NSData *secondDecodedObjectData = [[NSData alloc]
+                                           initWithBase64EncodedString:decodedObjectId
+                                           options:0];
+        
+        // Decoded NSString from the NSData
+        NSString *objectId = [[NSString alloc]
+                                    initWithData:secondDecodedObjectData encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"email:%@",objectId);
+        
+        
+        
+        NSString *itemIdString = [subStrings objectAtIndex:1];
+        NSArray *itemIdArray = [itemIdString componentsSeparatedByString:@"="];
+        NSString *encodedItemId = [itemIdArray objectAtIndex:1];
+        
+        // NSData from the Base64 encoded str
+        NSData *firstDecodedItemData = [[NSData alloc]initWithBase64EncodedString:encodedItemId options:0];
+        
+        // Decoded NSString from the NSData
+        NSString *decodedItemId = [[NSString alloc]
+                                     initWithData:firstDecodedItemData encoding:NSUTF8StringEncoding];
+        NSLog(@"Decoded: %@", decodedItemId);
+        // NSData from the Base64 encoded str
+        NSData *secondDecodedItemData = [[NSData alloc]
+                                           initWithBase64EncodedString:decodedItemId
+                                           options:0];
+        
+        // Decoded NSString from the NSData
+        NSString *itemId = [[NSString alloc]
+                              initWithData:secondDecodedItemData encoding:NSUTF8StringEncoding];
+    
+        NSLog(@"article id:%@",itemId);
         NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        NSString *customerEmail = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"customerEmail"]];
         if(accessToken.length != 0) {
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"articleId":queryString}];
+            if([customerEmail isEqualToString:objectId]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"articleId":itemId}];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Does not match with logined details" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                [alert show];
+            }
+            
         }
     }
     
@@ -217,9 +289,9 @@
     NSLog(@"app enter in backgound");
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     NSLog(@"application enter in background:%@",accessToken);
-    
- 
-    
+
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isAppActive"];
+
     if(accessToken.length > 0) {
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
         NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
@@ -261,7 +333,7 @@
 }
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {
-    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isAppActive"];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0) {
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
@@ -270,9 +342,80 @@
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]validateUserOnResumeWithDetails:resultStr];
-        
-        
     }
+    [self syncCuratedNewsList];
+}
+
+
+-(void)syncCuratedNewsList {
+    NSLog(@"sync method is working");
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    BOOL isAppActive = [[NSUserDefaults standardUserDefaults]boolForKey:@"isAppActive"];
+    if(accessToken.length > 0 && isAppActive) {
+        dispatch_queue_t queue_a = dispatch_queue_create("test", 0);
+        dispatch_async(queue_a, ^(void){
+            [self getArticlesIdFromDB];
+            NSString *lastArticleId = [self.articleIdArray lastObject];
+            NSString *inputJson;
+            NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
+            // NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+            // NSInteger category = categoryStr.integerValue;
+            if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                //NSLog(@"curated news:%@",curatedNews);
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:lastArticleId contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+                
+                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:lastArticleId];
+            }
+            
+        });
+    }
+}
+
+
+
+-(void)getArticlesIdFromDB {
+   // NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
+   // NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
+    NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
+    NSPredicate *predicate;
+//    if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+//        if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+//            BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+//            if(savedForLaterIsNew){
+//                //                NSLog(@"saved for later new");
+//                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+//            } else {
+//                NSLog(@"saved for later old");
+//                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+//            }
+//        } else {
+            predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",[NSNumber numberWithInt:-1]];
+//        }
+//    } else {
+//        predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
+//    }
+    
+    
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
+    
+    NSMutableArray *elementsFromColumn = [[NSMutableArray alloc] init];
+    for (NSManagedObject *fetchedObject in fetchedObjects) {
+        [elementsFromColumn addObject:[fetchedObject valueForKey:@"articleId"]];
+    }
+    
+    //NSLog(@"elementsfrom column:%@",elementsFromColumn);
+    self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
 }
 
 

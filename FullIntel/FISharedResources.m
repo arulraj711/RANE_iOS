@@ -332,6 +332,26 @@
                 });
                 
                 
+                NSFetchRequest *fetchRequest2 = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                NSPredicate *predicate2  = [NSPredicate predicateWithFormat:@"isSavedForLaterStatusSync == %@",[NSNumber numberWithBool:YES]];
+                [fetchRequest2 setPredicate:predicate2];
+                NSArray *syncArray2 =[[managedObjectContext executeFetchRequest:fetchRequest2 error:nil] mutableCopy];
+                // NSLog(@"marked imp sync array count:%lu",(unsigned long)syncArray1.count);
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    for(NSManagedObject *curatedNews in syncArray2) {
+                        [self updateUserActivitiesInBackgroundWithArticleId:[curatedNews valueForKey:@"articleId"] withStatus:3 withSelectedStatus:[[curatedNews valueForKey:@"saveForLater"] boolValue]];
+                        NSFetchRequest *fetchRequest2 = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                        NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"articleId == %@",[curatedNews valueForKey:@"articleId"]];
+                        [fetchRequest2 setPredicate:predicate2];
+                        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest2 error:nil] mutableCopy];
+                        if(newPerson.count != 0) {
+                            NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+                            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isSavedForLaterStatusSync"];
+                        }
+                        [managedObjectContext save:nil];
+                    }
+                });
+                
             } else {
                 [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
             }
@@ -414,7 +434,7 @@
             if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
                 // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
             } else {
-                [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
+              //  [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
             }
         }
     }
@@ -540,10 +560,10 @@
             if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 NSString *str = [dic objectForKey:@"articleUrl"];
                 if(str.length != 0) {
-                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
-                        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
-                        [curatedNews setValue:string forKey:@"articleUrlData"];
-                    });
+//                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
+//                        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
+//                        [curatedNews setValue:string forKey:@"articleUrlData"];
+                   // });
                 }
             }
             
@@ -703,9 +723,14 @@
         }
         [self hideProgressView];
        // NSLog(@"reached end");
+            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]] && curatedNewsArray.count != 0) {
+                AppDelegate *appDelegate = [[AppDelegate alloc]init];
+                [appDelegate syncCuratedNewsList];
+            }
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
+            
         } else {
             [self hideProgressView];
             [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
@@ -1911,7 +1936,7 @@
     if (![self internetIsReachable]) {
         return NO;
     }
-    NSURL *myURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.google.co.in"]];
+    NSURL *myURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.apple.com"]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: myURL];
     request.timeoutInterval = 4.0f;
     [request setHTTPMethod: @"HEAD"];

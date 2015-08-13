@@ -200,21 +200,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"folder did select is working");
+    FIFolder *folder = [folderArray objectAtIndex:indexPath.row];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"openFolderView" object:nil userInfo:@{@"folderId":folder.folderId}];
     
     
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
     CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
-     FIFolder *folder = [folderArray objectAtIndex:indexPath.row];
+     //FIFolder *folder = [folderArray objectAtIndex:indexPath.row];
     CorporateNewsListViewObj.titleName=folder.folderName;
-    //if(data.nodeId != nil) {
-//        if([[folder.folderName uppercaseString]isEqualToString:@"RSS"]){
-//            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
-//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
-//            UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
-//            //               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
-//            [self.revealController setFrontViewController:navCtlr];
-//        } else {
+    
             if([[folder.folderName uppercaseString]isEqualToString:@"RSS"]) {
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isRSSField"];
             } else {
@@ -223,12 +218,7 @@
             
             [[NSUserDefaults standardUserDefaults]setObject:folder.folderId forKey:@"folderId"];
             [self.revealController setFrontViewController:navCtlr];
-            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folder.folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
-        //}
-        
-    //}
-    
-    
+//            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folder.folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
 }
 
 @end
