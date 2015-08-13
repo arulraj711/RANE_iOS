@@ -29,6 +29,7 @@
     NSTimer *popAnimationTimer;
 }
 
+-(void)updateNewsTitle;
 -(void)loadCuratedNews;
 @property BOOL isStarting;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *corporateListWidthConstraint;
