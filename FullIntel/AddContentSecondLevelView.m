@@ -84,29 +84,42 @@
     _tutorialContentView.layer.cornerRadius=5.0f;
     
     
+
+    
     tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(stopSecondTutorial:)];
     
     [self.view addGestureRecognizer:tapEvent];
+        
+    
 }
 
 -(void)stopSecondTutorial:(UITapGestureRecognizer *)sender{
+    
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
+    if (coachMarksShown == YES) {
     
     NSLog(@"triggerSecondTutorial");
     
     _tutorialContentView.hidden=YES;
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuTutorialTrigger" object:nil];
-    
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SecondTutorialShown"];
+        
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"CloseAddContentTutorial"];
     
     [popAnimationTimer invalidate];
     
     [_categoryCollectionView reloadData];
     
     _tutorialContentView.hidden=YES;
-    
-    [self.view removeGestureRecognizer:tapEvent];
 
+     [[NSNotificationCenter defaultCenter]postNotificationName:@"closeAddContentView" object:nil];
+        
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuTutorialTrigger" object:nil];
+        
+    }else{
+            [self.view removeGestureRecognizer:tapEvent];
+    }
     
 }
 
@@ -338,6 +351,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
+    if (coachMarksShown == NO) {
+    
     SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:indexPath];
      [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
     
@@ -359,7 +376,7 @@
         
     [self.navigationController pushViewController:thirdLevel animated:YES];
     }
-    
+    }
 }
 
 - (void)infoButtonClick:(id)sender {

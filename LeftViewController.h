@@ -16,6 +16,8 @@
     MZFormSheetController *formSheet;
     WSCoachMarksView *coachMarksView;
     NSArray *coachMarks;
+    
+    NSTimer *popAnimationTimer,*popAnimationTimerTwo;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;
 @property (weak, nonatomic) IBOutlet UIButton *researchButton;
@@ -26,4 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *companyLogo;
 - (IBAction)addContentButtonClick:(id)sender;
 - (IBAction)researchRequestButtonClick:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIView *overlayView;
+
+
 @end

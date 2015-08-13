@@ -36,7 +36,10 @@
     
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSelected) name:@"contentSelected" object:nil];
     
+    
    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backBtnPress) name:@"closeAddContentView" object:nil];
     
     layout = (id)[self.contentCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
@@ -164,8 +167,6 @@
     if (coachMarksShown == NO) {
         _tutorialDescriptionView.hidden=YES;
     
-    _tutorialDescriptionView.hidden=YES;
-    
     [[NSNotificationCenter defaultCenter]postNotificationName:@"SecondLevelTutorialTrigger" object:nil];
     
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialShown"];
@@ -182,7 +183,7 @@
 -(void)backBtnPress{
     
     
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"CloseAddContentTutorial"];
     if (coachMarksShown == YES) {
     
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CancelChangesInAddContent"];
@@ -281,7 +282,7 @@
 
 - (IBAction)requestChange:(id)sender {
     
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"CloseAddContentTutorial"];
     if (coachMarksShown == YES) {
     
     [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
@@ -302,7 +303,7 @@
 
 - (IBAction)closeAction:(id)sender {
     
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"CloseAddContentTutorial"];
     if (coachMarksShown == YES) {
     
     NSMutableArray *categoryArray = [[NSMutableArray alloc]init];
@@ -463,25 +464,26 @@
         [cell.checkMarkButton setSelected:NO];
     }
     
+
     
-    if(indexPath.row==0){
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    if (coachMarksShown == NO) {
         
-            BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
-            if (coachMarksShown == NO) {
-        
-        NSLog(@"animate first cell");
-        
-        cell.layer.borderWidth=1.0;
-        cell.layer.borderColor=[[UIColor redColor]CGColor];
-        
-        popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
-        
-       // [self animateFirstCell:cell];
-            }else{
+            if(indexPath.row==0){
+                cell.layer.borderWidth=1.0;
+                cell.layer.borderColor=[[UIColor redColor]CGColor];
                 
+                popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
+            }else{
                  cell.layer.borderWidth=0.0;
             }
+        
+    }else{
+        
+        cell.layer.borderWidth=0.0;
     }
+    
+    
     return cell;
 }
 -(void)permformAnimation:(NSTimer *)timer{
@@ -506,6 +508,9 @@
     
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"CloseAddContentTutorial"];
+    if (coachMarksShown == YES) {
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
     if(contentCategory.listArray.count != 0) {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
@@ -521,7 +526,7 @@
         
     [self.navigationController pushViewController:secondLevel animated:YES];
     }
-    
+    }
 }
 
 -(void)upgradeTap:(UITapGestureRecognizer *)sender {

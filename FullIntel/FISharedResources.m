@@ -135,6 +135,9 @@
     [buttonBackView addGestureRecognizer:tapEvent];
     
     // backgrView.alpha = 0.6;
+    
+    [Localytics tagEvent:@"OffLineBanner"];
+    
     [window addSubview:buttonBackView];
     
 }
@@ -184,6 +187,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"customerid"]) forKey:@"customerId"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userid"]) forKey:@"userId"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"firstName"]) forKey:@"firstName"];
+            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"lastName"]) forKey:@"lastName"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoUrl"]) forKey:@"photoUrl"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
@@ -192,7 +196,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
             
             
-            //[[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SignInClicked"];
+          
             
             [Localytics setCustomerId:NULL_TO_NIL([responseObject valueForKey:@"customerid"])];
             
@@ -1962,8 +1966,9 @@
 -(void)saveDetailsInLocalyticsWithName:(NSString *)name{
     
     
+    NSString *userName=[NSString stringWithFormat:@"%@ %@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],[[NSUserDefaults standardUserDefaults]objectForKey:@"lastName"]];
     
-    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":userName,@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
     [Localytics tagEvent:name attributes:dictionary];
 }
 

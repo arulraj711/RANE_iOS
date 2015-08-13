@@ -30,6 +30,7 @@
 #import "FIFolder.h"
 #import "FolderViewController.h"
 #import "FISharedResources.h"
+#import "pop.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -56,7 +57,20 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMenuCount:) name:@"updateMenuCount" object:nil];
     
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addContentButtonClick:) name:@"TutorialTrigger" object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addContentButtonClick:) name:@"TutorialTrigger" object:nil];
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addOverlayAndBox) name:@"MenuTutorialTrigger" object:nil];
+    
+    
+    
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterFirstTutorial) name:@"MarkImportantTutorialTrigger" object:nil];
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSecondTutorial) name:@"MainListTutorialTrigger" object:nil];
+    
     
     self.addContentButton.layer.cornerRadius = 5.0f;
     self.addContentButton.layer.masksToBounds = YES;
@@ -133,6 +147,96 @@
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
+    
+    
+
+}
+-(void)afterSecondTutorial{
+    
+    
+    NSLog(@"Coming here afterSecondTutorial");
+    
+    [popAnimationTimerTwo invalidate];
+    
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"MarkImportantTutorialTriggerShown"];
+    
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"MainListArrowTutorial"];
+    
+   [_treeView reloadData];
+    
+    
+}
+-(void)afterFirstTutorial{
+    
+    
+    [popAnimationTimer invalidate];
+    
+    _treeView.layer.borderWidth=0.0;
+    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"MarkImportantTutorialTriggerShown"];
+    
+    [_treeView reloadData];
+}
+
+
+-(void)performAnimationForMarkImportant:(NSTimer *)timer{
+    
+    RATableViewCell *cell=timer.userInfo;
+    
+    [self performAnimationForFirstItemInTreeView:cell];
+    
+    
+    
+    
+}
+
+-(void)performAnimationForFirstItemInTreeView:(RATableViewCell *)cell{
+    
+    [cell.layer removeAllAnimations];
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+    scaleAnimation.springBounciness = 10;
+    scaleAnimation.springSpeed=10;
+    [cell.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+    
+}
+-(void)permformAnimation:(NSTimer *)timer{
+    
+    
+    [_treeView.layer removeAllAnimations];
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+    scaleAnimation.springBounciness = 10;
+    scaleAnimation.springSpeed=10;
+    [_treeView.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+    
+}
+
+-(void)addOverlayAndBox{
+    
+    
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    UIViewController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"LeftMenuTutorialPopViewController"];
+    
+    //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+    
+    //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+    //  popOverView.transitioningDelegate = self;
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:popOverView animated:NO completion:nil];
+
+    
+    _treeView.layer.borderWidth=1.0;
+    _treeView.layer.borderColor=[UIColorFromRGB(0XA4131E) CGColor];
+    
+    
+        popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:nil repeats:YES];
+    
+    
+    
+    
 }
 
 -(void)openFolderView:(id)sender {
@@ -163,6 +267,7 @@
     }
     
 }
+
 
 //-(void)addCoachView{
 //    
@@ -460,6 +565,9 @@
 -(void)presentTutorialPopViewController{
     
     
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
+    if (coachMarksShown == NO) {
+    
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
     
@@ -469,6 +577,10 @@
     //  popOverView.transitioningDelegate = self;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:popOverView animated:NO completion:nil];
+        
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialBoxShown"];
+        
+    }
     
 }
 #pragma mark - Actions
@@ -590,6 +702,23 @@
         UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
         separatorLineView.backgroundColor = [UIColor colorWithRed:(220/255.0) green:(223/255.0) blue:(224/255.0) alpha:1];
         [cell.contentView addSubview:separatorLineView];
+        
+        
+   
+        
+    }else{
+        
+        BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MarkImportantTutorialTriggerShown"];
+        if (coachMarksShown == YES) {
+            popAnimationTimerTwo=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performAnimationForMarkImportant:) userInfo:cell repeats:YES];
+            
+            cell.layer.borderColor=[UIColorFromRGB(0XA4131E) CGColor];
+            cell.layer.borderWidth=1.0;
+            
+        }else{
+            
+            cell.layer.borderWidth=0.0;
+        }
     }
     if([dataObject.unReadCount intValue] > 0) {
         cell.countLabel.hidden = NO;
@@ -613,6 +742,11 @@
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
+            
+            
+            
+            
+            
         } else if([dataObject.nodeId integerValue] == 6) {
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;

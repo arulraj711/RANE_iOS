@@ -18,6 +18,7 @@
 #import "AddContentFirstLevelView.h"
 #import "ResearchRequestPopoverView.h"
 #import "Localytics.h"
+#import "pop.h"
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface CorporateNewsListView ()
@@ -48,9 +49,12 @@
     
     
    
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addOverLayView) name:@"FirstTimeTutorialCreated" object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addOverLayForTutorial) name:@"MainListArrowTutorial" object:nil];
     
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeOverLayView) name:@"FirstTimeTutorialCompleted" object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeUpAndDownTutorial) name:@"SaveForLaterTutorialTrigger" object:nil];
+    
     
     
     self.devices = [[NSMutableArray alloc]init];
@@ -134,7 +138,32 @@
 }
 
 
-
+-(void)afterSwipeUpAndDownTutorial{
+    
+    
+    [popAnimationTimer invalidate];
+    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SaveForLaterTutorialShown"];
+    
+    [self.articlesTableView reloadData];
+}
+-(void)addOverLayForTutorial{
+    
+    
+    
+    [self.revealController showViewController:self.revealController.frontViewController];
+    
+    
+    
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+   // UIViewController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"MainListTutorialViewController"];
+    
+    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"MainListTutorialPopUp"];
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:popOverView animated:NO completion:nil];
+    
+    
+}
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     
     NSLog(@"scrollViewWillBeginDecelerating");
@@ -184,26 +213,6 @@
 
 }
 
--(void)removeOverlay{
-    
-      [overlayView removeFromSuperview];
-}
-
--(void)removeOverLayView{
-    
-    
-    [overlayView removeFromSuperview];
-    
-    
-
-    self.revealController.recognizesPanningOnFrontView=YES;
-    self.revealController.recognizesResetTapOnFrontViewInPresentationMode=YES;
-    self.revealController.recognizesResetTapOnFrontView=YES;
-
-
-
-    
-}
 -(void)addRightBarItems {
     UIView *rssBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
     UIButton *rssButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
@@ -753,6 +762,30 @@
         UITapGestureRecognizer *checkMarkTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(checkMark:)];
         cell.checkMarkButton.tag = indexPath.row;
         [cell.checkMarkButton addGestureRecognizer:checkMarkTap];
+        
+        
+        BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SaveForLaterTutorialShown"];
+        if (coachMarksShown == YES) {
+            
+            if(indexPath.row==2){
+            
+            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performAnimationForMarkImportant:) userInfo:cell repeats:YES];
+            
+            cell.savedForLaterButton.layer.borderColor=[UIColorFromRGB(0XA4131E) CGColor];
+            cell.savedForLaterButton.layer.borderWidth=1.0;
+                
+            }else{
+                
+                cell.savedForLaterButton.layer.borderWidth=0.0;
+            }
+            
+        }else{
+            
+            cell.savedForLaterButton.layer.borderWidth=0.0;
+        }
+
+        
+        
         tableCell = cell;
     } else {
         tableCell = [[UITableViewCell alloc] init];
@@ -768,7 +801,26 @@
     return tableCell;
 }
 
+-(void)performAnimationForMarkImportant:(NSTimer *)timer{
+    
+    CorporateNewsCell *cell=timer.userInfo;
+    
+    [self performAnimationForFirstItemInTreeView:cell];
+    
 
+}
+
+-(void)performAnimationForFirstItemInTreeView:(CorporateNewsCell *)cell{
+    
+    [cell.layer removeAllAnimations];
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+    scaleAnimation.springBounciness = 10;
+    scaleAnimation.springSpeed=10;
+    [cell.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+    
+}
 -(void)updateReadUnReadStatusForRow:(NSIndexPath *)indexPath {
     NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
     NSNumber *number = [curatedNews valueForKey:@"readStatus"];
@@ -999,7 +1051,7 @@
     
                 [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
                 
-                NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"]};
+                NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
                 [Localytics tagEvent:@"Remove Marked Important" attributes:dictionary];
                 
                 
@@ -1043,7 +1095,7 @@
             [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
             
             
-            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"]};
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Marked Important" attributes:dictionary];
         }
 //    } else {
@@ -1115,7 +1167,7 @@
         
         [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
         
-        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"]};
+        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
         [Localytics tagEvent:@"Remove Save Later" attributes:dictionary];
     }else {
         
@@ -1150,7 +1202,7 @@
         
         [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
         
-        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"]};
+        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
         [Localytics tagEvent:@"Save Later" attributes:dictionary];
     }
 //    } else {

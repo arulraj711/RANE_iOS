@@ -13,7 +13,7 @@
 #import "WSCoachMarksView.h"
 #import "Localytics.h"
 
-@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate> {
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIViewControllerTransitioningDelegate> {
     NSMutableArray *legendsList;
     NSManagedObject *author;
     UIRefreshControl *refreshControl;
@@ -26,6 +26,7 @@
     
     WSCoachMarksView *coachMarksView;
     NSArray *coachMarks;
+    NSTimer *popAnimationTimer;
 }
 
 -(void)loadCuratedNews;

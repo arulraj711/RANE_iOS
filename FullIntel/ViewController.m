@@ -213,7 +213,7 @@
             
         }
         
-        
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SignIn"];
         [self dismissViewControllerAnimated:YES completion:nil];
         
     } else {
@@ -261,7 +261,10 @@
 
 - (IBAction)infoButtonPressed:(id)sender {
     
-    [Localytics tagEvent:@"Info Clicked"];
+    
+    NSLog(@"infoButtonPressed");
+    
+    [Localytics tagEvent:@"InfoClicked"];
     
     NSString *contentMessage = nil;
     UIView *contentView = nil;
@@ -377,6 +380,12 @@
                 
                 [self callForgotPasswordWithEmail:emailTextField.text];
             }
+        }if(buttonIndex==0){
+            
+            
+            NSLog(@"Cancel Button Pressed");
+            
+                [Localytics tagEvent:@"ForgotPasswordCancel"];
         }
     }
     
