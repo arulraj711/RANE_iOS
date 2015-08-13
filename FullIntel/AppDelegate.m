@@ -205,7 +205,7 @@
             if(existingArray.count != 0) {
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"articleId":itemId}];
             } else {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Does not match with logined details" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Article not available to access" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
                 [alert show];
             }
             

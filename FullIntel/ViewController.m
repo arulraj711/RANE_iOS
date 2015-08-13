@@ -225,7 +225,7 @@
 }
 
 - (IBAction)forgetPasswordButtonPressed:(id)sender {
-    
+    [Localytics tagEvent:@"ForgotPasswordButtonClick"];
     [self showForgetAlert:_usernameTextField.text withFlag:@""];
 
 }

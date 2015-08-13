@@ -1010,16 +1010,13 @@
     if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
     } else if(data.isFolder){
-//        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-//        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-//        CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
-//        CorporateNewsListViewObj.titleName=data.name;
+
         if(data.nodeId != nil) {
             if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]){
                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
                 FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
-//               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+//
                 UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
                 navCtlr.viewControllers = [NSArray arrayWithObject:folderView];
                 //[self.revealController setFrontViewController:navCtlr];
@@ -1032,6 +1029,8 @@
                 } else {
                     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
                 }
+                
+                [[FISharedResources sharedResourceManager]saveSelectedSubMenuInLocalyticsWithName:@"SelectedFolder" andMenuName:data.name];
                 
                 [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"folderId"];
                 [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
@@ -1066,7 +1065,7 @@
             
                 [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
                 [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withFlag:@"" withLastArticleId:@""];
-           
+            [[FISharedResources sharedResourceManager]saveSelectedSubMenuInLocalyticsWithName:@"SelectedTopic" andMenuName:data.name];
             UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
             if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
                 CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];

@@ -56,6 +56,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeUpAndDownTutorial) name:@"SaveForLaterTutorialTrigger" object:nil];
     
     
+    self.actionsButton.layer.masksToBounds = YES;
+    self.actionsButton.layer.cornerRadius = 5;
+    self.actionsButton.layer.borderWidth = 1.0f;
+    self.actionsButton.layer.borderColor = [UIColor lightTextColor].CGColor;
+    
+    self.showButton.layer.masksToBounds = YES;
+    self.showButton.layer.cornerRadius = 5;
+    self.showButton.layer.borderWidth = 1.0f;
+    self.showButton.layer.borderColor = [UIColor lightTextColor].CGColor;
+    
     
     self.devices = [[NSMutableArray alloc]init];
     
@@ -482,6 +492,8 @@
          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if (result) {
         //NSLog(@"Result : %d",result);
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"RSS Mail Send"];
+
     }
     if (error) {
         //NSLog(@"Error : %@",error);
@@ -640,9 +652,11 @@
     
     if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
        // NSLog(@"left view opened");
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MainMenu Opened"];
         [self.revealController showViewController:self.revealController.frontViewController];
     } else {
        // NSLog(@"left view closed");
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MainMenu Closed"];
         [self.revealController showViewController:self.revealController.leftViewController];
     }
     
@@ -784,25 +798,25 @@
         [cell.checkMarkButton addGestureRecognizer:checkMarkTap];
         
         
-        BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SaveForLaterTutorialShown"];
-        if (coachMarksShown == YES) {
-            
-            if(indexPath.row==2){
-            
-            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performAnimationForMarkImportant:) userInfo:cell repeats:YES];
-            
-            cell.savedForLaterButton.layer.borderColor=[UIColorFromRGB(0XA4131E) CGColor];
-            cell.savedForLaterButton.layer.borderWidth=1.0;
-                
-            }else{
-                
-                cell.savedForLaterButton.layer.borderWidth=0.0;
-            }
-            
-        }else{
-            
-            cell.savedForLaterButton.layer.borderWidth=0.0;
-        }
+//        BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SaveForLaterTutorialShown"];
+//        if (coachMarksShown == YES) {
+//            
+//            if(indexPath.row==2){
+//            
+//            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performAnimationForMarkImportant:) userInfo:cell repeats:YES];
+//            
+//            cell.savedForLaterButton.layer.borderColor=[UIColorFromRGB(0XA4131E) CGColor];
+//            cell.savedForLaterButton.layer.borderWidth=1.0;
+//                
+//            }else{
+//                
+//                cell.savedForLaterButton.layer.borderWidth=0.0;
+//            }
+//            
+//        }else{
+//            
+//            cell.savedForLaterButton.layer.borderWidth=0.0;
+//        }
 
         
         
@@ -832,13 +846,13 @@
 
 -(void)performAnimationForFirstItemInTreeView:(CorporateNewsCell *)cell{
     
-    [cell.layer removeAllAnimations];
+    [cell.savedForLaterButton.layer removeAllAnimations];
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
     scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
     scaleAnimation.springBounciness = 10;
     scaleAnimation.springSpeed=10;
-    [cell.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+    [cell.savedForLaterButton.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
     
 }
 -(void)updateReadUnReadStatusForRow:(NSIndexPath *)indexPath {

@@ -13,6 +13,7 @@
 #import "AddContentFifthLevelView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Localytics.h"
+#import "FISharedResources.h"
 
 @interface AddContentFourthLevelView ()
 
@@ -222,6 +223,7 @@
             [self.uncheckedArray removeObject:contentCategory.categoryId];
             // }
         }
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"AddContent Topic Change"];
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFourthLevelChanged"];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"fourthLevelSelection"];

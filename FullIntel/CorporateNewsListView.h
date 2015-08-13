@@ -28,7 +28,9 @@
     NSArray *coachMarks;
     NSTimer *popAnimationTimer;
 }
+@property (weak, nonatomic) IBOutlet UIButton *actionsButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *showButton;
 -(void)updateNewsTitle;
 -(void)loadCuratedNews;
 @property BOOL isStarting;

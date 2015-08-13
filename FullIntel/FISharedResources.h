@@ -44,6 +44,7 @@
 -(void)updateAppViewTypeWithDetails:(NSString *)details;
 -(void)featureAccessRequestWithDetails:(NSString *)details;
 -(void)updateFolderId:(NSString *)entity withFolderId:(NSNumber *)folderId;
+-(void)saveSelectedSubMenuInLocalyticsWithName:(NSString *)name andMenuName:(NSString *)menuName;
 -(NSArray *)getTweetDetails:(NSString *)details;
 -(void)markCommentAsReadWithDetails:(NSString *)details;
 - (NSManagedObjectContext *)managedObjectContext;

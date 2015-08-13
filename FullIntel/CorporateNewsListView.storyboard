@@ -106,7 +106,7 @@
                                             <segment title="UNREAD"/>
                                             <segment title="NONE"/>
                                         </segments>
-                                        <color key="tintColor" red="1" green="0.2800943394" blue="0.33985267219999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KM2-6u-bHK">
                                         <rect key="frame" x="339" y="10" width="128" height="30"/>
@@ -364,7 +364,9 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="1034" height="600"/>
                     <connections>
+                        <outlet property="actionsButton" destination="KM2-6u-bHK" id="i2c-8B-igB"/>
                         <outlet property="articlesTableView" destination="iQw-HJ-jcs" id="Y9d-VZ-oOe"/>
+                        <outlet property="showButton" destination="sMk-QL-g1I" id="cZZ-RO-HfS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bJt-tv-4Sj" userLabel="First Responder" sceneMemberID="firstResponder"/>
