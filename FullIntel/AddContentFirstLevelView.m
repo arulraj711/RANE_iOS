@@ -582,6 +582,7 @@
            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestCheckMarkSelect"];
     }
     
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Addcontent Module Change"];
     //NSLog(@"after selection:%@ and checked:%@ and unchecked:%@",self.selectedIdArray,self.checkedArray,self.uncheckedArray);
 
 }

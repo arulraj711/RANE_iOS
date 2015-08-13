@@ -114,10 +114,8 @@
     {
         
         [self dismissViewControllerAnimated:NO completion:^{
-            
-
-            
-            
+            [popAnimationTimer invalidate];
+            [popAnimationTimerTwo invalidate];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"DrillInTutorialTrigger" object:nil userInfo:nil];
             
         }];

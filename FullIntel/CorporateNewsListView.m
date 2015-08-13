@@ -55,10 +55,18 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeUpAndDownTutorial) name:@"SaveForLaterTutorialTrigger" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSaveForLaterTutorial) name:@"DrillInTutorialTrigger" object:nil];
+
+    self.actionsButton.layer.masksToBounds = YES;
+    self.actionsButton.layer.cornerRadius = 5;
+    self.actionsButton.layer.borderWidth = 1.0f;
+    self.actionsButton.layer.borderColor = [UIColor lightTextColor].CGColor;
     
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSaveForLaterTutorial) name:@"DrillInTutorialTrigger" object:nil];
-    
-    
+    self.showButton.layer.masksToBounds = YES;
+    self.showButton.layer.cornerRadius = 5;
+    self.showButton.layer.borderWidth = 1.0f;
+    self.showButton.layer.borderColor = [UIColor lightTextColor].CGColor;
+
     self.devices = [[NSMutableArray alloc]init];
     
    // [self.revealController showViewController:self.revealController.leftViewController];
@@ -499,6 +507,8 @@
          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if (result) {
         //NSLog(@"Result : %d",result);
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"RSS Mail Send"];
+
     }
     if (error) {
         //NSLog(@"Error : %@",error);
@@ -657,9 +667,11 @@
     
     if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
        // NSLog(@"left view opened");
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MainMenu Opened"];
         [self.revealController showViewController:self.revealController.frontViewController];
     } else {
        // NSLog(@"left view closed");
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MainMenu Closed"];
         [self.revealController showViewController:self.revealController.leftViewController];
     }
     
@@ -801,6 +813,7 @@
         [cell.checkMarkButton addGestureRecognizer:checkMarkTap];
         
         
+
         BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SaveForLaterTutorialShown"];
         if (coachMarksShown == YES) {
             
@@ -820,8 +833,7 @@
             
             cell.bookmarkView.layer.borderWidth=0.0f;
         }
-        
-        
+
         tableCell = cell;
     } else {
         tableCell = [[UITableViewCell alloc] init];
@@ -848,14 +860,16 @@
 
 -(void)performAnimationForFirstItemInTreeView:(CorporateNewsCell *)cell{
     
+
     [cell.bookmarkView.layer removeAllAnimations];
+    [cell.savedForLaterButton.layer removeAllAnimations];
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
     scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
     scaleAnimation.springBounciness = 10;
     scaleAnimation.springSpeed=10;
     [cell.bookmarkView.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
-    
+    [cell.savedForLaterButton.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
 }
 -(void)updateReadUnReadStatusForRow:(NSIndexPath *)indexPath {
     NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
