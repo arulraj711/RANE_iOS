@@ -95,16 +95,27 @@
     if (coachMarksShown == NO) {
         
         
-         _textView.text=@"￼Tap here to add to “Saved For Later” folder";
+         _textView.text=@"￼     Tap here to add to “Saved For Later” folder";
         
         
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SwipeUpAndDownTutorialTrigger"];
         
          [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveForLaterTutorialTrigger" object:nil userInfo:nil];
+        
+        
+        [popAnimationTimer invalidate];
+        [popAnimationTimerTwo invalidate];
+        
+        
+        _upImageView.hidden=YES;
+        _downImageView.hidden=YES;
+        
     }else
     {
         
         [self dismissViewControllerAnimated:NO completion:^{
+            
+
             
             
             [[NSNotificationCenter defaultCenter]postNotificationName:@"DrillInTutorialTrigger" object:nil userInfo:nil];

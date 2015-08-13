@@ -56,6 +56,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeUpAndDownTutorial) name:@"SaveForLaterTutorialTrigger" object:nil];
     
     
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSaveForLaterTutorial) name:@"DrillInTutorialTrigger" object:nil];
+    
     
     self.devices = [[NSMutableArray alloc]init];
     
@@ -137,11 +139,27 @@
     
 }
 
+-(void)afterSaveForLaterTutorial{
+    
+        [popAnimationTimer invalidate];
+
+    
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SaveForLaterTutorialShown"];
+    
+    [self.articlesTableView reloadData];
+    
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    [self.articlesTableView selectRowAtIndexPath:indexPath
+                                animated:YES
+                          scrollPosition:UITableViewScrollPositionNone];
+    [self tableView:self.articlesTableView didSelectRowAtIndexPath:indexPath];
+    
+}
 
 -(void)afterSwipeUpAndDownTutorial{
     
-    
-    [popAnimationTimer invalidate];
+
     
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SaveForLaterTutorialShown"];
     
@@ -767,23 +785,22 @@
         BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SaveForLaterTutorialShown"];
         if (coachMarksShown == YES) {
             
-            if(indexPath.row==2){
+            if(indexPath.row==1){
             
             popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performAnimationForMarkImportant:) userInfo:cell repeats:YES];
             
-            cell.savedForLaterButton.layer.borderColor=[UIColorFromRGB(0XA4131E) CGColor];
-            cell.savedForLaterButton.layer.borderWidth=1.0;
+                cell.bookmarkView.layer.borderColor=[UIColorFromRGB(0XA4131E) CGColor];
+                cell.bookmarkView.layer.borderWidth=1.0f;
                 
             }else{
                 
-                cell.savedForLaterButton.layer.borderWidth=0.0;
+               cell.bookmarkView.layer.borderWidth=0.0f;
             }
             
         }else{
             
-            cell.savedForLaterButton.layer.borderWidth=0.0;
+            cell.bookmarkView.layer.borderWidth=0.0f;
         }
-
         
         
         tableCell = cell;
@@ -812,13 +829,13 @@
 
 -(void)performAnimationForFirstItemInTreeView:(CorporateNewsCell *)cell{
     
-    [cell.layer removeAllAnimations];
+    [cell.bookmarkView.layer removeAllAnimations];
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
     scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
     scaleAnimation.springBounciness = 10;
     scaleAnimation.springSpeed=10;
-    [cell.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+    [cell.bookmarkView.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
     
 }
 -(void)updateReadUnReadStatusForRow:(NSIndexPath *)indexPath {

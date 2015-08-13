@@ -217,6 +217,7 @@
 -(void)addOverlayAndBox{
     
     
+    
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
     UIViewController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"LeftMenuTutorialPopViewController"];
     
