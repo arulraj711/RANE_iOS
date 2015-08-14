@@ -107,6 +107,7 @@
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
 		A0F36E1E1B5E23F0008D3AB1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F36E1C1B5E23F0008D3AB1 /* FBSDKCoreKit.framework */; };
 		A0F36E1F1B5E23F0008D3AB1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F36E1D1B5E23F0008D3AB1 /* FBSDKLoginKit.framework */; };
+		F54C9B7D1B7DC33300AD89DD /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C9B7C1B7DC33300AD89DD /* NIDropDown.m */; };
 		F54F91261B7332C000AE0C11 /* SocialLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F91251B7332C000AE0C11 /* SocialLinkCell.xib */; };
 		F54F91281B7332D100AE0C11 /* TweetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F91271B7332D100AE0C11 /* TweetsCell.xib */; };
 		F54F912A1B7332FC00AE0C11 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54F91291B7332FC00AE0C11 /* MailStoryboard.storyboard */; };
@@ -375,6 +376,8 @@
 		A0F36E1C1B5E23F0008D3AB1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		A0F36E1D1B5E23F0008D3AB1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
+		F54C9B7B1B7DC33300AD89DD /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
+		F54C9B7C1B7DC33300AD89DD /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
 		F54F91251B7332C000AE0C11 /* SocialLinkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLinkCell.xib; sourceTree = "<group>"; };
 		F54F91271B7332D100AE0C11 /* TweetsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsCell.xib; sourceTree = "<group>"; };
 		F54F91291B7332FC00AE0C11 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
@@ -754,6 +757,7 @@
 		A0E2234F1A91C2F00073814A /* FullIntel */ = {
 			isa = PBXGroup;
 			children = (
+				F54C9B7A1B7DC31300AD89DD /* DropDown */,
 				A06EEC9E1B73521500E284C9 /* Tutorial */,
 				A0E4B1141B4BB74D0029D389 /* Folder Page */,
 				A0CF5C241B1DD97200DED2D9 /* MockPages */,
@@ -850,6 +854,15 @@
 				A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F54C9B7A1B7DC31300AD89DD /* DropDown */ = {
+			isa = PBXGroup;
+			children = (
+				F54C9B7B1B7DC33300AD89DD /* NIDropDown.h */,
+				F54C9B7C1B7DC33300AD89DD /* NIDropDown.m */,
+			);
+			name = DropDown;
 			sourceTree = "<group>";
 		};
 		F74A550F1AB048120009FE4C /* Widgets */ = {
@@ -1265,6 +1278,7 @@
 				TargetAttributes = {
 					A0E2234C1A91C2F00073814A = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 8JJ7VBN6MD;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1520,6 +1534,7 @@
 				F7CE36E71A95E9490005AA0A /* RATreeView+RATreeNodeCollectionControllerDataSource.m in Sources */,
 				A0CF5C671B1DD98B00DED2D9 /* CompetitorCell.m in Sources */,
 				F7CE36C31A95E9230005AA0A /* RATreeView.m in Sources */,
+				F54C9B7D1B7DC33300AD89DD /* NIDropDown.m in Sources */,
 				F7CE36F11A95E99D0005AA0A /* RATableViewCell.m in Sources */,
 				A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */,
 				A0CF5C6D1B1DD98B00DED2D9 /* TimeLineCell.m in Sources */,

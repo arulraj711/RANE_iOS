@@ -1987,6 +1987,6 @@
 {
 
 
-    [Localytics tagScreen:name];;
+    [Localytics tagScreen:name];
 }
 @end

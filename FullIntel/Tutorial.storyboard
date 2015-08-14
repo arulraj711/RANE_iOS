@@ -65,7 +65,7 @@
                                             <action selector="laterButtonPressed:" destination="Cw0-eg-KGo" eventType="touchUpInside" id="nmO-MV-KNE"/>
                                         </connections>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnz-Q4-SOS">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnz-Q4-SOS">
                                         <rect key="frame" x="20" y="15" width="480" height="70"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -77,7 +77,7 @@
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caP-nR-Va9">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caP-nR-Va9">
                                         <rect key="frame" x="20" y="85" width="480" height="108"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <string key="text">Take this one minute tour to learn about your custom settings and how with a few taps and swipes you can quickly get the information you want and collaborate with your colleagues.</string>
@@ -226,7 +226,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F9m-IR-xzo">
                                 <rect key="frame" x="302" y="306" width="397" height="61"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Swipe up or down to quickly read the headlines and summary of articles in a folder" translatesAutoresizingMaskIntoConstraints="NO" id="jNW-xJ-nDS">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="Swipe up or down to quickly read the headlines and summary of articles in a folder" translatesAutoresizingMaskIntoConstraints="NO" id="jNW-xJ-nDS">
                                         <rect key="frame" x="0.0" y="0.0" width="397" height="61"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>

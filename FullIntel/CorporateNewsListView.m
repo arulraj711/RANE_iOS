@@ -19,6 +19,8 @@
 #import "ResearchRequestPopoverView.h"
 #import "Localytics.h"
 #import "pop.h"
+#import "NIDropDown.h"
+#import "QuartzCore/QuartzCore.h"
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface CorporateNewsListView ()
@@ -458,11 +460,14 @@
         inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:category];
     }
     
-    
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"up" withLastArticleId:@""];
+        if(!self.isFilterSelected) {
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"up" withLastArticleId:@""];
+        }
    // }
     } else {
-        [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:YES];
+        if(!self.isFilterSelected) {
+            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:YES];
+        }
     }
     [refreshControl endRefreshing];
 //    [self.influencerTableView reloadData];
@@ -1283,15 +1288,6 @@
     if(y > h + reload_distance) {
        // NSLog(@"load more data");
         
-      _spinner = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _spinner.frame=CGRectMake(0, 0, 310, 44);
-        [_spinner startAnimating];
-        
-        _spinner.hidden=NO;
-        
-        self.articlesTableView.tableFooterView = _spinner;
-        
-             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"NextListFetch"];
         
         NSManagedObject *curatedNews = [self.devices lastObject];
         NSString *inputJson;
@@ -1307,9 +1303,29 @@
             } else {
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
             }
-            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+            if(!self.isFilterSelected) {
+                _spinner = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                _spinner.frame=CGRectMake(0, 0, 310, 44);
+                [_spinner startAnimating];
+                _spinner.hidden=NO;
+                self.articlesTableView.tableFooterView = _spinner;
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"NextListFetch"];
+
+                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+            }
+            
         } else {
-            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:self.devices.count] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
+            if(!self.isFilterSelected) {
+                _spinner = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                _spinner.frame=CGRectMake(0, 0, 310, 44);
+                [_spinner startAnimating];
+                _spinner.hidden=NO;
+                self.articlesTableView.tableFooterView = _spinner;
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"NextListFetch"];
+
+                [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:self.devices.count] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
+            }
+            
         }
     }
         //[self reloadData];
@@ -1318,17 +1334,114 @@
 
 
 -(void)requestChange:(id)sender {
-    
-    
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
-    
     ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
     // ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
     //   popOverView.transitioningDelegate = self;
     researchViewController.fromAddContent = YES;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:popOverView animated:NO completion:nil];
+}
+
+
+-(void)rel{
+    //    [dropDown release];
+    dropDown = nil;
+}
+
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
+    NSLog(@"delegate method:%d and selected option:%@",sender.selectionValue,sender.selectedOption);
+    if(sender.selectionValue == 2 && [sender.selectedOption isEqualToString:@"UNREAD"]) {
+        self.isFilterSelected = YES;
+        [self filterUnreadArticles];
+    } else if(sender.selectionValue == 2 && [sender.selectedOption isEqualToString:@"RECENT"]) {
+        self.isFilterSelected = NO;
+        [self loadCuratedNews];
+    }
+     [self rel];
+}
+
+- (IBAction)actionsButtonClick:(id)sender {
+    NSArray * arr = [[NSArray alloc] init];
+    arr = [NSArray arrayWithObjects:@"ADD TO FOLDER", @"MARK AS READ",nil];
+    if(dropDown == nil) {
+        CGFloat f = 80;
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :arr :nil :@"down"];
+        dropDown.selectionValue = 1;
+        dropDown.delegate = self;
+    }
+    else {
+        [dropDown hideDropDown:sender];
+        [self rel];
+    }
+}
+
+- (IBAction)showButtonClick:(id)sender {
+    NSArray * arr = [[NSArray alloc] init];
+    arr = [NSArray arrayWithObjects:@"UNREAD", @"RECENT",nil];
+    if(dropDown == nil) {
+        CGFloat f = 80;
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :arr :nil :@"down"];
+        dropDown.selectionValue = 2;
+        dropDown.delegate = self;
+    }
+    else {
+        [dropDown hideDropDown:sender];
+        [self rel];
+    }
+}
+
+
+-(void)filterUnreadArticles {
+    dispatch_queue_t queue_a = dispatch_queue_create("load", 0);
+    dispatch_async(queue_a, ^(void){
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+        self.articlesTableView.dataSource = self;
+        self.articlesTableView.delegate = self;
+        NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
+        NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
+        NSLog(@"load curated news list:%@ and folderid:%@",categoryId,folderId);
+        // NSLog(@"category id in curated news:%@",categoryId);
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate;
+        if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@ AND readStatus == %@",categoryId,[NSNumber numberWithBool:NO]];
+        } else {
+            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND readStatus == %@",[NSNumber numberWithBool:NO],folderId,[NSNumber numberWithBool:YES]];
+        }
+        
+        
+        [fetchRequest setPredicate:predicate];
+        
+        
+        NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+        NSLog(@"date:%@",date);
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
+        [fetchRequest setSortDescriptors:sortDescriptors];
+        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        NSLog(@"curated news list count:%lu",(unsigned long)newPerson.count);
+        if(newPerson.count != 0) {
+            [self addRightBarItems];
+            [activityIndicator stopAnimating];
+        } else {
+            self.navigationItem.rightBarButtonItems = nil;
+        }
+        if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+            self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+            
+        }else {
+            self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        }
+        //NSLog(@"devices:%d",self.devices.count);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _spinner.hidden = YES;
+            [_spinner stopAnimating];
+            [self.articlesTableView reloadData];
+        });
+    });
 }
 
 @end
