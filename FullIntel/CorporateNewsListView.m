@@ -369,6 +369,7 @@
 -(void)stopLoading {
     messageString = @"No articles to display";
     [activityIndicator stopAnimating];
+    //[self.articlesTableView reloadData];
 }
 
 -(void)loadCuratedNews {
@@ -419,6 +420,8 @@
         [self addRightBarItems];
         [activityIndicator stopAnimating];
     } else {
+//        messageString = @"No articles to display";
+//        [activityIndicator stopAnimating];
         self.navigationItem.rightBarButtonItems = nil;
     }
     if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {

@@ -357,7 +357,7 @@
     
         dispatch_queue_t queue_a = dispatch_queue_create("test1", 0);
         dispatch_async(queue_a, ^(void){
-           // cell.webViewHeightConstraint.constant = 200;
+            cell.webViewHeightConstraint.constant = 200;
             NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
             NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
             NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
