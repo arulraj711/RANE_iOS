@@ -18,6 +18,7 @@
 #import "FIUtils.h"
 #import "Reachability.h"
 #import "Localytics.h"
+#import "NSString+URLDecoding.h"
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
@@ -142,15 +143,17 @@
     NSLog(@"URL query: %@", [url query]);
     
     if([url query].length != 0) {
+        
         NSArray *subStrings = [[url query] componentsSeparatedByString:@"&"]; //or rather @" - "
         
         NSString *objectIdString = [subStrings objectAtIndex:0];
         NSArray *objectIdArray = [objectIdString componentsSeparatedByString:@"="];
         NSString *encodedObjectId = [objectIdArray objectAtIndex:1];
-        
+        NSLog(@"before:%@",encodedObjectId);
+        NSString *decodedObjectText = [encodedObjectId stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSLog(@"test value:%@",decodedObjectText);
         // NSData from the Base64 encoded str
-        NSData *firstDecodedObjectData = [[NSData alloc]initWithBase64EncodedString:encodedObjectId options:0];
-        
+        NSData *firstDecodedObjectData = [[NSData alloc]initWithBase64EncodedString:decodedObjectText options:0];
         // Decoded NSString from the NSData
         NSString *decodedObjectId = [[NSString alloc]
                                    initWithData:firstDecodedObjectData encoding:NSUTF8StringEncoding];
@@ -159,7 +162,6 @@
         NSData *secondDecodedObjectData = [[NSData alloc]
                                            initWithBase64EncodedString:decodedObjectId
                                            options:0];
-        
         // Decoded NSString from the NSData
         NSString *objectId = [[NSString alloc]
                                     initWithData:secondDecodedObjectData encoding:NSUTF8StringEncoding];
@@ -171,13 +173,18 @@
         NSString *itemIdString = [subStrings objectAtIndex:1];
         NSArray *itemIdArray = [itemIdString componentsSeparatedByString:@"="];
         NSString *encodedItemId = [itemIdArray objectAtIndex:1];
-        
+        NSString *decodedItemText = [encodedItemId stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSLog(@"test value:%@",decodedItemText);
         // NSData from the Base64 encoded str
-        NSData *firstDecodedItemData = [[NSData alloc]initWithBase64EncodedString:encodedItemId options:0];
+        NSData *firstDecodedItemData = [[NSData alloc]initWithBase64EncodedString:decodedItemText options:0];
         
         // Decoded NSString from the NSData
         NSString *decodedItemId = [[NSString alloc]
                                      initWithData:firstDecodedItemData encoding:NSUTF8StringEncoding];
+        
+        
+        
+        
         NSLog(@"Decoded: %@", decodedItemId);
         // NSData from the Base64 encoded str
         NSData *secondDecodedItemData = [[NSData alloc]
@@ -199,7 +206,7 @@
         NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
         
         NSLog(@"article id:%@ and existing array:%d",itemId,existingArray.count);
-        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        NSString *accessToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
        // NSString *customerEmail = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"customerEmail"]];
         if(accessToken.length != 0) {
             if(existingArray.count != 0) {
@@ -311,7 +318,7 @@
 
 -(void)applicationDidEnterBackground:(UIApplication *)application {
     NSLog(@"app enter in backgound");
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    NSString *accessToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     NSLog(@"application enter in background:%@",accessToken);
 
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isAppActive"];
@@ -358,7 +365,7 @@
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isAppActive"];
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    NSString *accessToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     if(accessToken.length > 0) {
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:accessToken forKey:@"securityToken"];
@@ -373,7 +380,7 @@
 
 -(void)syncCuratedNewsList {
     NSLog(@"sync method is working");
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    NSString *accessToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     BOOL isAppActive = [[NSUserDefaults standardUserDefaults]boolForKey:@"isAppActive"];
     if(accessToken.length > 0 && isAppActive) {
         dispatch_queue_t queue_a = dispatch_queue_create("test", 0);

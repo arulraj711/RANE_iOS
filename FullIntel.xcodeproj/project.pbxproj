@@ -107,6 +107,7 @@
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
 		A0F36E1E1B5E23F0008D3AB1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F36E1C1B5E23F0008D3AB1 /* FBSDKCoreKit.framework */; };
 		A0F36E1F1B5E23F0008D3AB1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F36E1D1B5E23F0008D3AB1 /* FBSDKLoginKit.framework */; };
+		F54BA4381B81B81C00A1504B /* NSString+URLDecoding.m in Sources */ = {isa = PBXBuildFile; fileRef = F54BA4371B81B81C00A1504B /* NSString+URLDecoding.m */; };
 		F54C9B7D1B7DC33300AD89DD /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C9B7C1B7DC33300AD89DD /* NIDropDown.m */; };
 		F54F91261B7332C000AE0C11 /* SocialLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F91251B7332C000AE0C11 /* SocialLinkCell.xib */; };
 		F54F91281B7332D100AE0C11 /* TweetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F91271B7332D100AE0C11 /* TweetsCell.xib */; };
@@ -376,6 +377,8 @@
 		A0F36E1C1B5E23F0008D3AB1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		A0F36E1D1B5E23F0008D3AB1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
+		F54BA4361B81B81C00A1504B /* NSString+URLDecoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLDecoding.h"; sourceTree = "<group>"; };
+		F54BA4371B81B81C00A1504B /* NSString+URLDecoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLDecoding.m"; sourceTree = "<group>"; };
 		F54C9B7B1B7DC33300AD89DD /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
 		F54C9B7C1B7DC33300AD89DD /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
 		F54F91251B7332C000AE0C11 /* SocialLinkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLinkCell.xib; sourceTree = "<group>"; };
@@ -974,6 +977,8 @@
 				A0E223541A91C2F00073814A /* AppDelegate.h */,
 				A0E223551A91C2F00073814A /* AppDelegate.m */,
 				A0E223621A91C2F00073814A /* LaunchScreen.xib */,
+				F54BA4361B81B81C00A1504B /* NSString+URLDecoding.h */,
+				F54BA4371B81B81C00A1504B /* NSString+URLDecoding.m */,
 			);
 			name = AppDelegate;
 			sourceTree = "<group>";
@@ -1533,6 +1538,7 @@
 				F7E368881ABC1C6F0083F38E /* SavedListPopoverView.m in Sources */,
 				F7CE36E71A95E9490005AA0A /* RATreeView+RATreeNodeCollectionControllerDataSource.m in Sources */,
 				A0CF5C671B1DD98B00DED2D9 /* CompetitorCell.m in Sources */,
+				F54BA4381B81B81C00A1504B /* NSString+URLDecoding.m in Sources */,
 				F7CE36C31A95E9230005AA0A /* RATreeView.m in Sources */,
 				F54C9B7D1B7DC33300AD89DD /* NIDropDown.m in Sources */,
 				F7CE36F11A95E99D0005AA0A /* RATableViewCell.m in Sources */,
