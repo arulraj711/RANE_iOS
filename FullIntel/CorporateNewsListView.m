@@ -71,6 +71,9 @@
 
     self.devices = [[NSMutableArray alloc]init];
     
+    
+    
+    
    // [self.revealController showViewController:self.revealController.leftViewController];
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -734,10 +737,6 @@
                 cell.authorName.text = [authorObject valueForKey:@"name"];
             }
         }
-       // NSLog(@"multiple author array:%@",multipleAuthorArray);
-        //cell.authorTitle.text = [author valueForKey:@"title"];
-        //[cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
-        
         cell.title.text = [curatedNews valueForKey:@"title"];
         NSRange r;
         NSString *s = [curatedNews valueForKey:@"desc"];
@@ -799,6 +798,19 @@
             cell.readStatusImageView.hidden = YES;
             cell.contentView.alpha = 1;
         }
+        
+        if(self.segmentControl.selectedSegmentIndex == 0) {
+            [cell.checkMarkButton setSelected:YES];
+        } else if(self.segmentControl.selectedSegmentIndex == 1) {
+            if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]){
+                [cell.checkMarkButton setSelected:YES];
+            } else {
+                [cell.checkMarkButton setSelected:NO];
+            }
+        } else if(self.segmentControl.selectedSegmentIndex == 2) {
+            [cell.checkMarkButton setSelected:NO];
+        }
+        
         
         //[self updateReadUnReadStatusForRow:indexPath];
         //[self updateMarkedImportantStatusForRow:indexPath];
@@ -1444,4 +1456,19 @@
     });
 }
 
+- (IBAction)segmentControlStateChanged:(id)sender {
+    
+    UISegmentedControl *segmentCtrl = (UISegmentedControl *)sender;
+    if(segmentCtrl.selectedSegmentIndex == 0) {
+        //ALL
+        
+    } else if(segmentCtrl.selectedSegmentIndex == 1) {
+        //UNREAD
+        
+    } else if(segmentCtrl.selectedSegmentIndex == 2) {
+        //NONE
+        
+    }
+    [self.articlesTableView reloadData];
+}
 @end

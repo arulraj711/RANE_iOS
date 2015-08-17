@@ -365,8 +365,9 @@
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isAppActive"];
-    NSString *accessToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    if(accessToken.length > 0) {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    NSLog(@"app become active:%@ and length:%d",accessToken,accessToken.length);
+    if(accessToken.length != 0) {
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:accessToken forKey:@"securityToken"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];

@@ -32,7 +32,7 @@
     [self animateImages];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
     oldFrame = self.backgroundImageView.frame;
-    
+    [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
     self.usernameTextField.layer.borderWidth = 1.0f;
     self.usernameTextField.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
     self.passwordTextField.layer.borderWidth = 1.0f;

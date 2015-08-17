@@ -28,9 +28,12 @@
     NSArray *coachMarks;
     NSTimer *popAnimationTimer;
 }
+
 @property (weak, nonatomic) IBOutlet UIButton *actionsButton;
 - (IBAction)actionsButtonClick:(id)sender;
 - (IBAction)showButtonClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+- (IBAction)segmentControlStateChanged:(id)sender;
 @property BOOL isFilterSelected;
 @property (weak, nonatomic) IBOutlet UIButton *showButton;
 -(void)updateNewsTitle;
