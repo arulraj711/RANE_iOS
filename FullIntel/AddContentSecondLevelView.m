@@ -86,10 +86,9 @@
     
 
     
-    tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(stopSecondTutorial:)];
+
+
     
-    [self.view addGestureRecognizer:tapEvent];
-        
     
 }
 
@@ -117,10 +116,17 @@
         
     [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuTutorialTrigger" object:nil];
         
+    
+        [self.view removeGestureRecognizer:tapEvent];
+        
     }
 }
 
 -(void)SecondLevelTutorialTrigger{
+    
+    tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(stopSecondTutorial:)];
+    
+    [self.view addGestureRecognizer:tapEvent];
     
     
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SecondTutorialShown"];

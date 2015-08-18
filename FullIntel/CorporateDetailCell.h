@@ -21,6 +21,7 @@
     UCZProgressView *progressView;
     UICollectionView *socialcollectionView,*tweetsCollectionView;
     NSMutableArray *tweetIds,*followersArray,*tweetScreenNameArray;
+    NSTimer *popAnimationTimer;
     
 }
 @property BOOL isFIViewSelected;
@@ -128,5 +129,15 @@
 - (IBAction)moreButtonClick:(UIButton *)sender;
 -(void)loadTweetsFromPost;
 - (IBAction)infoButtonClick:(UIButton *)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *commentBtn;
+@property (weak, nonatomic) IBOutlet UIButton *folderBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *messageBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *requestBtn;
+@property (weak, nonatomic) IBOutlet UIButton *moreButton;
+
+
 
 @end

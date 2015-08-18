@@ -63,6 +63,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
@@ -2612,13 +2613,17 @@
                                             <outlet property="bioLabel" destination="vwC-o2-uGU" id="mVb-en-0oO"/>
                                             <outlet property="bioTitleLabel" destination="pPq-9d-QmI" id="Oet-Nq-7Aj"/>
                                             <outlet property="bottomView" destination="0We-FO-LfQ" id="1gD-4G-6Vb"/>
+                                            <outlet property="commentBtn" destination="5q6-p4-SJg" id="q49-gX-SQ3"/>
                                             <outlet property="detailsWebview" destination="Sgm-SN-fVU" id="sJ4-gz-5IC"/>
+                                            <outlet property="folderBtn" destination="AqA-E4-Zt5" id="h6Q-kO-47F"/>
                                             <outlet property="locationIcon" destination="um4-mS-q9r" id="A2N-tP-OQ9"/>
                                             <outlet property="locationIconHeightConstraint" destination="kq0-IQ-EqP" id="QD9-Us-i37"/>
                                             <outlet property="locationImageTopConstarint" destination="f7L-FJ-tdQ" id="zF8-sO-EpR"/>
                                             <outlet property="locationLabelHeightConstraint" destination="ggn-UF-Qug" id="Ri2-Ls-phX"/>
                                             <outlet property="locationLabelTopConstraint" destination="0Ik-IN-MBF" id="cEX-rb-EgU"/>
                                             <outlet property="markedImpButton" destination="0lI-SX-nOa" id="z9g-T4-Zqc"/>
+                                            <outlet property="messageBtn" destination="n7o-XS-L4p" id="xZ7-bH-Iyx"/>
+                                            <outlet property="moreButton" destination="jOG-jg-wsT" id="lAr-53-CNQ"/>
                                             <outlet property="outletIcon" destination="xxQ-BQ-ivh" id="F6P-WI-6ph"/>
                                             <outlet property="outletIconHeightConstraint" destination="SYn-m4-jf7" id="797-VN-78o"/>
                                             <outlet property="outletImageTopConstraint" destination="XfE-cp-gBz" id="bB8-h4-dvO"/>
@@ -2632,6 +2637,7 @@
                                             <outlet property="overlayArticleTitle" destination="ejd-Ew-9Kr" id="nhS-Tl-tRu"/>
                                             <outlet property="overlayView" destination="0Jf-UJ-rY2" id="4l2-Ms-8r9"/>
                                             <outlet property="ratingControl" destination="TaX-hh-qpl" id="4aK-29-rEK"/>
+                                            <outlet property="requestBtn" destination="E5a-71-ZXk" id="JPd-Jf-7Qm"/>
                                             <outlet property="savedForLaterButton" destination="oiW-OG-KqE" id="K2V-WQ-o6O"/>
                                             <outlet property="scrollView" destination="mCh-cq-hWO" id="Uso-tA-W26"/>
                                             <outlet property="socialLinkCollectionView" destination="Pst-se-Bcg" id="2HC-hO-XjG"/>
@@ -2654,10 +2660,33 @@
                                     <outlet property="delegate" destination="sBw-bu-a3U" id="YJ1-AK-lat"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FGI-RA-y12">
+                                <rect key="frame" x="302" y="270" width="397" height="61"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="￼Mark important" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jTA-Kp-l4Q">
+                                        <rect key="frame" x="0.0" y="0.0" width="397" height="61"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.68627450980000004" green="0.039215686270000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="jTA-Kp-l4Q" firstAttribute="top" secondItem="FGI-RA-y12" secondAttribute="top" id="03r-Lg-NcL"/>
+                                    <constraint firstAttribute="width" constant="397" id="QDd-Ib-iOn"/>
+                                    <constraint firstAttribute="bottom" secondItem="jTA-Kp-l4Q" secondAttribute="bottom" id="U9S-1t-Xiu"/>
+                                    <constraint firstAttribute="trailing" secondItem="jTA-Kp-l4Q" secondAttribute="trailing" id="Zdn-Jo-iTQ"/>
+                                    <constraint firstAttribute="height" constant="61" id="eVD-vw-mk3"/>
+                                    <constraint firstItem="jTA-Kp-l4Q" firstAttribute="leading" secondItem="FGI-RA-y12" secondAttribute="leading" id="hQT-RZ-hEc"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="n1J-7k-aK8" firstAttribute="bottom" secondItem="xWK-4A-3yo" secondAttribute="top" id="7mh-D2-hIe"/>
+                            <constraint firstAttribute="centerY" secondItem="FGI-RA-y12" secondAttribute="centerY" constant="-0.5" id="DGI-m4-zca"/>
+                            <constraint firstAttribute="centerX" secondItem="FGI-RA-y12" secondAttribute="centerX" constant="-0.5" id="FVh-xC-hPC"/>
                             <constraint firstItem="n1J-7k-aK8" firstAttribute="top" secondItem="Ja5-7s-xet" secondAttribute="top" id="SAC-Jm-eB8"/>
                             <constraint firstItem="n1J-7k-aK8" firstAttribute="leading" secondItem="Ja5-7s-xet" secondAttribute="leading" id="ikM-c4-22j"/>
                             <constraint firstAttribute="trailing" secondItem="n1J-7k-aK8" secondAttribute="trailing" id="s1V-Eh-w19"/>
@@ -2668,6 +2697,8 @@
                     <size key="freeformSize" width="1000" height="600"/>
                     <connections>
                         <outlet property="collectionView" destination="n1J-7k-aK8" id="U0D-Cr-dD9"/>
+                        <outlet property="tutorialTextBoxView" destination="FGI-RA-y12" id="jG1-uW-kd0"/>
+                        <outlet property="tutorialTextView" destination="jTA-Kp-l4Q" id="hYg-bl-E2i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x0k-zz-c45" userLabel="First Responder" sceneMemberID="firstResponder"/>

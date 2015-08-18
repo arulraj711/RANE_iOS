@@ -67,6 +67,8 @@
     
   //  [[NSNotificationCenter defaultCenter]postNotificationName:@"MarkImportantTutorialTrigger" object:nil userInfo:nil];
     
+
+    
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MarkImportantTutorialTrigger"];
     if (coachMarksShown == NO) {
         

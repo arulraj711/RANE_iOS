@@ -26,6 +26,7 @@
 #import "VideoWidgetCell.h"
 #import "SocialWebView.h"
 #import "Localytics.h"
+#import "pop.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @implementation CorporateDetailCell
@@ -53,15 +54,137 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeWebView:) name:@"removeWebView" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeDownTutorial) name:@"SwipeRightLeftTutorialTrigger" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(drillDownButtonClick:) name:@"DrillDownToolBoxTutorialNavigation" object:nil];
+    
+    
+    
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(coachMardRemoved) name:@"coachMardRemoved" object:nil];
+    
+    
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:nil];
     tapEvent.numberOfTapsRequired = 1;
     self.detailsWebview.tag =101;
     self.detailsWebview.userInteractionEnabled = YES;
     [self.detailsWebview addGestureRecognizer:tapEvent];
     
+}
+
+-(void)drillDownButtonClick:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    
+    NSString *indexString=[userInfo objectForKey:@"index"];
+    
+    NSLog(@"index string in cell :%@",indexString);
+    
+    
+    [popAnimationTimer invalidate];
+    
+     popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performAnimationForButton:) userInfo:indexString repeats:YES];
+}
+
+-(void)performAnimationForButton:(NSTimer *)timer{
+    
+    NSString *indexString=timer.userInfo;
+    
+    NSLog(@"index string:%@",indexString);
+    
+    
+    if([indexString isEqualToString:@"0"]){
+        
+        [self performAnimationForView:_markedImpButton];
+        
+        [self addBorderForButton:_markedImpButton];
+        
+    }
+    
+    if([indexString isEqualToString:@"1"]){
+        
+        [self performAnimationForView:_commentBtn];
+        
+        [self removeBorderForButton:_markedImpButton];
+        
+        [self addBorderForButton:_commentBtn];
+        
+    }
+    
+    if([indexString isEqualToString:@"2"]){
+        
+        [self performAnimationForView:_messageBtn];
+        
+        [self removeBorderForButton:_commentBtn];
+        
+        [self addBorderForButton:_messageBtn];
+        
+    }
+    
+    if([indexString isEqualToString:@"3"]){
+        
+        [self performAnimationForView:_folderBtn];
+        
+        [self removeBorderForButton:_messageBtn];
+        
+        [self addBorderForButton:_folderBtn];
+        
+    }
+    
+    if([indexString isEqualToString:@"4"]){
+        
+        [self performAnimationForView:_savedForLaterButton];
+        
+        [self removeBorderForButton:_folderBtn];
+        
+        [self addBorderForButton:_savedForLaterButton];
+        
+    }
+    
+    if([indexString isEqualToString:@"5"]){
+        
+        [self performAnimationForView:_requestBtn];
+        
+        [self removeBorderForButton:_savedForLaterButton];
+        
+        [self addBorderForButton:_requestBtn];
+        
+    }
+    
+    if([indexString isEqualToString:@"6"]){
+        
+        [self performAnimationForView:_moreButton];
+        
+        [self removeBorderForButton:_requestBtn];
+        
+        [self addBorderForButton:_moreButton];
+        
+        
+    }
     
 }
 
+-(void)addBorderForButton:(UIButton *)btn{
+    
+    btn.layer.borderWidth=1.0;
+    btn.layer.borderColor=[UIColorFromRGB(0XA4131E) CGColor];
+}
+
+-(void)removeBorderForButton:(UIButton *)btn{
+    
+    btn.layer.borderColor=[[UIColor clearColor]CGColor];
+    btn.layer.borderWidth=0.0f;
+}
+-(void)coachMardRemoved{
+    
+    
+    [self removeBorderForButton:_moreButton];
+    
+    [popAnimationTimer invalidate];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"EndOfDrillDownTutorial" object:nil];
+    
+    
+    
+}
 -(void)afterSwipeDownTutorial{
     
     
@@ -69,6 +192,16 @@
     [self.scrollView setContentOffset:bottomOffset animated:NO];
 }
 
+-(void)performAnimationForView:(UIButton *)btn{
+    
+    [btn.layer removeAllAnimations];
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+    scaleAnimation.springBounciness = 10;
+    scaleAnimation.springSpeed=10;
+    [btn.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+}
 -(void)removeWebView:(id)sender {
     [self.timer invalidate];
     [progressView removeFromSuperview];

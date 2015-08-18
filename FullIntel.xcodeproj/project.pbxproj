@@ -106,6 +106,7 @@
 		A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ECBDEE1AEA499700B140C8 /* RFQuiltLayout.m */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
 		A0F2F3011B81F966003F96EB /* DrillDownListTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F2F3001B81F966003F96EB /* DrillDownListTutorialViewController.m */; };
+		A0F2F3041B833F98003F96EB /* EndOfTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F2F3031B833F98003F96EB /* EndOfTutorialViewController.m */; };
 		A0F36E1E1B5E23F0008D3AB1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F36E1C1B5E23F0008D3AB1 /* FBSDKCoreKit.framework */; };
 		A0F36E1F1B5E23F0008D3AB1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F36E1D1B5E23F0008D3AB1 /* FBSDKLoginKit.framework */; };
 		F54F91261B7332C000AE0C11 /* SocialLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F91251B7332C000AE0C11 /* SocialLinkCell.xib */; };
@@ -375,6 +376,8 @@
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A0F2F2FF1B81F966003F96EB /* DrillDownListTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrillDownListTutorialViewController.h; sourceTree = "<group>"; };
 		A0F2F3001B81F966003F96EB /* DrillDownListTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrillDownListTutorialViewController.m; sourceTree = "<group>"; };
+		A0F2F3021B833F98003F96EB /* EndOfTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndOfTutorialViewController.h; sourceTree = "<group>"; };
+		A0F2F3031B833F98003F96EB /* EndOfTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndOfTutorialViewController.m; sourceTree = "<group>"; };
 		A0F36E1C1B5E23F0008D3AB1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		A0F36E1D1B5E23F0008D3AB1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
@@ -624,6 +627,8 @@
 				A038E5911B7B42DE00D0E24D /* MainListTutorialViewController.m */,
 				A0F2F2FF1B81F966003F96EB /* DrillDownListTutorialViewController.h */,
 				A0F2F3001B81F966003F96EB /* DrillDownListTutorialViewController.m */,
+				A0F2F3021B833F98003F96EB /* EndOfTutorialViewController.h */,
+				A0F2F3031B833F98003F96EB /* EndOfTutorialViewController.m */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -1541,6 +1546,7 @@
 				A003B1A71B1873D900857F35 /* VideoWidgetCell.m in Sources */,
 				A0CF5C661B1DD98B00DED2D9 /* CompanyCell.m in Sources */,
 				F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */,
+				A0F2F3041B833F98003F96EB /* EndOfTutorialViewController.m in Sources */,
 				A0CF5C6B1B1DD98B00DED2D9 /* PersonalityExecutiveCell.m in Sources */,
 				A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */,
 				F7E239F41AA5E49900708B6B /* Reachability.m in Sources */,

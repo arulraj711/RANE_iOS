@@ -18,6 +18,7 @@
 #import "DismissingAnimator.h"
 #import "ResearchRequestPopoverView.h"
 #import "MailPopoverView.h"
+#import "pop.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface CorporateNewsDetailsView ()
@@ -38,6 +39,10 @@
     
     
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeDownTutorial) name:@"DrillInToolBoxTutorial" object:nil];
+    
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endOfTutorial) name:@"EndOfDrillDownTutorial" object:nil];
+    
+    
     
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(widgetWebViewTrigger:) name:@"widgetWebViewCalled" object:nil];
     
@@ -76,44 +81,151 @@
     
     [self getArticleIdListFromDB];
     
+    _tutorialTextBoxView.hidden=YES;
+    
 }
 
+-(void)endOfTutorial{
+    
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"EndOfTutorial" object:nil];
+    
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    [super viewWillAppear:animated];
+    
+    [self.tutorialTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
+
+    
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    
+    [super viewWillDisappear:animated];
+    
+    [self.tutorialTextView removeObserver:self forKeyPath:@"contentSize"];
+    
+}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
+    
+    UITextView *tv = object;
+    CGFloat topCorrect = ([tv bounds].size.height - [tv contentSize].height * [tv zoomScale])/2.0;
+    topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect );
+    tv.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
+}
 
 
 -(void)afterSwipeDownTutorial{
     
     
     coachMarks = @[
+               
                             @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{0,0},{45,45}}],
-                                @"caption": @"Helpful navigation menu",
-                                @"shape": @"circle"
+                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-360,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                                @"caption": @""
                                 },
                             @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{10.0f,56.0f},{300.0f,56.0f}}],
-                                @"caption": @"Document your wedding by taking photos",
-                                @"shape": @"square"
+                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-310,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                                @"caption": @""
                                 },
+                            
                             @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{10.0f,119.0f},{300.0f,56.0f}}],
-                                @"caption": @"Your wedding photo album"
+                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-260,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                                @"caption": @""
                                 },
+                            
                             @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{10.0f,182.0f},{300.0f,56.0f}}],
-                                @"caption": @"View and manage your friends & family"
+                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-210,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                                @"caption": @""
                                 },
+                            
                             @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{10.0f,245.0f},{300.0f,56.0f}}],
-                                @"caption": @"Invite friends to get more photos"
+                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-160,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                                @"caption": @""
                                 },
+                            
                             @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{0.0f,410.0f},{320.0f,50.0f}}],
-                                @"caption": @"Keep your guests informed with your wedding details"
-                                }
+                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-110,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                                @"caption": @""
+                                },
+                            
+                            
+                            @{
+                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-60,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                                @"caption": @""
+                                },
                             ];
     coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
+    coachMarksView.delegate=self;
     [self.view addSubview:coachMarksView];
     [coachMarksView start];
+    
+    
+    _tutorialTextBoxView.hidden=NO;
+    
+    
+}
+
+
+- (void)coachMarksView:(WSCoachMarksView*)coachMarksView didNavigateToIndex:(NSInteger)index{
+    
+    NSLog(@"Index:%ld",(long)index);
+    
+    NSString *indexString=[NSString stringWithFormat:@"%ld",(long)index];
+    
+    if(index==0){
+        
+        
+        _tutorialTextView.text=@"Mark Important";
+        
+    }else if (index==1){
+        
+         _tutorialTextView.text=@"Comment";
+        
+    }else if (index==2){
+        
+         _tutorialTextView.text=@"Email";
+        
+    }else if (index==3){
+        
+         _tutorialTextView.text=@"Folder and RSS";
+        
+    }else if (index==4){
+        
+        
+         _tutorialTextView.text=@"Save For Later";
+    }else if (index==5){
+        
+         _tutorialTextView.text=@"Research Request / Feedback";
+        
+    }else{
+        
+         _tutorialTextView.text=@"Social Post";
+    }
+    
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"DrillDownToolBoxTutorialNavigation" object:nil userInfo:@{@"index":indexString}];
+        
+   
+    
+}
+
+- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksView{
+    
+    
+    
+    
+    _tutorialTextBoxView.hidden=YES;
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"coachMardRemoved" object:nil];
     
     
 }

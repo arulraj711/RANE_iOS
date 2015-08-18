@@ -18,6 +18,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -129,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QHu-6h-HJo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1492" y="-820"/>
+            <point key="canvasLocation" x="1570" y="-1072"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EJa-9X-1e8">
@@ -208,6 +209,61 @@
             </objects>
             <point key="canvasLocation" x="1897" y="-364"/>
         </scene>
+        <!--End Of Tutorial View Controller-->
+        <scene sceneID="g0b-8p-1rM">
+            <objects>
+                <viewController storyboardIdentifier="EndOfTutorialViewController" id="EP9-YX-QeH" customClass="EndOfTutorialViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6QU-qv-m07"/>
+                        <viewControllerLayoutGuide type="bottom" id="eFn-4B-4Un"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A3b-Ii-IFo">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CjN-C0-kDZ">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="600"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Zp-pp-vGC">
+                                <rect key="frame" x="300" y="257" width="400" height="85"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="We hope you enjoyed the tour. If you like a personal tutorial by an expert or have questions contact us via the feedback icon." translatesAutoresizingMaskIntoConstraints="NO" id="CCo-UN-piF">
+                                        <rect key="frame" x="10" y="0.0" width="380" height="85"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.68627450980000004" green="0.039215686270000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="400" id="EeI-Tk-yCf"/>
+                                    <constraint firstAttribute="height" constant="85" id="W3S-s3-qrn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="1Zp-pp-vGC" secondAttribute="centerY" constant="0.5" id="AkQ-Ho-vYS"/>
+                            <constraint firstItem="eFn-4B-4Un" firstAttribute="top" secondItem="CjN-C0-kDZ" secondAttribute="bottom" id="OYS-NK-uzM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CjN-C0-kDZ" secondAttribute="trailing" constant="-16" id="WiN-sg-Z7H"/>
+                            <constraint firstAttribute="centerX" secondItem="1Zp-pp-vGC" secondAttribute="centerX" id="chL-yX-eQ3"/>
+                            <constraint firstItem="CjN-C0-kDZ" firstAttribute="leading" secondItem="A3b-Ii-IFo" secondAttribute="leadingMargin" constant="-16" id="fid-Y0-ZMu"/>
+                            <constraint firstItem="CjN-C0-kDZ" firstAttribute="top" secondItem="6QU-qv-m07" secondAttribute="bottom" constant="-20" id="vRj-Jn-eTS"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="1000" height="600"/>
+                    <connections>
+                        <outlet property="bgImageView" destination="CjN-C0-kDZ" id="BP1-bI-Ms7"/>
+                        <outlet property="textView" destination="CCo-UN-piF" id="vxf-sF-Qcm"/>
+                        <outlet property="tutorialTextBoxView" destination="1Zp-pp-vGC" id="kn6-GY-8vW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NGk-LW-1dM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1767" y="317"/>
+        </scene>
         <!--Main List Tutorial View Controller-->
         <scene sceneID="h6q-Ij-i0T">
             <objects>
@@ -285,7 +341,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N9a-jN-6RL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1265" y="155"/>
+            <point key="canvasLocation" x="613" y="137"/>
         </scene>
         <!--Drill Down List Tutorial View Controller-->
         <scene sceneID="FH4-oI-bVA">

@@ -31,5 +31,7 @@
 @property (nonatomic) int currentIndex;
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) int selectedIndex;
+@property (weak, nonatomic) IBOutlet UITextView *tutorialTextView;
+@property (weak, nonatomic) IBOutlet UIView *tutorialTextBoxView;
 -(void)getArticleIdListFromDB;
 @end

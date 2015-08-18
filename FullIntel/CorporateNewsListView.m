@@ -59,6 +59,10 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSaveForLaterTutorial) name:@"DrillInTutorialTrigger" object:nil];
     
     
+    
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endOfTutorial) name:@"EndOfTutorial" object:nil];
+    
+    
     self.devices = [[NSMutableArray alloc]init];
     
    // [self.revealController showViewController:self.revealController.leftViewController];
@@ -126,6 +130,23 @@
     
 }
 
+
+-(void)endOfTutorial{
+    
+    
+    [self.revealController showViewController:self.revealController.leftViewController];
+    
+    
+    
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    // UIViewController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"MainListTutorialViewController"];
+    
+    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"EndOfTutorialViewController"];
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:popOverView animated:NO completion:nil];
+    
+    
+}
 -(void)afterSaveForLaterTutorial{
     
     [popAnimationTimer invalidate];
