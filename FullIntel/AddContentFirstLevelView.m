@@ -197,7 +197,7 @@
     self.contentTypeArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentTypeList];
     self.contentCategoryArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentCategoryList];
     for(FIContentCategory *category in self.contentTypeArray) {
-        if([category.categoryId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        //if([category.categoryId isEqualToNumber:[NSNumber numberWithInt:1]]) {
             if(category.isSubscribed) {
                 [self.checkedArray addObject:category.categoryId];
                 [self.selectedIdArray addObject:category.categoryId];
@@ -205,7 +205,7 @@
                 [self.uncheckedArray addObject:category.categoryId];
                 [self.selectedIdArray removeObject:category.categoryId];
             }
-        }
+        //}
     }
     [self.contentCollectionView reloadData];
     
@@ -337,7 +337,7 @@
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-       // NSLog(@"final json format:%@",resultStr);
+        NSLog(@"final json format:%@",resultStr);
         
         if(_isContentChanged){
         
@@ -375,18 +375,36 @@
     cell.name.text = contentCategory.name;
     cell.checkMarkButton.tag = indexPath.row;
     
-    if(self.contentTypeArray.count > 1) {
-        if(indexPath.row != 0) {
+    
+    if(contentCategory.isCompanySubscribed) {
+        cell.gradientView.hidden = YES;
+    } else {
+        NSNumber *accountTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
+        //if([accountTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
             cell.gradientView.hidden = NO;
             UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
             cell.upgradeButton.tag = indexPath.row;
             [cell.upgradeButton addGestureRecognizer:tapEvent];
-        } else {
-            cell.gradientView.hidden = YES;
-        }
-    } else {
-        cell.gradientView.hidden = YES;
+//        } else {
+//            
+//        }
+        
     }
+    
+    
+    
+//    if(self.contentTypeArray.count > 1) {
+//        if(indexPath.row != 0) {
+//            cell.gradientView.hidden = NO;
+//            UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
+//            cell.upgradeButton.tag = indexPath.row;
+//            [cell.upgradeButton addGestureRecognizer:tapEvent];
+//        } else {
+//            cell.gradientView.hidden = YES;
+//        }
+//    } else {
+//        cell.gradientView.hidden = YES;
+//    }
     
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         //[self.checkedArray addObject:contentCategory.categoryId];
@@ -441,6 +459,7 @@
 }
 
 - (IBAction)checkMark:(id)sender {
+    _isContentChanged=YES;
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:[sender tag]];
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         [self.selectedIdArray removeObject:contentCategory.categoryId];
@@ -462,7 +481,7 @@
        // }
     }
     
-    //NSLog(@"after selection:%@ and checked:%@ and unchecked:%@",self.selectedIdArray,self.checkedArray,self.uncheckedArray);
+    NSLog(@"after selection:%@ and checked:%@ and unchecked:%@",self.selectedIdArray,self.checkedArray,self.uncheckedArray);
 
 }
 

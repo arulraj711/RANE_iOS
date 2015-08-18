@@ -929,7 +929,11 @@
             [self.activityIndicator startAnimating];
             
             self.collectionView.scrollEnabled = NO;
-        NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[self.articleIdArray lastObject] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+            NSString *inputJson;
+            NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            NSLog(@"parent id:%@",parentId);
+            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:[self.articleIdArray lastObject] contentTypeId:parentId listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+            
 //            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
 //            
 //            dispatch_async(queue_a, ^{

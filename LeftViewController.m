@@ -130,6 +130,7 @@
     RADataObject *dataObj;
     RADataObject *anotherDataObj;
     RADataObject *savedForLaterDataObj;
+    RADataObject *socialMediaDataObj;
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSString *type = [userInfo objectForKey:@"type"];
@@ -148,9 +149,17 @@
         savedForLaterDataObj= [self.data objectAtIndex:1];
         int savedForLaterCnt = [savedForLaterDataObj.unReadCount intValue];
         savedForLaterDataObj.unReadCount = [NSNumber numberWithInt:savedForLaterCnt-1];
+        
+        
+        socialMediaDataObj = [self.data objectAtIndex:3];
+        int socialMediaCnt = [socialMediaDataObj.unReadCount intValue];
+        socialMediaDataObj.unReadCount = [NSNumber numberWithInt:socialMediaCnt-1];
+        
+        
         [reloadArray addObject:dataObj];
         [reloadArray addObject:anotherDataObj];
         [reloadArray addObject:savedForLaterDataObj];
+        [reloadArray addObject:socialMediaDataObj];
     } else if([type isEqualToString:@"bothMarkImp"]) {
         dataObj = [self.data objectAtIndex:2];
         int cnt = [dataObj.unReadCount intValue];
@@ -160,8 +169,13 @@
         int nextCnt = [anotherDataObj.unReadCount intValue];
         anotherDataObj.unReadCount = [NSNumber numberWithInt:nextCnt-1];
     
+        socialMediaDataObj = [self.data objectAtIndex:3];
+        int socialMediaCnt = [socialMediaDataObj.unReadCount intValue];
+        socialMediaDataObj.unReadCount = [NSNumber numberWithInt:socialMediaCnt-1];
+        
         [reloadArray addObject:dataObj];
         [reloadArray addObject:anotherDataObj];
+        [reloadArray addObject:socialMediaDataObj];
         
     } else if([type isEqualToString:@"bothSavedForLater"]){
         dataObj = [self.data objectAtIndex:2];
@@ -172,8 +186,13 @@
         int savedForLaterCnt = [savedForLaterDataObj.unReadCount intValue];
         savedForLaterDataObj.unReadCount = [NSNumber numberWithInt:savedForLaterCnt-1];
         
+        socialMediaDataObj = [self.data objectAtIndex:3];
+        int socialMediaCnt = [socialMediaDataObj.unReadCount intValue];
+        socialMediaDataObj.unReadCount = [NSNumber numberWithInt:socialMediaCnt-1];
+        
         [reloadArray addObject:dataObj];
         [reloadArray addObject:savedForLaterDataObj];
+        [reloadArray addObject:socialMediaDataObj];
         
     }else if([type isEqualToString:@"-1"]) {
         dataObj = [self.data objectAtIndex:2];
@@ -212,7 +231,7 @@
             [reloadArray addObject:dataObj];
         }
     } else {
-        dataObj = [self.data objectAtIndex:2];
+        dataObj = [self.data objectAtIndex:3];
         int cnt = [dataObj.unReadCount intValue];
         dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
         
@@ -285,10 +304,12 @@
     
     self.data = [[NSMutableArray alloc]init];
     for(FIMenu *menu in array) {
+        if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+            RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
+            // NSLog(@"for loop:%@",dataObj);
+            [self.data addObject:dataObj];
+        }
         
-        RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
-       // NSLog(@"for loop:%@",dataObj);
-        [self.data addObject:dataObj];
     }
     //self.data = [NSArray arrayWithObjects:phone, computer, car, bike, house, flats, motorbike, drinks, food, nil];
     
@@ -334,6 +355,8 @@
     dataObj.name = menu.name;
     dataObj.nodeId = menu.nodeId;
     dataObj.unReadCount = menu.unreadCount;
+    NSLog(@"menu parent value:%@",menu.isParent);
+    dataObj.isParent = menu.isParent;
    // menu.name = [dic objectForKey:@"Name"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
     NSArray *menuArray = menu.listArray;
@@ -594,6 +617,9 @@
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     RADataObject *data = item;
    // NSLog(@"did select row:%@",data.name);
+    
+    
+    
     RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
     BOOL expanded = [self.treeView isCellForItemExpanded:item];
     if(expanded) {
@@ -632,6 +658,7 @@
     } else if([data.nodeId integerValue] == 1 && !data.isFolder) {
         NSLog(@"row selection calling");
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         
@@ -747,8 +774,9 @@
         
     } else {
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
-        if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
+        if([data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+            [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
             // NSLog(@"empty node id");
         }else {
             UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
@@ -757,9 +785,30 @@
             CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
             
             CorporateNewsListViewObj.titleName=data.name;
+            NSLog(@"content type id:%@",data.isParent);
             
             
-            NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:data.nodeId];
+            RADataObject *dataObj = [self.treeView parentForItem:item];
+            NSLog(@"parent name:%@",dataObj.name);
+            NSString *inputJson;
+            if(dataObj.isParent == nil) {
+                [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+                [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
+            }else {
+                [[NSUserDefaults standardUserDefaults] setObject:dataObj.nodeId forKey:@"parentId"];
+                [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:dataObj.nodeId listSize:10 activityTypeId:@"" categoryId:data.nodeId];
+            }
+            
+            
+            
+//            if([data.isParent isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+//                
+//            } else {
+//                
+//            }
+            
             
 //            if(data.isFolder) {
 //                NSLog(@"folder click and folder id:%@",data.nodeId);
@@ -772,7 +821,8 @@
 //            } else {
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
                 [self.revealController setFrontViewController:navCtlr];
-                [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
+            
+            
                 [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withFlag:@"" withLastArticleId:@""];
            // }
             

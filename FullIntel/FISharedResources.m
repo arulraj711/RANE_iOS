@@ -476,19 +476,26 @@
             NSManagedObject *curatedNewsDrillIn;
             context = [self managedObjectContext];
             
-            
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            NSLog(@"incoming content type:%@",contentTypeId);
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND categoryId == %@",[dic objectForKey:@"id"],categoryId];
+            NSPredicate *predicate;
+            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@",[dic objectForKey:@"id"],contentTypeId];
+            } else {
+                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND categoryId == %@",[dic objectForKey:@"id"],categoryId];
+            }
+            
             [fetchRequest setPredicate:predicate];
             NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
-            
+            NSLog(@"existing count:%d",existingArray.count);
             if(existingArray.count != 0) {
                 //Excisting Object
                 curatedNews = [existingArray objectAtIndex:0];
             } else {
                 //Create new object
                 curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
-                
+                [curatedNews setValue:contentTypeId forKey:@"contentTypeId"];
                 [curatedNews setValue:categoryId forKey:@"categoryId"];
                 [curatedNews setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
                 [_articleIdArray addObject:[dic objectForKey:@"id"]];
@@ -1094,8 +1101,9 @@
     if([self serviceIsReachable]) {
    // _menuList = [[NSMutableArray alloc]init];
     [FIWebService fetchMenuListWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        NSArray *menuArray = [responseObject objectForKey:@"menuList"];
+        //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        if([responseObject isKindOfClass:[NSArray class]]){
+        NSArray *menuArray = responseObject;
         [_menuList removeAllObjects];
         for(NSDictionary *dic in menuArray) {
             FIMenu *menu = [FIMenu recursiveMenu:dic];
@@ -1103,9 +1111,10 @@
         }
         [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
         [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
-        } else {
-            [self hideProgressView];
-            [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+        } else if([responseObject isKindOfClass:[NSDictionary class]]){
+            if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
+                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+            }
         }
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [FIUtils showErrorToast];
@@ -1376,8 +1385,8 @@
                 }
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
                 //[[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
+                //[[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil userInfo:@{@"isLoading":[NSNumber numberWithBool:YES]}];
             }else if([responseObject isKindOfClass:[NSDictionary class]]){
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
                     [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
@@ -1599,13 +1608,24 @@
                     NSData *menuJsondata = [NSJSONSerialization dataWithJSONObject:menuDic options:NSJSONWritingPrettyPrinted error:nil];
                     
                     NSString *resultJson = [[NSString alloc]initWithData:menuJsondata encoding:NSUTF8StringEncoding];
-                    [self getMenuListWithAccessToken:resultJson];
+                    [self getMenuListWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
                 } else {
                 NSArray *contentTypeArray = [responseObject objectForKey:@"contentType"];
                 [_contentTypeList removeAllObjects];
                 for(NSDictionary *dic in contentTypeArray) {
                     FIContentCategory *content = [FIContentCategory recursiveMenu:dic];
-                    [_contentTypeList addObject:content];
+                    if(content.isCompanySubscribed) {
+                        [_contentTypeList addObject:content];
+                    } else {
+                        NSNumber *accountTypeIdStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
+                        if([accountTypeIdStr isEqualToNumber:[NSNumber numberWithInt:3]]) {
+                            
+                        } else {
+                            [_contentTypeList addObject:content];
+                            //unsubscribed value
+                        }
+                    }
+                    
                 }
                 
                 NSArray *menuArray = [responseObject objectForKey:@"contentCategory"];
