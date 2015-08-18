@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EB1F529DD1297E9F12EA2ED5"
+               BlueprintIdentifier = "8D96EFD3F908AA6298276A42"
                BuildableName = "libPods-FullIntel-MZFormSheetController.a"
                BlueprintName = "Pods-FullIntel-MZFormSheetController"
                ReferencedContainer = "container:Pods.xcodeproj">

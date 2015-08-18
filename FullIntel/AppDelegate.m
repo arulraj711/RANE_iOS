@@ -17,6 +17,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "FIUtils.h"
 #import "Reachability.h"
+#import "ATAppUpdater.h"
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
@@ -100,6 +101,8 @@
     
     
     [FISharedResources sharedResourceManager];
+    
+    [[ATAppUpdater sharedUpdater] forceOpenNewAppVersion:NO];
     
     
     return YES;

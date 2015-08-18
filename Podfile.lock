@@ -21,6 +21,8 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - AMRatingControl (1.3.0)
+  - ATAppUpdater (1.3):
+    - Reachability (~> 3.2)
   - MZAppearance (1.1.3)
   - MZFormSheetController (3.0.2):
     - MZAppearance (~> 1.1.3)
@@ -29,6 +31,7 @@ PODS:
     - MZAppearance (~> 1.1.3)
   - PKRevealController (2.0.6)
   - pop (1.0.7)
+  - Reachability (3.2)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
@@ -40,6 +43,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - AMRatingControl (~> 1.3.0)
+  - ATAppUpdater (~> 1.3)
   - MZFormSheetController (~> 3.0.2)
   - PKRevealController (~> 2.0.6)
   - pop (~> 1.0)
@@ -52,14 +56,16 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
   AMRatingControl: f209fd394188ba48a818f2df091db438123db362
+  ATAppUpdater: 8f95d944e3833f5a22e2094f228ab5237f7cbb72
   MZAppearance: c2937318234fd782e900fb178942278881ac5490
   MZFormSheetController: 0cfda6f341a7c6d9054d596efad735a9fc0e7a1b
   PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
   pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
   UCZProgressView: 32fa5c572ff1300bf22553c8286600d9ae42f50f
   UICollectionViewRightAlignedLayout: b2ddc2b0c526b7892d46f33eee3e1ecdf8cacc4a
   UIImageView-Letters: ea2b315919f0c50bb98999c3a3d7208db0c7064b
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.35.0

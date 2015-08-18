@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "942755DE5B07451D0F8E6D98"
+               BlueprintIdentifier = "650B057B5DA9B25B36707055"
                BuildableName = "libPods-FullIntel-Toast.a"
                BlueprintName = "Pods-FullIntel-Toast"
                ReferencedContainer = "container:Pods.xcodeproj">
