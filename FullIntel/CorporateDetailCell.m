@@ -51,6 +51,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails:) name:@"CuratedNewsDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails:) name:@"CuratedNewsAuthorDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeWebView:) name:@"removeWebView" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeDownTutorial) name:@"SwipeRightLeftTutorialTrigger" object:nil];
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:nil];
     tapEvent.numberOfTapsRequired = 1;
     self.detailsWebview.tag =101;
@@ -58,6 +60,13 @@
     [self.detailsWebview addGestureRecognizer:tapEvent];
     
     
+}
+
+-(void)afterSwipeDownTutorial{
+    
+    
+    CGPoint bottomOffset = CGPointMake(0, self.scrollView.contentSize.height - self.scrollView.bounds.size.height);
+    [self.scrollView setContentOffset:bottomOffset animated:NO];
 }
 
 -(void)removeWebView:(id)sender {

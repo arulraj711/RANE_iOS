@@ -17,6 +17,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -286,6 +287,88 @@
             </objects>
             <point key="canvasLocation" x="1265" y="155"/>
         </scene>
+        <!--Drill Down List Tutorial View Controller-->
+        <scene sceneID="FH4-oI-bVA">
+            <objects>
+                <viewController storyboardIdentifier="DrillDownListTutorialViewController" id="epB-Sa-czz" customClass="DrillDownListTutorialViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fwb-sv-X40"/>
+                        <viewControllerLayoutGuide type="bottom" id="wg0-JR-H0S"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S9j-h3-Sa2">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="unF-wA-V3b">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="600"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Swipe_Left" translatesAutoresizingMaskIntoConstraints="NO" id="XM5-7N-vNy">
+                                <rect key="frame" x="870" y="250" width="80" height="100"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMe-r1-UVR">
+                                <rect key="frame" x="302" y="269" width="397" height="61"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Swipe up to read influencer tweets and author information" translatesAutoresizingMaskIntoConstraints="NO" id="45h-hH-Nlz">
+                                        <rect key="frame" x="0.0" y="0.0" width="397" height="61"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.68627450980000004" green="0.039215686270000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="JCP-Al-e7M"/>
+                                    <constraint firstItem="45h-hH-Nlz" firstAttribute="top" secondItem="JMe-r1-UVR" secondAttribute="top" id="gd5-Wx-QZI"/>
+                                    <constraint firstAttribute="trailing" secondItem="45h-hH-Nlz" secondAttribute="trailing" id="hed-RZ-u1j"/>
+                                    <constraint firstItem="45h-hH-Nlz" firstAttribute="leading" secondItem="JMe-r1-UVR" secondAttribute="leading" id="kqD-g7-fc2"/>
+                                    <constraint firstAttribute="bottom" secondItem="45h-hH-Nlz" secondAttribute="bottom" id="xG4-iq-erY"/>
+                                    <constraint firstAttribute="width" constant="397" id="xaL-U0-HVc"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Swipe_Up" translatesAutoresizingMaskIntoConstraints="NO" id="4cM-aI-UgI">
+                                <rect key="frame" x="460" y="28" width="80" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="50G-t3-xJW"/>
+                                    <constraint firstAttribute="width" constant="80" id="DXu-EW-Wc9"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Swipe_Right" translatesAutoresizingMaskIntoConstraints="NO" id="Pwq-Nc-YRo">
+                                <rect key="frame" x="30" y="250" width="80" height="100"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="unF-wA-V3b" secondAttribute="trailing" constant="-16" id="460-03-hbm"/>
+                            <constraint firstAttribute="centerY" secondItem="JMe-r1-UVR" secondAttribute="centerY" constant="0.5" id="7by-sF-I99"/>
+                            <constraint firstItem="Pwq-Nc-YRo" firstAttribute="centerY" secondItem="unF-wA-V3b" secondAttribute="centerY" id="KpO-E5-PlP"/>
+                            <constraint firstAttribute="centerX" secondItem="JMe-r1-UVR" secondAttribute="centerX" constant="-0.5" id="NZo-ZB-IqT"/>
+                            <constraint firstItem="wg0-JR-H0S" firstAttribute="top" secondItem="unF-wA-V3b" secondAttribute="bottom" id="WAu-Qu-Fga"/>
+                            <constraint firstAttribute="centerY" secondItem="4cM-aI-UgI" secondAttribute="centerY" constant="222" id="bDN-6t-a50"/>
+                            <constraint firstAttribute="centerX" secondItem="4cM-aI-UgI" secondAttribute="centerX" id="frR-JO-oM2"/>
+                            <constraint firstItem="XM5-7N-vNy" firstAttribute="top" secondItem="Pwq-Nc-YRo" secondAttribute="top" id="kJc-zf-LW4"/>
+                            <constraint firstItem="unF-wA-V3b" firstAttribute="leading" secondItem="S9j-h3-Sa2" secondAttribute="leadingMargin" constant="-16" id="ntt-Hj-deY"/>
+                            <constraint firstItem="Pwq-Nc-YRo" firstAttribute="leading" secondItem="S9j-h3-Sa2" secondAttribute="leadingMargin" constant="14" id="oQp-gQ-3fw"/>
+                            <constraint firstItem="unF-wA-V3b" firstAttribute="top" secondItem="Fwb-sv-X40" secondAttribute="bottom" constant="-20" id="oyM-Kn-2rx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XM5-7N-vNy" secondAttribute="trailing" constant="34" id="rsy-Gs-kEh"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="1000" height="600"/>
+                    <connections>
+                        <outlet property="bgImageView" destination="unF-wA-V3b" id="Hrm-N5-aAE"/>
+                        <outlet property="swipeDownImageView" destination="4cM-aI-UgI" id="JZ3-E0-1Lz"/>
+                        <outlet property="swipeLeftImageView" destination="Pwq-Nc-YRo" id="men-d2-AhQ"/>
+                        <outlet property="swipeRightImageView" destination="XM5-7N-vNy" id="Nqc-mr-lmm"/>
+                        <outlet property="textView" destination="45h-hH-Nlz" id="o6a-KT-lBk"/>
+                        <outlet property="textViewOutterView" destination="JMe-r1-UVR" id="NEB-Mz-a1i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vUX-5p-tZu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1211" y="883"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="HtM-Kb-ncO">
             <objects>
@@ -307,6 +390,8 @@
     </scenes>
     <resources>
         <image name="Swipe_Down" width="80" height="100"/>
+        <image name="Swipe_Left" width="80" height="100"/>
+        <image name="Swipe_Right" width="80" height="100"/>
         <image name="Swipe_Up" width="80" height="100"/>
     </resources>
 </document>

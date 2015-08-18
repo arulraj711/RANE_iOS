@@ -117,10 +117,7 @@
         
     [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuTutorialTrigger" object:nil];
         
-    }else{
-            [self.view removeGestureRecognizer:tapEvent];
     }
-    
 }
 
 -(void)SecondLevelTutorialTrigger{

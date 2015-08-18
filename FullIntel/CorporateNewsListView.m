@@ -142,6 +142,15 @@
                                   scrollPosition:UITableViewScrollPositionNone];
     [self tableView:self.articlesTableView didSelectRowAtIndexPath:indexPath];
     
+    
+    [self performSelector:@selector(triggerDrillInTutorial) withObject:nil afterDelay:2.0];
+    
+}
+
+-(void)triggerDrillInTutorial{
+    
+    
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"DrillDownTutorialTrigger" object:nil];
 }
 
 -(void)afterSwipeUpAndDownTutorial{

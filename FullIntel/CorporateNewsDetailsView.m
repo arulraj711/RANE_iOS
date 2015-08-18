@@ -32,6 +32,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
     
     
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addOverLayForTutorial) name:@"DrillDownTutorialTrigger" object:nil];
+    
+
+    
+    
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeDownTutorial) name:@"DrillInToolBoxTutorial" object:nil];
+    
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(widgetWebViewTrigger:) name:@"widgetWebViewCalled" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailButtonClick:) name:@"mailButtonClick" object:nil];
@@ -68,6 +75,59 @@
    // self.navigationItem.rightBarButtonItem =nil;
     
     [self getArticleIdListFromDB];
+    
+}
+
+
+
+-(void)afterSwipeDownTutorial{
+    
+    
+    coachMarks = @[
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{0,0},{45,45}}],
+                                @"caption": @"Helpful navigation menu",
+                                @"shape": @"circle"
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{10.0f,56.0f},{300.0f,56.0f}}],
+                                @"caption": @"Document your wedding by taking photos",
+                                @"shape": @"square"
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{10.0f,119.0f},{300.0f,56.0f}}],
+                                @"caption": @"Your wedding photo album"
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{10.0f,182.0f},{300.0f,56.0f}}],
+                                @"caption": @"View and manage your friends & family"
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{10.0f,245.0f},{300.0f,56.0f}}],
+                                @"caption": @"Invite friends to get more photos"
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{0.0f,410.0f},{320.0f,50.0f}}],
+                                @"caption": @"Keep your guests informed with your wedding details"
+                                }
+                            ];
+    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
+    [self.view addSubview:coachMarksView];
+    [coachMarksView start];
+    
+    
+}
+-(void)addOverLayForTutorial{
+    
+    
+    
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    // UIViewController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"MainListTutorialViewController"];
+    
+    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"DrillDownListTutorialViewController"];
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:popOverView animated:NO completion:nil];
+    
     
 }
 

@@ -163,7 +163,6 @@
     popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performSwipeUpAnimation) userInfo:nil repeats:YES];
     
        popAnimationTimerTwo=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performSwipeDownAnimation) userInfo:nil repeats:YES];
-    [self performSwipeUpAnimation];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
