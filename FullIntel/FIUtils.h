@@ -12,7 +12,7 @@
 
 @interface FIUtils : NSObject
 +(NSString*)getDateFromTimeStamp:(double)timeStamp;
-+(NSString*)createInputJsonForContentWithToekn:(NSString *)securityToken lastArticleId:(NSString *)articleId contentTypeId:(NSString *)contentTypeId listSize:(NSInteger)listSize activityTypeId:(NSString*)activityTypeId categoryId:(NSNumber *)categoryId;
++(NSString*)createInputJsonForContentWithToekn:(NSString *)securityToken lastArticleId:(NSString *)articleId contentTypeId:(NSNumber *)contentTypeId listSize:(NSInteger)listSize activityTypeId:(NSString*)activityTypeId categoryId:(NSNumber *)categoryId;
 +(UIColor*)colorWithHexString:(NSString*)hex;
 +(void)deleteExistingData;
 +(void)showErrorToast;

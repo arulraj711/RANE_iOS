@@ -14,6 +14,7 @@
 @property (nonatomic,strong) NSNumber *categoryId;
 @property (nonatomic,strong) NSString *imageUrl;
 @property (assign) BOOL isSubscribed;
+@property (assign) BOOL isCompanySubscribed;
 //-(void)createMenuFromDic:(NSDictionary *)dic;
 +(FIContentCategory *)recursiveMenu:(NSDictionary *)dic;
 @end

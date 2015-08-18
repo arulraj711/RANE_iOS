@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D131" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14A389" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="AuthorBeat" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -59,6 +59,7 @@
         <attribute name="articleUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="articleUrlData" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="categoryId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="contentTypeId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="folderId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -294,7 +295,7 @@
         <element name="Company_Widget" positionX="-171" positionY="9" width="128" height="120"/>
         <element name="CuratedAuthor" positionX="-846" positionY="-1404" width="128" height="163"/>
         <element name="CuratedLegends" positionX="-153" positionY="-306" width="128" height="88"/>
-        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="435"/>
+        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="450"/>
         <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="270"/>
         <element name="CuratedNewsDetailAuthor" positionX="-2423" positionY="-1269" width="128" height="238"/>
         <element name="Influ_Drillin" positionX="-479" positionY="-18" width="128" height="268"/>
