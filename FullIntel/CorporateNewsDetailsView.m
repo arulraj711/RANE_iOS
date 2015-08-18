@@ -83,6 +83,9 @@
     
     _tutorialTextBoxView.hidden=YES;
     
+
+     _tutorialTextBoxView.layer.cornerRadius=5.0f;
+    
 }
 
 -(void)endOfTutorial{
