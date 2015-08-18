@@ -119,7 +119,7 @@
 
 +(void)showErrorWithMessage:(NSString *)message {
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-    [window makeToast:message duration:1 position:CSToastPositionCenter];
+    [window makeToast:message duration:1.5 position:CSToastPositionCenter];
 }
 
 +(void)showNoNetworkToast {

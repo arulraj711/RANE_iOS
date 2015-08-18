@@ -25,6 +25,7 @@
    // NSMutableArray *folderArray;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopLoading) name:@"SaveToFolder" object:nil];
     [self fetchFolderDetails];
 }
 
@@ -211,9 +212,17 @@
     [activityIndicator1 stopAnimating];
     self.view.userInteractionEnabled = YES;
     [self fetchFolderDetails];
-   // [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+-(void)stopLoading {
+    [activityIndicator stopAnimating];
+    [activityIndicator1 stopAnimating];
+    self.view.userInteractionEnabled = YES;
+    [self fetchFolderDetails];
+    //[self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 - (IBAction)savedAction:(id)sender {

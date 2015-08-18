@@ -104,6 +104,8 @@
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
+		F5DAAA541B7080E80059425C /* TweetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5DAAA531B7080E80059425C /* TweetsCell.xib */; };
+		F5F727271B6F809400DE7980 /* SocialLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5F727261B6F809400DE7980 /* SocialLinkCell.xib */; };
 		F708D9EE1AB1A19B001FF59F /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = F708D9ED1AB1A19A001FF59F /* test.html */; };
 		F717CC931AB1AF6900F66B53 /* back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F717CC921AB1AF6900F66B53 /* back.jpg */; };
 		F717CC941AB1B2E400F66B53 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F717CC901AB1ADB100F66B53 /* OpenSans-Light.ttf */; };
@@ -363,6 +365,8 @@
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F552A8241B6666670003B7C1 /* FullIntel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 2.xcdatamodel"; sourceTree = "<group>"; };
+		F5DAAA531B7080E80059425C /* TweetsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsCell.xib; sourceTree = "<group>"; };
+		F5F727261B6F809400DE7980 /* SocialLinkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLinkCell.xib; sourceTree = "<group>"; };
 		F708D9ED1AB1A19A001FF59F /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		F717CC901AB1ADB100F66B53 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		F717CC911AB1ADB100F66B53 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -583,8 +587,10 @@
 		A0066EED1B030B10008B4623 /* CorporateDetailCell */ = {
 			isa = PBXGroup;
 			children = (
+				F5F727261B6F809400DE7980 /* SocialLinkCell.xib */,
 				A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */,
 				A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */,
+				F5DAAA531B7080E80059425C /* TweetsCell.xib */,
 			);
 			name = CorporateDetailCell;
 			sourceTree = "<group>";
@@ -1270,6 +1276,7 @@
 				F7F876B51AB976B00042404D /* influ_drillin.json in Resources */,
 				A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */,
 				A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */,
+				F5DAAA541B7080E80059425C /* TweetsCell.xib in Resources */,
 				A0CF5C5D1B1DD98B00DED2D9 /* IpAndLegal.storyboard in Resources */,
 				F7F3C05B1AA42CC700E653CB /* menu.json in Resources */,
 				F7E368831ABC18F70083F38E /* MailPopoverView.xib in Resources */,
@@ -1335,6 +1342,7 @@
 				A0CF5C651B1DD98B00DED2D9 /* TimeLineCell.xib in Resources */,
 				F7E81FA01A97057100F9A8D4 /* Ed.jpeg in Resources */,
 				A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */,
+				F5F727271B6F809400DE7980 /* SocialLinkCell.xib in Resources */,
 				A0D956811B0C4D9100DB013F /* TwitterKitResources.bundle in Resources */,
 				F7C1AB5E1ABFEFB100D8588A /* MorePopoverView.storyboard in Resources */,
 				F7CE36F21A95E99D0005AA0A /* RATableViewCell.xib in Resources */,
@@ -1542,8 +1550,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1563,7 +1571,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1586,8 +1594,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1600,7 +1608,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1612,8 +1620,8 @@
 			baseConfigurationReference = 90EF9BD902798B39A9DB8F3B /* Pods-FullIntel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1623,7 +1631,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 			};
 			name = Debug;
 		};
@@ -1632,8 +1640,8 @@
 			baseConfigurationReference = A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1643,7 +1651,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 			};
 			name = Release;
 		};

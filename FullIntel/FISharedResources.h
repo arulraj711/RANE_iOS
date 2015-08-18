@@ -44,7 +44,7 @@
 -(void)updateAppViewTypeWithDetails:(NSString *)details;
 -(void)featureAccessRequestWithDetails:(NSString *)details;
 -(void)updateFolderId:(NSString *)entity withFolderId:(NSNumber *)folderId;
--(NSDictionary *)getTweetDetails:(NSString *)details;
+-(NSArray *)getTweetDetails:(NSString *)details;
 -(void)markCommentAsReadWithDetails:(NSString *)details;
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)showProgressView;

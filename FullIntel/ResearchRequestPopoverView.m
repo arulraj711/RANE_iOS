@@ -65,15 +65,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)updateViewConstraints {
-    if (self.view.superview != nil && [[self.view.superview constraints] count] == 0) {
-        NSDictionary* views = @{@"view" : self.view};
-        
-        [self.view.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:0 views:views]];
-        [self.view.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:0 views:views]];
-    }
-    [super updateViewConstraints];
-}
+//- (void)updateViewConstraints {
+//    if (self.view.superview != nil && [[self.view.superview constraints] count] == 0) {
+//        NSDictionary* views = @{@"view" : self.view};
+//        
+//        [self.view.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:0 views:views]];
+//        [self.view.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:0 views:views]];
+//    }
+//    [super updateViewConstraints];
+//}
 -(void)tapEvent {
     [self dismissViewControllerAnimated:NO completion:NULL];
 }

@@ -552,16 +552,16 @@
             
             
             if(self.socialLinksArray.count == 0) {
-                cell.socialLinkLabel.hidden = YES;
-                cell.socialLinkDivider.hidden = YES;
-                cell.socialLinkCollectionView.hidden = YES;
+                //cell.socialLinkLabel.hidden = YES;
+                //cell.socialLinkDivider.hidden = YES;
+                //cell.socialLinkCollectionView.hidden = YES;
             } else {
                 cell.socialLinksArray = self.socialLinksArray;
                 cell.socialLinkLabel.hidden = NO;
                 cell.socialLinkDivider.hidden = NO;
-                cell.socialLinkCollectionView.hidden = NO;
+               // cell.socialLinkCollectionView.hidden = NO;
                 
-                [cell.socialLinkCollectionView reloadData];
+               // [cell.socialLinkCollectionView reloadData];
             }
             
             [cell.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
@@ -870,7 +870,7 @@
         mailViewController.articleId= mailArticleId;
         mailViewController.mailSubject = mailTitle;
         mailViewController.mailBody = mailBody;
-        popOverView.transitioningDelegate = self;
+       // popOverView.transitioningDelegate = self;
         popOverView.modalPresentationStyle = UIModalPresentationCustom;
         [self presentViewController:popOverView animated:NO completion:nil];
     }
