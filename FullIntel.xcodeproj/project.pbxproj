@@ -148,7 +148,6 @@
 		F7DB32611AA56F50002724D6 /* FIMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DB32601AA56F50002724D6 /* FIMenu.m */; };
 		F7E0049B1AB152C500390D51 /* ProductWidgetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E004991AB152C500390D51 /* ProductWidgetCell.m */; };
 		F7E0049C1AB152C500390D51 /* ProductWidgetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E0049A1AB152C500390D51 /* ProductWidgetCell.xib */; };
-		F7E239F41AA5E49900708B6B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E239F31AA5E49900708B6B /* Reachability.m */; };
 		F7E354E31A947A19009677D2 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E354E21A947A19009677D2 /* LeftViewController.m */; };
 		F7E354E71A947AB0009677D2 /* LeftView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7E354E61A947AB0009677D2 /* LeftView.storyboard */; };
 		F7E3687B1ABBF1DA0083F38E /* CommentsPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E368791ABBF1DA0083F38E /* CommentsPopoverView.m */; };
@@ -437,8 +436,6 @@
 		F7E004981AB152C500390D51 /* ProductWidgetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductWidgetCell.h; sourceTree = "<group>"; };
 		F7E004991AB152C500390D51 /* ProductWidgetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductWidgetCell.m; sourceTree = "<group>"; };
 		F7E0049A1AB152C500390D51 /* ProductWidgetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductWidgetCell.xib; sourceTree = "<group>"; };
-		F7E239F21AA5E49900708B6B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		F7E239F31AA5E49900708B6B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		F7E354E11A947A19009677D2 /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
 		F7E354E21A947A19009677D2 /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
 		F7E354E61A947AB0009677D2 /* LeftView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LeftView.storyboard; path = FullIntel/LeftView.storyboard; sourceTree = "<group>"; };
@@ -972,8 +969,6 @@
 		F7E239F11AA5E47200708B6B /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
-				F7E239F21AA5E49900708B6B /* Reachability.h */,
-				F7E239F31AA5E49900708B6B /* Reachability.m */,
 			);
 			name = Reachability;
 			sourceTree = "<group>";
@@ -1496,7 +1491,6 @@
 				F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */,
 				A0CF5C6B1B1DD98B00DED2D9 /* PersonalityExecutiveCell.m in Sources */,
 				A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */,
-				F7E239F41AA5E49900708B6B /* Reachability.m in Sources */,
 				A0DEC3DE1AE8E31D0046E8BB /* SocialLinkCell.m in Sources */,
 				F78B42FE1ABA8F4800AB7FFB /* CorporateNewsCell.m in Sources */,
 				A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */,

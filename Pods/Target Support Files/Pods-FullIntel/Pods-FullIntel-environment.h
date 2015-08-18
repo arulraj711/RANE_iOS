@@ -54,6 +54,12 @@
 #define COCOAPODS_VERSION_MINOR_AMRatingControl 3
 #define COCOAPODS_VERSION_PATCH_AMRatingControl 0
 
+// ATAppUpdater
+#define COCOAPODS_POD_AVAILABLE_ATAppUpdater
+#define COCOAPODS_VERSION_MAJOR_ATAppUpdater 1
+#define COCOAPODS_VERSION_MINOR_ATAppUpdater 3
+#define COCOAPODS_VERSION_PATCH_ATAppUpdater 0
+
 // MZAppearance
 #define COCOAPODS_POD_AVAILABLE_MZAppearance
 #define COCOAPODS_VERSION_MAJOR_MZAppearance 1
@@ -77,6 +83,12 @@
 #define COCOAPODS_VERSION_MAJOR_PKRevealController 2
 #define COCOAPODS_VERSION_MINOR_PKRevealController 0
 #define COCOAPODS_VERSION_PATCH_PKRevealController 6
+
+// Reachability
+#define COCOAPODS_POD_AVAILABLE_Reachability
+#define COCOAPODS_VERSION_MAJOR_Reachability 3
+#define COCOAPODS_VERSION_MINOR_Reachability 2
+#define COCOAPODS_VERSION_PATCH_Reachability 0
 
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage
