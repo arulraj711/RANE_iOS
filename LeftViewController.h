@@ -12,6 +12,7 @@
 @interface LeftViewController : UIViewController <RATreeViewDataSource,RATreeViewDelegate,MZFormSheetBackgroundWindowDelegate,UIViewControllerTransitioningDelegate>{
     RATreeView *treeView;
     MZFormSheetController *formSheet;
+    int unreadCnt;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;
 @property (weak, nonatomic) IBOutlet UIButton *researchButton;

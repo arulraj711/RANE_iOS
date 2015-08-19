@@ -416,6 +416,8 @@
         //[self.selectedIdArray removeObject:contentCategory.categoryId];
         [cell.checkMarkButton setSelected:NO];
     }
+    cell.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    cell.contentView.layer.borderWidth = 0.5f;
     return cell;
 }
 

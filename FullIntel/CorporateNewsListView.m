@@ -369,7 +369,7 @@
     
     
     
-   // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:100];
+    
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
