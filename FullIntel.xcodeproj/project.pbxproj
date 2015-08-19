@@ -360,6 +360,7 @@
 		A0F118B21AE7E0420047FE13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0F118B31AE7E0420047FE13 /* FullIntelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullIntelTests.m; sourceTree = "<group>"; };
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 3.xcdatamodel"; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -1550,8 +1551,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1571,7 +1572,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1594,8 +1595,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1608,7 +1609,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1620,8 +1621,8 @@
 			baseConfigurationReference = 90EF9BD902798B39A9DB8F3B /* Pods-FullIntel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1631,7 +1632,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 			};
 			name = Debug;
 		};
@@ -1640,8 +1641,8 @@
 			baseConfigurationReference = A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1651,7 +1652,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 			};
 			name = Release;
 		};
@@ -1682,10 +1683,11 @@
 		A0E223571A91C2F00073814A /* FullIntel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */,
 				F552A8241B6666670003B7C1 /* FullIntel 2.xcdatamodel */,
 				A0E223581A91C2F00073814A /* FullIntel.xcdatamodel */,
 			);
-			currentVersion = F552A8241B6666670003B7C1 /* FullIntel 2.xcdatamodel */;
+			currentVersion = A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */;
 			path = FullIntel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

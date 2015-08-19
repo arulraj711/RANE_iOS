@@ -790,15 +790,20 @@
             
             RADataObject *dataObj = [self.treeView parentForItem:item];
             NSLog(@"parent name:%@",dataObj.name);
+            
+           
+            
             NSString *inputJson;
             if(dataObj.isParent == nil) {
                 [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
             }else {
-                [[NSUserDefaults standardUserDefaults] setObject:dataObj.nodeId forKey:@"parentId"];
+                NSNumber *rootParent = [self getParentIdFromObject:item];
+                NSLog(@"root parent:%@",rootParent);
+                [[NSUserDefaults standardUserDefaults] setObject:rootParent forKey:@"parentId"];
                 [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
-                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:dataObj.nodeId listSize:10 activityTypeId:@"" categoryId:data.nodeId];
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:rootParent listSize:10 activityTypeId:@"" categoryId:data.nodeId];
             }
             
             
@@ -829,6 +834,19 @@
         }
     }
     
+}
+
+-(NSNumber *)getParentIdFromObject:(RADataObject *)item {
+    NSNumber *parentId;
+    RADataObject *dataObj = [self.treeView parentForItem:item];
+    NSLog(@"recursive parent id:%@",dataObj.isParent);
+    if(![dataObj.isParent isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+        
+        parentId = [self getParentIdFromObject:dataObj];
+        NSLog(@"come inside if stmt:%@",parentId);
+        return parentId;
+    }
+    return dataObj.nodeId;
 }
 
 
