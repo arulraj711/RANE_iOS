@@ -48,7 +48,7 @@
     if (coachMarksShown == NO) {
         
         
-        _textView.text=@"￼￼            Swipe right or left to flip pages";
+        _textView.text=@"￼￼Swipe right or left to flip pages";
         
         
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SwipeDownTutorialTrigger"];

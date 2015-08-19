@@ -81,7 +81,7 @@
     
     [popAnimationTimer invalidate];
     
-     popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performAnimationForButton:) userInfo:indexString repeats:YES];
+     popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(performAnimationForButton:) userInfo:indexString repeats:YES];
 }
 
 -(void)performAnimationForButton:(NSTimer *)timer{
@@ -198,7 +198,7 @@
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
     scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
-    scaleAnimation.springBounciness = 10;
+    scaleAnimation.springBounciness = 50;
     scaleAnimation.springSpeed=10;
     [btn.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
 }

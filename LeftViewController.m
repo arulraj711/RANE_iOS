@@ -59,6 +59,8 @@
     
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addContentButtonClick:) name:@"TutorialTrigger" object:nil];
     
+
+    
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addOverlayAndBox) name:@"MenuTutorialTrigger" object:nil];

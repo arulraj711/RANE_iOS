@@ -95,7 +95,7 @@
     if (coachMarksShown == NO) {
         
         
-         _textView.text=@"￼     Tap here to add to “Saved For Later” folder";
+         _textView.text=@"￼Tap here to add to “Saved For Later” folder";
         
         
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SwipeUpAndDownTutorialTrigger"];

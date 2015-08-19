@@ -80,9 +80,11 @@
     UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     [addBtn setFrame:CGRectMake(0,0,40,40)];
     [addBtn setImage :[UIImage imageNamed:@"addcontent"]  forState:UIControlStateNormal];
-    [addBtn addTarget:self action:@selector(addContentView) forControlEvents:UIControlEventTouchUpInside];
+    [addBtn addTarget:self action:@selector(triggerTutorial) forControlEvents:UIControlEventTouchUpInside];
     [addBtnView addSubview:addBtn];
     UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
+    
+    [self.navigationItem setRightBarButtonItem:addContentButton];
     
 //    UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
 //    searchBtnView.backgroundColor = [UIColor clearColor];
@@ -130,6 +132,42 @@
     
 }
 
+-(void)triggerTutorial{
+    
+    
+      [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"TutorialBoxShown"];
+    
+     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"TutorialShown"];
+    
+      [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"MarkImportantTutorialTrigger"];
+    
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SwipeUpAndDownTutorialTrigger"];
+    
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SwipeDownTutorialTrigger"];
+    
+    
+
+      [self.revealController showViewController:self.revealController.leftViewController];
+    
+
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
+    if (coachMarksShown == NO) {
+        
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
+        
+        //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+        
+        //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+        //  popOverView.transitioningDelegate = self;
+        popOverView.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:popOverView animated:NO completion:nil];
+        
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialBoxShown"];
+        
+    }
+    
+}
 
 -(void)endOfTutorial{
     

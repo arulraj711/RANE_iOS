@@ -67,7 +67,7 @@
                                             <action selector="laterButtonPressed:" destination="Cw0-eg-KGo" eventType="touchUpInside" id="nmO-MV-KNE"/>
                                         </connections>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnz-Q4-SOS">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnz-Q4-SOS">
                                         <rect key="frame" x="20" y="15" width="480" height="70"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -79,7 +79,7 @@
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caP-nR-Va9">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caP-nR-Va9">
                                         <rect key="frame" x="20" y="85" width="480" height="108"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <string key="text">Take this one minute tour to learn about your custom settings and how with a few taps and swipes you can quickly get the information you want and collaborate with your colleagues.</string>
@@ -168,7 +168,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdC-zw-bSp">
                                 <rect key="frame" x="290" y="300" width="336" height="85"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Tap access the various topics and folders on the left menu bar" translatesAutoresizingMaskIntoConstraints="NO" id="9EX-LC-OXz">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Tap access the various topics and folders on the left menu bar" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9EX-LC-OXz">
                                         <rect key="frame" x="0.0" y="0.0" width="336" height="85"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -283,7 +283,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F9m-IR-xzo">
                                 <rect key="frame" x="302" y="306" width="397" height="61"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Swipe up or down to quickly read the headlines and summary of articles in a folder" translatesAutoresizingMaskIntoConstraints="NO" id="jNW-xJ-nDS">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="Swipe up or down to quickly read the headlines and summary of articles in a folder" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jNW-xJ-nDS">
                                         <rect key="frame" x="0.0" y="0.0" width="397" height="61"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -341,7 +341,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N9a-jN-6RL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="613" y="137"/>
+            <point key="canvasLocation" x="865" y="-61"/>
         </scene>
         <!--Drill Down List Tutorial View Controller-->
         <scene sceneID="FH4-oI-bVA">
@@ -364,7 +364,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMe-r1-UVR">
                                 <rect key="frame" x="302" y="269" width="397" height="61"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Swipe up to read influencer tweets and author information" translatesAutoresizingMaskIntoConstraints="NO" id="45h-hH-Nlz">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Swipe up to read influencer tweets and author information" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="45h-hH-Nlz">
                                         <rect key="frame" x="0.0" y="0.0" width="397" height="61"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
