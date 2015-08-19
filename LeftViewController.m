@@ -304,10 +304,24 @@
     
     self.data = [[NSMutableArray alloc]init];
     for(FIMenu *menu in array) {
+        NSNumber *accountTypeIdStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
+        
         if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
-            // NSLog(@"for loop:%@",dataObj);
-            [self.data addObject:dataObj];
+            if([accountTypeIdStr isEqualToNumber:[NSNumber numberWithInt:3]]) {
+               //handle test user
+                if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:7]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:5]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:2]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:4]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+                    
+                } else {
+                    RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
+                    // NSLog(@"for loop:%@",dataObj);
+                    [self.data addObject:dataObj];
+                }
+            } else {
+                RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
+                // NSLog(@"for loop:%@",dataObj);
+                [self.data addObject:dataObj];
+            }
+            
         }
         
     }
