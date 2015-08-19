@@ -295,9 +295,10 @@
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
                 //if([contentTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
                     predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@",contentTypeId];
-//                } else {
-//                    predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@",contentTypeId];
-//                }
+            }
+                else if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+                    predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@",categoryId];
+                
                 
             } else {
                 predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
@@ -402,6 +403,8 @@
         } else {
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
                 predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@ AND categoryId==%@",contentTypeId,categoryId];
+            } else if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@",categoryId];
             } else {
                 predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
             }

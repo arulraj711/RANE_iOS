@@ -480,11 +480,11 @@
             NSLog(@"incoming content type:%@",contentTypeId);
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
             NSPredicate *predicate;
-            //if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
                 predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@",[dic objectForKey:@"id"],contentTypeId,categoryId];
-//            } else {
-//                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND categoryId == %@",[dic objectForKey:@"id"],categoryId];
-//            }
+            } else {
+                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND categoryId == %@",[dic objectForKey:@"id"],categoryId];
+            }
             
 //            NSPredicate *fetchContentTypePredicate = [NSPredicate predicateWithFormat:@"contentTypeId == %@",contentTypeId];
 //            
