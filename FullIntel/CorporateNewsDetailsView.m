@@ -937,7 +937,11 @@
 //            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
 //            
 //            dispatch_async(queue_a, ^{
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
+            
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            
+            
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
         oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                        selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
         //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];

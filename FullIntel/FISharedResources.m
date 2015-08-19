@@ -425,7 +425,7 @@
 }
 
 
--(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
+-(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withContentTypeId:(NSNumber *)contentTypeId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
    // [self showProgressView];
     NSLog(@"refresh list with flag:%@ and categoryId:%@",updownFlag,categoryId);
     if([self serviceIsReachable]) {
@@ -476,15 +476,26 @@
             NSManagedObject *curatedNewsDrillIn;
             context = [self managedObjectContext];
             
-            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            
             NSLog(@"incoming content type:%@",contentTypeId);
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
             NSPredicate *predicate;
-            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@",[dic objectForKey:@"id"],contentTypeId];
-            } else {
-                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND categoryId == %@",[dic objectForKey:@"id"],categoryId];
-            }
+            //if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@",[dic objectForKey:@"id"],contentTypeId,categoryId];
+//            } else {
+//                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND categoryId == %@",[dic objectForKey:@"id"],categoryId];
+//            }
+            
+//            NSPredicate *fetchContentTypePredicate = [NSPredicate predicateWithFormat:@"contentTypeId == %@",contentTypeId];
+//            
+//            NSPredicate *fetchCategoryPredicate = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
+//            
+//            NSPredicate *fetchArticlePredicate = [NSPredicate predicateWithFormat:@"articleId == %@",[dic objectForKey:@"id"]];
+//            
+//            NSPredicate *compoundPredicate
+//            = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:fetchContentTypePredicate,fetchCategoryPredicate,fetchArticlePredicate, nil]];
+            
+           // predicate = [NSPredicate predicateWithFormat:@"(articleId = %@) and (contentTypeId = %d) and (categoryId = %d)", [dic objectForKey:@"id"], [contentTypeId integerValue],[categoryId integerValue]];
             
             [fetchRequest setPredicate:predicate];
             NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
@@ -496,7 +507,12 @@
                 //Create new object
                 curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
                 [curatedNews setValue:contentTypeId forKey:@"contentTypeId"];
-                [curatedNews setValue:categoryId forKey:@"categoryId"];
+                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+                    [curatedNews setValue:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+                } else {
+                    [curatedNews setValue:categoryId forKey:@"categoryId"];
+                }
+                
                 [curatedNews setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
                 [_articleIdArray addObject:[dic objectForKey:@"id"]];
             }

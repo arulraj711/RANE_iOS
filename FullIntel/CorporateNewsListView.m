@@ -260,13 +260,13 @@
     NSDictionary *userInfo = notification.userInfo;
     NSLog(@"curated news dic:%@",userInfo);
     
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+   // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:100];
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-    NSLog(@"load curated news list:%@ and folderid:%@ and pareant id:%@",categoryId,folderId,contentTypeId);
+    NSLog(@"load curated news categoryId:%@ and folderid:%@ and contentTypeId:%@",categoryId,folderId,contentTypeId);
    // NSLog(@"category id in curated news:%@",categoryId);
     self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
@@ -290,11 +290,31 @@
             
         } else {
             NSLog(@"else part");
+           //if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+            NSLog(@"content btype:%@ and category:%@",contentTypeId,categoryId);
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@",contentTypeId];
+                //if([contentTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@",contentTypeId];
+//                } else {
+//                    predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@",contentTypeId];
+//                }
+                
             } else {
-                predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
             }
+            
+               // predicate = [NSPredicate predicateWithFormat:@"(contentTypeId = %d) and (categoryId = %d)",[contentTypeId integerValue],[categoryId integerValue]];
+//            NSPredicate *fetchCategoryPredicate = [NSPredicate predicateWithFormat:@"contentTypeId == 10"];
+//            
+//            NSPredicate *fetchArticlePredicate = [NSPredicate predicateWithFormat:@"categoryId == %@",[dic objectForKey:@"id"]];
+//            
+//            NSPredicate *compoundPredicate
+//            = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:fetchContentTypePredicate,fetchCategoryPredicate,fetchArticlePredicate, nil]];
+            
+            
+//            } else {
+//                predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
+//            }
            // predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@ AND categoryId == %@",contentTypeId,categoryId];
         }
     } else {
@@ -349,7 +369,7 @@
     
     
     
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+   // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:100];
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
@@ -380,12 +400,12 @@
             // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
             
         } else {
-            NSLog(@"else part");
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@",contentTypeId];
+                predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@ AND categoryId==%@",contentTypeId,categoryId];
             } else {
-                predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
             }
+            //}
         }
     } else {
         predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
@@ -464,8 +484,8 @@
             inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:parentId listSize:10 activityTypeId:@"" categoryId:category];
     }
         NSLog(@"input json:%@",inputJson);
-    
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"up" withLastArticleId:@""];
+        NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"up" withLastArticleId:@""];
    // }
     } else {
         [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:YES];
@@ -1202,7 +1222,8 @@
                 
                 
             }
-            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
         } else {
             [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:self.devices.count] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
         }

@@ -37,7 +37,7 @@
    
     
     layout = (id)[self.contentCollectionView collectionViewLayout];
-    layout.direction = UICollectionViewScrollDirectionVertical;
+    layout.direction = UICollectionViewScrollDirectionHorizontal;
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     //NSLog(@"current device orientation:%ld",(long)orientation);
     if(orientation == 1) {
@@ -359,7 +359,7 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetsForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return UIEdgeInsetsMake(5, 5, 5, 10);
+    return UIEdgeInsetsMake(5, 5, 5, 5);
 }
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     // NSLog(@"imp collection view");
@@ -372,6 +372,7 @@
     
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
     [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
+    [cell.image setContentMode:UIViewContentModeScaleAspectFit];
     cell.name.text = contentCategory.name;
     cell.checkMarkButton.tag = indexPath.row;
     
@@ -453,6 +454,12 @@
     } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:8]]) {
         //Deals
         [FIUtils callRequestionUpdateWithModuleId:8 withFeatureId:15];
+    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:10]]) {
+        //Deals
+        [FIUtils callRequestionUpdateWithModuleId:11 withFeatureId:15];
+    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:11]]) {
+        //Deals
+        [FIUtils callRequestionUpdateWithModuleId:12 withFeatureId:15];
     }
     
     [self.view makeToast:@"Your request has been sent." duration:1 position:CSToastPositionCenter];

@@ -664,9 +664,9 @@
         [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
         [gradedetails setObject:@"2" forKey:@"activityTypeIds"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-        
+        NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-2] withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-2] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-2] forKey:@"categoryId"];
         
     } else if([data.nodeId integerValue] == 1 && !data.isFolder) {
@@ -698,9 +698,9 @@
             [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
             [gradedetails setObject:@"3" forKey:@"activityTypeIds"];
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-            
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-3] withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-3] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
         } else {
             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
         }
@@ -841,8 +841,8 @@
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
                 [self.revealController setFrontViewController:navCtlr];
             
-            
-                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withFlag:@"" withLastArticleId:@""];
+                NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
            // }
             
         }
