@@ -43,7 +43,7 @@
     if(orientation == 1) {
         layout.blockPixels = CGSizeMake(120,150);
     }else {
-        layout.blockPixels = CGSizeMake(130,150);
+        layout.blockPixels = CGSizeMake(120,150);
     }
     
     //[self.contentCollectionView reloadData];
@@ -148,7 +148,7 @@
     
      // NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
     if(fromInterfaceOrientation == 1) {
-        layout.blockPixels = CGSizeMake(130,150);
+        layout.blockPixels = CGSizeMake(120,150);
     }else {
         layout.blockPixels = CGSizeMake(120,150);
     }
@@ -417,7 +417,7 @@
         [cell.checkMarkButton setSelected:NO];
     }
     cell.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    cell.contentView.layer.borderWidth = 0.5f;
+    cell.contentView.layer.borderWidth = 1.0f;
     return cell;
 }
 
