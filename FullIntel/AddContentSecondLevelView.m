@@ -99,6 +99,7 @@
     if (coachMarksShown == YES) {
     
     NSLog(@"triggerSecondTutorial");
+    [self.view removeGestureRecognizer:tapEvent];
     
     _tutorialContentView.hidden=YES;
     

@@ -196,10 +196,10 @@
     
     [btn.layer removeAllAnimations];
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
+    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.0, 0.0)];
     scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
     scaleAnimation.springBounciness = 50;
-    scaleAnimation.springSpeed=10;
+    scaleAnimation.springSpeed=5;
     [btn.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
 }
 -(void)removeWebView:(id)sender {
