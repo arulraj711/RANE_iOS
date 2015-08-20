@@ -30,7 +30,7 @@
     [self.revealController showViewController:self.revealController.leftViewController];
     messageString = @"Loading...";
    // NSLog(@"list did load");
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews:) name:@"CuratedNews" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failToLoad) name:@"CuratedNewsFail" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopLoading) name:@"StopLoading" object:nil];
@@ -183,7 +183,7 @@
     } else {
 //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
 //        if(isFirst) {
-            [self loadLocalData];
+            [self loadCuratedNews];
 //        }
     }
 }
@@ -254,11 +254,9 @@
     [self.articlesTableView reloadData];
 }
 
--(void)loadCuratedNews:(id)sender {
+-(void)loadCuratedNews {
     
-    NSNotification *notification = sender;
-    NSDictionary *userInfo = notification.userInfo;
-    NSLog(@"curated news dic:%@",userInfo);
+    
     
    // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:100];
     self.articlesTableView.dataSource = self;
@@ -290,33 +288,8 @@
             
         } else {
             NSLog(@"else part");
-           //if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
             NSLog(@"content btype:%@ and category:%@",contentTypeId,categoryId);
-            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                //if([contentTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                    predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@",contentTypeId];
-            }
-                else if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
-                    predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@",categoryId];
-                
-                
-            } else {
-                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
-            }
-            
-               // predicate = [NSPredicate predicateWithFormat:@"(contentTypeId = %d) and (categoryId = %d)",[contentTypeId integerValue],[categoryId integerValue]];
-//            NSPredicate *fetchCategoryPredicate = [NSPredicate predicateWithFormat:@"contentTypeId == 10"];
-//            
-//            NSPredicate *fetchArticlePredicate = [NSPredicate predicateWithFormat:@"categoryId == %@",[dic objectForKey:@"id"]];
-//            
-//            NSPredicate *compoundPredicate
-//            = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:fetchContentTypePredicate,fetchCategoryPredicate,fetchArticlePredicate, nil]];
-            
-            
-//            } else {
-//                predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
-//            }
-           // predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@ AND categoryId == %@",contentTypeId,categoryId];
+            predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
         }
     } else {
         predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
@@ -340,8 +313,8 @@
         [activityIndicator stopAnimating];
     } else {
         self.navigationItem.rightBarButtonItems = nil;
-        messageString = @"No articles to display";
-        [activityIndicator stopAnimating];
+        //messageString = @"No articles to display";
+        //[activityIndicator stopAnimating];
         
     }
     
@@ -388,11 +361,11 @@
             BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
             if(savedForLaterIsNew){
                 //                NSLog(@"saved for later new");
-                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@",[NSNumber numberWithBool:YES],contentTypeId];
-                } else {
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
-                }
+//                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+//                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@",[NSNumber numberWithBool:YES],contentTypeId];
+//                } else {
+                    predicate  = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",contentTypeId,categoryId];
+                //}
                 
             } else {
                 NSLog(@"saved for later old");

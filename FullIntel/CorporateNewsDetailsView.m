@@ -131,7 +131,7 @@
         
         NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
         NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
-        
+        NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
         self.collectionView.scrollEnabled = YES;
         NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -141,14 +141,13 @@
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
                 BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
                 if(savedForLaterIsNew){
-                    //                NSLog(@"saved for later new");
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                     predicate  = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",contentTypeId,categoryId];
                 } else {
                     NSLog(@"saved for later old");
                     predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
                 }
             } else {
-                predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
+               predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
             }
         } else {
             predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];

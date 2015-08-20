@@ -181,11 +181,14 @@
         dispatch_async(globalConcurrentQueue, ^{
             NSLog(@"A - 2");
             if(accessToken.length > 0) {
+                [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
+                 [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+                
                 NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
                 [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
             }
-            [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
-            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
+            
         });
         
         

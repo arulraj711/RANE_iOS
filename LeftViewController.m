@@ -683,6 +683,7 @@
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-2] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-2] forKey:@"categoryId"];
+        [[NSUserDefaults standardUserDefaults]setObject:contentTypeId forKey:@"parentId"];
         
     } else if([data.nodeId integerValue] == 1 && !data.isFolder) {
         NSLog(@"row selection calling");
@@ -696,7 +697,23 @@
         CorporateNewsListViewObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
         
+        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        [gradedetails setObject:accessToken forKey:@"securityToken"];
+        [gradedetails setObject:@"" forKey:@"lastArticleId"];
+        [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
+        [gradedetails setObject:@"" forKey:@"activityTypeIds"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
         
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        if(accessToken.length > 0) {
+            [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+            
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
+        }
         
         
     } else if([data.nodeId integerValue] == 6 && !data.isFolder) {
@@ -805,7 +822,7 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
         if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
-            [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+           // [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
             // NSLog(@"empty node id");
         }else {
             UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
@@ -823,11 +840,14 @@
            
             
             NSString *inputJson;
+            NSLog(@"check isParent:%@",dataObj.isParent);
             if(dataObj.isParent == nil) {
+                NSLog(@"parent is nil");
                 [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
             }else {
+                NSLog(@"paraent is full");
                 NSNumber *rootParent = [self getParentIdFromObject:item];
                 NSLog(@"root parent:%@",rootParent);
                 [[NSUserDefaults standardUserDefaults] setObject:rootParent forKey:@"parentId"];
@@ -857,7 +877,7 @@
                 [self.revealController setFrontViewController:navCtlr];
             
                 NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
            // }
             
         }

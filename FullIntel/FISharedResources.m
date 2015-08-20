@@ -437,6 +437,7 @@
             //Handle Pagination
             if(curatedNewsArray.count == 0) {
                 if(lastArticleId.length != 0){
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
                     UIWindow *window = [[UIApplication sharedApplication]windows][0];
                     [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
                 }
@@ -480,11 +481,11 @@
             NSLog(@"incoming content type:%@",contentTypeId);
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
             NSPredicate *predicate;
-            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+           // if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
                 predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@",[dic objectForKey:@"id"],contentTypeId,categoryId];
-            } else {
-                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND categoryId == %@",[dic objectForKey:@"id"],categoryId];
-            }
+//            } else {
+//                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND categoryId == %@",[dic objectForKey:@"id"],categoryId];
+//            }
             
 //            NSPredicate *fetchContentTypePredicate = [NSPredicate predicateWithFormat:@"contentTypeId == %@",contentTypeId];
 //            
@@ -504,14 +505,15 @@
                 //Excisting Object
                 curatedNews = [existingArray objectAtIndex:0];
             } else {
+                NSLog(@"creating new article with categoryId:%@ and contentTypeId:%@",categoryId,contentTypeId);
                 //Create new object
                 curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
                 [curatedNews setValue:contentTypeId forKey:@"contentTypeId"];
-                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                    [curatedNews setValue:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
-                } else {
+//                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+//                    [curatedNews setValue:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+//                } else {
                     [curatedNews setValue:categoryId forKey:@"categoryId"];
-                }
+              //  }
                 
                 [curatedNews setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
                 [_articleIdArray addObject:[dic objectForKey:@"id"]];
