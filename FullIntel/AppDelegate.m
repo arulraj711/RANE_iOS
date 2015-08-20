@@ -184,28 +184,30 @@
     NSLog(@"app enter in backgound");
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     NSLog(@"application enter in background:%@",accessToken);
-    
-    if(accessToken.length > 0) {
-        NSTimeZone *timeZone = [NSTimeZone localTimeZone];
-        NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
-        
-        NSString *deviceTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
-        if(deviceTokenStr.length != 0) {
-            [pushDic setObject:deviceTokenStr forKey:@"deviceToken"];
-            [pushDic setObject:timeZone.name forKey:@"locale"];
-            [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
-            [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
-            [pushDic setObject:[NSNumber numberWithInteger:timeZone.secondsFromGMT] forKey:@"offset"];
-            NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+        if(accessToken.length > 0) {
+            NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+            NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
             
-            NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
-            //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-            NSLog(@"enter back");
-            [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:accessToken];
-        } else {
-            
+            NSString *deviceTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
+            if(deviceTokenStr.length != 0) {
+                [pushDic setObject:deviceTokenStr forKey:@"deviceToken"];
+                [pushDic setObject:timeZone.name forKey:@"locale"];
+                [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
+                [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
+                [pushDic setObject:[NSNumber numberWithInteger:timeZone.secondsFromGMT] forKey:@"offset"];
+                NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
+                
+                NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
+                //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                NSLog(@"enter back");
+                [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:accessToken];
+            } else {
+                
+            }
         }
     }
+    
 }
 
 
@@ -223,7 +225,7 @@
 }
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {
-    
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0) {
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
@@ -232,7 +234,7 @@
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager]validateUserOnResumeWithDetails:resultStr];
-        
+    }
         
     }
 }

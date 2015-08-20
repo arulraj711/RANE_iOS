@@ -131,6 +131,7 @@
     RADataObject *anotherDataObj;
     RADataObject *savedForLaterDataObj;
     RADataObject *socialMediaDataObj;
+    RADataObject *CIDataObj;
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSString *type = [userInfo objectForKey:@"type"];
@@ -155,11 +156,15 @@
         int socialMediaCnt = [socialMediaDataObj.unReadCount intValue];
         socialMediaDataObj.unReadCount = [NSNumber numberWithInt:socialMediaCnt-1];
         
+        CIDataObj = [self.data objectAtIndex:4];
+        int ciCnt = [CIDataObj.unReadCount intValue];
+        CIDataObj.unReadCount = [NSNumber numberWithInt:ciCnt-1];
         
         [reloadArray addObject:dataObj];
         [reloadArray addObject:anotherDataObj];
         [reloadArray addObject:savedForLaterDataObj];
         [reloadArray addObject:socialMediaDataObj];
+        [reloadArray addObject:CIDataObj];
     } else if([type isEqualToString:@"bothMarkImp"]) {
         dataObj = [self.data objectAtIndex:2];
         int cnt = [dataObj.unReadCount intValue];
@@ -173,9 +178,14 @@
         int socialMediaCnt = [socialMediaDataObj.unReadCount intValue];
         socialMediaDataObj.unReadCount = [NSNumber numberWithInt:socialMediaCnt-1];
         
+        CIDataObj = [self.data objectAtIndex:4];
+        int ciCnt = [CIDataObj.unReadCount intValue];
+        CIDataObj.unReadCount = [NSNumber numberWithInt:ciCnt-1];
+        
         [reloadArray addObject:dataObj];
         [reloadArray addObject:anotherDataObj];
         [reloadArray addObject:socialMediaDataObj];
+        [reloadArray addObject:CIDataObj];
         
     } else if([type isEqualToString:@"bothSavedForLater"]){
         dataObj = [self.data objectAtIndex:2];
@@ -190,9 +200,14 @@
         int socialMediaCnt = [socialMediaDataObj.unReadCount intValue];
         socialMediaDataObj.unReadCount = [NSNumber numberWithInt:socialMediaCnt-1];
         
+        CIDataObj = [self.data objectAtIndex:4];
+        int ciCnt = [CIDataObj.unReadCount intValue];
+        CIDataObj.unReadCount = [NSNumber numberWithInt:ciCnt-1];
+        
         [reloadArray addObject:dataObj];
         [reloadArray addObject:savedForLaterDataObj];
         [reloadArray addObject:socialMediaDataObj];
+        [reloadArray addObject:CIDataObj];
         
     }else if([type isEqualToString:@"-1"]) {
         dataObj = [self.data objectAtIndex:2];
@@ -234,8 +249,12 @@
         dataObj = [self.data objectAtIndex:3];
         int cnt = [dataObj.unReadCount intValue];
         dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        CIDataObj = [self.data objectAtIndex:4];
+        int ciCnt = [CIDataObj.unReadCount intValue];
+        CIDataObj.unReadCount = [NSNumber numberWithInt:ciCnt-1];
         
         [reloadArray addObject:dataObj];
+        [reloadArray addObject:CIDataObj];
     }
     
     
