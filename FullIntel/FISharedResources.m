@@ -433,13 +433,16 @@
         if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
         [self hideProgressView];
         NSArray *curatedNewsArray = [responseObject objectForKey:@"articleList"];
-            
+            NSLog(@"curated news array count:%d and array:%@ and lastarticle:%@ and length:%d",curatedNewsArray.count,curatedNewsArray,lastArticleId,lastArticleId.length);
             //Handle Pagination
             if(curatedNewsArray.count == 0) {
                 if(lastArticleId.length != 0){
+                    NSLog(@"inside stop loading");
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
                     UIWindow *window = [[UIApplication sharedApplication]windows][0];
                     [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
+                } else {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
                 }
             }
             
@@ -1213,6 +1216,8 @@
                     if(![offset isEqualToNumber:[NSNumber numberWithInt:0]]){
                         UIWindow *window = [[UIApplication sharedApplication]windows][0];
                         [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
+                    } else {
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
                     }
                 }
                 //Handle pull down to refresh
