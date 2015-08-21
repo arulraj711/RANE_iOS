@@ -86,12 +86,13 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
     [self.navigationItem setLeftBarButtonItem:addButton];
     
-    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];
     addBtnView.backgroundColor = [UIColor clearColor];
     
     UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    [addBtn setFrame:CGRectMake(0,0,40,40)];
-    [addBtn setImage :[UIImage imageNamed:@"addcontent"]  forState:UIControlStateNormal];
+    [addBtn setFrame:CGRectMake(0,0,100,40)];
+    [addBtn setTitle:@"Tutorials" forState:UIControlStateNormal];
+   // [addBtn setImage :[UIImage imageNamed:@"addcontent"]  forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(triggerTutorial) forControlEvents:UIControlEventTouchUpInside];
     [addBtnView addSubview:addBtn];
     UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
