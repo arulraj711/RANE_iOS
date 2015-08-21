@@ -383,17 +383,22 @@
 
 -(void)showLoginView:(NSNumber *)authFlag {
     NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
-    [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *accessToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    if(accessToken.length != 0) {
+        [logoutDic setObject:accessToken forKey:@"securityToken"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        [self logoutUserWithDetails:resultStr withFlag:authFlag];
+        [FIUtils deleteExistingData];
+        
+        [self.menuList removeAllObjects];
+        
+        [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"authenticationFailed" object:nil];
+    }
     
-    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    [self logoutUserWithDetails:resultStr withFlag:authFlag];
-    [FIUtils deleteExistingData];
     
-    [self.menuList removeAllObjects];
-    
-    [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"authenticationFailed" object:nil];
 }
 
 - (BOOL)clearEntity:(NSString *)entity withCategoryId:(NSNumber *)categoryId{
@@ -1972,10 +1977,21 @@
     [Localytics tagEvent:name attributes:dictionary];
 }
 
+
+
+-(void)saveSelectedSubMenuInLocalyticsWithName:(NSString *)name andMenuName:(NSString *)menuName{
+    
+    
+    NSString *userName=[NSString stringWithFormat:@"%@ %@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],[[NSUserDefaults standardUserDefaults]objectForKey:@"lastName"]];
+    
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":userName,@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"],@"topics":menuName};
+    [Localytics tagEvent:name attributes:dictionary];
+}
+
 - (void)tagScreenInLocalytics:(NSString *)name;
 {
 
 
-    [Localytics tagScreen:name];;
+    [Localytics tagScreen:name];
 }
 @end

@@ -284,6 +284,7 @@
                                 <rect key="frame" x="302" y="306" width="397" height="61"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="Swipe up or down to quickly read the headlines and summary of articles in a folder" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jNW-xJ-nDS">
+
                                         <rect key="frame" x="0.0" y="0.0" width="397" height="61"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>

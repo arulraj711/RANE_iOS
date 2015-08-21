@@ -13,6 +13,7 @@
 #import "AddContentThirdLevelView.h"
 #import "Localytics.h"
 #import "pop.h"
+#import "FISharedResources.h"
 
 @interface AddContentSecondLevelView ()
 
@@ -444,8 +445,9 @@
         // } else {
         [self.uncheckedArray removeObject:contentCategory.categoryId];
         // }
-
+        
     }
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"AddContent Topic Change"];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
     [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
 }

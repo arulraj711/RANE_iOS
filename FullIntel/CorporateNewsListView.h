@@ -12,8 +12,8 @@
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
 #import "Localytics.h"
-
-@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIViewControllerTransitioningDelegate> {
+#import "NIDropDown.h"
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIViewControllerTransitioningDelegate,NIDropDownDelegate> {
     NSMutableArray *legendsList;
     NSManagedObject *author;
     UIRefreshControl *refreshControl;
@@ -23,12 +23,19 @@
     NSString *messageString;
     MFMailComposeViewController *mailComposer;
     UIView *overlayView;
-    
+    NIDropDown *dropDown;
     WSCoachMarksView *coachMarksView;
     NSArray *coachMarks;
     NSTimer *popAnimationTimer;
 }
 
+@property (weak, nonatomic) IBOutlet UIButton *actionsButton;
+- (IBAction)actionsButtonClick:(id)sender;
+- (IBAction)showButtonClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+- (IBAction)segmentControlStateChanged:(id)sender;
+@property BOOL isFilterSelected;
+@property (weak, nonatomic) IBOutlet UIButton *showButton;
 -(void)updateNewsTitle;
 -(void)loadCuratedNews;
 @property BOOL isStarting;

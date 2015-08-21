@@ -12,6 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "AddContentFourthLevelView.h"
 #import "Localytics.h"
+#import "FISharedResources.h"
 
 @interface AddContentThirdLevelView ()
 
@@ -245,7 +246,7 @@
         [self.uncheckedArray removeObject:contentCategory.categoryId];
         // }
     }
-    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"AddContent Topic Change"];
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isThirdLevelChanged"];
     
     //NSLog(@"selected id array after removal:%@",self.selectedIdArray);
