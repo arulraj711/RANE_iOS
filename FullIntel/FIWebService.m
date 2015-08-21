@@ -331,7 +331,9 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
 //    NSDictionary *JSON = [self dictionaryWithFileName:@"menu"];
 //    success(nil,JSON);
     
-    [self getResultsForFunctionName:@"usermainmenu" withPostDetails:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *functionName = [NSString stringWithFormat:@"customer/menu?security_token=%@",accessToken];
+    NSLog(@"fetch folder function name:%@",functionName);
+    [self getQueryResultsForFunctionName:functionName withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -1139,24 +1139,26 @@
 
 -(void)getMenuListWithAccessToken:(NSString *)accessToken {
     if([self serviceIsReachable]) {
-   // _menuList = [[NSMutableArray alloc]init];
-    [FIWebService fetchMenuListWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        NSArray *menuArray = [responseObject objectForKey:@"menuList"];
-        [_menuList removeAllObjects];
-        for(NSDictionary *dic in menuArray) {
-            FIMenu *menu = [FIMenu recursiveMenu:dic];
-            [_menuList addObject:menu];
-        }
-        [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
-        [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
-        } else {
-            [self hideProgressView];
-            [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
-        }
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [FIUtils showErrorToast];
-    }];
+        // _menuList = [[NSMutableArray alloc]init];
+        [FIWebService fetchMenuListWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if([responseObject isKindOfClass:[NSArray class]]){
+                NSArray *menuArray = responseObject;
+                [_menuList removeAllObjects];
+                for(NSDictionary *dic in menuArray) {
+                    FIMenu *menu = [FIMenu recursiveMenu:dic];
+                    [_menuList addObject:menu];
+                }
+                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
+                [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
+            } else if([responseObject isKindOfClass:[NSDictionary class]]){
+                if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
+                    [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+                }
+            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
@@ -1646,7 +1648,7 @@
                     NSData *menuJsondata = [NSJSONSerialization dataWithJSONObject:menuDic options:NSJSONWritingPrettyPrinted error:nil];
                     
                     NSString *resultJson = [[NSString alloc]initWithData:menuJsondata encoding:NSUTF8StringEncoding];
-                    [self getMenuListWithAccessToken:resultJson];
+                    [self getMenuListWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
                 } else {
                 NSArray *contentTypeArray = [responseObject objectForKey:@"contentType"];
                 [_contentTypeList removeAllObjects];

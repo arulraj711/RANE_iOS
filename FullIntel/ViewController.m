@@ -177,7 +177,7 @@
         
         dispatch_async(globalConcurrentQueue, ^{
             NSLog(@"A - 1");
-            [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:resultJson];
+            [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
         });
         
         dispatch_async(globalConcurrentQueue, ^{
