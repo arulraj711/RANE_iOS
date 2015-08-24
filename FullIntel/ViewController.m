@@ -188,12 +188,23 @@
                 [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
                 
                 NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
+               // [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
             }
            
         });
         
-         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+        dispatch_queue_t globalBackgroundQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+        
+        dispatch_async(globalBackgroundQueue, ^{
+            NSLog(@"calling folder option");
+            [[FISharedResources sharedResourceManager] getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
+        });
+        
+        
+        
+        
+        // [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
         
         
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];

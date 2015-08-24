@@ -1177,7 +1177,8 @@
                     [_menuList addObject:menu];
                 }
                 [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
-                [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
+                 [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+                //[self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
                     [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
