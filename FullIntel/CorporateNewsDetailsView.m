@@ -298,9 +298,6 @@
 }
 
 -(void)getArticleIdListFromDB {
-    //[oneSecondTicker invalidate];
-    
-    
     BOOL testFlag = [[NSUserDefaults standardUserDefaults]boolForKey:@"Test"];
     if(testFlag) {
         NSLog(@"test flag is TRUE");
@@ -310,7 +307,7 @@
         
         NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
         NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
-        
+        NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
         self.collectionView.scrollEnabled = YES;
         NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -320,14 +317,13 @@
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
                 BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
                 if(savedForLaterIsNew){
-                    //                NSLog(@"saved for later new");
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                    predicate  = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",contentTypeId,categoryId];
                 } else {
                     NSLog(@"saved for later old");
                     predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
                 }
             } else {
-                predicate  = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
             }
         } else {
             predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
@@ -352,7 +348,7 @@
         
         //NSLog(@"elementsfrom column:%@",elementsFromColumn);
         self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
-       // NSLog(@"article id array:%@",self.articleIdArray);
+        // NSLog(@"article id array:%@",self.articleIdArray);
         if(self.articleIdArray.count != 0) {
             [self.collectionView reloadData];
         }
@@ -362,8 +358,6 @@
         NSLog(@"test flag is FALSE");
     }
     NSLog(@"selected article id:%@",self.articleIdArray);
-    
-    
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
    
@@ -1123,13 +1117,23 @@
             [self.activityIndicator startAnimating];
             
             self.collectionView.scrollEnabled = NO;
-        NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[self.articleIdArray lastObject] contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
-        oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
-                                       selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
+            NSString *inputJson;
+            NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            NSLog(@"parent id:%@",parentId);
+            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:[self.articleIdArray lastObject] contentTypeId:parentId listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+            
+            //            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+            //
+            //            dispatch_async(queue_a, ^{
+            
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            
+            
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
+            oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
+                                                             selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
-        });
+        
         }
     }
 }

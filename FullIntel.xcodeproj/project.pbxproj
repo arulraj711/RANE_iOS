@@ -391,6 +391,7 @@
 		F54F91271B7332D100AE0C11 /* TweetsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsCell.xib; sourceTree = "<group>"; };
 		F54F91291B7332FC00AE0C11 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F54F912B1B7333DE00AE0C11 /* FullIntel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 2.xcdatamodel"; sourceTree = "<group>"; };
+		F554C9421B8B103000EC8A51 /* FullIntel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 3.xcdatamodel"; sourceTree = "<group>"; };
 		F708D9ED1AB1A19A001FF59F /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		F717CC901AB1ADB100F66B53 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		F717CC911AB1ADB100F66B53 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -1755,10 +1756,11 @@
 		A0E223571A91C2F00073814A /* FullIntel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				F554C9421B8B103000EC8A51 /* FullIntel 3.xcdatamodel */,
 				F54F912B1B7333DE00AE0C11 /* FullIntel 2.xcdatamodel */,
 				A0E223581A91C2F00073814A /* FullIntel.xcdatamodel */,
 			);
-			currentVersion = F54F912B1B7333DE00AE0C11 /* FullIntel 2.xcdatamodel */;
+			currentVersion = F554C9421B8B103000EC8A51 /* FullIntel 3.xcdatamodel */;
 			path = FullIntel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

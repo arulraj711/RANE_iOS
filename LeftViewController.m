@@ -57,9 +57,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMenuCount:) name:@"updateMenuCount" object:nil];
     
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addContentButtonClick:) name:@"TutorialTrigger" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addContentButtonClick:) name:@"TutorialTrigger" object:nil];
     
-
+    
     
     
     
@@ -67,7 +67,7 @@
     
     
     
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterFirstTutorial) name:@"MarkImportantTutorialTrigger" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterFirstTutorial) name:@"MarkImportantTutorialTrigger" object:nil];
     
     
     
@@ -114,12 +114,12 @@
     treeView.delegate = self;
     treeView.dataSource = self;
     treeView.separatorStyle = RATreeViewCellSeparatorStyleNone;
-   // [treeView reloadData];
+    // [treeView reloadData];
     [treeView setBackgroundColor:[UIColor clearColor]];
     self.treeView = treeView;
     [self.treeView registerNib:[UINib nibWithNibName:NSStringFromClass([RATableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RATableViewCell class])];
     [self.treeBackView addSubview:self.treeView];
-   // NSLog(@"menu array count in viewdidload:%lu",(unsigned long)objectArray.count);
+    // NSLog(@"menu array count in viewdidload:%lu",(unsigned long)objectArray.count);
     
     
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -129,7 +129,7 @@
     self.isFirstTime = YES;
     
     
-   
+    
     
     //[self.treeBackView insertSubview:treeView atIndex:0];
     
@@ -151,7 +151,7 @@
     }
     
     
-
+    
 }
 -(void)afterSecondTutorial{
     
@@ -162,9 +162,9 @@
     
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"MarkImportantTutorialTriggerShown"];
     
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"MainListArrowTutorial"];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"MainListArrowTutorial"];
     
-   [_treeView reloadData];
+    [_treeView reloadData];
     
     
 }
@@ -229,13 +229,13 @@
     //  popOverView.transitioningDelegate = self;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:popOverView animated:NO completion:nil];
-
+    
     
     _treeView.layer.borderWidth=1.0;
     _treeView.layer.borderColor=[UIColorFromRGB(0XA4131E) CGColor];
     
     
-        popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:nil repeats:YES];
+    popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:nil repeats:YES];
     
     
     
@@ -249,15 +249,15 @@
     NSNumber *folderId = [userInfo objectForKey:@"folderId"];
     NSLog(@"selected folder id:%@ and data count:%d",folderId,self.data.count);
     RADataObject *folderDataObj = [self.data objectAtIndex:8];
-//    for(RADataObject *dataObject in self.data) {
-//        NSLog(@"selected %@ and coming %@",folderId,dataObject.nodeId);
-//        if(dataObject.nodeId != nil) {
-//            if([folderId isEqualToNumber:dataObject.nodeId]) {
-//                folderDataObj = dataObject;
-//                //return;
-//            }
-//        }
-//    }
+    //    for(RADataObject *dataObject in self.data) {
+    //        NSLog(@"selected %@ and coming %@",folderId,dataObject.nodeId);
+    //        if(dataObject.nodeId != nil) {
+    //            if([folderId isEqualToNumber:dataObject.nodeId]) {
+    //                folderDataObj = dataObject;
+    //                //return;
+    //            }
+    //        }
+    //    }
     NSLog(@"selected data object:%@ and children count:%d",folderDataObj,folderDataObj.children.count);
     [self.treeView expandRowForItem:folderDataObj];
     for(RADataObject *testObject in folderDataObj.children) {
@@ -273,12 +273,12 @@
 
 
 //-(void)addCoachView{
-//    
+//
 //    [coachMarksView removeFromSuperview];
-//    
+//
 //    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MenuCoachShown"];
 //    if (coachMarksShown == NO) {
-//    
+//
 //     coachMarks = @[
 //                            @{
 //                                @"rect": [NSValue valueWithCGRect:CGRectMake(5, 185, 260, 40)],
@@ -288,15 +288,15 @@
 //                                @"rect": [NSValue valueWithCGRect:CGRectMake(self.treeBackView.frame.origin.x, self.treeBackView.frame.origin.y, self.treeBackView.frame.size.width, self.view.frame.size.height-550)],
 //                                @"caption": @"List of all articles available"
 //                                }
-//                            
+//
 //                            ];
 //     coachMarksView = [[WSCoachMarksView alloc] initWithFrame:CGRectMake(0, 0, 280, self.view.frame.size.height) coachMarks:coachMarks];
 //        coachMarksView.delegate=self;
 //    [self.view addSubview:coachMarksView];
 //    [coachMarksView start];
-//        
+//
 //    }
-//    
+//
 //}
 
 
@@ -317,14 +317,16 @@
 - (void)handleDeviceOrientationChange:(WSCoachMarksView*)coachMarksView {
     
     // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
-
-  
+    
+    
 }
 -(void)updateMenuCount:(id)sender {
-    
+    unreadCnt = 0;
     RADataObject *dataObj;
     RADataObject *anotherDataObj;
     RADataObject *savedForLaterDataObj;
+    RADataObject *socialMediaDataObj;
+    RADataObject *CIDataObj;
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSString *type = [userInfo objectForKey:@"type"];
@@ -343,9 +345,21 @@
         savedForLaterDataObj= [self.data objectAtIndex:1];
         int savedForLaterCnt = [savedForLaterDataObj.unReadCount intValue];
         savedForLaterDataObj.unReadCount = [NSNumber numberWithInt:savedForLaterCnt-1];
+        
+        
+        socialMediaDataObj = [self.data objectAtIndex:3];
+        int socialMediaCnt = [socialMediaDataObj.unReadCount intValue];
+        socialMediaDataObj.unReadCount = [NSNumber numberWithInt:socialMediaCnt-1];
+        
+        CIDataObj = [self.data objectAtIndex:4];
+        int ciCnt = [CIDataObj.unReadCount intValue];
+        CIDataObj.unReadCount = [NSNumber numberWithInt:ciCnt-1];
+        
         [reloadArray addObject:dataObj];
         [reloadArray addObject:anotherDataObj];
         [reloadArray addObject:savedForLaterDataObj];
+        [reloadArray addObject:socialMediaDataObj];
+        [reloadArray addObject:CIDataObj];
     } else if([type isEqualToString:@"bothMarkImp"]) {
         dataObj = [self.data objectAtIndex:2];
         int cnt = [dataObj.unReadCount intValue];
@@ -354,9 +368,19 @@
         anotherDataObj = [self.data objectAtIndex:0];
         int nextCnt = [anotherDataObj.unReadCount intValue];
         anotherDataObj.unReadCount = [NSNumber numberWithInt:nextCnt-1];
-    
+        
+        socialMediaDataObj = [self.data objectAtIndex:3];
+        int socialMediaCnt = [socialMediaDataObj.unReadCount intValue];
+        socialMediaDataObj.unReadCount = [NSNumber numberWithInt:socialMediaCnt-1];
+        
+        CIDataObj = [self.data objectAtIndex:4];
+        int ciCnt = [CIDataObj.unReadCount intValue];
+        CIDataObj.unReadCount = [NSNumber numberWithInt:ciCnt-1];
+        
         [reloadArray addObject:dataObj];
         [reloadArray addObject:anotherDataObj];
+        [reloadArray addObject:socialMediaDataObj];
+        [reloadArray addObject:CIDataObj];
         
     } else if([type isEqualToString:@"bothSavedForLater"]){
         dataObj = [self.data objectAtIndex:2];
@@ -367,8 +391,18 @@
         int savedForLaterCnt = [savedForLaterDataObj.unReadCount intValue];
         savedForLaterDataObj.unReadCount = [NSNumber numberWithInt:savedForLaterCnt-1];
         
+        socialMediaDataObj = [self.data objectAtIndex:3];
+        int socialMediaCnt = [socialMediaDataObj.unReadCount intValue];
+        socialMediaDataObj.unReadCount = [NSNumber numberWithInt:socialMediaCnt-1];
+        
+        CIDataObj = [self.data objectAtIndex:4];
+        int ciCnt = [CIDataObj.unReadCount intValue];
+        CIDataObj.unReadCount = [NSNumber numberWithInt:ciCnt-1];
+        
         [reloadArray addObject:dataObj];
         [reloadArray addObject:savedForLaterDataObj];
+        [reloadArray addObject:socialMediaDataObj];
+        [reloadArray addObject:CIDataObj];
         
     }else if([type isEqualToString:@"-1"]) {
         dataObj = [self.data objectAtIndex:2];
@@ -377,7 +411,7 @@
         [reloadArray addObject:dataObj];
     }else if([type isEqualToString:@"-2"]) {
         NSNumber *num = [userInfo objectForKey:@"isSelected"];
-       // NSLog(@"selected number:%@",num);
+        // NSLog(@"selected number:%@",num);
         if([num isEqualToNumber:[NSNumber numberWithInt:1]]){
             dataObj = [self.data objectAtIndex:0];
             int cnt = [dataObj.unReadCount intValue];
@@ -407,11 +441,15 @@
             [reloadArray addObject:dataObj];
         }
     } else {
-        dataObj = [self.data objectAtIndex:2];
+        dataObj = [self.data objectAtIndex:3];
         int cnt = [dataObj.unReadCount intValue];
         dataObj.unReadCount = [NSNumber numberWithInt:cnt-1];
+        CIDataObj = [self.data objectAtIndex:4];
+        int ciCnt = [CIDataObj.unReadCount intValue];
+        CIDataObj.unReadCount = [NSNumber numberWithInt:ciCnt-1];
         
         [reloadArray addObject:dataObj];
+        [reloadArray addObject:CIDataObj];
     }
     
     
@@ -419,13 +457,13 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-   
-//    if([[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."][0] intValue] >= 7) {
-//        CGRect statusBarViewRect = [[UIApplication sharedApplication] statusBarFrame];
-//        float heightPadding = statusBarViewRect.size.height+self.navigationController.navigationBar.frame.size.height;
-//        self.treeView.contentInset = UIEdgeInsetsMake(heightPadding, 0.0, 0.0, 0.0);
-//        self.treeView.contentOffset = CGPointMake(0.0, -heightPadding);
-//    }
+    
+    //    if([[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."][0] intValue] >= 7) {
+    //        CGRect statusBarViewRect = [[UIApplication sharedApplication] statusBarFrame];
+    //        float heightPadding = statusBarViewRect.size.height+self.navigationController.navigationBar.frame.size.height;
+    //        self.treeView.contentInset = UIEdgeInsetsMake(heightPadding, 0.0, 0.0, 0.0);
+    //        self.treeView.contentOffset = CGPointMake(0.0, -heightPadding);
+    //    }
     
     [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Main Menu"];
     
@@ -440,6 +478,7 @@
 
 -(void)loadMenus {
     NSLog(@"load menu calling twice");
+    unreadCnt = 0;
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
@@ -460,12 +499,12 @@
     {
         NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
         if (oldSavedArray != nil) {
-             self.menus = [[NSMutableArray alloc]initWithArray:oldSavedArray];
+            self.menus = [[NSMutableArray alloc]initWithArray:oldSavedArray];
         }
     }
     
     
-   
+    
     NSLog(@"menu count:%lu",(unsigned long)self.menus.count);
     [self test:self.menus];
     [treeView reloadData];
@@ -479,17 +518,33 @@
     
     
     
-     [self presentTutorialPopViewController];
+    [self presentTutorialPopViewController];
 }
 
 -(void)test:(NSMutableArray *)array {
     
     self.data = [[NSMutableArray alloc]init];
     for(FIMenu *menu in array) {
+        NSNumber *accountTypeIdStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
         
-        RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
-       // NSLog(@"for loop:%@",dataObj);
-        [self.data addObject:dataObj];
+        if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+            if([accountTypeIdStr isEqualToNumber:[NSNumber numberWithInt:3]]) {
+                //handle test user
+                if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:7]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:5]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:2]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:4]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+                    
+                } else {
+                    RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
+                    // NSLog(@"for loop:%@",dataObj);
+                    [self.data addObject:dataObj];
+                }
+            } else {
+                RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
+                // NSLog(@"for loop:%@",dataObj);
+                [self.data addObject:dataObj];
+            }
+            
+        }
+        
     }
     //self.data = [NSArray arrayWithObjects:phone, computer, car, bike, house, flats, motorbike, drinks, food, nil];
     
@@ -499,7 +554,7 @@
     if (dataRepresentingSavedArray != nil)
     {
         NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
-       // NSLog(@"folder array:%@",oldSavedArray);
+        // NSLog(@"folder array:%@",oldSavedArray);
         folderArray = [[NSMutableArray alloc]initWithArray:oldSavedArray];
     }
     
@@ -527,7 +582,7 @@
     dataObj.name = @"LOGOUT";
     dataObj.children = nil;
     [self.data addObject:dataObj];
-   // [treeView reloadData];
+    // [treeView reloadData];
 }
 
 -(RADataObject *)recursiveDataObjectFrom:(FIMenu *)menu {
@@ -535,7 +590,9 @@
     dataObj.name = menu.name;
     dataObj.nodeId = menu.nodeId;
     dataObj.unReadCount = menu.unreadCount;
-   // menu.name = [dic objectForKey:@"Name"];
+    NSLog(@"menu parent value:%@",menu.isParent);
+    dataObj.isParent = menu.isParent;
+    // menu.name = [dic objectForKey:@"Name"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
     NSArray *menuArray = menu.listArray;
     for(FIMenu *dict in menuArray) {
@@ -548,21 +605,21 @@
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
-   // [self.treeView removeFromSuperview];
+    // [self.treeView removeFromSuperview];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-//    if([[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."][0] intValue] >= 7) {
-//        CGRect statusBarViewRect = [[UIApplication sharedApplication] statusBarFrame];
-//        float heightPadding = statusBarViewRect.size.height+self.navigationController.navigationBar.frame.size.height;
-//        self.treeView.contentInset = UIEdgeInsetsMake(heightPadding, 0.0, 0.0, 0.0);
-//        self.treeView.contentOffset = CGPointMake(0.0, -heightPadding);
-//    }
-//    
-//    self.treeView.frame = self.treeBackView.bounds;
+    //    if([[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."][0] intValue] >= 7) {
+    //        CGRect statusBarViewRect = [[UIApplication sharedApplication] statusBarFrame];
+    //        float heightPadding = statusBarViewRect.size.height+self.navigationController.navigationBar.frame.size.height;
+    //        self.treeView.contentInset = UIEdgeInsetsMake(heightPadding, 0.0, 0.0, 0.0);
+    //        self.treeView.contentOffset = CGPointMake(0.0, -heightPadding);
+    //    }
+    //
+    //    self.treeView.frame = self.treeBackView.bounds;
 }
 
 -(void)presentTutorialPopViewController{
@@ -570,16 +627,16 @@
     
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
     if (coachMarksShown == NO) {
-    
-    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
-    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
-    
-    //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
-    
-    //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
-    //  popOverView.transitioningDelegate = self;
-    popOverView.modalPresentationStyle = UIModalPresentationCustom;
-    [self presentViewController:popOverView animated:NO completion:nil];
+        
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
+        
+        //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+        
+        //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+        //  popOverView.transitioningDelegate = self;
+        popOverView.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:popOverView animated:NO completion:nil];
         
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialBoxShown"];
         
@@ -672,7 +729,7 @@
 
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item
 {
-   // NSLog(@"cell for item:%@",item);
+    // NSLog(@"cell for item:%@",item);
     
     RADataObject *dataObject = item;
     NSInteger level = [self.treeView levelForCellForItem:item];
@@ -680,7 +737,7 @@
     
     NSString *detailText = [NSString localizedStringWithFormat:@"Number of children %@", [@(numberOfChildren) stringValue]];
     
-   
+    
     RATableViewCell *cell = [self.treeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
@@ -690,6 +747,20 @@
     selectionColor.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1];
     //cell.selectedBackgroundView = selectionColor;
     
+    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:1]]){
+        unreadCnt = unreadCnt + [dataObject.unReadCount intValue];
+    }
+    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:10]]){
+        unreadCnt = unreadCnt + [dataObject.unReadCount intValue];
+    }
+    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:11]]){
+        unreadCnt = unreadCnt + [dataObject.unReadCount intValue];
+    }
+    if(unreadCnt != 0) {
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCnt];
+        NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
+        [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
+    }
     
     
     BOOL expanded = [self.treeView isCellForItemExpanded:item];
@@ -707,7 +778,7 @@
         [cell.contentView addSubview:separatorLineView];
         
         
-   
+        
         
     }else{
         
@@ -735,7 +806,7 @@
     }else {
         cell.expandButton.hidden = YES;
     }
-
+    
     
     
     
@@ -745,11 +816,6 @@
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
-            
-            
-            
-            
-            
         } else if([dataObject.nodeId integerValue] == 6) {
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
@@ -820,15 +886,15 @@
 }
 
 -(void)dropDown {
-   // [self.revealController showViewController:self.revealController.frontViewController];
+    // [self.revealController showViewController:self.revealController.frontViewController];
     
 }
 -(void)treeView:(RATreeView *)treeView didDeselectRowForItem:(id)item {
-//    RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
-//    cell.customTitleLabel.highlightedTextColor = UIColorFromRGB(0x666E73);
-//    cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//
-//    cell.iconImage.tintColor = UIColorFromRGB(0x666E73);
+    //    RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
+    //    cell.customTitleLabel.highlightedTextColor = UIColorFromRGB(0x666E73);
+    //    cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //
+    //    cell.iconImage.tintColor = UIColorFromRGB(0x666E73);
 }
 
 
@@ -836,57 +902,57 @@
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     RADataObject *data = item;
-   // NSLog(@"did select row:%@",data.name);
+    // NSLog(@"did select row:%@",data.name);
+    
+    
+    
     RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
     BOOL expanded = [self.treeView isCellForItemExpanded:item];
     if(expanded) {
-       // NSLog(@"list is expanded");
+        // NSLog(@"list is expanded");
         [cell.expandButton setSelected:NO];
     }else {
-       // NSLog(@"list is clopsed");
+        // NSLog(@"list is clopsed");
         [cell.expandButton setSelected:YES];
     }
-
     
-        NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
-        NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-        
-        cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
+    
+    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
+    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    
+    cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
     if([data.nodeId integerValue] == 9 && !data.isFolder) {
-        
-        
+        UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+        if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
+            CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+            
+            CorporateNewsListViewObj.titleName=data.name;
+            [CorporateNewsListViewObj updateNewsTitle];
+        } else {
+            NSLog(@"else part");
+            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            CorporateNewsListView *curatedNews = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+            curatedNews.titleName=data.name;
+            [curatedNews updateNewsTitle];
+            UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+            navCtlr.viewControllers = [NSArray arrayWithObject:curatedNews];
+        }
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
         [gradedetails setObject:@"" forKey:@"lastArticleId"];
         [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
         [gradedetails setObject:@"2" forKey:@"activityTypeIds"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-        
+        NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-2] withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-2] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-2] forKey:@"categoryId"];
-        UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
-        if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
-            CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
-            
-            CorporateNewsListViewObj.titleName=data.name;
-            [CorporateNewsListViewObj updateNewsTitle];
-        } else {
-            NSLog(@"else part");
-            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-            CorporateNewsListView *curatedNews = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-            curatedNews.titleName=data.name;
-            [curatedNews updateNewsTitle];
-            UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
-            navCtlr.viewControllers = [NSArray arrayWithObject:curatedNews];
-        }
+        [[NSUserDefaults standardUserDefaults]setObject:contentTypeId forKey:@"parentId"];
         
     } else if([data.nodeId integerValue] == 1 && !data.isFolder) {
         NSLog(@"row selection calling");
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
-        
-        
-        
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
         UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
         if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
             CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
@@ -903,14 +969,28 @@
             navCtlr.viewControllers = [NSArray arrayWithObject:curatedNews];
         }
         
+        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        [gradedetails setObject:accessToken forKey:@"securityToken"];
+        [gradedetails setObject:@"" forKey:@"lastArticleId"];
+        [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
+        [gradedetails setObject:@"" forKey:@"activityTypeIds"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
         
-        
-        
-        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        if(accessToken.length > 0) {
+            [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+            
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
+        }
         
         
     } else if([data.nodeId integerValue] == 6 && !data.isFolder) {
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-3] forKey:@"categoryId"];
+        
         if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
             NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
@@ -919,9 +999,9 @@
             [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
             [gradedetails setObject:@"3" forKey:@"activityTypeIds"];
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-            
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-3] withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-3] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
         } else {
             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
         }
@@ -945,7 +1025,7 @@
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"InfluencerView"];
         
-         InfluencerListView *InfluencerListViewObj=(InfluencerListView *)[[navCtlr viewControllers]objectAtIndex:0];
+        InfluencerListView *InfluencerListViewObj=(InfluencerListView *)[[navCtlr viewControllers]objectAtIndex:0];
         
         InfluencerListViewObj.titleName=data.name;
         
@@ -959,7 +1039,7 @@
         DealsViewController *DealsViewControllerObj=(DealsViewController *)[[navCtlr viewControllers]objectAtIndex:0];
         DealsViewControllerObj.titleName=data.name;
         
-            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Deals View"];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Deals View"];
         
         [self.revealController setFrontViewController:navCtlr];
     }else if([data.nodeId integerValue] == 2 && !data.isFolder) {
@@ -968,9 +1048,9 @@
         StockViewController *StockViewControllerObj=(StockViewController *)[[navCtlr viewControllers]objectAtIndex:0];
         StockViewControllerObj.titleName=data.name;
         
-          [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Stock View"];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Stock View"];
         
-         [self.revealController setFrontViewController:navCtlr];
+        [self.revealController setFrontViewController:navCtlr];
     }
     else if([data.nodeId integerValue] == 4 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"IpAndLegal" bundle:nil];
@@ -980,11 +1060,11 @@
         
         IpAndLegalViewControllerObj.titleName=data.name;
         
-                  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"IpAndLegal View"];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"IpAndLegal View"];
         
         [self.revealController setFrontViewController:navCtlr];
         
-
+        
     } else if([data.nodeId integerValue] == 5 && !data.isFolder) {
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ExecutiveMoves" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"ExecutiveMoves"];
@@ -993,13 +1073,13 @@
         ExecutiveMovesControllerObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
         
-           [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ExecutiveMoves View"];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ExecutiveMoves View"];
         
     }else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         
-
         
-             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Log Out"];
+        
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Log Out"];
         
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -1013,21 +1093,21 @@
     if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
     } else if(data.isFolder){
-
+//        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+//        UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+//        CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+//        CorporateNewsListViewObj.titleName=data.name;
         if(data.nodeId != nil) {
             if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]){
                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
                 FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
-//
+                //
                 UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
                 navCtlr.viewControllers = [NSArray arrayWithObject:folderView];
-                //[self.revealController setFrontViewController:navCtlr];
             } else {
                 if([[data.name uppercaseString]isEqualToString:@"RSS"]) {
-                    
                     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"RSS Folder"];
-                    
                     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isRSSField"];
                 } else {
                     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
@@ -1036,7 +1116,10 @@
                 [[FISharedResources sharedResourceManager]saveSelectedSubMenuInLocalyticsWithName:@"SelectedFolder" andMenuName:data.name];
                 
                 [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"folderId"];
+                //[self.revealController setFrontViewController:navCtlr];
                 [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
+                
+                
                 
                 UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
                 if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
@@ -1061,14 +1144,34 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
         if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+            // [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
             // NSLog(@"empty node id");
         }else {
-            NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:data.nodeId];
-                [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
-            
+           
+            RADataObject *dataObj = [self.treeView parentForItem:item];
+            NSLog(@"parent name:%@",dataObj.name);
+            NSString *inputJson;
+            NSLog(@"check isParent:%@",dataObj.isParent);
+            if(dataObj.isParent == nil) {
+                NSLog(@"parent is nil");
+                [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+                [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
+            }else {
+                NSLog(@"paraent is full");
+                NSNumber *rootParent = [self getParentIdFromObject:item];
+                NSLog(@"root parent:%@",rootParent);
+                [[NSUserDefaults standardUserDefaults] setObject:rootParent forKey:@"parentId"];
                 [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
-                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:data.nodeId withFlag:@"" withLastArticleId:@""];
-            [[FISharedResources sharedResourceManager]saveSelectedSubMenuInLocalyticsWithName:@"SelectedTopic" andMenuName:data.name];
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:rootParent listSize:10 activityTypeId:@"" categoryId:data.nodeId];
+            }
+            
+            [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+            
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
+            // }
+            
             UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
             if([[[navCtlr viewControllers] objectAtIndex:0]isKindOfClass:[CorporateNewsListView class]]) {
                 CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
@@ -1084,21 +1187,35 @@
                 UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
                 navCtlr.viewControllers = [NSArray arrayWithObject:curatedNews];
             }
+            
         }
     }
     
 }
 
+-(NSNumber *)getParentIdFromObject:(RADataObject *)item {
+    NSNumber *parentId;
+    RADataObject *dataObj = [self.treeView parentForItem:item];
+    NSLog(@"recursive parent id:%@",dataObj.isParent);
+    if(![dataObj.isParent isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+        
+        parentId = [self getParentIdFromObject:dataObj];
+        NSLog(@"come inside if stmt:%@",parentId);
+        return parentId;
+    }
+    return dataObj.nodeId;
+}
+
 
 //-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
 //(NSTimeInterval)duration {
-//    
+//
 //    // Fade the collectionView out
 //    [self.collectionView setAlpha:0.0f];
-//    
+//
 //    // Suppress the layout errors by invalidating the layout
 //    [self.collectionView.collectionViewLayout invalidateLayout];
-//    
+//
 //    // Calculate the index of the item that the collectionView is currently displaying
 //    CGPoint currentOffset = [self.collectionView contentOffset];
 //    self.currentIndex = currentOffset.x / self.collectionView.frame.size.width;
@@ -1109,22 +1226,22 @@
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     self.treeView.frame = self.treeBackView.bounds;
-  //  NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
+    //  NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
     if(fromInterfaceOrientation == UIInterfaceOrientationPortrait) {
         formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
     }else {
         formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
     }
     
-//    // Force realignment of cell being displayed
-//    CGSize currentSize = self.collectionView.bounds.size;
-//    float offset = self.currentIndex * currentSize.width;
-//    [self.collectionView setContentOffset:CGPointMake(offset, 0)];
-//    
-//    // Fade the collectionView back in
-//    [UIView animateWithDuration:0.125f animations:^{
-//        [self.collectionView setAlpha:1.0f];
-//    }];
+    //    // Force realignment of cell being displayed
+    //    CGSize currentSize = self.collectionView.bounds.size;
+    //    float offset = self.currentIndex * currentSize.width;
+    //    [self.collectionView setContentOffset:CGPointMake(offset, 0)];
+    //
+    //    // Fade the collectionView back in
+    //    [UIView animateWithDuration:0.125f animations:^{
+    //        [self.collectionView setAlpha:1.0f];
+    //    }];
     
 }
 
@@ -1135,10 +1252,10 @@
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
     
-  //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+    //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
     
-  //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
- //  popOverView.transitioningDelegate = self;
+    //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+    //  popOverView.transitioningDelegate = self;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:popOverView animated:NO completion:nil];
 }
@@ -1146,14 +1263,14 @@
 -(void)requestChange:(id)sender {
     
     
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Request Change"];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Request Change"];
     
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
     
     ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
-   // ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
- //   popOverView.transitioningDelegate = self;
+    // ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+    //   popOverView.transitioningDelegate = self;
     researchViewController.fromAddContent = YES;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:popOverView animated:NO completion:nil];
@@ -1162,10 +1279,10 @@
 - (IBAction)addContentButtonClick:(id)sender {
     
     
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Add Content Main Menu"];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Add Content Main Menu"];
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-   
+    
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
     
@@ -1190,7 +1307,7 @@
         UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
         if ([navController.topViewController isKindOfClass:[AddContentFirstLevelView class]]) {
             //AddContentFirstLevelView *mzvc = (AddContentFirstLevelView *)navController.topViewController;
-          //  mzvc.showStatusBar = NO;
+            //  mzvc.showStatusBar = NO;
         }
         
         
@@ -1204,7 +1321,7 @@
     formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
         // Passing data
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-       // navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+        // navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
         
         
         
@@ -1222,28 +1339,28 @@
     
     [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
     
-//    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-//    if(accessToken.length > 0) {
-        [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-            
-        }];
-   // }
+    //    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    //    if(accessToken.length > 0) {
+    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        
+    }];
+    // }
     
 }
 
 
 -(void)afterLogout {
     [FIUtils deleteExistingData];
-   // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+    // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyLogo"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyName"];
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-    // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-    // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
+    UIViewController *viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+    
+    UINavigationController *navCtlr = [[UINavigationController alloc]initWithRootViewController:viewCtlr];
     [self.revealController setFrontViewController:navCtlr];
     [self.revealController showViewController:self.revealController.frontViewController];
 }
