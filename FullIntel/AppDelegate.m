@@ -325,6 +325,7 @@
 
     if(accessToken.length > 0) {
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+        NSLog(@"time zone:%d and time zone:%@",timeZone.secondsFromGMT,timeZone.abbreviation);
         NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
         
         NSString *deviceTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];

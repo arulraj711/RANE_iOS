@@ -44,6 +44,9 @@
     longPress.minimumPressDuration = 3;
    // longPress.numberOfTouches = 1;
     [self.logoIcon addGestureRecognizer:longPress];
+    
+    self.usernameTextField.text = @"goliver@fullintel.com";
+    self.passwordTextField.text = @"start";
 }
 
 -(void)viewDidAppear:(BOOL)animated {

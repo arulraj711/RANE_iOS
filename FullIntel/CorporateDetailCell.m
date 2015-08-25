@@ -272,43 +272,48 @@
             NSLog(@"tweet error:%@",error);
             [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
                 //NSLog(@"Tweet array:%@",tweet);
-                tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
                 
-                tweetScreenNameArray= [[NSMutableArray alloc]init];
-                
-                for(TWTRTweet *tweetObj in tweetArray) {
-                    TWTRUser *author = tweetObj.author;
-                    [tweetScreenNameArray addObject:author.screenName];
-                }
-                NSLog(@"tweet array:%d and screennamearray:%d",tweetArray.count,tweetScreenNameArray.count);
-                if(tweetScreenNameArray.count != 0) {
-                    if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
-                        
-                        NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
-                        followersArray=[[NSMutableArray alloc]initWithArray:followArray];
-                        NSLog(@"followers array:%@",followersArray);
-                        
-                    }
-                } else {
-                    followersArray=[[NSMutableArray alloc]init];
-                }
-                
-                [tweetsCollectionView reloadData];
-                if(tweetArray.count == 0) {
-                    self.tweetCollectionViewHeightConstraint.constant = 0;
-                    self.tweetLabelHeightConstraint.constant = 0;
-                    self.tweetLabel.hidden = YES;
-                    self.tweetDividerImageView.hidden = YES;
-                    // self.aboutAuthorVerticalConstraint.constant = 0;
-                }else {
-                    self.tweetCollectionViewHeightConstraint.constant = 300;
-                    self.tweetLabelHeightConstraint.constant = 41;
-                    self.tweetLabel.hidden = NO;
-                    self.tweetDividerImageView.hidden = NO;
-                    // self.aboutAuthorVerticalConstraint.constant = 44;
+
+                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
+                    tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
                     
-                }
-                
+                    tweetScreenNameArray= [[NSMutableArray alloc]init];
+                    
+                    for(TWTRTweet *tweetObj in tweetArray) {
+                        TWTRUser *author = tweetObj.author;
+                        [tweetScreenNameArray addObject:author.screenName];
+                    }
+                    NSLog(@"tweet array:%d and screennamearray:%d",tweetArray.count,tweetScreenNameArray.count);
+                    if(tweetScreenNameArray.count != 0) {
+                        if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
+                            
+                            NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
+                            followersArray=[[NSMutableArray alloc]initWithArray:followArray];
+                            NSLog(@"followers array:%@",followersArray);
+                            
+                        }
+                    } else {
+                        followersArray=[[NSMutableArray alloc]init];
+                    }
+                   
+                   // dispatch_async(dispatch_get_main_queue(), ^(void){
+//                        [tweetsCollectionView reloadData];
+//                        if(tweetArray.count == 0) {
+//                            self.tweetCollectionViewHeightConstraint.constant = 0;
+//                            self.tweetLabelHeightConstraint.constant = 0;
+//                            self.tweetLabel.hidden = YES;
+//                            self.tweetDividerImageView.hidden = YES;
+//                            // self.aboutAuthorVerticalConstraint.constant = 0;
+//                        }else {
+//                            self.tweetCollectionViewHeightConstraint.constant = 300;
+//                            self.tweetLabelHeightConstraint.constant = 41;
+//                            self.tweetLabel.hidden = NO;
+//                            self.tweetDividerImageView.hidden = NO;
+//                            // self.aboutAuthorVerticalConstraint.constant = 44;
+//                            
+//                        }
+//                    });
+                });
             }];
         }];
     }
@@ -489,44 +494,7 @@
         NSString *follwersCnt= [NSString stringWithFormat:@"%@",[followDic objectForKey:@"formatted_followers_count"]];
         NSArray *splitValues=[follwersCnt componentsSeparatedByString:@" "];
         tweetCell.followers.text = [splitValues objectAtIndex:0];
-//        for(NSDictionary *dic in followersArray){
-//            NSLog(@"cell dic:%@",dic);
-//            int followersCount = [[dic objectForKey:@"followers_count"] intValue];
-//            NSLog(@"follwers count:%d",followersCount);
-////            if(followersCount/1000 == 0) {
-////                tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
-////            } else {
-////                float followersFloatValue = (float)followersCount/1000;
-////                NSLog(@"follwers float:%f",followersFloatValue);
-//                tweetCell.followers.text = [dic objectForKey:@"formatted_followers_count"];
-//           // }
-//        }
-        
-        
-        
-//        if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
-//            dispatch_queue_t queue_a = dispatch_queue_create("test", 0);
-//            dispatch_async(queue_a, ^(void){
-//                if(tweetCell.followers.text.length != 0){
-//                    tweetDic = [[FISharedResources sharedResourceManager]getTweetDetails:author.screenName];
-//                    int followersCount = [[tweetDic objectForKey:@"followers_count"] intValue];
-//                    NSLog(@"single followers count:%d",followersCount);
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        if(followersCount/1000 == 0) {
-//                            tweetCell.followers.text = [NSString stringWithFormat:@"%d",followersCount];
-//                        } else {
-//                            float followersFloatValue = (float)followersCount/1000;
-//                            NSLog(@"follwers float:%f",followersFloatValue);
-//                            tweetCell.followers.text = [NSString stringWithFormat:@"%dK",followersCount/1000];
-//                        }
-//                    });
-//                    
-//                }
-//                
-//            });
-//        }
-        
-       // NSLog(@"user id:%@ and tweet id:%@ and dic:%@ and retweet count:%lld and tweet:%@",author.userID,tweetObj.tweetID,tweetDic,tweetObj.retweetCount,tweetObj);
+
 
         tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
         tweetCell.twitterText.text = tweetObj.text;
