@@ -325,6 +325,7 @@
 
     if(accessToken.length > 0) {
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+        NSLog(@"time zone:%d and time zone:%@",timeZone.secondsFromGMT,timeZone.abbreviation);
         NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
         
         NSString *deviceTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
@@ -396,7 +397,7 @@
                 //NSLog(@"curated news:%@",curatedNews);
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:lastArticleId contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
                 
-                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:lastArticleId];
+              //  [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withFlag:@"" withLastArticleId:lastArticleId];
             }
             
         });

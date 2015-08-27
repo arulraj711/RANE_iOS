@@ -46,6 +46,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
     [requestURL setHTTPBody:[postDetails dataUsingEncoding:NSUTF8StringEncoding]];
     [requestURL setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:requestURL];
+    
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          //NSLog(@"end  time--->%f",CFAbsoluteTimeGetCurrent());
@@ -72,7 +73,9 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
          failure(operation, error);
          
      }];
-    [[NSOperationQueue mainQueue] addOperation:requestOperation];
+    NSOperationQueue *opQueue = [[NSOperationQueue alloc]init];
+    [opQueue addOperation:requestOperation];
+   // [[NSOperationQueue mainQueue] addOperation:requestOperation];
     
 }
 
@@ -257,14 +260,17 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
 //    NSDictionary *JSON = [self dictionaryWithFileName:@"corporate_news_list"];
 //    NSLog(@"curated news JSON:%@",JSON);
 //    success(nil,JSON);
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length != 0) {
+        [self getResultsForFunctionName:@"articles" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //NSLog(@"curated news response:%@",responseObject);
+            success(operation,responseObject);
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            failure(operation, error);
+            
+        }];
+    }
     
-    [self getResultsForFunctionName:@"articles" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"curated news response:%@",responseObject);
-        success(operation,responseObject);
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure(operation, error);
-        
-    }];
 }
 
 +(void)fetchCuratedNewsDetailsWithDetails:(NSString *)details

@@ -16,7 +16,7 @@
     MZFormSheetController *formSheet;
     WSCoachMarksView *coachMarksView;
     NSArray *coachMarks;
-    
+    int unreadCnt;
     NSTimer *popAnimationTimer,*popAnimationTimerTwo;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;

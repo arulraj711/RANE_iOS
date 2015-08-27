@@ -16,6 +16,7 @@
     menu.categoryId = [dic objectForKey:@"id"];
     menu.imageUrl = [dic objectForKey:@"imageURL"];
     menu.isSubscribed = [[dic objectForKey:@"isSubscribed"] boolValue];
+    menu.isCompanySubscribed = [[dic objectForKey:@"isUnsubscribedByCompany"] boolValue];
     NSMutableArray *array = [[NSMutableArray alloc]init];
     NSArray *menuArray = [dic objectForKey:@"list"];
     for(NSDictionary *dict in menuArray) {
@@ -32,6 +33,7 @@
     [coder encodeObject:self.categoryId forKey:@"id"];
     [coder encodeObject:self.imageUrl forKey:@"imageURL"];
     [coder encodeObject:[NSNumber numberWithBool:self.isSubscribed] forKey:@"isSubscribed"];
+    [coder encodeObject:[NSNumber numberWithBool:self.isCompanySubscribed] forKey:@"isUnsubscribedByCompany"];
     
 }
 
@@ -43,10 +45,10 @@
         self.categoryId = [coder decodeObjectForKey:@"id"];
         self.imageUrl = [coder decodeObjectForKey:@"imageURL"];
         self.isSubscribed = [[coder decodeObjectForKey:@"isSubscribed"] boolValue];
+        self.isCompanySubscribed = [[coder decodeObjectForKey:@"isUnsubscribedByCompany"] boolValue];
         
     }
     return self;
 }
-
 
 @end

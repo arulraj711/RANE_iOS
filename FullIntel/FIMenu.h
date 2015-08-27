@@ -13,6 +13,8 @@
 @property (nonatomic,strong) NSMutableArray *listArray;
 @property (nonatomic,strong) NSNumber *nodeId;
 @property (nonatomic,strong) NSNumber *unreadCount;
+@property (nonatomic,strong) NSNumber *isParent;
+@property (nonatomic,strong) NSNumber *isSubscribed;
 -(void)createMenuFromDic:(NSDictionary *)dic;
 +(FIMenu *)recursiveMenu:(NSDictionary *)dic;
 @end

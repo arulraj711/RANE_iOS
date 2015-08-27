@@ -44,6 +44,9 @@
     longPress.minimumPressDuration = 3;
    // longPress.numberOfTouches = 1;
     [self.logoIcon addGestureRecognizer:longPress];
+    
+    self.usernameTextField.text = @"goliver@fullintel.com";
+    self.passwordTextField.text = @"start";
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -183,12 +186,28 @@
         dispatch_async(globalConcurrentQueue, ^{
             NSLog(@"A - 2");
             if(accessToken.length > 0) {
-                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withFlag:@"" withLastArticleId:@""];
+                [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+                
+                NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+               // [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
             }
            
         });
         
-         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+        dispatch_queue_t globalBackgroundQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+        
+        dispatch_async(globalBackgroundQueue, ^{
+            NSLog(@"calling folder option");
+            [[FISharedResources sharedResourceManager] getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
+        });
+        
+        
+        
+        
+        // [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
         
         
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
