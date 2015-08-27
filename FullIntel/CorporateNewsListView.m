@@ -490,7 +490,7 @@
     } else {
 //        messageString = @"No articles to display";
 //        [activityIndicator stopAnimating];
-        self.navigationItem.rightBarButtonItems = nil;
+        //self.navigationItem.rightBarButtonItems = nil;
     }
     if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
@@ -1509,7 +1509,7 @@
             [self addRightBarItems];
             [activityIndicator stopAnimating];
         } else {
-            self.navigationItem.rightBarButtonItems = nil;
+           // self.navigationItem.rightBarButtonItems = nil;
         }
         if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
             self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];

@@ -60,7 +60,7 @@
                                             <constraint firstAttribute="width" constant="128" id="l7s-fL-b0D"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="18"/>
-                                        <state key="normal" title="Nah, later">
+                                        <state key="normal" title="Nah, later.">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -168,7 +168,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdC-zw-bSp">
                                 <rect key="frame" x="290" y="300" width="336" height="85"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Tap access the various topics and folders on the left menu bar" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9EX-LC-OXz">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Tap to access the various topics and folders on the left menu bar" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9EX-LC-OXz">
                                         <rect key="frame" x="0.0" y="0.0" width="336" height="85"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -284,7 +284,6 @@
                                 <rect key="frame" x="302" y="306" width="397" height="61"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="Swipe up or down to quickly read the headlines and summary of articles in a folder" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jNW-xJ-nDS">
-
                                         <rect key="frame" x="0.0" y="0.0" width="397" height="61"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>

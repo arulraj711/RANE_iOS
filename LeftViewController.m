@@ -160,9 +160,11 @@
     
     [popAnimationTimerTwo invalidate];
     
+
+    
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"MarkImportantTutorialTriggerShown"];
     
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"MainListArrowTutorial"];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"MainListArrowTutorial"];
     
    [_treeView reloadData];
     
@@ -175,6 +177,13 @@
     
     _treeView.layer.borderWidth=0.0;
     
+    if([self.data count]>0){
+        
+        RADataObject *firstObj=[self.data objectAtIndex:0];
+        
+        [self.treeView scrollToRowForItem:firstObj atScrollPosition:RATreeViewScrollPositionTop animated:NO];
+    }
+    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"MarkImportantTutorialTriggerShown"];
     
     [_treeView reloadData];
@@ -182,6 +191,9 @@
 
 
 -(void)performAnimationForMarkImportant:(NSTimer *)timer{
+    
+    
+
     
     RATableViewCell *cell=timer.userInfo;
     
@@ -237,8 +249,12 @@
     
         popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:nil repeats:YES];
     
+    if([self.data count]>0){
     
+    RADataObject *firstObj=[self.data objectAtIndex:0];
     
+    [self.treeView scrollToRowForItem:firstObj atScrollPosition:RATreeViewScrollPositionTop animated:NO];
+    }
     
 }
 

@@ -83,7 +83,7 @@
 -(void)tapEvent {
     
 
-    [self dismissViewControllerAnimated:NO completion:NULL];
+  //  [self dismissViewControllerAnimated:NO completion:NULL];
 }
 
 - (IBAction)continueButtonPressed:(id)sender {
