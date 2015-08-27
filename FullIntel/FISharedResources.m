@@ -1197,6 +1197,39 @@
     }
 }
 
+
+-(void)getMenuUnreadCountWithAccessToken:(NSString *)accessToken {
+    if([self serviceIsReachable]) {
+        [FIWebService fetchMenuUnreadCountWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if([responseObject isKindOfClass:[NSArray class]]){
+//                NSArray *menuArray = responseObject;
+//                [_menuList removeAllObjects];
+//                for(NSDictionary *dic in menuArray) {
+//                    FIMenu *menu = [FIMenu recursiveMenu:dic];
+//                    [_menuList addObject:menu];
+//                }
+//                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
+//                [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+                //[self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
+            } else if([responseObject isKindOfClass:[NSDictionary class]]){
+                if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
+                    [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+                }
+            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+}
+
 -(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag withCreatedFlag:(BOOL)createdFlag {
     NSLog(@"call folder list API");
     if([self serviceIsReachable]) {
