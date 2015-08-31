@@ -29,6 +29,7 @@
 #import "CorporateNewsListView.h"
 #import "FIFolder.h"
 #import "FolderViewController.h"
+#import "FIUnreadMenu.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -46,6 +47,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenus) name:@"MenuList" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnreadCount) name:@"UnreadMenuAPI" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogout) name:@"logoutSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestChange:) name:@"requestChange" object:nil];
@@ -276,6 +278,21 @@
     
     
     
+}
+
+-(void)updateUnreadCount {
+    NSMutableArray *unreadMenuArray = [[FISharedResources sharedResourceManager]menuUnReadCountArray];
+    NSLog(@"unread menu array:%@",unreadMenuArray);
+    for(RADataObject *dataObject in self.data) {
+        for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
+            if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId]) {
+                dataObject.unReadCount = unreadMenu.unreadCount;
+                [self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone
+                 ];
+            }
+        }
+    }
+    // [treeView reloadData];
 }
 
 -(void)loadMenus {

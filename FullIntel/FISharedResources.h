@@ -23,6 +23,7 @@
 -(void)getCuratedNewsAuthorDetailsWithDetails:(NSString *)details withArticleId:(NSString *)articleId;
 -(void)getInfluencerDetailsWithDetails:(NSString *)details;
 -(void)getMenuListWithAccessToken:(NSString *)accessToken;
+-(void)getMenuUnreadCountWithAccessToken:(NSString *)accessToken;
 -(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag withCreatedFlag:(BOOL)createdFlag;
 -(void)sendMailWithAccessToken:(NSString *)accessToken withDetails:(NSString *)details;
 -(void)createFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
@@ -53,6 +54,7 @@
 -(void)closeBannerView;
 - (BOOL)serviceIsReachable;
 @property (nonatomic,strong) NSMutableArray *menuList;
+@property (nonatomic,strong) NSMutableArray *menuUnReadCountArray;
 @property (nonatomic,strong) NSMutableArray *folderList;
 @property (nonatomic,strong) NSMutableArray *contentCategoryList;
 @property (nonatomic,strong) NSMutableArray *contentTypeList;

@@ -32,18 +32,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
     
     
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(widgetWebViewTrigger:) name:@"widgetWebViewCalled" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(widgetWebViewTrigger:) name:@"widgetWebViewCalled" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailButtonClick:) name:@"mailButtonClick" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globeButtonClick:) name:@"globeButtonClick" object:nil];
-   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommentsView:) name:@"showCommentsView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommentsView:) name:@"showCommentsView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentStatusUpdate:) name:@"commentStatusUpdate" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showResearchView:) name:@"showResearchView" object:nil];
     
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showWebView:) name:@"widgetSelected" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showWebView:) name:@"widgetSelected" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(linkedinSelection:) name:@"linkedinSelection" object:nil];
     
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLinkSelection:) name:@"fbSelection" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLinkSelection:) name:@"fbSelection" object:nil];
     
     
     [self addCustomNavRightButton];
@@ -54,7 +54,7 @@
     [flowLayout setMinimumLineSpacing:0.0f];
     [self.collectionView setPagingEnabled:YES];
     [self.collectionView setCollectionViewLayout:flowLayout];
-   // [self.collectionView reloadData];
+    // [self.collectionView reloadData];
     self.collectionView.dataSource = nil;
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.alpha = 1.0;
@@ -65,7 +65,7 @@
     
     innerWebView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)];
     
-   // self.navigationItem.rightBarButtonItem =nil;
+    // self.navigationItem.rightBarButtonItem =nil;
     
     [self getArticleIdListFromDB];
     
@@ -141,13 +141,13 @@
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
                 BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
                 if(savedForLaterIsNew){
-                     predicate  = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",contentTypeId,categoryId];
+                    predicate  = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",contentTypeId,categoryId];
                 } else {
                     NSLog(@"saved for later old");
                     predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
                 }
             } else {
-               predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
             }
         } else {
             predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
@@ -172,7 +172,7 @@
         
         //NSLog(@"elementsfrom column:%@",elementsFromColumn);
         self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
-       // NSLog(@"article id array:%@",self.articleIdArray);
+        // NSLog(@"article id array:%@",self.articleIdArray);
         if(self.articleIdArray.count != 0) {
             [self.collectionView reloadData];
         }
@@ -189,9 +189,9 @@
     NSDictionary *userInfo = notification.userInfo;
     NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
     NSNumber *totalComments = [userInfo objectForKey:@"totalComments"];
-   // NSLog(@"select indexpath row:%d and total comments:%@",indexPath.row,totalComments);
+    // NSLog(@"select indexpath row:%d and total comments:%@",indexPath.row,totalComments);
     // NSNumber  = [userInfo objectForKey:@"status"];
-   // NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+    // NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
     
     
     CorporateDetailCell *cell = (CorporateDetailCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
@@ -213,10 +213,10 @@
     [managedObjectContext save:nil];
     
     //NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
-   // if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        cell.badgeTwo.value =[totalComments integerValue];
-        cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
-   // }
+    // if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    cell.badgeTwo.value =[totalComments integerValue];
+    cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
+    // }
 }
 
 -(void)fbLinkSelection:(id)sender {
@@ -235,7 +235,7 @@
     socialWebViewObj.titleStr=@"";
     
     
-//    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",articleUrl,articleTitle,articleDesc];
+    //    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",articleUrl,articleTitle,articleDesc];
     
     NSString *urlString=[NSString stringWithFormat:@"https://www.facebook.com/dialog/feed?_path=feed&app_id=679882412141918&client_id=679882412141918&redirect_uri=https://www.facebook.com&display=popup&caption=%@&link=%@&from_login=1",articleTitle,articleUrl];
     
@@ -276,7 +276,7 @@
     [self presentViewController:modalController animated:NO completion:^{
         // [self dismissViewControllerAnimated:YES completion:nil];
     }];
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -296,12 +296,12 @@
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-   // NSLog(@"cell indexpath:%@",indexPath);
+    // NSLog(@"cell indexpath:%@",indexPath);
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     cell.cachedImageViewSize = cell.articleImageView.frame;
-    BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
+    cell.isTwitterLoad = NO;
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];
@@ -309,396 +309,371 @@
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if(newPerson.count != 0) {
         NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-       // NSLog(@"selected curated news:%@",curatedNews);
-        cell.articleTitle.text = [curatedNews valueForKey:@"title"];
-        
-        NSString *articleImageStr = [curatedNews valueForKey:@"image"];
-        [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"bannerImage"]];
-        [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
-        cell.cachedImageViewSize = cell.articleImageView.frame;
-        cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
-        cell.overlayArticleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
-        cell.overlayArticleDesc.text = [curatedNews valueForKey:@"desc"];
-        
-        [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
-        [cell.overlayArticleImageView setContentMode:UIViewContentModeScaleAspectFill];
-        cell.overlayArticleTitle.text = [curatedNews valueForKey:@"title"];
-        
-        cell.markedImpUserId = [[curatedNews valueForKey:@"markAsImportantUserId"] stringValue];
-        cell.markedImpUserName = [curatedNews valueForKey:@"markAsImportantUserName"];
-        
-        NSNumber *number = [curatedNews valueForKey:@"readStatus"];
-        NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
-        NSLog(@"news read status:%@",number);
-        //BOOL isRead = [NSNumber numberWithBool:[curatedNews valueForKey:@"readStatus"]];
-        if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        // NSLog(@"selected curated news:%@",curatedNews);
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            curatedNewsDetail = [curatedNews valueForKey:@"details"];
+            curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
             
-        } else {
-            
-            NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
-            NSNumber *saveForLaterStatus = [curatedNews valueForKey:@"saveForLater"];
-            
-            if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]] && [saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"all"}];
-            } else if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                // NSLog(@"both type is working");
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothMarkImp"}];
-            }else if([saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothSavedForLater"}];
-            }else {
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
-            }
-            
-            
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"readStatusUpdate" object:nil userInfo:@{@"indexPath":indexPath,@"status":[NSNumber numberWithBool:YES],@"articleId":[self.articleIdArray objectAtIndex:indexPath.row]}];
-        }
-        
-        
-        NSString *outletString = [curatedNews valueForKey:@"outlet"];
-        
-        CGFloat width =  [outletString sizeWithFont:[UIFont fontWithName:@"OpenSans" size:14 ]].width;
-        //NSLog(@"outlet text width:%f",width);
-        if(width == 0) {
-            
-        }
-        else if(width < 59) {
-            
-            CGFloat value = width;
-            cell.outletTextWidthConstraint.constant = value;
-           // self.outletHorizontalConstraint.constant = value+10;
-        }else {
-            
-            CGFloat value = width;
-            cell.outletTextWidthConstraint.constant = value;
-          //  self.outletHorizontalConstraint.constant = value+10;
-        }
-        
-        cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
-        cell.overlayArticleOutlet.text = [curatedNews valueForKey:@"outlet"];
-        
-        NSSet *authorSet = [curatedNews valueForKey:@"author"];
-        NSMutableArray *authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
-        
-        //NSLog(@"before author array:%@ and count:%d",authorArray,authorArray.count);
-        
-        NSMutableArray *multipleAuthorArray = [[NSMutableArray alloc]init];
-        if(authorArray.count != 0) {
-            if(authorArray.count > 1) {
-                for(int i=0;i<2;i++) {
-                    NSManagedObject *authorObject = [authorArray objectAtIndex:i];
-                    [multipleAuthorArray addObject:[authorObject valueForKey:@"name"]];
-                }
-                cell.articleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
-                cell.overlayArticleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
+            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+            NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
+            NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
+            if(postArray.count == 0) {
+                cell.tweetCollectionViewHeightConstraint.constant = 0;
+                cell.tweetLabelHeightConstraint.constant = 0;
+                cell.tweetLabel.hidden = YES;
+                cell.tweetDividerImageView.hidden = YES;
             } else {
-                NSManagedObject *authorObject = [authorArray objectAtIndex:0];
-                cell.articleAuthor.text = [authorObject valueForKey:@"name"];
-                cell.overlayArticleAuthor.text = [authorObject valueForKey:@"name"];
+                cell.tweetCollectionViewHeightConstraint.constant = 300;
+                cell.tweetLabelHeightConstraint.constant = 41;
+                cell.tweetLabel.hidden = NO;
+                cell.tweetDividerImageView.hidden = NO;
             }
-        }
-        
-        NSManagedObject *authors;
-        if(authorArray.count != 0) {
-            authors = [authorArray objectAtIndex:0];
-        }
-        
-        //cell.articleAuthor.text = [authors valueForKey:@"name"];
-        cell.aboutAuthorName.text = [authors valueForKey:@"name"];
-        cell.authorName.text = [authors valueForKey:@"name"];
-        cell.authorWorkTitle.text = [authors valueForKey:@"title"];
-        [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[authors valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
-        [cell.authorImageView setContentMode:UIViewContentModeScaleAspectFill];
-        
-        curatedNewsDetail = [curatedNews valueForKey:@"details"];
-        curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
-        
-        if(isFIViewSelected) {
-            cell.detailsWebview.hidden = YES;
-            cell.overlayView.hidden = YES;
-            [cell.timer invalidate];
-        } else {
-            cell.detailsWebview.hidden = NO;
-            cell.overlayView.hidden = NO;
-                [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
-                
-               // [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
-                //NSLog(@"article url data:%@",[curatedNews valueForKey:@"articleUrlData"]);
-                
-                if([curatedNews valueForKey:@"articleUrlData"] == nil) {
-                    NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
-                    [curatedNews setValue:string forKey:@"articleUrlData"];
-                   // [cell.detailsWebview setScalesPageToFit:YES];
-                    //[cell.detailsWebview loadHTMLString:string baseURL:nil];
-                    [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
-                } else {
-                    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-                        [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
-                    } else {
-                        
-                        [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
-                    }
-                    
-                    
-                }
-            
-        }
-        
-        
-        NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
-        NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
-        //NSLog(@"after changing unread and total comments:%@ and %@",unreadCnt,totalCnt);
-        if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
-            cell.badgeTwo.value = [totalCnt integerValue];
-            cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
-        } else {
-            cell.badgeTwo.value = [unreadCnt integerValue];
-            cell.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
-        }
-        
-       
-        
-        
-        cell.curatedNewsDetail = curatedNewsDetail;
-        cell.selectedIndexPath = indexPath;
-        cell.articleDesc = [curatedNews valueForKey:@"desc"];
-        cell.selectedArticleTitle = [curatedNews valueForKey:@"title"];
-        cell.selectedArticleUrl = [curatedNews valueForKey:@"articleUrl"];
-        cell.selectedArticleId = [curatedNews valueForKey:@"articleId"];
-        cell.selectedArticleImageUrl = [curatedNews valueForKey:@"image"];
-        //NSLog(@"before fetching curatednewsdetails:%@",curatedNewsDetail);
-        //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
-            
-                
-                
-//                NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
-                
-//                if([userAccountTypeId isEqualToString:@"3"]) {
-                    cell.webViewHeightConstraint.constant = 200;
-//                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
-//                    cell.webViewHeightConstraint.constant = 400;
-//                }
-                
-                
-                if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                } else {
-                    NSLog(@"come inside read update");
-                    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
-                    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-                    [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
-                    [resultDic setObject:@"1" forKey:@"status"];
-                    [resultDic setObject:@"true" forKey:@"isSelected"];
-                    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-                    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-                    // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
-                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-
-                    [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-                    });
-                }
-                
-                
-//                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
-        dispatch_queue_t queue_a = dispatch_queue_create("test", 0);
-        dispatch_async(queue_a, ^(void){
-                NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
-            });
-                //});
-        });
-                NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
-                if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                  //  NSLog(@"mark selected");
-                    [cell.markedImpButton setSelected:YES];
-                } else {
-                   // NSLog(@"mark not selected");
-                    [cell.markedImpButton setSelected:NO];
-                }
-                
-                if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                    [cell.savedForLaterButton setSelected:YES];
-                } else {
-                    [cell.savedForLaterButton setSelected:NO];
-                }
-                
-                NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
-                NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
-                cell.relatedPostArray = postArray;
-                [cell loadTweetsFromPost];
-           // });
-        
-        
-        
-        
-        if(curatedNewsAuthorDetail == nil) {
-            
-        } else {
-            //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
-            
             NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
             NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
             NSManagedObject *author;
             if(legendsArray.count != 0) {
                 author  = [legendsArray objectAtIndex:0];
             }
-          //  NSLog(@"single author:%@",author);
             
-            self.socialLinksArray = [[NSMutableArray alloc]init];
-            NSSet *socialMediaSet = [author valueForKey:@"authorSocialMedia"];
-            self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialMediaSet allObjects]];
-           // NSLog(@"social list:%d",self.socialLinksArray.count);
-           
-            
-            
-            if(self.socialLinksArray.count == 0) {
-                //cell.socialLinkLabel.hidden = YES;
-                //cell.socialLinkDivider.hidden = YES;
-                //cell.socialLinkCollectionView.hidden = YES;
-            } else {
-                cell.socialLinksArray = self.socialLinksArray;
-                cell.socialLinkLabel.hidden = NO;
-                cell.socialLinkDivider.hidden = NO;
-               // cell.socialLinkCollectionView.hidden = NO;
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                [self configureCell:cell forCuratedNews:curatedNews atIndexPath:indexPath];
+                [self configureCellOutletDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
+                [self configureCellAuthorDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
+                [self updateCellViewType:cell forCuratedNews:curatedNews atIndexPath:indexPath];
+                [self updateCellMarkedImportantStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
+                [self updateCellSavedForLaterStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
+                [self updateCellCommentCount:cell forCuratedNews:curatedNewsDetail atIndexPath:indexPath];
+                [self updateCellReadStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
+                cell.webViewHeightConstraint.constant = 200;
+                [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+                [self configureAuthorDetails:cell forCuratedNewsAuthor:author];
+                cell.relatedPostArray = postArray;
                 
-               // [cell.socialLinkCollectionView reloadData];
-            }
-            
-            [cell.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
-            [cell.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
-            
-          //  NSString *authorName = [NSString stringWithFormat:@"%@ %@",[author valueForKey:@"firstName"],[author valueForKey:@"lastName"]];
-            //cell.aboutAuthorName.text = authorName;
-            cell.authorNameStr = [author valueForKey:@"firstName"];
-            
-            if([[author valueForKey:@"starRating"] integerValue] == 0) {
-                cell.ratingControl.hidden = YES;
-            } else {
-                cell.ratingControl.hidden = NO;
-                cell.starRating.rating = [[author valueForKey:@"starRating"] integerValue];
-            }
-            
-            if([[author valueForKey:@"isInfluencer"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                cell.influencerIconImage.hidden = NO;
-            } else {
-                cell.influencerIconImage.hidden = YES;
-            }
-            
-            
-            NSSet *workTitleSet = [author valueForKey:@"authorWorkTitle"];
-            NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
-            if(workTitleArray.count != 0) {
-                cell.workTitleIcon.hidden = NO;
-                cell.workTitleIconHeightConstraint.constant = 15;
-                cell.workTitleLabelHeightConstraint.constant = 21;
-                cell.outletImageTopConstraint.constant = 10;
-                cell.outletLabelTopConstraint.constant = 4;
-                NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
-                cell.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
-            } else {
-                cell.workTitleIcon.hidden = YES;
-                cell.workTitleIconHeightConstraint.constant = 0;
-                cell.workTitleLabelHeightConstraint.constant = 0;
-                cell.outletImageTopConstraint.constant = 0;
-                cell.outletLabelTopConstraint.constant = 0;
-            }
-            
-            
-            NSSet *outletSet = [author valueForKey:@"authorOutlet"];
-            NSMutableArray *outletArray = [[NSMutableArray alloc]initWithArray:[outletSet allObjects]];
-            if(outletArray.count != 0) {
-                cell.outletIcon.hidden = NO;
-                cell.locationImageTopConstarint.constant = 10;
-                cell.outletIconHeightConstraint.constant = 15;
-                cell.locationLabelTopConstraint.constant = 4;
-                cell.outletLabelHeightConstraint.constant = 21;
-                NSManagedObject *outlet = [outletArray objectAtIndex:0];
-                cell.authorOutletName.text = [outlet valueForKey:@"outletname"];
-            }else {
-                cell.outletIcon.hidden = YES;
-                cell.outletIconHeightConstraint.constant = 0;
-                cell.locationImageTopConstarint.constant = 0;
-                cell.locationLabelTopConstraint.constant = 0;
-                cell.outletLabelHeightConstraint.constant = 0;
-            }
-            
-            
-            NSString *city = [author valueForKey:@"city"];
-            NSString *country = [author valueForKey:@"country"];
-            NSString *authorPlace;
-            if(city.length == 0 && country.length == 0) {
-                authorPlace = @"";
-            } else if(city.length == 0) {
-                authorPlace = [NSString stringWithFormat:@"%@",country];
-            } else if(country.length == 0) {
-                authorPlace = [NSString stringWithFormat:@"%@",city];
-            } else {
-                authorPlace = [NSString stringWithFormat:@"%@, %@",city,country];
-            }
-            
-            if(authorPlace.length !=0 ){
-                cell.locationIcon.hidden = NO;
-                cell.locationIconHeightConstraint.constant = 15;
-                cell.locationLabelHeightConstraint.constant = 21;
-                cell.beatsImageTopConstraint.constant = 10;
-                cell.beatsLabelTopConstraint.constant = 4;
-                cell.authorLocationLabel.text = authorPlace;
-            } else {
-                cell.locationIcon.hidden = YES;
-                cell.locationIconHeightConstraint.constant = 0;
-                cell.locationLabelHeightConstraint.constant = 0;
-                cell.beatsImageTopConstraint.constant = 0;
-                cell.beatsLabelTopConstraint.constant = 0;
-            }
-            
-            NSSet *beatSet = [author valueForKey:@"authorBeat"];
-            NSMutableArray *beatsArray = [[NSMutableArray alloc]initWithArray:[beatSet allObjects]];
-            NSMutableArray *beats = [[NSMutableArray alloc]init];
-            for(NSManagedObject *beat in beatsArray) {
-                [beats addObject:[NSString stringWithFormat:@"#%@",[beat valueForKey:@"name"]]];
-            }
-            NSString *beatString = [beats componentsJoinedByString:@" "];
-            if(beatString.length != 0){
-                cell.beatsIcon.hidden = NO;
-                cell.beatsIconHeightConstraint.constant = 15;
-                cell.beatsLabelHeightConstraint.constant = 21;
-                cell.authorTagLabel.text = beatString;
-            } else {
-                cell.beatsIcon.hidden = YES;
-                cell.beatsIconHeightConstraint.constant = 0;
-                cell.beatsLabelHeightConstraint.constant = 0;
-            }
-                
-                NSString *bioString = [author valueForKey:@"bibliography"];
-            
-                if(bioString.length != 0) {
-                    
-                    cell.bioTitleLabel.hidden = NO;
-                    cell.bioDivider.hidden = NO;
-                    cell.bioLabel.hidden = NO;
-                    cell.bioLabel.text = bioString;
-                } else {
-                    cell.bioTitleLabel.hidden = YES;
-                    cell.bioDivider.hidden = YES;
-                    cell.bioLabel.hidden = YES;
-                }
-            
-               // });
-        }
+            });
+        });
     }
     return cell;
     
 }
 
 
+-(void)configureAuthorDetails:(CorporateDetailCell *)cell forCuratedNewsAuthor:(NSManagedObject *)curatedNewsAuthor {
+    self.socialLinksArray = [[NSMutableArray alloc]init];
+    NSSet *socialMediaSet = [curatedNewsAuthor valueForKey:@"authorSocialMedia"];
+    self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialMediaSet allObjects]];
+    if(self.socialLinksArray.count == 0) {
+        //cell.socialLinkLabel.hidden = YES;
+        //cell.socialLinkDivider.hidden = YES;
+        //cell.socialLinkCollectionView.hidden = YES;
+    } else {
+        cell.socialLinksArray = self.socialLinksArray;
+        cell.socialLinkLabel.hidden = NO;
+        cell.socialLinkDivider.hidden = NO;
+    }
+    
+    [cell.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNewsAuthor valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
+    [cell.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
+    cell.authorNameStr = [curatedNewsAuthor valueForKey:@"firstName"];
+    
+    if([[curatedNewsAuthor valueForKey:@"starRating"] integerValue] == 0) {
+        cell.ratingControl.hidden = YES;
+    } else {
+        cell.ratingControl.hidden = NO;
+        cell.starRating.rating = [[curatedNewsAuthor valueForKey:@"starRating"] integerValue];
+    }
+    
+    if([[curatedNewsAuthor valueForKey:@"isInfluencer"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        cell.influencerIconImage.hidden = NO;
+    } else {
+        cell.influencerIconImage.hidden = YES;
+    }
+    
+    
+    NSSet *workTitleSet = [curatedNewsAuthor valueForKey:@"authorWorkTitle"];
+    NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
+    if(workTitleArray.count != 0) {
+        cell.workTitleIcon.hidden = NO;
+        cell.workTitleIconHeightConstraint.constant = 15;
+        cell.workTitleLabelHeightConstraint.constant = 21;
+        cell.outletImageTopConstraint.constant = 10;
+        cell.outletLabelTopConstraint.constant = 4;
+        NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
+        cell.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
+    } else {
+        cell.workTitleIcon.hidden = YES;
+        cell.workTitleIconHeightConstraint.constant = 0;
+        cell.workTitleLabelHeightConstraint.constant = 0;
+        cell.outletImageTopConstraint.constant = 0;
+        cell.outletLabelTopConstraint.constant = 0;
+    }
+    
+    
+    NSSet *outletSet = [curatedNewsAuthor valueForKey:@"authorOutlet"];
+    NSMutableArray *outletArray = [[NSMutableArray alloc]initWithArray:[outletSet allObjects]];
+    if(outletArray.count != 0) {
+        cell.outletIcon.hidden = NO;
+        cell.locationImageTopConstarint.constant = 10;
+        cell.outletIconHeightConstraint.constant = 15;
+        cell.locationLabelTopConstraint.constant = 4;
+        cell.outletLabelHeightConstraint.constant = 21;
+        NSManagedObject *outlet = [outletArray objectAtIndex:0];
+        cell.authorOutletName.text = [outlet valueForKey:@"outletname"];
+    }else {
+        cell.outletIcon.hidden = YES;
+        cell.outletIconHeightConstraint.constant = 0;
+        cell.locationImageTopConstarint.constant = 0;
+        cell.locationLabelTopConstraint.constant = 0;
+        cell.outletLabelHeightConstraint.constant = 0;
+    }
+    
+    
+    NSString *city = [curatedNewsAuthor valueForKey:@"city"];
+    NSString *country = [curatedNewsAuthor valueForKey:@"country"];
+    NSString *authorPlace;
+    if(city.length == 0 && country.length == 0) {
+        authorPlace = @"";
+    } else if(city.length == 0) {
+        authorPlace = [NSString stringWithFormat:@"%@",country];
+    } else if(country.length == 0) {
+        authorPlace = [NSString stringWithFormat:@"%@",city];
+    } else {
+        authorPlace = [NSString stringWithFormat:@"%@, %@",city,country];
+    }
+    
+    if(authorPlace.length !=0 ){
+        cell.locationIcon.hidden = NO;
+        cell.locationIconHeightConstraint.constant = 15;
+        cell.locationLabelHeightConstraint.constant = 21;
+        cell.beatsImageTopConstraint.constant = 10;
+        cell.beatsLabelTopConstraint.constant = 4;
+        cell.authorLocationLabel.text = authorPlace;
+    } else {
+        cell.locationIcon.hidden = YES;
+        cell.locationIconHeightConstraint.constant = 0;
+        cell.locationLabelHeightConstraint.constant = 0;
+        cell.beatsImageTopConstraint.constant = 0;
+        cell.beatsLabelTopConstraint.constant = 0;
+    }
+    
+    NSSet *beatSet = [curatedNewsAuthor valueForKey:@"authorBeat"];
+    NSMutableArray *beatsArray = [[NSMutableArray alloc]initWithArray:[beatSet allObjects]];
+    NSMutableArray *beats = [[NSMutableArray alloc]init];
+    for(NSManagedObject *beat in beatsArray) {
+        [beats addObject:[NSString stringWithFormat:@"#%@",[beat valueForKey:@"name"]]];
+    }
+    NSString *beatString = [beats componentsJoinedByString:@" "];
+    if(beatString.length != 0){
+        cell.beatsIcon.hidden = NO;
+        cell.beatsIconHeightConstraint.constant = 15;
+        cell.beatsLabelHeightConstraint.constant = 21;
+        cell.authorTagLabel.text = beatString;
+    } else {
+        cell.beatsIcon.hidden = YES;
+        cell.beatsIconHeightConstraint.constant = 0;
+        cell.beatsLabelHeightConstraint.constant = 0;
+    }
+    
+    NSString *bioString = [curatedNewsAuthor valueForKey:@"bibliography"];
+    
+    if(bioString.length != 0) {
+        
+        cell.bioTitleLabel.hidden = NO;
+        cell.bioDivider.hidden = NO;
+        cell.bioLabel.hidden = NO;
+        cell.bioLabel.text = bioString;
+    } else {
+        cell.bioTitleLabel.hidden = YES;
+        cell.bioDivider.hidden = YES;
+        cell.bioLabel.hidden = YES;
+    }
+}
 
+-(void)updateCellMarkedImportantStatus:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
+    NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
+    if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        [cell.markedImpButton setSelected:YES];
+    } else {
+        [cell.markedImpButton setSelected:NO];
+    }
+}
+
+-(void)updateCellSavedForLaterStatus:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
+    if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        [cell.savedForLaterButton setSelected:YES];
+    } else {
+        [cell.savedForLaterButton setSelected:NO];
+    }
+}
+
+-(void)updateCellCommentCount:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNewsDetails atIndexPath:(NSIndexPath *)indexpath {
+    NSNumber *unreadCnt = [curatedNewsDetails valueForKey:@"unReadComment"];
+    NSNumber *totalCnt = [curatedNewsDetails valueForKey:@"totalComments"];
+    //NSLog(@"after changing unread and total comments:%@ and %@",unreadCnt,totalCnt);
+    if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        cell.badgeTwo.value = [totalCnt integerValue];
+        cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
+    } else {
+        cell.badgeTwo.value = [unreadCnt integerValue];
+        cell.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
+    }
+    
+}
+
+
+-(void)updateCellViewType:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
+    BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
+    if(isFIViewSelected) {
+        cell.detailsWebview.hidden = YES;
+        cell.overlayView.hidden = YES;
+        [cell.timer invalidate];
+    } else {
+        cell.detailsWebview.hidden = NO;
+        cell.overlayView.hidden = NO;
+        //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+        if([curatedNews valueForKey:@"articleUrlData"] == nil) {
+            NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]] encoding:NSASCIIStringEncoding error:nil];
+            [curatedNews setValue:string forKey:@"articleUrlData"];
+            [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
+        } else {
+            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                [cell.detailsWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"articleUrl"]]]];
+            } else {
+                [cell.detailsWebview loadHTMLString:[curatedNews valueForKey:@"articleUrlData"] baseURL:nil];
+            }
+        }
+        //});
+    }
+}
+
+-(void)updateCellReadStatus:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
+    NSNumber *number = [curatedNews valueForKey:@"readStatus"];
+    NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+    if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        
+    } else {
+        
+        
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+            [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+            [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+            [resultDic setObject:@"1" forKey:@"status"];
+            [resultDic setObject:@"true" forKey:@"isSelected"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            
+            
+            
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
+                NSNumber *saveForLaterStatus = [curatedNews valueForKey:@"saveForLater"];
+                
+                if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]] && [saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"all"}];
+                } else if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    // NSLog(@"both type is working");
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothMarkImp"}];
+                }else if([saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothSavedForLater"}];
+                }else {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
+                }
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"readStatusUpdate" object:nil userInfo:@{@"indexPath":indexpath,@"status":[NSNumber numberWithBool:YES],@"articleId":[self.articleIdArray objectAtIndex:indexpath.row]}];
+                
+            });
+        });
+        
+        
+    }
+}
+
+
+-(void)configureCell:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
+    cell.articleTitle.text = [curatedNews valueForKey:@"title"];
+    NSString *articleImageStr = [curatedNews valueForKey:@"image"];
+    [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"bannerImage"]];
+    [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
+    cell.cachedImageViewSize = cell.articleImageView.frame;
+    cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
+    cell.overlayArticleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
+    cell.overlayArticleDesc.text = [curatedNews valueForKey:@"desc"];
+    [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
+    [cell.overlayArticleImageView setContentMode:UIViewContentModeScaleAspectFill];
+    cell.overlayArticleTitle.text = [curatedNews valueForKey:@"title"];
+    cell.markedImpUserId = [[curatedNews valueForKey:@"markAsImportantUserId"] stringValue];
+    cell.markedImpUserName = [curatedNews valueForKey:@"markAsImportantUserName"];
+    
+    //Passing Cell Details
+    cell.curatedNewsDetail = curatedNewsDetail;
+    cell.selectedIndexPath = indexpath;
+    cell.articleDesc = [curatedNews valueForKey:@"desc"];
+    cell.selectedArticleTitle = [curatedNews valueForKey:@"title"];
+    cell.selectedArticleUrl = [curatedNews valueForKey:@"articleUrl"];
+    cell.selectedArticleId = [curatedNews valueForKey:@"articleId"];
+    cell.selectedArticleImageUrl = [curatedNews valueForKey:@"image"];
+}
+
+-(void)configureCellOutletDetails:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
+    //Configure Outlet Details
+    NSString *outletString = [curatedNews valueForKey:@"outlet"];
+    CGFloat width =  [outletString sizeWithFont:[UIFont fontWithName:@"OpenSans" size:14 ]].width;
+    if(width == 0) {
+        
+    } else if(width < 59) {
+        CGFloat value = width;
+        cell.outletTextWidthConstraint.constant = value;
+        // self.outletHorizontalConstraint.constant = value+10;
+    }else {
+        CGFloat value = width;
+        cell.outletTextWidthConstraint.constant = value;
+        //  self.outletHorizontalConstraint.constant = value+10;
+    }
+    cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
+    cell.overlayArticleOutlet.text = [curatedNews valueForKey:@"outlet"];
+}
+
+-(void)configureCellAuthorDetails:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
+    //Configure Author Details
+    NSSet *authorSet = [curatedNews valueForKey:@"author"];
+    NSMutableArray *authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
+    NSMutableArray *multipleAuthorArray = [[NSMutableArray alloc]init];
+    if(authorArray.count != 0) {
+        if(authorArray.count > 1) {
+            for(int i=0;i<2;i++) {
+                NSManagedObject *authorObject = [authorArray objectAtIndex:i];
+                [multipleAuthorArray addObject:[authorObject valueForKey:@"name"]];
+            }
+            cell.articleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
+            cell.overlayArticleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
+        } else {
+            NSManagedObject *authorObject = [authorArray objectAtIndex:0];
+            cell.articleAuthor.text = [authorObject valueForKey:@"name"];
+            cell.overlayArticleAuthor.text = [authorObject valueForKey:@"name"];
+        }
+    }
+    NSManagedObject *authors;
+    if(authorArray.count != 0) {
+        authors = [authorArray objectAtIndex:0];
+    }
+    cell.aboutAuthorName.text = [authors valueForKey:@"name"];
+    cell.authorName.text = [authors valueForKey:@"name"];
+    cell.authorWorkTitle.text = [authors valueForKey:@"title"];
+    [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[authors valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
+    [cell.authorImageView setContentMode:UIViewContentModeScaleAspectFill];
+}
 
 -(void)removeOverlay:(UITapGestureRecognizer *)gesture {
-   // NSLog(@"remove overlay working");
+    // NSLog(@"remove overlay working");
     
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     
     return self.collectionView.frame.size;
 }
@@ -714,7 +689,7 @@
     
     
     // Suppress the layout errors by invalidating the layout
- //   [self.collectionView.collectionViewLayout invalidateLayout];
+    //   [self.collectionView.collectionViewLayout invalidateLayout];
     
     // Calculate the index of the item that the collectionView is currently displaying
     CGPoint currentOffset = [self.collectionView contentOffset];
@@ -748,16 +723,16 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
     UINavigationController *navCtlr = [storyBoard instantiateViewControllerWithIdentifier:@"commentNav"];
     
-     CommentsPopoverView *popOverView=(CommentsPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
+    CommentsPopoverView *popOverView=(CommentsPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
     
     popOverView.articleId = articleId;
     popOverView.selectedIndexPath = indexPath;
-   // popOverView.transitioningDelegate = self;
+    // popOverView.transitioningDelegate = self;
     navCtlr.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:navCtlr animated:NO completion:nil];
     //[self.navigationController presentViewController:popOverView
-                                          //  animated:YES
-                                          //completion:NULL];
+    //  animated:YES
+    //completion:NULL];
 }
 
 -(void)showResearchView:(id)sender {
@@ -776,7 +751,7 @@
     researchViewController.articleId = articleId;
     researchViewController.articleTitle = articleTitle;
     researchViewController.articleUrl = articleUrl;
-//   popOverView.transitioningDelegate = self;
+    //   popOverView.transitioningDelegate = self;
     popOverView.modalPresentationStyle = UIModalPresentationCustom;
     
     
@@ -816,7 +791,7 @@
     SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
     socialWebViewObj.titleStr=title;
     socialWebViewObj.urlString=link;
- 
+    
     modalController.modalPresentationStyle = UIModalPresentationCustom;
     
     [self presentViewController:modalController animated:NO completion:nil];
@@ -869,7 +844,7 @@
         mailViewController.articleId= mailArticleId;
         mailViewController.mailSubject = mailTitle;
         mailViewController.mailBody = mailBody;
-       // popOverView.transitioningDelegate = self;
+        // popOverView.transitioningDelegate = self;
         popOverView.modalPresentationStyle = UIModalPresentationCustom;
         [self presentViewController:popOverView animated:NO completion:nil];
     }
@@ -906,12 +881,12 @@
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
     }
     [self.collectionView reloadData];
-  
+    
 }
 
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
-  //  NSLog(@"collection view scroll");
+    //  NSLog(@"collection view scroll");
     int lastCount = self.articleIdArray.count-1;
     float scrollOffset = self.collectionView.contentOffset.x;
     
@@ -933,18 +908,18 @@
             NSLog(@"parent id:%@",parentId);
             inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:[self.articleIdArray lastObject] contentTypeId:parentId listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
             
-//            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
-//            
-//            dispatch_async(queue_a, ^{
+            //            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+            //
+            //            dispatch_async(queue_a, ^{
             
             NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
             
             
             [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
-        oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
-                                       selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
-        //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
-       // });
+            oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
+                                                             selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
+            //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+            // });
         }
     }
 }
@@ -1003,7 +978,7 @@
         titleString=@"A123 Systems";
         
     }else if (indexPath.row==2){
-         urlString=@"http://en.wikipedia.org/wiki/CarPlay";
+        urlString=@"http://en.wikipedia.org/wiki/CarPlay";
         titleString=@"Apple Car Play";
         
     }else{

@@ -104,6 +104,7 @@
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
+		F55634651B94687A009E7C8E /* FIUnreadMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55634631B94687A009E7C8E /* FIUnreadMenu.m */; };
 		F5DAAA541B7080E80059425C /* TweetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5DAAA531B7080E80059425C /* TweetsCell.xib */; };
 		F5F727271B6F809400DE7980 /* SocialLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5F727261B6F809400DE7980 /* SocialLinkCell.xib */; };
 		F708D9EE1AB1A19B001FF59F /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = F708D9ED1AB1A19A001FF59F /* test.html */; };
@@ -366,6 +367,8 @@
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F552A8241B6666670003B7C1 /* FullIntel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 2.xcdatamodel"; sourceTree = "<group>"; };
+		F55634631B94687A009E7C8E /* FIUnreadMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIUnreadMenu.m; sourceTree = "<group>"; };
+		F55634641B94687A009E7C8E /* FIUnreadMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIUnreadMenu.h; sourceTree = "<group>"; };
 		F5DAAA531B7080E80059425C /* TweetsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsCell.xib; sourceTree = "<group>"; };
 		F5F727261B6F809400DE7980 /* SocialLinkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLinkCell.xib; sourceTree = "<group>"; };
 		F708D9ED1AB1A19A001FF59F /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
@@ -1147,6 +1150,8 @@
 		F7E85EA01A9F28650022B4D5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F55634631B94687A009E7C8E /* FIUnreadMenu.m */,
+				F55634641B94687A009E7C8E /* FIUnreadMenu.h */,
 				A0D0585C1B2061EE008F69ED /* BadgeView */,
 				F7E85EA41A9F28B60022B4D5 /* FISharedResources.h */,
 				F7E85EA51A9F28B60022B4D5 /* FISharedResources.m */,
@@ -1470,6 +1475,7 @@
 				F7CE36E11A95E9490005AA0A /* RATreeNodeCollectionController.m in Sources */,
 				F7CE36EA1A95E9490005AA0A /* RATreeView+UIScrollView.m in Sources */,
 				A0E223531A91C2F00073814A /* main.m in Sources */,
+				F55634651B94687A009E7C8E /* FIUnreadMenu.m in Sources */,
 				F7EBB2671ACA763F008C90DF /* FIUtils.m in Sources */,
 				F74A55131AB048570009FE4C /* PersonalityWidgetCell.m in Sources */,
 				A0CF5C5F1B1DD98B00DED2D9 /* IpAndLegalViewController.m in Sources */,

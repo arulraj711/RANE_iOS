@@ -24,6 +24,9 @@
 +(void)fetchMenuListWithAccessToken:(NSString*)accessToken
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)fetchMenuUnreadCountWithAccessToken:(NSString*)accessToken
+                                 onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 +(void)fetchFolderListWithAccessToken:(NSString*)accessToken
                             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;

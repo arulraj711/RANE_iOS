@@ -27,8 +27,8 @@
     
     self.markedImpView.layer.masksToBounds = YES;
     self.markedImpView.layer.cornerRadius = 22.0f;
-//    self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
-//    self.markedImpView.layer.borderWidth = 3.0;
+    //    self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
+    //    self.markedImpView.layer.borderWidth = 3.0;
     
     self.bookmarkView.layer.masksToBounds = YES;
     self.bookmarkView.layer.cornerRadius = 22.0f;
@@ -54,7 +54,7 @@
     [super layoutSubviews];
     
     
-
+    
     
     
     [self.contentView updateConstraintsIfNeeded];
@@ -88,7 +88,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-     //NSLog(@"legends collection view count:%d",self.legendsArray.count);
+    //NSLog(@"legends collection view count:%d",self.legendsArray.count);
     return self.legendsArray.count;
 }
 

@@ -342,6 +342,18 @@ NSString *url = @"http://stage.fullintel.com/1.1.0";
     }];
 }
 
++(void)fetchMenuUnreadCountWithAccessToken:(NSString*)accessToken
+                                 onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *functionName = [NSString stringWithFormat:@"customer/menuunreadcount?security_token=%@",accessToken];
+    [self getQueryResultsForFunctionName:functionName withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
 
 +(void)fetchFolderListWithAccessToken:(NSString*)accessToken
                           onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

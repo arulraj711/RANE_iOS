@@ -17,6 +17,7 @@
 #import "UIView+Toast.h"
 #import "AppDelegate.h"
 #import "FIFolder.h"
+#import "FIUnreadMenu.h"
 #define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
 
 @implementation FISharedResources
@@ -43,6 +44,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
     _menuList = [[NSMutableArray alloc]init];
+    _menuUnReadCountArray = [[NSMutableArray alloc]init];
     _folderList = [[NSMutableArray alloc]init];
     _contentCategoryList = [[NSMutableArray alloc]init];
     _articleIdArray = [[NSMutableArray alloc]init];
@@ -1140,6 +1142,39 @@
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [FIUtils showErrorToast];
     }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+}
+
+-(void)getMenuUnreadCountWithAccessToken:(NSString *)accessToken {
+    if([self serviceIsReachable]) {
+        [FIWebService fetchMenuUnreadCountWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if([responseObject isKindOfClass:[NSArray class]]){
+                                NSArray *menuArray = responseObject;
+                                [_menuUnReadCountArray removeAllObjects];
+                                for(NSDictionary *dic in menuArray) {
+                                    FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
+                                    [menu setUnreadMenuObjectFromDic:dic];
+                                    [_menuUnReadCountArray addObject:menu];
+                                }
+                                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnreadMenuAPI"];
+                //                [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+                //[self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
+            } else if([responseObject isKindOfClass:[NSDictionary class]]){
+                if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
+                    [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+                }
+            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
