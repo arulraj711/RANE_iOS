@@ -18,6 +18,7 @@
 #import "AppDelegate.h"
 #import "FIFolder.h"
 #import <Localytics/Localytics.h>
+#import "FIUnreadMenu.h"
 #define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
 
 @implementation FISharedResources
@@ -44,6 +45,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
     _menuList = [[NSMutableArray alloc]init];
+    _menuUnReadCountArray = [[NSMutableArray alloc]init];
     _folderList = [[NSMutableArray alloc]init];
     _contentCategoryList = [[NSMutableArray alloc]init];
     _articleIdArray = [[NSMutableArray alloc]init];
@@ -525,6 +527,7 @@
                     
                     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
                     NSPredicate *predicate;
+                    NSLog(@"incoming articleid:%@ and contenttypeid:%@ and categoryId:%@",[dic objectForKey:@"id"],contentTypeId,categoryId);
                     // if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
                     predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@",[dic objectForKey:@"id"],contentTypeId,categoryId];
                     //            } else {
@@ -1203,14 +1206,15 @@
         [FIWebService fetchMenuUnreadCountWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
             if([responseObject isKindOfClass:[NSArray class]]){
-//                NSArray *menuArray = responseObject;
-//                [_menuList removeAllObjects];
-//                for(NSDictionary *dic in menuArray) {
-//                    FIMenu *menu = [FIMenu recursiveMenu:dic];
-//                    [_menuList addObject:menu];
-//                }
+                NSArray *menuArray = responseObject;
+                [_menuUnReadCountArray removeAllObjects];
+                for(NSDictionary *dic in menuArray) {
+                    FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
+                    [menu setUnreadMenuObjectFromDic:dic];
+                    [_menuUnReadCountArray addObject:menu];
+                }
 //                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
-//                [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:nil];
                 //[self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {

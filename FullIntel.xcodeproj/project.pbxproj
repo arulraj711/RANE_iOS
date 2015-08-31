@@ -20,6 +20,7 @@
 		A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A010C1C01B1F32AF00BF053D /* john_maddox.jpg */; };
 		A02C54C61AEF5E0000E65011 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02C54C51AEF5E0000E65011 /* Social.framework */; };
 		A038E5921B7B42DE00D0E24D /* MainListTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A038E5911B7B42DE00D0E24D /* MainListTutorialViewController.m */; };
+		A03F59001B94344A007D9D47 /* FIUnreadMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A03F58FF1B94344A007D9D47 /* FIUnreadMenu.m */; };
 		A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0406BA01B05CE5F00985CF8 /* TweetsCell.m */; };
 		A041F0011B2ADA9E00B5600C /* LegendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A041EFFF1B2ADA9E00B5600C /* LegendCollectionViewCell.m */; };
 		A041F0021B2ADA9E00B5600C /* LegendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A041F0001B2ADA9E00B5600C /* LegendCollectionViewCell.xib */; };
@@ -246,6 +247,8 @@
 		A02C54C51AEF5E0000E65011 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		A038E5901B7B42DE00D0E24D /* MainListTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainListTutorialViewController.h; sourceTree = "<group>"; };
 		A038E5911B7B42DE00D0E24D /* MainListTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainListTutorialViewController.m; sourceTree = "<group>"; };
+		A03F58FE1B94344A007D9D47 /* FIUnreadMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIUnreadMenu.h; sourceTree = "<group>"; };
+		A03F58FF1B94344A007D9D47 /* FIUnreadMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIUnreadMenu.m; sourceTree = "<group>"; };
 		A0406B9F1B05CE5F00985CF8 /* TweetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsCell.h; sourceTree = "<group>"; };
 		A0406BA01B05CE5F00985CF8 /* TweetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsCell.m; sourceTree = "<group>"; };
 		A041EFFE1B2ADA9E00B5600C /* LegendCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1217,6 +1220,8 @@
 				A07A05B41AF74CE60016AD46 /* FIContentCategory.m */,
 				A088607E1B427B9500939D51 /* FIFolder.h */,
 				A088607F1B427B9500939D51 /* FIFolder.m */,
+				A03F58FE1B94344A007D9D47 /* FIUnreadMenu.h */,
+				A03F58FF1B94344A007D9D47 /* FIUnreadMenu.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1523,6 +1528,7 @@
 				A07A05BE1AF78EBC0016AD46 /* AddContentThirdLevelView.m in Sources */,
 				F7CE36E41A95E9490005AA0A /* RATreeNodeItem.m in Sources */,
 				F7AE10881AC022CD0091E1C7 /* InfluencerCell.m in Sources */,
+				A03F59001B94344A007D9D47 /* FIUnreadMenu.m in Sources */,
 				A0E2235C1A91C2F00073814A /* ViewController.m in Sources */,
 				F7DB32611AA56F50002724D6 /* FIMenu.m in Sources */,
 				A0CF5C5A1B1DD98B00DED2D9 /* ExecutiveMovesController.m in Sources */,

@@ -140,7 +140,7 @@
 {
     NSLog(@"Calling Application Bundle ID: %@", sourceApplication);
     NSLog(@"URL scheme:%@ and url:%@", [url scheme],url);
-    NSLog(@"URL query: %@", [url query]);
+    NSLog(@"URL query: %@ and length:%d", [url query],[url query].length);
     
     if([url query].length != 0) {
         
@@ -217,8 +217,9 @@
             }
             
         }
+        return YES;
     }
-    return YES;
+    return NO;
 }
 
 - (NSString *) URLEncodedString_ch:(NSString *)strings {

@@ -31,6 +31,7 @@
 #import "FolderViewController.h"
 #import "FISharedResources.h"
 #import "pop.h"
+#import "FIUnreadMenu.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -48,6 +49,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenus) name:@"MenuList" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnreadCount) name:@"UnreadMenuAPI" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogout) name:@"logoutSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestChange:) name:@"requestChange" object:nil];
@@ -88,9 +90,21 @@
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length != 0) {
         
+//        dispatch_queue_t globalConcurrentQueue =
+//        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+//        
+//        
+//        // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+//        
+//        dispatch_async(globalConcurrentQueue, ^{
+//            NSLog(@"A - 1111");
+//            //[[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+//        });
+        
+        
         NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
         NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
-        NSLog(@"data value:%@ and length:%d",dataRepresentingSavedArray,dataRepresentingSavedArray.length);
+        //NSLog(@"data value:%@ and length:%d",dataRepresentingSavedArray,dataRepresentingSavedArray.length);
         if (dataRepresentingSavedArray.length != 0)
         {
             NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
@@ -488,8 +502,36 @@
     [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
     self.treeView.frame = self.treeBackView.bounds;
     
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length != 0) {
+        
+        dispatch_queue_t globalConcurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+        
+        
+        // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+        
+        dispatch_async(globalConcurrentQueue, ^{
+            NSLog(@"A - 1111");
+            [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+        });
+    }
     
-    
+}
+
+-(void)updateUnreadCount {
+    NSMutableArray *unreadMenuArray = [[FISharedResources sharedResourceManager]menuUnReadCountArray];
+    NSLog(@"unread menu array:%@",unreadMenuArray);
+    for(RADataObject *dataObject in self.data) {
+        for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
+            if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId]) {
+                dataObject.unReadCount = unreadMenu.unreadCount;
+                [self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone
+                 ];
+            }
+        }
+    }
+   // [treeView reloadData];
 }
 
 -(void)loadMenus {

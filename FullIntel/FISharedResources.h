@@ -55,6 +55,7 @@
 -(void)closeBannerView;
 - (BOOL)serviceIsReachable;
 @property (nonatomic,strong) NSMutableArray *menuList;
+@property (nonatomic,strong) NSMutableArray *menuUnReadCountArray;
 @property (nonatomic,strong) NSMutableArray *folderList;
 @property (nonatomic,strong) NSMutableArray *contentCategoryList;
 @property (nonatomic,strong) NSMutableArray *contentTypeList;

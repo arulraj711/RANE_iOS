@@ -196,14 +196,19 @@
            
         });
         
-        dispatch_queue_t globalBackgroundQueue =
-        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+//        dispatch_queue_t globalBackgroundQueue =
+//        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+//        
+//        dispatch_async(globalBackgroundQueue, ^{
+//            
+//        });
+//        
         
-        dispatch_async(globalBackgroundQueue, ^{
+        dispatch_queue_t myQueue = dispatch_queue_create("My Queue", NULL);
+        dispatch_async(myQueue, ^ {
             NSLog(@"calling folder option");
             [[FISharedResources sharedResourceManager] getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
         });
-        
         
         
         
