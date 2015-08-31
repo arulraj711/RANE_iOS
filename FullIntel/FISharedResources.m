@@ -553,10 +553,10 @@
             if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 NSString *str = [dic objectForKey:@"articleUrl"];
                 if(str.length != 0) {
-                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
-                        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
-                        [curatedNews setValue:string forKey:@"articleUrlData"];
-                    });
+//                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+//                        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
+//                        [curatedNews setValue:string forKey:@"articleUrlData"];
+//                    });
                 }
             }
             
@@ -1133,7 +1133,8 @@
             [_menuList addObject:menu];
         }
         [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
-        [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+       // [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
         } else if([responseObject isKindOfClass:[NSDictionary class]]){
             if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
                 [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
@@ -1157,15 +1158,15 @@
         [FIWebService fetchMenuUnreadCountWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
             if([responseObject isKindOfClass:[NSArray class]]){
-                                NSArray *menuArray = responseObject;
-                                [_menuUnReadCountArray removeAllObjects];
-                                for(NSDictionary *dic in menuArray) {
-                                    FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
-                                    [menu setUnreadMenuObjectFromDic:dic];
-                                    [_menuUnReadCountArray addObject:menu];
-                                }
-                                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnreadMenuAPI"];
-                //                [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+                NSArray *menuArray = responseObject;
+                [_menuUnReadCountArray removeAllObjects];
+                for(NSDictionary *dic in menuArray) {
+                    FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
+                    [menu setUnreadMenuObjectFromDic:dic];
+                    [_menuUnReadCountArray addObject:menu];
+                }
+                //   [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnreadMenuAPI"];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:nil];
                 //[self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
@@ -1667,6 +1668,7 @@
                     
                     NSString *resultJson = [[NSString alloc]initWithData:menuJsondata encoding:NSUTF8StringEncoding];
                     [self getMenuListWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
+                    [self getMenuUnreadCountWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
                 } else {
                 NSArray *contentTypeArray = [responseObject objectForKey:@"contentType"];
                 [_contentTypeList removeAllObjects];

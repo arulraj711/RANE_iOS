@@ -271,6 +271,21 @@
 //        self.treeView.contentInset = UIEdgeInsetsMake(heightPadding, 0.0, 0.0, 0.0);
 //        self.treeView.contentOffset = CGPointMake(0.0, -heightPadding);
 //    }
+    
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length != 0) {
+    dispatch_queue_t globalConcurrentQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    
+    
+    // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+    
+    dispatch_async(globalConcurrentQueue, ^{
+        NSLog(@"A - 1");
+        [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+    });
+    
+    }
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
@@ -292,6 +307,10 @@
             }
         }
     }
+    
+    
+    
+   // [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
     // [treeView reloadData];
 }
 
@@ -882,6 +901,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
+                [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
             }else {
                 NSLog(@"paraent is full");
                 NSNumber *rootParent = [self getParentIdFromObject:item];

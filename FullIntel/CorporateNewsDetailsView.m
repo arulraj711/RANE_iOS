@@ -317,29 +317,19 @@
             NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
             NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
             NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
-            if(postArray.count == 0) {
-                cell.tweetCollectionViewHeightConstraint.constant = 0;
-                cell.tweetLabelHeightConstraint.constant = 0;
-                cell.tweetLabel.hidden = YES;
-                cell.tweetDividerImageView.hidden = YES;
-            } else {
-                cell.tweetCollectionViewHeightConstraint.constant = 300;
-                cell.tweetLabelHeightConstraint.constant = 41;
-                cell.tweetLabel.hidden = NO;
-                cell.tweetDividerImageView.hidden = NO;
-            }
+            
             NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
             NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
             NSManagedObject *author;
             if(legendsArray.count != 0) {
                 author  = [legendsArray objectAtIndex:0];
             }
-            
+            [self updateCellViewType:cell forCuratedNews:curatedNews atIndexPath:indexPath];
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 [self configureCell:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self configureCellOutletDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self configureCellAuthorDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
-                [self updateCellViewType:cell forCuratedNews:curatedNews atIndexPath:indexPath];
+                
                 [self updateCellMarkedImportantStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self updateCellSavedForLaterStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self updateCellCommentCount:cell forCuratedNews:curatedNewsDetail atIndexPath:indexPath];
@@ -348,6 +338,24 @@
                 [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
                 [self configureAuthorDetails:cell forCuratedNewsAuthor:author];
                 cell.relatedPostArray = postArray;
+                //if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                    if(postArray.count == 0) {
+                        cell.tweetCollectionViewHeightConstraint.constant = 0;
+                        cell.tweetLabelHeightConstraint.constant = 0;
+                        cell.tweetLabel.hidden = YES;
+                        cell.tweetDividerImageView.hidden = YES;
+                    } else {
+                        cell.tweetCollectionViewHeightConstraint.constant = 300;
+                        cell.tweetLabelHeightConstraint.constant = 41;
+                        cell.tweetLabel.hidden = NO;
+                        cell.tweetDividerImageView.hidden = NO;
+                    }
+//                } else {
+//                    cell.tweetCollectionViewHeightConstraint.constant = 0;
+//                    cell.tweetLabelHeightConstraint.constant = 0;
+//                    cell.tweetLabel.hidden = YES;
+//                    cell.tweetDividerImageView.hidden = YES;
+//                }
                 
             });
         });
