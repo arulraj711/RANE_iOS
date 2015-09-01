@@ -301,16 +301,15 @@
         for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
             if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId]) {
                 dataObject.unReadCount = unreadMenu.unreadCount;
-                [self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone
-                 ];
+                [self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone];
             }
         }
     }
     
     
+    //[treeView reloadData];
+    [self.treeView selectRowForItem:data animated:YES scrollPosition:RATreeViewScrollPositionNone];
     
-    [self.treeView selectRowForItem:data animated:YES scrollPosition:RATreeViewScrollPositionTop];
-    // [treeView reloadData];
 }
 
 -(void)loadMenus {

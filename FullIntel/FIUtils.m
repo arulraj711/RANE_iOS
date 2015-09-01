@@ -77,13 +77,15 @@
     if(articleId != nil) {
         [gradedetails setObject:articleId forKey:@"lastArticleId"];
     }
-    [gradedetails setObject:contentTypeId forKey:@"contentTypeId"];
+    
     [gradedetails setObject:[NSNumber numberWithInteger:listSize] forKey:@"listSize"];
     [gradedetails setObject:activityTypeId forKey:@"activityTypeIds"];
     if(categoryId == nil) {
-        [gradedetails setObject:@"" forKey:@"categoryId"];
+        [gradedetails setObject:@"-1" forKey:@"categoryId"];
+        [gradedetails setObject:@"" forKey:@"contentTypeId"];
     } else {
         [gradedetails setObject:categoryId forKey:@"categoryId"];
+        [gradedetails setObject:contentTypeId forKey:@"contentTypeId"];
     }
     
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
