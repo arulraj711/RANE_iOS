@@ -494,74 +494,6 @@
     
     self.webViewHeightConstraint.constant = webView.frame.size.height;
     
-    //    UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    //    flowLayout.itemSize = CGSizeMake(100, 100);
-    //    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    //
-    //    if(self.relatedPostArray.count == 0) {
-    //        socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+0+200, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
-    //    } else {
-    //        socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+300+250, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
-    //    }
-    //
-    //
-    //    UINib *cellNib = [UINib nibWithNibName:@"SocialLinkCell" bundle:nil];
-    //    [socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
-    //    [socialcollectionView registerClass:[SocialLinkCell class] forCellWithReuseIdentifier:@"Cell"];
-    //    socialcollectionView.delegate = self;
-    //    socialcollectionView.dataSource = self;
-    //    socialcollectionView.hidden = NO;
-    //
-    //    if(self.socialLinksArray.count == 0){
-    //        self.socialLinkLabel.hidden =YES;
-    //        self.socialLinkDivider.hidden= YES;
-    //        socialcollectionView.hidden= YES;
-    //    } else {
-    //        self.socialLinkLabel.hidden =NO;
-    //        self.socialLinkDivider.hidden= NO;
-    //        socialcollectionView.hidden = NO;
-    //    }
-    //
-    //
-    //    socialcollectionView.backgroundColor = [UIColor clearColor];
-    //    [self.scrollView addSubview:socialcollectionView];
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
-    
-    
-    //    self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];
-    //    self.starRating.userInteractionEnabled = NO;
-    //    [self.ratingControl addSubview:self.starRating];
-    
-    [self.timer invalidate];
-    //[progressView removeFromSuperview];
-}
-
--(void)loadTweetsAndSocialLink {
-    self.isTwitterLoad = YES;
-    UICollectionViewFlowLayout* tweetFlowLayout = [[UICollectionViewFlowLayout alloc]init];
-    tweetFlowLayout.itemSize = CGSizeMake(100, 100);
-    [tweetFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    
-    
-    tweetsCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+100, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
-    
-    UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCell" bundle:nil];
-    [tweetsCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
-    [tweetsCollectionView registerClass:[TweetsCell class] forCellWithReuseIdentifier:@"Cell"];
-    tweetsCollectionView.delegate = self;
-    tweetsCollectionView.dataSource = self;
-    tweetsCollectionView.hidden = NO;
-    tweetsCollectionView.backgroundColor = [UIColor clearColor];
-    [self loadTweetsFromPost];
-    
-    
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [self.tweetsCollectionView addSubview:self.activityIndicator];
-    self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
-    [self.activityIndicator startAnimating];
-    
-    [self.scrollView addSubview:tweetsCollectionView];
-    
     UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.itemSize = CGSizeMake(100, 100);
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -601,6 +533,44 @@
     
     socialcollectionView.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:socialcollectionView];
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+    
+    
+    //    self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];
+    //    self.starRating.userInteractionEnabled = NO;
+    //    [self.ratingControl addSubview:self.starRating];
+    
+    [self.timer invalidate];
+    //[progressView removeFromSuperview];
+}
+
+-(void)loadTweetsAndSocialLink {
+    self.isTwitterLoad = YES;
+    UICollectionViewFlowLayout* tweetFlowLayout = [[UICollectionViewFlowLayout alloc]init];
+    tweetFlowLayout.itemSize = CGSizeMake(100, 100);
+    [tweetFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    
+    
+    tweetsCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+100, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
+    
+    UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCell" bundle:nil];
+    [tweetsCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
+    [tweetsCollectionView registerClass:[TweetsCell class] forCellWithReuseIdentifier:@"Cell"];
+    tweetsCollectionView.delegate = self;
+    tweetsCollectionView.dataSource = self;
+    tweetsCollectionView.hidden = NO;
+    tweetsCollectionView.backgroundColor = [UIColor clearColor];
+    [self loadTweetsFromPost];
+    
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.tweetsCollectionView addSubview:self.activityIndicator];
+    self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
+    [self.activityIndicator startAnimating];
+    
+    [self.scrollView addSubview:tweetsCollectionView];
+    
+    
     
 }
 
