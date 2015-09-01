@@ -1141,7 +1141,19 @@
             }
         }
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [FIUtils showErrorToast];
+        NSError* error1;
+        NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+        NSLog(@"error menu unread JSON:%@",errorJson);
+        if(errorJson == nil){
+            [FIUtils showErrorToast];
+        } else {
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
+        }
     }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1169,12 +1181,25 @@
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:nil];
                 //[self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
+                
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
                     [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
                 }
             }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error menu unread JSON:%@",errorJson);
+            if(errorJson == nil){
+                [FIUtils showErrorToast];
+            } else {
+                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                    [self hideProgressView];
+                    [self showLoginView:[NSNumber numberWithInt:0]];
+                } else {
+                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                }
+            }
         }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
