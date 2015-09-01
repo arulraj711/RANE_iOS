@@ -7,7 +7,6 @@
 //
 
 #import "LeftViewController.h"
-#import "RADataObject.h"
 #import "RATableViewCell.h"
 #import "FISharedResources.h"
 #import "FIMenu.h"
@@ -297,7 +296,7 @@
 
 -(void)updateUnreadCount {
     NSMutableArray *unreadMenuArray = [[FISharedResources sharedResourceManager]menuUnReadCountArray];
-    NSLog(@"unread menu array:%@",unreadMenuArray);
+    NSLog(@"unread menu array:%@ and selected item:%@",unreadMenuArray,data.name);
     for(RADataObject *dataObject in self.data) {
         for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
             if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId]) {
@@ -310,7 +309,7 @@
     
     
     
-   // [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+    [self.treeView selectRowForItem:data animated:YES scrollPosition:RATreeViewScrollPositionTop];
     // [treeView reloadData];
 }
 
@@ -699,11 +698,8 @@
 
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
-    RADataObject *data = item;
-   // NSLog(@"did select row:%@",data.name);
-    
-    
-    
+    data = item;
+    NSLog(@"did select row:%@",data.name);
     RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
     BOOL expanded = [self.treeView isCellForItemExpanded:item];
     if(expanded) {

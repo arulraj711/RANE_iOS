@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "RATreeView.h"
+#import "RADataObject.h"
 #import "MZFormSheetController.h"
 @interface LeftViewController : UIViewController <RATreeViewDataSource,RATreeViewDelegate,MZFormSheetBackgroundWindowDelegate,UIViewControllerTransitioningDelegate>{
     RATreeView *treeView;
     MZFormSheetController *formSheet;
     int unreadCnt;
+    RADataObject *data;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;
 @property (weak, nonatomic) IBOutlet UIButton *researchButton;
