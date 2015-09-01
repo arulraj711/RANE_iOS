@@ -278,7 +278,7 @@
     
     
     // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
-    
+
     dispatch_async(globalConcurrentQueue, ^{
         NSLog(@"A - 1");
         [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
@@ -715,6 +715,7 @@
         
         cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
     if([data.nodeId integerValue] == 9 && !data.isFolder) {
+        [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         
@@ -728,6 +729,8 @@
         [gradedetails setObject:@"" forKey:@"lastArticleId"];
         [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
         [gradedetails setObject:@"2" forKey:@"activityTypeIds"];
+        [gradedetails setObject:@"-1" forKey:@"categoryId"];
+        [gradedetails setObject:@"-1" forKey:@"contentTypeId"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
         NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
@@ -767,6 +770,7 @@
         
         
     } else if([data.nodeId integerValue] == 6 && !data.isFolder) {
+        [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-3] forKey:@"categoryId"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
@@ -779,6 +783,8 @@
             [gradedetails setObject:@"" forKey:@"lastArticleId"];
             [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
             [gradedetails setObject:@"3" forKey:@"activityTypeIds"];
+            [gradedetails setObject:@"-1" forKey:@"categoryId"];
+            [gradedetails setObject:@"-1" forKey:@"contentTypeId"];
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
             NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
@@ -872,7 +878,7 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
         if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
-           // [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+            [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
             // NSLog(@"empty node id");
         }else {
             UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];

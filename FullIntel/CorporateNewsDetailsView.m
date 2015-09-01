@@ -336,6 +336,8 @@
                 [self updateCellReadStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 cell.webViewHeightConstraint.constant = 200;
                 [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+                [activityIndicator stopAnimating];
+                [activityIndicator removeFromSuperview];
                 [self configureAuthorDetails:cell forCuratedNewsAuthor:author];
                 cell.relatedPostArray = postArray;
                 //if([[FISharedResources sharedResourceManager]serviceIsReachable]) {

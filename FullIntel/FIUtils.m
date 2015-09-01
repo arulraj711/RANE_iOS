@@ -82,7 +82,7 @@
     [gradedetails setObject:activityTypeId forKey:@"activityTypeIds"];
     if(categoryId == nil) {
         [gradedetails setObject:@"-1" forKey:@"categoryId"];
-        [gradedetails setObject:@"" forKey:@"contentTypeId"];
+        [gradedetails setObject:@"-1" forKey:@"contentTypeId"];
     } else {
         [gradedetails setObject:categoryId forKey:@"categoryId"];
         [gradedetails setObject:contentTypeId forKey:@"contentTypeId"];

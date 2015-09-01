@@ -342,7 +342,8 @@
         
         
         
-        
+        [self.activityIndicator stopAnimating];
+        [self.activityIndicator removeFromSuperview];
         
         NSLog(@"screen name:%@",author.screenName);
         NSDictionary *followDic =[followersArray objectAtIndex:indexPath.row];
