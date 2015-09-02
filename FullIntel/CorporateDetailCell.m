@@ -1051,17 +1051,21 @@
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat y = -scrollView.contentOffset.y;
-    
-    
-    //NSLog(@"scroll y value:%f",y);
-    if (y > 0) {
-        self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+50, self.cachedImageViewSize.size.height+y);
-        self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
-    } else {
-       // NSLog(@"collection view cell scroll");
+    if(scrollView == self.scrollView) {
+        CGFloat y = -scrollView.contentOffset.y;
         
+        
+        //NSLog(@"scroll y value:%f",y);
+        if (y > 0) {
+            NSLog(@"scroll down");
+            self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+50, self.cachedImageViewSize.size.height+y);
+            self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
+        } else {
+             //NSLog(@"scroll up");
+            if(!self.isTwitterLoad) {
+                [self loadTweetsAndSocialLink];
+            }
+        }
 
     }
 }
@@ -1072,9 +1076,7 @@
         float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
         if (bottomEdge >= scrollView.contentSize.height) {
             // we are at the end
-            if(!self.isTwitterLoad) {
-                [self loadTweetsAndSocialLink];
-            }
+            
             
         }
     }

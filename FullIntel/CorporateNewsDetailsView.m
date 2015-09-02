@@ -900,9 +900,9 @@
     int lastCount = self.articleIdArray.count-1;
     float scrollOffset = self.collectionView.contentOffset.x;
     
+    float scrollOffsetY = self.collectionView.contentOffset.y;
     
-    
-    
+    NSLog(@"collection scroll x:%f and y:%f",scrollOffset,scrollOffsetY);
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
         NSLog(@"reached end article count:%d",self.articleIdArray.count);
         
