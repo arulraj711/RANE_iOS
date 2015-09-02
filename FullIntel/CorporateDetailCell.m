@@ -508,6 +508,7 @@
         self.tweetLabelHeightConstraint.constant = 0;
         self.tweetLabel.hidden = YES;
         self.tweetDividerImageView.hidden = YES;
+        self.tweetsCollectionView.hidden = YES;
         socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+0+200, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
     }
     

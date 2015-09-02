@@ -904,7 +904,7 @@
     
     NSLog(@"collection scroll x:%f and y:%f",scrollOffset,scrollOffsetY);
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
-        NSLog(@"reached end article count:%d",self.articleIdArray.count);
+       // NSLog(@"reached end article count:%d",self.articleIdArray.count);
         
         if(self.articleIdArray.count != 0) {
             self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
