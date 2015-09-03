@@ -502,6 +502,7 @@
    // NSLog(@"cell indexpath:%@",indexPath);
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+   // [cell resetCellWebviewHeight];
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     cell.cachedImageViewSize = cell.articleImageView.frame;
     cell.isTwitterLoad = NO;
@@ -520,37 +521,50 @@
             NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
             NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
             NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
-            if(postArray.count == 0) {
-                cell.tweetCollectionViewHeightConstraint.constant = 0;
-                cell.tweetLabelHeightConstraint.constant = 0;
-                cell.tweetLabel.hidden = YES;
-                cell.tweetDividerImageView.hidden = YES;
-            } else {
-                cell.tweetCollectionViewHeightConstraint.constant = 300;
-                cell.tweetLabelHeightConstraint.constant = 41;
-                cell.tweetLabel.hidden = NO;
-                cell.tweetDividerImageView.hidden = NO;
-            }
+            [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+            [self updateCellViewType:cell forCuratedNews:curatedNews atIndexPath:indexPath];
             NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
             NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
             NSManagedObject *author;
             if(legendsArray.count != 0) {
                 author  = [legendsArray objectAtIndex:0];
             }
-            
+            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                if(postArray.count == 0) {
+                    cell.tweetCollectionViewHeightConstraint.constant = 0;
+                    cell.tweetLabelHeightConstraint.constant = 0;
+                    cell.tweetLabel.hidden = YES;
+                    cell.tweetDividerImageView.hidden = YES;
+                    cell.tweetsCollectionView.hidden = YES;
+                } else {
+                    cell.tweetCollectionViewHeightConstraint.constant = 300;
+                    cell.tweetLabelHeightConstraint.constant = 41;
+                    cell.tweetLabel.hidden = NO;
+                    cell.tweetDividerImageView.hidden = NO;
+                    cell.tweetsCollectionView.hidden = NO;
+                }
+            } else {
+                cell.tweetCollectionViewHeightConstraint.constant = 0;
+                cell.tweetLabelHeightConstraint.constant = 0;
+                cell.tweetLabel.hidden = YES;
+                cell.tweetDividerImageView.hidden = YES;
+                cell.tweetsCollectionView.hidden = YES;
+            }
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 [self configureCell:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self configureCellOutletDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self configureCellAuthorDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
-                [self updateCellViewType:cell forCuratedNews:curatedNews atIndexPath:indexPath];
+                
                 [self updateCellMarkedImportantStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self updateCellSavedForLaterStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self updateCellCommentCount:cell forCuratedNews:curatedNewsDetail atIndexPath:indexPath];
                 [self updateCellReadStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
-                cell.webViewHeightConstraint.constant = 200;
-                [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+                //cell.webViewHeightConstraint.constant = 200;
+                
                 [self configureAuthorDetails:cell forCuratedNewsAuthor:author];
                 cell.relatedPostArray = postArray;
+                
+                
                 
             });
         });

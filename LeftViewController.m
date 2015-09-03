@@ -7,7 +7,6 @@
 //
 
 #import "LeftViewController.h"
-#import "RADataObject.h"
 #import "RATableViewCell.h"
 #import "FISharedResources.h"
 #import "FIMenu.h"
@@ -526,12 +525,12 @@
         for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
             if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId]) {
                 dataObject.unReadCount = unreadMenu.unreadCount;
-                [self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone
-                 ];
+                //[self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone];
             }
         }
     }
-   // [treeView reloadData];
+    [self.treeView selectRowForItem:data animated:nil scrollPosition:RATreeViewScrollPositionNone];
+    [treeView reloadData];
 }
 
 -(void)loadMenus {
@@ -568,7 +567,7 @@
     [treeView reloadData];
     NSLog(@"data count:%lu",(unsigned long)self.data.count);
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    if(accessToken.length > 0) {
+    if(accessToken.length > 0 && self.data.count > 2) {
         [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
@@ -959,7 +958,7 @@
 
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
-    RADataObject *data = item;
+    data = item;
     // NSLog(@"did select row:%@",data.name);
     
     

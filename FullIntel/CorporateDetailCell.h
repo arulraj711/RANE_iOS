@@ -130,6 +130,7 @@
 - (IBAction)savedListButtonClick:(UIButton *)sender;
 - (IBAction)moreButtonClick:(UIButton *)sender;
 -(void)loadTweetsFromPost;
+-(void)resetCellWebviewHeight;
 - (IBAction)infoButtonClick:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *commentBtn;

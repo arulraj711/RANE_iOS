@@ -34,7 +34,7 @@
 //    [Fabric with:@[CrashlyticsKit]];
     
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
+    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
     
     [Localytics autoIntegrate:@"438bf8ffebdfbbaa1d8fedb-5e0569d4-3c14-11e5-65d1-00736b041834" launchOptions:launchOptions];
     

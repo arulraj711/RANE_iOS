@@ -10,7 +10,7 @@
 #import "RATreeView.h"
 #import "MZFormSheetController.h"
 #import "WSCoachMarksView.h"
-
+#import "RADataObject.h"
 @interface LeftViewController : UIViewController <RATreeViewDataSource,RATreeViewDelegate,MZFormSheetBackgroundWindowDelegate,UIViewControllerTransitioningDelegate,WSCoachMarksViewDelegate>{
     RATreeView *treeView;
     MZFormSheetController *formSheet;
@@ -18,6 +18,7 @@
     NSArray *coachMarks;
     int unreadCnt;
     NSTimer *popAnimationTimer,*popAnimationTimerTwo;
+    RADataObject *data;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;
 @property (weak, nonatomic) IBOutlet UIButton *researchButton;
