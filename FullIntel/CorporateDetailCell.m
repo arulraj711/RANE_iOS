@@ -289,32 +289,32 @@
                         TWTRUser *author = tweetObj.author;
                         [tweetScreenNameArray addObject:author.screenName];
                     }
-                    NSLog(@"tweet array:%d and screennamearray:%d",tweetArray.count,tweetScreenNameArray.count);
-                    if(tweetScreenNameArray.count != 0) {
-                        if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
-                           // dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                               // NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
-                            [FIWebService getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","] onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                followersArray=[[NSMutableArray alloc]initWithArray:responseObject];
-                            } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                [FIUtils showErrorToast];
-                            }];
-                               // dispatch_async(dispatch_get_main_queue(), ^(void){
-                            
-                                    NSLog(@"followers array:%@",followersArray);
-                                   // [tweetsCollectionView reloadData];
-//                                });
-//                            });
-                        }
-                    } else {
-                        //followersArray=[[NSMutableArray alloc]init];
-                    }
-                   
+//                    NSLog(@"tweet array:%d and screennamearray:%d",tweetArray.count,tweetScreenNameArray.count);
+//                    if(tweetScreenNameArray.count != 0) {
+//                        if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
+//                           // dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+//                               // NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
+//                            
+//                               // dispatch_async(dispatch_get_main_queue(), ^(void){
+//                            
+//                                    NSLog(@"followers array:%@",followersArray);
+//                                   // [tweetsCollectionView reloadData];
+////                                });
+////                            });
+//                        }
+//                    } else {
+//                        //followersArray=[[NSMutableArray alloc]init];
+//                    }
+                
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     UICollectionViewFlowLayout* tweetFlowLayout = [[UICollectionViewFlowLayout alloc]init];
                     tweetFlowLayout.itemSize = CGSizeMake(100, 100);
                     [tweetFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-                    
+                    [FIWebService getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","] onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        followersArray=[[NSMutableArray alloc]initWithArray:responseObject];
+                    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        [FIUtils showErrorToast];
+                    }];
                     
                     tweetsCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+100, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
                     
