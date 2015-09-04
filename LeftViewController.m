@@ -280,8 +280,8 @@
     // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
 
     dispatch_async(globalConcurrentQueue, ^{
-        NSLog(@"A - 1");
-        [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+      //  NSLog(@"A - 1");
+      //  [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
     });
     
     }

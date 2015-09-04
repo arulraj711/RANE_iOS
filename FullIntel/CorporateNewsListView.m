@@ -624,7 +624,7 @@
     NSString *articleId = [userInfo objectForKey:@"articleId"];
    // NSLog(@"updated articleid:%@",articleId);
     // NSNumber  = [userInfo objectForKey:@"status"];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void) {
+   // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void) {
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",articleId];
@@ -651,7 +651,7 @@
         //    NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
         //    [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
         [self updateReadUnReadStatusForRow:indexPath];
-    });
+    //});
     
 }
 

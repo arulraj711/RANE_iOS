@@ -1131,7 +1131,7 @@
             [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
             oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                                              selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
-            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+           // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
             
         }
     }

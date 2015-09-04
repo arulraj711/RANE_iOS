@@ -22,7 +22,8 @@
     UICollectionView *socialcollectionView,*tweetsCollectionView;
     NSMutableArray *tweetIds,*followersArray,*tweetScreenNameArray;
     CGRect positionOfCollectionViewInScrollView;
-    UILabel *lbl;
+    UIView *lbl;
+    UIView *noTweetView;
 }
 @property BOOL isTwitterLoad;
 @property BOOL isTwitterAPICalled;

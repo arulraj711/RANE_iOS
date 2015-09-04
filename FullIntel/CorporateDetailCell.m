@@ -280,29 +280,29 @@
             [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
                 // NSLog(@"tweet error:%@",error);
                 [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
-                    //NSLog(@"Tweet array:%@",tweet);
-                    
-                    
-                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
-                        tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
-                        
-                        tweetScreenNameArray= [[NSMutableArray alloc]init];
-                        
-                        for(TWTRTweet *tweetObj in tweetArray) {
-                            TWTRUser *author = tweetObj.author;
-                            [tweetScreenNameArray addObject:author.screenName];
-                        }
-                        
-                        NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
-                        followersArray = [NSMutableArray arrayWithArray:followArray];
-                        NSLog(@"Tweet follwers array:%@",followersArray);
-                        dispatch_async(dispatch_get_main_queue(), ^(void){
-                            [self.activityIndicator removeFromSuperview];
-                            [self.activityIndicator stopAnimating];
-                            tweetsCollectionView.hidden = NO;
-                            [tweetsCollectionView reloadData];
+                    NSLog(@"Tweet array:%@",tweet);
+                    if(tweet.count != 0) {
+                        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
+                            tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
+                            
+                            tweetScreenNameArray= [[NSMutableArray alloc]init];
+                            
+                            for(TWTRTweet *tweetObj in tweetArray) {
+                                TWTRUser *author = tweetObj.author;
+                                [tweetScreenNameArray addObject:author.screenName];
+                            }
+                            
+                            NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
+                            followersArray = [NSMutableArray arrayWithArray:followArray];
+                            NSLog(@"Tweet follwers array:%@",followersArray);
+                            dispatch_async(dispatch_get_main_queue(), ^(void){
+                                [self.activityIndicator removeFromSuperview];
+                                [self.activityIndicator stopAnimating];
+                                tweetsCollectionView.hidden = NO;
+                                [tweetsCollectionView reloadData];
+                            });
                         });
-                    });
+                    }
                 }];
             }];
         }
@@ -670,11 +670,24 @@
     self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
     [self.activityIndicator startAnimating];
     [self.tweetsCollectionView addSubview:self.activityIndicator];
-    lbl= [[UILabel alloc]initWithFrame:CGRectMake(0, self.tweetsCollectionView.frame.size.height / 2, self.tweetsCollectionView.frame.size.width, 50)];
-    lbl.text = @"No Tweets found for this article";
-    lbl.font = [UIFont fontWithName:@"Arial" size:20];
-    lbl.textAlignment = NSTextAlignmentCenter;
-    lbl.textColor = [UIColor lightTextColor];
+    lbl= [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.tweetsCollectionView.frame.size.width, 300)];
+//    lbl.text = @"No Tweets found for this article";
+//    lbl.font = [UIFont fontWithName:@"Arial" size:20];
+//    lbl.textAlignment = NSTextAlignmentCenter;
+//    lbl.textColor = [UIColor lightGrayColor];
+   // lbl.backgroundColor = [UIColor blackColor];
+    UIImageView *tweetImg = [[UIImageView alloc]initWithFrame:CGRectMake((self.tweetsCollectionView.frame.size.width-80)/2, 80, 80, 80)];
+    tweetImg.image = [UIImage imageNamed:@"notweet"];
+    //tweetImg.backgroundColor = [UIColor greenColor];
+    [lbl addSubview:tweetImg];
+    
+    UILabel *tweetText = [[UILabel alloc]initWithFrame:CGRectMake(0, 200, self.tweetsCollectionView.frame.size.width, 50)];
+    tweetText.text = @"No tweets available";
+    tweetText.font = [UIFont fontWithName:@"Arial" size:20];
+    tweetText.textAlignment = NSTextAlignmentCenter;
+    tweetText.textColor = [UIColor lightGrayColor];
+    [lbl addSubview:tweetText];
+    
     [self.tweetsCollectionView addSubview:lbl];
     [self.scrollView addSubview:tweetsCollectionView];
     UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
