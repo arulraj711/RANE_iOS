@@ -22,11 +22,12 @@
     UICollectionView *socialcollectionView,*tweetsCollectionView;
     NSMutableArray *tweetIds,*followersArray,*tweetScreenNameArray;
     NSTimer *popAnimationTimer;
-    
+    CGRect positionOfCollectionViewInScrollView;
 }
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property BOOL isFIViewSelected;
 @property BOOL isTwitterLoad;
+@property BOOL isTwitterAPICalled;
 @property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,strong) IBOutlet UILabel *articleTitle;

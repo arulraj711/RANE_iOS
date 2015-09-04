@@ -500,12 +500,14 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
    // NSLog(@"cell indexpath:%@",indexPath);
+    self.selectedIndexPath = indexPath;
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
    // [cell resetCellWebviewHeight];
-    [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    //[cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     cell.cachedImageViewSize = cell.articleImageView.frame;
     cell.isTwitterLoad = NO;
+    cell.isTwitterAPICalled = NO;
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];
@@ -529,27 +531,7 @@
             if(legendsArray.count != 0) {
                 author  = [legendsArray objectAtIndex:0];
             }
-//            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-//                if(postArray.count == 0) {
-//                    cell.tweetCollectionViewHeightConstraint.constant = 0;
-//                    cell.tweetLabelHeightConstraint.constant = 0;
-//                    cell.tweetLabel.hidden = YES;
-//                    cell.tweetDividerImageView.hidden = YES;
-//                    cell.tweetsCollectionView.hidden = YES;
-//                } else {
-//                    cell.tweetCollectionViewHeightConstraint.constant = 300;
-//                    cell.tweetLabelHeightConstraint.constant = 41;
-//                    cell.tweetLabel.hidden = NO;
-//                    cell.tweetDividerImageView.hidden = NO;
-//                    cell.tweetsCollectionView.hidden = NO;
-//                }
-//            } else {
-//                cell.tweetCollectionViewHeightConstraint.constant = 0;
-//                cell.tweetLabelHeightConstraint.constant = 0;
-//                cell.tweetLabel.hidden = YES;
-//                cell.tweetDividerImageView.hidden = YES;
-//                cell.tweetsCollectionView.hidden = YES;
-//            }
+
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 [self configureCell:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self configureCellOutletDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
@@ -1107,7 +1089,10 @@
 
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
-  //  NSLog(@"collection view scroll");
+    CorporateDetailCell *cell = (CorporateDetailCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPath];
+    // [cell resetCellWebviewHeight];
+    [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    NSLog(@"collection view scroll");
     int lastCount = self.articleIdArray.count-1;
     float scrollOffset = self.collectionView.contentOffset.x;
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
