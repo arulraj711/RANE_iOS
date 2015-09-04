@@ -627,6 +627,7 @@
     //self.scrollView.contentSize = webView.bounds.size;
     
     
+
     CGRect frame = webView.frame;
     frame.size.height = 200;
     webView.frame = frame;
@@ -1311,6 +1312,7 @@
             }
             
         }
+
     }
 }
 
@@ -1320,6 +1322,7 @@
         float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
         if (bottomEdge >= scrollView.contentSize.height) {
             // we are at the end
+
             
         }
     }

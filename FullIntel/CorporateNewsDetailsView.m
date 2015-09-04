@@ -1095,6 +1095,7 @@
    // NSLog(@"collection view scroll");
     int lastCount = self.articleIdArray.count-1;
     float scrollOffset = self.collectionView.contentOffset.x;
+
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
     if(isFIViewSelected) {
         //Show FI View
@@ -1103,11 +1104,13 @@
         //Show Web View
       //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"WebViewArticlesNavigationInDrillIn"];
     }
+
     
+    float scrollOffsetY = self.collectionView.contentOffset.y;
+
     
-    
+    NSLog(@"collection scroll x:%f and y:%f",scrollOffset,scrollOffsetY);
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
-      //  NSLog(@"reached end article count:%d",self.articleIdArray.count);
         
         if(self.articleIdArray.count != 0) {
             self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
