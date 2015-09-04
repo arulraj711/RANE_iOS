@@ -21,9 +21,11 @@
     UCZProgressView *progressView;
     UICollectionView *socialcollectionView,*tweetsCollectionView;
     NSMutableArray *tweetIds,*followersArray,*tweetScreenNameArray;
-    
+    CGRect positionOfCollectionViewInScrollView;
+    UILabel *lbl;
 }
 @property BOOL isTwitterLoad;
+@property BOOL isTwitterAPICalled;
 @property BOOL isFIViewSelected;
 @property UIActivityIndicatorView *activityIndicator;
 @property (nonatomic,strong) NSTimer *timer;

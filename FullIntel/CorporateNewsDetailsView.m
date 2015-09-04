@@ -18,6 +18,7 @@
 #import "DismissingAnimator.h"
 #import "ResearchRequestPopoverView.h"
 #import "MailPopoverView.h"
+#import "pop.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface CorporateNewsDetailsView ()
@@ -30,6 +31,17 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addOverLayForTutorial) name:@"DrillDownTutorialTrigger" object:nil];
+    
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeDownTutorial) name:@"DrillInToolBoxTutorial" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endOfTutorial) name:@"EndOfDrillDownTutorial" object:nil];
+    
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(widgetWebViewTrigger:) name:@"widgetWebViewCalled" object:nil];
@@ -69,11 +81,178 @@
     
     [self getArticleIdListFromDB];
     
+  //  _tutorialTextBoxView.hidden=YES;
+    
+    
+   // _tutorialTextBoxView.layer.cornerRadius=5.0f;
+    
+}
+
+-(void)endOfTutorial{
+    
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"EndOfTutorial" object:nil];
+    
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    [super viewWillAppear:animated];
+    
+   // [self.tutorialTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
+    
+    
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    
+    [super viewWillDisappear:animated];
+    
+   // [self.tutorialTextView removeObserver:self forKeyPath:@"contentSize"];
+    
+}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
+    
+    UITextView *tv = object;
+    CGFloat topCorrect = ([tv bounds].size.height - [tv contentSize].height * [tv zoomScale])/2.0;
+    topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect );
+    tv.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
+}
+
+
+//-(void)afterSwipeDownTutorial{
+//    
+//    
+//    coachMarks = @[
+//                   
+//                   @{
+//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-360,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+//                       @"caption": @""
+//                       },
+//                   @{
+//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-310,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+//                       @"caption": @""
+//                       },
+//                   
+//                   @{
+//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-260,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+//                       @"caption": @""
+//                       },
+//                   
+//                   @{
+//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-210,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+//                       @"caption": @""
+//                       },
+//                   
+//                   @{
+//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-160,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+//                       @"caption": @""
+//                       },
+//                   
+//                   @{
+//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-110,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+//                       @"caption": @""
+//                       },
+//                   
+//                   
+//                   @{
+//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-60,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+//                       @"caption": @""
+//                       },
+//                   ];
+//    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
+//    coachMarksView.delegate=self;
+//    [self.view addSubview:coachMarksView];
+//    [coachMarksView start];
+//    
+//    
+//    _tutorialTextBoxView.hidden=NO;
+//    
+//    
+//}
+
+
+//- (void)coachMarksView:(WSCoachMarksView*)coachMarksView didNavigateToIndex:(NSInteger)index{
+//    
+//    NSLog(@"Index:%ld",(long)index);
+//    
+//    NSString *indexString=[NSString stringWithFormat:@"%ld",(long)index];
+//    
+//    if(index==0){
+//        
+//        
+//        _tutorialTextView.text=@"Mark Important";
+//        
+//    }else if (index==1){
+//        
+//        _tutorialTextView.text=@"Comment";
+//        
+//    }else if (index==2){
+//        
+//        _tutorialTextView.text=@"Email";
+//        
+//    }else if (index==3){
+//        
+//        _tutorialTextView.text=@"Folder and RSS";
+//        
+//    }else if (index==4){
+//        
+//        
+//        _tutorialTextView.text=@"Save For Later";
+//    }else if (index==5){
+//        
+//        _tutorialTextView.text=@"Research Request / Feedback";
+//        
+//    }else{
+//        
+//        _tutorialTextView.text=@"Social Post";
+//    }
+//    
+//    
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"DrillDownToolBoxTutorialNavigation" object:nil userInfo:@{@"index":indexString}];
+//    
+//    
+//    
+//}
+
+//- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksView{
+//    
+//    
+//    
+//    
+//    _tutorialTextBoxView.hidden=YES;
+//    
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"coachMardRemoved" object:nil];
+//    
+//    
+//}
+-(void)addOverLayForTutorial{
+    
+    
+    
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    // UIViewController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"MainListTutorialViewController"];
+    
+    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"DrillDownListTutorialViewController"];
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:popOverView animated:NO completion:nil];
+    
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [activityIndicator stopAnimating];
+    
+    
+    
+   // [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated List Detailed View"];
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;
     [self.collectionView setContentOffset:CGPointMake(offset, 0)];
@@ -119,9 +298,6 @@
 }
 
 -(void)getArticleIdListFromDB {
-    //[oneSecondTicker invalidate];
-    
-    
     BOOL testFlag = [[NSUserDefaults standardUserDefaults]boolForKey:@"Test"];
     if(testFlag) {
         NSLog(@"test flag is TRUE");
@@ -182,7 +358,34 @@
         NSLog(@"test flag is FALSE");
     }
     NSLog(@"selected article id:%@",self.articleIdArray);
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
 }
+
+
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    
+    //Obtaining the current device orientation
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    //Ignoring specific orientations
+    if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown || orientation == UIDeviceOrientationUnknown) {
+        return;
+    }
+    
+    // We need to allow a slight pause before running handler to make sure rotation has been processed by the view hierarchy
+   // [self performSelectorOnMainThread:@selector(handleDeviceOrientationChange:) withObject:coachMarksView waitUntilDone:NO];
+}
+
+//- (void)handleDeviceOrientationChange:(WSCoachMarksView*)coachMarksView {
+//    
+//    // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
+//    
+//    
+//}
+
+
 
 -(void)commentStatusUpdate:(id)sender {
     NSNotification *notification = sender;
@@ -297,11 +500,14 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"cell indexpath:%@",indexPath);
+    self.selectedIndexPath = indexPath;
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    // [cell resetCellWebviewHeight];
+    //[cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     cell.cachedImageViewSize = cell.articleImageView.frame;
     cell.isTwitterLoad = NO;
+    cell.isTwitterAPICalled = NO;
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];
@@ -317,14 +523,15 @@
             NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
             NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
             NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
-            
+            [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+            [self updateCellViewType:cell forCuratedNews:curatedNews atIndexPath:indexPath];
             NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
             NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
             NSManagedObject *author;
             if(legendsArray.count != 0) {
                 author  = [legendsArray objectAtIndex:0];
             }
-            [self updateCellViewType:cell forCuratedNews:curatedNews atIndexPath:indexPath];
+            
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 [self configureCell:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self configureCellOutletDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
@@ -334,30 +541,12 @@
                 [self updateCellSavedForLaterStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self updateCellCommentCount:cell forCuratedNews:curatedNewsDetail atIndexPath:indexPath];
                 [self updateCellReadStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
-                cell.webViewHeightConstraint.constant = 200;
-                [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
-                [activityIndicator stopAnimating];
-                [activityIndicator removeFromSuperview];
+                //cell.webViewHeightConstraint.constant = 200;
+                
                 [self configureAuthorDetails:cell forCuratedNewsAuthor:author];
                 cell.relatedPostArray = postArray;
-                //if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-                    if(postArray.count == 0) {
-                        cell.tweetCollectionViewHeightConstraint.constant = 0;
-                        cell.tweetLabelHeightConstraint.constant = 0;
-                        cell.tweetLabel.hidden = YES;
-                        cell.tweetDividerImageView.hidden = YES;
-                    } else {
-                        cell.tweetCollectionViewHeightConstraint.constant = 300;
-                        cell.tweetLabelHeightConstraint.constant = 41;
-                        cell.tweetLabel.hidden = NO;
-                        cell.tweetDividerImageView.hidden = NO;
-                    }
-//                } else {
-//                    cell.tweetCollectionViewHeightConstraint.constant = 0;
-//                    cell.tweetLabelHeightConstraint.constant = 0;
-//                    cell.tweetLabel.hidden = YES;
-//                    cell.tweetDividerImageView.hidden = YES;
-//                }
+                
+                
                 
             });
         });
@@ -831,10 +1020,10 @@
         UIAlertView *alert;
         alert = [[UIAlertView alloc]
                  initWithTitle:@"Email an Article"
-                 message:@"It looks like thee is no email setup on  this device. Please select one of the following options"
+                 message:@"You have not setup a mail box in your device.Please go to settings and configure mail account or send mail via FullIntel App"
                  delegate:self
                  cancelButtonTitle:@"Cancel"
-                 otherButtonTitles:@"Setup Email",@"Email via FullIntel",nil];
+                 otherButtonTitles:@"Go to Settings",@"Send via FullIntel",nil];
         
         [alert show];
     }
@@ -878,6 +1067,8 @@
 -(void)globeButtonClick:(UIButton *)sender {
     
     if(sender.selected) {
+        
+      //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchFullIntelView"];
         //NSLog(@"sender selected");
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
         [sender setSelected:NO];
@@ -885,6 +1076,8 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     } else {
         //NSLog(@"sender is not selected");
+      //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchWebView"];
+        
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
         [sender setSelected:YES];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:1]}];
@@ -896,15 +1089,25 @@
 
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
-    //  NSLog(@"collection view scroll");
+    CorporateDetailCell *cell = (CorporateDetailCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPath];
+    // [cell resetCellWebviewHeight];
+    [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+   // NSLog(@"collection view scroll");
     int lastCount = self.articleIdArray.count-1;
     float scrollOffset = self.collectionView.contentOffset.x;
-    
+    BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
+    if(isFIViewSelected) {
+        //Show FI View
+       // [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FIArticlesNavigationInDrillIn"];
+    }else {
+        //Show Web View
+      //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"WebViewArticlesNavigationInDrillIn"];
+    }
     
     
     
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
-        NSLog(@"reached end article count:%d",self.articleIdArray.count);
+      //  NSLog(@"reached end article count:%d",self.articleIdArray.count);
         
         if(self.articleIdArray.count != 0) {
             self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -928,8 +1131,8 @@
             [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
             oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                                              selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
-            //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
-            // });
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+            
         }
     }
 }

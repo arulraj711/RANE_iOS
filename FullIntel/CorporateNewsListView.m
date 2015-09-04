@@ -622,34 +622,37 @@
     NSDictionary *userInfo = notification.userInfo;
     NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
     NSString *articleId = [userInfo objectForKey:@"articleId"];
-    NSLog(@"updated articleid:%@",articleId);
+   // NSLog(@"updated articleid:%@",articleId);
     // NSNumber  = [userInfo objectForKey:@"status"];
-    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",articleId];
-    [fetchRequest setPredicate:predicate];
-    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    NSLog(@"new person array count:%d",newPerson.count);
-    if(newPerson.count != 0) {
-        //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-        for(NSManagedObject *curatedNews in newPerson) {
-            NSLog(@"for loop update");
-            [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
-            
-            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-                // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
-            } else {
-                [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void) {
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",articleId];
+        [fetchRequest setPredicate:predicate];
+        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        //NSLog(@"new person array count:%d",newPerson.count);
+        if(newPerson.count != 0) {
+            //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+            for(NSManagedObject *curatedNews in newPerson) {
+                NSLog(@"for loop update");
+                [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
+                
+                if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                    // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+                } else {
+                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+                }
             }
+            
+            
+            
         }
-        
-        
-        
-    }
-    [managedObjectContext save:nil];
-//    NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
-//    [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
-    [self updateReadUnReadStatusForRow:indexPath];
+        [managedObjectContext save:nil];
+        //    NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+        //    [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
+        [self updateReadUnReadStatusForRow:indexPath];
+    });
+    
 }
 
 - (void)didReceiveMemoryWarning {

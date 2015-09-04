@@ -93,50 +93,53 @@
 }
 
 -(void)showBannerView {
-    UIWindow *window = [[UIApplication sharedApplication]windows][0];
-    NSLog(@"Unreachable width:%f and resize:%f and another:%f",window.frame.size.width,window.frame.size.width/2,(window.frame.size.width/2)-(300/2));
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSLog(@"Unreachable width:%f and resize:%f and another:%f",window.frame.size.width,window.frame.size.width/2,(window.frame.size.width/2)-(300/2));
+        
+        buttonBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, window.frame.size.width , window.frame.size.height)];
+        buttonBackView.backgroundColor = [UIColor clearColor];
+        
+        
+        UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake((window.frame.size.width/2)-(400/2), 70, 400, 80)];
+        backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
+        
+        UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 360, 80)];
+        errorLabel.text = @"It appears that you are not connected to the internet and some features are not available when you are offline.";
+        errorLabel.textColor = [UIColor whiteColor];
+        errorLabel.textAlignment = NSTextAlignmentLeft;
+        errorLabel.numberOfLines = 3;
+        errorLabel.font = [UIFont fontWithName:@"Open Sans" size:15];
+        [backgrView addSubview:errorLabel];
+        backgrView.layer.cornerRadius = 10.0f;
+        backgrView.layer.masksToBounds = YES;
+        
+        
+        
+        //    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        //    [button addTarget:self
+        //               action:@selector(closeBannerView)
+        //     forControlEvents:UIControlEventTouchUpInside];
+        //    [button setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        //    //[button setTitle:@"Show View" forState:UIControlStateNormal];
+        //    button.frame = CGRectMake(0, 32, 16, 16);
+        //    [buttonBackView addSubview:button];
+        
+        
+        
+        
+        [buttonBackView addSubview:backgrView];
+        
+        
+        UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeBannerView)];
+        tapEvent.numberOfTouchesRequired = 1;
+        buttonBackView.userInteractionEnabled = YES;
+        [buttonBackView addGestureRecognizer:tapEvent];
+        
+        // backgrView.alpha = 0.6;
+        [window addSubview:buttonBackView];
+    });
     
-    buttonBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, window.frame.size.width , window.frame.size.height)];
-    buttonBackView.backgroundColor = [UIColor clearColor];
-    
-    
-    UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake((window.frame.size.width/2)-(400/2), 70, 400, 80)];
-    backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
-    
-    UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 360, 80)];
-    errorLabel.text = @"It appears that you are not connected to the internet and some features are not available when you are offline.";
-    errorLabel.textColor = [UIColor whiteColor];
-    errorLabel.textAlignment = NSTextAlignmentLeft;
-    errorLabel.numberOfLines = 3;
-    errorLabel.font = [UIFont fontWithName:@"Open Sans" size:15];
-    [backgrView addSubview:errorLabel];
-    backgrView.layer.cornerRadius = 10.0f;
-    backgrView.layer.masksToBounds = YES;
-    
-    
-    
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button addTarget:self
-//               action:@selector(closeBannerView)
-//     forControlEvents:UIControlEventTouchUpInside];
-//    [button setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-//    //[button setTitle:@"Show View" forState:UIControlStateNormal];
-//    button.frame = CGRectMake(0, 32, 16, 16);
-//    [buttonBackView addSubview:button];
-    
-    
-    
-    
-    [buttonBackView addSubview:backgrView];
-    
-    
-    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeBannerView)];
-    tapEvent.numberOfTouchesRequired = 1;
-    buttonBackView.userInteractionEnabled = YES;
-    [buttonBackView addGestureRecognizer:tapEvent];
-    
-    // backgrView.alpha = 0.6;
-    [window addSubview:buttonBackView];
     
 }
 
@@ -1167,6 +1170,7 @@
 
 -(void)getMenuUnreadCountWithAccessToken:(NSString *)accessToken {
     if([self serviceIsReachable]) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         [FIWebService fetchMenuUnreadCountWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
             if([responseObject isKindOfClass:[NSArray class]]){
@@ -1187,20 +1191,21 @@
                 }
             }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSError* error1;
-            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
-            NSLog(@"error menu unread JSON:%@",errorJson);
-            if(errorJson == nil){
-                [FIUtils showErrorToast];
-            } else {
-                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
-                    [self hideProgressView];
-                    [self showLoginView:[NSNumber numberWithInt:0]];
-                } else {
-                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
-                }
-            }
+//            NSError* error1;
+//            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+//            NSLog(@"error menu unread JSON:%@",errorJson);
+//            if(errorJson == nil){
+//                [FIUtils showErrorToast];
+//            } else {
+//                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+//                    [self hideProgressView];
+//                    [self showLoginView:[NSNumber numberWithInt:0]];
+//                } else {
+//                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+//                }
+//            }
         }];
+        });
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
