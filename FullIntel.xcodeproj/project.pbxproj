@@ -235,6 +235,7 @@
 		A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateDetailCell.m; sourceTree = "<group>"; };
 		A010928C1B15AB25003C9F3A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A010C1C01B1F32AF00BF053D /* john_maddox.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john_maddox.jpg; sourceTree = "<group>"; };
+		A01499CE1B9DBBC5000D77D2 /* FullIntel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 4.xcdatamodel"; sourceTree = "<group>"; };
 		A02C54C51AEF5E0000E65011 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		A0406B9F1B05CE5F00985CF8 /* TweetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsCell.h; sourceTree = "<group>"; };
 		A0406BA01B05CE5F00985CF8 /* TweetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsCell.m; sourceTree = "<group>"; };
@@ -1689,11 +1690,12 @@
 		A0E223571A91C2F00073814A /* FullIntel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				A01499CE1B9DBBC5000D77D2 /* FullIntel 4.xcdatamodel */,
 				A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */,
 				F552A8241B6666670003B7C1 /* FullIntel 2.xcdatamodel */,
 				A0E223581A91C2F00073814A /* FullIntel.xcdatamodel */,
 			);
-			currentVersion = A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */;
+			currentVersion = A01499CE1B9DBBC5000D77D2 /* FullIntel 4.xcdatamodel */;
 			path = FullIntel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

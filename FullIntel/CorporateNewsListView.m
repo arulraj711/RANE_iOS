@@ -282,7 +282,7 @@
                 }
             } else {
                 NSLog(@"saved for later old");
-                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
             }
            // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
             

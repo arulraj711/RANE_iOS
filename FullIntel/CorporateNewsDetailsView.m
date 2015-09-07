@@ -317,10 +317,14 @@
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
                 BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
                 if(savedForLaterIsNew){
-                    predicate  = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",contentTypeId,categoryId];
+                    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@",[NSNumber numberWithBool:YES],contentTypeId];
+                    } else {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                    }
                 } else {
                     NSLog(@"saved for later old");
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
+                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
                 }
             } else {
                 predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
