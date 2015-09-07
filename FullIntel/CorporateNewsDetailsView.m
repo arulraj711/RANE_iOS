@@ -441,7 +441,7 @@
     
     //    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",articleUrl,articleTitle,articleDesc];
     
-    NSString *urlString=[NSString stringWithFormat:@"https://www.facebook.com/dialog/feed?_path=feed&app_id=679882412141918&client_id=679882412141918&redirect_uri=https://www.facebook.com&display=popup&caption=%@&link=%@&from_login=1",articleTitle,articleUrl];
+    NSString *urlString=[NSString stringWithFormat:@"https://www.facebook.com/dialog/feed?_path=feed&app_id=679882412141918&client_id=679882412141918&redirect_uri=http://www.fullintel.com&display=popup&caption=%@&link=%@&from_login=1",articleTitle,articleUrl];
     
     NSLog(@"linked in url:%@",urlString);
     NSString* urlTextEscaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -771,7 +771,9 @@
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            }
             
             
             
@@ -1131,16 +1133,22 @@
             NSString *inputJson;
             NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
             NSLog(@"parent id:%@",parentId);
-            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:[self.articleIdArray lastObject] contentTypeId:parentId listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+            NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
+            if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:[self.articleIdArray lastObject] contentTypeId:parentId listSize:10 activityTypeId:@"" categoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+                NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+                
+                
+                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
+            } else {
+                [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:self.articleIdArray.count] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
+            }
             
             //            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
             //
             //            dispatch_async(queue_a, ^{
             
-            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
             
-            
-            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
             oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                                              selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
            // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];

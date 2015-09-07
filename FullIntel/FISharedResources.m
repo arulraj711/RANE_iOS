@@ -1362,6 +1362,29 @@
                     //Set CuratedNews Author Details
                     NSArray *authorDetailsArray = NULL_TO_NIL([articleDic objectForKey:@"contacts"]);
                     //NSLog(@"before author count:%lu",(unsigned long)authorDetailsArray.count);
+                    
+                    NSMutableArray *authorList = [[NSMutableArray alloc]init];
+                    for(NSDictionary *dict in authorDetailsArray) {
+                        NSManagedObject *author;
+                        author = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedAuthor" inManagedObjectContext:context];
+                        
+                        NSArray *authorWorkTitleArray = NULL_TO_NIL([dict valueForKey:@"workTitles"]);
+                       // NSMutableArray *workTitleArray = [[NSMutableArray alloc]init];
+                        if(authorWorkTitleArray.count != 0) {
+                            NSDictionary *workDic = [authorWorkTitleArray objectAtIndex:0];
+                            [author setValue:[workDic valueForKey:@"workTitle"] forKey:@"title"];
+                        }
+                        
+                        
+                        [author setValue:[dict objectForKey:@"name"] forKey:@"name"];
+                        
+                        [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
+                        [authorList addObject:author];
+                        
+                    }
+                    NSOrderedSet *Obj = [[NSOrderedSet alloc]initWithArray:authorList];
+                    [curatedNews setValue:Obj forKey:@"author"];
+                    
                     NSMutableArray *authorDetailsList = [[NSMutableArray alloc]init];
                     for(NSDictionary *dic in authorDetailsArray) {
                         NSManagedObject *authorDetails;

@@ -264,60 +264,67 @@
     self.isTwitterAPICalled = YES;
     tweetIds= [[NSMutableArray alloc]init];
     NSLog(@"related post array:%@",self.relatedPostArray);
-    if(self.relatedPostArray.count != 0) {
-        [lbl removeFromSuperview];
-        lbl.hidden = YES;
-        for(NSManagedObject *relatedPost in self.relatedPostArray) {
-            [tweetIds addObject:[relatedPost valueForKey:@"postId"]];
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+        if(self.relatedPostArray.count != 0) {
+            [lbl removeFromSuperview];
+            lbl.hidden = YES;
+            for(NSManagedObject *relatedPost in self.relatedPostArray) {
+                [tweetIds addObject:[relatedPost valueForKey:@"postId"]];
+                
+            }
+            NSLog(@"tweet ids:%@",tweetIds);
+            // NSLog(@"tweeter share instance:%@",[Twitter sharedInstance].guestSession);
+            if([[Twitter sharedInstance]session]) {
+                //NSLog(@"twitter session exist");
+            } else {
+                //NSLog(@"no twitter session");
+                [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
+                    // NSLog(@"tweet error:%@",error);
+                    [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
+                        NSLog(@"Tweet array:%@",tweet);
+                        if(tweet.count != 0) {
+                            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
+                                tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
+                                
+                                tweetScreenNameArray= [[NSMutableArray alloc]init];
+                                
+                                for(TWTRTweet *tweetObj in tweetArray) {
+                                    TWTRUser *author = tweetObj.author;
+                                    [tweetScreenNameArray addObject:author.screenName];
+                                }
+                                
+                                NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
+                                followersArray = [NSMutableArray arrayWithArray:followArray];
+                                NSLog(@"Tweet follwers array:%@",followersArray);
+                                dispatch_async(dispatch_get_main_queue(), ^(void){
+                                    [self.activityIndicator removeFromSuperview];
+                                    [self.activityIndicator stopAnimating];
+                                    self.tweetsLocalCollectionView.hidden = NO;
+                                    [self.tweetsLocalCollectionView reloadData];
+                                });
+                            });
+                        }
+                    }];
+                }];
+            }
+            
+        } else {
+            lbl.hidden = NO;
+            [self.activityIndicator removeFromSuperview];
+            [self.activityIndicator stopAnimating];
+            
+            
+            //        self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            //        self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
+            //        [self.activityIndicator startAnimating];
             
         }
-        NSLog(@"tweet ids:%@",tweetIds);
-        // NSLog(@"tweeter share instance:%@",[Twitter sharedInstance].guestSession);
-        if([[Twitter sharedInstance]session]) {
-            //NSLog(@"twitter session exist");
-        } else {
-            //NSLog(@"no twitter session");
-            [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
-                // NSLog(@"tweet error:%@",error);
-                [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
-                    NSLog(@"Tweet array:%@",tweet);
-                    if(tweet.count != 0) {
-                        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
-                            tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
-                            
-                            tweetScreenNameArray= [[NSMutableArray alloc]init];
-                            
-                            for(TWTRTweet *tweetObj in tweetArray) {
-                                TWTRUser *author = tweetObj.author;
-                                [tweetScreenNameArray addObject:author.screenName];
-                            }
-                            
-                            NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
-                            followersArray = [NSMutableArray arrayWithArray:followArray];
-                            NSLog(@"Tweet follwers array:%@",followersArray);
-                            dispatch_async(dispatch_get_main_queue(), ^(void){
-                                [self.activityIndicator removeFromSuperview];
-                                [self.activityIndicator stopAnimating];
-                                self.tweetsLocalCollectionView.hidden = NO;
-                                [self.tweetsLocalCollectionView reloadData];
-                            });
-                        });
-                    }
-                }];
-            }];
-        }
-        
     } else {
         lbl.hidden = NO;
         [self.activityIndicator removeFromSuperview];
         [self.activityIndicator stopAnimating];
-        
-        
-        //        self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        //        self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
-        //        [self.activityIndicator startAnimating];
-        
     }
+    
     
 }
 
@@ -777,9 +784,10 @@
     //if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     
     if(sender.selected) {
-        [sender setSelected:NO];
-        [resultDic setObject:@"false" forKey:@"isSelected"];
         
+        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+            [sender setSelected:NO];
+            [resultDic setObject:@"false" forKey:@"isSelected"];
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",self.selectedArticleId];
@@ -791,29 +799,38 @@
                 [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
                 [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
                 
-                if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                //if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
                     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
                     
                     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
                     [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-                } else {
-                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isSavedForLaterStatusSync"];
-                }
+//                } else {
+//                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isSavedForLaterStatusSync"];
+//                }
             }
         }
         [managedObjectContext save:nil];
         
         [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
         [self.contentView makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
-        
-        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+        } else {
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            NSArray *subViewArray = [window subviews];
+            NSLog(@"subview array count:%d",subViewArray.count);
+            if(subViewArray.count == 1) {
+                [[FISharedResources sharedResourceManager] showBannerView];
+            }
+        }
+       // NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
         
         
         //[Localytics tagEvent:@"Remove Save Later in Drill" attributes:dictionary];
         
     }else {
-        [sender setSelected:YES];
-        [resultDic setObject:@"true" forKey:@"isSelected"];
+        
+        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+            [sender setSelected:YES];
+            [resultDic setObject:@"true" forKey:@"isSelected"];
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",self.selectedArticleId];
@@ -825,21 +842,28 @@
                 [self.curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
                 [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
                 
-                if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+               // if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
                     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
                     
                     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
                     [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-                } else {
-                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isSavedForLaterStatusSync"];
-                }
+//                } else {
+//                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isSavedForLaterStatusSync"];
+//                }
             }
         }
         [managedObjectContext save:nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
         [self.contentView makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
-        
-        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+        } else {
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            NSArray *subViewArray = [window subviews];
+            NSLog(@"subview array count:%d",subViewArray.count);
+            if(subViewArray.count == 1) {
+                [[FISharedResources sharedResourceManager] showBannerView];
+            }
+        }
+       // NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
         
         
       //  [Localytics tagEvent:@"Save Later in Drill" attributes:dictionary];
@@ -922,9 +946,10 @@
         } else if([self.markedImpUserId isEqualToString:loginUserId]) {
             //LoginUser
             
-            [sender setSelected:NO];
-            [resultDic setObject:@"false" forKey:@"isSelected"];
             
+            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                [sender setSelected:NO];
+                [resultDic setObject:@"false" forKey:@"isSelected"];
             [_curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
             NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
@@ -938,21 +963,28 @@
                     // NSLog(@"for loop update");
                     [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
                     
-                    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                   // if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
                         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
                         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
                         [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-                    } else {
-                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
-                    }
+//                    } else {
+//                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
+//                    }
                 }
             }
             [managedObjectContext save:nil];
             
             [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO],@"articleId":self.selectedArticleId}];
             [self.contentView makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
-            
-            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+            } else {
+                UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                NSArray *subViewArray = [window subviews];
+                NSLog(@"subview array count:%d",subViewArray.count);
+                if(subViewArray.count == 1) {
+                    [[FISharedResources sharedResourceManager] showBannerView];
+                }
+            }
+           // NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
             
             
          //   [Localytics tagEvent:@"Remove Mark Important in Drill" attributes:dictionary];
@@ -965,10 +997,11 @@
         }
         
     }else {
-        [sender setSelected:YES];
-        [resultDic setObject:@"true" forKey:@"isSelected"];
-        self.markedImpUserId = loginUserId;
         
+        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+            [sender setSelected:YES];
+            [resultDic setObject:@"true" forKey:@"isSelected"];
+            self.markedImpUserId = loginUserId;
         [_curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
@@ -982,20 +1015,27 @@
                 // NSLog(@"for loop update");
                 [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
                 
-                if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+               // if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
                     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
                     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
                     [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-                } else {
-                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
-                }
+//                } else {
+//                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
+//                }
             }
         }
         [managedObjectContext save:nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES],@"articleId":self.selectedArticleId}];
         [self.contentView makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
-        
-        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+        } else {
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            NSArray *subViewArray = [window subviews];
+            NSLog(@"subview array count:%d",subViewArray.count);
+            if(subViewArray.count == 1) {
+                [[FISharedResources sharedResourceManager] showBannerView];
+            }
+        }
+        //NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
         
         
        // [Localytics tagEvent:@"Mark Important in Drill" attributes:dictionary];
