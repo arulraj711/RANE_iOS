@@ -365,7 +365,8 @@
 
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
-    
+    NSLog(@"device orientation changes");
+    [self.collectionView reloadData];
     //Obtaining the current device orientation
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     
@@ -508,6 +509,14 @@
     cell.cachedImageViewSize = cell.articleImageView.frame;
     cell.isTwitterLoad = NO;
     cell.isTwitterAPICalled = NO;
+    cell.socialcollectionView.delegate = nil;
+    cell.socialcollectionView.dataSource = nil;
+    cell.socialcollectionView.hidden = YES;
+    cell.tweetsLocalCollectionView.delegate = nil;
+    cell.tweetsLocalCollectionView.dataSource = nil;
+    cell.tweetsLocalCollectionView.hidden = YES;
+    [cell.activityIndicator removeFromSuperview];
+    [cell.activityIndicator stopAnimating];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];

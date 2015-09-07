@@ -298,8 +298,8 @@
                             dispatch_async(dispatch_get_main_queue(), ^(void){
                                 [self.activityIndicator removeFromSuperview];
                                 [self.activityIndicator stopAnimating];
-                                tweetsCollectionView.hidden = NO;
-                                [tweetsCollectionView reloadData];
+                                self.tweetsLocalCollectionView.hidden = NO;
+                                [self.tweetsLocalCollectionView reloadData];
                             });
                         });
                     }
@@ -386,9 +386,9 @@
         }
         
     }
-    else if(collectionView == socialcollectionView) {
+    else if(collectionView == self.socialcollectionView) {
         return CGSizeMake(50, 50);
-    } else if(collectionView == tweetsCollectionView) {
+    } else if(collectionView == self.tweetsLocalCollectionView) {
         return CGSizeMake(320, 300);
     }
     return CGSizeMake(30, 30);
@@ -402,10 +402,10 @@
     //    if(view == self.legendsCollectionView) {
     //        itemCount = self.legendsArray.count;
     //    }else
-    if(view == socialcollectionView){
+    if(view == self.socialcollectionView){
         NSLog(@"social collectionview loading");
         itemCount = self.socialLinksArray.count;
-    }else if(view == tweetsCollectionView) {
+    }else if(view == self.tweetsLocalCollectionView) {
         itemCount = followersArray.count;
     }else {
         itemCount = 4;
@@ -440,13 +440,13 @@
     //        collectionCell = cell;
     //    } else
     
-    if(cv == socialcollectionView) {
+    if(cv == self.socialcollectionView) {
         NSLog(@"one");
         // NSLog(@"inside social link collectionview cellfor item");
         
-        [socialcollectionView registerClass:[SocialLinkCell class]
+        [self.socialcollectionView registerClass:[SocialLinkCell class]
                  forCellWithReuseIdentifier:@"Cell"];
-        [socialcollectionView registerNib:[UINib nibWithNibName:@"SocialLinkCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
+        [self.socialcollectionView registerNib:[UINib nibWithNibName:@"SocialLinkCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
         NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
         
         SocialLinkCell *socialCell =(SocialLinkCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
@@ -475,11 +475,11 @@
         //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
         collectionCell = socialCell;
         
-    } else if(cv == tweetsCollectionView) {
+    } else if(cv == self.tweetsLocalCollectionView) {
         NSLog(@"come inside tweets collecionview");
-        [tweetsCollectionView registerClass:[TweetsCell class]
+        [self.tweetsLocalCollectionView registerClass:[TweetsCell class]
                  forCellWithReuseIdentifier:@"Cell"];
-        [tweetsCollectionView registerNib:[UINib nibWithNibName:@"TweetsCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
+        [self.tweetsLocalCollectionView registerNib:[UINib nibWithNibName:@"TweetsCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
         TweetsCell *tweetCell =(TweetsCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
         TWTRTweet *tweetObj = [tweetArray objectAtIndex:indexPath.row];
         TWTRUser *author = tweetObj.author;
@@ -593,7 +593,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"did select social link");
     
-    if(collectionView == socialcollectionView) {
+    if(collectionView == self.socialcollectionView) {
         
         NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
         NSString *titleStr = [NSString stringWithFormat:@"%@ in %@",self.authorNameStr,[socialLink valueForKey:@"mediatype"]];
@@ -619,7 +619,7 @@
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
+    NSLog(@"webview did finished");
     //    CGRect oldBounds = CGRectMake(self.articleWebview.frame.origin.x, self.articleWebview.frame.origin.y, self.articleWebview.frame.size.width, 200);
     //    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.height"] floatValue];
     //    NSLog(@"NEW HEIGHT %f", height);
@@ -644,6 +644,10 @@
     //[progressView removeFromSuperview];
 }
 
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    NSLog(@"cell orientation");
+}
+
 -(void)loadTweetsAndSocialLink {
     self.isTwitterLoad = YES;
     lbl.hidden = YES;
@@ -658,15 +662,15 @@
     tweetFlowLayout.itemSize = CGSizeMake(100, 100);
     [tweetFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     
-    tweetsCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+100, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
+    self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+100, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
     
     UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCell" bundle:nil];
-    [tweetsCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
-    [tweetsCollectionView registerClass:[TweetsCell class] forCellWithReuseIdentifier:@"Cell"];
-    tweetsCollectionView.delegate = self;
-    tweetsCollectionView.dataSource = self;
+    [self.tweetsLocalCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
+    [self.tweetsLocalCollectionView registerClass:[TweetsCell class] forCellWithReuseIdentifier:@"Cell"];
+    self.tweetsLocalCollectionView.delegate = self;
+    self.tweetsLocalCollectionView.dataSource = self;
     //tweetsCollectionView.hidden = NO;
-    tweetsCollectionView.backgroundColor = [UIColor clearColor];
+    self.tweetsLocalCollectionView.backgroundColor = [UIColor clearColor];
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
     [self.activityIndicator startAnimating];
@@ -690,7 +694,7 @@
     [lbl addSubview:tweetText];
     
     [self.tweetsCollectionView addSubview:lbl];
-    [self.scrollView addSubview:tweetsCollectionView];
+    [self.scrollView addSubview:self.tweetsLocalCollectionView];
     UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.itemSize = CGSizeMake(100, 100);
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -699,26 +703,26 @@
     self.tweetLabel.hidden = NO;
     self.tweetDividerImageView.hidden = NO;
     self.tweetsCollectionView.hidden = NO;
-    socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+300+250, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+    self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+250, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
     UINib *cellNib = [UINib nibWithNibName:@"SocialLinkCell" bundle:nil];
-    [socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
-    [socialcollectionView registerClass:[SocialLinkCell class] forCellWithReuseIdentifier:@"Cell"];
-    socialcollectionView.delegate = self;
-    socialcollectionView.dataSource = self;
-    // socialcollectionView.hidden = NO;
+    [self.socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
+    [self.socialcollectionView registerClass:[SocialLinkCell class] forCellWithReuseIdentifier:@"Cell"];
+    self.socialcollectionView.delegate = self;
+    self.socialcollectionView.dataSource = self;
+    //socialcollectionView.hidden = YES;
     
     if(self.socialLinksArray.count == 0){
         self.socialLinkLabel.hidden =YES;
         self.socialLinkDivider.hidden= YES;
-        socialcollectionView.hidden= YES;
+        self.socialcollectionView.hidden= YES;
     } else {
         self.socialLinkLabel.hidden =NO;
         self.socialLinkDivider.hidden= NO;
-        socialcollectionView.hidden = NO;
+        self.socialcollectionView.hidden = NO;
     }
-    socialcollectionView.backgroundColor = [UIColor clearColor];
-    [self.scrollView addSubview:socialcollectionView];
-    positionOfCollectionViewInScrollView= [self.scrollView convertRect:tweetsCollectionView.frame toView:nil];
+    self.socialcollectionView.backgroundColor = [UIColor clearColor];
+    [self.scrollView addSubview:self.socialcollectionView];
+    positionOfCollectionViewInScrollView= [self.scrollView convertRect:self.tweetsLocalCollectionView.frame toView:nil];
     NSLog(@"tweet frame:%f",positionOfCollectionViewInScrollView.origin.y);
     //    tweetsCollectionView.delegate = nil;
     //    tweetsCollectionView.dataSource = nil;
@@ -737,8 +741,11 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    socialcollectionView.hidden = YES;
-    tweetsCollectionView.hidden = YES;
+    self.socialcollectionView.hidden = YES;
+    self.tweetsLocalCollectionView.hidden = YES;
+    [self.activityIndicator removeFromSuperview];
+    [self.activityIndicator stopAnimating];
+    //tweetsCollectionView.hidden = NO;
     // self.webViewHeightConstraint.constant = 200;
     //socialcollectionView.backgroundColor = [UIColor greenColor];
 }
@@ -1009,269 +1016,272 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"globeButtonClick" object:nil userInfo:@{@"url":[self.curatedNewsDetail valueForKey:@"articleUrl"]}];
 }
 
--(void)loadCuratedNewsDetails:(id)sender {
-    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
-    [fetchRequest setPredicate:predicate];
-    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    if(newPerson.count != 0) {
-        NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-        
-        NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            
-            NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
-            
-            //                if([userAccountTypeId isEqualToString:@"3"]) {
-            self.webViewHeightConstraint.constant = 200;
-            //                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
-            //                    self.webViewHeightConstraint.constant = 400;
-            //                }
-            
-            if([curatedNewsDetail valueForKey:@"article"] == nil){
-                [self.articleWebview loadHTMLString:@"" baseURL:nil];
-            } else {
-                NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
-                [self.articleWebview loadHTMLString:htmlString baseURL:nil];
-            }
-            
-            
-            NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
-            NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
-            if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                self.badgeTwo.value = [totalCnt integerValue];
-                self.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
-            } else {
-                self.badgeTwo.value = [unreadCnt integerValue];
-                self.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
-            }
-            
-            
-            NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
-            if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                // NSLog(@"mark selected");
-                [self.markedImpButton setSelected:YES];
-            } else {
-                //NSLog(@"mark not selected");
-                [self.markedImpButton setSelected:NO];
-            }
-            
-            if([[curatedNewsDetail valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
-                if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                    //                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
-                }
-            } else {
-                
-            }
-            
-            
-            //                if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
-            //
-            //
-            //                    NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
-            //                    if(markImpStatus == [NSNumber numberWithInt:1]) {
-            //                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
-            //                        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
-            //                        [self.markedImpButton setSelected:YES];
-            //                    } else {
-            //                        NSLog(@"mark not selected");
-            //                        [self.markedImpButton setSelected:NO];
-            //                    }
-            //
-            //                }
-            //                   // if(number == [NSNumber numberWithInt:1]) {
-            //                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
-            //                      //  [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
-            //                    } else {
-            //                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
-            //                        //[curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
-            //                    }
-            // }
-            
-            if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                [self.savedForLaterButton setSelected:YES];
-            } else {
-                [self.savedForLaterButton setSelected:NO];
-            }
-            
-            
-            NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
-            NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
-            self.relatedPostArray = postArray;
-            [self loadTweetsFromPost];
-        });
-    }
-}
-
-
--(void)loadCuratedNewsAuthorDetails:(id)sender {
-    NSNotification *notification = sender;
-    NSDictionary *userInfo = notification.userInfo;
-    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-    //NSLog(@"passing article id:%@",[userInfo objectForKey:@"articleId"]);
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
-    [fetchRequest setPredicate:predicate];
-    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    NSManagedObject *curatedNews;
-    if(newPerson.count != 0) {
-        curatedNews = [newPerson objectAtIndex:0];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            
-            NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
-            NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
-            NSManagedObject *author;
-            if(legendsArray.count != 0) {
-                author  = [legendsArray objectAtIndex:0];
-            }
-            //  NSLog(@"single author:%@",author);
-            
-            self.socialLinksArray = [[NSMutableArray alloc]init];
-            NSSet *socialMediaSet = [author valueForKey:@"authorSocialMedia"];
-            self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialMediaSet allObjects]];
-            // NSLog(@"social list:%d",self.socialLinksArray.count);
-            if(self.socialLinksArray.count == 0) {
-                self.socialLinkLabel.hidden = YES;
-                self.socialLinkDivider.hidden = YES;
-                self.socialLinkCollectionView.hidden = YES;
-            } else {
-                self.socialLinksArray = self.socialLinksArray;
-                self.socialLinkLabel.hidden = NO;
-                self.socialLinkDivider.hidden = NO;
-                self.socialLinkCollectionView.hidden = NO;
-                
-                [self.socialLinkCollectionView reloadData];
-            }
-            
-            [self.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
-            [self.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
-            
-            // NSString *authorName = [NSString stringWithFormat:@"%@ %@",[author valueForKey:@"firstName"],[author valueForKey:@"lastName"]];
-            //self.aboutAuthorName.text = authorName;
-            self.authorNameStr = [author valueForKey:@"firstName"];
-            
-            if([[author valueForKey:@"starRating"] integerValue] == 0) {
-                self.ratingControl.hidden = YES;
-            } else {
-                self.ratingControl.hidden = NO;
-                self.starRating.rating = [[author valueForKey:@"starRating"] integerValue];
-            }
-            
-            if([[author valueForKey:@"isInfluencer"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                self.influencerIconImage.hidden = NO;
-            } else {
-                self.influencerIconImage.hidden = YES;
-            }
-            
-            
-            NSSet *workTitleSet = [author valueForKey:@"authorWorkTitle"];
-            NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
-            if(workTitleArray.count != 0) {
-                self.workTitleIcon.hidden = NO;
-                self.workTitleIconHeightConstraint.constant = 15;
-                self.workTitleLabelHeightConstraint.constant = 21;
-                self.outletImageTopConstraint.constant = 10;
-                self.outletLabelTopConstraint.constant = 4;
-                NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
-                self.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
-            } else {
-                self.workTitleIcon.hidden = YES;
-                self.workTitleIconHeightConstraint.constant = 0;
-                self.workTitleLabelHeightConstraint.constant = 0;
-                self.outletImageTopConstraint.constant = 0;
-                self.outletLabelTopConstraint.constant = 0;
-            }
-            
-            
-            NSSet *outletSet = [author valueForKey:@"authorOutlet"];
-            NSMutableArray *outletArray = [[NSMutableArray alloc]initWithArray:[outletSet allObjects]];
-            if(outletArray.count != 0) {
-                self.outletIcon.hidden = NO;
-                self.locationImageTopConstarint.constant = 10;
-                self.outletIconHeightConstraint.constant = 15;
-                self.locationLabelTopConstraint.constant = 4;
-                self.outletLabelHeightConstraint.constant = 21;
-                NSManagedObject *outlet = [outletArray objectAtIndex:0];
-                self.authorOutletName.text = [outlet valueForKey:@"outletname"];
-            }else {
-                self.outletIcon.hidden = YES;
-                self.outletIconHeightConstraint.constant = 0;
-                self.locationImageTopConstarint.constant = 0;
-                self.locationLabelTopConstraint.constant = 0;
-                self.outletLabelHeightConstraint.constant = 0;
-            }
-            
-            
-            NSString *city = [author valueForKey:@"city"];
-            NSString *country = [author valueForKey:@"country"];
-            NSString *authorPlace;
-            if(city.length == 0 && country.length == 0) {
-                authorPlace = @"";
-            } else if(city.length == 0) {
-                authorPlace = [NSString stringWithFormat:@"%@",country];
-            } else if(country.length == 0) {
-                authorPlace = [NSString stringWithFormat:@"%@",city];
-            } else {
-                authorPlace = [NSString stringWithFormat:@"%@, %@",city,country];
-            }
-            
-            if(authorPlace.length !=0 ){
-                self.locationIcon.hidden = NO;
-                self.locationIconHeightConstraint.constant = 15;
-                self.locationLabelHeightConstraint.constant = 21;
-                self.beatsImageTopConstraint.constant = 10;
-                self.beatsLabelTopConstraint.constant = 4;
-                self.authorLocationLabel.text = authorPlace;
-            } else {
-                self.locationIcon.hidden = YES;
-                self.locationIconHeightConstraint.constant = 0;
-                self.locationLabelHeightConstraint.constant = 0;
-                self.beatsImageTopConstraint.constant = 0;
-                self.beatsLabelTopConstraint.constant = 0;
-            }
-            
-            NSSet *beatSet = [author valueForKey:@"authorBeat"];
-            NSMutableArray *beatsArray = [[NSMutableArray alloc]initWithArray:[beatSet allObjects]];
-            NSMutableArray *beats = [[NSMutableArray alloc]init];
-            for(NSManagedObject *beat in beatsArray) {
-                [beats addObject:[NSString stringWithFormat:@"#%@",[beat valueForKey:@"name"]]];
-            }
-            NSString *beatString = [beats componentsJoinedByString:@" "];
-            if(beatString.length != 0){
-                self.beatsIcon.hidden = NO;
-                self.beatsIconHeightConstraint.constant = 15;
-                self.beatsLabelHeightConstraint.constant = 21;
-                self.authorTagLabel.text = beatString;
-            } else {
-                self.beatsIcon.hidden = YES;
-                self.beatsIconHeightConstraint.constant = 0;
-                self.beatsLabelHeightConstraint.constant = 0;
-            }
-            
-            
-            NSString *bioString = [author valueForKey:@"bibliography"];
-            
-            if(bioString.length != 0) {
-                
-                self.bioTitleLabel.hidden = NO;
-                self.bioDivider.hidden = NO;
-                self.bioLabel.hidden = NO;
-                self.bioLabel.text = bioString;
-            } else {
-                self.bioTitleLabel.hidden = YES;
-                self.bioDivider.hidden = YES;
-                self.bioLabel.hidden = YES;
-            }
-            
-            
-        });
-    }
-    
-    
-    
-}
+//-(void)loadCuratedNewsDetails:(id)sender {
+//    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
+//    [fetchRequest setPredicate:predicate];
+//    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//    if(newPerson.count != 0) {
+//        NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+//        
+//        NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
+//        dispatch_async(dispatch_get_main_queue(), ^(void){
+//            
+//            NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
+//            
+//            //                if([userAccountTypeId isEqualToString:@"3"]) {
+//            self.webViewHeightConstraint.constant = 200;
+//            //                }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
+//            //                    self.webViewHeightConstraint.constant = 400;
+//            //                }
+//            
+//            if([curatedNewsDetail valueForKey:@"article"] == nil){
+//                [self.articleWebview loadHTMLString:@"" baseURL:nil];
+//            } else {
+//                NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+//                [self.articleWebview loadHTMLString:htmlString baseURL:nil];
+//            }
+//            
+//            
+//            NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
+//            NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
+//            if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
+//                self.badgeTwo.value = [totalCnt integerValue];
+//                self.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
+//            } else {
+//                self.badgeTwo.value = [unreadCnt integerValue];
+//                self.badgeTwo.fillColor = UIColorFromRGB(0xF55567);
+//            }
+//            
+//            
+//            NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
+//            if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+//                // NSLog(@"mark selected");
+//                [self.markedImpButton setSelected:YES];
+//            } else {
+//                //NSLog(@"mark not selected");
+//                [self.markedImpButton setSelected:NO];
+//            }
+//            
+//            if([[curatedNewsDetail valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
+//                NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
+//                if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+//                    //                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+//                }
+//            } else {
+//                
+//            }
+//            
+//            
+//            //                if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
+//            //
+//            //
+//            //                    NSNumber *markImpStatus = [curatedNewsDetail valueForKey:@"markAsImportant"];
+//            //                    if(markImpStatus == [NSNumber numberWithInt:1]) {
+//            //                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+//            //                        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+//            //                        [self.markedImpButton setSelected:YES];
+//            //                    } else {
+//            //                        NSLog(@"mark not selected");
+//            //                        [self.markedImpButton setSelected:NO];
+//            //                    }
+//            //
+//            //                }
+//            //                   // if(number == [NSNumber numberWithInt:1]) {
+//            //                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+//            //                      //  [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+//            //                    } else {
+//            //                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
+//            //                        //[curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+//            //                    }
+//            // }
+//            
+//            if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+//                [self.savedForLaterButton setSelected:YES];
+//            } else {
+//                [self.savedForLaterButton setSelected:NO];
+//            }
+//            
+//            
+//            NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
+//            NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
+//            self.relatedPostArray = postArray;
+//            [self loadTweetsFromPost];
+//        });
+//    }
+//}
+//
+//
+//
+//
+//
+//-(void)loadCuratedNewsAuthorDetails:(id)sender {
+//    NSNotification *notification = sender;
+//    NSDictionary *userInfo = notification.userInfo;
+//    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+//    //NSLog(@"passing article id:%@",[userInfo objectForKey:@"articleId"]);
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
+//    [fetchRequest setPredicate:predicate];
+//    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//    NSManagedObject *curatedNews;
+//    if(newPerson.count != 0) {
+//        curatedNews = [newPerson objectAtIndex:0];
+//        dispatch_async(dispatch_get_main_queue(), ^(void){
+//            
+//            NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
+//            NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
+//            NSManagedObject *author;
+//            if(legendsArray.count != 0) {
+//                author  = [legendsArray objectAtIndex:0];
+//            }
+//            //  NSLog(@"single author:%@",author);
+//            
+//            self.socialLinksArray = [[NSMutableArray alloc]init];
+//            NSSet *socialMediaSet = [author valueForKey:@"authorSocialMedia"];
+//            self.socialLinksArray = [[NSMutableArray alloc]initWithArray:[socialMediaSet allObjects]];
+//            // NSLog(@"social list:%d",self.socialLinksArray.count);
+//            if(self.socialLinksArray.count == 0) {
+//                self.socialLinkLabel.hidden = YES;
+//                self.socialLinkDivider.hidden = YES;
+//                self.socialLinkCollectionView.hidden = YES;
+//            } else {
+//                self.socialLinksArray = self.socialLinksArray;
+//                self.socialLinkLabel.hidden = NO;
+//                self.socialLinkDivider.hidden = NO;
+//                self.socialLinkCollectionView.hidden = NO;
+//                
+//                [self.socialLinkCollectionView reloadData];
+//            }
+//            
+//            [self.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
+//            [self.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
+//            
+//            // NSString *authorName = [NSString stringWithFormat:@"%@ %@",[author valueForKey:@"firstName"],[author valueForKey:@"lastName"]];
+//            //self.aboutAuthorName.text = authorName;
+//            self.authorNameStr = [author valueForKey:@"firstName"];
+//            
+//            if([[author valueForKey:@"starRating"] integerValue] == 0) {
+//                self.ratingControl.hidden = YES;
+//            } else {
+//                self.ratingControl.hidden = NO;
+//                self.starRating.rating = [[author valueForKey:@"starRating"] integerValue];
+//            }
+//            
+//            if([[author valueForKey:@"isInfluencer"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+//                self.influencerIconImage.hidden = NO;
+//            } else {
+//                self.influencerIconImage.hidden = YES;
+//            }
+//            
+//            
+//            NSSet *workTitleSet = [author valueForKey:@"authorWorkTitle"];
+//            NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
+//            if(workTitleArray.count != 0) {
+//                self.workTitleIcon.hidden = NO;
+//                self.workTitleIconHeightConstraint.constant = 15;
+//                self.workTitleLabelHeightConstraint.constant = 21;
+//                self.outletImageTopConstraint.constant = 10;
+//                self.outletLabelTopConstraint.constant = 4;
+//                NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
+//                self.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
+//            } else {
+//                self.workTitleIcon.hidden = YES;
+//                self.workTitleIconHeightConstraint.constant = 0;
+//                self.workTitleLabelHeightConstraint.constant = 0;
+//                self.outletImageTopConstraint.constant = 0;
+//                self.outletLabelTopConstraint.constant = 0;
+//            }
+//            
+//            
+//            NSSet *outletSet = [author valueForKey:@"authorOutlet"];
+//            NSMutableArray *outletArray = [[NSMutableArray alloc]initWithArray:[outletSet allObjects]];
+//            if(outletArray.count != 0) {
+//                self.outletIcon.hidden = NO;
+//                self.locationImageTopConstarint.constant = 10;
+//                self.outletIconHeightConstraint.constant = 15;
+//                self.locationLabelTopConstraint.constant = 4;
+//                self.outletLabelHeightConstraint.constant = 21;
+//                NSManagedObject *outlet = [outletArray objectAtIndex:0];
+//                self.authorOutletName.text = [outlet valueForKey:@"outletname"];
+//            }else {
+//                self.outletIcon.hidden = YES;
+//                self.outletIconHeightConstraint.constant = 0;
+//                self.locationImageTopConstarint.constant = 0;
+//                self.locationLabelTopConstraint.constant = 0;
+//                self.outletLabelHeightConstraint.constant = 0;
+//            }
+//            
+//            
+//            NSString *city = [author valueForKey:@"city"];
+//            NSString *country = [author valueForKey:@"country"];
+//            NSString *authorPlace;
+//            if(city.length == 0 && country.length == 0) {
+//                authorPlace = @"";
+//            } else if(city.length == 0) {
+//                authorPlace = [NSString stringWithFormat:@"%@",country];
+//            } else if(country.length == 0) {
+//                authorPlace = [NSString stringWithFormat:@"%@",city];
+//            } else {
+//                authorPlace = [NSString stringWithFormat:@"%@, %@",city,country];
+//            }
+//            
+//            if(authorPlace.length !=0 ){
+//                self.locationIcon.hidden = NO;
+//                self.locationIconHeightConstraint.constant = 15;
+//                self.locationLabelHeightConstraint.constant = 21;
+//                self.beatsImageTopConstraint.constant = 10;
+//                self.beatsLabelTopConstraint.constant = 4;
+//                self.authorLocationLabel.text = authorPlace;
+//            } else {
+//                self.locationIcon.hidden = YES;
+//                self.locationIconHeightConstraint.constant = 0;
+//                self.locationLabelHeightConstraint.constant = 0;
+//                self.beatsImageTopConstraint.constant = 0;
+//                self.beatsLabelTopConstraint.constant = 0;
+//            }
+//            
+//            NSSet *beatSet = [author valueForKey:@"authorBeat"];
+//            NSMutableArray *beatsArray = [[NSMutableArray alloc]initWithArray:[beatSet allObjects]];
+//            NSMutableArray *beats = [[NSMutableArray alloc]init];
+//            for(NSManagedObject *beat in beatsArray) {
+//                [beats addObject:[NSString stringWithFormat:@"#%@",[beat valueForKey:@"name"]]];
+//            }
+//            NSString *beatString = [beats componentsJoinedByString:@" "];
+//            if(beatString.length != 0){
+//                self.beatsIcon.hidden = NO;
+//                self.beatsIconHeightConstraint.constant = 15;
+//                self.beatsLabelHeightConstraint.constant = 21;
+//                self.authorTagLabel.text = beatString;
+//            } else {
+//                self.beatsIcon.hidden = YES;
+//                self.beatsIconHeightConstraint.constant = 0;
+//                self.beatsLabelHeightConstraint.constant = 0;
+//            }
+//            
+//            
+//            NSString *bioString = [author valueForKey:@"bibliography"];
+//            
+//            if(bioString.length != 0) {
+//                
+//                self.bioTitleLabel.hidden = NO;
+//                self.bioDivider.hidden = NO;
+//                self.bioLabel.hidden = NO;
+//                self.bioLabel.text = bioString;
+//            } else {
+//                self.bioTitleLabel.hidden = YES;
+//                self.bioDivider.hidden = YES;
+//                self.bioLabel.hidden = YES;
+//            }
+//            
+//            
+//        });
+//    }
+//    
+//    
+//    
+//}
 
 
 
@@ -1287,7 +1297,7 @@
             
         } else {
             if(!self.isTwitterAPICalled) {
-                tweetsCollectionView.hidden = YES;
+                self.tweetsLocalCollectionView.hidden = YES;
                 lbl.hidden = YES;
             }
             

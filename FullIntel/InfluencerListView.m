@@ -121,8 +121,11 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
-    
-    [self.sampleDataText removeObserver:self forKeyPath:@"contentSize"];
+    @try{
+        [self.sampleDataText removeObserver:self forKeyPath:@"contentSize"];
+    }@catch(id anException) {
+        NSLog(@"error message:%@",anException);
+    }
     
     
 }

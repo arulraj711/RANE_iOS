@@ -19,12 +19,14 @@
 @interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
     NSMutableArray *tweetArray;
     UCZProgressView *progressView;
-    UICollectionView *socialcollectionView,*tweetsCollectionView;
+   // UICollectionView *tweetsLocalCollectionView;
     NSMutableArray *tweetIds,*followersArray,*tweetScreenNameArray;
     CGRect positionOfCollectionViewInScrollView;
     UIView *lbl;
     UIView *noTweetView;
 }
+@property UICollectionView *tweetsLocalCollectionView;
+@property UICollectionView *socialcollectionView;
 @property BOOL isTwitterLoad;
 @property BOOL isTwitterAPICalled;
 @property BOOL isFIViewSelected;

@@ -139,7 +139,11 @@
     
     [super viewWillDisappear:animated];
     
+    @try{
         [self.sampleDataText removeObserver:self forKeyPath:@"contentSize"];
+    }@catch(id anException) {
+        NSLog(@"error message:%@",anException);
+    }
 }
 
 

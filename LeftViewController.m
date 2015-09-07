@@ -346,7 +346,7 @@
     [treeView reloadData];
     NSLog(@"data count:%lu",(unsigned long)self.data.count);
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    if(accessToken.length > 0) {
+    if(accessToken.length > 0 && self.data.count > 2) {
         [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
