@@ -2054,4 +2054,26 @@
     [progressView removeFromSuperview];
 }
 
+-(void)saveDetailsInLocalyticsWithName:(NSString *)name{
+    
+    NSString *userName=[NSString stringWithFormat:@"%@ %@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],[[NSUserDefaults standardUserDefaults]objectForKey:@"lastName"]];
+    
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":userName,@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
+    [Localytics tagEvent:name attributes:dictionary];
+}
+
+
+
+-(void)saveSelectedSubMenuInLocalyticsWithName:(NSString *)name andMenuName:(NSString *)menuName{
+    NSString *userName=[NSString stringWithFormat:@"%@ %@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],[[NSUserDefaults standardUserDefaults]objectForKey:@"lastName"]];
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":userName,@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"],@"topics":menuName};
+    [Localytics tagEvent:name attributes:dictionary];
+}
+
+- (void)tagScreenInLocalytics:(NSString *)name
+{
+    [Localytics tagScreen:name];
+}
+
+
 @end

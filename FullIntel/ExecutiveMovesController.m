@@ -94,6 +94,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Executive Moves"];
+}
 
 -(void)showLoginPage {
     

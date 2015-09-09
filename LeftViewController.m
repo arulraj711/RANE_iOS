@@ -271,6 +271,8 @@
 //        self.treeView.contentOffset = CGPointMake(0.0, -heightPadding);
 //    }
     
+    [[FISharedResources sharedResourceManager] tagScreenInLocalytics:@"Main Menu"];
+    
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length != 0) {
     dispatch_queue_t globalConcurrentQueue =

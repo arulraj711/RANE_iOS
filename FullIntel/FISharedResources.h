@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "PKRevealController.h"
 #import "UCZProgressView.h"
+#import "Localytics.h"
 @interface FISharedResources : NSObject {
     UCZProgressView *progressView;
     UIView *buttonBackView;
@@ -60,4 +61,7 @@
 @property (nonatomic,strong) NSMutableArray *contentTypeList;
 @property (nonatomic,strong) NSString *getCommentArticleId;
 @property (nonatomic,strong) NSString *getCommentDetailString;
+
+-(void)saveDetailsInLocalyticsWithName:(NSString *)name;
+- (void)tagScreenInLocalytics:(NSString *)name;
 @end

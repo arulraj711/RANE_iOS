@@ -183,6 +183,7 @@
     } else {
 //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
 //        if(isFirst) {
+        [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated News List"];
             [self loadCuratedNews];
 //        }
     }

@@ -37,7 +37,7 @@ NHAlignmentFlowLayout *layout;
     
     
     [super viewDidAppear:animated];
-    
+    [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Stock Watch"];
     
    
 }

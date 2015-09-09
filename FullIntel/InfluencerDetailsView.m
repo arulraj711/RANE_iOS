@@ -70,6 +70,10 @@
     [_articleWebview loadHTMLString:htmlString baseURL:nil];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Influencer Comments"];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -97,6 +97,12 @@
     
     
 }
+
+
+-(void)viewDidAppear:(BOOL)animated {
+    [[FISharedResources sharedResourceManager] tagScreenInLocalytics:@"IP and Legal"];
+}
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     
     
