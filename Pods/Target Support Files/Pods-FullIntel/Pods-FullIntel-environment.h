@@ -60,6 +60,12 @@
 #define COCOAPODS_VERSION_MINOR_ATAppUpdater 3
 #define COCOAPODS_VERSION_PATCH_ATAppUpdater 0
 
+// Localytics
+#define COCOAPODS_POD_AVAILABLE_Localytics
+#define COCOAPODS_VERSION_MAJOR_Localytics 3
+#define COCOAPODS_VERSION_MINOR_Localytics 5
+#define COCOAPODS_VERSION_PATCH_Localytics 0
+
 // MZAppearance
 #define COCOAPODS_POD_AVAILABLE_MZAppearance
 #define COCOAPODS_VERSION_MAJOR_MZAppearance 1

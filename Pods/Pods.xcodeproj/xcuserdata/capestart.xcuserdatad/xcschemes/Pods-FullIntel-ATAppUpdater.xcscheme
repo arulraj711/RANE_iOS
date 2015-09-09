@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "479637F7D5CABFB27FF2E40F"
+               BlueprintIdentifier = "2365DFCEB1A56A53E7EAAE83"
                BuildableName = "libPods-FullIntel-ATAppUpdater.a"
                BlueprintName = "Pods-FullIntel-ATAppUpdater"
                ReferencedContainer = "container:Pods.xcodeproj">

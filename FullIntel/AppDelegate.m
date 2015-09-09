@@ -18,6 +18,7 @@
 #import "FIUtils.h"
 #import "Reachability.h"
 #import "ATAppUpdater.h"
+#import "Localytics.h"
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
@@ -32,7 +33,7 @@
 //    [Fabric with:@[[Twitter sharedInstance]]];
 //    [Fabric with:@[CrashlyticsKit]];
     
-    
+    [Localytics autoIntegrate:@"bd26cfe0964dbeac7c1c840-ba054dc0-56ba-11e5-acff-00d0fea82624" launchOptions:launchOptions]; 
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
 
     
@@ -100,7 +101,7 @@
     
     [FISharedResources sharedResourceManager];
     
-    [[ATAppUpdater sharedUpdater] forceOpenNewAppVersion:NO];
+    [[ATAppUpdater sharedUpdater] forceOpenNewAppVersion:YES];
     
     
     return YES;

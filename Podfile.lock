@@ -23,6 +23,7 @@ PODS:
   - AMRatingControl (1.3.0)
   - ATAppUpdater (1.3):
     - Reachability (~> 3.2)
+  - Localytics (3.5.0)
   - MZAppearance (1.1.3)
   - MZFormSheetController (3.0.2):
     - MZAppearance (~> 1.1.3)
@@ -44,6 +45,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - AMRatingControl (~> 1.3.0)
   - ATAppUpdater (~> 1.3)
+  - Localytics (~> 3.1)
   - MZFormSheetController (~> 3.0.2)
   - PKRevealController (~> 2.0.6)
   - pop (~> 1.0)
@@ -57,6 +59,7 @@ SPEC CHECKSUMS:
   AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
   AMRatingControl: f209fd394188ba48a818f2df091db438123db362
   ATAppUpdater: 8f95d944e3833f5a22e2094f228ab5237f7cbb72
+  Localytics: 856c2183047b3d9d7c4c0bbbbe95cc3fe110fe77
   MZAppearance: c2937318234fd782e900fb178942278881ac5490
   MZFormSheetController: 0cfda6f341a7c6d9054d596efad735a9fc0e7a1b
   PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
