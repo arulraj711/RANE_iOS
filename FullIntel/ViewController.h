@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import "AMPopTip.h"
 #import "CMPopTipView.h"
+#import "Localytics.h"
 
 @interface ViewController : UIViewController<CMPopTipViewDelegate>{
     CGRect oldFrame;

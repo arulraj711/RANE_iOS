@@ -185,6 +185,7 @@
     NSLog(@"app enter in backgound");
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     NSLog(@"application enter in background:%@",accessToken);
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Minimize App"];
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
         if(accessToken.length > 0) {
             NSTimeZone *timeZone = [NSTimeZone localTimeZone];

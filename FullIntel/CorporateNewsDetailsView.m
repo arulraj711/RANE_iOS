@@ -1114,10 +1114,10 @@
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
     if(isFIViewSelected) {
         //Show FI View
-       // [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FIArticlesNavigationInDrillIn"];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FIArticlesNavigationInDrillIn"];
     }else {
         //Show Web View
-      //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"WebViewArticlesNavigationInDrillIn"];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"WebViewArticlesNavigationInDrillIn"];
     }
 
     

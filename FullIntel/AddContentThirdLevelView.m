@@ -237,6 +237,9 @@
         // }
     }
     
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"contentCategory":contentCategory.name};
+    [Localytics tagEvent:@"AddContent Module Change" attributes:dictionary];
+    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isThirdLevelChanged"];
     
     //NSLog(@"selected id array after removal:%@",self.selectedIdArray);

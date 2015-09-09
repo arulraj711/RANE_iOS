@@ -103,6 +103,7 @@
 
 
 - (IBAction)signInButtonClicked:(id)sender {
+    [Localytics tagEvent:@"SignInButtonClicked"];
     [_usernameTextField resignFirstResponder];
     [_passwordTextField resignFirstResponder];
     [self callSignInFunction];
@@ -235,7 +236,7 @@
 }
 
 - (IBAction)forgetPasswordButtonPressed:(id)sender {
-    
+    [Localytics tagEvent:@"ForgotPasswordButtonClick"];
     [self showForgetAlert:_usernameTextField.text withFlag:@""];
 
 }
@@ -270,7 +271,7 @@
 }
 
 - (IBAction)infoButtonPressed:(id)sender {
-    
+    [Localytics tagEvent:@"InfoButtonClicked"];
     NSString *contentMessage = nil;
     UIView *contentView = nil;
     NSNumber *key = [NSNumber numberWithInteger:[(UIView *)sender tag]];
@@ -311,7 +312,7 @@
     self.currentPopTipViewTarget = nil;
 }
 - (IBAction)newUserSignUpButtonPressed:(id)sender {
-    
+    [Localytics tagEvent:@"SignupButtonClicked"];
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
@@ -324,6 +325,7 @@
 }
 
 - (IBAction)privacyPolicyButtonPressed:(id)sender {
+    [Localytics tagEvent:@"PrivacyPolicyButtonClicked"];
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
@@ -366,7 +368,9 @@
         }
         
     }else {
-        if(buttonIndex==1){
+        if(buttonIndex == 0) {
+            [Localytics tagEvent:@"ForgotPasswordCancelButtonClicked"];
+        } else if(buttonIndex==1){
             
             if([emailTextField.text length] == 0) {
                 [self.view makeToast:@"Please enter the email address associated with your account." duration:1 position:CSToastPositionCenter];
@@ -388,7 +392,7 @@
 
 
 -(void)callForgotPasswordWithEmail:(NSString *)email{
-    
+    [Localytics tagEvent:@"ForgotPasswordWithEmail"];
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
     [gradedetails setObject:email forKey:@"email"];
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];

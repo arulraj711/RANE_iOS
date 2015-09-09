@@ -701,6 +701,11 @@
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     data = item;
     NSLog(@"did select row:%@",data.name);
+    
+    
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"menuName":data.name};
+    [Localytics tagEvent:@"SelectedTopic" attributes:dictionary];
+    
     RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
     BOOL expanded = [self.treeView isCellForItemExpanded:item];
     if(expanded) {
@@ -1035,7 +1040,7 @@
 
 - (IBAction)addContentButtonClick:(id)sender {
     
-    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Add Content Main Menu"];
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
    
     

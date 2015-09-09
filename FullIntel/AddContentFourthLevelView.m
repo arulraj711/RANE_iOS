@@ -213,6 +213,8 @@
             [self.uncheckedArray removeObject:contentCategory.categoryId];
             // }
         }
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"contentCategory":contentCategory.name};
+    [Localytics tagEvent:@"AddContent Module Change" attributes:dictionary];
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFourthLevelChanged"];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"fourthLevelSelection"];

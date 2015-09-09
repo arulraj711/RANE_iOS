@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RFQuiltLayout.h"
 #import "AddContentFourthLevelView.h"
+#import "Localytics.h"
 @protocol ThirdLevelDelegate;
 @interface AddContentThirdLevelView : UIViewController<RFQuiltLayoutDelegate,FourthLevelDelegate> {
    // id<ThirdLevelDelegate> delegate;

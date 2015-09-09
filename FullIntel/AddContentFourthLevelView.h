@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RFQuiltLayout.h"
 #import "AddContentFifthLevelView.h"
+#import "Localytics.h"
 @protocol FourthLevelDelegate;
 @interface AddContentFourthLevelView : UIViewController<RFQuiltLayoutDelegate,FifthLevelDelegate> {
     UILabel *testLabel;

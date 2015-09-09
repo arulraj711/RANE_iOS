@@ -139,7 +139,7 @@
         // backgrView.alpha = 0.6;
         [window addSubview:buttonBackView];
     });
-    
+    [Localytics tagEvent:@"OffLineBanner"];
     
 }
 

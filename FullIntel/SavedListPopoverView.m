@@ -185,6 +185,7 @@
             UIWindow *window = [[UIApplication sharedApplication]windows][0];
             [window makeToast:@"￼Please enter a folder name." duration:1 position:CSToastPositionCenter];
         } else {
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Create Folder"];
             activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             activityIndicator.alpha = 1.0;
             activityIndicator.center = self.view.center;
@@ -226,7 +227,8 @@
 
 
 - (IBAction)savedAction:(id)sender {
-    NSLog(@"selected array count:%d and unselected count:%d",selectedArray.count,unselectedArray.count);
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SaveFolderClick"];
+   // NSLog(@"selected array count:%d and unselected count:%d",selectedArray.count,unselectedArray.count);
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.alpha = 1.0;
     activityIndicator.center = self.view.center;

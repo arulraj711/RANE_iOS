@@ -11,6 +11,7 @@
 #import "AddContentThirdLevelView.h"
 //#import "AMPopTip.h"
 #import "CMPopTipView.h"
+#import "Localytics.h"
 @protocol SecondLevelDelegate;
 @interface AddContentSecondLevelView : UIViewController<RFQuiltLayoutDelegate,ThirdLevelDelegate,UICollectionViewDataSource,UICollectionViewDelegate,CMPopTipViewDelegate>{
     UILabel *testLabel;
