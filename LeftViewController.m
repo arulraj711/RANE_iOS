@@ -722,6 +722,7 @@
         
         cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
     if([data.nodeId integerValue] == 9 && !data.isFolder) {
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click MarkedImportant"];
         [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
@@ -777,6 +778,7 @@
         
         
     } else if([data.nodeId integerValue] == 6 && !data.isFolder) {
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click SavedForLater"];
         [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-3] forKey:@"categoryId"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
@@ -803,6 +805,7 @@
         CorporateNewsListViewObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
     } else if([data.nodeId integerValue] == 7 && !data.isFolder) {
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click InfluencerList"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"InfluencerView"];
         
@@ -812,6 +815,7 @@
         
         [self.revealController setFrontViewController:navCtlr];
     }else if([data.nodeId integerValue] == 8 && !data.isFolder) {
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Deals"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Deals" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"DealsViewController"];
         
@@ -819,6 +823,7 @@
         DealsViewControllerObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
     }else if([data.nodeId integerValue] == 2 && !data.isFolder) {
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click StockWatch"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"stock" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"StockViewController"];
         StockViewController *StockViewControllerObj=(StockViewController *)[[navCtlr viewControllers]objectAtIndex:0];
@@ -826,6 +831,7 @@
          [self.revealController setFrontViewController:navCtlr];
     }
     else if([data.nodeId integerValue] == 4 && !data.isFolder) {
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click IpAndLegal"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"IpAndLegal" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"IpAndLegalViewController"];
         
@@ -836,6 +842,7 @@
         
 
     } else if([data.nodeId integerValue] == 5 && !data.isFolder) {
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click ExecutiveMoves"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ExecutiveMoves" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"ExecutiveMoves"];
         
@@ -843,7 +850,7 @@
         ExecutiveMovesControllerObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
     }else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
-        
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Logout"];
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
@@ -1012,7 +1019,7 @@
 }
 
 - (IBAction)researchRequestButtonClick:(UIButton *)sender {
-    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestButtonCick"];
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
     
@@ -1025,8 +1032,8 @@
 }
 
 -(void)requestChange:(id)sender {
-    
-    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"RequestChangeButtonClick"];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@""];
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
     

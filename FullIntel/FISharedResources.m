@@ -1870,7 +1870,7 @@
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
                 [self getCommentsWithDetails:self.getCommentDetailString withArticleId:self.getCommentArticleId];
-                
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Post Comment"];
                 
             } else {
                 [self hideProgressView];

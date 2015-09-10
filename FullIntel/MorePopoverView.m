@@ -15,6 +15,7 @@
 #import <TwitterKit/TwitterKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import <Fabric/Fabric.h>
+#import "FISharedResources.h"
 @interface MorePopoverView ()
 
 @end
@@ -68,7 +69,7 @@
     if(indexPath.row == 0) {
         
         
-        
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"LinkedInShareClick"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"linkedinSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
         
 //        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
@@ -112,6 +113,8 @@
 //        [shareDialog show];
         
       //  [self targetedShare:SLServiceTypeFacebook];
+        
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FacebookShareClick"];
         
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"fbSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
         
@@ -175,6 +178,7 @@
 
 -(void)targetedShare:(NSString *)serviceType {
     if(serviceType.length > 0 && [SLComposeViewController isAvailableForServiceType:serviceType]){
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"TwitterShareClick"];
         SLComposeViewController *shareView = [SLComposeViewController composeViewControllerForServiceType:serviceType];
         
         // define the range you're interested in

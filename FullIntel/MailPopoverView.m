@@ -48,6 +48,7 @@
 
 - (IBAction)cancelAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:NULL];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CloseMailView"];
 }
 
 

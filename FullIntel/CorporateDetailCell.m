@@ -888,7 +888,7 @@
 
 - (IBAction)mailButtonClick:(UIButton *)sender {
     
-   // [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MailClick"];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MailButtonClick"];
     
     NSString *mailBodyStr;
     if(self.selectedArticleUrl.length != 0) {
@@ -903,7 +903,7 @@
 
 - (IBAction)commentsButtonClick:(UIButton *)sender {
     
-    //[[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CommentClick"];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CommentButtonClick"];
     //NSLog(@"selected article id for comment:%@",self.selectedArticleId);
     NSMutableDictionary *commentsDic = [[NSMutableDictionary alloc] init];
     [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -1394,7 +1394,7 @@
 
 - (IBAction)savedListButtonClick:(UIButton *)sender {
     
-   // [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderClick"];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderButtonClick"];
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
     
@@ -1408,7 +1408,7 @@
 
 - (IBAction)moreButtonClick:(UIButton *)sender {
     
-    //[[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SocialSharingClick"];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SocialSharingButtonClick"];
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MorePopoverView" bundle:nil];
     

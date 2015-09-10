@@ -97,13 +97,14 @@
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
     //NSLog(@"request input:%@",resultStr);
     [[FISharedResources sharedResourceManager]sendResearchRequestWithDetails:resultStr];
-    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SendResearchRequest"];
 }
 
 -(void)researchSend {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (IBAction)closeAction:(id)sender {
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CloseResearchRequestView"];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 @end

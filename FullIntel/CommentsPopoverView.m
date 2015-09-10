@@ -67,9 +67,11 @@
 
 -(void)CommentsExpire {
     [self dismissViewControllerAnimated:NO completion:NULL];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CloseComment"];
 }
 -(void)tapEvent {
     [self dismissViewControllerAnimated:NO completion:NULL];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CloseComment"];
 }
 
 -(void)fetchCommentsForArticleId{

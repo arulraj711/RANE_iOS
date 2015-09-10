@@ -1083,7 +1083,7 @@
     
     if(sender.selected) {
         
-      //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchFullIntelView"];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchToFullIntelView"];
         //NSLog(@"sender selected");
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
         [sender setSelected:NO];
@@ -1091,7 +1091,7 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     } else {
         //NSLog(@"sender is not selected");
-      //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchWebView"];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchToWebView"];
         
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
         [sender setSelected:YES];

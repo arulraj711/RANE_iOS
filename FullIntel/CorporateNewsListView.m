@@ -475,6 +475,7 @@
 -(void)openRSSField {
     if ([MFMailComposeViewController canSendMail]) {
         // Yes we can send mail.
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"OpenRSSField"];
         mailComposer = [[MFMailComposeViewController alloc]init];
         mailComposer.mailComposeDelegate = self;
         [mailComposer setSubject:@"FullIntel RSS feed"];
@@ -507,6 +508,7 @@
          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if (result) {
         //NSLog(@"Result : %d",result);
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"RSS Mail Send"];
     }
     if (error) {
         //NSLog(@"Error : %@",error);
@@ -517,6 +519,7 @@
 }
 
 -(void)addContentView {
+    
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
@@ -1211,9 +1214,11 @@
                 
                 
             }
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FetchNextArticlesList"];
             NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
             [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
         } else {
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FetchNextArticlesList"];
             [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:self.devices.count] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
         }
     }
