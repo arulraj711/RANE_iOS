@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FISharedResources.h"
 #import <MessageUI/MessageUI.h>
+#import "WSCoachMarksView.h"
 
 @interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
     NSTimer *oneSecondTicker;
@@ -20,7 +21,8 @@
     NSString *mailArticleId;
     NSString *mailTitle;
     NSString *mailBody;
-    
+    NSArray *coachMarks;
+    WSCoachMarksView *coachMarksView;
 }
 @property NSIndexPath *selectedIndexPath;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;
@@ -30,4 +32,6 @@
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) int selectedIndex;
 -(void)getArticleIdListFromDB;
+@property (weak,nonatomic) IBOutlet UITextView *tutorialTextView;
+@property (weak,nonatomic) IBOutlet UIView *tutorialTextBoxView;
 @end

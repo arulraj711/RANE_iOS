@@ -81,10 +81,10 @@
     
     [self getArticleIdListFromDB];
     
-  //  _tutorialTextBoxView.hidden=YES;
+    _tutorialTextBoxView.hidden=YES;
     
     
-   // _tutorialTextBoxView.layer.cornerRadius=5.0f;
+    _tutorialTextBoxView.layer.cornerRadius=5.0f;
     
 }
 
@@ -102,8 +102,7 @@
     
     [super viewWillAppear:animated];
     
-   // [self.tutorialTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
-    
+    [self.tutorialTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
     
     
 }
@@ -113,7 +112,7 @@
     
     [super viewWillDisappear:animated];
     
-   // [self.tutorialTextView removeObserver:self forKeyPath:@"contentSize"];
+    [self.tutorialTextView removeObserver:self forKeyPath:@"contentSize"];
     
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -126,112 +125,112 @@
 }
 
 
-//-(void)afterSwipeDownTutorial{
-//    
-//    
-//    coachMarks = @[
-//                   
-//                   @{
-//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-360,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
-//                       @"caption": @""
-//                       },
-//                   @{
-//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-310,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
-//                       @"caption": @""
-//                       },
-//                   
-//                   @{
-//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-260,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
-//                       @"caption": @""
-//                       },
-//                   
-//                   @{
-//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-210,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
-//                       @"caption": @""
-//                       },
-//                   
-//                   @{
-//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-160,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
-//                       @"caption": @""
-//                       },
-//                   
-//                   @{
-//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-110,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
-//                       @"caption": @""
-//                       },
-//                   
-//                   
-//                   @{
-//                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-60,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
-//                       @"caption": @""
-//                       },
-//                   ];
-//    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
-//    coachMarksView.delegate=self;
-//    [self.view addSubview:coachMarksView];
-//    [coachMarksView start];
-//    
-//    
-//    _tutorialTextBoxView.hidden=NO;
-//    
-//    
-//}
+-(void)afterSwipeDownTutorial{
+    
+    
+    coachMarks = @[
+                   
+                   @{
+                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-360,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                       @"caption": @""
+                       },
+                   @{
+                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-310,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                       @"caption": @""
+                       },
+                   
+                   @{
+                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-260,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                       @"caption": @""
+                       },
+                   
+                   @{
+                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-210,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                       @"caption": @""
+                       },
+                   
+                   @{
+                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-160,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                       @"caption": @""
+                       },
+                   
+                   @{
+                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-110,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                       @"caption": @""
+                       },
+                   
+                   
+                   @{
+                       @"rect": [NSValue valueWithCGRect:CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-60,self.view.frame.origin.y+self.view.frame.size.height-128,50,50)],
+                       @"caption": @""
+                       },
+                   ];
+    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
+    coachMarksView.delegate=self;
+    [self.view addSubview:coachMarksView];
+    [coachMarksView start];
+    
+    
+    _tutorialTextBoxView.hidden=NO;
+    
+    
+}
 
 
-//- (void)coachMarksView:(WSCoachMarksView*)coachMarksView didNavigateToIndex:(NSInteger)index{
-//    
-//    NSLog(@"Index:%ld",(long)index);
-//    
-//    NSString *indexString=[NSString stringWithFormat:@"%ld",(long)index];
-//    
-//    if(index==0){
-//        
-//        
-//        _tutorialTextView.text=@"Mark Important";
-//        
-//    }else if (index==1){
-//        
-//        _tutorialTextView.text=@"Comment";
-//        
-//    }else if (index==2){
-//        
-//        _tutorialTextView.text=@"Email";
-//        
-//    }else if (index==3){
-//        
-//        _tutorialTextView.text=@"Folder and RSS";
-//        
-//    }else if (index==4){
-//        
-//        
-//        _tutorialTextView.text=@"Save For Later";
-//    }else if (index==5){
-//        
-//        _tutorialTextView.text=@"Research Request / Feedback";
-//        
-//    }else{
-//        
-//        _tutorialTextView.text=@"Social Post";
-//    }
-//    
-//    
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"DrillDownToolBoxTutorialNavigation" object:nil userInfo:@{@"index":indexString}];
-//    
-//    
-//    
-//}
+- (void)coachMarksView:(WSCoachMarksView*)coachMarksView didNavigateToIndex:(NSInteger)index{
+    
+    NSLog(@"Index:%ld",(long)index);
+    
+    NSString *indexString=[NSString stringWithFormat:@"%ld",(long)index];
+    
+    if(index==0){
+        
+        
+        _tutorialTextView.text=@"Mark Important";
+        
+    }else if (index==1){
+        
+        _tutorialTextView.text=@"Comment";
+        
+    }else if (index==2){
+        
+        _tutorialTextView.text=@"Email";
+        
+    }else if (index==3){
+        
+        _tutorialTextView.text=@"Folder and RSS";
+        
+    }else if (index==4){
+        
+        
+        _tutorialTextView.text=@"Save For Later";
+    }else if (index==5){
+        
+        _tutorialTextView.text=@"Research Request / Feedback";
+        
+    }else{
+        
+        _tutorialTextView.text=@"Social Post";
+    }
+    
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"DrillDownToolBoxTutorialNavigation" object:nil userInfo:@{@"index":indexString}];
+    
+    
+    
+}
 
-//- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksView{
-//    
-//    
-//    
-//    
-//    _tutorialTextBoxView.hidden=YES;
-//    
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"coachMardRemoved" object:nil];
-//    
-//    
-//}
+- (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksView{
+    
+    
+    
+    
+    _tutorialTextBoxView.hidden=YES;
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"coachMardRemoved" object:nil];
+    
+    
+}
 -(void)addOverLayForTutorial{
     
     
@@ -252,7 +251,7 @@
     
     
     
-   // [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated List Detailed View"];
+    // [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated List Detailed View"];
     CGSize currentSize = self.collectionView.bounds.size;
     float offset = self.currentIndex * currentSize.width;
     [self.collectionView setContentOffset:CGPointMake(offset, 0)];
@@ -380,14 +379,14 @@
     }
     
     // We need to allow a slight pause before running handler to make sure rotation has been processed by the view hierarchy
-   // [self performSelectorOnMainThread:@selector(handleDeviceOrientationChange:) withObject:coachMarksView waitUntilDone:NO];
+    // [self performSelectorOnMainThread:@selector(handleDeviceOrientationChange:) withObject:coachMarksView waitUntilDone:NO];
 }
 
 //- (void)handleDeviceOrientationChange:(WSCoachMarksView*)coachMarksView {
-//    
+//
 //    // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
-//    
-//    
+//
+//
 //}
 
 
@@ -776,7 +775,7 @@
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
             if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             }
             
             
@@ -1083,7 +1082,7 @@
     
     if(sender.selected) {
         
-      //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchFullIntelView"];
+        //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchFullIntelView"];
         //NSLog(@"sender selected");
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
         [sender setSelected:NO];
@@ -1091,7 +1090,7 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
     } else {
         //NSLog(@"sender is not selected");
-      //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchWebView"];
+        //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchWebView"];
         
         [sender setBackgroundImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
         [sender setSelected:YES];
@@ -1107,22 +1106,22 @@
     CorporateDetailCell *cell = (CorporateDetailCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPath];
     // [cell resetCellWebviewHeight];
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-   // NSLog(@"collection view scroll");
+    // NSLog(@"collection view scroll");
     int lastCount = self.articleIdArray.count-1;
     float scrollOffset = self.collectionView.contentOffset.x;
-
+    
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
     if(isFIViewSelected) {
         //Show FI View
-       // [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FIArticlesNavigationInDrillIn"];
+        // [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FIArticlesNavigationInDrillIn"];
     }else {
         //Show Web View
-      //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"WebViewArticlesNavigationInDrillIn"];
+        //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"WebViewArticlesNavigationInDrillIn"];
     }
-
+    
     
     float scrollOffsetY = self.collectionView.contentOffset.y;
-
+    
     
     NSLog(@"collection scroll x:%f and y:%f",scrollOffset,scrollOffsetY);
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
@@ -1155,7 +1154,7 @@
             
             oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                                              selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
-           // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+            // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
             
         }
     }

@@ -105,6 +105,13 @@
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
 		F55634651B94687A009E7C8E /* FIUnreadMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55634631B94687A009E7C8E /* FIUnreadMenu.m */; };
+		F583CCF11BA2EF1A0080C384 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F583CCEE1BA2EF190080C384 /* Tutorial.storyboard */; };
+		F583CCF21BA2EF1A0080C384 /* TutorialPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F583CCF01BA2EF1A0080C384 /* TutorialPopViewController.m */; };
+		F583CCF51BA2F1B70080C384 /* DrillDownListTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F583CCF41BA2F1B70080C384 /* DrillDownListTutorialViewController.m */; };
+		F583CCF81BA2F23F0080C384 /* EndOfTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F583CCF71BA2F23F0080C384 /* EndOfTutorialViewController.m */; };
+		F583CCFB1BA2F25F0080C384 /* LeftMenuTutorialPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F583CCFA1BA2F25F0080C384 /* LeftMenuTutorialPopViewController.m */; };
+		F583CCFE1BA2F26D0080C384 /* MainListTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F583CCFD1BA2F26D0080C384 /* MainListTutorialViewController.m */; };
+		F583CD021BA2FE5C0080C384 /* AddContent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F583CD011BA2FE5C0080C384 /* AddContent.storyboard */; };
 		F5DAAA541B7080E80059425C /* TweetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5DAAA531B7080E80059425C /* TweetsCell.xib */; };
 		F5F727271B6F809400DE7980 /* SocialLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5F727261B6F809400DE7980 /* SocialLinkCell.xib */; };
 		F708D9EE1AB1A19B001FF59F /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = F708D9ED1AB1A19A001FF59F /* test.html */; };
@@ -119,7 +126,6 @@
 		F75295781A933F2100CD9087 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F75295771A933F2100CD9087 /* CoreImage.framework */; };
 		F773CFE71ADE4370002FC7CF /* JSCustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = F773CFE61ADE4370002FC7CF /* JSCustomBadge.m */; };
 		F773CFE91ADE99C7002FC7CF /* addContent.json in Resources */ = {isa = PBXBuildFile; fileRef = F773CFE81ADE99C7002FC7CF /* addContent.json */; };
-		F773CFEC1ADE9C0D002FC7CF /* AddContent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F773CFEB1ADE9C0D002FC7CF /* AddContent.storyboard */; };
 		F773CFEF1ADE9E0A002FC7CF /* AddContentFirstLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = F773CFEE1ADE9E0A002FC7CF /* AddContentFirstLevelView.m */; };
 		F78B42F81ABA896E00AB7FFB /* CorporateNewsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = F78B42F71ABA896E00AB7FFB /* CorporateNewsListView.m */; };
 		F78B42FA1ABA89A300AB7FFB /* CorporateNewsListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F78B42F91ABA89A300AB7FFB /* CorporateNewsListView.storyboard */; };
@@ -370,6 +376,18 @@
 		F552A8241B6666670003B7C1 /* FullIntel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 2.xcdatamodel"; sourceTree = "<group>"; };
 		F55634631B94687A009E7C8E /* FIUnreadMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIUnreadMenu.m; sourceTree = "<group>"; };
 		F55634641B94687A009E7C8E /* FIUnreadMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIUnreadMenu.h; sourceTree = "<group>"; };
+		F583CCEE1BA2EF190080C384 /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
+		F583CCEF1BA2EF190080C384 /* TutorialPopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialPopViewController.h; sourceTree = "<group>"; };
+		F583CCF01BA2EF1A0080C384 /* TutorialPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialPopViewController.m; sourceTree = "<group>"; };
+		F583CCF31BA2F1B70080C384 /* DrillDownListTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrillDownListTutorialViewController.h; sourceTree = "<group>"; };
+		F583CCF41BA2F1B70080C384 /* DrillDownListTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrillDownListTutorialViewController.m; sourceTree = "<group>"; };
+		F583CCF61BA2F23F0080C384 /* EndOfTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndOfTutorialViewController.h; sourceTree = "<group>"; };
+		F583CCF71BA2F23F0080C384 /* EndOfTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndOfTutorialViewController.m; sourceTree = "<group>"; };
+		F583CCF91BA2F25F0080C384 /* LeftMenuTutorialPopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuTutorialPopViewController.h; sourceTree = "<group>"; };
+		F583CCFA1BA2F25F0080C384 /* LeftMenuTutorialPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuTutorialPopViewController.m; sourceTree = "<group>"; };
+		F583CCFC1BA2F26D0080C384 /* MainListTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainListTutorialViewController.h; sourceTree = "<group>"; };
+		F583CCFD1BA2F26D0080C384 /* MainListTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainListTutorialViewController.m; sourceTree = "<group>"; };
+		F583CD011BA2FE5C0080C384 /* AddContent.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddContent.storyboard; sourceTree = "<group>"; };
 		F5DAAA531B7080E80059425C /* TweetsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsCell.xib; sourceTree = "<group>"; };
 		F5F727261B6F809400DE7980 /* SocialLinkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLinkCell.xib; sourceTree = "<group>"; };
 		F708D9ED1AB1A19A001FF59F /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
@@ -387,7 +405,6 @@
 		F773CFE51ADE4370002FC7CF /* JSCustomBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSCustomBadge.h; sourceTree = "<group>"; };
 		F773CFE61ADE4370002FC7CF /* JSCustomBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSCustomBadge.m; sourceTree = "<group>"; };
 		F773CFE81ADE99C7002FC7CF /* addContent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = addContent.json; sourceTree = "<group>"; };
-		F773CFEB1ADE9C0D002FC7CF /* AddContent.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddContent.storyboard; sourceTree = "<group>"; };
 		F773CFED1ADE9E0A002FC7CF /* AddContentFirstLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentFirstLevelView.h; sourceTree = "<group>"; };
 		F773CFEE1ADE9E0A002FC7CF /* AddContentFirstLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFirstLevelView.m; sourceTree = "<group>"; };
 		F78B42F61ABA896E00AB7FFB /* CorporateNewsListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorporateNewsListView.h; sourceTree = "<group>"; };
@@ -731,6 +748,7 @@
 		A0E2234F1A91C2F00073814A /* FullIntel */ = {
 			isa = PBXGroup;
 			children = (
+				F583CCED1BA2EEFA0080C384 /* Tutorial */,
 				A0E4B1141B4BB74D0029D389 /* Folder Page */,
 				A0CF5C241B1DD97200DED2D9 /* MockPages */,
 				F773CFEA1ADE99DC002FC7CF /* AddContent */,
@@ -828,6 +846,24 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F583CCED1BA2EEFA0080C384 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				F583CCEE1BA2EF190080C384 /* Tutorial.storyboard */,
+				F583CCEF1BA2EF190080C384 /* TutorialPopViewController.h */,
+				F583CCF01BA2EF1A0080C384 /* TutorialPopViewController.m */,
+				F583CCF31BA2F1B70080C384 /* DrillDownListTutorialViewController.h */,
+				F583CCF41BA2F1B70080C384 /* DrillDownListTutorialViewController.m */,
+				F583CCF61BA2F23F0080C384 /* EndOfTutorialViewController.h */,
+				F583CCF71BA2F23F0080C384 /* EndOfTutorialViewController.m */,
+				F583CCF91BA2F25F0080C384 /* LeftMenuTutorialPopViewController.h */,
+				F583CCFA1BA2F25F0080C384 /* LeftMenuTutorialPopViewController.m */,
+				F583CCFC1BA2F26D0080C384 /* MainListTutorialViewController.h */,
+				F583CCFD1BA2F26D0080C384 /* MainListTutorialViewController.m */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
 		F74A550F1AB048120009FE4C /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
@@ -851,8 +887,8 @@
 		F773CFEA1ADE99DC002FC7CF /* AddContent */ = {
 			isa = PBXGroup;
 			children = (
+				F583CD011BA2FE5C0080C384 /* AddContent.storyboard */,
 				A0ECBDEC1AEA497500B140C8 /* CollectionViewLayout */,
-				F773CFEB1ADE9C0D002FC7CF /* AddContent.storyboard */,
 				F773CFED1ADE9E0A002FC7CF /* AddContentFirstLevelView.h */,
 				F773CFEE1ADE9E0A002FC7CF /* AddContentFirstLevelView.m */,
 				A087980B1ADFE47D00D93114 /* FirstLevelCell.h */,
@@ -1316,6 +1352,7 @@
 				F7E81FA21A97057100F9A8D4 /* google_topic.png in Resources */,
 				F773CFE91ADE99C7002FC7CF /* addContent.json in Resources */,
 				F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */,
+				F583CCF11BA2EF1A0080C384 /* Tutorial.storyboard in Resources */,
 				F7E81F961A97057100F9A8D4 /* apple-watch-model.jpg in Resources */,
 				F7E81FB51A97057100F9A8D4 /* moss.jpeg in Resources */,
 				A0B0F5CB1B256AE300BB1169 /* Eiffel_Tower.jpg in Resources */,
@@ -1330,6 +1367,7 @@
 				F7E81FBE1A97057100F9A8D4 /* samsung.ico in Resources */,
 				F7E81FB01A97057100F9A8D4 /* Josh.jpeg in Resources */,
 				F7C1AB5C1ABFEC6B00D8588A /* SavedListPopoverView.storyboard in Resources */,
+				F583CD021BA2FE5C0080C384 /* AddContent.storyboard in Resources */,
 				F7AE10841AC01E4D0091E1C7 /* InfluencerListView.storyboard in Resources */,
 				F7E81FC91A97057100F9A8D4 /* stock1.png in Resources */,
 				F7E81FB21A97057100F9A8D4 /* mexico.jpg in Resources */,
@@ -1355,7 +1393,6 @@
 				F7CE36F21A95E99D0005AA0A /* RATableViewCell.xib in Resources */,
 				A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */,
 				A0CF5C7A1B1EFE1100DED2D9 /* legalDril.html in Resources */,
-				F773CFEC1ADE9C0D002FC7CF /* AddContent.storyboard in Resources */,
 				A0E223611A91C2F00073814A /* Images.xcassets in Resources */,
 				F7E81FC61A97057100F9A8D4 /* stat1.png in Resources */,
 				F78B43011ABA92AC00AB7FFB /* corporate_news_list.json in Resources */,
@@ -1464,6 +1501,7 @@
 				A07A05BE1AF78EBC0016AD46 /* AddContentThirdLevelView.m in Sources */,
 				F7CE36E41A95E9490005AA0A /* RATreeNodeItem.m in Sources */,
 				F7AE10881AC022CD0091E1C7 /* InfluencerCell.m in Sources */,
+				F583CCF81BA2F23F0080C384 /* EndOfTutorialViewController.m in Sources */,
 				A0E2235C1A91C2F00073814A /* ViewController.m in Sources */,
 				F7DB32611AA56F50002724D6 /* FIMenu.m in Sources */,
 				A0CF5C5A1B1DD98B00DED2D9 /* ExecutiveMovesController.m in Sources */,
@@ -1471,6 +1509,7 @@
 				A0CF5C711B1DD98B00DED2D9 /* TopStoriesCell.m in Sources */,
 				F7CE36E01A95E9490005AA0A /* RATreeNode.m in Sources */,
 				F7E354E31A947A19009677D2 /* LeftViewController.m in Sources */,
+				F583CCFB1BA2F25F0080C384 /* LeftMenuTutorialPopViewController.m in Sources */,
 				A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */,
 				A0CF5C6F1B1DD98B00DED2D9 /* Stocks.m in Sources */,
 				F7CE36E11A95E9490005AA0A /* RATreeNodeCollectionController.m in Sources */,
@@ -1495,6 +1534,7 @@
 				A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */,
 				A0CF5C6D1B1DD98B00DED2D9 /* TimeLineCell.m in Sources */,
 				F78B42F81ABA896E00AB7FFB /* CorporateNewsListView.m in Sources */,
+				F583CCF21BA2EF1A0080C384 /* TutorialPopViewController.m in Sources */,
 				A0CF5C6E1B1DD98B00DED2D9 /* StockCell.m in Sources */,
 				A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */,
 				A08860801B427B9500939D51 /* FIFolder.m in Sources */,
@@ -1506,9 +1546,11 @@
 				A0CF5C661B1DD98B00DED2D9 /* CompanyCell.m in Sources */,
 				F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */,
 				A0CF5C6B1B1DD98B00DED2D9 /* PersonalityExecutiveCell.m in Sources */,
+				F583CCFE1BA2F26D0080C384 /* MainListTutorialViewController.m in Sources */,
 				A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */,
 				A0DEC3DE1AE8E31D0046E8BB /* SocialLinkCell.m in Sources */,
 				F78B42FE1ABA8F4800AB7FFB /* CorporateNewsCell.m in Sources */,
+				F583CCF51BA2F1B70080C384 /* DrillDownListTutorialViewController.m in Sources */,
 				A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */,
 				A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */,
 				A003B19F1B1841FF00857F35 /* CMPopTipView.m in Sources */,
