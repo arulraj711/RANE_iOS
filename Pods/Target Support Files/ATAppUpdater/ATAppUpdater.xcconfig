@@ -1,0 +1,1 @@
+ATAPPUPDATER_OTHER_LDFLAGS = -framework "SystemConfiguration" -framework "UIKit"

@@ -19,11 +19,12 @@
 @interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
     NSMutableArray *tweetArray;
     UCZProgressView *progressView;
-   // UICollectionView *tweetsLocalCollectionView;
+    // UICollectionView *tweetsLocalCollectionView;
     NSMutableArray *tweetIds,*followersArray,*tweetScreenNameArray;
     CGRect positionOfCollectionViewInScrollView;
     UIView *lbl;
     UIView *noTweetView;
+    NSTimer *popAnimationTimerTwo,*popAnimationTimer;
 }
 @property UICollectionView *tweetsLocalCollectionView;
 @property UICollectionView *socialcollectionView;
@@ -135,5 +136,9 @@
 - (IBAction)moreButtonClick:(UIButton *)sender;
 -(void)loadTweetsFromPost;
 - (IBAction)infoButtonClick:(UIButton *)sender;
-
+@property (weak,nonatomic) IBOutlet UIButton *commentBtn;
+@property (weak,nonatomic) IBOutlet UIButton *folderBtn;
+@property (weak,nonatomic) IBOutlet UIButton *messageBtn;
+@property (weak,nonatomic) IBOutlet UIButton *requestBtn;
+@property (weak,nonatomic) IBOutlet UIButton *moreButton;
 @end

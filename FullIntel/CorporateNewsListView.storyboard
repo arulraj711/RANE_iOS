@@ -2550,13 +2550,17 @@
                                             <outlet property="bioLabel" destination="WYK-b0-b0T" id="iRe-GJ-20G"/>
                                             <outlet property="bioTitleLabel" destination="jgl-ay-LPK" id="d2y-I9-Ckg"/>
                                             <outlet property="bottomView" destination="Y11-Aj-5aY" id="Aa7-xW-6aj"/>
+                                            <outlet property="commentBtn" destination="qot-8V-vnn" id="gII-bf-0OO"/>
                                             <outlet property="detailsWebview" destination="gQQ-1Z-JLz" id="gCZ-Iu-zGa"/>
+                                            <outlet property="folderBtn" destination="hOl-7Z-KDa" id="k6o-RE-qCr"/>
                                             <outlet property="locationIcon" destination="hAC-uZ-VHb" id="0du-0r-Q75"/>
                                             <outlet property="locationIconHeightConstraint" destination="i6z-1G-De7" id="tIH-ue-j1x"/>
                                             <outlet property="locationImageTopConstarint" destination="oXZ-c6-qzh" id="6ux-Ax-iJR"/>
                                             <outlet property="locationLabelHeightConstraint" destination="1fd-ne-htj" id="ggD-uB-Sgb"/>
                                             <outlet property="locationLabelTopConstraint" destination="YFN-RG-Vos" id="caH-gd-Xv2"/>
                                             <outlet property="markedImpButton" destination="LTr-aa-idS" id="uHW-xD-dDz"/>
+                                            <outlet property="messageBtn" destination="m4S-IC-JhN" id="Vfs-Fy-rJX"/>
+                                            <outlet property="moreButton" destination="k83-WV-cuL" id="5i4-fh-hdm"/>
                                             <outlet property="outletIcon" destination="8AS-NO-CDn" id="glY-JP-rZT"/>
                                             <outlet property="outletIconHeightConstraint" destination="HQo-aA-yTA" id="Pj8-YB-eri"/>
                                             <outlet property="outletImageTopConstraint" destination="m2z-80-pTf" id="JcW-eT-uC2"/>
@@ -2570,6 +2574,7 @@
                                             <outlet property="overlayArticleTitle" destination="nsh-Mp-AGW" id="yF3-RY-LLb"/>
                                             <outlet property="overlayView" destination="51t-iw-ak5" id="SMH-Wd-JzC"/>
                                             <outlet property="ratingControl" destination="tJw-Ts-tk6" id="zu2-dQ-bg5"/>
+                                            <outlet property="requestBtn" destination="bvy-RL-T8a" id="lxx-su-D8j"/>
                                             <outlet property="savedForLaterButton" destination="Yvy-zq-AH2" id="MFe-CD-ZFh"/>
                                             <outlet property="scrollView" destination="zNe-BC-vf1" id="aHV-Kg-6e6"/>
                                             <outlet property="socialLinkCollectionView" destination="Pp8-Pp-bO8" id="sSC-UD-imb"/>

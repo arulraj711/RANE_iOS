@@ -11,7 +11,6 @@
 #import "AddContentThirdLevelView.h"
 //#import "AMPopTip.h"
 #import "CMPopTipView.h"
-#import "Localytics.h"
 @protocol SecondLevelDelegate;
 @interface AddContentSecondLevelView : UIViewController<RFQuiltLayoutDelegate,ThirdLevelDelegate,UICollectionViewDataSource,UICollectionViewDelegate,CMPopTipViewDelegate>{
     UILabel *testLabel;
@@ -19,6 +18,8 @@
     UIButton *infoButton;
     UICollectionView *collectionView;
     RFQuiltLayout* layout;
+    UITapGestureRecognizer *tapEvent;
+    NSTimer *popAnimationTimer;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *categoryCollectionView;
 - (IBAction)checkMark:(id)sender;
@@ -30,7 +31,7 @@
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
 @property (nonatomic,strong) NSMutableArray *previousArray;
 @property (nonatomic,strong) NSNumber *selectedId;
-
+@property (nonatomic,weak) IBOutlet UIView *tutorialContentView;
 
 
 //@property (nonatomic, strong) AMPopTip *popTip;

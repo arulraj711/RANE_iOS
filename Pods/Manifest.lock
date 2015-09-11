@@ -40,6 +40,7 @@ PODS:
   - UCZProgressView (1.0.1)
   - UICollectionViewRightAlignedLayout (0.0.2)
   - UIImageView-Letters (1.1.1)
+  - WSCoachMarksView (0.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -54,6 +55,7 @@ DEPENDENCIES:
   - UCZProgressView
   - UICollectionViewRightAlignedLayout
   - UIImageView-Letters
+  - WSCoachMarksView (~> 0.2)
 
 SPEC CHECKSUMS:
   AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
@@ -70,5 +72,6 @@ SPEC CHECKSUMS:
   UCZProgressView: 32fa5c572ff1300bf22553c8286600d9ae42f50f
   UICollectionViewRightAlignedLayout: b2ddc2b0c526b7892d46f33eee3e1ecdf8cacc4a
   UIImageView-Letters: ea2b315919f0c50bb98999c3a3d7208db0c7064b
+  WSCoachMarksView: d1653c058c8289a300ddf28af9dd49eb659c9c42
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.38.2

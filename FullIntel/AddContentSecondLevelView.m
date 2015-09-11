@@ -11,6 +11,9 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FIContentCategory.h"
 #import "AddContentThirdLevelView.h"
+//#import "Localytics.h"
+#import "pop.h"
+#import "FISharedResources.h"
 
 @interface AddContentSecondLevelView ()
 
@@ -31,7 +34,7 @@
     
     self.navigationController.navigationBar.hidden = YES;
     //self.categoryCollectionView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-   // self.categoryCollectionView.layer.borderWidth = 1.0f;
+    // self.categoryCollectionView.layer.borderWidth = 1.0f;
     self.selectedIdArray = [[NSMutableArray alloc]init];
     self.checkedArray = [[NSMutableArray alloc]init];
     self.uncheckedArray = [[NSMutableArray alloc]init];
@@ -50,10 +53,15 @@
     [self.categoryCollectionView reloadData];
     //[self loadSelectedCategory];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSelectedCategory:) name:@"selectedCategory" object:nil];
- //   UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     
     
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SecondLevelTutorialTrigger) name:@"SecondLevelTutorialTrigger" object:nil];
+    
+    
+    //   UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    
+    
     if(orientation == 1) {
         testLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
         testLabel.text = @"Topics";
@@ -65,15 +73,105 @@
         testLabel.text = @"Topics";
         testLabel.textAlignment = NSTextAlignmentLeft;
         testLabel.font = [UIFont fontWithName:@"OpenSans" size:20.0];
-
+        
     }
     [self.view addSubview:testLabel];
     [self.view addSubview:infoButton];
     [self.view addSubview:availableTopic];
+    
+    
+    _tutorialContentView.hidden=YES;
+    
+    _tutorialContentView.layer.cornerRadius=5.0f;
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
+-(void)stopSecondTutorial:(UITapGestureRecognizer *)sender{
+    
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
+    if (coachMarksShown == YES) {
+        
+        NSLog(@"triggerSecondTutorial");
+        [self.view removeGestureRecognizer:tapEvent];
+        
+        _tutorialContentView.hidden=YES;
+        
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SecondTutorialShown"];
+        
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"CloseAddContentTutorial"];
+        
+        [popAnimationTimer invalidate];
+        
+        [_categoryCollectionView reloadData];
+        
+        _tutorialContentView.hidden=YES;
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"closeAddContentView" object:nil];
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuTutorialTrigger" object:nil];
+        
+        
+        [self.view removeGestureRecognizer:tapEvent];
+        
+    }
+}
+
+-(void)SecondLevelTutorialTrigger{
+    
+    tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(stopSecondTutorial:)];
+    
+    [self.view addGestureRecognizer:tapEvent];
+    
+    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SecondTutorialShown"];
+    
+    
+    [_categoryCollectionView reloadData];
+    
+    _tutorialContentView.hidden=NO;
+    
+}
+
+-(void)permformAnimation:(NSTimer *)timer{
+    
+    
+    
+    
+    SecondLevelCell *cell=timer.userInfo;
+    
+    [self animateFirstCell:cell];
+    
+}
+-(void)animateFirstCell:(SecondLevelCell *)cell{
+    
+    [cell.layer removeAllAnimations];
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.5, 0.5)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+    scaleAnimation.springBounciness = 10;
+    scaleAnimation.springSpeed=10;
+    [cell.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+    
+    
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
+    //[Localytics tagScreen:@"Add Content Topics"];
 }
 
 //-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-//    
+//
 //    // NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
 //    if(fromInterfaceOrientation == 1) {
 //      //  layout.blockPixels = CGSizeMake(130,150);
@@ -82,7 +180,7 @@
 //       // layout.blockPixels = CGSizeMake(100,150);
 //        testLabel.frame = CGRectMake((600-testLabel.frame.size.width)/2, testLabel.frame.origin.y, testLabel.frame.size.width, testLabel.frame.size.height);
 //    }
-//    
+//
 //}
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
@@ -95,15 +193,15 @@
     [self.categoryCollectionView.collectionViewLayout invalidateLayout];
     
     // Calculate the index of the item that the collectionView is currently displaying
-   // CGPoint currentOffset = [self.categoryCollectionView contentOffset];
-   // self.currentIndex = currentOffset.x / self.categoryCollectionView.frame.size.width;
+    // CGPoint currentOffset = [self.categoryCollectionView contentOffset];
+    // self.currentIndex = currentOffset.x / self.categoryCollectionView.frame.size.width;
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
     // Force realignment of cell being displayed
-   // CGSize currentSize = self.categoryCollectionView.bounds.size;
-  //  float offset = self.currentIndex * currentSize.width;
+    // CGSize currentSize = self.categoryCollectionView.bounds.size;
+    //  float offset = self.currentIndex * currentSize.width;
     [self.categoryCollectionView setContentOffset:CGPointMake(0, 0)];
     
     
@@ -126,72 +224,72 @@
 }
 
 - (void)thirdLevelDidFinish:(AddContentThirdLevelView*)thirdLevel {
-   // NSLog(@"delegate method is working fine:%@",self.selectedIdArray);
+    // NSLog(@"delegate method is working fine:%@",self.selectedIdArray);
     self.selectedIdArray = thirdLevel.previousArray;
     //NSLog(@"second selected id array:%@ and unchecked array:%@ and %@",self.selectedIdArray,self.uncheckedArray,thirdLevel.previousUnCheckArray);
-//    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
-//    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
+    //    [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
+    //    [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
     [self.categoryCollectionView reloadData];
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
-//    if(self.selectedIdArray.count != 0) {
-//        [self.previousArray addObject:self.selectedId];
-//    } else {
-//        [self.previousArray removeAllObjects];
-//    }
+    //    if(self.selectedIdArray.count != 0) {
+    //        [self.previousArray addObject:self.selectedId];
+    //    } else {
+    //        [self.previousArray removeAllObjects];
+    //    }
     [delegate secondLevelDidFinish:self];
     [super viewWillDisappear:animated];
 }
 
 - (void)loadSelectedCategory:(id)sender
 {
-   // NSLog(@"load seleced is working");
+    // NSLog(@"load seleced is working");
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     self.innerArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"innerArray"]];
     self.previousArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"previousArray"]];
-   // NSLog(@"second level previous array:%@ and selected id:%@",self.previousArray,self.selectedId);
+    // NSLog(@"second level previous array:%@ and selected id:%@",self.previousArray,self.selectedId);
     //if([self.previousArray containsObject:self.selectedId]) {
-        NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"secondLevelSelection"];
-       // NSLog(@"already selected array count:%d",alreadySelectedArray.count);
-        if(alreadySelectedArray.count ==0) {
-            for(FIContentCategory *category in self.innerArray) {
-                if(category.isSubscribed) {
-                    [self.checkedArray addObject:category.categoryId];
-                    [self.selectedIdArray addObject:category.categoryId];
-                } else {
-                    [self.uncheckedArray addObject:category.categoryId];
-                    [self.selectedIdArray removeObject:category.categoryId];
-                }
+    NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"secondLevelSelection"];
+    // NSLog(@"already selected array count:%d",alreadySelectedArray.count);
+    if(alreadySelectedArray.count ==0) {
+        for(FIContentCategory *category in self.innerArray) {
+            if(category.isSubscribed) {
+                [self.checkedArray addObject:category.categoryId];
+                [self.selectedIdArray addObject:category.categoryId];
+            } else {
+                [self.uncheckedArray addObject:category.categoryId];
+                [self.selectedIdArray removeObject:category.categoryId];
             }
-        } else {
-            self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
         }
+    } else {
+        self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
+    }
     
-   // [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
-  //  [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
-        
-//    } else {
-//        self.selectedIdArray = [[NSMutableArray alloc]init];
-//    }
-   // NSLog(@"second level selected id array:%@",self.selectedIdArray);
+    // [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
+    //  [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
+    
+    //    } else {
+    //        self.selectedIdArray = [[NSMutableArray alloc]init];
+    //    }
+    // NSLog(@"second level selected id array:%@",self.selectedIdArray);
     [self.categoryCollectionView reloadData];
-
     
-//    for(FIContentCategory *category in self.innerArray) {
-//        if(category.isSubscribed) {
-//            [self.checkedArray addObject:category.categoryId];
-//            [self.selectedIdArray addObject:category.categoryId];
-//        } else {
-//            [self.uncheckedArray addObject:category.categoryId];
-//            [self.selectedIdArray removeObject:category.categoryId];
-//        }
-//    }
-//    
-//    [self.categoryCollectionView reloadData];
+    
+    //    for(FIContentCategory *category in self.innerArray) {
+    //        if(category.isSubscribed) {
+    //            [self.checkedArray addObject:category.categoryId];
+    //            [self.selectedIdArray addObject:category.categoryId];
+    //        } else {
+    //            [self.uncheckedArray addObject:category.categoryId];
+    //            [self.selectedIdArray removeObject:category.categoryId];
+    //        }
+    //    }
+    //
+    //    [self.categoryCollectionView reloadData];
     // NSNumber  = [userInfo objectForKey:@"status"];
-   // self.title = [userInfo objectForKey:@"title"];
+    // self.title = [userInfo objectForKey:@"title"];
     
 }
 
@@ -232,32 +330,58 @@
     cell.checkMarkButton.tag = indexPath.row;
     cell.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     cell.contentView.layer.borderWidth = 1.0f;
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
+    if (coachMarksShown == YES) {
+        
+        
+        if(indexPath.row==0){
+            
+            NSLog(@"animate first cell");
+            
+            cell.layer.borderWidth=1.0;
+            cell.layer.borderColor=[[UIColor redColor]CGColor];
+            
+            
+            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
+        }
+    }else{
+        
+        cell.layer.borderWidth=0.0;
+        
+    }
+    
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:indexPath];
-     [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
     
-    FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
-    if(contentCategory.listArray.count != 0) {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
-    AddContentThirdLevelView *thirdLevel = [storyboard instantiateViewControllerWithIdentifier:@"ThirdLevel"];
-    thirdLevel.delegate = self;
-    thirdLevel.innerArray = contentCategory.listArray;
-    thirdLevel.title = contentCategory.name;
-    thirdLevel.previousArray = self.selectedIdArray;
-        thirdLevel.previousUnCheckArray = self.uncheckedArray;
-    thirdLevel.selectedId = contentCategory.categoryId;
-        if(cell.checkMarkButton.isSelected) {
-            thirdLevel.isSelected = YES;
-        } else {
-            thirdLevel.isSelected = NO;
-        }
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
+    if (coachMarksShown == NO) {
         
-    [self.navigationController pushViewController:thirdLevel animated:YES];
+        SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:indexPath];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
+        
+        FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
+        if(contentCategory.listArray.count != 0) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+            AddContentThirdLevelView *thirdLevel = [storyboard instantiateViewControllerWithIdentifier:@"ThirdLevel"];
+            thirdLevel.delegate = self;
+            thirdLevel.innerArray = contentCategory.listArray;
+            thirdLevel.title = contentCategory.name;
+            thirdLevel.previousArray = self.selectedIdArray;
+            thirdLevel.previousUnCheckArray = self.uncheckedArray;
+            thirdLevel.selectedId = contentCategory.categoryId;
+            if(cell.checkMarkButton.isSelected) {
+                thirdLevel.isSelected = YES;
+            } else {
+                thirdLevel.isSelected = NO;
+            }
+            
+            [self.navigationController pushViewController:thirdLevel animated:YES];
+        }
     }
-    
 }
 
 - (void)infoButtonClick:(id)sender {
@@ -299,7 +423,7 @@
 - (IBAction)checkMark:(id)sender {
     
     
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
     
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
@@ -321,10 +445,8 @@
         // } else {
         [self.uncheckedArray removeObject:contentCategory.categoryId];
         // }
-
+        
     }
-    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"contentCategory":contentCategory.name};
-    [Localytics tagEvent:@"AddContent Module Change" attributes:dictionary];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"secondLevelSelection"];
     [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"secondLevelUnSelection"];
 }
