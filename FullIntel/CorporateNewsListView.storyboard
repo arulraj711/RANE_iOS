@@ -2627,6 +2627,7 @@
                     <size key="freeformSize" width="1000" height="600"/>
                     <connections>
                         <outlet property="collectionView" destination="hcI-3t-Kiw" id="prq-GB-zD7"/>
+                        <outlet property="tutorialTextBoxView" destination="FOI-zo-zm1" id="4aN-xR-NUJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vlt-rS-cEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
