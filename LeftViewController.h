@@ -24,6 +24,8 @@
 @property BOOL isFirstTime;
 @property (weak, nonatomic) IBOutlet UIView *treeBackView;
 @property (strong) NSMutableArray *menus;
+- (IBAction)triggerTutorial:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UILabel *companyName;
 @property (weak, nonatomic) IBOutlet UIImageView *companyLogo;
 - (IBAction)addContentButtonClick:(id)sender;

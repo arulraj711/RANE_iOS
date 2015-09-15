@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -94,6 +94,20 @@
                                 <rect key="frame" x="80" y="566" width="100" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAr-Y0-fGY">
+                                <rect key="frame" x="13" y="561" width="32" height="32"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="4RV-ow-8ys"/>
+                                    <constraint firstAttribute="width" constant="32" id="t6C-6b-stS"/>
+                                </constraints>
+                                <state key="normal" image="help">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="triggerTutorial:" destination="RIW-C4-5Tm" eventType="touchUpInside" id="Okc-V7-emD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -102,11 +116,13 @@
                             <constraint firstItem="DvD-gs-tsd" firstAttribute="top" secondItem="9VO-WP-Jjk" secondAttribute="bottom" constant="14" id="5qy-jJ-cmA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ngc-2i-mQd" secondAttribute="trailing" constant="264" id="6rO-cG-B2W"/>
                             <constraint firstItem="9VO-WP-Jjk" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="64" id="DJR-t3-idS"/>
+                            <constraint firstItem="BAr-Y0-fGY" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-3" id="Gk1-Vg-ogZ"/>
                             <constraint firstItem="dsa-DF-Mgs" firstAttribute="top" secondItem="0nW-UY-enU" secondAttribute="top" id="Iuk-7h-UHp"/>
                             <constraint firstItem="Ngc-2i-mQd" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-16" id="PlT-E3-VV2"/>
                             <constraint firstItem="pX9-aV-U8w" firstAttribute="top" secondItem="dsa-DF-Mgs" secondAttribute="bottom" constant="3" id="RtD-2O-XLX"/>
                             <constraint firstItem="9VO-WP-Jjk" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="10" id="cSM-TS-iRl"/>
                             <constraint firstItem="pX9-aV-U8w" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-34" id="k5s-S5-SbD"/>
+                            <constraint firstItem="BAr-Y0-fGY" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="5" id="mWz-U7-keF"/>
                             <constraint firstItem="dsa-DF-Mgs" firstAttribute="leading" secondItem="Ngc-2i-mQd" secondAttribute="leading" id="nL9-bi-hWU"/>
                         </constraints>
                     </view>
@@ -124,6 +140,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="help" width="32" height="32"/>
         <image name="logo" width="100" height="20"/>
         <image name="researchReq" width="15" height="15"/>
     </resources>

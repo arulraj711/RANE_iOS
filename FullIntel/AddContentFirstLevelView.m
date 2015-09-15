@@ -42,13 +42,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backBtnPress) name:@"closeAddContentView" object:nil];
     
     layout = (id)[self.contentCollectionView collectionViewLayout];
-    layout.direction = UICollectionViewScrollDirectionHorizontal;
+    layout.direction = UICollectionViewScrollDirectionVertical;
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     //NSLog(@"current device orientation:%ld",(long)orientation);
     if(orientation == 1) {
         layout.blockPixels = CGSizeMake(120,150);
     }else {
-        layout.blockPixels = CGSizeMake(120,150);
+        layout.blockPixels = CGSizeMake(130,150);
     }
     
     //[self.contentCollectionView reloadData];
@@ -196,7 +196,7 @@
     
     // NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
     if(fromInterfaceOrientation == 1) {
-        layout.blockPixels = CGSizeMake(120,150);
+        layout.blockPixels = CGSizeMake(130,150);
     }else {
         layout.blockPixels = CGSizeMake(120,150);
     }

@@ -213,7 +213,7 @@ static const BOOL kEnableContinueLabel = YES;
             lblContinue = [[UILabel alloc] initWithFrame:(CGRect){{0, self.bounds.size.height - 30.0f}, {self.bounds.size.width, 30.0f}}];
             lblContinue.font = [UIFont boldSystemFontOfSize:13.0f];
             lblContinue.textAlignment = NSTextAlignmentCenter;
-            lblContinue.text = @"Tap to continue";
+           // lblContinue.text = @"Tap to continue";
             lblContinue.alpha = 0.0f;
             [self addSubview:lblContinue];
             [UIView animateWithDuration:0.3f delay:1.0f options:0 animations:^{
