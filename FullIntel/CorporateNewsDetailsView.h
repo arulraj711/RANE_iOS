@@ -11,7 +11,7 @@
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
 
-@interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
+@interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate,WSCoachMarksViewDelegate> {
     NSTimer *oneSecondTicker;
     NSManagedObject *curatedNewsDetail;
     NSManagedObject *curatedNewsAuthorDetail;

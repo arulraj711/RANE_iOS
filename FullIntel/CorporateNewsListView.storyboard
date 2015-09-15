@@ -2598,7 +2598,7 @@
                                     <outlet property="delegate" destination="Pcd-ds-Fp4" id="p3y-ZO-jut"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FOI-zo-zm1">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FOI-zo-zm1">
                                 <rect key="frame" x="302" y="270" width="397" height="61"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="￼Mark important" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YRM-bf-LkA">
@@ -2618,8 +2618,6 @@
                             <constraint firstItem="hcI-3t-Kiw" firstAttribute="top" secondItem="M6P-9F-S0p" secondAttribute="top" id="8WK-mM-iqr"/>
                             <constraint firstAttribute="trailing" secondItem="hcI-3t-Kiw" secondAttribute="trailing" id="QFM-Tb-clZ"/>
                             <constraint firstItem="hcI-3t-Kiw" firstAttribute="leading" secondItem="M6P-9F-S0p" secondAttribute="leading" id="nUR-GB-4vM"/>
-                            <constraint firstAttribute="centerY" secondItem="FOI-zo-zm1" secondAttribute="centerY" constant="-0.5" id="tnZ-SZ-2jQ"/>
-                            <constraint firstAttribute="centerX" secondItem="FOI-zo-zm1" secondAttribute="centerX" constant="-0.5" id="xCF-sn-enw"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -2628,6 +2626,7 @@
                     <connections>
                         <outlet property="collectionView" destination="hcI-3t-Kiw" id="prq-GB-zD7"/>
                         <outlet property="tutorialTextBoxView" destination="FOI-zo-zm1" id="4aN-xR-NUJ"/>
+                        <outlet property="tutorialTextView" destination="YRM-bf-LkA" id="rlc-Fk-zMO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vlt-rS-cEs" userLabel="First Responder" sceneMemberID="firstResponder"/>

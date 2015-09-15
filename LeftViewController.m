@@ -501,17 +501,23 @@
 }
 
 -(void)updateUnreadCount {
+    unreadCnt = 0;
     NSMutableArray *unreadMenuArray = [[FISharedResources sharedResourceManager]menuUnReadCountArray];
     NSLog(@"unread menu array:%@ and selected item:%@",unreadMenuArray,data.name);
     for(RADataObject *dataObject in self.data) {
         for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
             if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId]) {
                 dataObject.unReadCount = unreadMenu.unreadCount;
+                if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:9]] || [dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+                    unreadCnt = unreadCnt+[dataObject.unReadCount integerValue];
+                }
                 [self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone];
             }
         }
     }
-    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCnt];
+    NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
+    [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
     
     //[treeView reloadData];
     [self.treeView selectRowForItem:data animated:YES scrollPosition:RATreeViewScrollPositionNone];
@@ -520,7 +526,7 @@
 
 -(void)loadMenus {
     NSLog(@"load menu calling twice");
-    unreadCnt = 0;
+    
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
@@ -786,20 +792,20 @@
     selectionColor.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1];
     //cell.selectedBackgroundView = selectionColor;
     
-    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:1]]){
-        unreadCnt = unreadCnt + [dataObject.unReadCount intValue];
-    }
-    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:10]]){
-        unreadCnt = unreadCnt + [dataObject.unReadCount intValue];
-    }
-    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:11]]){
-        unreadCnt = unreadCnt + [dataObject.unReadCount intValue];
-    }
-    if(unreadCnt != 0) {
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCnt];
-        NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
-        [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
-    }
+//    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:1]]){
+//        unreadCnt = unreadCnt + [dataObject.unReadCount intValue];
+//    }
+//    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:10]]){
+//        unreadCnt = unreadCnt + [dataObject.unReadCount intValue];
+//    }
+//    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:11]]){
+//        unreadCnt = unreadCnt + [dataObject.unReadCount intValue];
+//    }
+//    if(unreadCnt != 0) {
+//        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCnt];
+//        NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
+//        [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
+//    }
     
     
     BOOL expanded = [self.treeView isCellForItemExpanded:item];
