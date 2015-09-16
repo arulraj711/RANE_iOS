@@ -515,6 +515,7 @@
             }
         }
     }
+    NSLog(@"menu unread count:%d",unreadCnt);
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCnt];
     NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
     [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
