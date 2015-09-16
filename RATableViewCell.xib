@@ -21,10 +21,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycQ-BJ-LHx">
-                        <rect key="frame" x="52" y="0.0" width="140" height="39"/>
+                        <rect key="frame" x="52" y="0.0" width="160" height="39"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="39" id="E2h-Yp-Dt2"/>
-                            <constraint firstAttribute="width" constant="140" id="Mex-ZI-vdx"/>
+                            <constraint firstAttribute="width" constant="160" id="Mex-ZI-vdx"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                         <color key="textColor" red="0.40000000000000002" green="0.43137254901960786" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
@@ -73,7 +73,10 @@
                 <outlet property="customTitleLabel" destination="ycQ-BJ-LHx" id="icX-iL-nXW"/>
                 <outlet property="expandButton" destination="RCW-5S-Op6" id="5zg-WL-aP9"/>
                 <outlet property="iconImage" destination="jGr-gU-7RH" id="BAZ-yF-Rmu"/>
+                <outlet property="iconWidthConstraint" destination="v4j-Me-8vW" id="LMP-bD-LLO"/>
                 <outlet property="rssImage" destination="5Ri-QU-86W" id="u8C-te-GMb"/>
+                <outlet property="titleConstraint" destination="ZoV-yi-P5E" id="FwI-GA-XeG"/>
+                <outlet property="titleWidthConstraint" destination="Mex-ZI-vdx" id="YfT-Ca-aN5"/>
             </connections>
             <point key="canvasLocation" x="213" y="155"/>
         </tableViewCell>

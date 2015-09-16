@@ -859,28 +859,45 @@
     CGFloat left;
     if(!dataObject.isFolder) {
         if([dataObject.nodeId integerValue] == 9) {
+            cell.iconWidthConstraint.constant =15;
+            cell.titleConstraint.constant = 9;
+            cell.titleWidthConstraint.constant = 160;
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
         } else if([dataObject.nodeId integerValue] == 6) {
+            cell.iconWidthConstraint.constant =15;
+            cell.titleConstraint.constant = 9;
+            cell.titleWidthConstraint.constant = 160;
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"savedForLater"];
         } else if([[dataObject.name uppercaseString] isEqualToString:@"LOGOUT"]) {
+            cell.iconWidthConstraint.constant =15;
+            cell.titleConstraint.constant = 9;
+            cell.titleWidthConstraint.constant = 160;
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"logout"];
         } else {
+            cell.iconWidthConstraint.constant =0;
+            cell.titleConstraint.constant = 0;
+            cell.titleWidthConstraint.constant = 185;
             left = 34 + 20 * level;
             cell.iconImage.hidden = YES;
         }
     } else {
         if([[dataObject.name uppercaseString]isEqualToString:@"FOLDER"]) {
-            
+            cell.iconWidthConstraint.constant =15;
+            cell.titleConstraint.constant = 9;
+            cell.titleWidthConstraint.constant = 160;
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
         }else {
+            cell.iconWidthConstraint.constant =0;
+            cell.titleConstraint.constant = 0;
+            cell.titleWidthConstraint.constant = 185;
             left = 34 + 20 * level;
             cell.iconImage.hidden = YES;
         }
@@ -892,9 +909,9 @@
         cell.rssImage.hidden = YES;
     }
     
-    CGRect titleFrame = cell.customTitleLabel.frame;
-    titleFrame.origin.x = left;
-    cell.customTitleLabel.frame = titleFrame;
+//    CGRect titleFrame = cell.customTitleLabel.frame;
+//    titleFrame.origin.x = left;
+//    cell.customTitleLabel.frame = titleFrame;
     
     
     NSString *highlightColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];

@@ -22,7 +22,10 @@
 #import "JSCustomBadge.h"
 
 @interface RATableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleWidthConstraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconWidthConstraint;
 @property (nonatomic, copy) void (^additionButtonTapAction)(id sender);
 @property (nonatomic) BOOL additionButtonHidden;
 
