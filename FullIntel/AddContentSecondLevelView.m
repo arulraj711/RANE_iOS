@@ -125,7 +125,7 @@
 }
 
 -(void)SecondLevelTutorialTrigger{
-    
+    NSLog(@"second level tutorial");
     tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(stopSecondTutorial:)];
     
     [self.view addGestureRecognizer:tapEvent];
@@ -351,19 +351,23 @@
         
     }
     
+    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cellTap:)];
+    cell.tag = indexPath.row;
+    [cell addGestureRecognizer:cellTap];
+    
+    
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
+-(void)cellTap:(UITapGestureRecognizer *)tapGesture {
+    NSLog(@"cell tap is working:%d",[tapGesture.view tag]);
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
     if (coachMarksShown == NO) {
-        
-        SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:indexPath];
+        SecondLevelCell *cell = (SecondLevelCell *)tapGesture.view;
+       // SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:[tapGesture.view tag] inSection:0]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
         
-        FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
+        FIContentCategory *contentCategory = [self.innerArray objectAtIndex:[tapGesture.view tag]];
         if(contentCategory.listArray.count != 0) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
             AddContentThirdLevelView *thirdLevel = [storyboard instantiateViewControllerWithIdentifier:@"ThirdLevel"];
@@ -382,6 +386,12 @@
             [self.navigationController pushViewController:thirdLevel animated:YES];
         }
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
 }
 
 - (void)infoButtonClick:(id)sender {

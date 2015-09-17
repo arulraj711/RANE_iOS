@@ -186,27 +186,35 @@
     cell.checkMarkButton.tag = indexPath.row;
     cell.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     cell.contentView.layer.borderWidth = 1.0f;
+    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cellTap:)];
+    cell.tag = indexPath.row;
+    [cell addGestureRecognizer:cellTap];
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:indexPath];
-    FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
+-(void)cellTap:(UITapGestureRecognizer *)tapGesture {
+    SecondLevelCell *cell =(SecondLevelCell*)tapGesture.view;
+    FIContentCategory *contentCategory = [self.innerArray objectAtIndex:[tapGesture.view tag]];
     if(contentCategory.listArray.count != 0) {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
-    AddContentFourthLevelView *thirdLevel = [storyboard instantiateViewControllerWithIdentifier:@"FourthLevel"];
-    thirdLevel.delegate = self;
-    thirdLevel.innerArray = contentCategory.listArray;
-    thirdLevel.title = contentCategory.name;
-    thirdLevel.previousArray = self.selectedIdArray;
-    thirdLevel.selectedId = contentCategory.categoryId;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+        AddContentFourthLevelView *thirdLevel = [storyboard instantiateViewControllerWithIdentifier:@"FourthLevel"];
+        thirdLevel.delegate = self;
+        thirdLevel.innerArray = contentCategory.listArray;
+        thirdLevel.title = contentCategory.name;
+        thirdLevel.previousArray = self.selectedIdArray;
+        thirdLevel.selectedId = contentCategory.categoryId;
         if(cell.checkMarkButton.isSelected) {
             thirdLevel.isSelected = YES;
         } else {
             thirdLevel.isSelected = NO;
         }
-    [self.navigationController pushViewController:thirdLevel animated:YES];
+        [self.navigationController pushViewController:thirdLevel animated:YES];
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
 }
 
 //-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
