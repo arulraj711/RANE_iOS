@@ -1354,7 +1354,7 @@
             }
             // }
             
-            if(y < -positionOfCollectionViewInScrollView.origin.y+200 && !self.isTwitterAPICalled) {
+            if(y < -positionOfCollectionViewInScrollView.origin.y+600 && !self.isTwitterAPICalled) {
                 NSLog(@"call twitter API");
                 
                 [self loadTweetsFromPost];
