@@ -75,6 +75,52 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="130" height="150"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mAX-sT-d9H">
+                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="150"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" alpha="0.59999999999999964" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6XK-Pe-aHX">
+                                                            <rect key="frame" x="0.0" y="80" width="130" height="70"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvL-dW-fP4">
+                                                            <rect key="frame" x="20" y="38" width="90" height="23"/>
+                                                            <state key="normal" image="addcontent_upgrade">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="6XK-Pe-aHX" firstAttribute="top" secondItem="mAX-sT-d9H" secondAttribute="top" constant="80" id="GKE-se-qS3"/>
+                                                        <constraint firstAttribute="trailing" secondItem="zvL-dW-fP4" secondAttribute="trailing" constant="20" id="LNZ-6r-zDW"/>
+                                                        <constraint firstAttribute="bottom" secondItem="6XK-Pe-aHX" secondAttribute="bottom" id="XbW-So-IYi"/>
+                                                        <constraint firstAttribute="bottom" secondItem="zvL-dW-fP4" secondAttribute="bottom" constant="89" id="aFF-TN-Agz"/>
+                                                        <constraint firstItem="zvL-dW-fP4" firstAttribute="leading" secondItem="mAX-sT-d9H" secondAttribute="leading" constant="20" id="aYR-bI-Qcu"/>
+                                                        <constraint firstItem="zvL-dW-fP4" firstAttribute="top" secondItem="mAX-sT-d9H" secondAttribute="top" constant="38" id="jwg-wI-Nd0"/>
+                                                        <constraint firstAttribute="trailing" secondItem="6XK-Pe-aHX" secondAttribute="trailing" id="t0x-KA-ZsO"/>
+                                                        <constraint firstItem="6XK-Pe-aHX" firstAttribute="leading" secondItem="mAX-sT-d9H" secondAttribute="leading" id="xFE-jZ-f3l"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olj-Sd-Gw6">
+                                                    <rect key="frame" x="0.0" y="78" width="130" height="70"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INFLUENCER COMMENTS" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6H-SH-PON">
+                                                            <rect key="frame" x="0.0" y="0.0" width="130" height="70"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="v6H-SH-PON" secondAttribute="bottom" id="BtM-jZ-54u"/>
+                                                        <constraint firstAttribute="trailing" secondItem="v6H-SH-PON" secondAttribute="trailing" id="LwB-MF-HCd"/>
+                                                        <constraint firstItem="v6H-SH-PON" firstAttribute="top" secondItem="olj-Sd-Gw6" secondAttribute="top" id="O04-Xf-pAq"/>
+                                                        <constraint firstItem="v6H-SH-PON" firstAttribute="leading" secondItem="olj-Sd-Gw6" secondAttribute="leading" id="j36-da-08X"/>
+                                                    </constraints>
+                                                </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaD-Tu-nay">
                                                     <rect key="frame" x="97" y="8" width="25" height="25"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -94,58 +140,12 @@
                                                         <action selector="checkMark:" destination="ngJ-7S-5Ay" eventType="touchUpInside" id="rUz-Ne-M6d"/>
                                                     </connections>
                                                 </button>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olj-Sd-Gw6">
-                                                    <rect key="frame" x="0.0" y="100" width="130" height="50"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INFLUENCER COMMENTS" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6H-SH-PON">
-                                                            <rect key="frame" x="0.0" y="-2" width="130" height="52"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="v6H-SH-PON" secondAttribute="bottom" id="BtM-jZ-54u"/>
-                                                        <constraint firstAttribute="trailing" secondItem="v6H-SH-PON" secondAttribute="trailing" id="LwB-MF-HCd"/>
-                                                        <constraint firstItem="v6H-SH-PON" firstAttribute="top" secondItem="olj-Sd-Gw6" secondAttribute="top" constant="-2" id="O04-Xf-pAq"/>
-                                                        <constraint firstItem="v6H-SH-PON" firstAttribute="leading" secondItem="olj-Sd-Gw6" secondAttribute="leading" id="j36-da-08X"/>
-                                                    </constraints>
-                                                </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mAX-sT-d9H">
-                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="100"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" alpha="0.59999999999999964" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6XK-Pe-aHX">
-                                                            <rect key="frame" x="0.0" y="0.0" width="130" height="100"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </imageView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvL-dW-fP4">
-                                                            <rect key="frame" x="20" y="38" width="90" height="23"/>
-                                                            <state key="normal" image="addcontent_upgrade">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                        </button>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstItem="6XK-Pe-aHX" firstAttribute="top" secondItem="mAX-sT-d9H" secondAttribute="top" id="GKE-se-qS3"/>
-                                                        <constraint firstAttribute="trailing" secondItem="zvL-dW-fP4" secondAttribute="trailing" constant="20" id="LNZ-6r-zDW"/>
-                                                        <constraint firstAttribute="bottom" secondItem="6XK-Pe-aHX" secondAttribute="bottom" id="XbW-So-IYi"/>
-                                                        <constraint firstAttribute="bottom" secondItem="zvL-dW-fP4" secondAttribute="bottom" constant="39" id="aFF-TN-Agz"/>
-                                                        <constraint firstItem="zvL-dW-fP4" firstAttribute="leading" secondItem="mAX-sT-d9H" secondAttribute="leading" constant="20" id="aYR-bI-Qcu"/>
-                                                        <constraint firstItem="zvL-dW-fP4" firstAttribute="top" secondItem="mAX-sT-d9H" secondAttribute="top" constant="38" id="jwg-wI-Nd0"/>
-                                                        <constraint firstAttribute="trailing" secondItem="6XK-Pe-aHX" secondAttribute="trailing" id="t0x-KA-ZsO"/>
-                                                        <constraint firstItem="6XK-Pe-aHX" firstAttribute="leading" secondItem="mAX-sT-d9H" secondAttribute="leading" id="xFE-jZ-f3l"/>
-                                                    </constraints>
-                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="olj-Sd-Gw6" firstAttribute="top" secondItem="mAX-sT-d9H" secondAttribute="bottom" id="0Tc-BV-3jt"/>
+                                            <constraint firstItem="olj-Sd-Gw6" firstAttribute="top" secondItem="mAX-sT-d9H" secondAttribute="bottom" constant="-72" id="0Tc-BV-3jt"/>
                                             <constraint firstItem="gaD-Tu-nay" firstAttribute="leading" secondItem="J7C-6M-oH2" secondAttribute="trailing" constant="-33" id="D7M-Oy-6ce"/>
                                             <constraint firstItem="J7C-6M-oH2" firstAttribute="top" secondItem="zSt-lu-z9r" secondAttribute="topMargin" constant="-8" id="DR3-Ex-UUj"/>
                                             <constraint firstItem="olj-Sd-Gw6" firstAttribute="leading" secondItem="zSt-lu-z9r" secondAttribute="leadingMargin" constant="-8" id="H85-ly-V4W"/>
@@ -155,9 +155,9 @@
                                             <constraint firstItem="mAX-sT-d9H" firstAttribute="top" secondItem="zSt-lu-z9r" secondAttribute="topMargin" constant="-8" id="Ozg-hg-uuM"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="olj-Sd-Gw6" secondAttribute="trailing" constant="-8" id="TRC-O1-ch7"/>
                                             <constraint firstItem="J7C-6M-oH2" firstAttribute="leading" secondItem="zSt-lu-z9r" secondAttribute="leadingMargin" constant="-8" id="UNE-7x-PND"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="olj-Sd-Gw6" secondAttribute="bottom" constant="-8" id="YDw-fk-I7x"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="olj-Sd-Gw6" secondAttribute="bottom" constant="-6" id="YDw-fk-I7x"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="J7C-6M-oH2" secondAttribute="bottom" constant="-8" id="btB-fe-2GL"/>
-                                            <constraint firstItem="olj-Sd-Gw6" firstAttribute="top" secondItem="zSt-lu-z9r" secondAttribute="topMargin" constant="92" id="mvS-Fj-JRk"/>
+                                            <constraint firstItem="olj-Sd-Gw6" firstAttribute="top" secondItem="zSt-lu-z9r" secondAttribute="topMargin" constant="70" id="mvS-Fj-JRk"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="mAX-sT-d9H" secondAttribute="trailing" constant="-8" id="ple-zF-15N"/>
                                         </constraints>
                                         <size key="customSize" width="130" height="150"/>
@@ -307,7 +307,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <view alpha="0.84999999999999987" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qB1-xV-vqK">
+                                                <view alpha="0.69999999999999973" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qB1-xV-vqK">
                                                     <rect key="frame" x="0.0" y="159" width="180" height="40"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INFLUENCER COMMENTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nos-tK-YoR">
@@ -318,46 +318,47 @@
                                                                 <constraint firstAttribute="width" constant="122" id="gZm-F3-Rio"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="th9-aH-g4U">
-                                                            <rect key="frame" x="120" y="7" width="25" height="25"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="25" id="GeD-JW-V79"/>
-                                                                <constraint firstAttribute="width" constant="25" id="xda-cU-8CA"/>
-                                                            </constraints>
-                                                            <state key="normal" image="bluecircle">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="selected" image="bluecircle_checked">
-                                                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="highlighted" image="bluecircle_checked"/>
-                                                            <connections>
-                                                                <action selector="checkMark:" destination="Xqp-Le-Ab0" eventType="touchUpInside" id="uDP-FJ-G3Y"/>
-                                                            </connections>
-                                                        </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="180" id="7O2-Hc-O1v"/>
                                                         <constraint firstItem="Nos-tK-YoR" firstAttribute="leading" secondItem="qB1-xV-vqK" secondAttribute="leading" constant="4" id="QLi-3E-t9P"/>
                                                         <constraint firstAttribute="height" constant="40" id="Uon-c4-dY8"/>
-                                                        <constraint firstItem="th9-aH-g4U" firstAttribute="leading" secondItem="Nos-tK-YoR" secondAttribute="trailing" constant="-6" id="YRr-L9-JdH"/>
                                                         <constraint firstItem="Nos-tK-YoR" firstAttribute="top" secondItem="qB1-xV-vqK" secondAttribute="top" constant="5" id="ah1-Ho-yeV"/>
-                                                        <constraint firstItem="th9-aH-g4U" firstAttribute="top" secondItem="qB1-xV-vqK" secondAttribute="top" constant="7" id="c6L-1g-4hY"/>
                                                     </constraints>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="th9-aH-g4U">
+                                                    <rect key="frame" x="140" y="166" width="25" height="25"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="FMr-lk-b1s"/>
+                                                        <constraint firstAttribute="height" constant="25" id="Gjm-ht-nvW"/>
+                                                    </constraints>
+                                                    <state key="normal" image="bluecircle">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="bluecircle_checked">
+                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted" image="bluecircle_checked"/>
+                                                    <connections>
+                                                        <action selector="checkMark:" destination="Xqp-Le-Ab0" eventType="touchUpInside" id="uDP-FJ-G3Y"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="qB1-xV-vqK" firstAttribute="top" secondItem="YEj-JQ-1rk" secondAttribute="bottom" constant="-41" id="5Aa-LW-hFt"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="th9-aH-g4U" secondAttribute="trailing" constant="7" id="6i7-bK-QZh"/>
                                             <constraint firstItem="YEj-JQ-1rk" firstAttribute="leading" secondItem="gjg-g8-1mh" secondAttribute="leadingMargin" constant="-8" id="7jW-yJ-spZ"/>
                                             <constraint firstItem="YEj-JQ-1rk" firstAttribute="leading" secondItem="qB1-xV-vqK" secondAttribute="trailing" constant="-180" id="9TK-fg-7Av"/>
                                             <constraint firstItem="YEj-JQ-1rk" firstAttribute="top" secondItem="gjg-g8-1mh" secondAttribute="topMargin" constant="-8" id="EW4-pY-3CH"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="th9-aH-g4U" secondAttribute="bottom" constant="1" id="bNz-zc-t6Y"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="YEj-JQ-1rk" secondAttribute="bottom" constant="-8" id="e6c-Ja-tnn"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="YEj-JQ-1rk" secondAttribute="trailing" constant="-28" id="nQ1-FQ-Y1w"/>
                                         </constraints>
@@ -494,33 +495,34 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <view alpha="0.84999999999999987" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XaR-NL-eaD">
-                                                    <rect key="frame" x="0.0" y="141" width="180" height="30"/>
+                                                <view alpha="0.69999999999999973" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XaR-NL-eaD">
+                                                    <rect key="frame" x="0.0" y="149" width="180" height="30"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="INFLUENCER COMMENTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIg-Xt-rrS">
                                                             <rect key="frame" x="10" y="0.0" width="90" height="30"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1c-hl-Ckv">
-                                                            <rect key="frame" x="130" y="2" width="25" height="25"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <state key="normal" image="bluecircle">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="selected" image="bluecircle_checked">
-                                                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="highlighted" image="bluecircle_checked"/>
-                                                            <connections>
-                                                                <action selector="checkMark:" destination="vlZ-Ba-STS" eventType="touchUpInside" id="ibN-Mb-CIR"/>
-                                                            </connections>
-                                                        </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1c-hl-Ckv">
+                                                    <rect key="frame" x="147" y="151" width="25" height="25"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" image="bluecircle">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="bluecircle_checked">
+                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted" image="bluecircle_checked"/>
+                                                    <connections>
+                                                        <action selector="checkMark:" destination="vlZ-Ba-STS" eventType="touchUpInside" id="ibN-Mb-CIR"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -609,33 +611,34 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <view alpha="0.84999999999999987" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2B-HT-onb">
-                                                    <rect key="frame" x="0.0" y="141" width="180" height="30"/>
+                                                <view alpha="0.69999999999999973" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2B-HT-onb">
+                                                    <rect key="frame" x="0.0" y="149" width="180" height="30"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="INFLUENCER COMMENTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKV-J8-Sjw">
                                                             <rect key="frame" x="10" y="0.0" width="90" height="30"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16q-eQ-KQn">
-                                                            <rect key="frame" x="130" y="2" width="25" height="25"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <state key="normal" image="bluecircle">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="selected" image="bluecircle_checked">
-                                                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="highlighted" image="bluecircle_checked"/>
-                                                            <connections>
-                                                                <action selector="checkMark:" destination="p5E-yI-z0l" eventType="touchUpInside" id="DYT-nY-pzg"/>
-                                                            </connections>
-                                                        </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16q-eQ-KQn">
+                                                    <rect key="frame" x="148" y="151" width="25" height="25"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" image="bluecircle">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="bluecircle_checked">
+                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted" image="bluecircle_checked"/>
+                                                    <connections>
+                                                        <action selector="checkMark:" destination="p5E-yI-z0l" eventType="touchUpInside" id="DYT-nY-pzg"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -742,33 +745,34 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <view alpha="0.85000002384185791" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uUK-Ld-ZLW">
-                                                    <rect key="frame" x="0.0" y="141" width="180" height="30"/>
+                                                <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uUK-Ld-ZLW">
+                                                    <rect key="frame" x="0.0" y="150" width="180" height="30"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="INFLUENCER COMMENTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugT-Ao-2M5">
                                                             <rect key="frame" x="10" y="0.0" width="90" height="30"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsk-zI-oxw">
-                                                            <rect key="frame" x="130" y="2" width="25" height="25"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <state key="normal" image="bluecircle">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="selected" image="bluecircle_checked">
-                                                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="highlighted" image="bluecircle_checked"/>
-                                                            <connections>
-                                                                <action selector="checkMark:" destination="b7v-OA-kV0" eventType="touchUpInside" id="tli-5a-jLp"/>
-                                                            </connections>
-                                                        </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsk-zI-oxw">
+                                                    <rect key="frame" x="149" y="152" width="25" height="25"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" image="bluecircle">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="bluecircle_checked">
+                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted" image="bluecircle_checked"/>
+                                                    <connections>
+                                                        <action selector="checkMark:" destination="b7v-OA-kV0" eventType="touchUpInside" id="tli-5a-jLp"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>

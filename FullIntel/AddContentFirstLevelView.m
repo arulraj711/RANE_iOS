@@ -434,11 +434,13 @@
     
     
     if(contentCategory.isCompanySubscribed) {
-        cell.gradientView.hidden = YES;
+        //cell.gradientView.hidden = YES;
+        cell.upgradeButton.hidden = YES;
     } else {
         NSNumber *accountTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
         //if([accountTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        cell.gradientView.hidden = NO;
+       // cell.gradientView.hidden = NO;
+        cell.upgradeButton.hidden = NO;
         UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
         cell.upgradeButton.tag = indexPath.row;
         [cell.upgradeButton addGestureRecognizer:tapEvent];
