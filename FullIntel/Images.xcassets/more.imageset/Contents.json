@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "ios7-more-outline.png"
+      "filename" : "Upload-32.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Upload-64.png"
     },
     {
       "idiom" : "universal",
