@@ -1289,7 +1289,7 @@
 }
 
 - (IBAction)researchRequestButtonClick:(UIButton *)sender {
-    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestButtonCick"];
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
     
@@ -1303,7 +1303,7 @@
 
 -(void)requestChange:(id)sender {
     
-    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"RequestChangeButtonClick"];
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
     
