@@ -366,8 +366,10 @@
     } else {
         //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
         //        if(isFirst) {
-        [self loadCuratedNews];
+        //[self loadCuratedNews];
         //        }
+        [[FISharedResources sharedResourceManager]tagScreenInLocalytics:self.titleName];
+        [self loadCuratedNews];
     }
 }
 //-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{

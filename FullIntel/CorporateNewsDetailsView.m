@@ -249,7 +249,7 @@
     //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [activityIndicator stopAnimating];
     
-    
+    [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated List Detailed View"];
     
     // [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated List Detailed View"];
     CGSize currentSize = self.collectionView.bounds.size;
