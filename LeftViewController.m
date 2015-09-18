@@ -1316,7 +1316,7 @@
 }
 
 - (IBAction)addContentButtonClick:(id)sender {
-    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Add Content Main Menu"];
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     

@@ -182,7 +182,7 @@
 
 -(void)backBtnPress{
     
-    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CancelChangesInAddContent"];
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"CloseAddContentTutorial"];
     if (coachMarksShown == YES) {
         
@@ -285,6 +285,7 @@
         [self dismissViewControllerAnimated:YES completion:nil];
         
         [[NSNotificationCenter defaultCenter]postNotificationName:@"requestChange" object:nil userInfo:nil];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestChangeInAddContent"];
     }
 }
 
@@ -294,7 +295,7 @@
 }
 
 - (IBAction)closeAction:(id)sender {
-    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SaveChangesInAddContent"];
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"CloseAddContentTutorial"];
     if (coachMarksShown == YES) {
         
@@ -531,6 +532,8 @@
             secondLevel.title = contentCategory.name;
             secondLevel.previousArray = self.selectedIdArray;
             secondLevel.selectedId = contentCategory.categoryId;
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"contentCategory":contentCategory.name};
+            [Localytics tagEvent:@"Addcontent Topic Change" attributes:dictionary];
             [self.navigationController pushViewController:secondLevel animated:YES];
         }
     }
@@ -563,7 +566,8 @@
         //Deals
         [FIUtils callRequestionUpdateWithModuleId:12 withFeatureId:15];
     }
-    
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"contentCategory":contentCategory.name};
+    [Localytics tagEvent:@"AddcontentTopicUpgradeRequest" attributes:dictionary];
     [self.view makeToast:@"Your request has been sent." duration:1 position:CSToastPositionCenter];
 }
 

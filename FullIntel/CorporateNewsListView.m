@@ -689,6 +689,7 @@
          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if (result) {
         //NSLog(@"Result : %d",result);
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"RSS Mail Send"];
     }
     if (error) {
         //NSLog(@"Error : %@",error);
@@ -1239,7 +1240,8 @@
                 NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
                 [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
                 [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
-                
+                NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
+                [Localytics tagEvent:@"Remove Marked Important" attributes:dictionary];
                 
             } else {
                 //OtherUser
@@ -1290,6 +1292,8 @@
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
+            [Localytics tagEvent:@"Marked Important" attributes:dictionary];
         }
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1341,6 +1345,8 @@
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
+            [Localytics tagEvent:@"Remove Save Later" attributes:dictionary];
         }else {
             [savedBtn setSelected:YES];
             [resultDic setObject:@"true" forKey:@"isSelected"];
@@ -1377,6 +1383,8 @@
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
+            [Localytics tagEvent:@"Save Later" attributes:dictionary];
         }
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
