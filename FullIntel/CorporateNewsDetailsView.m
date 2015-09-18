@@ -418,12 +418,12 @@
         [curatedNews setValue:curatedNewsDetails forKey:@"details"];
     }
     [managedObjectContext save:nil];
-    
-    //NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
-    // if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
-    cell.badgeTwo.value =[totalComments integerValue];
-    cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
-    // }
+//    NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
+//  //  NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
+//    if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
+//    cell.badgeTwo.value =[totalComments integerValue];
+//    cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
+//    }
 }
 
 -(void)fbLinkSelection:(id)sender {

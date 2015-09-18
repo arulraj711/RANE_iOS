@@ -608,8 +608,8 @@
             //Set CuratedNewsDetails
             curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:context];
             [curatedNewsDrillIn setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
-//            [curatedNewsDrillIn setValue:[dic objectForKey:@"totalComments"] forKey:@"totalComments"];
-//            [curatedNewsDrillIn setValue:[dic objectForKey:@"unReadComment"] forKey:@"unReadComment"];
+            [curatedNewsDrillIn setValue:[dic objectForKey:@"totalComments"] forKey:@"totalComments"];
+            [curatedNewsDrillIn setValue:[dic objectForKey:@"unReadComment"] forKey:@"unReadComment"];
             [curatedNewsDrillIn setValue:[dic objectForKey:@"articleDetailedDescription"] forKey:@"article"];
             //Set Related Post
             NSArray *relatedPostArray = [dic objectForKey:@"articleRelatedPosts"];
