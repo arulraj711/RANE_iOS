@@ -90,7 +90,7 @@
     
      [popAnimationTimer invalidate];
     
-    // [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"TutorialContinueClick"];
+     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"TutorialContinueClick"];
     
   
      [[NSNotificationCenter defaultCenter]postNotificationName:@"TutorialTrigger" object:nil userInfo:nil];
@@ -102,7 +102,7 @@
      [popAnimationTimer invalidate];
     
     
-      //  [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"TutorialLaterClick"];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"TutorialLaterClick"];
     
      [self dismissViewControllerAnimated:NO completion:NULL];
 }
