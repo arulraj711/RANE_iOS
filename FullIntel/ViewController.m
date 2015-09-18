@@ -103,7 +103,7 @@
 
 
 - (IBAction)signInButtonClicked:(id)sender {
-    [Localytics tagEvent:@"SignInButtonClicked"];
+   
     [_usernameTextField resignFirstResponder];
     [_passwordTextField resignFirstResponder];
     [self callSignInFunction];
@@ -117,6 +117,11 @@
     }else if([_passwordTextField.text length] == 0) {
         [self.view makeToast:@"Please check your login info and try again." duration:1 position:CSToastPositionCenter];
     }else {
+        
+        NSDictionary *dictionary = @{@"email":_usernameTextField.text};
+        [Localytics tagEvent:@"SignInButtonClicked" attributes:dictionary];
+        
+        
         
          [[NSUserDefaults standardUserDefaults]setObject:_usernameTextField.text forKey:@"userName"];
          [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"passWord"];
@@ -369,6 +374,7 @@
         
     }else {
         if(buttonIndex == 0) {
+            NSLog(@"forgot cancel");
             [Localytics tagEvent:@"ForgotPasswordCancelButtonClicked"];
         } else if(buttonIndex==1){
             
@@ -392,7 +398,9 @@
 
 
 -(void)callForgotPasswordWithEmail:(NSString *)email{
-    [Localytics tagEvent:@"ForgotPasswordWithEmail"];
+    NSDictionary *dictionary = @{@"email":email};
+    [Localytics tagEvent:@"ForgotPasswordWithEmail" attributes:dictionary];
+   
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
     [gradedetails setObject:email forKey:@"email"];
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];

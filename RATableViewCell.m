@@ -42,6 +42,10 @@
     
     self.countLabel.layer.masksToBounds = YES;
     self.countLabel.layer.cornerRadius = 13;
+   // self.companyName.text = [companyNameStr uppercaseString];
+    self.countLabel.numberOfLines = 1;
+    self.countLabel.minimumFontSize = 8.;
+    self.countLabel.adjustsFontSizeToFitWidth = YES;
     //self.contentView.backgroundColor = [UIColor clearColor];
     
 //    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];

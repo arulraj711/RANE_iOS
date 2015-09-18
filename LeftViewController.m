@@ -658,6 +658,8 @@
 
 -(void)viewDidDisappear:(BOOL)animated {
     // [self.treeView removeFromSuperview];
+    NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+    [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
 }
 
 - (void)viewWillAppear:(BOOL)animated
