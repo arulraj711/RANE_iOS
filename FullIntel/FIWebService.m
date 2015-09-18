@@ -12,7 +12,7 @@
 #define LIVE_URL @"http://fullintel.com/services/mv01/sv00/appuser"
 #define STAGE_URL @"http://104.236.78.199/services/mv01/sv00/appuser"
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
-NSString *url = @"http://stage.fullintel.com/1.1.2";
+NSString *url = @"http://fullintel.com/1.1.2";
 #define FUNCTION_URL @"services/mv01/sv00/appuser"
 @implementation FIWebService
 
@@ -140,7 +140,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
          //NSLog(@"differ: %f", differ*1000);
          [self getResponseTimeFromTimeStamp:differ];
          
-         NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSASCIIStringEncoding];
+         NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
          NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
          NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,securityToken);
          // NSLog(@"response object:%@",responseObject);

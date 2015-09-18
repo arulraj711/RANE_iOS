@@ -145,8 +145,10 @@
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
-    
-    
+    NSNumber *badgeNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"badgeNumber"];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber.integerValue];
+   // NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
+   // [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
     
 }
 -(void)afterSecondTutorial{
@@ -508,7 +510,11 @@
         for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
             if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId]) {
                 dataObject.unReadCount = unreadMenu.unreadCount;
-                if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:9]] || [dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+                if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:9]]) {
+                    
+                } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+                    
+                } else {
                     unreadCnt = unreadCnt+[dataObject.unReadCount integerValue];
                 }
                 [self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone];
