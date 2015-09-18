@@ -14,7 +14,7 @@
 @interface ViewController : UIViewController<CMPopTipViewDelegate>{
     CGRect oldFrame;
 }
-
+@property CGPoint originalCenter;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;

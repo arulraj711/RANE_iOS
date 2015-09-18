@@ -31,7 +31,7 @@
     [self animateImages];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
     oldFrame = self.backgroundImageView.frame;
-    
+    self.originalCenter = self.view.center;
     self.usernameTextField.layer.borderWidth = 1.0f;
     self.usernameTextField.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
     self.passwordTextField.layer.borderWidth = 1.0f;
@@ -41,8 +41,17 @@
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressEvent:)];
     self.logoIcon.userInteractionEnabled = YES;
     longPress.minimumPressDuration = 3;
-   // longPress.numberOfTouches = 1;
+    // longPress.numberOfTouches = 1;
     [self.logoIcon addGestureRecognizer:longPress];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -56,26 +65,41 @@
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
     [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Log In View"];
 }
+
+- (void)keyboardDidShow: (NSNotification *) notif{
+    // Do something here
+    //    CGFloat height = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].height;
+//    CGFloat height = [[notif.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+//    self.view.center = CGPointMake(self.originalCenter.x, -height);
+    self.view.frame = CGRectMake(self.view.frame.origin.x, -60, self.view.frame.size.width,self.view.frame.size.height);
+}
+
+- (void)keyboardDidHide: (NSNotification *) notif{
+    // Do something here
+    self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
+}
+
+
 - (void)animateImages
 {
     if(self.isAnimated) {
-    static int count = 0;
-    NSArray *animationImages = @[[UIImage imageNamed:@"City-Boston.jpg"],[UIImage imageNamed:@"Eiffel_Tower.jpg"],[UIImage imageNamed:@"new-york-city-wallpaper.jpg"],[UIImage imageNamed:@"o-NEW-YORK-facebook.jpg"],[UIImage imageNamed:@"san_francisco.jpg"]];
-    UIImage *image = [animationImages objectAtIndex:(count % [animationImages count])];
-    
-    CGRect newframe = CGRectMake(self.backgroundImageView.frame.origin.x, self.backgroundImageView.frame.origin.y, self.backgroundImageView.frame.size.width, self.backgroundImageView.frame.size.height);
-    [UIView transitionWithView:self.backgroundImageView
-                      duration:2.0f // animation duration
-                       options:UIViewAnimationOptionTransitionCrossDissolve
-                    animations:^{
-                        self.backgroundImageView.frame = newframe;
-                        self.backgroundImageView.image = image; // change to other image
-                        [self.backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
-                    } completion:^(BOOL finished) {
-                        //self.backgroundImageView.frame = oldFrame;
-                        [self animateImages]; // once finished, repeat again
-                        count++; // this is to keep the reference of which image should be loaded next
-                    }];
+        static int count = 0;
+        NSArray *animationImages = @[[UIImage imageNamed:@"City-Boston.jpg"],[UIImage imageNamed:@"Eiffel_Tower.jpg"],[UIImage imageNamed:@"new-york-city-wallpaper.jpg"],[UIImage imageNamed:@"o-NEW-YORK-facebook.jpg"],[UIImage imageNamed:@"san_francisco.jpg"]];
+        UIImage *image = [animationImages objectAtIndex:(count % [animationImages count])];
+        
+        CGRect newframe = CGRectMake(self.backgroundImageView.frame.origin.x, self.backgroundImageView.frame.origin.y, self.backgroundImageView.frame.size.width, self.backgroundImageView.frame.size.height);
+        [UIView transitionWithView:self.backgroundImageView
+                          duration:2.0f // animation duration
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            self.backgroundImageView.frame = newframe;
+                            self.backgroundImageView.image = image; // change to other image
+                            [self.backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
+                        } completion:^(BOOL finished) {
+                            //self.backgroundImageView.frame = oldFrame;
+                            [self animateImages]; // once finished, repeat again
+                            count++; // this is to keep the reference of which image should be loaded next
+                        }];
     }
 }
 
@@ -91,7 +115,7 @@
         [textField resignFirstResponder];
         [self callSignInFunction];
     }
-
+    
     return YES;
 }
 
@@ -103,7 +127,7 @@
 
 
 - (IBAction)signInButtonClicked:(id)sender {
-   
+    
     [_usernameTextField resignFirstResponder];
     [_passwordTextField resignFirstResponder];
     [self callSignInFunction];
@@ -123,8 +147,8 @@
         
         
         
-         [[NSUserDefaults standardUserDefaults]setObject:_usernameTextField.text forKey:@"userName"];
-         [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"passWord"];
+        [[NSUserDefaults standardUserDefaults]setObject:_usernameTextField.text forKey:@"userName"];
+        [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"passWord"];
         
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         [gradedetails setObject:_usernameTextField.text forKey:@"email"];
@@ -178,10 +202,10 @@
         dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         
         
-       // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+        // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
         
         dispatch_async(globalConcurrentQueue, ^{
-           // NSLog(@"A - 1");
+            // NSLog(@"A - 1");
             [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
         });
         
@@ -190,10 +214,10 @@
             if(accessToken.length > 0) {
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
                 [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
-                 [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
                 
                 NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-              //  [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
+                //  [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
             }
             
         });
@@ -237,13 +261,13 @@
         //        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"FullIntel" message:[notification.object objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         //        [alert show];
     }
-   
+    
 }
 
 - (IBAction)forgetPasswordButtonPressed:(id)sender {
     [Localytics tagEvent:@"ForgotPasswordButtonClick"];
     [self showForgetAlert:_usernameTextField.text withFlag:@""];
-
+    
 }
 
 
@@ -263,7 +287,7 @@
         textField.returnKeyType=UIReturnKeySend;
         textField.delegate=self;
         //if(flag.length != 0) {
-            textField.text=[FIWebService getServerURL];
+        textField.text=[FIWebService getServerURL];
         //}
         
         [self.view endEditing:YES];
@@ -272,7 +296,7 @@
         
         
     }
-   
+    
 }
 
 - (IBAction)infoButtonPressed:(id)sender {
@@ -344,7 +368,7 @@
 
 
 -(void)showForgetAlert:(NSString *)textString withFlag:(NSString *)flag{
-
+    
     UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Forgot Password" message:@"Please enter the email address associated with your account." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
     
     alertView.alertViewStyle=UIAlertViewStylePlainTextInput;
@@ -356,7 +380,7 @@
     if(flag.length != 0) {
         textField.text=flag;
     }
-
+    
     [self.view endEditing:YES];
     
     [alertView show];
@@ -400,7 +424,7 @@
 -(void)callForgotPasswordWithEmail:(NSString *)email{
     NSDictionary *dictionary = @{@"email":email};
     [Localytics tagEvent:@"ForgotPasswordWithEmail" attributes:dictionary];
-   
+    
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
     [gradedetails setObject:email forKey:@"email"];
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
