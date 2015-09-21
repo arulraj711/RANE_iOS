@@ -21,7 +21,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     
+    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+    [self.navigationItem setLeftBarButtonItem:addButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
     [self fetchFolderDetails];
     
@@ -171,5 +177,20 @@
     
 }
 
+-(void)backBtnPress {
+    NSLog(@"back button press");
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        NSLog(@"left view closed");
+        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+        [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        NSLog(@"left view opened");
+        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+        [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
+        [self.revealController showViewController:self.revealController.leftViewController];
+    }
+    
+}
 
 @end

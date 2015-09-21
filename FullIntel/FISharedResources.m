@@ -18,6 +18,7 @@
 #import "AppDelegate.h"
 #import "FIFolder.h"
 #import "FIUnreadMenu.h"
+#import "FINewsLetter.h"
 #define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
 
 @implementation FISharedResources
@@ -46,6 +47,7 @@
     _menuList = [[NSMutableArray alloc]init];
     _menuUnReadCountArray = [[NSMutableArray alloc]init];
     _folderList = [[NSMutableArray alloc]init];
+    _newsLetterList = [[NSMutableArray alloc]init];
     _contentCategoryList = [[NSMutableArray alloc]init];
     _articleIdArray = [[NSMutableArray alloc]init];
 }
@@ -1215,6 +1217,23 @@
         }
     }
 }
+
+
+-(void)getNewsLetterListWithAccessToken:(NSString *)accessToken {
+    [FIWebService fetchNewsLetterListWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"Newsletter list:%@",responseObject);
+        NSArray *newsArray = responseObject;
+        [_newsLetterList removeAllObjects];
+        for(NSDictionary *dic in newsArray) {
+            FINewsLetter *news = [[FINewsLetter alloc]init];
+            [news setNewsLetterFromDictionary:dic];
+            [_newsLetterList addObject:news];
+        }
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"FetchNewsLetterList" object:nil];
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+}
+
 
 -(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag withCreatedFlag:(BOOL)createdFlag {
     NSLog(@"call folder list API");

@@ -629,6 +629,13 @@
     folderDataObj.children = childArray;
     [self.data addObject:folderDataObj];
     
+    //Add newsletter menu
+    RADataObject *newsLetterObj = [[RADataObject alloc]init];
+    newsLetterObj.name = @"NEWSLETTER";
+    newsLetterObj.nodeId = [NSNumber numberWithInt:-200];
+    newsLetterObj.children = nil;
+    [self.data addObject:newsLetterObj];
+    
     
     RADataObject *dataObj = [[RADataObject alloc]init];
     dataObj.name = @"LOGOUT";
@@ -1119,7 +1126,9 @@
         ExecutiveMovesController *ExecutiveMovesControllerObj=(ExecutiveMovesController *)[[navCtlr viewControllers]objectAtIndex:0];
         ExecutiveMovesControllerObj.titleName=data.name;
         [self.revealController setFrontViewController:navCtlr];
-    }else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
+    } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
+        NSLog(@"newsletter click");
+    } else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Logout"];
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -1131,8 +1140,18 @@
     }
     NSLog(@"left click:%@",data.nodeId);
     if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
+        NSLog(@"one");
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
-    } else if(data.isFolder){
+    } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
+        NSLog(@"two");
+        //Newsletter navigation
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
+        UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
+        ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+        [self.revealController setFrontViewController:navCtlr];
+        
+    }else if(data.isFolder){
+        NSLog(@"three");
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
@@ -1140,10 +1159,10 @@
         if(data.nodeId != nil) {
             if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]){
                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
-                //                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
-                //                UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
+                UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
                 ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
-                //                [self.revealController setFrontViewController:navCtlr];
+                [self.revealController setFrontViewController:navCtlr];
             } else {
                 if([[data.name uppercaseString]isEqualToString:@"RSS"]) {
                     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isRSSField"];
@@ -1159,8 +1178,11 @@
         }
         
     } else {
+        NSLog(@"four");
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
-        if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
+        if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
+            //NewsLetter Nav
+        } else if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
             

@@ -26,6 +26,7 @@
 -(void)getMenuListWithAccessToken:(NSString *)accessToken;
 -(void)getMenuUnreadCountWithAccessToken:(NSString *)accessToken;
 -(void)getFolderListWithAccessToken:(NSString *)accessToken withFlag:(BOOL)flag withCreatedFlag:(BOOL)createdFlag;
+-(void)getNewsLetterListWithAccessToken:(NSString *)accessToken;
 -(void)sendMailWithAccessToken:(NSString *)accessToken withDetails:(NSString *)details;
 -(void)createFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)pushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
@@ -57,6 +58,7 @@
 @property (nonatomic,strong) NSMutableArray *menuList;
 @property (nonatomic,strong) NSMutableArray *menuUnReadCountArray;
 @property (nonatomic,strong) NSMutableArray *folderList;
+@property (nonatomic,strong) NSMutableArray *newsLetterList;
 @property (nonatomic,strong) NSMutableArray *contentCategoryList;
 @property (nonatomic,strong) NSMutableArray *contentTypeList;
 @property (nonatomic,strong) NSString *getCommentArticleId;

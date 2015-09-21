@@ -12,7 +12,7 @@
 #define LIVE_URL @"http://fullintel.com/services/mv01/sv00/appuser"
 #define STAGE_URL @"http://104.236.78.199/services/mv01/sv00/appuser"
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
-NSString *url = @"http://fullintel.com/1.1.2";
+NSString *url = @"http://stage.fullintel.com/1.1.2";
 #define FUNCTION_URL @"services/mv01/sv00/appuser"
 @implementation FIWebService
 
@@ -360,6 +360,20 @@ NSString *url = @"http://fullintel.com/1.1.2";
                           onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName = [NSString stringWithFormat:@"folders?security_token=%@",accessToken];
     NSLog(@"fetch folder function name:%@",functionName);
+    [self getQueryResultsForFunctionName:functionName withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
+
++(void)fetchNewsLetterListWithAccessToken:(NSString*)accessToken
+                                onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *functionName = [NSString stringWithFormat:@"client/newsletters?security_token=%@",accessToken];
+   // NSLog(@"fetch folder function name:%@",functionName);
     [self getQueryResultsForFunctionName:functionName withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);

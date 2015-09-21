@@ -104,6 +104,10 @@
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
+		F554DFCE1BB00AEA0062EAC7 /* NewsLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFCD1BB00AEA0062EAC7 /* NewsLetterViewController.m */; };
+		F554DFD01BB00B1E0062EAC7 /* NewsLetterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F554DFCF1BB00B1E0062EAC7 /* NewsLetterView.storyboard */; };
+		F554DFD31BB016180062EAC7 /* FINewsLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFD21BB016180062EAC7 /* FINewsLetter.m */; };
+		F554DFD61BB026980062EAC7 /* NewsLetterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFD51BB026980062EAC7 /* NewsLetterCell.m */; };
 		F55634651B94687A009E7C8E /* FIUnreadMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55634631B94687A009E7C8E /* FIUnreadMenu.m */; };
 		F583CD041BA30AD50080C384 /* AddContent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F583CD031BA30AD50080C384 /* AddContent.storyboard */; };
 		F583CD071BA30FBE0080C384 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F583CD061BA30FBE0080C384 /* Tutorial.storyboard */; };
@@ -374,6 +378,13 @@
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F552A8241B6666670003B7C1 /* FullIntel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 2.xcdatamodel"; sourceTree = "<group>"; };
+		F554DFCC1BB00AEA0062EAC7 /* NewsLetterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLetterViewController.h; sourceTree = "<group>"; };
+		F554DFCD1BB00AEA0062EAC7 /* NewsLetterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLetterViewController.m; sourceTree = "<group>"; };
+		F554DFCF1BB00B1E0062EAC7 /* NewsLetterView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewsLetterView.storyboard; sourceTree = "<group>"; };
+		F554DFD11BB016180062EAC7 /* FINewsLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FINewsLetter.h; sourceTree = "<group>"; };
+		F554DFD21BB016180062EAC7 /* FINewsLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FINewsLetter.m; sourceTree = "<group>"; };
+		F554DFD41BB026980062EAC7 /* NewsLetterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLetterCell.h; sourceTree = "<group>"; };
+		F554DFD51BB026980062EAC7 /* NewsLetterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLetterCell.m; sourceTree = "<group>"; };
 		F55634631B94687A009E7C8E /* FIUnreadMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIUnreadMenu.m; sourceTree = "<group>"; };
 		F55634641B94687A009E7C8E /* FIUnreadMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIUnreadMenu.h; sourceTree = "<group>"; };
 		F583CD031BA30AD50080C384 /* AddContent.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddContent.storyboard; sourceTree = "<group>"; };
@@ -748,6 +759,7 @@
 		A0E2234F1A91C2F00073814A /* FullIntel */ = {
 			isa = PBXGroup;
 			children = (
+				F554DFCB1BB00A7B0062EAC7 /* NewsLetter Page */,
 				F583CD051BA30F9C0080C384 /* Tutorial */,
 				A0E4B1141B4BB74D0029D389 /* Folder Page */,
 				A0CF5C241B1DD97200DED2D9 /* MockPages */,
@@ -844,6 +856,18 @@
 				A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F554DFCB1BB00A7B0062EAC7 /* NewsLetter Page */ = {
+			isa = PBXGroup;
+			children = (
+				F554DFCC1BB00AEA0062EAC7 /* NewsLetterViewController.h */,
+				F554DFCD1BB00AEA0062EAC7 /* NewsLetterViewController.m */,
+				F554DFCF1BB00B1E0062EAC7 /* NewsLetterView.storyboard */,
+				F554DFD41BB026980062EAC7 /* NewsLetterCell.h */,
+				F554DFD51BB026980062EAC7 /* NewsLetterCell.m */,
+			);
+			name = "NewsLetter Page";
 			sourceTree = "<group>";
 		};
 		F583CD051BA30F9C0080C384 /* Tutorial */ = {
@@ -1200,6 +1224,8 @@
 				A07A05B41AF74CE60016AD46 /* FIContentCategory.m */,
 				A088607E1B427B9500939D51 /* FIFolder.h */,
 				A088607F1B427B9500939D51 /* FIFolder.m */,
+				F554DFD11BB016180062EAC7 /* FINewsLetter.h */,
+				F554DFD21BB016180062EAC7 /* FINewsLetter.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1322,6 +1348,7 @@
 				A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */,
 				F5DAAA541B7080E80059425C /* TweetsCell.xib in Resources */,
 				A0CF5C5D1B1DD98B00DED2D9 /* IpAndLegal.storyboard in Resources */,
+				F554DFD01BB00B1E0062EAC7 /* NewsLetterView.storyboard in Resources */,
 				F7F3C05B1AA42CC700E653CB /* menu.json in Resources */,
 				F7E368831ABC18F70083F38E /* MailPopoverView.xib in Resources */,
 				F7E81FBD1A97057100F9A8D4 /* sam_img.png in Resources */,
@@ -1469,6 +1496,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F554DFD31BB016180062EAC7 /* FINewsLetter.m in Sources */,
 				F7E3688E1ABC1D060083F38E /* ResearchRequestPopoverView.m in Sources */,
 				F773CFE71ADE4370002FC7CF /* JSCustomBadge.m in Sources */,
 				F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */,
@@ -1486,7 +1514,9 @@
 				F7E85EA31A9F28970022B4D5 /* FIWebService.m in Sources */,
 				F7CE36F01A95E99D0005AA0A /* RADataObject.m in Sources */,
 				F7E85EA61A9F28B60022B4D5 /* FISharedResources.m in Sources */,
+				F554DFCE1BB00AEA0062EAC7 /* NewsLetterViewController.m in Sources */,
 				A0E4B1171B4BB76B0029D389 /* FolderViewController.m in Sources */,
+				F554DFD61BB026980062EAC7 /* NewsLetterCell.m in Sources */,
 				A0CF5C6A1B1DD98B00DED2D9 /* NumberOfPatternsCell.m in Sources */,
 				A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */,
 				A0CF5C641B1DD98B00DED2D9 /* StockViewController.m in Sources */,
