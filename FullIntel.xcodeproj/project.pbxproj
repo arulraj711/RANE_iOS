@@ -86,6 +86,12 @@
 		A0D956821B0C4D9100DB013F /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567F1B0C4D9100DB013F /* TwitterCore.framework */; };
 		A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0DB6FC01B0AF40C00F6E2F4 /* Comments.storyboard */; };
 		A0DB6FC41B0B2BB400F6E2F4 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB6FC31B0B2BB400F6E2F4 /* CommentCell.m */; };
+		A0DEB4081BB12DBB003B50C8 /* CommunicationIssuesPage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEB4071BB12DBB003B50C8 /* CommunicationIssuesPage.m */; };
+		A0DEB40A1BB12DD5003B50C8 /* CommunicationIssues.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0DEB4091BB12DD5003B50C8 /* CommunicationIssues.storyboard */; };
+		A0DEB40D1BB13272003B50C8 /* CICell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEB40C1BB13272003B50C8 /* CICell.m */; };
+		A0DEB4101BB13D8A003B50C8 /* IssuesResultListPage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEB40F1BB13D8A003B50C8 /* IssuesResultListPage.m */; };
+		A0DEB41D1BB17000003B50C8 /* IssueOverViewPage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEB41C1BB17000003B50C8 /* IssueOverViewPage.m */; };
+		A0DEB4201BB17049003B50C8 /* IssueMonitoringReportPage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEB41F1BB17049003B50C8 /* IssueMonitoringReportPage.m */; };
 		A0DEC3DE1AE8E31D0046E8BB /* SocialLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEC3DD1AE8E31D0046E8BB /* SocialLinkCell.m */; };
 		A0DEC3E41AE94FF10046E8BB /* SocialWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEC3E31AE94FF10046E8BB /* SocialWebView.m */; };
 		A0E223531A91C2F00073814A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E223521A91C2F00073814A /* main.m */; };
@@ -341,6 +347,17 @@
 		A0DB6FC01B0AF40C00F6E2F4 /* Comments.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Comments.storyboard; sourceTree = "<group>"; };
 		A0DB6FC21B0B2BB400F6E2F4 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		A0DB6FC31B0B2BB400F6E2F4 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		A0DEB4061BB12DBB003B50C8 /* CommunicationIssuesPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationIssuesPage.h; sourceTree = "<group>"; };
+		A0DEB4071BB12DBB003B50C8 /* CommunicationIssuesPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationIssuesPage.m; sourceTree = "<group>"; };
+		A0DEB4091BB12DD5003B50C8 /* CommunicationIssues.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommunicationIssues.storyboard; sourceTree = "<group>"; };
+		A0DEB40B1BB13272003B50C8 /* CICell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICell.h; sourceTree = "<group>"; };
+		A0DEB40C1BB13272003B50C8 /* CICell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CICell.m; sourceTree = "<group>"; };
+		A0DEB40E1BB13D8A003B50C8 /* IssuesResultListPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuesResultListPage.h; sourceTree = "<group>"; };
+		A0DEB40F1BB13D8A003B50C8 /* IssuesResultListPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssuesResultListPage.m; sourceTree = "<group>"; };
+		A0DEB41B1BB17000003B50C8 /* IssueOverViewPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueOverViewPage.h; sourceTree = "<group>"; };
+		A0DEB41C1BB17000003B50C8 /* IssueOverViewPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueOverViewPage.m; sourceTree = "<group>"; };
+		A0DEB41E1BB17049003B50C8 /* IssueMonitoringReportPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueMonitoringReportPage.h; sourceTree = "<group>"; };
+		A0DEB41F1BB17049003B50C8 /* IssueMonitoringReportPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueMonitoringReportPage.m; sourceTree = "<group>"; };
 		A0DEC3DC1AE8E31D0046E8BB /* SocialLinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLinkCell.h; sourceTree = "<group>"; };
 		A0DEC3DD1AE8E31D0046E8BB /* SocialLinkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLinkCell.m; sourceTree = "<group>"; };
 		A0DEC3E21AE94FF10046E8BB /* SocialWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialWebView.h; sourceTree = "<group>"; };
@@ -725,6 +742,24 @@
 			name = BadgeView;
 			sourceTree = "<group>";
 		};
+		A0DEB4051BB12D84003B50C8 /* CommunicationIssues */ = {
+			isa = PBXGroup;
+			children = (
+				A0DEB4061BB12DBB003B50C8 /* CommunicationIssuesPage.h */,
+				A0DEB4071BB12DBB003B50C8 /* CommunicationIssuesPage.m */,
+				A0DEB4091BB12DD5003B50C8 /* CommunicationIssues.storyboard */,
+				A0DEB40B1BB13272003B50C8 /* CICell.h */,
+				A0DEB40C1BB13272003B50C8 /* CICell.m */,
+				A0DEB40E1BB13D8A003B50C8 /* IssuesResultListPage.h */,
+				A0DEB40F1BB13D8A003B50C8 /* IssuesResultListPage.m */,
+				A0DEB41B1BB17000003B50C8 /* IssueOverViewPage.h */,
+				A0DEB41C1BB17000003B50C8 /* IssueOverViewPage.m */,
+				A0DEB41E1BB17049003B50C8 /* IssueMonitoringReportPage.h */,
+				A0DEB41F1BB17049003B50C8 /* IssueMonitoringReportPage.m */,
+			);
+			name = CommunicationIssues;
+			sourceTree = "<group>";
+		};
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
@@ -748,6 +783,7 @@
 		A0E2234F1A91C2F00073814A /* FullIntel */ = {
 			isa = PBXGroup;
 			children = (
+				A0DEB4051BB12D84003B50C8 /* CommunicationIssues */,
 				F583CD051BA30F9C0080C384 /* Tutorial */,
 				A0E4B1141B4BB74D0029D389 /* Folder Page */,
 				A0CF5C241B1DD97200DED2D9 /* MockPages */,
@@ -1329,6 +1365,7 @@
 				A098EA181B4E6AF8003FC501 /* DigitsKitResources.bundle in Resources */,
 				A0CF5C601B1DD98B00DED2D9 /* NumberOfPatternsCell.xib in Resources */,
 				F7E81FAC1A97057100F9A8D4 /* iphone.jpg in Resources */,
+				A0DEB40A1BB12DD5003B50C8 /* CommunicationIssues.storyboard in Resources */,
 				F7E81FC51A97057100F9A8D4 /* sony_topic.png in Resources */,
 				A0CF5C5E1B1DD98B00DED2D9 /* IpAndLegalCell.xib in Resources */,
 				F7E81FAF1A97057100F9A8D4 /* iwatch.png in Resources */,
@@ -1492,9 +1529,12 @@
 				A0CF5C641B1DD98B00DED2D9 /* StockViewController.m in Sources */,
 				A0E223561A91C2F00073814A /* AppDelegate.m in Sources */,
 				A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */,
+				A0DEB4081BB12DBB003B50C8 /* CommunicationIssuesPage.m in Sources */,
+				A0DEB4201BB17049003B50C8 /* IssueMonitoringReportPage.m in Sources */,
 				F7E3687B1ABBF1DA0083F38E /* CommentsPopoverView.m in Sources */,
 				A0CF5C571B1DD98B00DED2D9 /* DealsViewController.m in Sources */,
 				F7E368941ABC1DB80083F38E /* MorePopoverView.m in Sources */,
+				A0DEB40D1BB13272003B50C8 /* CICell.m in Sources */,
 				F7CE36E91A95E9490005AA0A /* RATreeView+TableViewDelegate.m in Sources */,
 				A0AF67531B16EC67007EDD26 /* DismissingAnimator.m in Sources */,
 				A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */,
@@ -1508,6 +1548,7 @@
 				A0CF5C691B1DD98B00DED2D9 /* IpAndLegalCell.m in Sources */,
 				A0CF5C711B1DD98B00DED2D9 /* TopStoriesCell.m in Sources */,
 				F7CE36E01A95E9490005AA0A /* RATreeNode.m in Sources */,
+				A0DEB4101BB13D8A003B50C8 /* IssuesResultListPage.m in Sources */,
 				F7E354E31A947A19009677D2 /* LeftViewController.m in Sources */,
 				F583CD131BA3103B0080C384 /* LeftMenuTutorialPopViewController.m in Sources */,
 				A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */,
@@ -1531,6 +1572,7 @@
 				A0CF5C671B1DD98B00DED2D9 /* CompetitorCell.m in Sources */,
 				F7CE36C31A95E9230005AA0A /* RATreeView.m in Sources */,
 				F7CE36F11A95E99D0005AA0A /* RATableViewCell.m in Sources */,
+				A0DEB41D1BB17000003B50C8 /* IssueOverViewPage.m in Sources */,
 				A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */,
 				A0CF5C6D1B1DD98B00DED2D9 /* TimeLineCell.m in Sources */,
 				F78B42F81ABA896E00AB7FFB /* CorporateNewsListView.m in Sources */,
