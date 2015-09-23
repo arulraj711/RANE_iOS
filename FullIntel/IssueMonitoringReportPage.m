@@ -7,6 +7,7 @@
 //
 
 #import "IssueMonitoringReportPage.h"
+#import "IssueMonitoringCell.h"
 
 @interface IssueMonitoringReportPage ()
 
@@ -24,14 +25,28 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
 }
-*/
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 5;
+}
+
+
+
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    IssueMonitoringCell *cell = (IssueMonitoringCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.cellOuterView.layer.masksToBounds = YES;
+    cell.cellOuterView.layer.cornerRadius = 75;
+    cell.cellOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    cell.cellOuterView.layer.borderWidth = 1;
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"CI select row");
+}
 
 @end

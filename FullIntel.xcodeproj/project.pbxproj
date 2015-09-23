@@ -43,6 +43,7 @@
 		A0B0F5CB1B256AE300BB1169 /* Eiffel_Tower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C81B256AE300BB1169 /* Eiffel_Tower.jpg */; };
 		A0B0F5CC1B256AE300BB1169 /* san_francisco.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C91B256AE300BB1169 /* san_francisco.jpg */; };
 		A0B0F5CE1B28639900BB1169 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0B0F5CD1B28639900BB1169 /* QuartzCore.framework */; };
+		A0B816761BB2B51F0036C0C9 /* IssueMonitoringCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B816751BB2B51F0036C0C9 /* IssueMonitoringCell.m */; };
 		A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0BE809F1B206F450055177E /* ResearchRequest.storyboard */; };
 		A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */; };
 		A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C326251B182E2B00FEB164 /* StockResponse.json */; };
@@ -284,6 +285,8 @@
 		A0B0F5C81B256AE300BB1169 /* Eiffel_Tower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Eiffel_Tower.jpg; sourceTree = "<group>"; };
 		A0B0F5C91B256AE300BB1169 /* san_francisco.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = san_francisco.jpg; sourceTree = "<group>"; };
 		A0B0F5CD1B28639900BB1169 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A0B816741BB2B51F0036C0C9 /* IssueMonitoringCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueMonitoringCell.h; sourceTree = "<group>"; };
+		A0B816751BB2B51F0036C0C9 /* IssueMonitoringCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueMonitoringCell.m; sourceTree = "<group>"; };
 		A0BE809F1B206F450055177E /* ResearchRequest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ResearchRequest.storyboard; sourceTree = "<group>"; };
 		A0BFEF831B13482300DCBDA8 /* AddContentFifthLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentFifthLevelView.h; sourceTree = "<group>"; };
 		A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFifthLevelView.m; sourceTree = "<group>"; };
@@ -756,6 +759,8 @@
 				A0DEB41C1BB17000003B50C8 /* IssueOverViewPage.m */,
 				A0DEB41E1BB17049003B50C8 /* IssueMonitoringReportPage.h */,
 				A0DEB41F1BB17049003B50C8 /* IssueMonitoringReportPage.m */,
+				A0B816741BB2B51F0036C0C9 /* IssueMonitoringCell.h */,
+				A0B816751BB2B51F0036C0C9 /* IssueMonitoringCell.m */,
 			);
 			name = CommunicationIssues;
 			sourceTree = "<group>";
@@ -1581,6 +1586,7 @@
 				A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */,
 				A08860801B427B9500939D51 /* FIFolder.m in Sources */,
 				F732C7D11AC930680071A4D8 /* InfluencerDetailsView.m in Sources */,
+				A0B816761BB2B51F0036C0C9 /* IssueMonitoringCell.m in Sources */,
 				F7C1AB611ABFF41C00D8588A /* MoreViewCell.m in Sources */,
 				A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */,
 				A0DB6FC41B0B2BB400F6E2F4 /* CommentCell.m in Sources */,

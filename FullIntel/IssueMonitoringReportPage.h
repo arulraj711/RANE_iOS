@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IssueMonitoringReportPage : UIViewController
+@interface IssueMonitoringReportPage : UIViewController<UICollectionViewDelegate>
 
 @end
