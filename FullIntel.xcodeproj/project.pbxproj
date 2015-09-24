@@ -31,6 +31,32 @@
 		A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A087980C1ADFE47D00D93114 /* FirstLevelCell.m */; };
 		A08860801B427B9500939D51 /* FIFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = A088607F1B427B9500939D51 /* FIFolder.m */; };
 		A08860821B42910D00939D51 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A08860811B42910D00939D51 /* FBSDKShareKit.framework */; };
+		A09590531BB3D80B005C3769 /* IssueListObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A09590521BB3D80B005C3769 /* IssueListObject.m */; };
+		A09590561BB3DA38005C3769 /* IssueListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A09590551BB3DA38005C3769 /* IssueListCell.m */; };
+		A09590591BB3E974005C3769 /* IssueMonitoringOutletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A09590581BB3E974005C3769 /* IssueMonitoringOutletCell.m */; };
+		A095905C1BB3EECC005C3769 /* IssueMonitoringInfluencerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A095905B1BB3EECC005C3769 /* IssueMonitoringInfluencerCell.m */; };
+		A095905F1BB3FEC1005C3769 /* IssueDrillInPage.m in Sources */ = {isa = PBXBuildFile; fileRef = A095905E1BB3FEC1005C3769 /* IssueDrillInPage.m */; };
+		A09590621BB41546005C3769 /* IssueSocialCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A09590611BB41546005C3769 /* IssueSocialCell.m */; };
+		A09590651BB41AB8005C3769 /* IssueTweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A09590641BB41AB8005C3769 /* IssueTweetCell.m */; };
+		A095907D1BB41D23005C3769 /* bootstrap.css in Resources */ = {isa = PBXBuildFile; fileRef = A09590681BB41D23005C3769 /* bootstrap.css */; };
+		A095907E1BB41D23005C3769 /* font-awesome.min.css in Resources */ = {isa = PBXBuildFile; fileRef = A09590691BB41D23005C3769 /* font-awesome.min.css */; };
+		A095907F1BB41D23005C3769 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = A095906A1BB41D23005C3769 /* style.css */; };
+		A09590801BB41D23005C3769 /* fontawesome-webfont.eot in Resources */ = {isa = PBXBuildFile; fileRef = A095906C1BB41D23005C3769 /* fontawesome-webfont.eot */; };
+		A09590811BB41D23005C3769 /* fontawesome-webfont.svg in Resources */ = {isa = PBXBuildFile; fileRef = A095906D1BB41D23005C3769 /* fontawesome-webfont.svg */; };
+		A09590821BB41D23005C3769 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A095906E1BB41D23005C3769 /* fontawesome-webfont.ttf */; };
+		A09590831BB41D23005C3769 /* fontawesome-webfont.woff in Resources */ = {isa = PBXBuildFile; fileRef = A095906F1BB41D23005C3769 /* fontawesome-webfont.woff */; };
+		A09590841BB41D23005C3769 /* fontawesome-webfont.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = A09590701BB41D23005C3769 /* fontawesome-webfont.woff2 */; };
+		A09590851BB41D23005C3769 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = A09590711BB41D23005C3769 /* FontAwesome.otf */; };
+		A09590861BB41D23005C3769 /* glyphicons-halflings-regular.eot in Resources */ = {isa = PBXBuildFile; fileRef = A09590721BB41D23005C3769 /* glyphicons-halflings-regular.eot */; };
+		A09590871BB41D23005C3769 /* glyphicons-halflings-regular.svg in Resources */ = {isa = PBXBuildFile; fileRef = A09590731BB41D23005C3769 /* glyphicons-halflings-regular.svg */; };
+		A09590881BB41D23005C3769 /* glyphicons-halflings-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A09590741BB41D23005C3769 /* glyphicons-halflings-regular.ttf */; };
+		A09590891BB41D23005C3769 /* glyphicons-halflings-regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = A09590751BB41D23005C3769 /* glyphicons-halflings-regular.woff */; };
+		A095908A1BB41D23005C3769 /* glyphicons-halflings-regular.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = A09590761BB41D23005C3769 /* glyphicons-halflings-regular.woff2 */; };
+		A095908B1BB41D23005C3769 /* chart1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A09590781BB41D23005C3769 /* chart1.jpg */; };
+		A095908C1BB41D23005C3769 /* chart2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A09590791BB41D23005C3769 /* chart2.jpg */; };
+		A095908D1BB41D23005C3769 /* chart3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A095907A1BB41D23005C3769 /* chart3.jpg */; };
+		A095908E1BB41D23005C3769 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = A095907B1BB41D23005C3769 /* index.html */; };
+		A095908F1BB41D23005C3769 /* index_1.html in Resources */ = {isa = PBXBuildFile; fileRef = A095907C1BB41D23005C3769 /* index_1.html */; };
 		A098EA171B4E6AF8003FC501 /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A098EA151B4E6AF8003FC501 /* DigitsKit.framework */; };
 		A098EA181B4E6AF8003FC501 /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A098EA161B4E6AF8003FC501 /* DigitsKitResources.bundle */; };
 		A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */; };
@@ -272,6 +298,39 @@
 		A088607E1B427B9500939D51 /* FIFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIFolder.h; sourceTree = "<group>"; };
 		A088607F1B427B9500939D51 /* FIFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIFolder.m; sourceTree = "<group>"; };
 		A08860811B42910D00939D51 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		A09590511BB3D80B005C3769 /* IssueListObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueListObject.h; sourceTree = "<group>"; };
+		A09590521BB3D80B005C3769 /* IssueListObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueListObject.m; sourceTree = "<group>"; };
+		A09590541BB3DA38005C3769 /* IssueListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueListCell.h; sourceTree = "<group>"; };
+		A09590551BB3DA38005C3769 /* IssueListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueListCell.m; sourceTree = "<group>"; };
+		A09590571BB3E974005C3769 /* IssueMonitoringOutletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueMonitoringOutletCell.h; sourceTree = "<group>"; };
+		A09590581BB3E974005C3769 /* IssueMonitoringOutletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueMonitoringOutletCell.m; sourceTree = "<group>"; };
+		A095905A1BB3EECC005C3769 /* IssueMonitoringInfluencerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueMonitoringInfluencerCell.h; sourceTree = "<group>"; };
+		A095905B1BB3EECC005C3769 /* IssueMonitoringInfluencerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueMonitoringInfluencerCell.m; sourceTree = "<group>"; };
+		A095905D1BB3FEC1005C3769 /* IssueDrillInPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueDrillInPage.h; sourceTree = "<group>"; };
+		A095905E1BB3FEC1005C3769 /* IssueDrillInPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueDrillInPage.m; sourceTree = "<group>"; };
+		A09590601BB41546005C3769 /* IssueSocialCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueSocialCell.h; sourceTree = "<group>"; };
+		A09590611BB41546005C3769 /* IssueSocialCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueSocialCell.m; sourceTree = "<group>"; };
+		A09590631BB41AB8005C3769 /* IssueTweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueTweetCell.h; sourceTree = "<group>"; };
+		A09590641BB41AB8005C3769 /* IssueTweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueTweetCell.m; sourceTree = "<group>"; };
+		A09590681BB41D23005C3769 /* bootstrap.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = bootstrap.css; sourceTree = "<group>"; };
+		A09590691BB41D23005C3769 /* font-awesome.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "font-awesome.min.css"; sourceTree = "<group>"; };
+		A095906A1BB41D23005C3769 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		A095906C1BB41D23005C3769 /* fontawesome-webfont.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.eot"; sourceTree = "<group>"; };
+		A095906D1BB41D23005C3769 /* fontawesome-webfont.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "fontawesome-webfont.svg"; sourceTree = "<group>"; };
+		A095906E1BB41D23005C3769 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
+		A095906F1BB41D23005C3769 /* fontawesome-webfont.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.woff"; sourceTree = "<group>"; };
+		A09590701BB41D23005C3769 /* fontawesome-webfont.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.woff2"; sourceTree = "<group>"; };
+		A09590711BB41D23005C3769 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
+		A09590721BB41D23005C3769 /* glyphicons-halflings-regular.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphicons-halflings-regular.eot"; sourceTree = "<group>"; };
+		A09590731BB41D23005C3769 /* glyphicons-halflings-regular.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "glyphicons-halflings-regular.svg"; sourceTree = "<group>"; };
+		A09590741BB41D23005C3769 /* glyphicons-halflings-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphicons-halflings-regular.ttf"; sourceTree = "<group>"; };
+		A09590751BB41D23005C3769 /* glyphicons-halflings-regular.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphicons-halflings-regular.woff"; sourceTree = "<group>"; };
+		A09590761BB41D23005C3769 /* glyphicons-halflings-regular.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphicons-halflings-regular.woff2"; sourceTree = "<group>"; };
+		A09590781BB41D23005C3769 /* chart1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chart1.jpg; sourceTree = "<group>"; };
+		A09590791BB41D23005C3769 /* chart2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chart2.jpg; sourceTree = "<group>"; };
+		A095907A1BB41D23005C3769 /* chart3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chart3.jpg; sourceTree = "<group>"; };
+		A095907B1BB41D23005C3769 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		A095907C1BB41D23005C3769 /* index_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_1.html; sourceTree = "<group>"; };
 		A098EA151B4E6AF8003FC501 /* DigitsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DigitsKit.framework; sourceTree = SOURCE_ROOT; };
 		A098EA161B4E6AF8003FC501 /* DigitsKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DigitsKitResources.bundle; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle; sourceTree = SOURCE_ROOT; };
 		A0A678621B1C159400FB2AEA /* influencer_new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = influencer_new.json; sourceTree = "<group>"; };
@@ -637,6 +696,56 @@
 			name = CorporateDetailCell;
 			sourceTree = "<group>";
 		};
+		A09590661BB41D23005C3769 /* css */ = {
+			isa = PBXGroup;
+			children = (
+				A09590671BB41D23005C3769 /* css */,
+				A095906B1BB41D23005C3769 /* fonts */,
+				A09590771BB41D23005C3769 /* img */,
+				A095907B1BB41D23005C3769 /* index.html */,
+				A095907C1BB41D23005C3769 /* index_1.html */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
+		A09590671BB41D23005C3769 /* css */ = {
+			isa = PBXGroup;
+			children = (
+				A09590681BB41D23005C3769 /* bootstrap.css */,
+				A09590691BB41D23005C3769 /* font-awesome.min.css */,
+				A095906A1BB41D23005C3769 /* style.css */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
+		A095906B1BB41D23005C3769 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A095906C1BB41D23005C3769 /* fontawesome-webfont.eot */,
+				A095906D1BB41D23005C3769 /* fontawesome-webfont.svg */,
+				A095906E1BB41D23005C3769 /* fontawesome-webfont.ttf */,
+				A095906F1BB41D23005C3769 /* fontawesome-webfont.woff */,
+				A09590701BB41D23005C3769 /* fontawesome-webfont.woff2 */,
+				A09590711BB41D23005C3769 /* FontAwesome.otf */,
+				A09590721BB41D23005C3769 /* glyphicons-halflings-regular.eot */,
+				A09590731BB41D23005C3769 /* glyphicons-halflings-regular.svg */,
+				A09590741BB41D23005C3769 /* glyphicons-halflings-regular.ttf */,
+				A09590751BB41D23005C3769 /* glyphicons-halflings-regular.woff */,
+				A09590761BB41D23005C3769 /* glyphicons-halflings-regular.woff2 */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		A09590771BB41D23005C3769 /* img */ = {
+			isa = PBXGroup;
+			children = (
+				A09590781BB41D23005C3769 /* chart1.jpg */,
+				A09590791BB41D23005C3769 /* chart2.jpg */,
+				A095907A1BB41D23005C3769 /* chart3.jpg */,
+			);
+			path = img;
+			sourceTree = "<group>";
+		};
 		A0AF674A1B16EBF6007EDD26 /* CustomPopAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -748,7 +857,10 @@
 		A0DEB4051BB12D84003B50C8 /* CommunicationIssues */ = {
 			isa = PBXGroup;
 			children = (
+				A09590661BB41D23005C3769 /* css */,
 				A0DEB4061BB12DBB003B50C8 /* CommunicationIssuesPage.h */,
+				A09590631BB41AB8005C3769 /* IssueTweetCell.h */,
+				A09590641BB41AB8005C3769 /* IssueTweetCell.m */,
 				A0DEB4071BB12DBB003B50C8 /* CommunicationIssuesPage.m */,
 				A0DEB4091BB12DD5003B50C8 /* CommunicationIssues.storyboard */,
 				A0DEB40B1BB13272003B50C8 /* CICell.h */,
@@ -761,6 +873,18 @@
 				A0DEB41F1BB17049003B50C8 /* IssueMonitoringReportPage.m */,
 				A0B816741BB2B51F0036C0C9 /* IssueMonitoringCell.h */,
 				A0B816751BB2B51F0036C0C9 /* IssueMonitoringCell.m */,
+				A09590511BB3D80B005C3769 /* IssueListObject.h */,
+				A09590521BB3D80B005C3769 /* IssueListObject.m */,
+				A09590541BB3DA38005C3769 /* IssueListCell.h */,
+				A09590551BB3DA38005C3769 /* IssueListCell.m */,
+				A09590571BB3E974005C3769 /* IssueMonitoringOutletCell.h */,
+				A09590581BB3E974005C3769 /* IssueMonitoringOutletCell.m */,
+				A095905A1BB3EECC005C3769 /* IssueMonitoringInfluencerCell.h */,
+				A095905B1BB3EECC005C3769 /* IssueMonitoringInfluencerCell.m */,
+				A095905D1BB3FEC1005C3769 /* IssueDrillInPage.h */,
+				A095905E1BB3FEC1005C3769 /* IssueDrillInPage.m */,
+				A09590601BB41546005C3769 /* IssueSocialCell.h */,
+				A09590611BB41546005C3769 /* IssueSocialCell.m */,
 			);
 			name = CommunicationIssues;
 			sourceTree = "<group>";
@@ -1345,11 +1469,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A095908A1BB41D23005C3769 /* glyphicons-halflings-regular.woff2 in Resources */,
 				F7E81F9B1A97057100F9A8D4 /* businessman-holding-ipad.jpg in Resources */,
 				F7E81FB41A97057100F9A8D4 /* microsoft_topic.png in Resources */,
 				F7E354E71A947AB0009677D2 /* LeftView.storyboard in Resources */,
+				A09590851BB41D23005C3769 /* FontAwesome.otf in Resources */,
+				A095908E1BB41D23005C3769 /* index.html in Resources */,
 				F7E81FC11A97057100F9A8D4 /* slide_apple.png in Resources */,
 				F583CD041BA30AD50080C384 /* AddContent.storyboard in Resources */,
+				A095908C1BB41D23005C3769 /* chart2.jpg in Resources */,
 				A0B0F5CC1B256AE300BB1169 /* san_francisco.jpg in Resources */,
 				A0B0F5CA1B256AE300BB1169 /* City-Boston.jpg in Resources */,
 				A0CF5C7B1B1EFE1100DED2D9 /* movesDrill.html in Resources */,
@@ -1366,6 +1494,7 @@
 				F7F3C05B1AA42CC700E653CB /* menu.json in Resources */,
 				F7E368831ABC18F70083F38E /* MailPopoverView.xib in Resources */,
 				F7E81FBD1A97057100F9A8D4 /* sam_img.png in Resources */,
+				A09590801BB41D23005C3769 /* fontawesome-webfont.eot in Resources */,
 				F7E81FB31A97057100F9A8D4 /* microsoft.png in Resources */,
 				A098EA181B4E6AF8003FC501 /* DigitsKitResources.bundle in Resources */,
 				A0CF5C601B1DD98B00DED2D9 /* NumberOfPatternsCell.xib in Resources */,
@@ -1389,8 +1518,10 @@
 				A0CF5C551B1DD98B00DED2D9 /* CompetitorCell.xib in Resources */,
 				F7E81FA61A97057100F9A8D4 /* hero-bg-fade.png in Resources */,
 				F7E81FC71A97057100F9A8D4 /* stat2.png in Resources */,
+				A095908D1BB41D23005C3769 /* chart3.jpg in Resources */,
 				F7E81FB11A97057100F9A8D4 /* kates.jpg in Resources */,
 				F7E81F9A1A97057100F9A8D4 /* business-technology.jpg in Resources */,
+				A09590831BB41D23005C3769 /* fontawesome-webfont.woff in Resources */,
 				F7E81FAA1A97057100F9A8D4 /* ionic.png in Resources */,
 				F7E81FA21A97057100F9A8D4 /* google_topic.png in Resources */,
 				F773CFE91ADE99C7002FC7CF /* addContent.json in Resources */,
@@ -1405,19 +1536,24 @@
 				A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */,
 				F7E81FB61A97057100F9A8D4 /* new-york-city-wallpaper.jpg in Resources */,
 				A0CF5C581B1DD98B00DED2D9 /* ExecutiveMoveCell.xib in Resources */,
+				A09590891BB41D23005C3769 /* glyphicons-halflings-regular.woff in Resources */,
 				A0A678631B1C159400FB2AEA /* influencer_new.json in Resources */,
+				A09590881BB41D23005C3769 /* glyphicons-halflings-regular.ttf in Resources */,
 				F7E81FBC1A97057100F9A8D4 /* pattern.png in Resources */,
 				F7E81FBE1A97057100F9A8D4 /* samsung.ico in Resources */,
 				F7E81FB01A97057100F9A8D4 /* Josh.jpeg in Resources */,
 				F7C1AB5C1ABFEC6B00D8588A /* SavedListPopoverView.storyboard in Resources */,
 				F7AE10841AC01E4D0091E1C7 /* InfluencerListView.storyboard in Resources */,
+				A095907E1BB41D23005C3769 /* font-awesome.min.css in Resources */,
 				F7E81FC91A97057100F9A8D4 /* stock1.png in Resources */,
+				A095908F1BB41D23005C3769 /* index_1.html in Resources */,
 				F7E81FB21A97057100F9A8D4 /* mexico.jpg in Resources */,
 				A003B1AA1B1874A200857F35 /* Apple_Car.jpg in Resources */,
 				F7E81FB71A97057100F9A8D4 /* Nick.jpeg in Resources */,
 				F7E81F8C1A97057100F9A8D4 /* -iwatch.jpg in Resources */,
 				F7E81FAE1A97057100F9A8D4 /* iwatch.jpg in Resources */,
 				F7AE10891AC022CD0091E1C7 /* InfluencerCell.xib in Resources */,
+				A09590871BB41D23005C3769 /* glyphicons-halflings-regular.svg in Resources */,
 				A0CF5C591B1DD98B00DED2D9 /* ExecutiveMoves.storyboard in Resources */,
 				A0CF5C791B1EFE1100DED2D9 /* dealsDril.html in Resources */,
 				F7E81FC21A97057100F9A8D4 /* snow.jpg in Resources */,
@@ -1427,21 +1563,28 @@
 				A0CF5C631B1DD98B00DED2D9 /* stock.storyboard in Resources */,
 				F7E81FA11A97057100F9A8D4 /* google-icon.png in Resources */,
 				A0CF5C651B1DD98B00DED2D9 /* TimeLineCell.xib in Resources */,
+				A095908B1BB41D23005C3769 /* chart1.jpg in Resources */,
 				F7E81FA01A97057100F9A8D4 /* Ed.jpeg in Resources */,
 				A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */,
 				F5F727271B6F809400DE7980 /* SocialLinkCell.xib in Resources */,
+				A095907F1BB41D23005C3769 /* style.css in Resources */,
 				A0D956811B0C4D9100DB013F /* TwitterKitResources.bundle in Resources */,
 				F7C1AB5E1ABFEFB100D8588A /* MorePopoverView.storyboard in Resources */,
 				F7CE36F21A95E99D0005AA0A /* RATableViewCell.xib in Resources */,
 				A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */,
 				A0CF5C7A1B1EFE1100DED2D9 /* legalDril.html in Resources */,
 				A0E223611A91C2F00073814A /* Images.xcassets in Resources */,
+				A09590841BB41D23005C3769 /* fontawesome-webfont.woff2 in Resources */,
 				F7E81FC61A97057100F9A8D4 /* stat1.png in Resources */,
 				F78B43011ABA92AC00AB7FFB /* corporate_news_list.json in Resources */,
 				A003B1A81B1873D900857F35 /* VideoWidgetCell.xib in Resources */,
+				A09590861BB41D23005C3769 /* glyphicons-halflings-regular.eot in Resources */,
+				A09590821BB41D23005C3769 /* fontawesome-webfont.ttf in Resources */,
 				F717CC941AB1B2E400F66B53 /* OpenSans-Light.ttf in Resources */,
 				A0CF5C541B1DD98B00DED2D9 /* CompanyCell.xib in Resources */,
 				A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */,
+				A095907D1BB41D23005C3769 /* bootstrap.css in Resources */,
+				A09590811BB41D23005C3769 /* fontawesome-webfont.svg in Resources */,
 				F7E81FBB1A97057100F9A8D4 /* obama.jpg in Resources */,
 				F7E81F951A97057100F9A8D4 /* apple-logo.png in Resources */,
 				F7E85EA91A9F3B710022B4D5 /* Influencer.json in Resources */,
@@ -1519,7 +1662,10 @@
 				F7CE36E81A95E9490005AA0A /* RATreeView+TableViewDataSource.m in Sources */,
 				A0CF5C5B1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.m in Sources */,
 				F7CE36E61A95E9490005AA0A /* RATreeView+Private.m in Sources */,
+				A09590531BB3D80B005C3769 /* IssueListObject.m in Sources */,
 				F7CE36DF1A95E9490005AA0A /* RABatchChanges.m in Sources */,
+				A09590591BB3E974005C3769 /* IssueMonitoringOutletCell.m in Sources */,
+				A09590651BB41AB8005C3769 /* IssueTweetCell.m in Sources */,
 				A0CF5C6C1B1DD98B00DED2D9 /* RecentPaternsCell.m in Sources */,
 				F7E368821ABC18F70083F38E /* MailPopoverView.m in Sources */,
 				A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */,
@@ -1558,6 +1704,7 @@
 				F583CD131BA3103B0080C384 /* LeftMenuTutorialPopViewController.m in Sources */,
 				A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */,
 				A0CF5C6F1B1DD98B00DED2D9 /* Stocks.m in Sources */,
+				A095905F1BB3FEC1005C3769 /* IssueDrillInPage.m in Sources */,
 				F7CE36E11A95E9490005AA0A /* RATreeNodeCollectionController.m in Sources */,
 				F7CE36EA1A95E9490005AA0A /* RATreeView+UIScrollView.m in Sources */,
 				A0E223531A91C2F00073814A /* main.m in Sources */,
@@ -1590,6 +1737,7 @@
 				F7C1AB611ABFF41C00D8588A /* MoreViewCell.m in Sources */,
 				A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */,
 				A0DB6FC41B0B2BB400F6E2F4 /* CommentCell.m in Sources */,
+				A09590621BB41546005C3769 /* IssueSocialCell.m in Sources */,
 				A003B1A71B1873D900857F35 /* VideoWidgetCell.m in Sources */,
 				A0CF5C661B1DD98B00DED2D9 /* CompanyCell.m in Sources */,
 				F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */,
@@ -1597,6 +1745,8 @@
 				F583CD161BA310590080C384 /* MainListTutorialViewController.m in Sources */,
 				A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */,
 				A0DEC3DE1AE8E31D0046E8BB /* SocialLinkCell.m in Sources */,
+				A09590561BB3DA38005C3769 /* IssueListCell.m in Sources */,
+				A095905C1BB3EECC005C3769 /* IssueMonitoringInfluencerCell.m in Sources */,
 				F78B42FE1ABA8F4800AB7FFB /* CorporateNewsCell.m in Sources */,
 				F583CD0D1BA310060080C384 /* DrillDownListTutorialViewController.m in Sources */,
 				A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */,

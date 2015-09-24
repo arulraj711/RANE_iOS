@@ -10,6 +10,7 @@
 #import "CICell.h"
 #import "IssuesResultListPage.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "FISharedResources.h"
 @interface CommunicationIssuesPage ()
 
 @end
@@ -19,6 +20,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+    [self.navigationItem setLeftBarButtonItem:addButton];
+    self.title = @"Communication Issues";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,26 +35,46 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)backBtnPress {
+    NSLog(@"back button press");
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        NSLog(@"left view closed");
+       // NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+       // [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        NSLog(@"left view opened");
+        //NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+        //[Localytics tagEvent:@"MenuOpened" attributes:dictionary];
+        [self.revealController showViewController:self.revealController.leftViewController];
+    }
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/issues.json"]];
+    NSError *error;
+    issueList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    NSLog(@"issue lis:%@",issueList);
+    [self.issuesTableView reloadData];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
    
-    return 3;
+    return issueList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CICell *cell = (CICell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    if(indexPath.row == 0) {
-        [cell.articleImage sd_setImageWithURL:[NSURL URLWithString:@"http://rack.0.mshcdn.com/media/ZgkyMDE1LzA5LzIyL2ExL3dhdGNodW5ib3hpLjk1YWRiLmpwZw/d7bf2e8b/5f9/watch-unboxing-Thumbnail-meta-no-logo.jpg"] placeholderImage:[UIImage imageNamed:@"FI"]];
-        [cell.articleImage setContentMode:UIViewContentModeScaleAspectFill];
-        cell.artileTitle.text = @"Q3 2015 Results";
-    } else if(indexPath.row == 1) {
-        [cell.articleImage sd_setImageWithURL:[NSURL URLWithString:@"http://www.planwallpaper.com/static/images/bicycle-1280x720.jpg"] placeholderImage:[UIImage imageNamed:@"FI"]];
-        [cell.articleImage setContentMode:UIViewContentModeScaleAspectFill];
-        cell.artileTitle.text = @"Issue 2 title";
-    } else if(indexPath.row == 2) {
-        [cell.articleImage sd_setImageWithURL:[NSURL URLWithString:@"http://o.aolcdn.com/dims5/amp:7efb2271504fd00eebe7e7006a6d4de56f319f39/r:960,504,min/c:960,504,0,3/q:80/http:/o.aolcdn.com/hss/storage/midas/4cfdf537c105f0c8c44fd27b1d761d97/202679242/omate-truesmart-plus.jpg"] placeholderImage:[UIImage imageNamed:@"FI"]];
-        [cell.articleImage setContentMode:UIViewContentModeScaleAspectFill];
-        cell.artileTitle.text = @"Issue 3 title";
-    }
+     NSDictionary *issueDic = [issueList objectAtIndex:indexPath.row];
+    [cell.articleImage sd_setImageWithURL:[NSURL URLWithString:[issueDic objectForKey:@"articleImage"]] placeholderImage:[UIImage imageNamed:@"FI"]];
+    [cell.articleImage setContentMode:UIViewContentModeScaleAspectFill];
+    cell.artileTitle.text = [issueDic objectForKey:@"title"];
+    cell.articleDesc.text = [issueDic objectForKey:@"desc"];
+    cell.articlesCount.text = [issueDic objectForKey:@"articlesCount"];
+    cell.outletsCount.text = [issueDic objectForKey:@"outletsCount"];
+    cell.commentsCount.text = [issueDic objectForKey:@"commentsCount"];
+   
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //[cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
     //[cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];

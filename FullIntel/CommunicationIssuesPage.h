@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommunicationIssuesPage : UIViewController
+@interface CommunicationIssuesPage : UIViewController {
+    NSArray *issueList;
+}
+@property (weak, nonatomic) IBOutlet UITableView *issuesTableView;
 
 @end

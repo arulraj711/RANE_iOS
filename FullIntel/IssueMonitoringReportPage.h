@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IssueMonitoringReportPage : UIViewController<UICollectionViewDelegate>
+@interface IssueMonitoringReportPage : UIViewController<UICollectionViewDelegate> {
+    NSArray *monitoringOutletList;
+}
+@property (weak, nonatomic) IBOutlet UITableView *monitoringOutletTableView;
+@property (weak, nonatomic) IBOutlet UITableView *monitoringInfluencerTableView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIWebView *detailsWebview;
 
 @end

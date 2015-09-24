@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IssuesResultListPage : UIViewController
+@interface IssuesResultListPage : UIViewController {
+    NSArray *issueList;
+}
+@property (weak, nonatomic) IBOutlet UITableView *issueListTableView;
 - (IBAction)overviewButtonClick:(id)sender;
 - (IBAction)monitoringReportButtonClick:(id)sender;
 
