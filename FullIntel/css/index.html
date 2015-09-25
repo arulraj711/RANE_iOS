@@ -5,11 +5,25 @@
 
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,800,700,600' rel='stylesheet' type='text/css'>
 		
-        <link rel="stylesheet" href="http://res.cloudinary.com/capestart/raw/upload/v1443097263/bootstrap_n0o3ff.css" />
+		 <link rel="stylesheet" href="http://res.cloudinary.com/capestart/raw/upload/v1443097263/bootstrap_n0o3ff.css" />
         
-        <link rel="stylesheet" href="http://res.cloudinary.com/capestart/raw/upload/v1443099640/style_dllq7r.css" />
+        <link rel="stylesheet" href="http://res.cloudinary.com/capestart/raw/upload/v1443180667/style_o8xndf.css" />
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script>
+		$(document).ready(function(){
+		 $('.quick_links_sect ul li a.communica').addClass('active');
+		 
+		 $('.quick_links_sect ul li a').click(function(){
+		 //alert('ss');
+				$('.quick_links_sect ul li a').removeClass('active');
+				$(this).addClass('active');
+		 });
+		 
+		});
+		</script>
 		<title>FI</title>
 
 	</head>
@@ -45,7 +59,7 @@
 	 
 	 <div class="col-md-8 wid60">
 	 
-	 <h2> Communications Team:</h2>
+	 <h2 id="communi"> Communications Team:</h2>
 	 
 	 
 	 <div class="col-md-10">
@@ -80,21 +94,21 @@
 	 <div class="col-md-4 tags_sect quick_links_sect">
 	 <h2><i class="fa fa-tag"></i>&nbsp;Quick Links</h2>
 	 <ul>
-	 <li> <strong>Communication Team </strong></li>	
-	 <li>Events </li>	
-	  <li>Overview </li>	
-	   <li>Sub Topic </li>	
-	    <li>Frequently Asked Questions </li>	
+	 <li> <a href="#communi" class="communica" > Communication Team </a></li>	
+	 <li> <a href="#events" >  Events </a> </li>	
+	  <li> <a href="#overview" >  Overview </a> </li>	
+	   <li><a href="#sub" >  Sub Topic </a> </li>	
+	    <li><a href="#faq" >  Frequently Asked Questions </a> </li>	
 	 </ul>
 	 </div>
 	 
 	 <div class="cb col-md-8 wid60"> 
-	 <h2> Events</h2> 
+	 <h2 id="events"> Events</h2> 
 	 <p class="size13"> 
 	 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra.
 	 </p>
 	 
-	  <h2> Overview</h2> 
+	  <h2 id="overview"> Overview</h2> 
 	
 	 <p class="size13"> 
 	CUPERTINO, California - July 21, 2015 - Apple® today announced financial results for its fiscal 2015 third quarter ended June 27, 2015. The Company posted quarterly revenue of $49.6 billion and quarterly net profit of $10.7 billion, or $1.85 per diluted share. These results compare to revenue of $37.4 billion and net profit of $7.7 billion, or $1.28 per diluted share, in the year-ago quarter. Gross margin was 39.7 percent compared to 39.4 percent in the year-ago quarter. International sales accounted for 64 percent of the quarter's revenue.
@@ -102,7 +116,7 @@
 	 <p class="size13"> 
 The growth was fueled by record third quarter sales of iPhone® and Mac®, all-time record revenue from services and the successful launch of Apple Watch&trade;.
 	 </p>
-	 <p class="size13"> 
+	 <p class="size13" id="sub"> 
 "We had an amazing quarter, with iPhone revenue up 59 percent over last year, strong sales of Mac, all-time record revenue from services, driven by the App Store, and a great start for Apple Watch," said Tim Cook, Apple's CEO. "The excitement for Apple Music has been incredible, and we're looking forward to releasing iOS 9, OS X El Capitan and watchOS 2 to customers in the fall."
 	 </p>
 	 <p class="size13"> 
@@ -124,7 +138,7 @@ Apple will provide live streaming of its Q3 2015 financial results conference ca
 	 	 </p>
 		 
 		  
-<h2>Frequently Asked Questions  </h2>
+<h2 id="faq">Frequently Asked Questions  </h2>
 
 
 <p class="qns size13">Does Apple pay a cash dividend?</p>

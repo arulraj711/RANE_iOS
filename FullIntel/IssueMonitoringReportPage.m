@@ -12,6 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "IssueMonitoringInfluencerCell.h"
 #import "IssueDrillInPage.h"
+#define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface IssueMonitoringReportPage ()
 
 @end
@@ -24,6 +25,10 @@
     NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"index_1" ofType:@"html"];
     NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
     [self.detailsWebview loadHTMLString:htmlString baseURL:nil];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"issue_list" ofType:@"json"];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSError *error;
+    issueList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,14 +37,18 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    
+    self.selectedItemArray = [[NSMutableArray alloc]init];
     self.monitoringInfluencerTableView.hidden = YES;
     self.monitoringOutletTableView.hidden = NO;
     NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/outlets.json"]];
     NSError *error;
     monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     NSLog(@"issue lis:%@",monitoringOutletList);
+    [self.selectedItemArray addObject:@"Outlets"];
     [self.monitoringOutletTableView reloadData];
+    NSDictionary *issueDic = [issueList objectAtIndex:0];
+    [self.selectedItemArray addObject:[issueDic objectForKey:@"name"]];
+    [self.collectionView reloadData];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -47,7 +56,7 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 5;
+    return issueList.count;
 }
 
 
@@ -55,31 +64,42 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     IssueMonitoringCell *cell = (IssueMonitoringCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    
     cell.cellOuterView.layer.masksToBounds = YES;
     cell.cellOuterView.layer.cornerRadius = 75;
     cell.cellOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     cell.cellOuterView.layer.borderWidth = 1;
-    if(indexPath.row == 0) {
-        cell.title.text = @"Outlets";
-        cell.cntLabel.text = @"54";
-    } else if(indexPath.row == 1) {
-        cell.title.text = @"Authors";
-        cell.cntLabel.text = @"63";
-    } else if(indexPath.row == 2) {
-        cell.title.text = @"Influencers";
-        cell.cntLabel.text = @"13";
-    } else if(indexPath.row == 3) {
-        cell.title.text = @"Friends";
-        cell.cntLabel.text = @"43";
-    } else if(indexPath.row == 4) {
-        cell.title.text = @"Foes";
-        cell.cntLabel.text = @"24";
+    NSDictionary *issueDic = [issueList objectAtIndex:indexPath.row];
+//    if(indexPath.row == 0) {
+//        cell.title.text = @"Outlets";
+//        cell.cntLabel.text = @"54";
+//    } else if(indexPath.row == 1) {
+//        cell.title.text = @"Authors";
+//        cell.cntLabel.text = @"63";
+//    } else if(indexPath.row == 2) {
+//        cell.title.text = @"Influencers";
+//        cell.cntLabel.text = @"13";
+//    } else if(indexPath.row == 3) {
+//        cell.title.text = @"Friends";
+//        cell.cntLabel.text = @"43";
+//    } else if(indexPath.row == 4) {
+        cell.title.text = [issueDic objectForKey:@"name"];
+        cell.cntLabel.text = [issueDic objectForKey:@"count"];
+  //  }
+    if([self.selectedItemArray containsObject:[issueDic objectForKey:@"name"]]) {
+        cell.cellOuterView.backgroundColor = UIColorFromRGB(0Xebebeb);
+    } else {
+        cell.cellOuterView.backgroundColor = [UIColor whiteColor];
     }
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"CI select row");
+    [self.selectedItemArray removeAllObjects];
+    NSDictionary *issueDic = [issueList objectAtIndex:indexPath.row];
+    [self.selectedItemArray addObject:[issueDic objectForKey:@"name"]];
+    [self.collectionView reloadData];
     if(indexPath.row == 0) {
         self.monitoringInfluencerTableView.hidden = YES;
         self.monitoringOutletTableView.hidden = NO;

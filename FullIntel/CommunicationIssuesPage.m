@@ -27,7 +27,16 @@
     [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
     [self.navigationItem setLeftBarButtonItem:addButton];
-    self.title = @"Communication Issues";
+
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =@"Communication Issues";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
+    
 }
 
 - (void)didReceiveMemoryWarning {
