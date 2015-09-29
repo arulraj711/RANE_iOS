@@ -461,6 +461,18 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
     }];
 }
 
++(void)fetchArticlesFromNewsLetterWithSecurityToken:(NSString *)securityToken withNewsLetterId:(NSNumber *)newsletterId withLimit:(NSNumber *)limit withLastArticleId:(NSString *)lastArticleId
+                                          onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                          onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&lastArticleId=%@&limit=%@",newsletterId,securityToken,lastArticleId,limit];
+    [self getQueryResultsForFunctionName:functionName withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
 
 
 +(void)saveArticlesToFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSString *)articleId

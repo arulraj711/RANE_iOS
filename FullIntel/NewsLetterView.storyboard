@@ -43,7 +43,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.64668996710000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.92941176470588238" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Mgs-ke-FM3"/>
                                     <constraint firstItem="iyz-b3-RKs" firstAttribute="top" secondItem="0Wa-uk-uvY" secondAttribute="top" constant="15.5" id="fOG-kz-S8z"/>
@@ -136,6 +136,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="W4U-wp-O8v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

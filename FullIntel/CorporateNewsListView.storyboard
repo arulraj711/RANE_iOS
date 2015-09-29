@@ -2668,7 +2668,7 @@
         <image name="gradiant" width="608" height="200"/>
         <image name="group_blue" width="20" height="20"/>
         <image name="location" width="20" height="20"/>
-        <image name="more" width="32" height="32"/>
+        <image name="more" width="30" height="30"/>
         <image name="new_logo" width="200" height="40"/>
         <image name="outlet" width="20" height="20"/>
         <image name="peoples" width="30" height="30"/>

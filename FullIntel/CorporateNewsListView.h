@@ -25,7 +25,9 @@
 }
 
 -(void)loadCuratedNews;
+@property BOOL isNewsLetterNav;
 @property BOOL isStarting;
+@property NSString *selectedNewsLetterArticleId;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *corporateListWidthConstraint;
 @property(strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpacing;

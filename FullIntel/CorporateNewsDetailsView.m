@@ -307,11 +307,17 @@
         NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
         NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
         NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+        NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
         self.collectionView.scrollEnabled = YES;
         NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
         NSPredicate *predicate;
+        NSLog(@"newsletter id:%@",newsLetterId);
+        if(![newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
+            
+        } else {
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
                 BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
@@ -330,6 +336,7 @@
             }
         } else {
             predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
+        }
         }
         
         
@@ -351,10 +358,21 @@
         
         //NSLog(@"elementsfrom column:%@",elementsFromColumn);
         self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
-        // NSLog(@"article id array:%@",self.articleIdArray);
-        if(self.articleIdArray.count != 0) {
+        NSLog(@"article id array:%@ and selected articleId:%@",self.articleIdArray,self.selectedNewsArticleId);
+        if(self.selectedNewsArticleId.length != 0) {
+            NSInteger atIndex = [self.articleIdArray indexOfObject:self.selectedNewsArticleId];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:atIndex inSection:0];
+            self.selectedIndexPath = indexPath;
+//            [self.view layoutIfNeeded];
+//            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+            NSLog(@"selected indexpath:%d",self.selectedIndexPath.row);
             [self.collectionView reloadData];
+        } else {
+            if(self.articleIdArray.count != 0) {
+                [self.collectionView reloadData];
+            }
         }
+        
         
         
     } else {
@@ -503,7 +521,7 @@
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    // NSLog(@"cell indexpath:%@",indexPath);
+     NSLog(@"cell indexpath:%d",indexPath.row);
     self.selectedIndexPath = indexPath;
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
@@ -522,12 +540,13 @@
     [cell.activityIndicator stopAnimating];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSLog(@"cell article id:%@",[self.articleIdArray objectAtIndex:indexPath.row]);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];
     [fetchRequest setPredicate:predicate];
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if(newPerson.count != 0) {
         NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-        // NSLog(@"selected curated news:%@",curatedNews);
+         NSLog(@"selected curated news:%@",curatedNews);
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             curatedNewsDetail = [curatedNews valueForKey:@"details"];
             curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];

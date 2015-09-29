@@ -34,7 +34,7 @@
     // NSLog(@"list did load");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failToLoad) name:@"CuratedNewsFail" object:nil];
-    
+    self.isNewsLetterNav = NO;
     //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newsLetterNavigationToArticle:) name:@"NewsLetterNavigation" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopLoading) name:@"StopLoading" object:nil];
@@ -82,7 +82,7 @@
     [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
     [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-    [self.navigationItem setLeftBarButtonItem:addButton];
+    //[self.navigationItem setLeftBarButtonItem:addButton];
     
     UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     addBtnView.backgroundColor = [UIColor clearColor];
@@ -133,24 +133,26 @@
     [self.view addSubview:activityIndicator];
     [activityIndicator startAnimating];
     
-    //    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    //    if(accessToken.length == 0) {
-    //        // NSLog(@"corporate if part");
-    //        [self showLoginPage];
-    //    } else {
-    //   [self loadCuratedNews];
-    //
-    //    }
-    
-    //    UIPanGestureRecognizer *panGesture=[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(closeMenu)];
-    //
-    //    [self.view addGestureRecognizer:panGesture];
-    
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
     
 }
+
+
+-(void)redirectToNewsLetterArticleWithId:(NSString *)articleId {
+    if(self.devices.count != 0) {
+        
+        //UpgradeView
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
+        CorporateNewsDetailsView *testView;
+        testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
+        testView.selectedNewsArticleId = self.selectedNewsLetterArticleId;
+        [self.navigationController pushViewController:testView animated:YES];
+    }
+}
+
 
 -(void)triggerTutorial{
     
@@ -258,35 +260,35 @@
     
 }
 
--(void)updateNewsTitle {
-    
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text =_titleName;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
-    
-    
-    self.devices = [[NSMutableArray alloc]init];
-    self.articlesTableView.dataSource = nil;
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    if(accessToken.length == 0) {
-        // NSLog(@"corporate if part");
-        [self showLoginPage];
-    } else {
-        //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
-        //        if(isFirst) {
-        
-        
-        
-        [self loadCuratedNews];
-        //        }
-    }
-}
+//-(void)updateNewsTitle {
+//    
+//    
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+//    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text =_titleName;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor]; // change this color
+//    self.navigationItem.titleView = label;
+//    
+//    
+//    self.devices = [[NSMutableArray alloc]init];
+//    self.articlesTableView.dataSource = nil;
+//    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+//    if(accessToken.length == 0) {
+//        // NSLog(@"corporate if part");
+//        [self showLoginPage];
+//    } else {
+//        //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
+//        //        if(isFirst) {
+//        
+//        
+//        
+//        [self loadCuratedNews];
+//        //        }
+//    }
+//}
 
 
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
@@ -449,36 +451,44 @@
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-    NSLog(@"load curated news categoryId:%@ and folderid:%@ and contentTypeId:%@",categoryId,folderId,contentTypeId);
+    NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+
+    NSLog(@"load curated news categoryId:%@ and folderid:%@ and contentTypeId:%@ and newsletterid:%@",categoryId,folderId,contentTypeId,newsLetterId);
     // NSLog(@"category id in curated news:%@",categoryId);
     self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate;
-    if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-            NSLog(@"if part");
-            BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
-            if(savedForLaterIsNew){
-                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@",[NSNumber numberWithBool:YES],contentTypeId];
+    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
+        
+    } else {
+        if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                NSLog(@"if part");
+                BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+                if(savedForLaterIsNew){
+                    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@",[NSNumber numberWithBool:YES],contentTypeId];
+                    } else {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                    }
                 } else {
+                    NSLog(@"saved for later old");
                     predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
                 }
+                // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
+                
             } else {
-                NSLog(@"saved for later old");
-                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                NSLog(@"else part");
+                NSLog(@"content btype:%@ and category:%@",contentTypeId,categoryId);
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
             }
-            // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
-            
         } else {
-            NSLog(@"else part");
-            NSLog(@"content btype:%@ and category:%@",contentTypeId,categoryId);
-            predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
+            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
         }
-    } else {
-        predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
     }
+    
     
     
     [fetchRequest setPredicate:predicate];
@@ -515,7 +525,12 @@
     }else {
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     }
-    
+    NSLog(@"news article id:%@",self.selectedNewsLetterArticleId);
+    if(self.selectedNewsLetterArticleId.length != 0 && !self.isNewsLetterNav) {
+        self.isNewsLetterNav = YES;
+        [self redirectToNewsLetterArticleWithId:self.selectedNewsLetterArticleId];
+    }
+
     //NSLog(@"devices:%d",self.devices.count);
     _spinner.hidden = YES;
     [_spinner stopAnimating];

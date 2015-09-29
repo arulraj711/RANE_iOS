@@ -32,6 +32,7 @@
 -(void)pushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)updatePushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit withUpFlag:(BOOL)flag;
+-(void)fetchArticleFromNewsLetterWithAccessToken:(NSString *)accessToken withNewsLetterId:(NSNumber *)newsletterId withLastArticleId:(NSString *)lastArticleId withLimit:(NSNumber *)limit withUpFlag:(BOOL)flag withFlag:(BOOL)test;
 -(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId;
 -(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId;
 -(void)renameFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId;

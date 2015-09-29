@@ -24,6 +24,7 @@
     NSArray *coachMarks;
     WSCoachMarksView *coachMarksView;
 }
+@property NSString *selectedNewsArticleId;
 @property NSIndexPath *selectedIndexPath;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;

@@ -36,7 +36,7 @@
     [Localytics autoIntegrate:@"f557a1d4226be8756ebd8dd-287a063c-5e18-11e5-7205-00736b041834" launchOptions:launchOptions]; 
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
 
-    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
     
     // Initialize Reachability
     Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
@@ -125,10 +125,121 @@
     
 }
 
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    NSLog(@"Calling Application Bundle ID: %@", sourceApplication);
+    NSLog(@"URL scheme:%@ and url:%@", [url scheme],url);
+    NSLog(@"URL query: %@ and length:%d", [url query],[url query].length);
+    
+    if([url query].length != 0) {
+        
+        NSArray *subStrings = [[url query] componentsSeparatedByString:@"&"]; //or rather @" - "
+        
+        NSString *objectIdString = [subStrings objectAtIndex:0];
+        NSArray *objectIdArray = [objectIdString componentsSeparatedByString:@"="];
+        NSString *encodedObjectId = [objectIdArray objectAtIndex:1];
+       // NSLog(@"before:%@",encodedObjectId);
+        NSString *decodedObjectText = [encodedObjectId stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+       // NSLog(@"test value:%@",decodedObjectText);
+        // NSData from the Base64 encoded str
+        NSData *firstDecodedObjectData = [[NSData alloc]initWithBase64EncodedString:decodedObjectText options:0];
+        // Decoded NSString from the NSData
+        NSString *decodedObjectId = [[NSString alloc]
+                                     initWithData:firstDecodedObjectData encoding:NSUTF8StringEncoding];
+       // NSLog(@"Decoded: %@", decodedObjectId);
+        // NSData from the Base64 encoded str
+        NSData *secondDecodedObjectData = [[NSData alloc]
+                                           initWithBase64EncodedString:decodedObjectId
+                                           options:0];
+        // Decoded NSString from the NSData
+        NSString *objectId = [[NSString alloc]
+                              initWithData:secondDecodedObjectData encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"email:%@",objectId);
+        
+        
+        
+        NSString *itemIdString = [subStrings objectAtIndex:1];
+        NSArray *itemIdArray = [itemIdString componentsSeparatedByString:@"="];
+        NSString *encodedItemId = [itemIdArray objectAtIndex:1];
+        NSString *decodedItemText = [encodedItemId stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        // NSData from the Base64 encoded str
+        NSData *firstDecodedItemData = [[NSData alloc]initWithBase64EncodedString:decodedItemText options:0];
+        // Decoded NSString from the NSData
+        NSString *decodedItemId = [[NSString alloc]
+                                   initWithData:firstDecodedItemData encoding:NSUTF8StringEncoding];
+        // NSData from the Base64 encoded str
+        NSData *secondDecodedItemData = [[NSData alloc]
+                                         initWithBase64EncodedString:decodedItemId
+                                         options:0];
+        // Decoded NSString from the NSData
+        itemId = [[NSString alloc]
+                            initWithData:secondDecodedItemData encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"item id:%@",itemId);
+        
+        [[NSUserDefaults standardUserDefaults]setObject:itemId forKey:@"itemId"];
+        
+        NSString *digestIdString = [subStrings objectAtIndex:2];
+        NSArray *digestIdArray = [digestIdString componentsSeparatedByString:@"="];
+        NSString *encodedDigestId = [digestIdArray objectAtIndex:1];
+        NSString *decodedDigestText = [encodedDigestId stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        // NSData from the Base64 encoded str
+        NSData *firstDecodedDigestData = [[NSData alloc]initWithBase64EncodedString:decodedDigestText options:0];
+        // Decoded NSString from the NSData
+        NSString *decodedDigestId = [[NSString alloc]
+                                   initWithData:firstDecodedDigestData encoding:NSUTF8StringEncoding];
+        // NSData from the Base64 encoded str
+        NSData *secondDecodedDigestData = [[NSData alloc]
+                                         initWithBase64EncodedString:decodedDigestId
+                                         options:0];
+        // Decoded NSString from the NSData
+        NSString *digestId = [[NSString alloc]
+                            initWithData:secondDecodedDigestData encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"digest id:%@",digestId);
+        
+        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+        f.numberStyle = NSNumberFormatterDecimalStyle;
+        digestNumber = [f numberFromString:digestId];
+        
+        NSLog(@"digest number:%@",digestNumber);
+        NSManagedObjectContext *context = [self managedObjectContext];
+        [[NSUserDefaults standardUserDefaults]setObject:digestNumber forKey:@"digestId"];
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"newsletterId == %@",digestNumber];
+        [fetchRequest setPredicate:predicate];
+        NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        NSLog(@"existing news array:%@",existingArray);
+//        //NSLog(@"article id:%@ and existing array:%d",itemId,existingArray.count);
+        NSString *accessToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+        // NSString *customerEmail = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"customerEmail"]];
+        if(accessToken.length != 0) {
+            if(existingArray.count != 0) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"newsletterId":digestNumber,@"articleId":itemId}];
+            } else {
+                [[NSUserDefaults standardUserDefaults]setObject:digestNumber forKey:@"newsletterId"];
+                [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:digestNumber withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:YES];
+//                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Article not available to access" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+//                [alert show];
+            }
+            
+        }
+        return YES;
+    }
+    return NO;
+}
+
+
+
 -(void)test {
-   // NSLog(@"inside test function");
-    UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
-    [navCtlr popViewControllerAnimated:YES];
+    NSLog(@"inside test function:%@ and %@",digestNumber,[[NSUserDefaults standardUserDefaults] objectForKey:@"itemId"]);
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"newsletterId":[[NSUserDefaults standardUserDefaults] objectForKey:@"digestId"],@"articleId":[[NSUserDefaults standardUserDefaults] objectForKey:@"itemId"]}];
+//    UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
+//    [navCtlr popViewControllerAnimated:YES];
 }
 
 #pragma mark - Helpers

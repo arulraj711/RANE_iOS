@@ -57,6 +57,10 @@
 +(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit
                                       onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                       onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)fetchArticlesFromNewsLetterWithSecurityToken:(NSString *)securityToken withNewsLetterId:(NSNumber *)newsletterId withLimit:(NSNumber *)limit withLastArticleId:(NSString *)lastArticleId
+                                          onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                          onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 
 +(void)loginProcessWithDetails:(NSString*)details
               onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

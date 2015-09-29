@@ -10,6 +10,7 @@
 #import "FISharedResources.h"
 #import "FINewsLetter.h"
 #import "NewsLetterCell.h"
+#import "CorporateNewsListView.h"
 @interface NewsLetterViewController ()
 
 @end
@@ -29,6 +30,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchNewsLetter) name:@"FetchNewsLetterList" object:nil];
     
     [[FISharedResources sharedResourceManager]getNewsLetterListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,7 +41,17 @@
 
 -(void)fetchNewsLetter {
     newsLetterArray = [[NSMutableArray alloc]initWithArray:[[FISharedResources sharedResourceManager]newsLetterList]];
-    NSLog(@"news letter:%@",newsLetterArray);
+    NSLog(@"news letter:%@ and id:%@",newsLetterArray,self.newsletterArticleId);
+    if(self.newsletterArticleId.length != 0) {
+        [[NSUserDefaults standardUserDefaults]setObject:self.newsletterId forKey:@"newsletterId"];
+        [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:self.newsletterId withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO];
+        
+        
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        CorporateNewsListView *listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+        listView.selectedNewsLetterArticleId = self.newsletterArticleId;
+        [self.navigationController pushViewController:listView animated:YES];
+    }
     [self.newsListTableView reloadData];
 }
 
@@ -48,11 +61,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NewsLetterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    FINewsLetter *folder = [newsLetterArray objectAtIndex:indexPath.row];
-    cell.newsLetterTitle.text = folder.newsLetterSubject;
-    cell.articlesCount.text = [NSString stringWithFormat:@"%d",folder.newsLetterArticles.count];
+    FINewsLetter *newsletter = [newsLetterArray objectAtIndex:indexPath.row];
+    cell.newsLetterTitle.text = newsletter.newsLetterSubject;
+    cell.articlesCount.text = [NSString stringWithFormat:@"%d",newsletter.newsLetterArticles.count];
+    cell.createdDate.text = newsletter.createdDate;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    FINewsLetter *newsletter = [newsLetterArray objectAtIndex:indexPath.row];
+    [[NSUserDefaults standardUserDefaults]setObject:newsletter.newsLetterId forKey:@"newsletterId"];
+    [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:newsletter.newsLetterId withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO];
+    
+    
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    UIViewController*listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+    [self.navigationController pushViewController:listView animated:YES];
 }
 
 -(void)backBtnPress {

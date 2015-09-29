@@ -31,6 +31,7 @@
 #import "FISharedResources.h"
 #import "pop.h"
 #import "FIUnreadMenu.h"
+#import "NewsLetterViewController.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -61,7 +62,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addContentButtonClick:) name:@"TutorialTrigger" object:nil];
     
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newsLetterNavigationToArticle:) name:@"NewsLetterNavigation" object:nil];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addOverlayAndBox) name:@"MenuTutorialTrigger" object:nil];
@@ -187,6 +188,20 @@
     [_treeView reloadData];
 }
 
+
+-(void)newsLetterNavigationToArticle:(id)sender {
+    
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSLog(@"news letter navigation%@",userInfo);
+    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:1] forKey:@"newsletterId"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
+    UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
+    NewsLetterViewController *newsView = (NewsLetterViewController*)[[navCtlr viewControllers] objectAtIndex:0];
+    newsView.newsletterId = [userInfo objectForKey:@"newsletterId"];
+    newsView.newsletterArticleId = [userInfo objectForKey:@"articleId"];
+    [self.revealController setFrontViewController:navCtlr];
+}
 
 -(void)performAnimationForMarkImportant:(NSTimer *)timer{
     
@@ -631,7 +646,7 @@
     
     //Add newsletter menu
     RADataObject *newsLetterObj = [[RADataObject alloc]init];
-    newsLetterObj.name = @"NEWSLETTER";
+    newsLetterObj.name = @"DAILY DIGEST";
     newsLetterObj.nodeId = [NSNumber numberWithInt:-200];
     newsLetterObj.children = nil;
     [self.data addObject:newsLetterObj];
@@ -980,9 +995,14 @@
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     data = item;
-    NSLog(@"did select row:%@",data.name);
-    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"menuName":data.name};
-    [Localytics tagEvent:@"SelectedTopic" attributes:dictionary];
+//    //if([[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]iseq)
+    if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
+        
+    } else {
+        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"menuName":data.name};
+        [Localytics tagEvent:@"SelectedTopic" attributes:dictionary];
+    }
+    
     RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
     BOOL expanded = [self.treeView isCellForItemExpanded:item];
     if(expanded) {
@@ -998,6 +1018,7 @@
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     
     cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
+    NSLog(@"after this");
     if([data.nodeId integerValue] == 9 && !data.isFolder) {
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click MarkedImportant"];
         [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
@@ -1129,22 +1150,32 @@
     } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
         NSLog(@"newsletter click");
     } else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Logout"];
-        NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
-        [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"hereeee");
         
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager] logoutUserWithDetails:resultStr withFlag:[NSNumber numberWithInt:1]];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Logout"];
+        if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
+            //handle null securtiy token
+        } else {
+            NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+            NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
+            [logoutDic setObject:securityToken forKey:@"securityToken"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            [[FISharedResources sharedResourceManager] logoutUserWithDetails:resultStr withFlag:[NSNumber numberWithInt:1]];
+        }
+       
         
     }
     NSLog(@"left click:%@",data.nodeId);
     if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         NSLog(@"one");
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+        [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
     } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
         NSLog(@"two");
         //Newsletter navigation
+        [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:1] forKey:@"newsletterId"];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
         UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
         ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
@@ -1152,6 +1183,7 @@
         
     }else if(data.isFolder){
         NSLog(@"three");
+        [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
         CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
@@ -1178,6 +1210,7 @@
         }
         
     } else {
+        [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
         NSLog(@"four");
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
         if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewsLetterViewController : UIViewController {
+@interface NewsLetterViewController : UIViewController<UITableViewDelegate> {
     NSMutableArray *newsLetterArray;
 }
+@property NSNumber *newsletterId;
+@property NSString *newsletterArticleId;
 @property (weak, nonatomic) IBOutlet UITableView *newsListTableView;
 @end
