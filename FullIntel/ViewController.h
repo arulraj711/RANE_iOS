@@ -32,5 +32,7 @@
 
 //@property (nonatomic, strong) AMPopTip *popTip;
 @property (nonatomic, strong) id currentPopTipViewTarget;
+
+
 @end
 

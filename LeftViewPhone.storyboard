@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Bold.ttf">
@@ -19,7 +18,7 @@
         <!--Left View Controller-->
         <scene sceneID="EIq-Xj-JPG">
             <objects>
-                <viewController storyboardIdentifier="LeftView" id="RIW-C4-5Tm" customClass="LeftViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeftViewPhone" id="RIW-C4-5Tm" customClass="LeftViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fmU-ue-xTE"/>
                         <viewControllerLayoutGuide type="bottom" id="DvD-gs-tsd"/>
@@ -28,7 +27,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsa-DF-Mgs">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsa-DF-Mgs">
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="293"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Leg-9q-Ekc">
@@ -74,33 +73,22 @@
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="CA3-WP-2Yx"/>
-                                    <constraint firstAttribute="height" constant="293" id="ghL-w0-y7J"/>
-                                </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pX9-aV-U8w">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pX9-aV-U8w">
                                 <rect key="frame" x="-18" y="296" width="304" height="258"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ngc-2i-mQd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ngc-2i-mQd">
                                 <rect key="frame" x="0.0" y="555" width="320" height="1"/>
                                 <color key="backgroundColor" red="0.86274509803921573" green="0.87450980392156863" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="F0a-wp-9By"/>
-                                </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9VO-WP-Jjk">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9VO-WP-Jjk">
                                 <rect key="frame" x="80" y="566" width="100" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAr-Y0-fGY">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAr-Y0-fGY">
                                 <rect key="frame" x="13" y="561" width="32" height="32"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="4RV-ow-8ys"/>
-                                    <constraint firstAttribute="width" constant="32" id="t6C-6b-stS"/>
-                                </constraints>
                                 <state key="normal" image="help">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -110,21 +98,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="Ngc-2i-mQd" firstAttribute="top" secondItem="pX9-aV-U8w" secondAttribute="bottom" constant="1" id="32Q-Yc-kXy"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pX9-aV-U8w" secondAttribute="trailing" constant="298" id="5RX-Dd-8Uv"/>
-                            <constraint firstItem="DvD-gs-tsd" firstAttribute="top" secondItem="9VO-WP-Jjk" secondAttribute="bottom" constant="14" id="5qy-jJ-cmA"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ngc-2i-mQd" secondAttribute="trailing" constant="264" id="6rO-cG-B2W"/>
-                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="64" id="DJR-t3-idS"/>
-                            <constraint firstItem="BAr-Y0-fGY" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-3" id="Gk1-Vg-ogZ"/>
-                            <constraint firstItem="dsa-DF-Mgs" firstAttribute="top" secondItem="0nW-UY-enU" secondAttribute="top" id="Iuk-7h-UHp"/>
-                            <constraint firstItem="Ngc-2i-mQd" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-16" id="PlT-E3-VV2"/>
-                            <constraint firstItem="pX9-aV-U8w" firstAttribute="top" secondItem="dsa-DF-Mgs" secondAttribute="bottom" constant="3" id="RtD-2O-XLX"/>
-                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="10" id="cSM-TS-iRl"/>
-                            <constraint firstItem="pX9-aV-U8w" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-34" id="k5s-S5-SbD"/>
-                            <constraint firstItem="BAr-Y0-fGY" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="5" id="mWz-U7-keF"/>
-                            <constraint firstItem="dsa-DF-Mgs" firstAttribute="leading" secondItem="Ngc-2i-mQd" secondAttribute="leading" id="nL9-bi-hWU"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="addContentButton" destination="W0r-Ng-bX2" id="lE0-hZ-11Q"/>

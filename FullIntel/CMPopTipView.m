@@ -699,8 +699,13 @@
 		_sidePadding = 2.0;
         _borderWidth = 1.0;
 		
-		self.textFont = [UIFont fontWithName:@"OpenSans" size:14.0];
-		self.textColor = [UIColor blackColor];
+        if ([UIDevice currentDevice].userInterfaceIdiom ==  UIUserInterfaceIdiomPhone) {
+            self.textFont = [UIFont fontWithName:@"OpenSans" size:6.0];
+        }
+        else{
+            self.textFont = [UIFont fontWithName:@"OpenSans" size:14.0];
+        }
+        self.textColor = [UIColor blackColor];
 		self.textAlignment = NSTextAlignmentCenter;
 		self.backgroundColor = [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1.0];
         self.has3DStyle = NO;

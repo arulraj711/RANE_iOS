@@ -417,16 +417,38 @@
     NSArray *navArray = self.navigationController.viewControllers;
     if(navArray.count > 1) {
         [self.navigationController popToRootViewControllerAnimated:YES];
-        UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-        [self presentViewController:loginView animated:YES completion:nil];
-        //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        //        [window addSubview:loginView.view];
+        UIStoryboard *loginStoryBoard;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            loginStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewPhone"];
+            [self presentViewController:loginView animated:YES completion:nil];
+            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            //        [window addSubview:loginView.view];
+
+        } else {
+            loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            [self presentViewController:loginView animated:YES completion:nil];
+            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            //        [window addSubview:loginView.view];
+        }
+        
     } else {
-        UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-        [self presentViewController:loginView animated:YES completion:nil];
-        //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        UIStoryboard *loginStoryBoard;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            loginStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewPhone"];
+            [self presentViewController:loginView animated:YES completion:nil];
+            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            //        [window addSubview:loginView.view];
+            
+        } else {
+            loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            [self presentViewController:loginView animated:YES completion:nil];
+            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            //        [window addSubview:loginView.view];
+        }        //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
         //        [window addSubview:loginView.view];
     }
     

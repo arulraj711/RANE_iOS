@@ -67,8 +67,16 @@
     //[[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:97/255.0 green:98/255.0 blue:100/255.0 alpha:1.0]];
     navCtlr.navigationBar.tintColor = [UIColor whiteColor];
     navCtlr.navigationBar.barStyle = UIBarStyleBlack;
-    UIStoryboard *leftStoryBoard = [UIStoryboard storyboardWithName:@"LeftView" bundle:nil];
-    LeftViewController *leftViewController = [leftStoryBoard instantiateViewControllerWithIdentifier:@"LeftView"];
+    UIStoryboard *leftStoryBoard;
+    LeftViewController *leftViewController;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        leftStoryBoard = [UIStoryboard storyboardWithName:@"LeftViewPhone" bundle:nil];
+        leftViewController = [leftStoryBoard instantiateViewControllerWithIdentifier:@"LeftViewPhone"];
+
+    } else {
+        leftStoryBoard = [UIStoryboard storyboardWithName:@"LeftView" bundle:nil];
+        leftViewController = [leftStoryBoard instantiateViewControllerWithIdentifier:@"LeftView"];
+    }
     self.revealController = [PKRevealController revealControllerWithFrontViewController:navCtlr
                                                                      leftViewController:leftViewController
                                                                     rightViewController:nil];

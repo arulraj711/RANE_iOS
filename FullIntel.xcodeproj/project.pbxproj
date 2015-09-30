@@ -46,6 +46,8 @@
 		A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0BE809F1B206F450055177E /* ResearchRequest.storyboard */; };
 		A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */; };
 		A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C326251B182E2B00FEB164 /* StockResponse.json */; };
+		A0CAB5FF1BBC06C200B485B9 /* MainPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CAB5FE1BBC06C200B485B9 /* MainPhone.storyboard */; };
+		A0CAB6011BBC140900B485B9 /* LeftViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CAB6001BBC140900B485B9 /* LeftViewPhone.storyboard */; };
 		A0CF5C541B1DD98B00DED2D9 /* CompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C251B1DD98B00DED2D9 /* CompanyCell.xib */; };
 		A0CF5C551B1DD98B00DED2D9 /* CompetitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C261B1DD98B00DED2D9 /* CompetitorCell.xib */; };
 		A0CF5C571B1DD98B00DED2D9 /* DealsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CF5C291B1DD98B00DED2D9 /* DealsViewController.m */; };
@@ -286,6 +288,8 @@
 		A0BFEF831B13482300DCBDA8 /* AddContentFifthLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentFifthLevelView.h; sourceTree = "<group>"; };
 		A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFifthLevelView.m; sourceTree = "<group>"; };
 		A0C326251B182E2B00FEB164 /* StockResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = StockResponse.json; sourceTree = "<group>"; };
+		A0CAB5FE1BBC06C200B485B9 /* MainPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainPhone.storyboard; path = ../MainPhone.storyboard; sourceTree = "<group>"; };
+		A0CAB6001BBC140900B485B9 /* LeftViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LeftViewPhone.storyboard; sourceTree = "<group>"; };
 		A0CF5C251B1DD98B00DED2D9 /* CompanyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyCell.xib; sourceTree = "<group>"; };
 		A0CF5C261B1DD98B00DED2D9 /* CompetitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompetitorCell.xib; sourceTree = "<group>"; };
 		A0CF5C281B1DD98B00DED2D9 /* DealsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealsViewController.h; sourceTree = "<group>"; };
@@ -987,6 +991,7 @@
 				A0E2235A1A91C2F00073814A /* ViewController.h */,
 				A0E2235B1A91C2F00073814A /* ViewController.m */,
 				A0E2235D1A91C2F00073814A /* Main.storyboard */,
+				A0CAB5FE1BBC06C200B485B9 /* MainPhone.storyboard */,
 			);
 			name = LoginViewController;
 			sourceTree = "<group>";
@@ -1059,6 +1064,7 @@
 				F7E863191ADBD3B900EBE951 /* BadgeView */,
 				F7EDA00D1AC1646500A5C601 /* LeftMenuCell */,
 				F7E354E61A947AB0009677D2 /* LeftView.storyboard */,
+				A0CAB6001BBC140900B485B9 /* LeftViewPhone.storyboard */,
 				F7CE36C01A95E9000005AA0A /* RATreeView */,
 				F7E354E11A947A19009677D2 /* LeftViewController.h */,
 				F7E354E21A947A19009677D2 /* LeftViewController.m */,
@@ -1303,7 +1309,7 @@
 				TargetAttributes = {
 					A0E2234C1A91C2F00073814A = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = 8JJ7VBN6MD;
+						DevelopmentTeam = 5MFXS35FFA;
 					};
 				};
 			};
@@ -1409,6 +1415,7 @@
 				F717CC931AB1AF6900F66B53 /* back.jpg in Resources */,
 				F7E81FC01A97057100F9A8D4 /* Siemens-logo.svg in Resources */,
 				F717CC951AB1B2E900F66B53 /* OpenSans-Regular.ttf in Resources */,
+				A0CAB6011BBC140900B485B9 /* LeftViewPhone.storyboard in Resources */,
 				A0CF5C631B1DD98B00DED2D9 /* stock.storyboard in Resources */,
 				F7E81FA11A97057100F9A8D4 /* google-icon.png in Resources */,
 				A0CF5C651B1DD98B00DED2D9 /* TimeLineCell.xib in Resources */,
@@ -1435,6 +1442,7 @@
 				F7E81FBA1A97057100F9A8D4 /* o-NEW-YORK-facebook.jpg in Resources */,
 				F7E81FC31A97057100F9A8D4 /* sony.ico in Resources */,
 				A041F0021B2ADA9E00B5600C /* LegendCollectionViewCell.xib in Resources */,
+				A0CAB5FF1BBC06C200B485B9 /* MainPhone.storyboard in Resources */,
 				A0E4B1191B4BB77E0029D389 /* FolderView.storyboard in Resources */,
 				F7E81F9C1A97057100F9A8D4 /* carolynryan.jpeg in Resources */,
 				F7ECACCC1AB0730000B57AB6 /* StockWidgetCell.xib in Resources */,
@@ -1630,8 +1638,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1651,7 +1659,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1674,8 +1682,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1688,7 +1696,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1700,8 +1708,8 @@
 			baseConfigurationReference = 90EF9BD902798B39A9DB8F3B /* Pods-FullIntel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1711,7 +1719,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1720,8 +1729,8 @@
 			baseConfigurationReference = A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1731,7 +1740,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

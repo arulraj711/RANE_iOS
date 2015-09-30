@@ -996,13 +996,14 @@
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     data = item;
 //    //if([[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]iseq)
+    NSLog(@"one:%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]);
     if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
         
     } else {
-        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"menuName":data.name};
-        [Localytics tagEvent:@"SelectedTopic" attributes:dictionary];
+//        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"menuName":data.name};
+//        [Localytics tagEvent:@"SelectedTopic" attributes:dictionary];
     }
-    
+    NSLog(@"two");
     RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
     BOOL expanded = [self.treeView isCellForItemExpanded:item];
     if(expanded) {
@@ -1156,13 +1157,13 @@
         if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
             //handle null securtiy token
         } else {
-            NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-            NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
-            [logoutDic setObject:securityToken forKey:@"securityToken"];
-            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
-            
-            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager] logoutUserWithDetails:resultStr withFlag:[NSNumber numberWithInt:1]];
+//            NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+//            NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
+//            [logoutDic setObject:securityToken forKey:@"securityToken"];
+//            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
+//            
+//            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+//            [[FISharedResources sharedResourceManager] logoutUserWithDetails:resultStr withFlag:[NSNumber numberWithInt:1]];
         }
        
         

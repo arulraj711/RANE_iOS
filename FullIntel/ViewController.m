@@ -28,6 +28,29 @@
 - (void)viewDidLoad {
     self.isAnimated = YES;
     [super viewDidLoad];
+    
+//    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+//    {
+//        _outerView.translatesAutoresizingMaskIntoConstraints = YES;
+//        CGFloat overallWidth = self.view.frame.size.width;
+//        CGFloat outerViewWidth = _outerView.frame.size.width;
+//        CGFloat outerViewHeight = _outerView.frame.size.height;
+//        
+//        CGFloat newOuterViewWidth = outerViewWidth-128;
+//        CGFloat approxPosition = overallWidth - newOuterViewWidth;
+//        CGFloat approxStartPosition = approxPosition/2;
+//        [_outerView setFrame:CGRectMake(approxStartPosition, 172, newOuterViewWidth, outerViewHeight)];
+//        
+//        
+//        _infoButtonPressed.translatesAutoresizingMaskIntoConstraints = YES;
+//        CGFloat logoPosition =_logoIcon.frame.size.width+_logoIcon.frame.origin.x;
+//        NSLog(@"%f",logoPosition);
+//        NSLog(@"%f",_logoIcon.frame.size.width);
+//        NSLog(@"%f",_logoIcon.frame.origin.x);
+//        
+//        [_infoButtonPressed setFrame:CGRectMake(logoPosition-66, _infoButtonPressed.frame.origin.y, _infoButtonPressed.frame.size.width, _infoButtonPressed.frame.size.height)];
+//    }
+
     [self animateImages];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
     oldFrame = self.backgroundImageView.frame;
@@ -345,6 +368,10 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//        SocialWebViewObj.outerView.translatesAutoresizingMaskIntoConstraints = YES;
+//        [SocialWebViewObj.outerView setFrame:CGRectMake(0.0f, 0.0f, 300, 400)];
+    }
     SocialWebViewObj.titleStr=@"Sign Up";
     NSString *signUpUrlString = [NSString stringWithFormat:@"%@/newusersignup.html",[FIWebService getServerURL]];
     SocialWebViewObj.urlString=signUpUrlString;
