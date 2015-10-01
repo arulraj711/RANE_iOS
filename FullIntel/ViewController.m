@@ -365,7 +365,16 @@
 }
 - (IBAction)newUserSignUpButtonPressed:(id)sender {
     [Localytics tagEvent:@"SignupButtonClicked"];
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    UIStoryboard *storyBoard;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        
+    } else {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        
+    }
+//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -382,7 +391,16 @@
 
 - (IBAction)privacyPolicyButtonPressed:(id)sender {
     [Localytics tagEvent:@"PrivacyPolicyButtonClicked"];
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    UIStoryboard *storyBoard;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        
+    } else {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        
+    }
+//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
     SocialWebViewObj.titleStr=@"Privacy Policy";
@@ -470,5 +488,53 @@
     }];
     
 }
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    BOOL ysORNo;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
+    {
+        ysORNo = YES;
+    }
+    else
+    {
+        ysORNo = NO;
+    }
 
+    }
+    return ysORNo;
+
+}
+//to switchoff orientation
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        //Obtaining the current device orientation
+        UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+        
+        //Ignoring specific orientations
+
+        if (orientation == UIDeviceOrientationLandscapeRight || orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationPortraitUpsideDown|| orientation == UIDeviceOrientationFaceUp|| orientation == UIDeviceOrientationFaceDown) {
+            
+            return;
+        }
+        
+
+    }
+}
+- (NSUInteger) supportedInterfaceOrientations {
+    // Return a bitmask of supported orientations. If you need more,
+    // use bitwise or (see the commented return).
+    return UIInterfaceOrientationMaskPortrait;
+    // return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+}
+
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+    // Return the orientation you'd prefer - this is what it launches to. The
+    // user can still rotate. You don't have to implement this method, in which
+    // case it launches in the current orientation
+    return UIInterfaceOrientationPortrait;
+}
 @end

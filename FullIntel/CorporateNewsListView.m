@@ -144,7 +144,15 @@
     if(self.devices.count != 0) {
         
         //UpgradeView
-        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        UIStoryboard *storyBoard;
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+
+        } else {
+            storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+
+        }
         NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
         CorporateNewsDetailsView *testView;
         testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
@@ -1161,7 +1169,15 @@
     if(self.devices.count != 0) {
         
         //UpgradeView
-        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        UIStoryboard *storyBoard;
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            
+        } else {
+            storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            
+        }
         NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
         CorporateNewsDetailsView *testView;
         //        if([userAccountTypeId isEqualToString:@"3"]) {

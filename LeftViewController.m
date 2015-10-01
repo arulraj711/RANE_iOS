@@ -1030,7 +1030,7 @@
         
         CorporateNewsListViewObj.titleName=data.name;
         
-        [self.revealController setFrontViewController:navCtlr];
+        //[self.revealController setFrontViewController:navCtlr];
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
         [gradedetails setObject:@"" forKey:@"lastArticleId"];
@@ -1055,7 +1055,7 @@
         CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
         
         CorporateNewsListViewObj.titleName=data.name;
-        [self.revealController setFrontViewController:navCtlr];
+       // [self.revealController setFrontViewController:navCtlr];
         
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
@@ -1102,7 +1102,7 @@
         }
         
         CorporateNewsListViewObj.titleName=data.name;
-        [self.revealController setFrontViewController:navCtlr];
+       // [self.revealController setFrontViewController:navCtlr];
     } else if([data.nodeId integerValue] == 7 && !data.isFolder) {
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click InfluencerList"];
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
@@ -1195,7 +1195,7 @@
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
                 UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
                 ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
-                [self.revealController setFrontViewController:navCtlr];
+              //  [self.revealController setFrontViewController:navCtlr];
             } else {
                 if([[data.name uppercaseString]isEqualToString:@"RSS"]) {
                     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isRSSField"];
@@ -1204,7 +1204,7 @@
                 }
                 
                 [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"folderId"];
-                [self.revealController setFrontViewController:navCtlr];
+             //   [self.revealController setFrontViewController:navCtlr];
                 [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
             }
             
@@ -1281,7 +1281,7 @@
             //
             //            } else {
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
-            [self.revealController setFrontViewController:navCtlr];
+           // [self.revealController setFrontViewController:navCtlr];
             
             NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
             [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
@@ -1331,7 +1331,9 @@
     }else {
         formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
     }
-    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        
+    }
     //    // Force realignment of cell being displayed
     //    CGSize currentSize = self.collectionView.bounds.size;
     //    float offset = self.currentIndex * currentSize.width;

@@ -57,9 +57,22 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
    
-    
-    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+    UIStoryboard *centerStoryBoard;
+    UINavigationController *navCtlr;
+
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateViewPhone"];
+
+        
+    } else {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+
+        
+    }
+//    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     
     NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
     NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];

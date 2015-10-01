@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Bold.ttf">
@@ -24,10 +25,10 @@
                         <viewControllerLayoutGuide type="bottom" id="DvD-gs-tsd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0nW-UY-enU">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsa-DF-Mgs">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsa-DF-Mgs">
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="293"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Leg-9q-Ekc">
@@ -73,20 +74,27 @@
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="9ON-fV-1U3"/>
+                                    <constraint firstAttribute="height" constant="293" id="GEH-ed-RFQ"/>
+                                </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pX9-aV-U8w">
-                                <rect key="frame" x="-18" y="296" width="304" height="258"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pX9-aV-U8w">
+                                <rect key="frame" x="0.0" y="296" width="304" height="258"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ngc-2i-mQd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ngc-2i-mQd">
                                 <rect key="frame" x="0.0" y="555" width="320" height="1"/>
                                 <color key="backgroundColor" red="0.86274509803921573" green="0.87450980392156863" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="wz6-bN-OuZ"/>
+                                </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9VO-WP-Jjk">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9VO-WP-Jjk">
                                 <rect key="frame" x="80" y="566" width="100" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAr-Y0-fGY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAr-Y0-fGY">
                                 <rect key="frame" x="13" y="561" width="32" height="32"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="help">
@@ -98,7 +106,22 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="dsa-DF-Mgs" firstAttribute="top" secondItem="0nW-UY-enU" secondAttribute="top" id="69e-v3-gwD"/>
+                            <constraint firstItem="BAr-Y0-fGY" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leading" constant="13" id="FGe-Kh-Tka"/>
+                            <constraint firstItem="Ngc-2i-mQd" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-16" id="SWw-TW-B84"/>
+                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="10" id="UfM-gC-zzM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pX9-aV-U8w" secondAttribute="trailing" constant="55" id="XuJ-6j-WIV"/>
+                            <constraint firstItem="pX9-aV-U8w" firstAttribute="top" secondItem="dsa-DF-Mgs" secondAttribute="bottom" constant="3" id="bOM-fa-QOj"/>
+                            <constraint firstItem="DvD-gs-tsd" firstAttribute="top" secondItem="BAr-Y0-fGY" secondAttribute="bottom" constant="74" id="eJT-Yp-egG"/>
+                            <constraint firstItem="Ngc-2i-mQd" firstAttribute="top" secondItem="pX9-aV-U8w" secondAttribute="bottom" constant="1" id="gYN-LF-Vph"/>
+                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="leading" secondItem="BAr-Y0-fGY" secondAttribute="trailing" constant="35" id="jxT-9X-csR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ngc-2i-mQd" secondAttribute="trailing" constant="39" id="od4-II-pIi"/>
+                            <constraint firstItem="pX9-aV-U8w" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-16" id="x23-d8-wMA"/>
+                            <constraint firstItem="BAr-Y0-fGY" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="5" id="zoJ-cT-FkB"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="addContentButton" destination="W0r-Ng-bX2" id="lE0-hZ-11Q"/>
                         <outlet property="companyLogo" destination="Leg-9q-Ekc" id="k5U-fN-yiD"/>

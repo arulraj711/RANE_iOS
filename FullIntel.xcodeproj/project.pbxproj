@@ -48,6 +48,7 @@
 		A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C326251B182E2B00FEB164 /* StockResponse.json */; };
 		A0CAB5FF1BBC06C200B485B9 /* MainPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CAB5FE1BBC06C200B485B9 /* MainPhone.storyboard */; };
 		A0CAB6011BBC140900B485B9 /* LeftViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CAB6001BBC140900B485B9 /* LeftViewPhone.storyboard */; };
+		A0CAB6031BBCE51F00B485B9 /* CorporateNewsListViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CAB6021BBCE51F00B485B9 /* CorporateNewsListViewPhone.storyboard */; };
 		A0CF5C541B1DD98B00DED2D9 /* CompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C251B1DD98B00DED2D9 /* CompanyCell.xib */; };
 		A0CF5C551B1DD98B00DED2D9 /* CompetitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C261B1DD98B00DED2D9 /* CompetitorCell.xib */; };
 		A0CF5C571B1DD98B00DED2D9 /* DealsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CF5C291B1DD98B00DED2D9 /* DealsViewController.m */; };
@@ -290,6 +291,7 @@
 		A0C326251B182E2B00FEB164 /* StockResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = StockResponse.json; sourceTree = "<group>"; };
 		A0CAB5FE1BBC06C200B485B9 /* MainPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainPhone.storyboard; path = ../MainPhone.storyboard; sourceTree = "<group>"; };
 		A0CAB6001BBC140900B485B9 /* LeftViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LeftViewPhone.storyboard; sourceTree = "<group>"; };
+		A0CAB6021BBCE51F00B485B9 /* CorporateNewsListViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CorporateNewsListViewPhone.storyboard; sourceTree = "<group>"; };
 		A0CF5C251B1DD98B00DED2D9 /* CompanyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyCell.xib; sourceTree = "<group>"; };
 		A0CF5C261B1DD98B00DED2D9 /* CompetitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompetitorCell.xib; sourceTree = "<group>"; };
 		A0CF5C281B1DD98B00DED2D9 /* DealsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealsViewController.h; sourceTree = "<group>"; };
@@ -942,6 +944,7 @@
 				F78B42F61ABA896E00AB7FFB /* CorporateNewsListView.h */,
 				F78B42F71ABA896E00AB7FFB /* CorporateNewsListView.m */,
 				F78B42F91ABA89A300AB7FFB /* CorporateNewsListView.storyboard */,
+				A0CAB6021BBCE51F00B485B9 /* CorporateNewsListViewPhone.storyboard */,
 				F78B42FB1ABA8F4800AB7FFB /* CorporateNewsCell.h */,
 				F78B42FC1ABA8F4800AB7FFB /* CorporateNewsCell.m */,
 				A0DEC3DC1AE8E31D0046E8BB /* SocialLinkCell.h */,
@@ -1363,6 +1366,7 @@
 				A0CF5C601B1DD98B00DED2D9 /* NumberOfPatternsCell.xib in Resources */,
 				F7E81FAC1A97057100F9A8D4 /* iphone.jpg in Resources */,
 				F7E81FC51A97057100F9A8D4 /* sony_topic.png in Resources */,
+				A0CAB6031BBCE51F00B485B9 /* CorporateNewsListViewPhone.storyboard in Resources */,
 				A0CF5C5E1B1DD98B00DED2D9 /* IpAndLegalCell.xib in Resources */,
 				F7E81FAF1A97057100F9A8D4 /* iwatch.png in Resources */,
 				F708D9EE1AB1A19B001FF59F /* test.html in Resources */,
