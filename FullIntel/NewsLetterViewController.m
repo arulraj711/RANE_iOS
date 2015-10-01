@@ -71,6 +71,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  //  [self.revealController showViewController:self.revealController.frontViewController];
     FINewsLetter *newsletter = [newsLetterArray objectAtIndex:indexPath.row];
     [[NSUserDefaults standardUserDefaults]setObject:newsletter.newsLetterId forKey:@"newsletterId"];
     [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:newsletter.newsLetterId withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO];

@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.revealController showViewController:self.revealController.leftViewController];
+    //[self.revealController showViewController:self.revealController.leftViewController];
     messageString = @"Loading...";
     // NSLog(@"list did load");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
@@ -76,13 +76,7 @@
     
     
     // [self.revealController showViewController:self.revealController.leftViewController];
-    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     
-    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
-    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-    //[self.navigationItem setLeftBarButtonItem:addButton];
     
     UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     addBtnView.backgroundColor = [UIColor clearColor];
@@ -459,10 +453,13 @@
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate;
-    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
-        
-    } else {
+    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+        [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+        [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+        [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+        [self.navigationItem setLeftBarButtonItem:addButton];
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
                 NSLog(@"if part");
@@ -487,6 +484,10 @@
         } else {
             predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
         }
+        
+    } else {
+        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
+        
     }
     
     
@@ -643,29 +644,35 @@
     
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+    NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
     // NSInteger category = categoryStr.integerValue;
     NSLog(@"folder id:%@ and categoryid:%@",folderId,category);
-    if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        // NSInteger category = categoryStr.integerValue;
-        NSString *inputJson;
-        if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
-            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:[NSNumber numberWithInt:1] listSize:10 activityTypeId:@"2" categoryId:nil];
-        } else if([category isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
-            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:[NSNumber numberWithInt:1] listSize:10 activityTypeId:@"3" categoryId:nil];
+    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            // NSInteger category = categoryStr.integerValue;
+            NSString *inputJson;
+            if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:[NSNumber numberWithInt:1] listSize:10 activityTypeId:@"2" categoryId:nil];
+            } else if([category isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:[NSNumber numberWithInt:1] listSize:10 activityTypeId:@"3" categoryId:nil];
+            } else {
+                
+                NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+                NSLog(@"parent id:%@",parentId);
+                inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:parentId listSize:10 activityTypeId:@"" categoryId:category];
+            }
+            NSLog(@"input json:%@",inputJson);
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"up" withLastArticleId:@""];
+            // }
         } else {
-            
-            NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-            NSLog(@"parent id:%@",parentId);
-            inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:parentId listSize:10 activityTypeId:@"" categoryId:category];
+            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:YES];
         }
-        NSLog(@"input json:%@",inputJson);
-        NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-        [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"up" withLastArticleId:@""];
-        // }
     } else {
-        [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:YES];
+        [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:newsLetterId withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:YES withFlag:NO];
     }
+    
     [refreshControl endRefreshing];
     //    [self.influencerTableView reloadData];
 }
@@ -1444,26 +1451,32 @@
             NSString *inputJson;
             NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
             NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+            NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
             // NSInteger category = categoryStr.integerValue;
-            if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
-                    inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:[NSNumber numberWithInt:1] listSize:10 activityTypeId:@"2" categoryId:nil];
-                } else if([category isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
-                    inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:[NSNumber numberWithInt:1] listSize:10 activityTypeId:@"3" categoryId:nil];
+            NSLog(@"folder id:%@ and categoryid:%@",folderId,category);
+            if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                    if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
+                        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:[NSNumber numberWithInt:1] listSize:10 activityTypeId:@"2" categoryId:nil];
+                    } else if([category isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SavedForLaterIsNew"];
+                        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:[NSNumber numberWithInt:1] listSize:10 activityTypeId:@"3" categoryId:nil];
+                    } else {
+                        NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+                        NSLog(@"parent id:%@",parentId);
+                        inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:parentId listSize:10 activityTypeId:@"" categoryId:category];
+                        
+                        
+                    }
+                    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FetchNextArticlesList"];
+                    NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+                    [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
                 } else {
-                    NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-                    NSLog(@"parent id:%@",parentId);
-                    inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:parentId listSize:10 activityTypeId:@"" categoryId:category];
-                    
-                    
+                    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FetchNextArticlesList"];
+                    [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:self.devices.count] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
                 }
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FetchNextArticlesList"];
-                NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
             } else {
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FetchNextArticlesList"];
-                [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:self.devices.count] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
+                [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:newsLetterId withLastArticleId:[curatedNews valueForKey:@"articleId"] withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO];
             }
         }
         //[self reloadData];

@@ -246,6 +246,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    NSLog(@"come inside view did appear:%d",self.currentIndex);
     //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [activityIndicator stopAnimating];
     
@@ -363,11 +364,15 @@
             NSInteger atIndex = [self.articleIdArray indexOfObject:self.selectedNewsArticleId];
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:atIndex inSection:0];
             self.selectedIndexPath = indexPath;
-//            [self.view layoutIfNeeded];
-//            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-            NSLog(@"selected indexpath:%d",self.selectedIndexPath.row);
-            [self.collectionView reloadData];
+            self.currentIndex = atIndex;
+//            CGSize currentSize = self.collectionView.bounds.size;
+//            float offset = atIndex * currentSize.width;
+//            NSLog(@"collectionview offset:%f",offset);
+//            [self.collectionView setContentOffset:CGPointMake(offset, 0)];
+            NSLog(@"selected indexpath:%d",self.currentIndex);
+            //[self.collectionView reloadData];
         } else {
+            NSLog(@"come inside else part also");
             if(self.articleIdArray.count != 0) {
                 [self.collectionView reloadData];
             }
