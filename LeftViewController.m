@@ -142,9 +142,17 @@
     
     if(self.data.count > 2) {
         NSLog(@"come selectrow method");
-        [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        if(accessToken.length == 0) {
+            NSLog(@"empty access token");
+        } else{
+            NSLog(@"full access token");
+            [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
+        }
+        
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
+        //
     }
     NSNumber *badgeNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"badgeNumber"];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber.integerValue];
@@ -996,9 +1004,11 @@
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     data = item;
 //    //if([[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]iseq)
+    NSLog(@"access token:%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]);
     if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
-        
+        NSLog(@"if part");
     } else {
+        NSLog(@"else part");
         NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"menuName":data.name};
         [Localytics tagEvent:@"SelectedTopic" attributes:dictionary];
     }
