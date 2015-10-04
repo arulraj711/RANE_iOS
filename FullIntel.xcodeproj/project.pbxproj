@@ -71,6 +71,7 @@
 		A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0BE809F1B206F450055177E /* ResearchRequest.storyboard */; };
 		A0BFEF851B13482300DCBDA8 /* AddContentFifthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */; };
 		A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C326251B182E2B00FEB164 /* StockResponse.json */; };
+		A0CAB6071BC1642100B485B9 /* chart.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0CAB6061BC1642000B485B9 /* chart.jpg */; };
 		A0CF5C541B1DD98B00DED2D9 /* CompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C251B1DD98B00DED2D9 /* CompanyCell.xib */; };
 		A0CF5C551B1DD98B00DED2D9 /* CompetitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C261B1DD98B00DED2D9 /* CompetitorCell.xib */; };
 		A0CF5C571B1DD98B00DED2D9 /* DealsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CF5C291B1DD98B00DED2D9 /* DealsViewController.m */; };
@@ -349,6 +350,7 @@
 		A0BFEF831B13482300DCBDA8 /* AddContentFifthLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentFifthLevelView.h; sourceTree = "<group>"; };
 		A0BFEF841B13482300DCBDA8 /* AddContentFifthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFifthLevelView.m; sourceTree = "<group>"; };
 		A0C326251B182E2B00FEB164 /* StockResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = StockResponse.json; sourceTree = "<group>"; };
+		A0CAB6061BC1642000B485B9 /* chart.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chart.jpg; sourceTree = "<group>"; };
 		A0CF5C251B1DD98B00DED2D9 /* CompanyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyCell.xib; sourceTree = "<group>"; };
 		A0CF5C261B1DD98B00DED2D9 /* CompetitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompetitorCell.xib; sourceTree = "<group>"; };
 		A0CF5C281B1DD98B00DED2D9 /* DealsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealsViewController.h; sourceTree = "<group>"; };
@@ -741,6 +743,7 @@
 		A09590771BB41D23005C3769 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				A0CAB6061BC1642000B485B9 /* chart.jpg */,
 				A09590781BB41D23005C3769 /* chart1.jpg */,
 				A09590791BB41D23005C3769 /* chart2.jpg */,
 				A095907A1BB41D23005C3769 /* chart3.jpg */,
@@ -1509,6 +1512,7 @@
 				F7E81F931A97057100F9A8D4 /* about_walt.jpg in Resources */,
 				F78B42FA1ABA89A300AB7FFB /* CorporateNewsListView.storyboard in Resources */,
 				A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */,
+				A0CAB6071BC1642100B485B9 /* chart.jpg in Resources */,
 				F7EDA00C1AC136CD00A5C601 /* influencer_list.json in Resources */,
 				A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */,
 				F7E81FBF1A97057100F9A8D4 /* samsung_topic.jpg in Resources */,

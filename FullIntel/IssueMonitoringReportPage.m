@@ -22,9 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"index_1" ofType:@"html"];
-    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-    [self.detailsWebview loadHTMLString:htmlString baseURL:nil];
+//    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"index_1" ofType:@"html"];
+//    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+//    [self.detailsWebview loadHTMLString:htmlString baseURL:nil];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"issue_list" ofType:@"json"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     NSError *error;
