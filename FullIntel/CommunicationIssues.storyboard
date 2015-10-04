@@ -878,22 +878,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZX-WE-9Og">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqf-ds-G42">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </webView>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIQ-VZ-W27">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="issue_overview_image" translatesAutoresizingMaskIntoConstraints="NO" id="NHz-iq-gvT">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="699"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="NHz-iq-gvT" firstAttribute="leading" secondItem="jIQ-VZ-W27" secondAttribute="leading" id="HAD-kN-b46"/>
+                                            <constraint firstAttribute="trailing" secondItem="NHz-iq-gvT" secondAttribute="trailing" id="Qxd-Wz-uLs"/>
+                                            <constraint firstAttribute="height" constant="800" id="WMf-sA-gV4"/>
+                                            <constraint firstItem="NHz-iq-gvT" firstAttribute="top" secondItem="jIQ-VZ-W27" secondAttribute="top" id="d6z-5A-2Zc"/>
+                                            <constraint firstAttribute="bottom" secondItem="NHz-iq-gvT" secondAttribute="bottom" constant="101" id="nJw-ik-vGQ"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="jIQ-VZ-W27" secondAttribute="trailing" id="2qV-lb-WlB"/>
+                                    <constraint firstItem="jIQ-VZ-W27" firstAttribute="centerX" secondItem="oqf-ds-G42" secondAttribute="centerX" id="5DS-ub-rXm"/>
+                                    <constraint firstItem="jIQ-VZ-W27" firstAttribute="top" secondItem="oqf-ds-G42" secondAttribute="top" id="SgL-Hu-eft"/>
+                                    <constraint firstAttribute="bottom" secondItem="jIQ-VZ-W27" secondAttribute="bottom" id="esg-KH-cI8"/>
+                                    <constraint firstItem="jIQ-VZ-W27" firstAttribute="leading" secondItem="oqf-ds-G42" secondAttribute="leading" id="m98-xg-suN"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="sMu-OG-olE" firstAttribute="top" secondItem="xZX-WE-9Og" secondAttribute="bottom" id="3nB-f9-10U"/>
-                            <constraint firstItem="xZX-WE-9Og" firstAttribute="leading" secondItem="DLg-SM-VJY" secondAttribute="leadingMargin" constant="-16" id="E9v-hz-Tlm"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="xZX-WE-9Og" secondAttribute="trailing" constant="-16" id="F90-Jx-Qx4"/>
-                            <constraint firstItem="xZX-WE-9Og" firstAttribute="top" secondItem="Nqb-5Z-TLT" secondAttribute="bottom" constant="-20" id="iHv-RP-D6G"/>
+                            <constraint firstItem="oqf-ds-G42" firstAttribute="top" secondItem="DLg-SM-VJY" secondAttribute="top" id="3hS-vi-MPY"/>
+                            <constraint firstAttribute="trailing" secondItem="oqf-ds-G42" secondAttribute="trailing" id="3p3-r0-UtH"/>
+                            <constraint firstItem="oqf-ds-G42" firstAttribute="bottom" secondItem="sMu-OG-olE" secondAttribute="top" id="jfS-vW-QRk"/>
+                            <constraint firstItem="oqf-ds-G42" firstAttribute="leading" secondItem="DLg-SM-VJY" secondAttribute="leading" id="ohE-PN-6eT"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="detailsWebView" destination="xZX-WE-9Og" id="11l-Vw-MvF"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="29z-vw-S2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1576,6 +1597,7 @@
         <image name="globe" width="12" height="12"/>
         <image name="gradiant" width="608" height="200"/>
         <image name="group_blue" width="20" height="20"/>
+        <image name="issue_overview_image" width="1024" height="699"/>
         <image name="location" width="20" height="20"/>
         <image name="monitoring_btn" width="158" height="73"/>
         <image name="outlet" width="20" height="20"/>
