@@ -132,6 +132,7 @@
 		A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E4B11B1B4BF90A0029D389 /* FolderCell.m */; };
 		A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ECBDEE1AEA499700B140C8 /* RFQuiltLayout.m */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
+		BADFC5931BC2B7B8005914DF /* line_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = BADFC5921BC2B7B8005914DF /* line_chart.png */; settings = {ASSET_TAGS = (); }; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
@@ -450,6 +451,7 @@
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 3.xcdatamodel"; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
+		BADFC5921BC2B7B8005914DF /* line_chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line_chart.png; sourceTree = "<group>"; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -862,6 +864,7 @@
 		A0DEB4051BB12D84003B50C8 /* CommunicationIssues */ = {
 			isa = PBXGroup;
 			children = (
+				BADFC5921BC2B7B8005914DF /* line_chart.png */,
 				F55ACE051BB53E6700E9AD27 /* issue_list.json */,
 				A09590661BB41D23005C3769 /* css */,
 				A0DEB4061BB12DBB003B50C8 /* CommunicationIssuesPage.h */,
@@ -1515,6 +1518,7 @@
 				A0CAB6071BC1642100B485B9 /* chart.jpg in Resources */,
 				F7EDA00C1AC136CD00A5C601 /* influencer_list.json in Resources */,
 				A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */,
+				BADFC5931BC2B7B8005914DF /* line_chart.png in Resources */,
 				F7E81FBF1A97057100F9A8D4 /* samsung_topic.jpg in Resources */,
 				A0CF5C611B1DD98B00DED2D9 /* PersonalityExecutiveCell.xib in Resources */,
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,

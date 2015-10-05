@@ -88,6 +88,7 @@
   //  }
     if([self.selectedItemArray containsObject:[issueDic objectForKey:@"name"]]) {
         cell.cellOuterView.backgroundColor = UIColorFromRGB(0Xebebeb);
+        self.selectedTitle.text = [issueDic objectForKey:@"name"];
     } else {
         cell.cellOuterView.backgroundColor = [UIColor whiteColor];
     }
@@ -192,4 +193,17 @@
 }
 
 
+- (IBAction)barChartBtnClick:(id)sender {
+    self.chartImageView.image = [UIImage imageNamed:@"bar_chart"];
+}
+- (IBAction)doughnetChartBtnClick:(id)sender {
+    self.chartImageView.image = [UIImage imageNamed:@"doughnut_chart"];
+}
+- (IBAction)lineChartBtnClick:(id)sender {
+    self.chartImageView.image = [UIImage imageNamed:@"line_chart"];
+}
+
+- (IBAction)pieChartBtnClick:(id)sender {
+    self.chartImageView.image = [UIImage imageNamed:@"pie_chart"];
+}
 @end

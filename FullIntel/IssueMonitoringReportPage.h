@@ -12,8 +12,16 @@
     NSArray *monitoringOutletList;
     NSArray *issueList;
 }
+
+- (IBAction)doughnetChartBtnClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *selectedTitle;
+- (IBAction)lineChartBtnClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *chartImageView;
+
+- (IBAction)pieChartBtnClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UITableView *monitoringOutletTableView;
 @property (weak, nonatomic) IBOutlet UITableView *monitoringInfluencerTableView;
+- (IBAction)barChartBtnClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIWebView *detailsWebview;
 @property NSMutableArray *selectedItemArray;
