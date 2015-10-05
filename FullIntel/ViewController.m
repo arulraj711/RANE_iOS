@@ -369,24 +369,26 @@
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebViewPhone"];
+        SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        SocialWebViewObj.titleStr=@"Sign Up";
+        NSString *signUpUrlString = [NSString stringWithFormat:@"%@/newusersignup.html",[FIWebService getServerURL]];
+        SocialWebViewObj.urlString=signUpUrlString;
+        modalController.modalPresentationStyle = UIModalPresentationCustom;
         
+        [self presentViewController:modalController animated:NO completion:nil];
     } else {
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+        SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        SocialWebViewObj.titleStr=@"Sign Up";
+        NSString *signUpUrlString = [NSString stringWithFormat:@"%@/newusersignup.html",[FIWebService getServerURL]];
+        SocialWebViewObj.urlString=signUpUrlString;
+        modalController.modalPresentationStyle = UIModalPresentationCustom;
         
+        [self presentViewController:modalController animated:NO completion:nil];
     }
-//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-    SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-//        SocialWebViewObj.outerView.translatesAutoresizingMaskIntoConstraints = YES;
-//        [SocialWebViewObj.outerView setFrame:CGRectMake(0.0f, 0.0f, 300, 400)];
-    }
-    SocialWebViewObj.titleStr=@"Sign Up";
-    NSString *signUpUrlString = [NSString stringWithFormat:@"%@/newusersignup.html",[FIWebService getServerURL]];
-    SocialWebViewObj.urlString=signUpUrlString;
-    modalController.modalPresentationStyle = UIModalPresentationCustom;
-    
-    [self presentViewController:modalController animated:NO completion:nil];
+   
 }
 
 - (IBAction)privacyPolicyButtonPressed:(id)sender {
@@ -395,20 +397,27 @@
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebViewPhone"];
+        SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        SocialWebViewObj.titleStr=@"Privacy Policy";
+        NSString *privacyUrlString = [NSString stringWithFormat:@"%@/common/privacy",[FIWebService getServerURL]];
+        SocialWebViewObj.urlString=privacyUrlString;
+        modalController.modalPresentationStyle = UIModalPresentationCustom;
         
+        [self presentViewController:modalController animated:NO completion:nil];
     } else {
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+        SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        SocialWebViewObj.titleStr=@"Privacy Policy";
+        NSString *privacyUrlString = [NSString stringWithFormat:@"%@/common/privacy",[FIWebService getServerURL]];
+        SocialWebViewObj.urlString=privacyUrlString;
+        modalController.modalPresentationStyle = UIModalPresentationCustom;
         
+        [self presentViewController:modalController animated:NO completion:nil];
     }
-//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-    SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
-    SocialWebViewObj.titleStr=@"Privacy Policy";
-    NSString *privacyUrlString = [NSString stringWithFormat:@"%@/common/privacy",[FIWebService getServerURL]];
-    SocialWebViewObj.urlString=privacyUrlString;
-    modalController.modalPresentationStyle = UIModalPresentationCustom;
+//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];SocialWebViewPhone
     
-    [self presentViewController:modalController animated:NO completion:nil];
 }
 
 

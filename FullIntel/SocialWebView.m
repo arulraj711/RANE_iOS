@@ -27,15 +27,6 @@
     NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.outerView setBackgroundColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
    
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        
-        self.outerView.translatesAutoresizingMaskIntoConstraints = YES;
-        [self.outerView setFrame:CGRectMake(10, 30, 300, 468)];
-//        _titleString.translatesAutoresizingMaskIntoConstraints = YES;
-//        [_titleString setFrame:CGRectMake(0.0f, 0.0f, 284, _titleString.frame.size.height)];
-//        self.webView.translatesAutoresizingMaskIntoConstraints = YES;
-//        [self.webView setFrame:CGRectMake(0.0f, 0.0f, 300, 400)];
-    }
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 10;
     

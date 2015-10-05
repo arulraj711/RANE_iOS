@@ -700,7 +700,7 @@
         _borderWidth = 1.0;
 		
         if ([UIDevice currentDevice].userInterfaceIdiom ==  UIUserInterfaceIdiomPhone) {
-            self.textFont = [UIFont fontWithName:@"OpenSans" size:6.0];
+            self.textFont = [UIFont fontWithName:@"OpenSans" size:8.0];
         }
         else{
             self.textFont = [UIFont fontWithName:@"OpenSans" size:14.0];

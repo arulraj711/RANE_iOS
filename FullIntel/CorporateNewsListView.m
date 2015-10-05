@@ -943,7 +943,32 @@
         }
         // NSLog(@"curated news legends list:%d",legendsList.count);
         NSString *dateStr = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
-        cell.articleDate.text = dateStr;
+        NSLog(@"%@",dateStr);
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        
+        
+        NSDate *formattedDateString = [dateFormatter dateFromString:dateStr];
+        NSLog(@"formattedDateString: %@", formattedDateString);
+        NSLog(@"%@",[self relativeDateStringForDate:formattedDateString]);
+        NSString *finalDateString = [self relativeDateStringForDate:formattedDateString];
+        NSLog(@"%@",finalDateString);
+        cell.articleDate.text = finalDateString;
+
+        NSString *trialDate = [NSString stringWithFormat:@"2015-10-05 02:30:00 +0000"];
+        NSLog(@"%@",trialDate);
+        NSDateFormatter *dateFormattr = [[NSDateFormatter alloc] init];
+        [dateFormattr setDateFormat:@"yyyy-MM-dd hh:ss:mm zzzz"];
+        NSDate *formattedDateStrings = [dateFormattr dateFromString:trialDate];
+        NSLog(@"%@",formattedDateStrings);
+
+        NSString *finalDateStrings = [self relativeDateStringForDate:formattedDateStrings];
+        NSLog(@"%@",finalDateStrings);
+
+        
+        
+//      cell.articleDate.text = dateStr;
         [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
         cell.articleNumber.text = [curatedNews valueForKey:@"articleId"];
@@ -1080,7 +1105,39 @@
     tableCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return tableCell;
 }
-
+- (NSString *)relativeDateStringForDate:(NSDate *)date
+{
+    NSCalendarUnit units = NSCalendarUnitDay | NSCalendarUnitWeekOfYear |
+    NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    
+    // if `date` is before "now" (i.e. in the past) then the components will be positive
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:units
+                                                                   fromDate:date
+                                                                     toDate:[NSDate date]
+                                                                    options:0];
+    
+    if (components.year > 0) {
+        return [NSString stringWithFormat:@"%ld years ago", (long)components.year];
+    } else if (components.month > 0) {
+        return [NSString stringWithFormat:@"%ld months ago", (long)components.month];
+    } else if (components.weekOfYear > 0) {
+        return [NSString stringWithFormat:@"%ld weeks ago", (long)components.weekOfYear];
+    } else if (components.day > 0) {
+        if (components.day > 1) {
+            return [NSString stringWithFormat:@"%ld days ago", (long)components.day];
+        } else {
+            return @"Yesterday";
+        }
+    }else if (components.hour > 0) {
+        return [NSString stringWithFormat:@"%ldh ago", (long)components.hour];
+    }else if (components.minute > 0) {
+        return [NSString stringWithFormat:@"%ldm ago", (long)components.minute];
+    }else if (components.second > 0) {
+        return [NSString stringWithFormat:@"%lds ago", (long)components.second];
+    }   else {
+        return @"Today";
+    }
+}
 -(void)performAnimationForMarkImportant:(NSTimer *)timer{
     
     CorporateNewsCell *cell=timer.userInfo;
