@@ -1117,11 +1117,11 @@
                                                                     options:0];
     
     if (components.year > 0) {
-        return [NSString stringWithFormat:@"%ld years ago", (long)components.year];
+        return [NSString stringWithFormat:@"%ldy ago", (long)components.year];
     } else if (components.month > 0) {
-        return [NSString stringWithFormat:@"%ld months ago", (long)components.month];
+        return [NSString stringWithFormat:@"%ldm ago", (long)components.month];
     } else if (components.weekOfYear > 0) {
-        return [NSString stringWithFormat:@"%ld weeks ago", (long)components.weekOfYear];
+        return [NSString stringWithFormat:@"%ldw ago", (long)components.weekOfYear];
     } else if (components.day > 0) {
         if (components.day > 1) {
             return [NSString stringWithFormat:@"%ld days ago", (long)components.day];
