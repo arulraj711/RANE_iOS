@@ -663,7 +663,7 @@
     self.articleWebview.frame = frame;
     //NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
     self.webViewHeightConstraint.constant = self.articleWebview.frame.size.height;
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, 4000);
     UICollectionViewFlowLayout* tweetFlowLayout = [[UICollectionViewFlowLayout alloc]init];
     tweetFlowLayout.itemSize = CGSizeMake(100, 100);
     [tweetFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -1342,8 +1342,8 @@
         CGFloat y = -scrollView.contentOffset.y;
         //NSLog(@"scroll y value:%f",y);
         if (y > 0) {
-            self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+50, self.cachedImageViewSize.size.height+y);
-            self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
+//            self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+50, self.cachedImageViewSize.size.height+y);
+//            self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
             
         } else {
             if(!self.isTwitterAPICalled) {

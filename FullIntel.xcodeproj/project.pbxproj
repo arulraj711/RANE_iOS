@@ -18,6 +18,16 @@
 		A010928D1B15AB25003C9F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A010928C1B15AB25003C9F3A /* Foundation.framework */; };
 		A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A010C1C01B1F32AF00BF053D /* john_maddox.jpg */; };
 		A02C54C61AEF5E0000E65011 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02C54C51AEF5E0000E65011 /* Social.framework */; };
+		A033EC551BC37B9B003AAE4F /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC4B1BC37B9B003AAE4F /* Icon-40.png */; };
+		A033EC561BC37B9B003AAE4F /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC4C1BC37B9B003AAE4F /* Icon-40@2x.png */; };
+		A033EC571BC37B9B003AAE4F /* Icon-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC4D1BC37B9B003AAE4F /* Icon-40@3x.png */; };
+		A033EC581BC37B9B003AAE4F /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC4E1BC37B9B003AAE4F /* Icon-60@2x.png */; };
+		A033EC591BC37B9B003AAE4F /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC4F1BC37B9B003AAE4F /* Icon-60@3x.png */; };
+		A033EC5A1BC37B9B003AAE4F /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC501BC37B9B003AAE4F /* Icon-76.png */; };
+		A033EC5B1BC37B9B003AAE4F /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC511BC37B9B003AAE4F /* Icon-76@2x.png */; };
+		A033EC5C1BC37B9B003AAE4F /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC521BC37B9B003AAE4F /* Icon-Small.png */; };
+		A033EC5D1BC37B9B003AAE4F /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC531BC37B9B003AAE4F /* Icon-Small@2x.png */; };
+		A033EC5E1BC37B9B003AAE4F /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC541BC37B9B003AAE4F /* Icon-Small@3x.png */; };
 		A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0406BA01B05CE5F00985CF8 /* TweetsCell.m */; };
 		A041F0011B2ADA9E00B5600C /* LegendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A041EFFF1B2ADA9E00B5600C /* LegendCollectionViewCell.m */; };
 		A041F0021B2ADA9E00B5600C /* LegendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A041F0001B2ADA9E00B5600C /* LegendCollectionViewCell.xib */; };
@@ -250,6 +260,16 @@
 		A010C1C01B1F32AF00BF053D /* john_maddox.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john_maddox.jpg; sourceTree = "<group>"; };
 		A01499CE1B9DBBC5000D77D2 /* FullIntel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 4.xcdatamodel"; sourceTree = "<group>"; };
 		A02C54C51AEF5E0000E65011 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		A033EC4B1BC37B9B003AAE4F /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
+		A033EC4C1BC37B9B003AAE4F /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
+		A033EC4D1BC37B9B003AAE4F /* Icon-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@3x.png"; sourceTree = "<group>"; };
+		A033EC4E1BC37B9B003AAE4F /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
+		A033EC4F1BC37B9B003AAE4F /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
+		A033EC501BC37B9B003AAE4F /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
+		A033EC511BC37B9B003AAE4F /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76@2x.png"; sourceTree = "<group>"; };
+		A033EC521BC37B9B003AAE4F /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		A033EC531BC37B9B003AAE4F /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		A033EC541BC37B9B003AAE4F /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@3x.png"; sourceTree = "<group>"; };
 		A0406B9F1B05CE5F00985CF8 /* TweetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsCell.h; sourceTree = "<group>"; };
 		A0406BA01B05CE5F00985CF8 /* TweetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsCell.m; sourceTree = "<group>"; };
 		A041EFFE1B2ADA9E00B5600C /* LegendCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1150,6 +1170,16 @@
 		F7E81F4B1A97057000F9A8D4 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				A033EC4B1BC37B9B003AAE4F /* Icon-40.png */,
+				A033EC4C1BC37B9B003AAE4F /* Icon-40@2x.png */,
+				A033EC4D1BC37B9B003AAE4F /* Icon-40@3x.png */,
+				A033EC4E1BC37B9B003AAE4F /* Icon-60@2x.png */,
+				A033EC4F1BC37B9B003AAE4F /* Icon-60@3x.png */,
+				A033EC501BC37B9B003AAE4F /* Icon-76.png */,
+				A033EC511BC37B9B003AAE4F /* Icon-76@2x.png */,
+				A033EC521BC37B9B003AAE4F /* Icon-Small.png */,
+				A033EC531BC37B9B003AAE4F /* Icon-Small@2x.png */,
+				A033EC541BC37B9B003AAE4F /* Icon-Small@3x.png */,
 				A003B1A91B1874A200857F35 /* Apple_Car.jpg */,
 				A003B1A21B18710400857F35 /* large_apple.jpg */,
 				A010C1C01B1F32AF00BF053D /* john_maddox.jpg */,
@@ -1312,7 +1342,7 @@
 				TargetAttributes = {
 					A0E2234C1A91C2F00073814A = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = 5MFXS35FFA;
+						DevelopmentTeam = 8JJ7VBN6MD;
 					};
 				};
 			};
@@ -1362,12 +1392,14 @@
 				F7E368831ABC18F70083F38E /* MailPopoverView.xib in Resources */,
 				F7E81FBD1A97057100F9A8D4 /* sam_img.png in Resources */,
 				F7E81FB31A97057100F9A8D4 /* microsoft.png in Resources */,
+				A033EC5C1BC37B9B003AAE4F /* Icon-Small.png in Resources */,
 				A098EA181B4E6AF8003FC501 /* DigitsKitResources.bundle in Resources */,
 				A0CF5C601B1DD98B00DED2D9 /* NumberOfPatternsCell.xib in Resources */,
 				F7E81FAC1A97057100F9A8D4 /* iphone.jpg in Resources */,
 				F7E81FC51A97057100F9A8D4 /* sony_topic.png in Resources */,
 				A0CAB6031BBCE51F00B485B9 /* CorporateNewsListViewPhone.storyboard in Resources */,
 				A0CF5C5E1B1DD98B00DED2D9 /* IpAndLegalCell.xib in Resources */,
+				A033EC5E1BC37B9B003AAE4F /* Icon-Small@3x.png in Resources */,
 				F7E81FAF1A97057100F9A8D4 /* iwatch.png in Resources */,
 				F708D9EE1AB1A19B001FF59F /* test.html in Resources */,
 				F7E81F931A97057100F9A8D4 /* about_walt.jpg in Resources */,
@@ -1380,14 +1412,17 @@
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,
 				A0CF5C621B1DD98B00DED2D9 /* RecentPaternsCell.xib in Resources */,
 				A0CF5C5C1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.xib in Resources */,
+				A033EC581BC37B9B003AAE4F /* Icon-60@2x.png in Resources */,
 				A0E223641A91C2F00073814A /* LaunchScreen.xib in Resources */,
 				A0CF5C551B1DD98B00DED2D9 /* CompetitorCell.xib in Resources */,
+				A033EC591BC37B9B003AAE4F /* Icon-60@3x.png in Resources */,
 				F7E81FA61A97057100F9A8D4 /* hero-bg-fade.png in Resources */,
 				F7E81FC71A97057100F9A8D4 /* stat2.png in Resources */,
 				F7E81FB11A97057100F9A8D4 /* kates.jpg in Resources */,
 				F7E81F9A1A97057100F9A8D4 /* business-technology.jpg in Resources */,
 				F7E81FAA1A97057100F9A8D4 /* ionic.png in Resources */,
 				F7E81FA21A97057100F9A8D4 /* google_topic.png in Resources */,
+				A033EC561BC37B9B003AAE4F /* Icon-40@2x.png in Resources */,
 				F773CFE91ADE99C7002FC7CF /* addContent.json in Resources */,
 				F583CD071BA30FBE0080C384 /* Tutorial.storyboard in Resources */,
 				F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */,
@@ -1395,6 +1430,7 @@
 				F7E81FB51A97057100F9A8D4 /* moss.jpeg in Resources */,
 				A0B0F5CB1B256AE300BB1169 /* Eiffel_Tower.jpg in Resources */,
 				F74A55141AB048570009FE4C /* PersonalityWidgetCell.xib in Resources */,
+				A033EC551BC37B9B003AAE4F /* Icon-40.png in Resources */,
 				F7E81F9D1A97057100F9A8D4 /* Charles.jpg in Resources */,
 				F7E81F941A97057100F9A8D4 /* apple-logo.gif in Resources */,
 				A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */,
@@ -1415,6 +1451,7 @@
 				F7AE10891AC022CD0091E1C7 /* InfluencerCell.xib in Resources */,
 				A0CF5C591B1DD98B00DED2D9 /* ExecutiveMoves.storyboard in Resources */,
 				A0CF5C791B1EFE1100DED2D9 /* dealsDril.html in Resources */,
+				A033EC5A1BC37B9B003AAE4F /* Icon-76.png in Resources */,
 				F7E81FC21A97057100F9A8D4 /* snow.jpg in Resources */,
 				F717CC931AB1AF6900F66B53 /* back.jpg in Resources */,
 				F7E81FC01A97057100F9A8D4 /* Siemens-logo.svg in Resources */,
@@ -1423,6 +1460,8 @@
 				A0CF5C631B1DD98B00DED2D9 /* stock.storyboard in Resources */,
 				F7E81FA11A97057100F9A8D4 /* google-icon.png in Resources */,
 				A0CF5C651B1DD98B00DED2D9 /* TimeLineCell.xib in Resources */,
+				A033EC571BC37B9B003AAE4F /* Icon-40@3x.png in Resources */,
+				A033EC5D1BC37B9B003AAE4F /* Icon-Small@2x.png in Resources */,
 				F7E81FA01A97057100F9A8D4 /* Ed.jpeg in Resources */,
 				A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */,
 				F5F727271B6F809400DE7980 /* SocialLinkCell.xib in Resources */,
@@ -1451,6 +1490,7 @@
 				F7E81F9C1A97057100F9A8D4 /* carolynryan.jpeg in Resources */,
 				F7ECACCC1AB0730000B57AB6 /* StockWidgetCell.xib in Resources */,
 				F7E81FAB1A97057100F9A8D4 /* ipads.jpg in Resources */,
+				A033EC5B1BC37B9B003AAE4F /* Icon-76@2x.png in Resources */,
 				A003B1A31B18710400857F35 /* large_apple.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1642,8 +1682,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1663,7 +1703,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1686,8 +1726,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1700,7 +1740,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1711,9 +1751,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90EF9BD902798B39A9DB8F3B /* Pods-FullIntel.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1723,7 +1764,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1732,9 +1773,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1744,7 +1786,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
