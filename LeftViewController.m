@@ -651,6 +651,23 @@
     newsLetterObj.children = nil;
     [self.data addObject:newsLetterObj];
     
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        //AddContent menu
+        RADataObject *newsLetterObj = [[RADataObject alloc]init];
+        newsLetterObj.name = @"ADD CONTENT";
+        newsLetterObj.nodeId = [NSNumber numberWithInt:-300];
+        newsLetterObj.children = nil;
+        [self.data addObject:newsLetterObj];
+        
+        //ResearchRequest Menu
+        RADataObject *researchReqObj = [[RADataObject alloc]init];
+        researchReqObj.name = @"RESEARCH REQUEST";
+        researchReqObj.nodeId = [NSNumber numberWithInt:-400];
+        researchReqObj.children = nil;
+        [self.data addObject:researchReqObj];
+        
+    }
     
     RADataObject *dataObj = [[RADataObject alloc]init];
     dataObj.name = @"LOGOUT";
@@ -932,6 +949,33 @@
             cell.iconImage.hidden = YES;
         }
     }
+    
+    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
+        //For Daily Digest
+        cell.iconWidthConstraint.constant =15;
+        cell.titleConstraint.constant = 9;
+        cell.titleWidthConstraint.constant = 160;
+        left = 40 + 11 + 20 * level;
+        cell.iconImage.hidden = NO;
+        cell.iconImage.image = [UIImage imageNamed:@"dailydigest_menu"];
+    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-300]]) {
+        //For Add Content
+        cell.iconWidthConstraint.constant =15;
+        cell.titleConstraint.constant = 9;
+        cell.titleWidthConstraint.constant = 160;
+        left = 40 + 11 + 20 * level;
+        cell.iconImage.hidden = NO;
+        cell.iconImage.image = [UIImage imageNamed:@"addcontent_menu"];
+    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-400]])  {
+        //For Research request
+        cell.iconWidthConstraint.constant =15;
+        cell.titleConstraint.constant = 9;
+        cell.titleWidthConstraint.constant = 160;
+        left = 40 + 11 + 20 * level;
+        cell.iconImage.hidden = NO;
+        cell.iconImage.image = [UIImage imageNamed:@"researchReq"];
+    }
+    
     
     if([[dataObject.name uppercaseString]isEqualToString:@"RSS"]) {
         cell.rssImage.hidden = NO;
