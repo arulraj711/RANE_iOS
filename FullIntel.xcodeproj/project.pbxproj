@@ -132,7 +132,9 @@
 		A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E4B11B1B4BF90A0029D389 /* FolderCell.m */; };
 		A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ECBDEE1AEA499700B140C8 /* RFQuiltLayout.m */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
-		BADFC5931BC2B7B8005914DF /* line_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = BADFC5921BC2B7B8005914DF /* line_chart.png */; settings = {ASSET_TAGS = (); }; };
+		BADFC5951BC384B9005914DF /* chart_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = BADFC5941BC384B9005914DF /* chart_bar.png */; settings = {ASSET_TAGS = (); }; };
+		BADFC5981BC39B0E005914DF /* StoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BADFC5971BC39B0E005914DF /* StoryTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		BADFC59A1BC3A38D005914DF /* chart_story.json in Resources */ = {isa = PBXBuildFile; fileRef = BADFC5991BC3A38D005914DF /* chart_story.json */; settings = {ASSET_TAGS = (); }; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
@@ -451,7 +453,10 @@
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 3.xcdatamodel"; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
-		BADFC5921BC2B7B8005914DF /* line_chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line_chart.png; sourceTree = "<group>"; };
+		BADFC5941BC384B9005914DF /* chart_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chart_bar.png; sourceTree = "<group>"; };
+		BADFC5961BC39B0E005914DF /* StoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableViewCell.h; sourceTree = "<group>"; };
+		BADFC5971BC39B0E005914DF /* StoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryTableViewCell.m; sourceTree = "<group>"; };
+		BADFC5991BC3A38D005914DF /* chart_story.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chart_story.json; sourceTree = "<group>"; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -864,8 +869,8 @@
 		A0DEB4051BB12D84003B50C8 /* CommunicationIssues */ = {
 			isa = PBXGroup;
 			children = (
-				BADFC5921BC2B7B8005914DF /* line_chart.png */,
 				F55ACE051BB53E6700E9AD27 /* issue_list.json */,
+				BADFC5991BC3A38D005914DF /* chart_story.json */,
 				A09590661BB41D23005C3769 /* css */,
 				A0DEB4061BB12DBB003B50C8 /* CommunicationIssuesPage.h */,
 				A09590631BB41AB8005C3769 /* IssueTweetCell.h */,
@@ -894,6 +899,8 @@
 				A095905E1BB3FEC1005C3769 /* IssueDrillInPage.m */,
 				A09590601BB41546005C3769 /* IssueSocialCell.h */,
 				A09590611BB41546005C3769 /* IssueSocialCell.m */,
+				BADFC5961BC39B0E005914DF /* StoryTableViewCell.h */,
+				BADFC5971BC39B0E005914DF /* StoryTableViewCell.m */,
 			);
 			name = CommunicationIssues;
 			sourceTree = "<group>";
@@ -1292,6 +1299,7 @@
 			isa = PBXGroup;
 			children = (
 				A003B1A91B1874A200857F35 /* Apple_Car.jpg */,
+				BADFC5941BC384B9005914DF /* chart_bar.png */,
 				A003B1A21B18710400857F35 /* large_apple.jpg */,
 				A010C1C01B1F32AF00BF053D /* john_maddox.jpg */,
 				F717CC921AB1AF6900F66B53 /* back.jpg */,
@@ -1518,7 +1526,6 @@
 				A0CAB6071BC1642100B485B9 /* chart.jpg in Resources */,
 				F7EDA00C1AC136CD00A5C601 /* influencer_list.json in Resources */,
 				A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */,
-				BADFC5931BC2B7B8005914DF /* line_chart.png in Resources */,
 				F7E81FBF1A97057100F9A8D4 /* samsung_topic.jpg in Resources */,
 				A0CF5C611B1DD98B00DED2D9 /* PersonalityExecutiveCell.xib in Resources */,
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,
@@ -1562,6 +1569,7 @@
 				A003B1AA1B1874A200857F35 /* Apple_Car.jpg in Resources */,
 				F7E81FB71A97057100F9A8D4 /* Nick.jpeg in Resources */,
 				F7E81F8C1A97057100F9A8D4 /* -iwatch.jpg in Resources */,
+				BADFC59A1BC3A38D005914DF /* chart_story.json in Resources */,
 				F7E81FAE1A97057100F9A8D4 /* iwatch.jpg in Resources */,
 				F7AE10891AC022CD0091E1C7 /* InfluencerCell.xib in Resources */,
 				A09590871BB41D23005C3769 /* glyphicons-halflings-regular.svg in Resources */,
@@ -1569,6 +1577,7 @@
 				A0CF5C791B1EFE1100DED2D9 /* dealsDril.html in Resources */,
 				F7E81FC21A97057100F9A8D4 /* snow.jpg in Resources */,
 				F717CC931AB1AF6900F66B53 /* back.jpg in Resources */,
+				BADFC5951BC384B9005914DF /* chart_bar.png in Resources */,
 				F7E81FC01A97057100F9A8D4 /* Siemens-logo.svg in Resources */,
 				F717CC951AB1B2E900F66B53 /* OpenSans-Regular.ttf in Resources */,
 				A0CF5C631B1DD98B00DED2D9 /* stock.storyboard in Resources */,
@@ -1682,6 +1691,7 @@
 				F7E368821ABC18F70083F38E /* MailPopoverView.m in Sources */,
 				A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */,
 				A0D0585F1B206208008F69ED /* MKNumberBadgeView.m in Sources */,
+				BADFC5981BC39B0E005914DF /* StoryTableViewCell.m in Sources */,
 				A0CF5C701B1DD98B00DED2D9 /* Stories.m in Sources */,
 				F7E85EA31A9F28970022B4D5 /* FIWebService.m in Sources */,
 				F7CE36F01A95E99D0005AA0A /* RADataObject.m in Sources */,

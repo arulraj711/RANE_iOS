@@ -12,6 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "IssueMonitoringInfluencerCell.h"
 #import "IssueDrillInPage.h"
+#import "StoryTableViewCell.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface IssueMonitoringReportPage ()
 
@@ -21,14 +22,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-//    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"index_1" ofType:@"html"];
-//    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-//    [self.detailsWebview loadHTMLString:htmlString baseURL:nil];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"issue_list" ofType:@"json"];
+    self.resultsLabel.layer.masksToBounds = YES;
+    self.resultsLabel.layer.cornerRadius = 40;
+    self.resultsLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.resultsLabel.layer.borderWidth = 1;
+    
+    self.changeLabel.layer.masksToBounds = YES;
+    self.changeLabel.layer.cornerRadius = 40;
+    self.changeLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.changeLabel.layer.borderWidth = 1;
+    
+    self.storyIndex = 0;
+    self.selectedTitle.text = @"Sentiment Over Time";
+    self.collectionView.hidden = YES;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     NSError *error;
-    issueList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    [self.storyTableView reloadData];
+    self.tableOuterView.layer.borderWidth = 1.0f;
+    self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,18 +53,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    self.selectedItemArray = [[NSMutableArray alloc]init];
-    self.monitoringInfluencerTableView.hidden = YES;
-    self.monitoringOutletTableView.hidden = NO;
-    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/outlets.json"]];
-    NSError *error;
-    monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    NSLog(@"issue lis:%@",monitoringOutletList);
-    [self.selectedItemArray addObject:@"Outlets"];
-    [self.monitoringOutletTableView reloadData];
-    NSDictionary *issueDic = [issueList objectAtIndex:0];
-    [self.selectedItemArray addObject:[issueDic objectForKey:@"name"]];
-    [self.collectionView reloadData];
+    
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -59,10 +64,8 @@
     return issueList.count;
 }
 
-
-
-
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+   // NSLog(@"collectionview cell for item");
     IssueMonitoringCell *cell = (IssueMonitoringCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
     cell.cellOuterView.layer.masksToBounds = YES;
@@ -70,22 +73,10 @@
     cell.cellOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     cell.cellOuterView.layer.borderWidth = 1;
     NSDictionary *issueDic = [issueList objectAtIndex:indexPath.row];
-//    if(indexPath.row == 0) {
-//        cell.title.text = @"Outlets";
-//        cell.cntLabel.text = @"54";
-//    } else if(indexPath.row == 1) {
-//        cell.title.text = @"Authors";
-//        cell.cntLabel.text = @"63";
-//    } else if(indexPath.row == 2) {
-//        cell.title.text = @"Influencers";
-//        cell.cntLabel.text = @"13";
-//    } else if(indexPath.row == 3) {
-//        cell.title.text = @"Friends";
-//        cell.cntLabel.text = @"43";
-//    } else if(indexPath.row == 4) {
+
         cell.title.text = [issueDic objectForKey:@"name"];
         cell.cntLabel.text = [issueDic objectForKey:@"count"];
-  //  }
+
     if([self.selectedItemArray containsObject:[issueDic objectForKey:@"name"]]) {
         cell.cellOuterView.backgroundColor = UIColorFromRGB(0Xebebeb);
         self.selectedTitle.text = [issueDic objectForKey:@"name"];
@@ -102,108 +93,155 @@
     [self.selectedItemArray addObject:[issueDic objectForKey:@"name"]];
     [self.collectionView reloadData];
     if(indexPath.row == 0) {
+        self.storyIndex = 1;
+        self.storyTitle.text = @"Top Outlets";
         self.monitoringInfluencerTableView.hidden = YES;
         self.monitoringOutletTableView.hidden = NO;
         NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/outlets.json"]];
         NSError *error;
         monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         NSLog(@"issue lis:%@",monitoringOutletList);
-        [self.monitoringOutletTableView reloadData];
+        [self.storyTableView reloadData];
     }else if(indexPath.row == 1) {
+        self.storyIndex = 2;
+        self.storyTitle.text = @"Top Authors";
         self.monitoringOutletTableView.hidden = YES;
         self.monitoringInfluencerTableView.hidden = NO;
         NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/authors.json"]];
         NSError *error;
         monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         NSLog(@"issue lis:%@",monitoringOutletList);
-        [self.monitoringInfluencerTableView reloadData];
+        [self.storyTableView reloadData];
     } else if(indexPath.row == 2) {
+        self.storyIndex = 2;
+        self.storyTitle.text = @"Top Influencers";
         self.monitoringOutletTableView.hidden = YES;
         self.monitoringInfluencerTableView.hidden = NO;
         NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/influencers.json"]];
         NSError *error;
         monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         NSLog(@"issue lis:%@",monitoringOutletList);
-        [self.monitoringInfluencerTableView reloadData];
+        [self.storyTableView reloadData];
     } else if(indexPath.row == 3) {
+        self.storyIndex = 2;
+        self.storyTitle.text = @"Top Friends";
         self.monitoringOutletTableView.hidden = YES;
         self.monitoringInfluencerTableView.hidden = NO;
         NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/friends.json"]];
         NSError *error;
         monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         NSLog(@"issue lis:%@",monitoringOutletList);
-        [self.monitoringInfluencerTableView reloadData];
+        [self.storyTableView reloadData];
     } else if(indexPath.row == 4) {
+        self.storyIndex = 2;
+        self.storyTitle.text = @"Top Foes";
         self.monitoringOutletTableView.hidden = YES;
         self.monitoringInfluencerTableView.hidden = NO;
         NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/foes.json"]];
         NSError *error;
         monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         NSLog(@"issue lis:%@",monitoringOutletList);
-        [self.monitoringInfluencerTableView reloadData];
+        [self.storyTableView reloadData];
     }
     
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return monitoringOutletList.count;
+    int rowCnt = 0;
+    if(self.storyIndex == 0) {
+        rowCnt = chartStoryList.count;
+    } else if(self.storyIndex == 1) {
+        rowCnt = monitoringOutletList.count;
+    } else if(self.storyIndex == 2){
+        rowCnt = monitoringOutletList.count;
+    }
+    return rowCnt;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell;
-    if(tableView == self.monitoringOutletTableView) {
-        IssueMonitoringOutletCell *outletCell = (IssueMonitoringOutletCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        NSDictionary *issueDic = [monitoringOutletList objectAtIndex:indexPath.row];
-        outletCell.articleTitle.text = [issueDic objectForKey:@"title"];
-        [outletCell.articleImage sd_setImageWithURL:[NSURL URLWithString:[issueDic valueForKey:@"articleImageUrl"]] placeholderImage:[UIImage imageNamed:@"FI"]];
-        [outletCell.articleImage setContentMode:UIViewContentModeScaleAspectFill];
-        outletCell.articleDate.text = [issueDic objectForKey:@"date"];
-        outletCell.articleOutlet.text =  [issueDic objectForKey:@"outlet"];
-        outletCell.articleAuthor.text = [issueDic objectForKey:@"author"];
-        outletCell.articleDesc.text = [issueDic objectForKey:@"desc"];
-        outletCell.contentView.alpha = 1.0f;
-        cell = outletCell;
-    } else if(tableView == self.monitoringInfluencerTableView) {
-        IssueMonitoringInfluencerCell *influencerCell = (IssueMonitoringInfluencerCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        NSDictionary *issueDic = [monitoringOutletList objectAtIndex:indexPath.row];
-        influencerCell.articleTitle.text = [issueDic objectForKey:@"title"];
-        [influencerCell.articleAuthorImage sd_setImageWithURL:[NSURL URLWithString:[issueDic valueForKey:@"authorImage"]] placeholderImage:[UIImage imageNamed:@"FI"]];
-        [influencerCell.articleAuthorImage setContentMode:UIViewContentModeScaleAspectFill];
-        influencerCell.articleDate.text = [issueDic objectForKey:@"date"];
-        influencerCell.articleOutlet.text =  [issueDic objectForKey:@"outlet"];
-        influencerCell.articleAuthor.text = [issueDic objectForKey:@"author"];
-        influencerCell.articleDesc.text = [issueDic objectForKey:@"desc"];
-        influencerCell.articleAuthorTitle.text = [issueDic objectForKey:@"authorTitle"];
-        influencerCell.contentView.alpha = 1.0f;
-        cell = influencerCell;
+    StoryTableViewCell *cell = (StoryTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    int cnt = indexPath.row+1;
+    cell.numberLabel.text = [NSString stringWithFormat:@"%d",cnt];
+    NSDictionary *dic;
+    if(self.storyIndex == 0) {
+        dic = [chartStoryList objectAtIndex:indexPath.row];
+        cell.titleLabel.text = [dic objectForKey:@"title"];
+        cell.outletLabel.text = [dic objectForKey:@"outlet"];
+    } else if(self.storyIndex == 1) {
+        dic = [monitoringOutletList objectAtIndex:indexPath.row];
+        cell.titleLabel.text = [dic objectForKey:@"outlet"];
+        cell.outletLabel.text = [dic objectForKey:@"articleImageUrl"];
+    } else if(self.storyIndex == 2) {
+        dic = [monitoringOutletList objectAtIndex:indexPath.row];
+        cell.titleLabel.text = [dic objectForKey:@"author"];
+        cell.outletLabel.text = [dic objectForKey:@"outlet"];
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    
+    
     return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CommunicationIssues" bundle:nil];
-    IssueDrillInPage *issuesList = [storyBoard instantiateViewControllerWithIdentifier:@"IssueDrillInPage"];
-    [self.navigationController pushViewController:issuesList animated:YES];
+//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CommunicationIssues" bundle:nil];
+//    IssueDrillInPage *issuesList = [storyBoard instantiateViewControllerWithIdentifier:@"IssueDrillInPage"];
+//    [self.navigationController pushViewController:issuesList animated:YES];
     
 }
 
 
 - (IBAction)barChartBtnClick:(id)sender {
+    self.selectedTitle.text = @"Sentiment Over Time";
+    self.storyTitle.text = @"Top Stories";
+    self.collectionView.hidden = YES;
     self.chartImageView.image = [UIImage imageNamed:@"bar_chart"];
 }
 - (IBAction)doughnetChartBtnClick:(id)sender {
+    self.selectedTitle.text = @"Share of Voice - Topics";
+    self.storyTitle.text = @"Top Stories";
+    self.collectionView.hidden = YES;
     self.chartImageView.image = [UIImage imageNamed:@"doughnut_chart"];
 }
 - (IBAction)lineChartBtnClick:(id)sender {
+    self.selectedTitle.text = @"Result Over Time";
+    self.storyTitle.text = @"Top Stories";
+    self.collectionView.hidden = YES;
     self.chartImageView.image = [UIImage imageNamed:@"line_chart"];
 }
 
+- (IBAction)numberBtnClick:(id)sender {
+    self.selectedTitle.text = @"";
+    self.collectionView.hidden = NO;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"issue_list" ofType:@"json"];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSError *error;
+    issueList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    NSLog(@"number btn click count:%d",issueList.count);
+    [self.collectionView reloadData];
+    
+    
+    self.selectedItemArray = [[NSMutableArray alloc]init];
+    self.storyIndex = 1;
+    NSData *data1 = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/outlets.json"]];
+    NSError *error1;
+    monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingAllowFragments error:&error1];
+    NSLog(@"issue lis:%@",monitoringOutletList);
+    [self.selectedItemArray addObject:@"Outlets"];
+    [self.storyTableView reloadData];
+    self.storyTitle.text = @"Top Outlets";
+    NSDictionary *issueDic = [issueList objectAtIndex:0];
+    [self.selectedItemArray addObject:[issueDic objectForKey:@"name"]];
+    [self.collectionView reloadData];
+}
+
 - (IBAction)pieChartBtnClick:(id)sender {
+    self.selectedTitle.text = @"Share of Voice - Products";
+    self.storyTitle.text = @"Top Stories";
+    self.collectionView.hidden = YES;
     self.chartImageView.image = [UIImage imageNamed:@"pie_chart"];
 }
 @end
