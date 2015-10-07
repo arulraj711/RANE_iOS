@@ -248,7 +248,7 @@
     [self.doughChartButton setSelected:NO];
     [self.numberButton setSelected:NO];
     self.storyIndex = 0;
-    self.selectedTitle.text = @"Result Over Time";
+    self.selectedTitle.text = @"Mentions Over Time";
     self.storyTitle.text = @"Top Stories";
     self.collectionView.hidden = YES;
     self.chartImageView.image = [UIImage imageNamed:@"line_chart"];
