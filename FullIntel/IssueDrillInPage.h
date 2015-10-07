@@ -25,5 +25,5 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *socialLinkCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *tweetsCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *bioText;
-
+@property (weak, nonatomic) IBOutlet UIImageView *bottomAuthorImage;
 @end

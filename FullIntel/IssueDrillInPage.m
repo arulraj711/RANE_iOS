@@ -44,6 +44,13 @@
     
     [self.authorImage sd_setImageWithURL:[NSURL URLWithString:[articleDic valueForKey:@"authorImage"]] placeholderImage:[UIImage imageNamed:@"FI"]];
     [self.authorImage setContentMode:UIViewContentModeScaleAspectFill];
+    
+    self.bottomAuthorImage.layer.masksToBounds = YES;
+    self.bottomAuthorImage.layer.cornerRadius = 25.0f;
+    
+    [self.bottomAuthorImage sd_setImageWithURL:[NSURL URLWithString:[articleDic valueForKey:@"authorImage"]] placeholderImage:[UIImage imageNamed:@"FI"]];
+    [self.bottomAuthorImage setContentMode:UIViewContentModeScaleAspectFill];
+    
     self.authorName.text = [articleDic objectForKey:@"authorname"];
     self.outlet.text = [articleDic objectForKey:@"authorOultlet"];
     self.location.text = [articleDic objectForKey:@"authorLocation"];
