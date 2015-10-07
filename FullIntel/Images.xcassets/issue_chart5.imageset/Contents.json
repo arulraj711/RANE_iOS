@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "numbers.png",
+      "filename" : "number.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "numbers@2x.png",
+      "filename" : "number2x.png",
       "scale" : "2x"
     },
     {

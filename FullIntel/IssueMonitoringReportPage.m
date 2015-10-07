@@ -43,8 +43,21 @@
     self.tableOuterView.layer.borderWidth = 1.0f;
     self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =@"Issue Monitoring Report";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
     
     
+    [self.barChartButton setSelected:YES];
+    [self.pieChartButton setSelected:NO];
+    [self.lineChartButton setSelected:NO];
+    [self.doughChartButton setSelected:NO];
+    [self.numberButton setSelected:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -195,25 +208,63 @@
 
 
 - (IBAction)barChartBtnClick:(id)sender {
+    [self.barChartButton setSelected:YES];
+    [self.pieChartButton setSelected:NO];
+    [self.lineChartButton setSelected:NO];
+    [self.doughChartButton setSelected:NO];
+    [self.numberButton setSelected:NO];
+    self.storyIndex = 0;
     self.selectedTitle.text = @"Sentiment Over Time";
     self.storyTitle.text = @"Top Stories";
     self.collectionView.hidden = YES;
     self.chartImageView.image = [UIImage imageNamed:@"bar_chart"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSError *error;
+    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    [self.storyTableView reloadData];
 }
 - (IBAction)doughnetChartBtnClick:(id)sender {
+    [self.barChartButton setSelected:NO];
+    [self.pieChartButton setSelected:NO];
+    [self.lineChartButton setSelected:NO];
+    [self.doughChartButton setSelected:YES];
+    [self.numberButton setSelected:NO];
+    self.storyIndex = 0;
     self.selectedTitle.text = @"Share of Voice - Topics";
     self.storyTitle.text = @"Top Stories";
     self.collectionView.hidden = YES;
     self.chartImageView.image = [UIImage imageNamed:@"doughnut_chart"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSError *error;
+    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    [self.storyTableView reloadData];
 }
 - (IBAction)lineChartBtnClick:(id)sender {
+    [self.barChartButton setSelected:NO];
+    [self.pieChartButton setSelected:NO];
+    [self.lineChartButton setSelected:YES];
+    [self.doughChartButton setSelected:NO];
+    [self.numberButton setSelected:NO];
+    self.storyIndex = 0;
     self.selectedTitle.text = @"Result Over Time";
     self.storyTitle.text = @"Top Stories";
     self.collectionView.hidden = YES;
     self.chartImageView.image = [UIImage imageNamed:@"line_chart"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSError *error;
+    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    [self.storyTableView reloadData];
 }
 
 - (IBAction)numberBtnClick:(id)sender {
+    [self.barChartButton setSelected:NO];
+    [self.pieChartButton setSelected:NO];
+    [self.lineChartButton setSelected:NO];
+    [self.doughChartButton setSelected:NO];
+    [self.numberButton setSelected:YES];
     self.selectedTitle.text = @"";
     self.collectionView.hidden = NO;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"issue_list" ofType:@"json"];
@@ -236,12 +287,25 @@
     NSDictionary *issueDic = [issueList objectAtIndex:0];
     [self.selectedItemArray addObject:[issueDic objectForKey:@"name"]];
     [self.collectionView reloadData];
+    
 }
 
 - (IBAction)pieChartBtnClick:(id)sender {
+    //UIButton *btn = (UIButton *)sender;
+    [self.barChartButton setSelected:NO];
+    [self.pieChartButton setSelected:YES];
+    [self.lineChartButton setSelected:NO];
+    [self.doughChartButton setSelected:NO];
+    [self.numberButton setSelected:NO];
+    self.storyIndex = 0;
     self.selectedTitle.text = @"Share of Voice - Products";
     self.storyTitle.text = @"Top Stories";
     self.collectionView.hidden = YES;
     self.chartImageView.image = [UIImage imageNamed:@"pie_chart"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSError *error;
+    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    [self.storyTableView reloadData];
 }
 @end

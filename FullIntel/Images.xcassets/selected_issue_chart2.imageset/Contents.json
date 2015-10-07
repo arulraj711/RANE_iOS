@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "line.png",
+      "filename" : "pie_selected.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "line2x.png",
+      "filename" : "pie_selected2x.png",
       "scale" : "2x"
     },
     {

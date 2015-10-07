@@ -12,6 +12,11 @@
     NSArray *monitoringOutletList;
     NSArray *chartStoryList,*issueList;
 }
+@property (weak, nonatomic) IBOutlet UIButton *barChartButton;
+@property (weak, nonatomic) IBOutlet UIButton *pieChartButton;
+@property (weak, nonatomic) IBOutlet UIButton *lineChartButton;
+@property (weak, nonatomic) IBOutlet UIButton *doughChartButton;
+@property (weak, nonatomic) IBOutlet UIButton *numberButton;
 
 - (IBAction)doughnetChartBtnClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *selectedTitle;
