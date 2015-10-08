@@ -23,7 +23,7 @@
 #import "RATreeView+TableViewDelegate.h"
 #import "RATreeView_ClassExtension.h"
 #import "RATreeView+Private.h"
-
+#import "RADataObject.h"
 #import "RATreeView.h"
 #import "RATreeNodeCollectionController.h"
 #import "RATreeNode.h"
@@ -38,6 +38,16 @@
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
+-(void)newsletterLoad {
+//    NSNotification *notification = sender;
+//    NSDictionary *userInfo = notification.userInfo;
+//    NSNumber *index = [userInfo objectForKey:@"index"];
+    //[self indexPathForItem:<#(id)#>];
+    RADataObject *newsDataObject = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterObj"];
+    NSLog(@"news selected index:%@",newsDataObject);
+  //  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[index integerValue] inSection:0];
+   // [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

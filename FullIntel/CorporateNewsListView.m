@@ -918,6 +918,31 @@
             }
         }
         // NSLog(@"curated news legends list:%d",legendsList.count);
+        NSLog(@"total cnt:%@ and unread cnt:%@",[curatedNews valueForKey:@"totalComments"],[curatedNews valueForKey:@"unreadComments"]);
+        NSNumber *totalMsgCount = [curatedNews valueForKey:@"totalComments"];
+        NSNumber *totalUnreadCount = [curatedNews valueForKey:@"unreadComments"];
+        if([totalMsgCount isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            //Handle empty message count
+            cell.messageIcon.hidden = YES;
+            cell.messageCountText.hidden = YES;
+        } else {
+            cell.messageIcon.hidden = NO;
+            cell.messageCountText.hidden = NO;
+            if([totalUnreadCount isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                //handle unread message count
+                cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comments",totalMsgCount];
+                cell.messageCountText.textColor = [UIColor blackColor];
+                cell.messageIcon.image = [UIImage imageNamed:@"chat_read"];
+            } else {
+                //handle read message count
+                cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comments",totalUnreadCount];
+                cell.messageCountText.textColor = UIColorFromRGB(0XF299A2);
+                cell.messageIcon.image = [UIImage imageNamed:@"chat_unread"];
+                
+            }
+        }
+        
+        
         NSString *dateStr = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
         cell.articleDate.text = dateStr;
         [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];

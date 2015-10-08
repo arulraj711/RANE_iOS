@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *articleImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UIView *bookmarkView;
+@property (weak, nonatomic) IBOutlet UILabel *messageCountText;
+@property (weak, nonatomic) IBOutlet UIImageView *messageIcon;
 @property (weak, nonatomic) IBOutlet UICollectionView *legendCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *authorName;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleHeightConstraint;

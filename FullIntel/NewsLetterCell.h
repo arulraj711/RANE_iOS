@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *newsLetterTitle;
 @property (weak, nonatomic) IBOutlet UILabel *articlesCount;
 @property (weak, nonatomic) IBOutlet UILabel *createdDate;
+@property (weak, nonatomic) IBOutlet UILabel *serialNumber;
 
 @end

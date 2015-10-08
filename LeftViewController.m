@@ -198,6 +198,26 @@
 
 
 -(void)newsLetterNavigationToArticle:(id)sender {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length > 0 && self.data.count > 2) {
+        RADataObject *newsletterDataObj;
+        for(RADataObject *dataObject in self.data) {
+            NSLog(@"newsletter for loop:%@",dataObject);
+            if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
+                NSLog(@"inside if stmt");
+                newsletterDataObj = dataObject;
+            }
+        }
+        NSLog(@"news letter obj:%@",newsletterDataObj);
+        NSInteger dataIndex = [self.data indexOfObject:newsletterDataObj];
+        NSLog(@"newsletter index:%d",dataIndex);
+        NSInteger level = [self.treeView levelForCellForItem:newsletterDataObj];
+        NSLog(@"newsletter level:%d",level);
+//        [self.treeView selectRowForItem:[self.data objectAtIndex:dataIndex] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+//        [[NSUserDefaults standardUserDefaults]setObject:newsletterDataObj forKey:@"newsletterObj"];
+//        
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"newsletterLoad" object:nil userInfo:@{@"index":[NSNumber numberWithInteger:dataIndex]}];
+    }
     
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
@@ -939,6 +959,15 @@
             left = 34 + 20 * level;
             cell.iconImage.hidden = YES;
         }
+    }
+    
+    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]])  {
+        cell.iconWidthConstraint.constant =15;
+        cell.titleConstraint.constant = 9;
+        cell.titleWidthConstraint.constant = 160;
+        left = 40 + 11 + 20 * level;
+        cell.iconImage.hidden = NO;
+        cell.iconImage.image = [UIImage imageNamed:@"newsletter_menu"];
     }
     
     if([[dataObject.name uppercaseString]isEqualToString:@"RSS"]) {
