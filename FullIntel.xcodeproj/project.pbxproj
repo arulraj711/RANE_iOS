@@ -28,6 +28,10 @@
 		A033EC5C1BC37B9B003AAE4F /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC521BC37B9B003AAE4F /* Icon-Small.png */; };
 		A033EC5D1BC37B9B003AAE4F /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC531BC37B9B003AAE4F /* Icon-Small@2x.png */; };
 		A033EC5E1BC37B9B003AAE4F /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A033EC541BC37B9B003AAE4F /* Icon-Small@3x.png */; };
+		A033EC611BC4CF72003AAE4F /* SocialLinkCellPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A033EC5F1BC4CF72003AAE4F /* SocialLinkCellPhone.xib */; };
+		A033EC621BC4CF72003AAE4F /* TweetsCellPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A033EC601BC4CF72003AAE4F /* TweetsCellPhone.xib */; };
+		A033EC671BC4D49D003AAE4F /* SocialLinkCellPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = A033EC641BC4D49D003AAE4F /* SocialLinkCellPhone.m */; };
+		A033EC681BC4D49D003AAE4F /* TweetsCellPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = A033EC661BC4D49D003AAE4F /* TweetsCellPhone.m */; };
 		A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0406BA01B05CE5F00985CF8 /* TweetsCell.m */; };
 		A041F0011B2ADA9E00B5600C /* LegendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A041EFFF1B2ADA9E00B5600C /* LegendCollectionViewCell.m */; };
 		A041F0021B2ADA9E00B5600C /* LegendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A041F0001B2ADA9E00B5600C /* LegendCollectionViewCell.xib */; };
@@ -270,6 +274,12 @@
 		A033EC521BC37B9B003AAE4F /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		A033EC531BC37B9B003AAE4F /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		A033EC541BC37B9B003AAE4F /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@3x.png"; sourceTree = "<group>"; };
+		A033EC5F1BC4CF72003AAE4F /* SocialLinkCellPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLinkCellPhone.xib; sourceTree = "<group>"; };
+		A033EC601BC4CF72003AAE4F /* TweetsCellPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsCellPhone.xib; sourceTree = "<group>"; };
+		A033EC631BC4D49D003AAE4F /* SocialLinkCellPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLinkCellPhone.h; sourceTree = "<group>"; };
+		A033EC641BC4D49D003AAE4F /* SocialLinkCellPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLinkCellPhone.m; sourceTree = "<group>"; };
+		A033EC651BC4D49D003AAE4F /* TweetsCellPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsCellPhone.h; sourceTree = "<group>"; };
+		A033EC661BC4D49D003AAE4F /* TweetsCellPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsCellPhone.m; sourceTree = "<group>"; };
 		A0406B9F1B05CE5F00985CF8 /* TweetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsCell.h; sourceTree = "<group>"; };
 		A0406BA01B05CE5F00985CF8 /* TweetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsCell.m; sourceTree = "<group>"; };
 		A041EFFE1B2ADA9E00B5600C /* LegendCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendCollectionViewCell.h; sourceTree = "<group>"; };
@@ -649,7 +659,13 @@
 				F5F727261B6F809400DE7980 /* SocialLinkCell.xib */,
 				A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */,
 				A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */,
+				A033EC5F1BC4CF72003AAE4F /* SocialLinkCellPhone.xib */,
+				A033EC601BC4CF72003AAE4F /* TweetsCellPhone.xib */,
 				F5DAAA531B7080E80059425C /* TweetsCell.xib */,
+				A033EC631BC4D49D003AAE4F /* SocialLinkCellPhone.h */,
+				A033EC641BC4D49D003AAE4F /* SocialLinkCellPhone.m */,
+				A033EC651BC4D49D003AAE4F /* TweetsCellPhone.h */,
+				A033EC661BC4D49D003AAE4F /* TweetsCellPhone.m */,
 			);
 			name = CorporateDetailCell;
 			sourceTree = "<group>";
@@ -1342,6 +1358,7 @@
 				TargetAttributes = {
 					A0E2234C1A91C2F00073814A = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 8JJ7VBN6MD;
 					};
 				};
 			};
@@ -1379,6 +1396,7 @@
 				F7E81FA81A97057100F9A8D4 /* hp_hero_rtr2iogt_1140x548_v2.jpg in Resources */,
 				F7E81FCA1A97057100F9A8D4 /* tim.jpeg in Resources */,
 				A0E2235F1A91C2F00073814A /* Main.storyboard in Resources */,
+				A033EC611BC4CF72003AAE4F /* SocialLinkCellPhone.xib in Resources */,
 				F7E81FC81A97057100F9A8D4 /* statistics.png in Resources */,
 				F7E81FC41A97057100F9A8D4 /* sony_topic.jpg in Resources */,
 				F7F876B51AB976B00042404D /* influ_drillin.json in Resources */,
@@ -1491,6 +1509,7 @@
 				F7E81FAB1A97057100F9A8D4 /* ipads.jpg in Resources */,
 				A033EC5B1BC37B9B003AAE4F /* Icon-76@2x.png in Resources */,
 				A003B1A31B18710400857F35 /* large_apple.jpg in Resources */,
+				A033EC621BC4CF72003AAE4F /* TweetsCellPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1637,8 +1656,10 @@
 				A003B19F1B1841FF00857F35 /* CMPopTipView.m in Sources */,
 				A041F0011B2ADA9E00B5600C /* LegendCollectionViewCell.m in Sources */,
 				F7AE10821AC01E350091E1C7 /* InfluencerListView.m in Sources */,
+				A033EC681BC4D49D003AAE4F /* TweetsCellPhone.m in Sources */,
 				F773CFEF1ADE9E0A002FC7CF /* AddContentFirstLevelView.m in Sources */,
 				A0CF5C681B1DD98B00DED2D9 /* ExecutiveMoveCell.m in Sources */,
+				A033EC671BC4D49D003AAE4F /* SocialLinkCellPhone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1681,8 +1702,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1699,10 +1720,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1725,8 +1746,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1737,9 +1758,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1752,8 +1773,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1763,7 +1784,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1774,8 +1795,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1785,7 +1806,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

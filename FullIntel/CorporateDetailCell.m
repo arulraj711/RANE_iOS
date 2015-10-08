@@ -27,20 +27,35 @@
 #import "SocialWebView.h"
 #import "pop.h"
 #import "FIWebService.h"
+#import "TweetsCellPhone.h"
+#import "SocialLinkCellPhone.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @implementation CorporateDetailCell
 
 - (void)awakeFromNib {
     // Initialization code
-    self.authorImageView.layer.masksToBounds = YES;
-    self.authorImageView.layer.cornerRadius = 25.0f;
     self.badgeTwo.hideWhenZero = YES;
     self.socialLinkCollectionView.hidden = YES;
-    self.overlayArticleImageView.layer.masksToBounds = YES;
-    self.overlayArticleImageView.layer.cornerRadius = 10.0f;
-    self.overlayArticleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
-    self.overlayArticleImageView.layer.borderWidth = 0.5f;
+
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//        self.authorImageView.layer.masksToBounds = YES;
+//        self.authorImageView.layer.cornerRadius = 25.0f;
+//        self.badgeTwo.hideWhenZero = YES;
+//        self.socialLinkCollectionView.hidden = YES;
+//        self.overlayArticleImageView.layer.masksToBounds = YES;
+//        self.overlayArticleImageView.layer.cornerRadius = 10.0f;
+//        self.overlayArticleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
+//        self.overlayArticleImageView.layer.borderWidth = 0.5f;
+    } else {
+        self.authorImageView.layer.masksToBounds = YES;
+        self.authorImageView.layer.cornerRadius = 25.0f;
+        self.overlayArticleImageView.layer.masksToBounds = YES;
+        self.overlayArticleImageView.layer.cornerRadius = 10.0f;
+        self.overlayArticleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
+        self.overlayArticleImageView.layer.borderWidth = 0.5f;
+    }
+    
     
     self.contents = [NSDictionary dictionaryWithObjectsAndKeys:
                      // Rounded rect buttons
@@ -70,11 +85,11 @@
     
 }
 
--(void)resetCellWebviewHeight {
-    NSLog(@"resetCellWebviewHeight");
-    self.webViewHeightConstraint.constant = 200;
-}
-
+//-(void)resetCellWebviewHeight {
+//    NSLog(@"resetCellWebviewHeight");
+//    self.webViewHeightConstraint.constant = 200;
+//}
+//
 -(void)drillDownButtonClick:(id)sender {
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
@@ -393,9 +408,22 @@
         
     }
     else if(collectionView == self.socialcollectionView) {
-        return CGSizeMake(50, 50);
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            return CGSizeMake(20, 20);
+
+        } else {
+            return CGSizeMake(50, 50);
+
+        }
+        //changestod
     } else if(collectionView == self.tweetsLocalCollectionView) {
-        return CGSizeMake(320, 300);
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            return CGSizeMake(179, 194);
+            
+        } else {
+            return CGSizeMake(320, 300);
+            
+        }
     }
     return CGSizeMake(30, 30);
 }
@@ -449,81 +477,164 @@
     if(cv == self.socialcollectionView) {
         NSLog(@"one");
         // NSLog(@"inside social link collectionview cellfor item");
-        
-        [self.socialcollectionView registerClass:[SocialLinkCell class]
-                      forCellWithReuseIdentifier:@"Cell"];
-        [self.socialcollectionView registerNib:[UINib nibWithNibName:@"SocialLinkCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
-        NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
-        
-        SocialLinkCell *socialCell =(SocialLinkCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-        if([[socialLink valueForKey:@"mediatype"] isEqualToString:@"Twitter"]) {
-            socialCell.iconImage.image = [UIImage imageNamed:@"Twitter-1"];
+        if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
+            [self.socialcollectionView registerClass:[SocialLinkCellPhone class]
+                          forCellWithReuseIdentifier:@"Cell"];
+            [self.socialcollectionView registerNib:[UINib nibWithNibName:@"SocialLinkCellPhone" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
+            NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
+            
+            SocialLinkCellPhone *socialCell =(SocialLinkCellPhone*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+            if([[socialLink valueForKey:@"mediatype"] isEqualToString:@"Twitter"]) {
+                socialCell.iconImage.image = [UIImage imageNamed:@"Twitter-1"];
+            } else {
+                socialCell.iconImage.image = [UIImage imageNamed:[socialLink valueForKey:@"mediatype"]];
+            }
+            
+            if([[socialLink valueForKey:@"isactive"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                socialCell.blueCircleView.hidden = NO;
+            } else {
+                socialCell.blueCircleView.hidden = YES;
+            }
+            socialCell.cellOuterView.layer.borderWidth = 1.0f;
+            socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+            socialCell.cellOuterView.layer.masksToBounds = YES;
+            socialCell.cellOuterView.layer.cornerRadius = 10.0f;
+            socialCell.blueCircleView.layer.masksToBounds = YES;
+            socialCell.blueCircleView.layer.cornerRadius = 1.0f;
+            
+            
+            //        UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];
+            //        socialCell.tag = indexPath.row;
+            //        socialCell.iconImage.userInteractionEnabled = YES;
+            //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
+            collectionCell = socialCell;
+
+            
         } else {
-            socialCell.iconImage.image = [UIImage imageNamed:[socialLink valueForKey:@"mediatype"]];
+            [self.socialcollectionView registerClass:[SocialLinkCell class]
+                          forCellWithReuseIdentifier:@"Cell"];
+            [self.socialcollectionView registerNib:[UINib nibWithNibName:@"SocialLinkCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
+            NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
+            
+            SocialLinkCell *socialCell =(SocialLinkCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+            if([[socialLink valueForKey:@"mediatype"] isEqualToString:@"Twitter"]) {
+                socialCell.iconImage.image = [UIImage imageNamed:@"Twitter-1"];
+            } else {
+                socialCell.iconImage.image = [UIImage imageNamed:[socialLink valueForKey:@"mediatype"]];
+            }
+            
+            if([[socialLink valueForKey:@"isactive"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                socialCell.blueCircleView.hidden = NO;
+            } else {
+                socialCell.blueCircleView.hidden = YES;
+            }
+            socialCell.cellOuterView.layer.borderWidth = 1.0f;
+            socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+            socialCell.cellOuterView.layer.masksToBounds = YES;
+            socialCell.cellOuterView.layer.cornerRadius = 20.0f;
+            socialCell.blueCircleView.layer.masksToBounds = YES;
+            socialCell.blueCircleView.layer.cornerRadius = 5.0f;
+            
+            
+            //        UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];
+            //        socialCell.tag = indexPath.row;
+            //        socialCell.iconImage.userInteractionEnabled = YES;
+            //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
+            collectionCell = socialCell;
+
+            
         }
-        
-        if([[socialLink valueForKey:@"isactive"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            socialCell.blueCircleView.hidden = NO;
-        } else {
-            socialCell.blueCircleView.hidden = YES;
-        }
-        socialCell.cellOuterView.layer.borderWidth = 1.0f;
-        socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
-        socialCell.cellOuterView.layer.masksToBounds = YES;
-        socialCell.cellOuterView.layer.cornerRadius = 20.0f;
-        socialCell.blueCircleView.layer.masksToBounds = YES;
-        socialCell.blueCircleView.layer.cornerRadius = 5.0f;
-        
-        
-        //        UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];
-        //        socialCell.tag = indexPath.row;
-        //        socialCell.iconImage.userInteractionEnabled = YES;
-        //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
-        collectionCell = socialCell;
         
     } else if(cv == self.tweetsLocalCollectionView) {
         NSLog(@"come inside tweets collecionview");
-        [self.tweetsLocalCollectionView registerClass:[TweetsCell class]
-                           forCellWithReuseIdentifier:@"Cell"];
-        [self.tweetsLocalCollectionView registerNib:[UINib nibWithNibName:@"TweetsCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
-        TweetsCell *tweetCell =(TweetsCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-        TWTRTweet *tweetObj = [tweetArray objectAtIndex:indexPath.row];
-        TWTRUser *author = tweetObj.author;
-        tweetCell.author.text = author.name;
-        // NSLog(@"tweet id:%@",tweetObj.tweetID);
-        
-        
-        
-        
-        
-        NSLog(@"screen name:%@",author.screenName);
-        NSDictionary *followDic =[followersArray objectAtIndex:indexPath.row];
-        
-        NSString *follwersCnt= [NSString stringWithFormat:@"%@",[followDic objectForKey:@"formatted_followers_count"]];
-        NSArray *splitValues=[follwersCnt componentsSeparatedByString:@" "];
-        tweetCell.followers.text = [splitValues objectAtIndex:0];
-        
-        
-        tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
-        tweetCell.twitterText.text = tweetObj.text;
-        if(tweetObj.retweetCount/1000 == 0) {
-            tweetCell.retweet.text = [NSString stringWithFormat:@"%lld",tweetObj.retweetCount];
-        } else {
-            tweetCell.retweet.text = [NSString stringWithFormat:@"%lldK",tweetObj.retweetCount/1000];
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            [self.tweetsLocalCollectionView registerClass:[TweetsCellPhone class]
+                               forCellWithReuseIdentifier:@"Cell"];
+
+            [self.tweetsLocalCollectionView registerNib:[UINib nibWithNibName:@"TweetsCellPhone" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
+            TweetsCellPhone *tweetCell =(TweetsCellPhone*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+            TWTRTweet *tweetObj = [tweetArray objectAtIndex:indexPath.row];
+            TWTRUser *author = tweetObj.author;
+            tweetCell.author.text = author.name;
+            // NSLog(@"tweet id:%@",tweetObj.tweetID);
+            
+            
+            
+            
+            
+            NSLog(@"screen name:%@",author.screenName);
+            NSDictionary *followDic =[followersArray objectAtIndex:indexPath.row];
+            
+            NSString *follwersCnt= [NSString stringWithFormat:@"%@",[followDic objectForKey:@"formatted_followers_count"]];
+            NSArray *splitValues=[follwersCnt componentsSeparatedByString:@" "];
+            tweetCell.followers.text = [splitValues objectAtIndex:0];
+            
+            
+            tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
+            tweetCell.twitterText.text = tweetObj.text;
+            if(tweetObj.retweetCount/1000 == 0) {
+                tweetCell.retweet.text = [NSString stringWithFormat:@"%lld",tweetObj.retweetCount];
+            } else {
+                tweetCell.retweet.text = [NSString stringWithFormat:@"%lldK",tweetObj.retweetCount/1000];
+            }
+            
+            if(tweetObj.favoriteCount/1000 == 0) {
+                tweetCell.favourate.text = [NSString stringWithFormat:@"%lld",tweetObj.favoriteCount];
+            } else {
+                tweetCell.favourate.text = [NSString stringWithFormat:@"%lldK",tweetObj.favoriteCount/1000];
+            }
+            
+            
+            
+            //   tweetCell.followers.text = [tweetDic objectForKey:@"followers_current"];
+            tweetCell.contentView.layer.borderWidth = 1.0f;
+            tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:237.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1] CGColor];
+            collectionCell = tweetCell;
+        }
+        else{
+            [self.tweetsLocalCollectionView registerClass:[TweetsCell class]
+                               forCellWithReuseIdentifier:@"Cell"];
+            [self.tweetsLocalCollectionView registerNib:[UINib nibWithNibName:@"TweetsCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
+            TweetsCell *tweetCell =(TweetsCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+            TWTRTweet *tweetObj = [tweetArray objectAtIndex:indexPath.row];
+            TWTRUser *author = tweetObj.author;
+            tweetCell.author.text = author.name;
+            // NSLog(@"tweet id:%@",tweetObj.tweetID);
+            
+            
+            
+            
+            
+            NSLog(@"screen name:%@",author.screenName);
+            NSDictionary *followDic =[followersArray objectAtIndex:indexPath.row];
+            
+            NSString *follwersCnt= [NSString stringWithFormat:@"%@",[followDic objectForKey:@"formatted_followers_count"]];
+            NSArray *splitValues=[follwersCnt componentsSeparatedByString:@" "];
+            tweetCell.followers.text = [splitValues objectAtIndex:0];
+            
+            
+            tweetCell.auhtor2.text = [NSString stringWithFormat:@"@%@",author.screenName];
+            tweetCell.twitterText.text = tweetObj.text;
+            if(tweetObj.retweetCount/1000 == 0) {
+                tweetCell.retweet.text = [NSString stringWithFormat:@"%lld",tweetObj.retweetCount];
+            } else {
+                tweetCell.retweet.text = [NSString stringWithFormat:@"%lldK",tweetObj.retweetCount/1000];
+            }
+            
+            if(tweetObj.favoriteCount/1000 == 0) {
+                tweetCell.favourate.text = [NSString stringWithFormat:@"%lld",tweetObj.favoriteCount];
+            } else {
+                tweetCell.favourate.text = [NSString stringWithFormat:@"%lldK",tweetObj.favoriteCount/1000];
+            }
+            
+            
+            
+            //   tweetCell.followers.text = [tweetDic objectForKey:@"followers_current"];
+            tweetCell.contentView.layer.borderWidth = 1.0f;
+            tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:237.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1] CGColor];
+            collectionCell = tweetCell;
         }
         
-        if(tweetObj.favoriteCount/1000 == 0) {
-            tweetCell.favourate.text = [NSString stringWithFormat:@"%lld",tweetObj.favoriteCount];
-        } else {
-            tweetCell.favourate.text = [NSString stringWithFormat:@"%lldK",tweetObj.favoriteCount/1000];
-        }
-        
-        
-        
-        //   tweetCell.followers.text = [tweetDic objectForKey:@"followers_current"];
-        tweetCell.contentView.layer.borderWidth = 1.0f;
-        tweetCell.contentView.layer.borderColor = [[UIColor colorWithRed:237.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1] CGColor];
-        collectionCell = tweetCell;
     }else {
         NSLog(@"else part");
         //        [socialcollectionView registerClass:[SocialLinkCell class]
@@ -639,9 +750,26 @@
     webView.frame = frame;
     webView.scrollView.scrollEnabled = NO;
     webView.scrollView.bounces = NO;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        CGRect newBounds = self.articleWebview.bounds;
+        NSLog(@"%@",NSStringFromCGRect(newBounds));
+
+        newBounds.size.height =  self.articleWebview.scrollView.contentSize.height;
+        NSLog(@"%@",NSStringFromCGRect(newBounds));
+        NSLog(@"%@",NSStringFromCGSize(newBounds.size));
+        
+        NSLog(@"%f",self.webViewHeightConstraint.constant);
+        NSLog(@"%@",self.webViewHeightConstraint);
+        CGFloat pointOfWebview = newBounds.size.height;
+
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+680);
+        
+    }
+    else{
+
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
     
-    
+    }
     //    self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];
     //    self.starRating.userInteractionEnabled = NO;
     //    [self.ratingControl addSubview:self.starRating];
@@ -663,16 +791,35 @@
     self.articleWebview.frame = frame;
     //NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
     self.webViewHeightConstraint.constant = self.articleWebview.frame.size.height;
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, 4000);
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, 20);
+        
+    }
+    else{
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, 4000);
+
+    }
     UICollectionViewFlowLayout* tweetFlowLayout = [[UICollectionViewFlowLayout alloc]init];
     tweetFlowLayout.itemSize = CGSizeMake(100, 100);
     [tweetFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     
-    self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+100, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
-    
-    UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCell" bundle:nil];
-    [self.tweetsLocalCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
-    [self.tweetsLocalCollectionView registerClass:[TweetsCell class] forCellWithReuseIdentifier:@"Cell"];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+35, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
+
+        UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCellPhone" bundle:nil];
+        [self.tweetsLocalCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
+        [self.tweetsLocalCollectionView registerClass:[TweetsCellPhone class] forCellWithReuseIdentifier:@"Cell"];
+
+    }
+    else{
+        self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+100, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
+
+        UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCell" bundle:nil];
+        [self.tweetsLocalCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
+        [self.tweetsLocalCollectionView registerClass:[TweetsCell class] forCellWithReuseIdentifier:@"Cell"];
+
+        
+    }
     self.tweetsLocalCollectionView.delegate = self;
     self.tweetsLocalCollectionView.dataSource = self;
     //tweetsCollectionView.hidden = NO;
@@ -709,10 +856,22 @@
     self.tweetLabel.hidden = NO;
     self.tweetDividerImageView.hidden = NO;
     self.tweetsCollectionView.hidden = NO;
-    self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+250, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
-    UINib *cellNib = [UINib nibWithNibName:@"SocialLinkCell" bundle:nil];
-    [self.socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
-    [self.socialcollectionView registerClass:[SocialLinkCell class] forCellWithReuseIdentifier:@"Cell"];
+    UINib *cellNib;
+    if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
+        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+60, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+
+        cellNib = [UINib nibWithNibName:@"SocialLinkCellPhone" bundle:nil];
+        [self.socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
+        [self.socialcollectionView registerClass:[SocialLinkCellPhone class] forCellWithReuseIdentifier:@"Cell"];
+
+    } else {
+        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+250, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+
+        cellNib = [UINib nibWithNibName:@"SocialLinkCell" bundle:nil];
+        [self.socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
+        [self.socialcollectionView registerClass:[SocialLinkCell class] forCellWithReuseIdentifier:@"Cell"];
+
+    }
     self.socialcollectionView.delegate = self;
     self.socialcollectionView.dataSource = self;
     //socialcollectionView.hidden = YES;
@@ -729,6 +888,8 @@
     self.socialcollectionView.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:self.socialcollectionView];
     positionOfCollectionViewInScrollView= [self.scrollView convertRect:self.tweetsLocalCollectionView.frame toView:nil];
+    positionOfInfluencerTweetLblInScrollView = [self.scrollView convertRect:self.tweetLabel.frame toView:nil];
+    
     NSLog(@"tweet frame:%f",positionOfCollectionViewInScrollView.origin.y);
     //    tweetsCollectionView.delegate = nil;
     //    tweetsCollectionView.dataSource = nil;
@@ -1334,7 +1495,15 @@
 //}
 
 
-
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    int cellSizeOfButton;
+    if(collectionView == self.socialcollectionView)
+    {
+    cellSizeOfButton= 2;
+    }
+    return cellSizeOfButton;
+}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if(scrollView == self.scrollView) {
         //        tweetsCollectionView.delegate = nil;
@@ -1342,8 +1511,8 @@
         CGFloat y = -scrollView.contentOffset.y;
         //NSLog(@"scroll y value:%f",y);
         if (y > 0) {
-//            self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+50, self.cachedImageViewSize.size.height+y);
-//            self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
+            self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+50, self.cachedImageViewSize.size.height+y);
+            self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
             
         } else {
             if(!self.isTwitterAPICalled) {
@@ -1363,14 +1532,27 @@
                 
                 [self loadTweetsAndSocialLink];
             }
-            // }
+            // }//hidden
+// tweet api is called if the visibility of influencer tweet is true.
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                if (CGRectIntersectsRect(scrollView.bounds, _tweetLabel.frame) == true  && !self.isTwitterAPICalled) {
+                    NSLog(@"call twitter API");
+                    
+                    [self loadTweetsFromPost];
+                }
+//                if(y < -positionOfInfluencerTweetLblInScrollView.origin.y+30 && !self.isTwitterAPICalled) {
+//                    
+//                }
             
+            }
+            else
+            {
             if(y < -positionOfCollectionViewInScrollView.origin.y+600 && !self.isTwitterAPICalled) {
                 NSLog(@"call twitter API");
                 
                 [self loadTweetsFromPost];
             }
-            
+            }
         }
         
     }

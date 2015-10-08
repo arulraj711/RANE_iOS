@@ -28,6 +28,7 @@
 @implementation CorporateNewsListView
 
 - (void)viewDidLoad {
+    NSLog(@"view did load");
     [super viewDidLoad];
     [self.revealController showViewController:self.revealController.leftViewController];
     messageString = @"Loading...";

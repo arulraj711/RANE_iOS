@@ -453,12 +453,24 @@
     NSString *articleDesc = [userInfo objectForKey:@"articleDescription"];
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    
-    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-    SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
-    socialWebViewObj.titleStr=@"";
-    
+    UIStoryboard *storyBoard;
+    SocialWebView *socialWebViewObj;
+    UINavigationController *modalController;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebViewPhone"];
+        socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        socialWebViewObj.titleStr=@"";
+        
+    } else {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+        socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        socialWebViewObj.titleStr=@"";
+        
+    }
+
     
     //    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",articleUrl,articleTitle,articleDesc];
     
@@ -485,11 +497,22 @@
     NSString *articleDesc = [userInfo objectForKey:@"articleDescription"];
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    
-    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-    SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
-    socialWebViewObj.titleStr=@"LinkedIn Share";
+    UIStoryboard *storyBoard;
+    SocialWebView *socialWebViewObj;
+    UINavigationController *modalController;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebViewPhone"];
+        socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        socialWebViewObj.titleStr=@"LinkedIn Share";
+        
+    } else {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+        socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        socialWebViewObj.titleStr=@"LinkedIn Share";
+    }
     NSString *linkedinTitleString = [NSString stringWithFormat:@"Shared from FullIntel : %@",articleTitle];
     NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=fullintel.com",articleUrl,linkedinTitleString,articleDesc];
     NSLog(@"linked in url:%@",urlString);
@@ -551,7 +574,7 @@
             curatedNewsDetail = [curatedNews valueForKey:@"details"];
             curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
             
-            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 12px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
             NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
             NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
             [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
@@ -831,7 +854,12 @@
     [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"bannerImage"]];
     [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
     cell.cachedImageViewSize = cell.articleImageView.frame;
-    cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+    {
+        cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
+        
+    }
+
     cell.overlayArticleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
     cell.overlayArticleDesc.text = [curatedNews valueForKey:@"desc"];
     [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
@@ -865,7 +893,11 @@
         cell.outletTextWidthConstraint.constant = value;
         //  self.outletHorizontalConstraint.constant = value+10;
     }
-    cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+    {
+        cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
+
+    }
     cell.overlayArticleOutlet.text = [curatedNews valueForKey:@"outlet"];
 }
 
@@ -884,8 +916,21 @@
             cell.overlayArticleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
         } else {
             NSManagedObject *authorObject = [authorArray objectAtIndex:0];
-            cell.articleAuthor.text = [authorObject valueForKey:@"name"];
             cell.overlayArticleAuthor.text = [authorObject valueForKey:@"name"];
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                overallAuthorDetail = [ NSString stringWithFormat:@"%@, %@, %@",[authorObject valueForKey:@"name"], [curatedNews valueForKey:@"outlet"], [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]]];
+                cell.articleAuthor.text = overallAuthorDetail;
+
+            }
+            else
+            {
+                NSManagedObject *authorObject = [authorArray objectAtIndex:0];
+                cell.articleAuthor.text = [authorObject valueForKey:@"name"];
+                cell.overlayArticleAuthor.text = [authorObject valueForKey:@"name"];
+            }
+            
+            
+            
         }
     }
     NSManagedObject *authors;
@@ -1017,10 +1062,20 @@
     NSDictionary *userInfo = notification.userInfo;
     NSString *title = [userInfo objectForKey:@"name"];
     NSString *link = [userInfo objectForKey:@"link"];
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    
-    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-    SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+    UIStoryboard *storyBoard;
+    SocialWebView *socialWebViewObj;
+    UINavigationController *modalController;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebViewPhone"];
+        socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        
+    } else {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+        socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+    }
     socialWebViewObj.titleStr=title;
     socialWebViewObj.urlString=link;
     

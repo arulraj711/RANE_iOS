@@ -22,6 +22,7 @@
     // UICollectionView *tweetsLocalCollectionView;
     NSMutableArray *tweetIds,*followersArray,*tweetScreenNameArray;
     CGRect positionOfCollectionViewInScrollView;
+    CGRect positionOfInfluencerTweetLblInScrollView;
     UIView *lbl;
     UIView *noTweetView;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;

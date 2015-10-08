@@ -74,6 +74,9 @@
 +(NSString*)createInputJsonForContentWithToekn:(NSString *)securityToken lastArticleId:(NSString *)articleId contentTypeId:(NSNumber *)contentTypeId listSize:(NSInteger)listSize activityTypeId:(NSString*)activityTypeId categoryId:(NSNumber *)categoryId {
     NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
     [gradedetails setObject:securityToken forKey:@"securityToken"];
+
+ 
+    
     if(articleId != nil) {
         [gradedetails setObject:articleId forKey:@"lastArticleId"];
     }

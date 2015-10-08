@@ -23,6 +23,8 @@
     NSString *mailBody;
     NSArray *coachMarks;
     WSCoachMarksView *coachMarksView;
+    
+    NSString *overallAuthorDetail;
 }
 @property NSString *selectedNewsArticleId;
 @property NSIndexPath *selectedIndexPath;

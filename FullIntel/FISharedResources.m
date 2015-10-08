@@ -353,7 +353,11 @@
 
 -(void)showLoginView:(NSNumber *)authFlag {
     NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
-    [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    @try {
+        [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    } @catch(NSException *e) {
+        NSLog(@"error msg:%@",e);
+    }
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
     
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
