@@ -213,9 +213,11 @@
         NSLog(@"newsletter index:%d",dataIndex);
         NSInteger level = [self.treeView levelForCellForItem:newsletterDataObj];
         NSLog(@"newsletter level:%d",level);
+        
 //        [self.treeView selectRowForItem:[self.data objectAtIndex:dataIndex] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+        //NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:newsletterDataObj];
 //        [[NSUserDefaults standardUserDefaults]setObject:newsletterDataObj forKey:@"newsletterObj"];
-//        
+////        
 //        [[NSNotificationCenter defaultCenter]postNotificationName:@"newsletterLoad" object:nil userInfo:@{@"index":[NSNumber numberWithInteger:dataIndex]}];
     }
     

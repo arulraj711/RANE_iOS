@@ -20,7 +20,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RADataObject : NSObject
+@interface RADataObject : NSObject<NSCoding>
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSArray *children;

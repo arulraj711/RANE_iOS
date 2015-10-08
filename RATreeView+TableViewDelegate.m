@@ -43,6 +43,10 @@
 //    NSDictionary *userInfo = notification.userInfo;
 //    NSNumber *index = [userInfo objectForKey:@"index"];
     //[self indexPathForItem:<#(id)#>];
+    
+    
+    
+    
     RADataObject *newsDataObject = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterObj"];
     NSLog(@"news selected index:%@",newsDataObject);
   //  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[index integerValue] inSection:0];

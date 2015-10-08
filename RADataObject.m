@@ -52,4 +52,19 @@
   self.children = [children copy];
 }
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    //Encode properties, other class variables, etc
+    [encoder encodeObject:self.children forKey:@"childern"];
+    [encoder encodeObject:self.name forKey:@"name"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+        self.children = [decoder decodeObjectForKey:@"childern"];
+        self.name = [decoder decodeObjectForKey:@"name"];
+    }
+    return self;
+}
+
 @end
