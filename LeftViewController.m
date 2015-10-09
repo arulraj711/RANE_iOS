@@ -829,7 +829,7 @@
     NSInteger numberOfChildren = [dataObject.children count];
     
     NSString *detailText = [NSString localizedStringWithFormat:@"Number of children %@", [@(numberOfChildren) stringValue]];
-    
+    [self.treeView setShowsVerticalScrollIndicator:NO ];
     
     RATableViewCell *cell = [self.treeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];

@@ -925,6 +925,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *tableCell;
     if(self.devices.count != 0) {
+      
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
         

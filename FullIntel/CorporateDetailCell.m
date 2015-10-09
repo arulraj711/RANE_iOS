@@ -1511,8 +1511,16 @@
         CGFloat y = -scrollView.contentOffset.y;
         //NSLog(@"scroll y value:%f",y);
         if (y > 0) {
-            self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+50, self.cachedImageViewSize.size.height+y);
-            self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            {
+                self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+20, self.cachedImageViewSize.size.height+y);
+                self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
+            }
+            else
+            {
+                    self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+50, self.cachedImageViewSize.size.height+y);
+                    self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
+            }
             
         } else {
             if(!self.isTwitterAPICalled) {
