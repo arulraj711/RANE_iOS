@@ -34,8 +34,8 @@
 
 -(void)directLoad {
   //  NSLog(@"direct load function calling");
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
-    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+//    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
 -(void)newsletterLoad {

@@ -147,19 +147,55 @@
             NSLog(@"empty access token");
         } else{
             NSLog(@"full access token");
-            [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
+            [self selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+           // [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
         }
         
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
         //
     }
-    NSNumber *badgeNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"badgeNumber"];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber.integerValue];
+    
+    
    // NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
    // [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
     
 }
+
+
+
+
+- (void)selectRowForItem:(id)item animated:(BOOL)animated scrollPosition:(RATreeViewScrollPosition)scrollPosition {
+   
+    RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
+    //[cell setSelected:YES];
+    [cell.customTitleLabel setHighlighted:YES];
+     NSLog(@"select row for item is calling");
+    NSLog(@"%@",cell.customTitleLabel.text);
+    
+    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
+    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    
+    NSString *highlightColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
+    NSString *highColor = [highlightColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    
+    if(cell.customTitleLabel.isHighlighted)
+    {
+        NSLog(@"high lighted if");
+        cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:highColor];
+        [self treeView:self.treeView didDeselectRowForItem:item];
+        [self treeView:self.treeView didSelectRowForItem:item];
+        
+        //[self treeView:self.treeView willExpandRowForItem:[self.data objectAtIndex:2]];
+        [self.treeView expandRowForItem:item];
+    }
+    else
+    {
+        NSLog(@"high lighted else");
+        cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
+    }
+   // dsf
+}
+
 -(void)afterSecondTutorial{
     
     
@@ -213,7 +249,8 @@
         NSLog(@"newsletter index:%d",dataIndex);
         NSInteger level = [self.treeView levelForCellForItem:newsletterDataObj];
         NSLog(@"newsletter level:%d",level);
-        
+        [self selectRowForItem:[self.data objectAtIndex:8] animated:YES scrollPosition:RATreeViewScrollPositionBottom];
+        //[self.treeView reloadData];
 //        [self.treeView selectRowForItem:[self.data objectAtIndex:dataIndex] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         //NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:newsletterDataObj];
 //        [[NSUserDefaults standardUserDefaults]setObject:newsletterDataObj forKey:@"newsletterObj"];
@@ -611,9 +648,9 @@
     NSLog(@"data count:%lu",(unsigned long)self.data.count);
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0 && self.data.count > 2) {
-        [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+        [self selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
+       // [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
     [self presentTutorialPopViewController];
 }
@@ -831,6 +868,7 @@
 //        cell1.customTitleLabel.textColor = [UIColor blackColor];
 //    }
 //}
+
 
 
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item

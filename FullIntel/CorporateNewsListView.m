@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[self.revealController showViewController:self.revealController.leftViewController];
+    [self.revealController showViewController:self.revealController.leftViewController];
     messageString = @"Loading...";
     // NSLog(@"list did load");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
