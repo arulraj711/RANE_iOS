@@ -33,11 +33,21 @@
     self.bookmarkView.layer.masksToBounds = YES;
     self.bookmarkView.layer.cornerRadius = 22.0f;
     
-    
-    self.articleImageView.layer.masksToBounds = YES;
-    self.articleImageView.layer.cornerRadius = 10.0f;
-    self.articleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
-    self.articleImageView.layer.borderWidth = 0.5f;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        self.articleImageView.layer.masksToBounds = YES;
+        self.articleImageView.layer.cornerRadius = 5.0f;
+        self.articleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
+        self.articleImageView.layer.borderWidth = 0.25f;
+    }
+    else
+    {
+        self.articleImageView.layer.masksToBounds = YES;
+        self.articleImageView.layer.cornerRadius = 10.0f;
+        self.articleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
+        self.articleImageView.layer.borderWidth = 0.5f;
+    }
+
     
     self.legendCollectionView.collectionViewLayout = layout;
     self.selectionmageView.layer.borderColor = [UIColor blueColor].CGColor;

@@ -25,6 +25,8 @@
     WSCoachMarksView *coachMarksView;
     
     NSString *overallAuthorDetail;
+    NSString *overallAuthorDetailOne;
+
 }
 @property NSString *selectedNewsArticleId;
 @property NSIndexPath *selectedIndexPath;

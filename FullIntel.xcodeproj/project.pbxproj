@@ -37,6 +37,9 @@
 		A041F0021B2ADA9E00B5600C /* LegendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A041F0001B2ADA9E00B5600C /* LegendCollectionViewCell.xib */; };
 		A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A050A4861B1DF2B30043C477 /* Deals.storyboard */; };
 		A053F5251AF9F090002EDC46 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A053F5241AF9F090002EDC46 /* Accounts.framework */; };
+		A065F20B1BCBC3E3005C6C93 /* CommentsPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A065F20A1BCBC3E3005C6C93 /* CommentsPhone.storyboard */; };
+		A065F2101BCCFCD8005C6C93 /* LaunchScreen~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A065F20C1BCCFCD8005C6C93 /* LaunchScreen~ipad.xib */; };
+		A065F2111BCCFCD8005C6C93 /* LaunchScreen~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A065F20E1BCCFCD8005C6C93 /* LaunchScreen~iphone.xib */; };
 		A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B41AF74CE60016AD46 /* FIContentCategory.m */; };
 		A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B71AF769040016AD46 /* AddContentSecondLevelView.m */; };
 		A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BA1AF769DE0016AD46 /* SecondLevelCell.m */; };
@@ -111,7 +114,6 @@
 		A0E2235C1A91C2F00073814A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E2235B1A91C2F00073814A /* ViewController.m */; };
 		A0E2235F1A91C2F00073814A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E2235D1A91C2F00073814A /* Main.storyboard */; };
 		A0E223611A91C2F00073814A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0E223601A91C2F00073814A /* Images.xcassets */; };
-		A0E223641A91C2F00073814A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0E223621A91C2F00073814A /* LaunchScreen.xib */; };
 		A0E4B1171B4BB76B0029D389 /* FolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E4B1161B4BB76B0029D389 /* FolderViewController.m */; };
 		A0E4B1191B4BB77E0029D389 /* FolderView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E4B1181B4BB77D0029D389 /* FolderView.storyboard */; };
 		A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E4B11B1B4BF90A0029D389 /* FolderCell.m */; };
@@ -287,6 +289,9 @@
 		A041F0001B2ADA9E00B5600C /* LegendCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LegendCollectionViewCell.xib; sourceTree = "<group>"; };
 		A050A4861B1DF2B30043C477 /* Deals.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Deals.storyboard; sourceTree = "<group>"; };
 		A053F5241AF9F090002EDC46 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		A065F20A1BCBC3E3005C6C93 /* CommentsPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommentsPhone.storyboard; sourceTree = "<group>"; };
+		A065F20D1BCCFCD8005C6C93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/LaunchScreen~ipad.xib"; sourceTree = "<group>"; };
+		A065F20F1BCCFCD8005C6C93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/LaunchScreen~iphone.xib"; sourceTree = "<group>"; };
 		A07A05B31AF74CE60016AD46 /* FIContentCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIContentCategory.h; sourceTree = "<group>"; };
 		A07A05B41AF74CE60016AD46 /* FIContentCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIContentCategory.m; sourceTree = "<group>"; };
 		A07A05B61AF769040016AD46 /* AddContentSecondLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentSecondLevelView.h; sourceTree = "<group>"; };
@@ -395,7 +400,6 @@
 		A0E2235B1A91C2F00073814A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A0E2235E1A91C2F00073814A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A0E223601A91C2F00073814A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		A0E223631A91C2F00073814A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		A0E2236E1A91C2F00073814A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E2236F1A91C2F00073814A /* FullIntelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullIntelTests.m; sourceTree = "<group>"; };
 		A0E4B1151B4BB76B0029D389 /* FolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderViewController.h; sourceTree = "<group>"; };
@@ -1040,7 +1044,8 @@
 			children = (
 				A0E223541A91C2F00073814A /* AppDelegate.h */,
 				A0E223551A91C2F00073814A /* AppDelegate.m */,
-				A0E223621A91C2F00073814A /* LaunchScreen.xib */,
+				A065F20C1BCCFCD8005C6C93 /* LaunchScreen~ipad.xib */,
+				A065F20E1BCCFCD8005C6C93 /* LaunchScreen~iphone.xib */,
 			);
 			name = AppDelegate;
 			sourceTree = "<group>";
@@ -1132,6 +1137,7 @@
 				F7E368781ABBF1DA0083F38E /* CommentsPopoverView.h */,
 				F7E368791ABBF1DA0083F38E /* CommentsPopoverView.m */,
 				A0DB6FC01B0AF40C00F6E2F4 /* Comments.storyboard */,
+				A065F20A1BCBC3E3005C6C93 /* CommentsPhone.storyboard */,
 				A0DB6FC21B0B2BB400F6E2F4 /* CommentCell.h */,
 				A0DB6FC31B0B2BB400F6E2F4 /* CommentCell.m */,
 			);
@@ -1358,6 +1364,7 @@
 				TargetAttributes = {
 					A0E2234C1A91C2F00073814A = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 8JJ7VBN6MD;
 					};
 				};
 			};
@@ -1429,7 +1436,6 @@
 				A0CF5C621B1DD98B00DED2D9 /* RecentPaternsCell.xib in Resources */,
 				A0CF5C5C1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.xib in Resources */,
 				A033EC581BC37B9B003AAE4F /* Icon-60@2x.png in Resources */,
-				A0E223641A91C2F00073814A /* LaunchScreen.xib in Resources */,
 				A0CF5C551B1DD98B00DED2D9 /* CompetitorCell.xib in Resources */,
 				A033EC591BC37B9B003AAE4F /* Icon-60@3x.png in Resources */,
 				F7E81FA61A97057100F9A8D4 /* hero-bg-fade.png in Resources */,
@@ -1452,6 +1458,7 @@
 				A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */,
 				F7E81FB61A97057100F9A8D4 /* new-york-city-wallpaper.jpg in Resources */,
 				A0CF5C581B1DD98B00DED2D9 /* ExecutiveMoveCell.xib in Resources */,
+				A065F2111BCCFCD8005C6C93 /* LaunchScreen~iphone.xib in Resources */,
 				A0A678631B1C159400FB2AEA /* influencer_new.json in Resources */,
 				F7E81FBC1A97057100F9A8D4 /* pattern.png in Resources */,
 				F7E81FBE1A97057100F9A8D4 /* samsung.ico in Resources */,
@@ -1460,6 +1467,7 @@
 				F7AE10841AC01E4D0091E1C7 /* InfluencerListView.storyboard in Resources */,
 				F7E81FC91A97057100F9A8D4 /* stock1.png in Resources */,
 				F7E81FB21A97057100F9A8D4 /* mexico.jpg in Resources */,
+				A065F2101BCCFCD8005C6C93 /* LaunchScreen~ipad.xib in Resources */,
 				A003B1AA1B1874A200857F35 /* Apple_Car.jpg in Resources */,
 				F7E81FB71A97057100F9A8D4 /* Nick.jpeg in Resources */,
 				F7E81F8C1A97057100F9A8D4 /* -iwatch.jpg in Resources */,
@@ -1483,6 +1491,7 @@
 				F5F727271B6F809400DE7980 /* SocialLinkCell.xib in Resources */,
 				A0D956811B0C4D9100DB013F /* TwitterKitResources.bundle in Resources */,
 				F7C1AB5E1ABFEFB100D8588A /* MorePopoverView.storyboard in Resources */,
+				A065F20B1BCBC3E3005C6C93 /* CommentsPhone.storyboard in Resources */,
 				F7CE36F21A95E99D0005AA0A /* RATableViewCell.xib in Resources */,
 				A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */,
 				A0CF5C7A1B1EFE1100DED2D9 /* legalDril.html in Resources */,
@@ -1665,20 +1674,28 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		A065F20C1BCCFCD8005C6C93 /* LaunchScreen~ipad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A065F20D1BCCFCD8005C6C93 /* Base */,
+			);
+			name = "LaunchScreen~ipad.xib";
+			sourceTree = "<group>";
+		};
+		A065F20E1BCCFCD8005C6C93 /* LaunchScreen~iphone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A065F20F1BCCFCD8005C6C93 /* Base */,
+			);
+			name = "LaunchScreen~iphone.xib";
+			sourceTree = "<group>";
+		};
 		A0E2235D1A91C2F00073814A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A0E2235E1A91C2F00073814A /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A0E223621A91C2F00073814A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A0E223631A91C2F00073814A /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1701,8 +1718,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1722,7 +1739,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1745,8 +1762,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1759,7 +1776,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1772,8 +1789,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1783,7 +1800,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1794,8 +1811,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1805,7 +1822,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

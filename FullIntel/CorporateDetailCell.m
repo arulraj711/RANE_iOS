@@ -39,14 +39,12 @@
     self.socialLinkCollectionView.hidden = YES;
 
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-//        self.authorImageView.layer.masksToBounds = YES;
-//        self.authorImageView.layer.cornerRadius = 25.0f;
-//        self.badgeTwo.hideWhenZero = YES;
-//        self.socialLinkCollectionView.hidden = YES;
-//        self.overlayArticleImageView.layer.masksToBounds = YES;
-//        self.overlayArticleImageView.layer.cornerRadius = 10.0f;
-//        self.overlayArticleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
-//        self.overlayArticleImageView.layer.borderWidth = 0.5f;
+        self.authorImageView.layer.masksToBounds = YES;
+        self.authorImageView.layer.cornerRadius = 1.0f;
+        self.overlayArticleImageView.layer.masksToBounds = YES;
+        self.overlayArticleImageView.layer.cornerRadius = 10.0f;
+        self.overlayArticleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
+        self.overlayArticleImageView.layer.borderWidth = 0.5f;
     } else {
         self.authorImageView.layer.masksToBounds = YES;
         self.authorImageView.layer.cornerRadius = 25.0f;
@@ -500,8 +498,9 @@
             socialCell.cellOuterView.layer.masksToBounds = YES;
             socialCell.cellOuterView.layer.cornerRadius = 10.0f;
             socialCell.blueCircleView.layer.masksToBounds = YES;
-            socialCell.blueCircleView.layer.cornerRadius = 1.0f;
+            socialCell.blueCircleView.layer.cornerRadius = 2.5f;
             
+        
             
             //        UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];
             //        socialCell.tag = indexPath.row;
@@ -746,7 +745,13 @@
     
     
     CGRect frame = webView.frame;
-    frame.size.height = 200;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        frame.size.height = 300;
+
+    } else {
+        frame.size.height = 200;
+
+    }
     webView.frame = frame;
     webView.scrollView.scrollEnabled = NO;
     webView.scrollView.bounces = NO;
@@ -1513,7 +1518,7 @@
         if (y > 0) {
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
             {
-                self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y+20, self.cachedImageViewSize.size.height+y);
+                self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
                 self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
             }
             else
@@ -1623,7 +1628,7 @@
         NSLog(@"select link:%@",url);
         NSString *urlString = url.absoluteString;
         if (![urlString isEqualToString: @"about:blank"]) {
-            
+           
             [[NSNotificationCenter defaultCenter]postNotificationName:@"widgetWebViewCalled" object:nil userInfo:@{@"name":@"More Info",@"link":urlString}];
             
             return NO;

@@ -24,7 +24,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AjI-Rm-Txj">
-                        <rect key="frame" x="15" y="3" width="5" height="5"/>
+                        <rect key="frame" x="12" y="4" width="5" height="5"/>
                         <color key="backgroundColor" red="0.27058823529999998" green="0.7843137255" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </subviews>

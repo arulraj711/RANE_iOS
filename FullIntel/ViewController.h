@@ -13,6 +13,7 @@
 
 @interface ViewController : UIViewController<CMPopTipViewDelegate>{
     CGRect oldFrame;
+    CGFloat originalOuterViewy;
 }
 @property CGPoint originalCenter;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;

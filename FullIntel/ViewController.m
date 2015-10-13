@@ -16,6 +16,8 @@
 #import "SocialWebView.h"
 #import "FIWebService.h"
 #import <TwitterKit/TwitterKit.h>
+#define kPictureFrameHorizontalOffset +25
+
 //#import "WToast.h"
 //#import "UIImageView+AnimationImages.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -50,7 +52,7 @@
 //        
 //        [_infoButtonPressed setFrame:CGRectMake(logoPosition-66, _infoButtonPressed.frame.origin.y, _infoButtonPressed.frame.size.width, _infoButtonPressed.frame.size.height)];
 //    }
-
+    originalOuterViewy =_outerView.frame.origin.y;
     [self animateImages];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
     oldFrame = self.backgroundImageView.frame;
@@ -94,14 +96,66 @@
     //    CGFloat height = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].height;
 //    CGFloat height = [[notif.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
 //    self.view.center = CGPointMake(self.originalCenter.x, -height);
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+//to push up only the outerview.
+//        self.outerView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//        self.outerView.frame = CGRectMake(self.outerView.frame.origin.x, self.outerView.frame.origin.y-kPictureFrameHorizontalOffset,  self.outerView.frame.size.width,self.outerView.frame.size.height);
+        
+        self.view.frame = CGRectMake(self.view.frame.origin.x, -25, self.view.frame.size.width,self.view.frame.size.height);
+    }
+    else
+    {
     self.view.frame = CGRectMake(self.view.frame.origin.x, -60, self.view.frame.size.width,self.view.frame.size.height);
-}
+    }
+    }
 
 - (void)keyboardDidHide: (NSNotification *) notif{
     // Do something here
-    self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
-}
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+//to push up only the outerview.
+//        self.outerView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//        
+//        self.outerView.frame = CGRectMake(self.outerView.frame.origin.x, self.outerView.frame.origin.y+kPictureFrameHorizontalOffset, self.outerView.frame.size.width,self.outerView.frame.size.height);
+        [UIView animateWithDuration:0.3
+                              delay:0.1
+                            options: UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
+                         }
+                         completion:^(BOOL finished){
+                         }];
 
+//        [UIView transitionWithView:self.view duration:8.4f options:UIViewAnimationOptionTransitionNone animations:^{
+//            self.view.frame = CGRectMake(self.view.frame.origin.x, -25, self.view.frame.size.width,self.view.frame.size.height);
+//
+//        }completion:^(BOOL finished){
+//
+//        }];
+//        
+
+
+    }
+    else
+    {
+    self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
+    }
+    
+
+}
+//[self animateViewHeight:self.view withAnimationType:kCATransitionFromTop];
+
+//- (void)animateViewHeight:(UIView*)animateView withAnimationType:(NSString*)animType {
+//    CATransition *animation = [CATransition animation];
+//    [animation setType:kCATransitionPush];
+//    [animation setSubtype:animType];
+//    
+//    [animation setDuration:0.5];
+//    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+//    [[animateView layer] addAnimation:animation forKey:kCATransition];
+//    animateView.hidden = !animateView.hidden;
+//}
 
 - (void)animateImages
 {

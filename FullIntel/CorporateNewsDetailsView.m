@@ -912,14 +912,31 @@
                 NSManagedObject *authorObject = [authorArray objectAtIndex:i];
                 [multipleAuthorArray addObject:[authorObject valueForKey:@"name"]];
             }
-            cell.articleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
-            cell.overlayArticleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
+            
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                NSManagedObject *authorObjectOne = [authorArray objectAtIndex:0];
+                overallAuthorDetailOne = [ NSString stringWithFormat:@"%@, %@, %@",[authorObjectOne valueForKey:@"name"], [curatedNews valueForKey:@"outlet"], [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]]];
+
+                
+                cell.articleAuthor.text = overallAuthorDetailOne;
+                cell.overlayArticleAuthor.text = overallAuthorDetailOne;
+
+            }
+            else
+            {
+
+                cell.articleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
+                cell.overlayArticleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
+
+                
+            }
         } else {
             NSManagedObject *authorObject = [authorArray objectAtIndex:0];
             cell.overlayArticleAuthor.text = [authorObject valueForKey:@"name"];
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
                 overallAuthorDetail = [ NSString stringWithFormat:@"%@, %@, %@",[authorObject valueForKey:@"name"], [curatedNews valueForKey:@"outlet"], [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]]];
                 cell.articleAuthor.text = overallAuthorDetail;
+                cell.overlayArticleAuthor.text = overallAuthorDetail;
 
             }
             else
@@ -997,9 +1014,18 @@
     NSDictionary *userInfo = notification.userInfo;
     NSString *articleId = [userInfo objectForKey:@"articleId"];
     NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
-    UINavigationController *navCtlr = [storyBoard instantiateViewControllerWithIdentifier:@"commentNav"];
-    
+    UIStoryboard *storyBoard;
+    UINavigationController *navCtlr;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        storyBoard = [UIStoryboard storyboardWithName:@"CommentsPhone" bundle:nil];
+
+    }
+    else{
+        storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
+
+    }
+    navCtlr = [storyBoard instantiateViewControllerWithIdentifier:@"commentNav"];
+
     CommentsPopoverView *popOverView=(CommentsPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
     
     popOverView.articleId = articleId;
@@ -1043,16 +1069,26 @@
     NSDictionary *userInfo = notification.userInfo;
     NSString *title = [userInfo objectForKey:@"name"];
     NSString *link = [userInfo objectForKey:@"link"];
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    
-    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"widgetWebView"];
+    UIStoryboard *storyBoard;
+    UINavigationController *modalController;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"widgetWebViewPhone"];
+
+    }
+    else{
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"widgetWebView"];
+
+    }
     
     
     SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
     SocialWebViewObj.titleStr=title;
     SocialWebViewObj.urlString=link;
-    modalController.modalPresentationStyle = UIModalPresentationCustom;
-    
+    modalController.modalPresentationStyle = UIModalPresentationCustom;    
     [self presentViewController:modalController animated:NO completion:nil];
     
 }

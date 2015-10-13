@@ -1532,6 +1532,16 @@
             
             _spinner = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             _spinner.frame=CGRectMake(0, 0, 310, 44);
+
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            {
+                CGFloat offx = _spinner.bounds.origin.x;
+                _spinner.frame=CGRectMake(offx-25, 0, 310, 44);
+
+            }
+            else{
+                
+            }
             [_spinner startAnimating];
             
             _spinner.hidden=NO;
