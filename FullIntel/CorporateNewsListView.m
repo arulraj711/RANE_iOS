@@ -370,6 +370,14 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    if ( screenHeight > 480 && screenHeight < 736 ){
+        NSLog(@"iPhone 6");
+        self.articlesTableView.frame = CGRectMake(0.f, 0.f, 375, 667);
+    } else if ( screenHeight > 480 ){
+        NSLog(@"iPhone 6 Plus");
+    }
     self.articlesTableView.dataSource = nil;
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length == 0) {
@@ -750,16 +758,26 @@
 }
 
 -(void)addContentView {
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
+    UIStoryboard *storyBoard;
+    UINavigationController *modalController;
+
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
+    }
+    else{
+        storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+        UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
+        if(orientation == 1) {
+            formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
+        } else {
+            formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
+        }
+    }
     formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
     
-    if(orientation == 1) {
-        formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
-    } else {
-        formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
-    }
+    
     formSheet.shadowRadius = 2.0;
     formSheet.shadowOpacity = 0.3;
     formSheet.shouldDismissOnBackgroundViewTap = YES;
@@ -1584,7 +1602,13 @@
     
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
-    
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        
+    }
+    else{
+        
+    }
     ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
     // ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
     //   popOverView.transitioningDelegate = self;

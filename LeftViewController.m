@@ -86,20 +86,28 @@
     self.researchButton.layer.borderWidth = 1.0f;
     self.researchButton.layer.borderColor = [UIColor colorWithRed:(220/255.0) green:(223/255.0) blue:(224/255.0) alpha:1].CGColor;
     NSMutableArray *objectArray;
-    
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    if(accessToken.length != 0) {
-        
-        NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
-        NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
-        if (dataRepresentingSavedArray.length != 0)
-        {
-            NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
-            if (oldSavedArray != nil)
-                objectArray = [[NSMutableArray alloc] initWithArray:oldSavedArray];
-            else
-                objectArray = [[NSMutableArray alloc] init];
+    @try {
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        if(accessToken.length != 0) {
+            
+            NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+            NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+            if (dataRepresentingSavedArray.length != 0)
+            {
+                NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+                if (oldSavedArray != nil)
+                    objectArray = [[NSMutableArray alloc] initWithArray:oldSavedArray];
+                else
+                    objectArray = [[NSMutableArray alloc] init];
+            }
         }
+
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@",exception);
+    }
+    @finally {
+        //finally
     }
     
     NSString *companyLogoImageStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyLogo"];
@@ -1234,8 +1242,6 @@
             ExecutiveMovesController *ExecutiveMovesControllerObj=(ExecutiveMovesController *)[[navCtlr viewControllers]objectAtIndex:0];
             ExecutiveMovesControllerObj.titleName=data.name;
             [self.revealController setFrontViewController:navCtlr];
-        } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
-            NSLog(@"newsletter click");
         } else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
             NSLog(@"hereeee");
             
@@ -1267,6 +1273,113 @@
             UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
             ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
             [self.revealController setFrontViewController:navCtlr];
+            
+        } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-300]]) {
+            
+            //codingforadd
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Add Content Main Menu"];
+            
+            UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+            UIStoryboard *storyBoard;
+            UINavigationController *modalController;
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                storyBoard = [UIStoryboard storyboardWithName:@"AddContentPhone" bundle:nil];
+                modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
+            } else {
+                storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+                modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
+            }
+            
+            
+            [self presentViewController:modalController
+                               animated:YES
+                             completion:^{
+                                 
+                             }];
+                            // navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+            
+            
+            
+                            [modalController.navigationBar setTitleTextAttributes:
+                             [NSDictionary dictionaryWithObjectsAndKeys:
+                              [UIColor whiteColor],
+                              UITextAttributeTextColor,
+                              [UIFont fontWithName:@"OpenSans" size:18.0],
+                              UITextAttributeFont,
+                              nil]];
+                            
+                            modalController.topViewController.title = @"Add Content";
+
+//************
+            
+//            formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+//            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//                    formSheet.presentedFormSheetSize = CGSizeMake(320, 650);
+//                
+//            } else {
+//                if(orientation == 1) {
+//                    formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
+//                } else {
+//                    formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
+//                }
+//            }
+//            
+//            
+//            formSheet.shadowRadius = 2.0;
+//            formSheet.shadowOpacity = 0.3;
+//            formSheet.shouldDismissOnBackgroundViewTap = NO;
+//            formSheet.shouldCenterVertically = YES;
+//            formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+//            __weak MZFormSheetController *weakFormSheet = formSheet;
+//            
+//            
+//            // If you want to animate status bar use this code
+//            formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+//                UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
+//                if ([navController.topViewController isKindOfClass:[AddContentFirstLevelView class]]) {
+//                    //AddContentFirstLevelView *mzvc = (AddContentFirstLevelView *)navController.topViewController;
+//                    //  mzvc.showStatusBar = NO;
+//                }
+//                
+//                
+//                [UIView animateWithDuration:0.3 animations:^{
+//                    if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+//                        [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+//                    }
+//                }];
+//            };
+//            
+//            formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+//                // Passing data
+//                UINavigationController *navController = (UINavigationController *)presentedFSViewController;
+//                // navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+//                
+//                
+//                
+//                [navController.navigationBar setTitleTextAttributes:
+//                 [NSDictionary dictionaryWithObjectsAndKeys:
+//                  [UIColor whiteColor],
+//                  UITextAttributeTextColor,
+//                  [UIFont fontWithName:@"OpenSans" size:18.0],
+//                  UITextAttributeFont,
+//                  nil]];
+//                
+//                navController.topViewController.title = @"Add Content";
+//            };
+//            formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+//            
+//            [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
+//            
+//            //    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+//            //    if(accessToken.length > 0) {
+//            [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+//                
+//            }];
+            // }
+            
+
+            
+            
             
         }else if(data.isFolder){
             NSLog(@"three");
@@ -1503,11 +1616,18 @@
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Add Content Main Menu"];
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    UIStoryboard *storyBoard;
+    UINavigationController *modalController;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        storyBoard = [UIStoryboard storyboardWithName:@"AddContentPhone" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
+    } else {
+        storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
+    }
     
     
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
     
-    UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
     formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
     if(orientation == 1) {
         formSheet.presentedFormSheetSize = CGSizeMake(760, 650);

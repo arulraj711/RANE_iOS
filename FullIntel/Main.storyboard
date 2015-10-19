@@ -211,6 +211,6 @@
     </scenes>
     <resources>
         <image name="info_button" width="25" height="25"/>
-        <image name="new_logo" width="200" height="40"/>
+        <image name="new_logo" width="150" height="30"/>
     </resources>
 </document>

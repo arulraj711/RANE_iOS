@@ -2669,7 +2669,7 @@
         <image name="group_blue" width="20" height="20"/>
         <image name="location" width="20" height="20"/>
         <image name="more" width="30" height="30"/>
-        <image name="new_logo" width="200" height="40"/>
+        <image name="new_logo" width="150" height="30"/>
         <image name="outlet" width="20" height="20"/>
         <image name="peoples" width="30" height="30"/>
         <image name="personality" width="12" height="12"/>

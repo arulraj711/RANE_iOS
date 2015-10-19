@@ -22,8 +22,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-   // NSMutableArray *folderArray;
+    // NSMutableArray *folderArray;
     
+    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopLoading) name:@"SaveToFolder" object:nil];
     [self fetchFolderDetails];

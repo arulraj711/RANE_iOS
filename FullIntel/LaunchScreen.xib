@@ -12,10 +12,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-b0-umh">
-                    <rect key="frame" x="165" y="223" width="150" height="33"/>
+                    <rect key="frame" x="90" y="207" width="300" height="66"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="33" id="CRx-a0-RkT"/>
-                        <constraint firstAttribute="width" constant="150" id="ujG-s1-IZI"/>
+                        <constraint firstAttribute="height" constant="66" id="CRx-a0-RkT">
+                            <variation key="heightClass=regular-widthClass=compact" constant="38"/>
+                        </constraint>
+                        <constraint firstAttribute="width" constant="300" id="ujG-s1-IZI">
+                            <variation key="heightClass=regular-widthClass=compact" constant="170"/>
+                        </constraint>
                     </constraints>
                 </imageView>
             </subviews>

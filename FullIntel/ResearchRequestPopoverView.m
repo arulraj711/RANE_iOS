@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(researchSend) name:@"ResearchSend" object:nil];
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
         
@@ -44,7 +44,7 @@
         self.articleDesc.selectedRange = NSMakeRange(0, 0);
         [self.articleDesc becomeFirstResponder];
     }
-    
+//    [self.articleDesc setReturnKeyType: UIReturnKeyDone];
     
     self.backImgeView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapEvent)];
@@ -53,6 +53,91 @@
 
     
 
+}
+-(BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+   
+    return YES;
+}
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
+{
+    
+    if ([text isEqualToString:@"\n"]) {
+        [self.articleDesc resignFirstResponder];
+        return NO;
+    }
+    return YES;
+
+}
+- (void)keyboardDidShow:(NSNotification *)notification
+{
+    // Assign new frame to your view
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.4]; // to slide the view up
+    
+    NSDictionary *userInfo = [notification userInfo];
+    
+    CGRect keyboardEndFrame;
+    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+    
+    // Use keyboardEndFrame
+    
+    
+    CGRect rect = self.view.frame;
+    
+    NSLog(@"view frame height before keyboardDidShow:%f, %f",self.view.frame.size.height,rect.size.height);
+    
+    if(rect.size.height==768){
+        
+        rect.size.height=410;
+    }else if(rect.size.height==1024) {
+        rect.size.height=800;
+    }else if(rect.size.height==568) {
+        rect.size.height=320;
+    }
+    self.view.frame = rect;
+    
+    NSLog(@"view frame height after keyboardDidShow:%f",self.view.frame.size.height);
+    
+    [UIView commitAnimations];
+    
+}
+-(void)keyboardDidHide:(NSNotification *)notification
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.4]; // to slide the view up
+    
+    NSDictionary *userInfo = [notification userInfo];
+    
+    CGRect keyboardEndFrame;
+    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+    
+    
+    NSLog(@"view frame height before keyboardDidHide:%f",self.view.frame.size.height);
+    
+    
+    CGRect rect = self.view.frame;
+    
+    if(rect.size.height==410){
+        rect.size.height =768;
+    }else if(rect.size.height==800){
+        rect.size.height =1024;
+    }else if(rect.size.height==320){
+        rect.size.height =568;
+    }
+    
+    self.view.frame = rect;
+    
+    
+    //NSLog(@"view frame height after keyboardDidHide:%f",self.view.frame.size.height);
+    
+    [UIView commitAnimations];
+}
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+    
+    [self.view endEditing:YES];
+    return YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

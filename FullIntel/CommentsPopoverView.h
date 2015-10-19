@@ -16,5 +16,8 @@
 @property (nonatomic,strong) NSString *articleId;
 @property (nonatomic,strong) IBOutlet UIView *textBackView;
 @property (nonatomic,strong) IBOutlet UIView *outerView;
+@property (strong, nonatomic) IBOutlet UIButton *postButton;
+- (IBAction)postButton:(id)sender;
+
 @property NSIndexPath *selectedIndexPath;
 @end

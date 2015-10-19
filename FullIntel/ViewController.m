@@ -99,30 +99,51 @@
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
 //to push up only the outerview.
-//        self.outerView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//        self.outerView.frame = CGRectMake(self.outerView.frame.origin.x, self.outerView.frame.origin.y-kPictureFrameHorizontalOffset,  self.outerView.frame.size.width,self.outerView.frame.size.height);
-        
-        self.view.frame = CGRectMake(self.view.frame.origin.x, -25, self.view.frame.size.width,self.view.frame.size.height);
+        NSTimeInterval duration = [notif.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        UIViewAnimationCurve curve = [notif.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+        [UIView setAnimationCurve:curve];
+        [UIView setAnimationDuration:duration];
+        // Animation code
+        [UIView animateWithDuration:duration
+                              delay:0.0
+                            options: (curve<<20)
+                         animations:^{
+                             
+                             self.outerView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+                             self.outerView.frame = CGRectMake(self.outerView.frame.origin.x, self.outerView.frame.origin.y-kPictureFrameHorizontalOffset,  self.outerView.frame.size.width,self.outerView.frame.size.height);
+                             //self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
+                         }
+                         completion:^(BOOL finished){
+                         }];
+//        self.view.frame = CGRectMake(self.view.frame.origin.x, -25, self.view.frame.size.width,self.view.frame.size.height);
     }
     else
     {
     self.view.frame = CGRectMake(self.view.frame.origin.x, -60, self.view.frame.size.width,self.view.frame.size.height);
     }
-    }
+}
 
 - (void)keyboardDidHide: (NSNotification *) notif{
     // Do something here
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
+        NSTimeInterval duration = [notif.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        UIViewAnimationCurve curve = [notif.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+        [UIView setAnimationCurve:curve];
+        [UIView setAnimationDuration:duration];
+        // Animation code
+
 //to push up only the outerview.
-//        self.outerView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//        
-//        self.outerView.frame = CGRectMake(self.outerView.frame.origin.x, self.outerView.frame.origin.y+kPictureFrameHorizontalOffset, self.outerView.frame.size.width,self.outerView.frame.size.height);
-        [UIView animateWithDuration:0.3
-                              delay:0.1
+        [UIView animateWithDuration:duration
+                              delay:0.0
                             options: UIViewAnimationOptionCurveEaseIn
                          animations:^{
-                             self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
+                             
+                             self.outerView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+                             
+                             self.outerView.frame = CGRectMake(self.outerView.frame.origin.x, self.outerView.frame.origin.y+kPictureFrameHorizontalOffset, self.outerView.frame.size.width,self.outerView.frame.size.height);
+
+//                             self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
                          }
                          completion:^(BOOL finished){
                          }];

@@ -22,12 +22,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.outerView.layer.masksToBounds = YES;
+        self.outerView.layer.cornerRadius = 5;
+        
+       
+
+    }
+    else{
+        self.outerView.layer.masksToBounds = YES;
+        self.outerView.layer.cornerRadius = 10;
+        
+        self.senderImage.layer.masksToBounds = YES;
+        self.senderImage.layer.cornerRadius = 20.0f;
+
+    }
+  
     
-    self.outerView.layer.masksToBounds = YES;
-    self.outerView.layer.cornerRadius = 10;
-    
-    self.senderImage.layer.masksToBounds = YES;
-    self.senderImage.layer.cornerRadius = 20.0f;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchCommentsForArticleId) name:@"FetchingComments" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CommentsExpire) name:@"CommentsExpire" object:nil];
@@ -201,6 +212,7 @@
     return YES;
 }
 #define k_KEYBOARD_OFFSET 310.0
+#define k_KEYBOARD_OFFSs 245.0
 
 - (void)keyboardDidShow:(NSNotification *)notification
 {
@@ -215,17 +227,19 @@
     
     // Use keyboardEndFrame
     
-       //NSLog(@"view frame height before keyboardDidShow:%f",self.view.frame.size.height);
     
     CGRect rect = self.view.frame;
-    
+
+    NSLog(@"view frame height before keyboardDidShow:%f, %f",self.view.frame.size.height,rect.size.height);
+
     if(rect.size.height==768){
 
       rect.size.height=410;
     }else if(rect.size.height==1024) {
         rect.size.height=800;
+    }else if(rect.size.height==568) {
+        rect.size.height=370;
     }
-  
     self.view.frame = rect;
     
         //NSLog(@"view frame height after keyboardDidShow:%f",self.view.frame.size.height);
@@ -254,7 +268,7 @@
     [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
     
     
-      // NSLog(@"view frame height before keyboardDidHide:%f",self.view.frame.size.height);
+       NSLog(@"view frame height before keyboardDidHide:%f",self.view.frame.size.height);
     
     
     CGRect rect = self.view.frame;
@@ -263,6 +277,8 @@
     rect.size.height =768;
     }else if(rect.size.height==800){
       rect.size.height =1024;
+    }else if(rect.size.height==370){
+        rect.size.height =568;
     }
  
     self.view.frame = rect;
@@ -282,11 +298,15 @@
         [UIView setAnimationDuration:0.4]; // to slide the view up
         
         CGRect rect = self.view.frame;
-        rect.size.height +=k_KEYBOARD_OFFSET;
+        
+        rect.size.height +=k_KEYBOARD_OFFSET;       
         self.view.frame = rect;
         
         [UIView commitAnimations];
     }
     
+}
+
+- (IBAction)postButton:(id)sender {
 }
 @end

@@ -1075,8 +1075,7 @@
     [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"] forKey:@"userId"];
     [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"] forKey:@"customerId"];
     [commentsDic setObject:@"1" forKey:@"version"];
-    NSData *commentsJsondata = [NSJSONSerialization dataWithJSONObject:commentsDic options:NSJSONWritingPrettyPrinted error:nil];
-    
+    NSData *commentsJsondata = [NSJSONSerialization dataWithJSONObject:commentsDic options:NSJSONWritingPrettyPrinted error:nil];    
     NSString *commentsResultStr = [[NSString alloc]initWithData:commentsJsondata encoding:NSUTF8StringEncoding];
     
     
@@ -1585,25 +1584,51 @@
 }
 
 - (IBAction)savedListButtonClick:(UIButton *)sender {
-    
-    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderButtonClick"];
-    
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
-    
-    SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
-    popOverView.selectedArticleId = self.selectedArticleId;
-    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
-    self.popOver.popoverContentSize=CGSizeMake(350, 267);
-    //self.popOver.delegate = self;
-    [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderClick"];
+
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
+        SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+        popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
+        popover.border = NO;
+        popover.tint = FPPopoverWhiteTint;
+        popover.contentSize = CGSizeMake(300, 260);
+        popover.arrowDirection = FPPopoverArrowDirectionAny;
+        [popover presentPopoverFromView:sender];
+    }
+    else{
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
+        SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+        popOverView.selectedArticleId = self.selectedArticleId;
+        self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+        self.popOver.popoverContentSize=CGSizeMake(350, 267);
+        //self.popOver.delegate = self;
+        [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    }
 }
 
 - (IBAction)moreButtonClick:(UIButton *)sender {
-    
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SocialSharingButtonClick"];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MorePopoverViewPhone" bundle:nil];
+        MorePopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MorePopoverView"];
+        popOverView.articleTitle = self.selectedArticleTitle;
+        popOverView.articleUrl = self.selectedArticleUrl;
+        popOverView.articleDesc = self.articleDesc;
+        popOverView.articleImageUrl = self.selectedArticleImageUrl;
+        popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
+        popover.border = NO;
+        popover.tint = FPPopoverWhiteTint;
+        popover.contentSize = CGSizeMake(300, 260);
+        popover.arrowDirection = FPPopoverArrowDirectionAny;
+        [popover presentPopoverFromView:sender];
+
+    }
+    
+    else{
+        
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MorePopoverView" bundle:nil];
-    
     MorePopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MorePopoverView"];
     popOverView.articleTitle = self.selectedArticleTitle;
     popOverView.articleUrl = self.selectedArticleUrl;
@@ -1613,7 +1638,7 @@
     self.popOver.popoverContentSize=CGSizeMake(350, 150);
     //self.popOver.delegate = self;
     [self.popOver presentPopoverFromRect:sender.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    
+    }
 }
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {

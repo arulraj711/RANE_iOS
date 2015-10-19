@@ -18,6 +18,7 @@
 #import "DismissingAnimator.h"
 #import "ResearchRequestPopoverView.h"
 #import "MailPopoverView.h"
+#import "SavedListPopoverView.h"
 #import "pop.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -29,6 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
     
@@ -57,7 +61,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLinkSelection:) name:@"fbSelection" object:nil];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nextFolderClick:) name:@"nextFolderClick" object:nil];
+
     [self addCustomNavRightButton];
     oneSecondTicker = [[NSTimer alloc] init];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -1008,7 +1013,29 @@
     
 }
 
+-(void)nextFolderClick:(id)sender {
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+           
+            
+            NSNotification *notification = sender;
+            NSDictionary *userInfo = notification.userInfo;
+            UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
+            UINavigationController *navCtlr = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+            
+//            popOverView.articleId = articleId;
+//            popOverView.selectedIndexPath = indexPath;
+//            SavedListPopoverView *popOverView=(SavedListPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
+            
+            navCtlr.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [self presentViewController:navCtlr animated:NO completion:nil];
 
+
+        }
+    
+    
+}
 -(void)showCommentsView:(id)sender {
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
@@ -1033,6 +1060,7 @@
     // popOverView.transitioningDelegate = self;
     navCtlr.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:navCtlr animated:NO completion:nil];
+    
     //[self.navigationController presentViewController:popOverView
     //  animated:YES
     //completion:NULL];
@@ -1047,9 +1075,15 @@
     NSString *articleUrl = [userInfo objectForKey:@"articleUrl"];
     
     
-    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
+    UIStoryboard *centerStoryBoard;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequestPhone" bundle:nil];
+    }
+    else{
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
+    }
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
-    
+
     ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
     researchViewController.articleId = articleId;
     researchViewController.articleTitle = articleTitle;
@@ -1092,6 +1126,7 @@
     [self presentViewController:modalController animated:NO completion:nil];
     
 }
+
 - (void)socialLinkSelected:(id)sender
 {
     NSNotification *notification = sender;

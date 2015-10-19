@@ -37,14 +37,24 @@
 		A041F0021B2ADA9E00B5600C /* LegendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A041F0001B2ADA9E00B5600C /* LegendCollectionViewCell.xib */; };
 		A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A050A4861B1DF2B30043C477 /* Deals.storyboard */; };
 		A053F5251AF9F090002EDC46 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A053F5241AF9F090002EDC46 /* Accounts.framework */; };
-		A065F20B1BCBC3E3005C6C93 /* CommentsPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A065F20A1BCBC3E3005C6C93 /* CommentsPhone.storyboard */; };
-		A065F2101BCCFCD8005C6C93 /* LaunchScreen~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A065F20C1BCCFCD8005C6C93 /* LaunchScreen~ipad.xib */; };
-		A065F2111BCCFCD8005C6C93 /* LaunchScreen~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A065F20E1BCCFCD8005C6C93 /* LaunchScreen~iphone.xib */; };
+		A05878A71BD0F39200DCE62B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05878A51BD0F39200DCE62B /* LaunchScreen.xib */; };
+		A05878A81BD0F39200DCE62B /* LaunchScreen~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05878A61BD0F39200DCE62B /* LaunchScreen~iphone.xib */; };
+		A05878AA1BD0F81500DCE62B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05878A91BD0F81500DCE62B /* Main.storyboard */; };
+		A05878AF1BD4A10200DCE62B /* AddContentPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05878AE1BD4A10200DCE62B /* AddContentPhone.storyboard */; };
 		A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B41AF74CE60016AD46 /* FIContentCategory.m */; };
 		A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B71AF769040016AD46 /* AddContentSecondLevelView.m */; };
 		A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BA1AF769DE0016AD46 /* SecondLevelCell.m */; };
 		A07A05BE1AF78EBC0016AD46 /* AddContentThirdLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BD1AF78EBC0016AD46 /* AddContentThirdLevelView.m */; };
 		A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */; };
+		A081459B1BCF855900AA5EE2 /* CommentsPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A081459A1BCF855900AA5EE2 /* CommentsPhone.storyboard */; };
+		A081459D1BCF8B7200AA5EE2 /* SavedListPopoverViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A081459C1BCF8B7200AA5EE2 /* SavedListPopoverViewPhone.storyboard */; };
+		A081459F1BCFB6A300AA5EE2 /* ResearchRequestPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A081459E1BCFB6A300AA5EE2 /* ResearchRequestPhone.storyboard */; };
+		A08145A31BD0B53400AA5EE2 /* FPPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = A08145A21BD0B53400AA5EE2 /* FPPopoverController.m */; };
+		A08145A81BD0B5A700AA5EE2 /* FPPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = A08145A71BD0B5A700AA5EE2 /* FPPopoverView.m */; };
+		A08145AB1BD0B5BE00AA5EE2 /* FPTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = A08145AA1BD0B5BE00AA5EE2 /* FPTouchView.m */; };
+		A08145AE1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = A08145AD1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m */; };
+		A08145B01BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A08145AF1BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard */; };
+		A08145B41BD0DC5E00AA5EE2 /* 150.png in Resources */ = {isa = PBXBuildFile; fileRef = A08145B31BD0DC5E00AA5EE2 /* 150.png */; };
 		A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A087980C1ADFE47D00D93114 /* FirstLevelCell.m */; };
 		A08860801B427B9500939D51 /* FIFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = A088607F1B427B9500939D51 /* FIFolder.m */; };
 		A08860821B42910D00939D51 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A08860811B42910D00939D51 /* FBSDKShareKit.framework */; };
@@ -112,7 +122,6 @@
 		A0E223561A91C2F00073814A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E223551A91C2F00073814A /* AppDelegate.m */; };
 		A0E223591A91C2F00073814A /* FullIntel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0E223571A91C2F00073814A /* FullIntel.xcdatamodeld */; };
 		A0E2235C1A91C2F00073814A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E2235B1A91C2F00073814A /* ViewController.m */; };
-		A0E2235F1A91C2F00073814A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E2235D1A91C2F00073814A /* Main.storyboard */; };
 		A0E223611A91C2F00073814A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0E223601A91C2F00073814A /* Images.xcassets */; };
 		A0E4B1171B4BB76B0029D389 /* FolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E4B1161B4BB76B0029D389 /* FolderViewController.m */; };
 		A0E4B1191B4BB77E0029D389 /* FolderView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E4B1181B4BB77D0029D389 /* FolderView.storyboard */; };
@@ -289,9 +298,10 @@
 		A041F0001B2ADA9E00B5600C /* LegendCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LegendCollectionViewCell.xib; sourceTree = "<group>"; };
 		A050A4861B1DF2B30043C477 /* Deals.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Deals.storyboard; sourceTree = "<group>"; };
 		A053F5241AF9F090002EDC46 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
-		A065F20A1BCBC3E3005C6C93 /* CommentsPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommentsPhone.storyboard; sourceTree = "<group>"; };
-		A065F20D1BCCFCD8005C6C93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/LaunchScreen~ipad.xib"; sourceTree = "<group>"; };
-		A065F20F1BCCFCD8005C6C93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/LaunchScreen~iphone.xib"; sourceTree = "<group>"; };
+		A05878A51BD0F39200DCE62B /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		A05878A61BD0F39200DCE62B /* LaunchScreen~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "LaunchScreen~iphone.xib"; sourceTree = "<group>"; };
+		A05878A91BD0F81500DCE62B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A05878AE1BD4A10200DCE62B /* AddContentPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddContentPhone.storyboard; sourceTree = "<group>"; };
 		A07A05B31AF74CE60016AD46 /* FIContentCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIContentCategory.h; sourceTree = "<group>"; };
 		A07A05B41AF74CE60016AD46 /* FIContentCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIContentCategory.m; sourceTree = "<group>"; };
 		A07A05B61AF769040016AD46 /* AddContentSecondLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentSecondLevelView.h; sourceTree = "<group>"; };
@@ -302,6 +312,20 @@
 		A07A05BD1AF78EBC0016AD46 /* AddContentThirdLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentThirdLevelView.m; sourceTree = "<group>"; };
 		A07A05BF1AF7981A0016AD46 /* AddContentFourthLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentFourthLevelView.h; sourceTree = "<group>"; };
 		A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFourthLevelView.m; sourceTree = "<group>"; };
+		A081459A1BCF855900AA5EE2 /* CommentsPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommentsPhone.storyboard; sourceTree = "<group>"; };
+		A081459C1BCF8B7200AA5EE2 /* SavedListPopoverViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SavedListPopoverViewPhone.storyboard; sourceTree = "<group>"; };
+		A081459E1BCFB6A300AA5EE2 /* ResearchRequestPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ResearchRequestPhone.storyboard; sourceTree = "<group>"; };
+		A08145A11BD0B53400AA5EE2 /* FPPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverController.h; sourceTree = "<group>"; };
+		A08145A21BD0B53400AA5EE2 /* FPPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverController.m; sourceTree = "<group>"; };
+		A08145A51BD0B56800AA5EE2 /* ARCMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARCMacros.h; sourceTree = "<group>"; };
+		A08145A61BD0B5A700AA5EE2 /* FPPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverView.h; sourceTree = "<group>"; };
+		A08145A71BD0B5A700AA5EE2 /* FPPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverView.m; sourceTree = "<group>"; };
+		A08145A91BD0B5BE00AA5EE2 /* FPTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTouchView.h; sourceTree = "<group>"; };
+		A08145AA1BD0B5BE00AA5EE2 /* FPTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTouchView.m; sourceTree = "<group>"; };
+		A08145AC1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverKeyboardResponsiveController.h; sourceTree = "<group>"; };
+		A08145AD1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverKeyboardResponsiveController.m; sourceTree = "<group>"; };
+		A08145AF1BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MorePopoverViewPhone.storyboard; sourceTree = "<group>"; };
+		A08145B31BD0DC5E00AA5EE2 /* 150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 150.png; sourceTree = "<group>"; };
 		A087980B1ADFE47D00D93114 /* FirstLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLevelCell.h; sourceTree = "<group>"; };
 		A087980C1ADFE47D00D93114 /* FirstLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLevelCell.m; sourceTree = "<group>"; };
 		A088607E1B427B9500939D51 /* FIFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIFolder.h; sourceTree = "<group>"; };
@@ -398,7 +422,6 @@
 		A0E223581A91C2F00073814A /* FullIntel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FullIntel.xcdatamodel; sourceTree = "<group>"; };
 		A0E2235A1A91C2F00073814A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A0E2235B1A91C2F00073814A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		A0E2235E1A91C2F00073814A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A0E223601A91C2F00073814A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A0E2236E1A91C2F00073814A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E2236F1A91C2F00073814A /* FullIntelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullIntelTests.m; sourceTree = "<group>"; };
@@ -674,6 +697,22 @@
 			name = CorporateDetailCell;
 			sourceTree = "<group>";
 		};
+		A08145A41BD0B53D00AA5EE2 /* FPPopover */ = {
+			isa = PBXGroup;
+			children = (
+				A08145A11BD0B53400AA5EE2 /* FPPopoverController.h */,
+				A08145A21BD0B53400AA5EE2 /* FPPopoverController.m */,
+				A08145A91BD0B5BE00AA5EE2 /* FPTouchView.h */,
+				A08145AA1BD0B5BE00AA5EE2 /* FPTouchView.m */,
+				A08145A61BD0B5A700AA5EE2 /* FPPopoverView.h */,
+				A08145A71BD0B5A700AA5EE2 /* FPPopoverView.m */,
+				A08145A51BD0B56800AA5EE2 /* ARCMacros.h */,
+				A08145AC1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.h */,
+				A08145AD1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m */,
+			);
+			name = FPPopover;
+			sourceTree = "<group>";
+		};
 		A0AF674A1B16EBF6007EDD26 /* CustomPopAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -835,6 +874,8 @@
 			isa = PBXGroup;
 			children = (
 				A0E223511A91C2F00073814A /* Info.plist */,
+				A05878A51BD0F39200DCE62B /* LaunchScreen.xib */,
+				A05878A61BD0F39200DCE62B /* LaunchScreen~iphone.xib */,
 				A0E223521A91C2F00073814A /* main.m */,
 			);
 			name = "Supporting Files";
@@ -958,6 +999,7 @@
 			isa = PBXGroup;
 			children = (
 				F583CD031BA30AD50080C384 /* AddContent.storyboard */,
+				A05878AE1BD4A10200DCE62B /* AddContentPhone.storyboard */,
 				A0ECBDEC1AEA497500B140C8 /* CollectionViewLayout */,
 				F773CFED1ADE9E0A002FC7CF /* AddContentFirstLevelView.h */,
 				F773CFEE1ADE9E0A002FC7CF /* AddContentFirstLevelView.m */,
@@ -1033,8 +1075,8 @@
 			children = (
 				A0E2235A1A91C2F00073814A /* ViewController.h */,
 				A0E2235B1A91C2F00073814A /* ViewController.m */,
-				A0E2235D1A91C2F00073814A /* Main.storyboard */,
 				A0CAB5FE1BBC06C200B485B9 /* MainPhone.storyboard */,
+				A05878A91BD0F81500DCE62B /* Main.storyboard */,
 			);
 			name = LoginViewController;
 			sourceTree = "<group>";
@@ -1044,8 +1086,6 @@
 			children = (
 				A0E223541A91C2F00073814A /* AppDelegate.h */,
 				A0E223551A91C2F00073814A /* AppDelegate.m */,
-				A065F20C1BCCFCD8005C6C93 /* LaunchScreen~ipad.xib */,
-				A065F20E1BCCFCD8005C6C93 /* LaunchScreen~iphone.xib */,
 			);
 			name = AppDelegate;
 			sourceTree = "<group>";
@@ -1120,6 +1160,7 @@
 		F7E368771ABBF1710083F38E /* Popover_View */ = {
 			isa = PBXGroup;
 			children = (
+				A08145A41BD0B53D00AA5EE2 /* FPPopover */,
 				A003B1991B1839E300857F35 /* PopTip */,
 				F7E368901ABC1D6E0083F38E /* More_Popover */,
 				F7E3688A1ABC1CC80083F38E /* ResearchRequest_Popover */,
@@ -1137,7 +1178,7 @@
 				F7E368781ABBF1DA0083F38E /* CommentsPopoverView.h */,
 				F7E368791ABBF1DA0083F38E /* CommentsPopoverView.m */,
 				A0DB6FC01B0AF40C00F6E2F4 /* Comments.storyboard */,
-				A065F20A1BCBC3E3005C6C93 /* CommentsPhone.storyboard */,
+				A081459A1BCF855900AA5EE2 /* CommentsPhone.storyboard */,
 				A0DB6FC21B0B2BB400F6E2F4 /* CommentCell.h */,
 				A0DB6FC31B0B2BB400F6E2F4 /* CommentCell.m */,
 			);
@@ -1163,6 +1204,7 @@
 				F7ECBC621ABFDA78004741A5 /* SavedListCell.h */,
 				F7ECBC631ABFDA78004741A5 /* SavedListCell.m */,
 				F7C1AB5B1ABFEC6B00D8588A /* SavedListPopoverView.storyboard */,
+				A081459C1BCF8B7200AA5EE2 /* SavedListPopoverViewPhone.storyboard */,
 			);
 			name = SavedList_Popover;
 			sourceTree = "<group>";
@@ -1173,6 +1215,7 @@
 				F7E3688B1ABC1D060083F38E /* ResearchRequestPopoverView.h */,
 				F7E3688C1ABC1D060083F38E /* ResearchRequestPopoverView.m */,
 				A0BE809F1B206F450055177E /* ResearchRequest.storyboard */,
+				A081459E1BCFB6A300AA5EE2 /* ResearchRequestPhone.storyboard */,
 			);
 			name = ResearchRequest_Popover;
 			sourceTree = "<group>";
@@ -1183,6 +1226,7 @@
 				F7E368911ABC1DB80083F38E /* MorePopoverView.h */,
 				F7E368921ABC1DB80083F38E /* MorePopoverView.m */,
 				F7C1AB5D1ABFEFB100D8588A /* MorePopoverView.storyboard */,
+				A08145AF1BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard */,
 				F7C1AB5F1ABFF41C00D8588A /* MoreViewCell.h */,
 				F7C1AB601ABFF41C00D8588A /* MoreViewCell.m */,
 			);
@@ -1199,6 +1243,7 @@
 				A033EC4F1BC37B9B003AAE4F /* Icon-60@3x.png */,
 				A033EC501BC37B9B003AAE4F /* Icon-76.png */,
 				A033EC511BC37B9B003AAE4F /* Icon-76@2x.png */,
+				A08145B31BD0DC5E00AA5EE2 /* 150.png */,
 				A033EC521BC37B9B003AAE4F /* Icon-Small.png */,
 				A033EC531BC37B9B003AAE4F /* Icon-Small@2x.png */,
 				A033EC541BC37B9B003AAE4F /* Icon-Small@3x.png */,
@@ -1400,8 +1445,8 @@
 				A0B0F5CA1B256AE300BB1169 /* City-Boston.jpg in Resources */,
 				A0CF5C7B1B1EFE1100DED2D9 /* movesDrill.html in Resources */,
 				F7E81FA81A97057100F9A8D4 /* hp_hero_rtr2iogt_1140x548_v2.jpg in Resources */,
+				A05878A71BD0F39200DCE62B /* LaunchScreen.xib in Resources */,
 				F7E81FCA1A97057100F9A8D4 /* tim.jpeg in Resources */,
-				A0E2235F1A91C2F00073814A /* Main.storyboard in Resources */,
 				A033EC611BC4CF72003AAE4F /* SocialLinkCellPhone.xib in Resources */,
 				F7E81FC81A97057100F9A8D4 /* statistics.png in Resources */,
 				F7E81FC41A97057100F9A8D4 /* sony_topic.jpg in Resources */,
@@ -1435,6 +1480,7 @@
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,
 				A0CF5C621B1DD98B00DED2D9 /* RecentPaternsCell.xib in Resources */,
 				A0CF5C5C1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.xib in Resources */,
+				A05878AA1BD0F81500DCE62B /* Main.storyboard in Resources */,
 				A033EC581BC37B9B003AAE4F /* Icon-60@2x.png in Resources */,
 				A0CF5C551B1DD98B00DED2D9 /* CompetitorCell.xib in Resources */,
 				A033EC591BC37B9B003AAE4F /* Icon-60@3x.png in Resources */,
@@ -1458,28 +1504,31 @@
 				A050A4871B1DF2B30043C477 /* Deals.storyboard in Resources */,
 				F7E81FB61A97057100F9A8D4 /* new-york-city-wallpaper.jpg in Resources */,
 				A0CF5C581B1DD98B00DED2D9 /* ExecutiveMoveCell.xib in Resources */,
-				A065F2111BCCFCD8005C6C93 /* LaunchScreen~iphone.xib in Resources */,
 				A0A678631B1C159400FB2AEA /* influencer_new.json in Resources */,
 				F7E81FBC1A97057100F9A8D4 /* pattern.png in Resources */,
 				F7E81FBE1A97057100F9A8D4 /* samsung.ico in Resources */,
 				F7E81FB01A97057100F9A8D4 /* Josh.jpeg in Resources */,
 				F7C1AB5C1ABFEC6B00D8588A /* SavedListPopoverView.storyboard in Resources */,
 				F7AE10841AC01E4D0091E1C7 /* InfluencerListView.storyboard in Resources */,
+				A081459D1BCF8B7200AA5EE2 /* SavedListPopoverViewPhone.storyboard in Resources */,
+				A05878A81BD0F39200DCE62B /* LaunchScreen~iphone.xib in Resources */,
 				F7E81FC91A97057100F9A8D4 /* stock1.png in Resources */,
 				F7E81FB21A97057100F9A8D4 /* mexico.jpg in Resources */,
-				A065F2101BCCFCD8005C6C93 /* LaunchScreen~ipad.xib in Resources */,
 				A003B1AA1B1874A200857F35 /* Apple_Car.jpg in Resources */,
 				F7E81FB71A97057100F9A8D4 /* Nick.jpeg in Resources */,
 				F7E81F8C1A97057100F9A8D4 /* -iwatch.jpg in Resources */,
 				F7E81FAE1A97057100F9A8D4 /* iwatch.jpg in Resources */,
 				F7AE10891AC022CD0091E1C7 /* InfluencerCell.xib in Resources */,
+				A081459B1BCF855900AA5EE2 /* CommentsPhone.storyboard in Resources */,
 				A0CF5C591B1DD98B00DED2D9 /* ExecutiveMoves.storyboard in Resources */,
 				A0CF5C791B1EFE1100DED2D9 /* dealsDril.html in Resources */,
 				A033EC5A1BC37B9B003AAE4F /* Icon-76.png in Resources */,
+				A05878AF1BD4A10200DCE62B /* AddContentPhone.storyboard in Resources */,
 				F7E81FC21A97057100F9A8D4 /* snow.jpg in Resources */,
 				F717CC931AB1AF6900F66B53 /* back.jpg in Resources */,
 				F7E81FC01A97057100F9A8D4 /* Siemens-logo.svg in Resources */,
 				F717CC951AB1B2E900F66B53 /* OpenSans-Regular.ttf in Resources */,
+				A081459F1BCFB6A300AA5EE2 /* ResearchRequestPhone.storyboard in Resources */,
 				A0CAB6011BBC140900B485B9 /* LeftViewPhone.storyboard in Resources */,
 				A0CF5C631B1DD98B00DED2D9 /* stock.storyboard in Resources */,
 				F7E81FA11A97057100F9A8D4 /* google-icon.png in Resources */,
@@ -1491,9 +1540,9 @@
 				F5F727271B6F809400DE7980 /* SocialLinkCell.xib in Resources */,
 				A0D956811B0C4D9100DB013F /* TwitterKitResources.bundle in Resources */,
 				F7C1AB5E1ABFEFB100D8588A /* MorePopoverView.storyboard in Resources */,
-				A065F20B1BCBC3E3005C6C93 /* CommentsPhone.storyboard in Resources */,
 				F7CE36F21A95E99D0005AA0A /* RATableViewCell.xib in Resources */,
 				A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */,
+				A08145B41BD0DC5E00AA5EE2 /* 150.png in Resources */,
 				A0CF5C7A1B1EFE1100DED2D9 /* legalDril.html in Resources */,
 				A0E223611A91C2F00073814A /* Images.xcassets in Resources */,
 				F7E81FC61A97057100F9A8D4 /* stat1.png in Resources */,
@@ -1512,6 +1561,7 @@
 				A041F0021B2ADA9E00B5600C /* LegendCollectionViewCell.xib in Resources */,
 				A0CAB5FF1BBC06C200B485B9 /* MainPhone.storyboard in Resources */,
 				A0E4B1191B4BB77E0029D389 /* FolderView.storyboard in Resources */,
+				A08145B01BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard in Resources */,
 				F7E81F9C1A97057100F9A8D4 /* carolynryan.jpeg in Resources */,
 				F7ECACCC1AB0730000B57AB6 /* StockWidgetCell.xib in Resources */,
 				F7E81FAB1A97057100F9A8D4 /* ipads.jpg in Resources */,
@@ -1580,6 +1630,7 @@
 				F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */,
 				F7CE36E51A95E9490005AA0A /* RATreeView+Enums.m in Sources */,
 				A0E223591A91C2F00073814A /* FullIntel.xcdatamodeld in Sources */,
+				A08145A81BD0B5A700AA5EE2 /* FPPopoverView.m in Sources */,
 				F7CE36E81A95E9490005AA0A /* RATreeView+TableViewDataSource.m in Sources */,
 				A0CF5C5B1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.m in Sources */,
 				F7CE36E61A95E9490005AA0A /* RATreeView+Private.m in Sources */,
@@ -1587,6 +1638,7 @@
 				A0CF5C6C1B1DD98B00DED2D9 /* RecentPaternsCell.m in Sources */,
 				F7E368821ABC18F70083F38E /* MailPopoverView.m in Sources */,
 				A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */,
+				A08145AE1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m in Sources */,
 				A0D0585F1B206208008F69ED /* MKNumberBadgeView.m in Sources */,
 				A0CF5C701B1DD98B00DED2D9 /* Stories.m in Sources */,
 				F7E85EA31A9F28970022B4D5 /* FIWebService.m in Sources */,
@@ -1629,6 +1681,7 @@
 				A0CF5C5F1B1DD98B00DED2D9 /* IpAndLegalViewController.m in Sources */,
 				F7CE36E21A95E9490005AA0A /* RATreeNodeController.m in Sources */,
 				F7ECACCB1AB0730000B57AB6 /* StockWidgetCell.m in Sources */,
+				A08145AB1BD0B5BE00AA5EE2 /* FPTouchView.m in Sources */,
 				F7EC59171AA7084B00CED53F /* NHAlignmentFlowLayout.m in Sources */,
 				F7E0049B1AB152C500390D51 /* ProductWidgetCell.m in Sources */,
 				A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */,
@@ -1661,6 +1714,7 @@
 				F583CD0D1BA310060080C384 /* DrillDownListTutorialViewController.m in Sources */,
 				A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */,
 				A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */,
+				A08145A31BD0B53400AA5EE2 /* FPPopoverController.m in Sources */,
 				A003B19F1B1841FF00857F35 /* CMPopTipView.m in Sources */,
 				A041F0011B2ADA9E00B5600C /* LegendCollectionViewCell.m in Sources */,
 				F7AE10821AC01E350091E1C7 /* InfluencerListView.m in Sources */,
@@ -1672,33 +1726,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		A065F20C1BCCFCD8005C6C93 /* LaunchScreen~ipad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A065F20D1BCCFCD8005C6C93 /* Base */,
-			);
-			name = "LaunchScreen~ipad.xib";
-			sourceTree = "<group>";
-		};
-		A065F20E1BCCFCD8005C6C93 /* LaunchScreen~iphone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A065F20F1BCCFCD8005C6C93 /* Base */,
-			);
-			name = "LaunchScreen~iphone.xib";
-			sourceTree = "<group>";
-		};
-		A0E2235D1A91C2F00073814A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A0E2235E1A91C2F00073814A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A0E223711A91C2F00073814A /* Debug */ = {
@@ -1739,7 +1766,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
+				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1776,7 +1803,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
+				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1800,7 +1827,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
+				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1822,7 +1849,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cf002f21-6597-41a0-aef6-5041efb09284";
+				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ResearchRequestPopoverView : UIViewController
+@interface ResearchRequestPopoverView : UIViewController<UITextViewDelegate>
 @property (nonatomic,strong) NSString *articleId;
 @property (nonatomic,strong) NSString *articleUrl;
 @property BOOL fromAddContent;
