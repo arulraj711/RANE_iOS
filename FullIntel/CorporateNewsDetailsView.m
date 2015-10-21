@@ -578,8 +578,17 @@
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             curatedNewsDetail = [curatedNews valueForKey:@"details"];
             curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
-            
-            NSString *htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 12px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+            NSString *htmlString;
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            {
+
+            htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 12px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+            }
+            else
+            {
+            htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+
+            }
             NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
             NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
             [cell.articleWebview loadHTMLString:htmlString baseURL:nil];

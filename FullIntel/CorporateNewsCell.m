@@ -10,6 +10,21 @@
 #import "LegendCollectionViewCell.h"
 #import "NHAlignmentFlowLayout.h"
 #import <QuartzCore/QuartzCore.h>
+
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+
 @implementation CorporateNewsCell
 
 - (void)awakeFromNib {
@@ -39,6 +54,18 @@
         self.articleImageView.layer.cornerRadius = 5.0f;
         self.articleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
         self.articleImageView.layer.borderWidth = 0.25f;
+        
+        if (IS_IPHONE_5) {
+            
+//            self.bookmarkView.frame  = CGRectMake(197, self.bookmarkView.frame.origin.y, self.bookmarkView.frame.size.width, self.bookmarkView.frame.size.height);
+            //        self.articlesTableView.frame = CGRectMake(0.f, 0.f, 320, 667);
+            self.articleDate.textAlignment = NSTextAlignmentRight;
+            self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+            self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x+20, self.articleDate.frame.origin.y, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
+               }
+        
+        
+        
     }
     else
     {

@@ -17,6 +17,19 @@
 #import "FIUtils.h"
 //#import "Localytics.h"
 #import "pop.h"
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 @interface AddContentFirstLevelView ()
 
 
@@ -47,7 +60,15 @@
     //NSLog(@"current device orientation:%ld",(long)orientation);
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        layout.blockPixels = CGSizeMake(120,128);
+        if (IS_IPHONE_6)
+        {
+        layout.blockPixels = CGSizeMake(110,110);
+        }
+        else if (IS_IPHONE_6P)
+        {
+            layout.blockPixels = CGSizeMake(110,110);
+
+        }
 
     } else {
         if(orientation == 1) {
@@ -168,7 +189,7 @@
         
     }else{
         
-        _tutorialDescriptionView.hidden=NO;
+//        _tutorialDescriptionView.hidden=NO;
     }
     
     _tutorialDescriptionView.layer.cornerRadius=5.0f;
@@ -461,7 +482,22 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"cell for item");
     FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
-    
+    if (IS_IPHONE_5) {
+        cell.bottomContentView.translatesAutoresizingMaskIntoConstraints = YES; //This part hung me up
+        cell.bottomContentView.frame = CGRectMake(cell.bottomContentView.frame.origin.x, cell.bottomContentView.frame.origin.y-20, cell.bottomContentView.frame.size.width, cell.bottomContentView.frame.size.height);
+        
+        cell.checkMarkButton.translatesAutoresizingMaskIntoConstraints = YES;   //This part hung me up
+        cell.checkMarkButton.frame = CGRectMake(cell.checkMarkButton.frame.origin.x-15, cell.checkMarkButton.frame.origin.y-20, cell.checkMarkButton.frame.size.width, cell.checkMarkButton.frame.size.height);
+
+        cell.imgBottomPart.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
+        cell.imgBottomPart.frame = CGRectMake(cell.imgBottomPart.frame.origin.x, cell.imgBottomPart.frame.origin.y-20, cell.imgBottomPart.frame.size.width, cell.imgBottomPart.frame.size.height);
+        
+        cell.name.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
+        cell.name.frame = CGRectMake(cell.name.frame.origin.x, cell.name.frame.origin.y, cell.name.frame.size.width, cell.name.frame.size.height-10);
+
+        [cell.name setFont:[UIFont systemFontOfSize:10]];
+    }
+
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
     [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
     [cell.image setContentMode:UIViewContentModeScaleAspectFit];
@@ -560,7 +596,7 @@
     if (coachMarksShown == YES) {
         FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
         if(contentCategory.listArray.count != 0) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContentPhone" bundle:nil];
             AddContentSecondLevelView *secondLevel = [storyboard instantiateViewControllerWithIdentifier:@"SecondLevel"];
             secondLevel.delegate = self;
             secondLevel.innerArray = contentCategory.listArray;

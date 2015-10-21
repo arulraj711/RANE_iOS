@@ -144,5 +144,7 @@
 @property (weak,nonatomic) IBOutlet UIButton *folderBtn;
 @property (weak,nonatomic) IBOutlet UIButton *messageBtn;
 @property (weak,nonatomic) IBOutlet UIButton *requestBtn;
+@property (strong, nonatomic) IBOutlet UIImageView *bottomImagevws;
 @property (weak,nonatomic) IBOutlet UIButton *moreButton;
+@property (strong, nonatomic) IBOutlet UIImageView *gradButtonTops;
 @end

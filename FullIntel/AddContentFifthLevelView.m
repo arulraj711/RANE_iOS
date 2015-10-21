@@ -31,8 +31,12 @@
     // Do any additional setup after loading the view.
     RFQuiltLayout* layout = (id)[self.categoryCollectionView collectionViewLayout];
     layout.direction = UICollectionViewScrollDirectionVertical;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        layout.blockPixels = CGSizeMake(110,110);
+        
+    } else {
     layout.blockPixels = CGSizeMake(180,180);
-    
+    }
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     if(orientation == 1) {
         testLabel = [[UILabel alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];

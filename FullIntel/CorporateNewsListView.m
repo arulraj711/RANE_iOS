@@ -21,6 +21,21 @@
 #import "QuartzCore/QuartzCore.h"
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+
 @interface CorporateNewsListView ()
 
 @end
@@ -368,17 +383,36 @@
         //[self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,nil]];
     }
 }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    if (IS_IPHONE_5) {
 
+    }
+    
+    
+    
+//    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+//    if ( screenHeight > 480 && screenHeight < 736 ){
+//        NSLog(@"iPhone 6");
+//        
+//        
+//    }
+//    else if (screenHeight == 320){
+//        self.articlesTableView.frame = CGRectMake(0.f, 0.f, 320, 667);
+//        NSLog(@"iPhone 5");
+//
+//    }
+//    
+//    
+//    else if ( screenHeight > 480 ){
+//        NSLog(@"iPhone 6 Plus");
+//    }
+//    
+
+}
 -(void)viewDidAppear:(BOOL)animated {
     
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    if ( screenHeight > 480 && screenHeight < 736 ){
-        NSLog(@"iPhone 6");
-        self.articlesTableView.frame = CGRectMake(0.f, 0.f, 375, 667);
-    } else if ( screenHeight > 480 ){
-        NSLog(@"iPhone 6 Plus");
-    }
-    self.articlesTableView.dataSource = nil;
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length == 0) {
         // NSLog(@"corporate if part");
@@ -1226,7 +1260,7 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 0)];
     //if (section == integerRepresentingYourSectionOfInterest)
     [headerView setBackgroundColor:[UIColor blueColor]];
-    //else
+    // else
     // [headerView setBackgroundColor:[UIColor clearColor]];
     return headerView;
 }
