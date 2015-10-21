@@ -55,7 +55,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestChange:) name:@"requestChange" object:nil];
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openFolderView:) name:@"openFolderView" object:nil];
+  //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openFolderView:) name:@"openFolderView" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMenuCount:) name:@"updateMenuCount" object:nil];
     
@@ -85,7 +85,7 @@
     self.researchButton.layer.masksToBounds = YES;
     self.researchButton.layer.borderWidth = 1.0f;
     self.researchButton.layer.borderColor = [UIColor colorWithRed:(220/255.0) green:(223/255.0) blue:(224/255.0) alpha:1].CGColor;
-    NSMutableArray *objectArray;
+    
     
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length != 0) {
@@ -139,21 +139,45 @@
     [self test:self.menus];
     [treeView reloadData];
     
+    NSLog(@"view did load method for menu");
     
-    if(self.data.count > 2) {
-        NSLog(@"come selectrow method");
-        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-        if(accessToken.length == 0) {
-            NSLog(@"empty access token");
-        } else{
-            NSLog(@"full access token");
-            [self selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
-           // [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
+    BOOL isNewsLetter = [[NSUserDefaults standardUserDefaults]boolForKey:@"isNewsLetter"];
+    if(!isNewsLetter) {
+        NSLog(@"newsletter false");
+        if(self.data.count > 2) {
+            // NSLog(@"come selectrow method");
+            NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+            if(accessToken.length == 0) {
+                // NSLog(@"empty access token");
+            } else{
+                // NSLog(@"full access token");
+                [self selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+                // [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
+            }
+            
+            //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
+            //
         }
-        
-        //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
-        //
+    } else {
+        NSLog(@"newsletter true");
+        if(self.data.count > 2) {
+            // NSLog(@"come selectrow method");
+            NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+            if(accessToken.length == 0) {
+                // NSLog(@"empty access token");
+            } else{
+                // NSLog(@"full access token");
+                [self selectRowForItem:[self.data objectAtIndex:3] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+                // [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
+            }
+            
+            //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
+            //
+        }
     }
+    
+    
+    
     
     
    // NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
@@ -194,6 +218,7 @@
         cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
     }
    // dsf
+ //   [self.treeView reloadData];
 }
 
 -(void)afterSecondTutorial{
@@ -238,18 +263,20 @@
     if(accessToken.length > 0 && self.data.count > 2) {
         RADataObject *newsletterDataObj;
         for(RADataObject *dataObject in self.data) {
-            NSLog(@"newsletter for loop:%@",dataObject);
             if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
-                NSLog(@"inside if stmt");
                 newsletterDataObj = dataObject;
             }
         }
-        NSLog(@"news letter obj:%@",newsletterDataObj);
-        NSInteger dataIndex = [self.data indexOfObject:newsletterDataObj];
-        NSLog(@"newsletter index:%d",dataIndex);
-        NSInteger level = [self.treeView levelForCellForItem:newsletterDataObj];
-        NSLog(@"newsletter level:%d",level);
-        [self selectRowForItem:[self.data objectAtIndex:8] animated:YES scrollPosition:RATreeViewScrollPositionBottom];
+//        NSInteger dataIndex = [self.data indexOfObject:newsletterDataObj];
+//        NSInteger level = [self.treeView levelForCellForItem:newsletterDataObj];
+        self.menus = [[NSMutableArray alloc]initWithArray:objectArray];
+        [self test:self.menus];
+        [treeView reloadData];
+        
+        //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:8]];
+       // [self treeView:self.treeView didHighlightRowForItem:[self.data objectAtIndex:8]];
+        [self selectRowForItem:[self.data objectAtIndex:8] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+        
         //[self.treeView reloadData];
 //        [self.treeView selectRowForItem:[self.data objectAtIndex:dataIndex] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         //NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:newsletterDataObj];
@@ -271,17 +298,11 @@
 }
 
 -(void)performAnimationForMarkImportant:(NSTimer *)timer{
-    
-    
-    
-    
     RATableViewCell *cell=timer.userInfo;
     
     [self performAnimationForFirstItemInTreeView:cell];
     
-    
-    
-    
+
 }
 
 -(void)performAnimationForFirstItemInTreeView:(RATableViewCell *)cell{
@@ -585,6 +606,7 @@
 }
 
 -(void)updateUnreadCount {
+    NSLog(@"update unreadcount");
     unreadCnt = 0;
     NSMutableArray *unreadMenuArray = [[FISharedResources sharedResourceManager]menuUnReadCountArray];
     NSLog(@"unread menu array:%@ and selected item:%@",unreadMenuArray,data.name);
@@ -614,7 +636,7 @@
 }
 
 -(void)loadMenus {
-    NSLog(@"load menu calling twice");
+    NSLog(@"load menu");
     
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
@@ -642,10 +664,10 @@
     
     
     
-    NSLog(@"menu count:%lu",(unsigned long)self.menus.count);
+   // NSLog(@"menu count:%lu",(unsigned long)self.menus.count);
     [self test:self.menus];
     [treeView reloadData];
-    NSLog(@"data count:%lu",(unsigned long)self.data.count);
+    //NSLog(@"data count:%lu",(unsigned long)self.data.count);
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0 && self.data.count > 2) {
         [self selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
@@ -873,7 +895,7 @@
 
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item
 {
-    // NSLog(@"cell for item:%@",item);
+     NSLog(@"cell for item:%@",item);
     
     RADataObject *dataObject = item;
     NSInteger level = [self.treeView levelForCellForItem:item];
@@ -951,7 +973,7 @@
         cell.expandButton.hidden = YES;
     }
     
-    
+    NSLog(@"cell one");
     
     
     CGFloat left;

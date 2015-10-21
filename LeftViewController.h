@@ -18,7 +18,9 @@
     int unreadCnt;
     RADataObject *data;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
+    NSMutableArray *objectArray;
 }
+@property BOOL isNewsLetterNav;
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;
 @property (weak, nonatomic) IBOutlet UIButton *researchButton;
 @property BOOL isFirstTime;

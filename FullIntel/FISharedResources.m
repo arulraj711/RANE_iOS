@@ -2317,7 +2317,7 @@
     if (![self internetIsReachable]) {
         return NO;
     }
-    NSURL *myURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.google.co.in"]];
+    NSURL *myURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.apple.com/"]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: myURL];
     request.timeoutInterval = 4.0f;
     [request setHTTPMethod: @"HEAD"];

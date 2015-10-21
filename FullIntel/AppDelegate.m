@@ -29,6 +29,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"did finish launching");
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isNewsLetter"];
    // [[Twitter sharedInstance] startWithConsumerKey:@"lEJQRlkFDatgQmZrU24r3gVIM" consumerSecret:@"P401aFimzxdfFRFmKHTSw97vUENnB1pAQBJo8moGEoajMqNOIl"];
 //    [Fabric with:@[[Twitter sharedInstance]]];
 //    [Fabric with:@[CrashlyticsKit]];
@@ -80,13 +82,13 @@
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
     {
-        NSLog(@"one");
+        
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
     else
     {
-        NSLog(@"two");
+        
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
@@ -111,10 +113,10 @@
 
 {
     
-    NSLog(@"coming into get device token");
+    
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSLog(@"token :%@",token);
+    
     
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -129,12 +131,11 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSLog(@"Calling Application Bundle ID: %@", sourceApplication);
-    NSLog(@"URL scheme:%@ and url:%@", [url scheme],url);
-    NSLog(@"URL query: %@ and length:%d", [url query],[url query].length);
+    
     
     if([url query].length != 0) {
-        
+        NSLog(@"appdelegate open url");
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isNewsLetter"];
         NSArray *subStrings = [[url query] componentsSeparatedByString:@"&"]; //or rather @" - "
         
         NSString *objectIdString = [subStrings objectAtIndex:0];
@@ -157,10 +158,6 @@
         NSString *objectId = [[NSString alloc]
                               initWithData:secondDecodedObjectData encoding:NSUTF8StringEncoding];
         
-        NSLog(@"email:%@",objectId);
-        
-        
-        
         NSString *itemIdString = [subStrings objectAtIndex:1];
         NSArray *itemIdArray = [itemIdString componentsSeparatedByString:@"="];
         NSString *encodedItemId = [itemIdArray objectAtIndex:1];
@@ -178,7 +175,7 @@
         itemId = [[NSString alloc]
                             initWithData:secondDecodedItemData encoding:NSUTF8StringEncoding];
         
-        NSLog(@"item id:%@",itemId);
+        
         
         [[NSUserDefaults standardUserDefaults]setObject:itemId forKey:@"itemId"];
         
@@ -199,13 +196,13 @@
         NSString *digestId = [[NSString alloc]
                             initWithData:secondDecodedDigestData encoding:NSUTF8StringEncoding];
         
-        NSLog(@"digest id:%@",digestId);
+        
         
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
         f.numberStyle = NSNumberFormatterDecimalStyle;
         digestNumber = [f numberFromString:digestId];
         
-        NSLog(@"digest number:%@",digestNumber);
+        
         NSManagedObjectContext *context = [self managedObjectContext];
         [[NSUserDefaults standardUserDefaults]setObject:digestNumber forKey:@"digestId"];
         
@@ -213,8 +210,7 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"newsletterId == %@",digestNumber];
         [fetchRequest setPredicate:predicate];
         NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
-        NSLog(@"existing news array:%@",existingArray);
-//        //NSLog(@"article id:%@ and existing array:%d",itemId,existingArray.count);
+        
         NSString *accessToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
         // NSString *customerEmail = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"customerEmail"]];
         if(accessToken.length != 0) {
@@ -236,7 +232,7 @@
 
 
 -(void)test {
-    NSLog(@"inside test function:%@ and %@",digestNumber,[[NSUserDefaults standardUserDefaults] objectForKey:@"itemId"]);
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"newsletterId":[[NSUserDefaults standardUserDefaults] objectForKey:@"digestId"],@"articleId":[[NSUserDefaults standardUserDefaults] objectForKey:@"itemId"]}];
 //    UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
 //    [navCtlr popViewControllerAnimated:YES];
@@ -293,9 +289,9 @@
 
 
 -(void)applicationDidEnterBackground:(UIApplication *)application {
-    NSLog(@"app enter in backgound");
+    NSLog(@"applicationDidEnterBackground");
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    NSLog(@"application enter in background:%@",accessToken);
+    
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Minimize App"];
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
         if(accessToken.length > 0) {
@@ -313,7 +309,7 @@
                 
                 NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
                 //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                NSLog(@"enter back");
+                
                 [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:accessToken];
             } else {
                 
@@ -325,19 +321,21 @@
 
 
 -(void)applicationWillEnterForeground:(UIApplication *)application {
-    NSLog(@"app enter foreground");
+    NSLog(@"applicationWillEnterForeground");
     //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         [FISharedResources sharedResourceManager];
    // });
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    NSLog(@"applicationWillTerminate");
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {
+    NSLog(@"applicationDidBecomeActive");
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0) {
