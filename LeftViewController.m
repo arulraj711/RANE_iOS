@@ -203,8 +203,16 @@
     NSDictionary *userInfo = notification.userInfo;
     NSLog(@"news letter navigation%@",userInfo);
     [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:1] forKey:@"newsletterId"];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
-    UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
+    UIStoryboard *storyboard;
+    UINavigationController *navCtlr;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        storyboard = [UIStoryboard storyboardWithName:@"NewsLetterViewPhone" bundle:nil];
+        navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterViewPhone"];
+    }
+    else{
+        storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
+        navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
+    }
     NewsLetterViewController *newsView = (NewsLetterViewController*)[[navCtlr viewControllers] objectAtIndex:0];
     newsView.newsletterId = [userInfo objectForKey:@"newsletterId"];
     newsView.newsletterArticleId = [userInfo objectForKey:@"articleId"];
@@ -1390,8 +1398,18 @@
             if(data.nodeId != nil) {
                 if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]){
                     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
-                    UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+                    UIStoryboard *storyboard;
+                    UINavigationController *navCtlr;
+
+                    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                        storyboard = [UIStoryboard storyboardWithName:@"FolderViewPhone" bundle:nil];
+                        navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+
+                    } else {
+                        storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
+                        navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+
+                    }
                     ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
                     //  [self.revealController setFrontViewController:navCtlr];
                 } else {
