@@ -132,9 +132,9 @@
 		A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E4B11B1B4BF90A0029D389 /* FolderCell.m */; };
 		A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ECBDEE1AEA499700B140C8 /* RFQuiltLayout.m */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
-		BADFC5951BC384B9005914DF /* chart_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = BADFC5941BC384B9005914DF /* chart_bar.png */; settings = {ASSET_TAGS = (); }; };
-		BADFC5981BC39B0E005914DF /* StoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BADFC5971BC39B0E005914DF /* StoryTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		BADFC59A1BC3A38D005914DF /* chart_story.json in Resources */ = {isa = PBXBuildFile; fileRef = BADFC5991BC3A38D005914DF /* chart_story.json */; settings = {ASSET_TAGS = (); }; };
+		BADFC5951BC384B9005914DF /* chart_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = BADFC5941BC384B9005914DF /* chart_bar.png */; };
+		BADFC5981BC39B0E005914DF /* StoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BADFC5971BC39B0E005914DF /* StoryTableViewCell.m */; };
+		BADFC59A1BC3A38D005914DF /* chart_story.json in Resources */ = {isa = PBXBuildFile; fileRef = BADFC5991BC3A38D005914DF /* chart_story.json */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
