@@ -14,7 +14,11 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+<<<<<<< HEAD
                BlueprintIdentifier = "9EEFC60919C4BE3D9AD0D7A1"
+=======
+               BlueprintIdentifier = "78B12206789A88BBD74D42A8714D3573"
+>>>>>>> FI_CommunicationIssues
                BuildableName = "libMZAppearance.a"
                BlueprintName = "MZAppearance"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -23,6 +27,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+<<<<<<< HEAD
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
@@ -33,24 +38,69 @@
       </Testables>
    </TestAction>
    <LaunchAction
+=======
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+      </Testables>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+>>>>>>> FI_CommunicationIssues
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
+<<<<<<< HEAD
       buildConfiguration = "Debug"
+=======
+>>>>>>> FI_CommunicationIssues
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+<<<<<<< HEAD
+=======
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "78B12206789A88BBD74D42A8714D3573"
+            BuildableName = "libMZAppearance.a"
+            BlueprintName = "MZAppearance"
+            ReferencedContainer = "container:Pods.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+>>>>>>> FI_CommunicationIssues
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+<<<<<<< HEAD
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+=======
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "78B12206789A88BBD74D42A8714D3573"
+            BuildableName = "libMZAppearance.a"
+            BlueprintName = "MZAppearance"
+            ReferencedContainer = "container:Pods.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+>>>>>>> FI_CommunicationIssues
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

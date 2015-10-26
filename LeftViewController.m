@@ -1330,6 +1330,13 @@
             }
             
             // NSLog(@"empty node id");
+        } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:11]]) {
+            NSLog(@"Communication Issue Click");
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"CommunicationIssues" bundle:nil];
+            UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"CommunicationIssues"];
+            ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+            [self.revealController setFrontViewController:navCtlr];
+            
         }else {
             UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
             UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
