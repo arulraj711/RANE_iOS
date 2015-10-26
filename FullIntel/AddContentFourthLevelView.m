@@ -34,8 +34,8 @@
     layout.direction = UICollectionViewScrollDirectionVertical;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         layout.blockPixels = CGSizeMake(110,110);
-        UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-            testLabel = [[UILabel alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+       // UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+            testLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, self.selectTopicsLabel.frame.origin.y-10 ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
             testLabel.text = self.title;
             testLabel.textAlignment = NSTextAlignmentCenter;
             testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];

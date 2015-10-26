@@ -19,6 +19,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =@"DAILY DIGEST";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
+    
     // Do any additional setup after loading the view.
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -45,10 +56,15 @@
     if(self.newsletterArticleId.length != 0) {
         [[NSUserDefaults standardUserDefaults]setObject:self.newsletterId forKey:@"newsletterId"];
         [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:self.newsletterId withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO];
-        
-        
-        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        CorporateNewsListView *listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+        UIStoryboard *centerStoryBoard;
+        CorporateNewsListView *listView;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+        }
         listView.selectedNewsLetterArticleId = self.newsletterArticleId;
         [self.navigationController pushViewController:listView animated:YES];
     }
@@ -62,6 +78,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NewsLetterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     FINewsLetter *newsletter = [newsLetterArray objectAtIndex:indexPath.row];
+    int serialNumber = indexPath.row+1;
+    cell.serialNumber.text = [NSString stringWithFormat:@"%d",serialNumber];
     cell.newsLetterTitle.text = newsletter.newsLetterSubject;
     cell.articlesCount.text = [NSString stringWithFormat:@"%d",newsletter.newsLetterArticles.count];
     cell.createdDate.text = newsletter.createdDate;
@@ -71,13 +89,21 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  //  [self.revealController showViewController:self.revealController.frontViewController];
     FINewsLetter *newsletter = [newsLetterArray objectAtIndex:indexPath.row];
     [[NSUserDefaults standardUserDefaults]setObject:newsletter.newsLetterId forKey:@"newsletterId"];
     [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:newsletter.newsLetterId withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO];
     
     
-    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    UIViewController*listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+    UIStoryboard *centerStoryBoard;
+    CorporateNewsListView *listView;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+    } else {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+    }
     [self.navigationController pushViewController:listView animated:YES];
 }
 

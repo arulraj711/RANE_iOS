@@ -1277,9 +1277,17 @@
             NSLog(@"two");
             //Newsletter navigation
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:1] forKey:@"newsletterId"];
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
-            UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
-            ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+            UIStoryboard *storyboard;
+            UINavigationController *navCtlr;
+             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                 storyboard = [UIStoryboard storyboardWithName:@"NewsLetterViewPhone" bundle:nil];
+                 navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
+             } else {
+                 storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
+                 navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
+             }
+            
+            
             [self.revealController setFrontViewController:navCtlr];
             
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-300]]) {
@@ -1308,15 +1316,15 @@
             
             
             
-                            [modalController.navigationBar setTitleTextAttributes:
-                             [NSDictionary dictionaryWithObjectsAndKeys:
-                              [UIColor whiteColor],
-                              UITextAttributeTextColor,
-                              [UIFont fontWithName:@"OpenSans" size:18.0],
-                              UITextAttributeFont,
-                              nil]];
-                            
-                            modalController.topViewController.title = @"Add Content";
+//                            [modalController.navigationBar setTitleTextAttributes:
+//                             [NSDictionary dictionaryWithObjectsAndKeys:
+//                              [UIColor whiteColor],
+//                              UITextAttributeTextColor,
+//                              [UIFont fontWithName:@"OpenSans" size:18.0],
+//                              UITextAttributeFont,
+//                              nil]];
+//                            
+//                            modalController.topViewController.title = @"Add Content";
 
 //************
             
@@ -1411,7 +1419,7 @@
 
                     }
                     ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
-                    //  [self.revealController setFrontViewController:navCtlr];
+                    [self.revealController setFrontViewController:navCtlr];
                 } else {
                     if([[data.name uppercaseString]isEqualToString:@"RSS"]) {
                         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isRSSField"];

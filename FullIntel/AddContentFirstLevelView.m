@@ -98,14 +98,31 @@
     
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-
-    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
-    [Btn addTarget:self action:@selector(menuBtnPress) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-    [self.navigationItem setLeftBarButtonItem:addButton];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont fontWithName:@"Open Sans" size:16];
+        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        label.text =@"Add Content";
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor whiteColor]; // change this color
+        self.navigationItem.titleView = label;
+        
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
+                                       initWithTitle:@"Cancel"
+                                       style:UIBarButtonItemStyleBordered
+                                       target:self
+                                       action:@selector(cancelButtonPress)];
+        self.navigationItem.leftBarButtonItem = cancelButton;
+        
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"CloseAddContentTutorial"];
+   
+        UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]
+                                         initWithTitle:@"Save"
+                                         style:UIBarButtonItemStyleBordered
+                                         target:self
+                                       action:@selector(updateAddContent)];
+        self.navigationItem.rightBarButtonItem = saveButton;
     }
     else{
         UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
@@ -148,7 +165,7 @@
         [addBtn setTitle:@"Save" forState:UIControlStateNormal];
         
         addBtn.titleLabel.font= [UIFont fontWithName:@"OpenSans" size:17];
-        [addBtn addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+        [addBtn addTarget:self action:@selector(saveAction:) forControlEvents:UIControlEventTouchUpInside];
         [addBtnView addSubview:addBtn];
         UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
         
@@ -199,20 +216,20 @@
     
     [self.view addGestureRecognizer:tapEvent];
 }
--(void)menuBtnPress{
-    
-    NSLog(@"back button press");
-    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
-        NSLog(@"left view closed");
-        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
-        [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
-        [self.revealController showViewController:self.revealController.frontViewController];
-    } else {
-        NSLog(@"left view opened");
-        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
-        [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
-        [self.revealController showViewController:self.revealController.leftViewController];
-    }    
+-(void)cancelButtonPress{
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    NSLog(@"back button press");
+//    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+//        NSLog(@"left view closed");
+//        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+//        [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
+//        [self.revealController showViewController:self.revealController.frontViewController];
+//    } else {
+//        NSLog(@"left view opened");
+//        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+//        [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
+//        [self.revealController showViewController:self.revealController.leftViewController];
+//    }    
     
 }
 -(void)triggerSecondTutorial{
@@ -350,7 +367,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)closeAction:(id)sender {
+
+-(void)updateAddContent {
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SaveChangesInAddContent"];
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"CloseAddContentTutorial"];
     if (coachMarksShown == YES) {
@@ -461,7 +479,11 @@
         }
         
     }
+}
+
+- (IBAction)saveAction:(id)sender {
     
+    [self updateAddContent];
 }
 
 #pragma mark – RFQuiltLayoutDelegate
@@ -482,21 +504,21 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"cell for item");
     FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
-    if (IS_IPHONE_5) {
-        cell.bottomContentView.translatesAutoresizingMaskIntoConstraints = YES; //This part hung me up
-        cell.bottomContentView.frame = CGRectMake(cell.bottomContentView.frame.origin.x, cell.bottomContentView.frame.origin.y-20, cell.bottomContentView.frame.size.width, cell.bottomContentView.frame.size.height);
-        
-        cell.checkMarkButton.translatesAutoresizingMaskIntoConstraints = YES;   //This part hung me up
-        cell.checkMarkButton.frame = CGRectMake(cell.checkMarkButton.frame.origin.x-15, cell.checkMarkButton.frame.origin.y-20, cell.checkMarkButton.frame.size.width, cell.checkMarkButton.frame.size.height);
-
-        cell.imgBottomPart.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
-        cell.imgBottomPart.frame = CGRectMake(cell.imgBottomPart.frame.origin.x, cell.imgBottomPart.frame.origin.y-20, cell.imgBottomPart.frame.size.width, cell.imgBottomPart.frame.size.height);
-        
-        cell.name.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
-        cell.name.frame = CGRectMake(cell.name.frame.origin.x, cell.name.frame.origin.y, cell.name.frame.size.width, cell.name.frame.size.height-10);
-
-        [cell.name setFont:[UIFont systemFontOfSize:10]];
-    }
+//    if (IS_IPHONE_5) {
+//        cell.bottomContentView.translatesAutoresizingMaskIntoConstraints = YES; //This part hung me up
+//        cell.bottomContentView.frame = CGRectMake(cell.bottomContentView.frame.origin.x, cell.bottomContentView.frame.origin.y-20, cell.bottomContentView.frame.size.width, cell.bottomContentView.frame.size.height);
+//        
+//        cell.checkMarkButton.translatesAutoresizingMaskIntoConstraints = YES;   //This part hung me up
+//        cell.checkMarkButton.frame = CGRectMake(cell.checkMarkButton.frame.origin.x-15, cell.checkMarkButton.frame.origin.y-20, cell.checkMarkButton.frame.size.width, cell.checkMarkButton.frame.size.height);
+//
+//        cell.imgBottomPart.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
+//        cell.imgBottomPart.frame = CGRectMake(cell.imgBottomPart.frame.origin.x, cell.imgBottomPart.frame.origin.y-20, cell.imgBottomPart.frame.size.width, cell.imgBottomPart.frame.size.height);
+//        
+//        cell.name.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
+//        cell.name.frame = CGRectMake(cell.name.frame.origin.x, cell.name.frame.origin.y, cell.name.frame.size.width, cell.name.frame.size.height-10);
+//
+//        [cell.name setFont:[UIFont systemFontOfSize:10]];
+//    }
 
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
     [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
@@ -551,22 +573,22 @@
     
     
     
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
-    if (coachMarksShown == NO) {
-        
-        if(indexPath.row==0){
-            cell.layer.borderWidth=1.0;
-            cell.layer.borderColor=[[UIColor redColor]CGColor];
-            
-            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
-        }else{
-            cell.layer.borderWidth=0.0;
-        }
-        
-    }else{
-        
-        cell.layer.borderWidth=0.0;
-    }
+//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+//    if (coachMarksShown == NO) {
+//        
+//        if(indexPath.row==0){
+//            cell.layer.borderWidth=1.0;
+//            cell.layer.borderColor=[[UIColor redColor]CGColor];
+//            
+//            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
+//        }else{
+//            cell.layer.borderWidth=0.0;
+//        }
+//        
+//    }else{
+//        
+//        cell.layer.borderWidth=0.0;
+//    }
     
     
     return cell;

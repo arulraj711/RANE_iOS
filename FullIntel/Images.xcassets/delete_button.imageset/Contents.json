@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Trash-30.png"
+      "filename" : "Delete-30.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Trash-60.png"
+      "filename" : "Delete-60.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "Trash-90.png"
+      "filename" : "Delete-90.png"
     }
   ],
   "info" : {

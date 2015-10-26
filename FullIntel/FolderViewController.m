@@ -20,9 +20,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =@"FOLDER";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
+    
     // Do any additional setup after loading the view.
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
-    
     [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
     [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
     [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];

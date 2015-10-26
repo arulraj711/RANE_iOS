@@ -33,27 +33,32 @@
     layout.direction = UICollectionViewScrollDirectionVertical;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         layout.blockPixels = CGSizeMake(110,110);
-        
+        testLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, self.selectTopicsLabel.frame.origin.y-10 ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+        testLabel.text = self.title;
+        testLabel.textAlignment = NSTextAlignmentCenter;
+        testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
+        [self.view addSubview:testLabel];
     } else {
     layout.blockPixels = CGSizeMake(180,180);
+        UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+        if(orientation == 1) {
+            testLabel = [[UILabel alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+            testLabel.text = self.title;
+            testLabel.textAlignment = NSTextAlignmentCenter;
+            testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
+            //self.selectTopicsLabel.frame = CGRectMake(0, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
+            // layout.blockPixels = CGSizeMake(100,150);
+        }else {
+            // layout.blockPixels = CGSizeMake(130,150);
+            testLabel = [[UILabel alloc]initWithFrame:CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
+            testLabel.text = self.title;
+            testLabel.textAlignment = NSTextAlignmentCenter;
+            testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
+            //self.selectTopicsLabel.frame = CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
+        }
+        [self.view addSubview:testLabel];
     }
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    if(orientation == 1) {
-        testLabel = [[UILabel alloc]initWithFrame:CGRectMake((760-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
-        testLabel.text = self.title;
-        testLabel.textAlignment = NSTextAlignmentCenter;
-        testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
-        //self.selectTopicsLabel.frame = CGRectMake(0, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
-        // layout.blockPixels = CGSizeMake(100,150);
-    }else {
-        // layout.blockPixels = CGSizeMake(130,150);
-        testLabel = [[UILabel alloc]initWithFrame:CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
-        testLabel.text = self.title;
-        testLabel.textAlignment = NSTextAlignmentCenter;
-        testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
-        //self.selectTopicsLabel.frame = CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
-    }
-    [self.view addSubview:testLabel];
+    
     
     [self.categoryCollectionView reloadData];
     [self loadSelectedCategory];

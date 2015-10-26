@@ -92,23 +92,23 @@
     
     
     // [self.revealController showViewController:self.revealController.leftViewController];
-    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
-    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-    [self.navigationItem setLeftBarButtonItem:addButton];
-    
-    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
-    addBtnView.backgroundColor = [UIColor clearColor];
-    
-    UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    [addBtn setFrame:CGRectMake(0,0,40,40)];
-    [addBtn setImage :[UIImage imageNamed:@"addcontent"]  forState:UIControlStateNormal];
-    [addBtn addTarget:self action:@selector(addContentView) forControlEvents:UIControlEventTouchUpInside];
-    [addBtnView addSubview:addBtn];
-    UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
+//    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+//    
+//    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+//    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+//    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+//    [self.navigationItem setLeftBarButtonItem:addButton];
+//    
+//    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+//    addBtnView.backgroundColor = [UIColor clearColor];
+//    
+//    UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//    [addBtn setFrame:CGRectMake(0,0,40,40)];
+//    [addBtn setImage :[UIImage imageNamed:@"addcontent"]  forState:UIControlStateNormal];
+//    [addBtn addTarget:self action:@selector(addContentView) forControlEvents:UIControlEventTouchUpInside];
+//    [addBtnView addSubview:addBtn];
+//    UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
     
     //    UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
     //    searchBtnView.backgroundColor = [UIColor clearColor];
@@ -516,102 +516,203 @@
 }
 
 -(void)loadCuratedNews {
-    
-    
-    
     // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:100];
+    
     self.articlesTableView.dataSource = self;
+    
     self.articlesTableView.delegate = self;
+    
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
+    
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
+    
     NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+    
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
-
+    
+    
+    
     NSLog(@"load curated news categoryId:%@ and folderid:%@ and contentTypeId:%@ and newsletterid:%@",categoryId,folderId,contentTypeId,newsLetterId);
+    
     // NSLog(@"category id in curated news:%@",categoryId);
+    
     self.devices = [[NSMutableArray alloc]init];
+    
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    
     NSPredicate *predicate;
-    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
+    
+    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
         
-    } else {
+        UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+        
+        [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+        
+        [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+        
+        [self.navigationItem setLeftBarButtonItem:addButton];
+        
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                
                 NSLog(@"if part");
+                
                 BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+                
                 if(savedForLaterIsNew){
+                    
                     if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+                        
                         predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@",[NSNumber numberWithBool:YES],contentTypeId];
+                        
                     } else {
+                        
                         predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                        
                     }
+                    
                 } else {
+                    
                     NSLog(@"saved for later old");
+                    
                     predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                    
                 }
+                
                 // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
                 
+                
+                
             } else {
+                
                 NSLog(@"else part");
+                
                 NSLog(@"content btype:%@ and category:%@",contentTypeId,categoryId);
+                
                 predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
+                
             }
+            
         } else {
+            
             predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
+            
         }
+        
+        
+        
+    } else {
+        
+        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
+        
+        
+        
     }
+    
+    
+    
+    
     
     
     
     [fetchRequest setPredicate:predicate];
     
     
+    
+    
+    
     NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    
     NSLog(@"date:%@",date);
+    
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
+    
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     
     
+    
+    
+    
+    
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
     NSLog(@"curated news list count:%lu",(unsigned long)newPerson.count);
+    
     if(newPerson.count != 0) {
+        
         [self addRightBarItems];
+        
         [activityIndicator stopAnimating];
+        
     } else {
+        
         self.navigationItem.rightBarButtonItems = nil;
+        
         //messageString = @"No articles to display";
+        
         //[activityIndicator stopAnimating];
+        
+        
         
     }
     
+    
+    
     //    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]] && newPerson.count == 0) {
+    
     //        [self stopLoading];
+    
     //    }
+    
     //    if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]] && newPerson.count == 0) {
+    
     //        [activityIndicator stopAnimating];
+    
     //    }
+    
     if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+        
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
         
+        
+        
     }else {
+        
         self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        
     }
+    
     NSLog(@"news article id:%@",self.selectedNewsLetterArticleId);
+    
     if(self.selectedNewsLetterArticleId.length != 0 && !self.isNewsLetterNav) {
+        
         self.isNewsLetterNav = YES;
+        
         [self redirectToNewsLetterArticleWithId:self.selectedNewsLetterArticleId];
+        
     }
-
+    
+    
+    
     //NSLog(@"devices:%d",self.devices.count);
+    
     _spinner.hidden = YES;
+    
     [_spinner stopAnimating];
+    
     [self.articlesTableView reloadData];
+    
     //   [self.revealController showViewController:self.revealController.leftViewController];
+    
 }
-
 
 -(void)loadLocalData {
     

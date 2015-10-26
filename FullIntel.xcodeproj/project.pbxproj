@@ -129,13 +129,13 @@
 		A0E4B1191B4BB77E0029D389 /* FolderView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E4B1181B4BB77D0029D389 /* FolderView.storyboard */; };
 		A0E4B11C1B4BF90A0029D389 /* FolderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E4B11B1B4BF90A0029D389 /* FolderCell.m */; };
 		A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ECBDEE1AEA499700B140C8 /* RFQuiltLayout.m */; };
+		A0EF01911BDE379600B0191B /* NewsLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF01901BDE379600B0191B /* NewsLetterViewController.m */; };
+		A0EF01931BDE37AB00B0191B /* NewsLetterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF01921BDE37AB00B0191B /* NewsLetterView.storyboard */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
-		F554DFCE1BB00AEA0062EAC7 /* NewsLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFCD1BB00AEA0062EAC7 /* NewsLetterViewController.m */; };
-		F554DFD01BB00B1E0062EAC7 /* NewsLetterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F554DFCF1BB00B1E0062EAC7 /* NewsLetterView.storyboard */; };
 		F554DFD31BB016180062EAC7 /* FINewsLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFD21BB016180062EAC7 /* FINewsLetter.m */; };
 		F554DFD61BB026980062EAC7 /* NewsLetterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFD51BB026980062EAC7 /* NewsLetterCell.m */; };
 		F55634651B94687A009E7C8E /* FIUnreadMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55634631B94687A009E7C8E /* FIUnreadMenu.m */; };
@@ -436,6 +436,8 @@
 		A0E4B11B1B4BF90A0029D389 /* FolderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderCell.m; sourceTree = "<group>"; };
 		A0ECBDED1AEA499700B140C8 /* RFQuiltLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFQuiltLayout.h; sourceTree = "<group>"; };
 		A0ECBDEE1AEA499700B140C8 /* RFQuiltLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFQuiltLayout.m; sourceTree = "<group>"; };
+		A0EF01901BDE379600B0191B /* NewsLetterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLetterViewController.m; sourceTree = "<group>"; };
+		A0EF01921BDE37AB00B0191B /* NewsLetterView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewsLetterView.storyboard; sourceTree = "<group>"; };
 		A0F118B21AE7E0420047FE13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0F118B31AE7E0420047FE13 /* FullIntelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullIntelTests.m; sourceTree = "<group>"; };
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -446,8 +448,6 @@
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F552A8241B6666670003B7C1 /* FullIntel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 2.xcdatamodel"; sourceTree = "<group>"; };
 		F554DFCC1BB00AEA0062EAC7 /* NewsLetterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLetterViewController.h; sourceTree = "<group>"; };
-		F554DFCD1BB00AEA0062EAC7 /* NewsLetterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLetterViewController.m; sourceTree = "<group>"; };
-		F554DFCF1BB00B1E0062EAC7 /* NewsLetterView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewsLetterView.storyboard; sourceTree = "<group>"; };
 		F554DFD11BB016180062EAC7 /* FINewsLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FINewsLetter.h; sourceTree = "<group>"; };
 		F554DFD21BB016180062EAC7 /* FINewsLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FINewsLetter.m; sourceTree = "<group>"; };
 		F554DFD41BB026980062EAC7 /* NewsLetterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLetterCell.h; sourceTree = "<group>"; };
@@ -954,8 +954,8 @@
 			isa = PBXGroup;
 			children = (
 				F554DFCC1BB00AEA0062EAC7 /* NewsLetterViewController.h */,
-				F554DFCD1BB00AEA0062EAC7 /* NewsLetterViewController.m */,
-				F554DFCF1BB00B1E0062EAC7 /* NewsLetterView.storyboard */,
+				A0EF01901BDE379600B0191B /* NewsLetterViewController.m */,
+				A0EF01921BDE37AB00B0191B /* NewsLetterView.storyboard */,
 				A0506C4D1BD7C68C00E250F7 /* NewsLetterViewPhone.storyboard */,
 				F554DFD41BB026980062EAC7 /* NewsLetterCell.h */,
 				F554DFD51BB026980062EAC7 /* NewsLetterCell.m */,
@@ -1461,7 +1461,6 @@
 				A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */,
 				F5DAAA541B7080E80059425C /* TweetsCell.xib in Resources */,
 				A0CF5C5D1B1DD98B00DED2D9 /* IpAndLegal.storyboard in Resources */,
-				F554DFD01BB00B1E0062EAC7 /* NewsLetterView.storyboard in Resources */,
 				F7F3C05B1AA42CC700E653CB /* menu.json in Resources */,
 				F7E368831ABC18F70083F38E /* MailPopoverView.xib in Resources */,
 				F7E81FBD1A97057100F9A8D4 /* sam_img.png in Resources */,
@@ -1497,6 +1496,7 @@
 				F7E81FB11A97057100F9A8D4 /* kates.jpg in Resources */,
 				F7E81F9A1A97057100F9A8D4 /* business-technology.jpg in Resources */,
 				F7E81FAA1A97057100F9A8D4 /* ionic.png in Resources */,
+				A0EF01931BDE37AB00B0191B /* NewsLetterView.storyboard in Resources */,
 				F7E81FA21A97057100F9A8D4 /* google_topic.png in Resources */,
 				A033EC561BC37B9B003AAE4F /* Icon-40@2x.png in Resources */,
 				F773CFE91ADE99C7002FC7CF /* addContent.json in Resources */,
@@ -1652,7 +1652,6 @@
 				F7E85EA31A9F28970022B4D5 /* FIWebService.m in Sources */,
 				F7CE36F01A95E99D0005AA0A /* RADataObject.m in Sources */,
 				F7E85EA61A9F28B60022B4D5 /* FISharedResources.m in Sources */,
-				F554DFCE1BB00AEA0062EAC7 /* NewsLetterViewController.m in Sources */,
 				A0E4B1171B4BB76B0029D389 /* FolderViewController.m in Sources */,
 				F554DFD61BB026980062EAC7 /* NewsLetterCell.m in Sources */,
 				A0CF5C6A1B1DD98B00DED2D9 /* NumberOfPatternsCell.m in Sources */,
@@ -1666,6 +1665,7 @@
 				F7CE36E91A95E9490005AA0A /* RATreeView+TableViewDelegate.m in Sources */,
 				A0AF67531B16EC67007EDD26 /* DismissingAnimator.m in Sources */,
 				A0406BA11B05CE5F00985CF8 /* TweetsCell.m in Sources */,
+				A0EF01911BDE379600B0191B /* NewsLetterViewController.m in Sources */,
 				A07A05BE1AF78EBC0016AD46 /* AddContentThirdLevelView.m in Sources */,
 				F7CE36E41A95E9490005AA0A /* RATreeNodeItem.m in Sources */,
 				F7AE10881AC022CD0091E1C7 /* InfluencerCell.m in Sources */,
