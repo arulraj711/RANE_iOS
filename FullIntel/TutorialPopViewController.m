@@ -101,7 +101,8 @@
     
      [popAnimationTimer invalidate];
     
-    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialShown"];
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"CloseAddContentTutorial"];
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"TutorialLaterClick"];
     
      [self dismissViewControllerAnimated:NO completion:NULL];

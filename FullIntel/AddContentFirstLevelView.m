@@ -141,7 +141,7 @@
     _requestChangeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
     _requestChangeButton.layer.borderWidth=1.0f;
     
-    
+    _tutorialDescriptionView.layer.cornerRadius=5.0f;
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
     if (coachMarksShown == YES) {
         _tutorialDescriptionView.hidden=YES;
@@ -149,14 +149,15 @@
     }else{
         
         _tutorialDescriptionView.hidden=NO;
+        UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
+        
+        [self.view addGestureRecognizer:tapEvent];
     }
     
-    _tutorialDescriptionView.layer.cornerRadius=5.0f;
     
     
-    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
     
-    [self.view addGestureRecognizer:tapEvent];
+    
 }
 
 -(void)triggerSecondTutorial{

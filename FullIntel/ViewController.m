@@ -67,10 +67,6 @@
 }
 
 - (void)keyboardDidShow: (NSNotification *) notif{
-    // Do something here
-    //    CGFloat height = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].height;
-//    CGFloat height = [[notif.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-//    self.view.center = CGPointMake(self.originalCenter.x, -height);
     self.view.frame = CGRectMake(self.view.frame.origin.x, -60, self.view.frame.size.width,self.view.frame.size.height);
 }
 
