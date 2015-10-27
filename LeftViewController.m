@@ -733,11 +733,11 @@
 
 -(void)presentTutorialPopViewController{
     
-    NSLog(@"come inside tutorial present");
+    NSLog(@"presentTutorialPopViewController");
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
     if (coachMarksShown == NO) {
         
-        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"TutorialPhone" bundle:nil];
         UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
         
         //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
@@ -1312,91 +1312,6 @@
                              completion:^{
                                  
                              }];
-                            // navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-            
-            
-            
-//                            [modalController.navigationBar setTitleTextAttributes:
-//                             [NSDictionary dictionaryWithObjectsAndKeys:
-//                              [UIColor whiteColor],
-//                              UITextAttributeTextColor,
-//                              [UIFont fontWithName:@"OpenSans" size:18.0],
-//                              UITextAttributeFont,
-//                              nil]];
-//                            
-//                            modalController.topViewController.title = @"Add Content";
-
-//************
-            
-//            formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
-//            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-//                    formSheet.presentedFormSheetSize = CGSizeMake(320, 650);
-//                
-//            } else {
-//                if(orientation == 1) {
-//                    formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
-//                } else {
-//                    formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
-//                }
-//            }
-//            
-//            
-//            formSheet.shadowRadius = 2.0;
-//            formSheet.shadowOpacity = 0.3;
-//            formSheet.shouldDismissOnBackgroundViewTap = NO;
-//            formSheet.shouldCenterVertically = YES;
-//            formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
-//            __weak MZFormSheetController *weakFormSheet = formSheet;
-//            
-//            
-//            // If you want to animate status bar use this code
-//            formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
-//                UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
-//                if ([navController.topViewController isKindOfClass:[AddContentFirstLevelView class]]) {
-//                    //AddContentFirstLevelView *mzvc = (AddContentFirstLevelView *)navController.topViewController;
-//                    //  mzvc.showStatusBar = NO;
-//                }
-//                
-//                
-//                [UIView animateWithDuration:0.3 animations:^{
-//                    if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-//                        [weakFormSheet setNeedsStatusBarAppearanceUpdate];
-//                    }
-//                }];
-//            };
-//            
-//            formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
-//                // Passing data
-//                UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-//                // navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-//                
-//                
-//                
-//                [navController.navigationBar setTitleTextAttributes:
-//                 [NSDictionary dictionaryWithObjectsAndKeys:
-//                  [UIColor whiteColor],
-//                  UITextAttributeTextColor,
-//                  [UIFont fontWithName:@"OpenSans" size:18.0],
-//                  UITextAttributeFont,
-//                  nil]];
-//                
-//                navController.topViewController.title = @"Add Content";
-//            };
-//            formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
-//            
-//            [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
-//            
-//            //    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-//            //    if(accessToken.length > 0) {
-//            [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-//                
-//            }];
-            // }
-            
-
-            
-            
-            
         }else if(data.isFolder){
             NSLog(@"three");
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
@@ -1647,71 +1562,71 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         storyBoard = [UIStoryboard storyboardWithName:@"AddContentPhone" bundle:nil];
         modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
+        [self presentViewController:modalController animated:YES completion:^{}];
     } else {
         storyBoard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
         modalController = [storyBoard instantiateViewControllerWithIdentifier:@"addContentNav"];
-    }
-    
-    
-    
-    formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
-    if(orientation == 1) {
-        formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
-    } else {
-        formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
-    }
-    
-    formSheet.shadowRadius = 2.0;
-    formSheet.shadowOpacity = 0.3;
-    formSheet.shouldDismissOnBackgroundViewTap = NO;
-    formSheet.shouldCenterVertically = YES;
-    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
-    __weak MZFormSheetController *weakFormSheet = formSheet;
-    
-    
-    // If you want to animate status bar use this code
-    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
-        UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
-        if ([navController.topViewController isKindOfClass:[AddContentFirstLevelView class]]) {
-            //AddContentFirstLevelView *mzvc = (AddContentFirstLevelView *)navController.topViewController;
-            //  mzvc.showStatusBar = NO;
+        
+        
+        formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+        if(orientation == 1) {
+            formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
+        } else {
+            formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
         }
         
+        formSheet.shadowRadius = 2.0;
+        formSheet.shadowOpacity = 0.3;
+        formSheet.shouldDismissOnBackgroundViewTap = NO;
+        formSheet.shouldCenterVertically = YES;
+        formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+        __weak MZFormSheetController *weakFormSheet = formSheet;
         
-        [UIView animateWithDuration:0.3 animations:^{
-            if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-                [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+        
+        // If you want to animate status bar use this code
+        formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+            UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
+            if ([navController.topViewController isKindOfClass:[AddContentFirstLevelView class]]) {
+                //AddContentFirstLevelView *mzvc = (AddContentFirstLevelView *)navController.topViewController;
+                //  mzvc.showStatusBar = NO;
             }
+            
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+                    [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+                }
+            }];
+        };
+        
+        formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+            // Passing data
+            UINavigationController *navController = (UINavigationController *)presentedFSViewController;
+            // navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+            
+            
+            
+            [navController.navigationBar setTitleTextAttributes:
+             [NSDictionary dictionaryWithObjectsAndKeys:
+              [UIColor whiteColor],
+              UITextAttributeTextColor,
+              [UIFont fontWithName:@"OpenSans" size:18.0],
+              UITextAttributeFont,
+              nil]];
+            
+            navController.topViewController.title = @"Add Content";
+        };
+        formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+        
+        [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
+        
+        //    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        //    if(accessToken.length > 0) {
+        [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+            
         }];
-    };
-    
-    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
-        // Passing data
-        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-        // navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
         
-        
-        
-        [navController.navigationBar setTitleTextAttributes:
-         [NSDictionary dictionaryWithObjectsAndKeys:
-          [UIColor whiteColor],
-          UITextAttributeTextColor,
-          [UIFont fontWithName:@"OpenSans" size:18.0],
-          UITextAttributeFont,
-          nil]];
-        
-        navController.topViewController.title = @"Add Content";
-    };
-    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
-    
-    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
-    
-    //    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    //    if(accessToken.length > 0) {
-    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-        
-    }];
-    // }
+    }
     
 }
 
@@ -1748,6 +1663,7 @@
 }
 
 - (IBAction)triggerTutorial:(id)sender {
+    NSLog(@"triggerTutorial button");
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"TutorialBoxShown"];
     
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"TutorialShown"];

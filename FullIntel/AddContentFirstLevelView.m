@@ -200,21 +200,21 @@
 
     }
     
-        BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
-    if (coachMarksShown == YES) {
-        _tutorialDescriptionView.hidden=YES;
-        
-    }else{
-        
+//        BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+//    if (coachMarksShown == YES) {
+//        _tutorialDescriptionView.hidden=YES;
+//        
+//    }else{
+//        
 //        _tutorialDescriptionView.hidden=NO;
-    }
-    
-    _tutorialDescriptionView.layer.cornerRadius=5.0f;
-    
-    
-    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
-    
-    [self.view addGestureRecognizer:tapEvent];
+//    }
+//    
+//    _tutorialDescriptionView.layer.cornerRadius=5.0f;
+//    
+//    
+//    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
+//    
+//    [self.view addGestureRecognizer:tapEvent];
 }
 -(void)cancelButtonPress{
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -573,22 +573,22 @@
     
     
     
-//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
-//    if (coachMarksShown == NO) {
-//        
-//        if(indexPath.row==0){
-//            cell.layer.borderWidth=1.0;
-//            cell.layer.borderColor=[[UIColor redColor]CGColor];
-//            
-//            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
-//        }else{
-//            cell.layer.borderWidth=0.0;
-//        }
-//        
-//    }else{
-//        
-//        cell.layer.borderWidth=0.0;
-//    }
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    if (coachMarksShown == NO) {
+        
+        if(indexPath.row==0){
+            cell.layer.borderWidth=1.0;
+            cell.layer.borderColor=[[UIColor redColor]CGColor];
+            
+            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
+        }else{
+            cell.layer.borderWidth=0.0;
+        }
+        
+    }else{
+        
+        cell.layer.borderWidth=0.0;
+    }
     
     
     return cell;

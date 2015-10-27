@@ -92,10 +92,10 @@
     
      [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"TutorialContinueClick"];
     
-  
+   [self dismissViewControllerAnimated:NO completion:NULL];
      [[NSNotificationCenter defaultCenter]postNotificationName:@"TutorialTrigger" object:nil userInfo:nil];
     
-    [self dismissViewControllerAnimated:NO completion:NULL];
+   
 }
 - (IBAction)laterButtonPressed:(id)sender {
     

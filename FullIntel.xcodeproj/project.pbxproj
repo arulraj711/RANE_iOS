@@ -132,6 +132,7 @@
 		A0EF01911BDE379600B0191B /* NewsLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF01901BDE379600B0191B /* NewsLetterViewController.m */; };
 		A0EF01931BDE37AB00B0191B /* NewsLetterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF01921BDE37AB00B0191B /* NewsLetterView.storyboard */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
+		BAEADFDA1BDF77B800A3680B /* TutorialPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAEADFD91BDF77B800A3680B /* TutorialPhone.storyboard */; settings = {ASSET_TAGS = (); }; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
@@ -443,6 +444,7 @@
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 3.xcdatamodel"; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
+		BAEADFD91BDF77B800A3680B /* TutorialPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TutorialPhone.storyboard; sourceTree = "<group>"; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -977,6 +979,7 @@
 				F583CD121BA3103B0080C384 /* LeftMenuTutorialPopViewController.m */,
 				F583CD141BA310590080C384 /* MainListTutorialViewController.h */,
 				F583CD151BA310590080C384 /* MainListTutorialViewController.m */,
+				BAEADFD91BDF77B800A3680B /* TutorialPhone.storyboard */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -1415,7 +1418,6 @@
 				TargetAttributes = {
 					A0E2234C1A91C2F00073814A = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = 8JJ7VBN6MD;
 					};
 				};
 			};
@@ -1484,6 +1486,7 @@
 				F7E81FBF1A97057100F9A8D4 /* samsung_topic.jpg in Resources */,
 				A0CF5C611B1DD98B00DED2D9 /* PersonalityExecutiveCell.xib in Resources */,
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,
+				BAEADFDA1BDF77B800A3680B /* TutorialPhone.storyboard in Resources */,
 				A0CF5C621B1DD98B00DED2D9 /* RecentPaternsCell.xib in Resources */,
 				A0CF5C5C1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.xib in Resources */,
 				A05878AA1BD0F81500DCE62B /* Main.storyboard in Resources */,
@@ -1753,8 +1756,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1774,7 +1777,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1797,8 +1800,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1811,7 +1814,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1824,8 +1827,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1835,7 +1839,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1846,8 +1850,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1857,7 +1862,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

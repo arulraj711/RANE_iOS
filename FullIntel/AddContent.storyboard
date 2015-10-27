@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -28,7 +28,7 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Add Content First Level View-->
+        <!--Delegate-->
         <scene sceneID="Sow-k9-XUl">
             <objects>
                 <viewController storyboardIdentifier="AddContentFirstLevel" id="ngJ-7S-5Ay" customClass="AddContentFirstLevelView" sceneMemberID="viewController">
@@ -46,14 +46,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QIY-U0-NE2">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QIY-U0-NE2">
                                 <rect key="frame" x="10" y="59" width="780" height="1"/>
                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="mPm-7l-yRn"/>
                                 </constraints>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JP1-Ds-C95">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JP1-Ds-C95">
                                 <rect key="frame" x="0.0" y="82" width="800" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -66,6 +66,7 @@
                                 </collectionViewLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FirstLevelCell" id="zSt-lu-z9r" customClass="FirstLevelCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="130" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="130" height="150"/>
@@ -186,7 +187,7 @@
                                 <rect key="frame" x="0.0" y="238" width="800" height="1"/>
                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGS-3Z-pV4">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGS-3Z-pV4">
                                 <rect key="frame" x="631" y="11" width="140" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="7io-oG-tLe"/>
@@ -200,7 +201,7 @@
                                     <action selector="requestChange:" destination="ngJ-7S-5Ay" eventType="touchUpInside" id="uB9-M4-4Ax"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBT-h3-iNn">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xBT-h3-iNn">
                                 <rect key="frame" x="200" y="38" width="400" height="40"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="You are subscribed to these modules" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="07z-sj-8Hf">
@@ -275,7 +276,7 @@
             </objects>
             <point key="canvasLocation" x="-394" y="-241"/>
         </scene>
-        <!--Add Content Second Level View-->
+        <!--Delegate-->
         <scene sceneID="Ugq-Zk-ZDr">
             <objects>
                 <viewController storyboardIdentifier="SecondLevel" id="Xqp-Le-Ab0" customClass="AddContentSecondLevelView" sceneMemberID="viewController">
@@ -297,7 +298,7 @@
                                 </collectionViewLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="gjg-g8-1mh" customClass="SecondLevelCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="200"/>
@@ -385,14 +386,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EBA-bw-DBm">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EBA-bw-DBm">
                                 <rect key="frame" x="0.0" y="60" width="820" height="1"/>
                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="cfn-n1-QqH"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAN-eA-djL">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cAN-eA-djL">
                                 <rect key="frame" x="210" y="300" width="400" height="40"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="And these topics" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vV4-tk-dfv">
@@ -442,7 +443,7 @@
             </objects>
             <point key="canvasLocation" x="867" y="885"/>
         </scene>
-        <!--Add Content Third Level View-->
+        <!--Delegate-->
         <scene sceneID="lMc-l3-D8G">
             <objects>
                 <viewController storyboardIdentifier="ThirdLevel" id="vlZ-Ba-STS" customClass="AddContentThirdLevelView" sceneMemberID="viewController">
@@ -485,7 +486,7 @@
                                 </collectionViewLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="iqM-ej-EqR" customClass="SecondLevelCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
@@ -579,7 +580,7 @@
             </objects>
             <point key="canvasLocation" x="177" y="454"/>
         </scene>
-        <!--Add Content Fourth Level View-->
+        <!--Delegate-->
         <scene sceneID="pf7-Jk-5T3">
             <objects>
                 <viewController storyboardIdentifier="FourthLevel" id="p5E-yI-z0l" customClass="AddContentFourthLevelView" sceneMemberID="viewController">
@@ -601,7 +602,7 @@
                                 </collectionViewLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="PMa-jH-ras" customClass="SecondLevelCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
@@ -692,7 +693,7 @@
             </objects>
             <point key="canvasLocation" x="1700" y="737"/>
         </scene>
-        <!--Add Content Fifth Level View-->
+        <!--Delegate-->
         <scene sceneID="Niy-zB-WKj">
             <objects>
                 <viewController storyboardIdentifier="FifthLevel" id="b7v-OA-kV0" customClass="AddContentFifthLevelView" sceneMemberID="viewController">
@@ -735,7 +736,7 @@
                                 </collectionViewLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="GVU-0D-odr" customClass="SecondLevelCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>

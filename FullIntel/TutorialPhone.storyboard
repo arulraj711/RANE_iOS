@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Bold.ttf">
+            <string>OpenSans-Bold</string>
+            <string>OpenSans-Bold</string>
+        </mutableArray>
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="6Jr-V5-9SA">
+            <objects>
+                <navigationController storyboardIdentifier="tutorialPop" automaticallyAdjustsScrollViewInsets="NO" id="F5P-UI-HgE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kHU-zm-7Va">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bX1-YF-MtI" kind="relationship" relationship="rootViewController" id="ukS-Od-AUL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cQS-pK-0pm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="675" y="-820"/>
+        </scene>
+        <!--Tutorial Pop View Controller-->
+        <scene sceneID="WH0-gN-pzp">
+            <objects>
+                <viewController id="bX1-YF-MtI" customClass="TutorialPopViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eC5-qp-8RD"/>
+                        <viewControllerLayoutGuide type="bottom" id="hWj-Fg-KxK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iih-kS-NTn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.34999999403953552" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Llv-zD-Q22">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aR9-py-Tdt">
+                                <rect key="frame" x="140" y="175" width="320" height="250"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4hf-g7-fd1">
+                                        <rect key="frame" x="15" y="201" width="160" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="2h3-2P-yUM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="18"/>
+                                        <state key="normal" title="Tap to Continue!">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="continueButtonPressed:" destination="bX1-YF-MtI" eventType="touchUpInside" id="f1U-1b-tkQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kn2-FF-zBE">
+                                        <rect key="frame" x="177" y="201" width="128" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="128" id="nzm-kp-qxZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="18"/>
+                                        <state key="normal" title="Nah, later.">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="laterButtonPressed:" destination="bX1-YF-MtI" eventType="touchUpInside" id="GY3-lB-aD6"/>
+                                        </connections>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bW-ea-Qwi">
+                                        <rect key="frame" x="10" y="15" width="300" height="70"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="Mrl-Bg-Feg"/>
+                                        </constraints>
+                                        <string key="text">Welcome to FullIntel -  A more engaging and productive way to get caught up on business intelligence. 
+</string>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UVX-kA-gUp">
+                                        <rect key="frame" x="10" y="85" width="300" height="108"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <string key="text">Take this one minute tour to learn about your custom settings and how with a few taps and swipes you can quickly get the information you want and collaborate with your colleagues.</string>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.68627450980000004" green="0.035294117649999998" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Kn2-FF-zBE" secondAttribute="trailing" constant="15" id="2Ju-wD-pPx"/>
+                                    <constraint firstItem="Kn2-FF-zBE" firstAttribute="baseline" secondItem="4hf-g7-fd1" secondAttribute="firstBaseline" id="4lK-rc-wTV"/>
+                                    <constraint firstItem="4hf-g7-fd1" firstAttribute="leading" secondItem="aR9-py-Tdt" secondAttribute="leading" constant="15" id="5z8-ww-F5b"/>
+                                    <constraint firstItem="9bW-ea-Qwi" firstAttribute="leading" secondItem="aR9-py-Tdt" secondAttribute="leadingMargin" constant="2" id="7RC-H5-fwt"/>
+                                    <constraint firstAttribute="bottom" secondItem="UVX-kA-gUp" secondAttribute="bottom" constant="57" id="96l-Pm-gdT"/>
+                                    <constraint firstItem="9bW-ea-Qwi" firstAttribute="trailing" secondItem="aR9-py-Tdt" secondAttribute="trailingMargin" constant="-2" id="TNp-qA-49m"/>
+                                    <constraint firstItem="UVX-kA-gUp" firstAttribute="leading" secondItem="9bW-ea-Qwi" secondAttribute="leading" id="UJ4-QA-8cs"/>
+                                    <constraint firstItem="UVX-kA-gUp" firstAttribute="top" secondItem="9bW-ea-Qwi" secondAttribute="bottom" id="X2u-16-Q0q"/>
+                                    <constraint firstItem="Kn2-FF-zBE" firstAttribute="top" secondItem="4hf-g7-fd1" secondAttribute="top" id="Znw-LW-Yrz"/>
+                                    <constraint firstItem="4hf-g7-fd1" firstAttribute="baseline" secondItem="Kn2-FF-zBE" secondAttribute="firstBaseline" id="acv-Ny-HhV"/>
+                                    <constraint firstItem="Kn2-FF-zBE" firstAttribute="leading" secondItem="4hf-g7-fd1" secondAttribute="trailing" constant="2" id="cuK-F3-ykf"/>
+                                    <constraint firstItem="9bW-ea-Qwi" firstAttribute="top" secondItem="aR9-py-Tdt" secondAttribute="top" constant="15" id="e4e-NJ-94T"/>
+                                    <constraint firstAttribute="height" constant="250" id="ibo-nM-R7w"/>
+                                    <constraint firstAttribute="bottom" secondItem="4hf-g7-fd1" secondAttribute="bottom" constant="19" id="kEh-35-UOO"/>
+                                    <constraint firstAttribute="width" constant="320" id="qdt-30-7C1"/>
+                                    <constraint firstItem="UVX-kA-gUp" firstAttribute="trailing" secondItem="9bW-ea-Qwi" secondAttribute="trailing" id="smx-vz-xnC"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Llv-zD-Q22" firstAttribute="centerX" secondItem="aR9-py-Tdt" secondAttribute="centerX" id="B7a-rf-GeP"/>
+                            <constraint firstItem="Llv-zD-Q22" firstAttribute="centerY" secondItem="aR9-py-Tdt" secondAttribute="centerY" id="Pwh-ZI-5Wz"/>
+                            <constraint firstAttribute="centerX" secondItem="aR9-py-Tdt" secondAttribute="centerX" id="Syg-1W-J43"/>
+                            <constraint firstAttribute="centerY" secondItem="aR9-py-Tdt" secondAttribute="centerY" id="WE8-8j-UK9"/>
+                            <constraint firstItem="Llv-zD-Q22" firstAttribute="leading" secondItem="iih-kS-NTn" secondAttribute="leading" id="X6O-eu-d41"/>
+                            <constraint firstItem="Llv-zD-Q22" firstAttribute="bottom" secondItem="hWj-Fg-KxK" secondAttribute="top" id="eK0-Cn-ZcZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Yde-YT-1nq"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="bgImageView" destination="Llv-zD-Q22" id="CP5-gY-NMj"/>
+                        <outlet property="continueButton" destination="4hf-g7-fd1" id="uG4-NW-BMS"/>
+                        <outlet property="laterButton" destination="Kn2-FF-zBE" id="tJU-4H-eMY"/>
+                        <outlet property="outerBoxView" destination="aR9-py-Tdt" id="jS7-Ut-6vz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yeb-IN-No2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1570" y="-1072"/>
+        </scene>
+    </scenes>
+</document>

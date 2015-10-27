@@ -180,7 +180,7 @@
 
 
 -(void)triggerTutorial{
-    
+    NSLog(@"trigger tutorial function");
     
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"TutorialBoxShown"];
     
