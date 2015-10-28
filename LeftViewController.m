@@ -32,6 +32,7 @@
 #import "pop.h"
 #import "FIUnreadMenu.h"
 #import "NewsLetterViewController.h"
+#import "CommunicationIssuesPage.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -259,23 +260,24 @@
 
 
 -(void)newsLetterNavigationToArticle:(id)sender {
+    //[self.navigationController popToRootViewControllerAnimated:YES];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0 && self.data.count > 2) {
-        RADataObject *newsletterDataObj;
-        for(RADataObject *dataObject in self.data) {
-            if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
-                newsletterDataObj = dataObject;
-            }
-        }
+//        RADataObject *newsletterDataObj;
+//        for(RADataObject *dataObject in self.data) {
+//            if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
+//                newsletterDataObj = dataObject;
+//            }
+//        }
 //        NSInteger dataIndex = [self.data indexOfObject:newsletterDataObj];
 //        NSInteger level = [self.treeView levelForCellForItem:newsletterDataObj];
         self.menus = [[NSMutableArray alloc]initWithArray:objectArray];
         [self test:self.menus];
         [treeView reloadData];
-        
+        NSLog(@"newsletter count:%d index:%d",self.data.count,self.data.count-1);
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:8]];
        // [self treeView:self.treeView didHighlightRowForItem:[self.data objectAtIndex:8]];
-        [self selectRowForItem:[self.data objectAtIndex:8] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+        [self selectRowForItem:[self.data objectAtIndex:self.data.count-2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         
         //[self.treeView reloadData];
 //        [self.treeView selectRowForItem:[self.data objectAtIndex:dataIndex] animated:YES scrollPosition:RATreeViewScrollPositionTop];
@@ -1334,7 +1336,8 @@
             NSLog(@"Communication Issue Click");
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"CommunicationIssues" bundle:nil];
             UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"CommunicationIssues"];
-            ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+            CommunicationIssuesPage *communIssuePage = (CommunicationIssuesPage *)[[navCtlr viewControllers] objectAtIndex:0];
+            communIssuePage.title = data.name;
             [self.revealController setFrontViewController:navCtlr];
             
         }else {

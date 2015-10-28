@@ -372,6 +372,7 @@
 - (UITableViewCell *)cellForItem:(id)item
 {
   NSIndexPath *indexPath = [self indexPathForItem:item];
+    NSLog(@"cell for item indexpath:%@",indexPath);
   return [self.tableView cellForRowAtIndexPath:indexPath];
 }
 

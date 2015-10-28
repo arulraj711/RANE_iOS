@@ -486,6 +486,7 @@
         }
         
     } else {
+        [self.revealController showViewController:self.revealController.frontViewController];
         predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
         
     }

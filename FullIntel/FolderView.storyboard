@@ -87,7 +87,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTQ-Hq-ZbT">
                                                     <rect key="frame" x="589" y="14" width="30" height="30"/>
-                                                    <state key="normal" image="twitter_blue">
+                                                    <state key="normal" image="edit_button">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -96,7 +96,7 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9V-YX-Z1W">
                                                     <rect key="frame" x="637" y="14" width="30" height="30"/>
-                                                    <state key="normal" image="twitter_blue">
+                                                    <state key="normal" image="delete_button">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -111,7 +111,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcN-xf-ndM">
                                                     <rect key="frame" x="611" y="13" width="30" height="30"/>
-                                                    <state key="normal" image="rss_button">
+                                                    <state key="normal" image="rss_icon">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -190,7 +190,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="rss_button" width="30" height="30"/>
-        <image name="twitter_blue" width="30" height="30"/>
+        <image name="delete_button" width="30" height="30"/>
+        <image name="edit_button" width="30" height="30"/>
+        <image name="rss_icon" width="16" height="16"/>
     </resources>
 </document>

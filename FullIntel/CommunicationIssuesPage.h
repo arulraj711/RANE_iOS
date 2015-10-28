@@ -12,5 +12,5 @@
     NSArray *issueList;
 }
 @property (weak, nonatomic) IBOutlet UITableView *issuesTableView;
-
+@property (nonatomic,strong) NSString *title;
 @end
