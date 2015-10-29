@@ -263,22 +263,32 @@
     //[self.navigationController popToRootViewControllerAnimated:YES];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0 && self.data.count > 2) {
-//        RADataObject *newsletterDataObj;
-//        for(RADataObject *dataObject in self.data) {
-//            if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
-//                newsletterDataObj = dataObject;
-//            }
-//        }
-//        NSInteger dataIndex = [self.data indexOfObject:newsletterDataObj];
-//        NSInteger level = [self.treeView levelForCellForItem:newsletterDataObj];
+
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        if(accessToken.length != 0) {
+            
+            NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+            NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+            if (dataRepresentingSavedArray.length != 0)
+            {
+                NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+                if (oldSavedArray != nil)
+                    objectArray = [[NSMutableArray alloc] initWithArray:oldSavedArray];
+                else
+                    objectArray = [[NSMutableArray alloc] init];
+            }
+        }
+        NSLog(@"object array count:%d",objectArray.count);
         self.menus = [[NSMutableArray alloc]initWithArray:objectArray];
+        NSLog(@"menu count:%d",self.menus.count);
         [self test:self.menus];
-        [treeView reloadData];
-        NSLog(@"newsletter count:%d index:%d",self.data.count,self.data.count-1);
+        [self.treeView reloadData];
+                NSLog(@"newsletter count:%d index:%d",self.data.count,self.data.count-2);
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:8]];
        // [self treeView:self.treeView didHighlightRowForItem:[self.data objectAtIndex:8]];
         [self selectRowForItem:[self.data objectAtIndex:self.data.count-2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         
+
         //[self.treeView reloadData];
 //        [self.treeView selectRowForItem:[self.data objectAtIndex:dataIndex] animated:YES scrollPosition:RATreeViewScrollPositionTop];
         //NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:newsletterDataObj];

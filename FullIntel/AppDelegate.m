@@ -215,7 +215,9 @@
         NSString *accessToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
         // NSString *customerEmail = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"customerEmail"]];
         if(accessToken.length != 0) {
+            NSLog(@"existing array count:%d",existingArray.count);
             if(existingArray.count != 0) {
+                NSLog(@"notification if part");
                 UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
                 NSLog(@"navCtlr count:%d",navCtlr.viewControllers.count);
                 
@@ -233,6 +235,7 @@
                 [self.revealController showViewController:self.revealController.leftViewController];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"newsletterId":digestNumber,@"articleId":itemId}];
             } else {
+                NSLog(@"notification else part");
                 UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
                 if(navCtlr.viewControllers.count > 1) {
                     [navCtlr popToRootViewControllerAnimated:YES];
@@ -245,7 +248,7 @@
                     [self.revealController setFrontViewController:newsNavCtlr];
                 }
                 [self.revealController showViewController:self.revealController.leftViewController];
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"newsletterId":digestNumber,@"articleId":@""}];
+                
                 
                 [[NSUserDefaults standardUserDefaults]setObject:digestNumber forKey:@"newsletterId"];
                 [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:digestNumber withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:YES];

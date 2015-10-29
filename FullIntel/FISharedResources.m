@@ -1563,8 +1563,10 @@
                     AppDelegate *delegateObj = [[AppDelegate alloc]init];
                     [delegateObj test];
                 } else if(curatedNewsArray.count == 0 && test) {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"newsletterId":@"",@"articleId":@""}];
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message" message:@"Sorry, your account is not provisioned to view this article.  If you have any question, please contact the FullIntel administrator at your company or email to support@fullintel.com" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
                     [alert show];
+                    
                 }
                 //Handle Pagination
 //                if(curatedNewsArray.count == 0) {
