@@ -70,7 +70,10 @@
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CloseComment"];
 }
 -(void)tapEvent {
-    [self dismissViewControllerAnimated:NO completion:NULL];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.commentsDelegate commentsViewControllerDismissed];
+    }];
+   // [self dismissViewControllerAnimated:NO completion:NULL];
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CloseComment"];
 }
 
@@ -87,6 +90,9 @@
         NSSet *commentSet = [userComments valueForKey:@"comments"];
         self.commentsArray = [[NSMutableArray alloc]initWithArray:[commentSet allObjects]];
     }
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"commentStatusUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithInt:0],@"totalComments":[NSNumber numberWithInt:self.commentsArray.count]}];
+    
     
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];

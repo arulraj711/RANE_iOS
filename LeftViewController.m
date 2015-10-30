@@ -729,7 +729,7 @@
     
     
     RADataObject *folderDataObj = [[RADataObject alloc]init];
-    folderDataObj.name = @"FOLDER";
+    folderDataObj.name = @"FOLDERS";
     folderDataObj.nodeId = [NSNumber numberWithInt:-100];
     folderDataObj.isFolder = YES;
     NSMutableArray *childArray = [[NSMutableArray alloc]init];

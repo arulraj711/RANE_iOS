@@ -25,7 +25,7 @@
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont fontWithName:@"Open Sans" size:16];
     label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text =@"FOLDER";
+    label.text =@"FOLDERS";
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor]; // change this color
     self.navigationItem.titleView = label;
@@ -70,7 +70,7 @@
     NSInteger rowNumer = indexPath.row+1;
     cell.rowNumber.text = [NSString stringWithFormat:@"%d",rowNumer];
     cell.folderCreatedDate.text = folder.createdDate;
-    NSLog(@"rss feed url:%@",folder.rssFeedUrl);
+    //NSLog(@"rss feed url:%@",folder.rssFeedUrl);
     if([folder.defaultFlag isEqualToNumber:[NSNumber numberWithInt:1]]) {
         cell.rssButton.tag = indexPath.row;
         cell.rssButton.hidden = NO;
@@ -83,6 +83,8 @@
         cell.editButton.hidden = NO;
         cell.deleteButton.hidden = NO;
     }
+    [cell.editButton setSelected:NO];
+    [cell.deleteButton setSelected:NO];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -96,6 +98,7 @@
     [window makeToast:@"RSS url copied successfully" duration:1 position:CSToastPositionCenter];
 }
 - (IBAction)editButtonClick:(UIButton *)sender {
+    [sender setSelected:YES];
     self.isdeleteFlag = NO;
     UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Rename Folder" message:@"Please enter the folder name." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
     
@@ -139,6 +142,8 @@
             FIFolder *folder = [folderArray objectAtIndex:alertView.tag];
             
             [[FISharedResources sharedResourceManager]renameFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFolderId:folder.folderId];
+        } else {
+            [self.folderTable reloadData];
         }
     } else {
         UITextField *folderNameTextField = [alertView textFieldAtIndex:0];
@@ -165,6 +170,8 @@
                 //  [[FISharedResources sharedResourceManager]createFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
             }
             
+        } else  {
+            [self.folderTable reloadData];
         }
     }
     
@@ -179,6 +186,7 @@
 }
 
 - (IBAction)deleteButtonClick:(UIButton *)sender {
+    [sender setSelected:YES];
     self.isdeleteFlag = YES;
     UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Delete" message:@"Are you sure you want to delete the folder?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
     alertView.tag = sender.tag;

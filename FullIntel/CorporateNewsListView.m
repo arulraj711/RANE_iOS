@@ -1180,6 +1180,7 @@
         //        }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
         testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
         // }
+        testView.articleTitle = _titleName;
         testView.currentIndex = indexPath.row;
         testView.selectedIndexPath = indexPath;
         [self.navigationController pushViewController:testView animated:YES];

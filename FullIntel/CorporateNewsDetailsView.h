@@ -10,8 +10,9 @@
 #import "FISharedResources.h"
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
+#import "CommentsPopoverView.h"
 
-@interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate,WSCoachMarksViewDelegate> {
+@interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate,WSCoachMarksViewDelegate,CommentsDelegate> {
     NSTimer *oneSecondTicker;
     NSManagedObject *curatedNewsDetail;
     NSManagedObject *curatedNewsAuthorDetail;
@@ -24,6 +25,7 @@
     NSArray *coachMarks;
     WSCoachMarksView *coachMarksView;
 }
+@property (nonatomic,strong) NSString *articleTitle;
 @property NSString *selectedNewsArticleId;
 @property NSIndexPath *selectedIndexPath;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;

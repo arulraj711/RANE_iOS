@@ -31,13 +31,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addOverLayForTutorial) name:@"DrillDownTutorialTrigger" object:nil];
-    
-    
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeDownTutorial) name:@"DrillInToolBoxTutorial" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endOfTutorial) name:@"EndOfDrillDownTutorial" object:nil];
@@ -269,7 +263,7 @@
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont fontWithName:@"Open Sans" size:17];
     label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text = @"Article";
+    label.text = self.articleTitle;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor]; // change this color
     self.navigationItem.titleView = label;
@@ -438,6 +432,8 @@
         NSManagedObject *curatedNewsDetails = [curatedNews valueForKey:@"details"];
         [curatedNewsDetails setValue:[NSNumber numberWithInt:0] forKey:@"unReadComment"];
         [curatedNewsDetails setValue:totalComments forKey:@"totalComments"];
+        [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"unreadComments"];
+        [curatedNews setValue:totalComments forKey:@"totalComments"];
         [curatedNews setValue:curatedNewsDetails forKey:@"details"];
     }
     [managedObjectContext save:nil];
@@ -952,6 +948,7 @@
 }
 
 
+
 -(void)showCommentsView:(id)sender {
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
@@ -964,12 +961,17 @@
     
     popOverView.articleId = articleId;
     popOverView.selectedIndexPath = indexPath;
+    popOverView.commentsDelegate = self;
     // popOverView.transitioningDelegate = self;
     navCtlr.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:navCtlr animated:NO completion:nil];
     //[self.navigationController presentViewController:popOverView
     //  animated:YES
     //completion:NULL];
+}
+
+-(void) commentsViewControllerDismissed {
+    [self.collectionView reloadData];
 }
 
 -(void)showResearchView:(id)sender {
