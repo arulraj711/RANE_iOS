@@ -545,28 +545,28 @@
     //NSLog(@"tag value:%d",view.tag);
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:view.tag];
     //NSLog(@"slected name:%@ and id:%@",contentCategory.name,contentCategory.categoryId);
-    if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        //Stock Watch
-        [FIUtils callRequestionUpdateWithModuleId:2 withFeatureId:15];
-    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:4]]) {
-        //IP and Legal
-        [FIUtils callRequestionUpdateWithModuleId:4 withFeatureId:15];
-    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:5]]) {
-        //Executive Moves
-        [FIUtils callRequestionUpdateWithModuleId:5 withFeatureId:15];
-    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:7]]) {
-        //Influencer Comments
-        [FIUtils callRequestionUpdateWithModuleId:7 withFeatureId:15];
-    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+//    if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+//        //Stock Watch
+//        [FIUtils callRequestionUpdateWithModuleId:2 withFeatureId:15];
+//    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:4]]) {
+//        //IP and Legal
+//        [FIUtils callRequestionUpdateWithModuleId:4 withFeatureId:15];
+//    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:5]]) {
+//        //Executive Moves
+//        [FIUtils callRequestionUpdateWithModuleId:5 withFeatureId:15];
+//    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:7]]) {
+//        //Influencer Comments
+//        [FIUtils callRequestionUpdateWithModuleId:7 withFeatureId:15];
+//    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+//        //Deals
+//        [FIUtils callRequestionUpdateWithModuleId:8 withFeatureId:15];
+//    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:10]]) {
+//        //Deals
+//        [FIUtils callRequestionUpdateWithModuleId:11 withFeatureId:15];
+//    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:11]]) {
         //Deals
-        [FIUtils callRequestionUpdateWithModuleId:8 withFeatureId:15];
-    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:10]]) {
-        //Deals
-        [FIUtils callRequestionUpdateWithModuleId:11 withFeatureId:15];
-    } else if([contentCategory.categoryId isEqualToNumber:[NSNumber numberWithInt:11]]) {
-        //Deals
-        [FIUtils callRequestionUpdateWithModuleId:12 withFeatureId:15];
-    }
+        [FIUtils callRequestionUpdateWithModuleId:[contentCategory.categoryId integerValue] withFeatureId:15];
+   // }
     NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"contentCategory":contentCategory.name};
     [Localytics tagEvent:@"AddcontentTopicUpgradeRequest" attributes:dictionary];
     [self.view makeToast:@"Your request has been sent." duration:1 position:CSToastPositionCenter];
