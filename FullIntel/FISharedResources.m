@@ -1569,13 +1569,13 @@
                     
                 }
                 //Handle Pagination
-//                if(curatedNewsArray.count == 0) {
+                if(curatedNewsArray.count == 0) {
 //                    if(![offset isEqualToNumber:[NSNumber numberWithInt:0]]){
 //                        UIWindow *window = [[UIApplication sharedApplication]windows][0];
 //                        [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
 //                    } else {
-//                        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
-//                    }
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
+                    }
 //                }
                 //Handle pull down to refresh
 //                if(flag) {
@@ -2349,16 +2349,16 @@
 
 -(void)saveDetailsInLocalyticsWithName:(NSString *)name{
     
-//    NSString *userName=[NSString stringWithFormat:@"%@ %@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],[[NSUserDefaults standardUserDefaults]objectForKey:@"lastName"]];
-//    
-//    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":userName,@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
-//    [Localytics tagEvent:name attributes:dictionary];
+    NSString *userName=[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"]];
+    
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":userName,@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"],@"module":[[NSUserDefaults standardUserDefaults] objectForKey:@"parentName"]};
+    [Localytics tagEvent:name attributes:dictionary];
 }
 
 
 
 -(void)saveSelectedSubMenuInLocalyticsWithName:(NSString *)name andMenuName:(NSString *)menuName{
-    NSString *userName=[NSString stringWithFormat:@"%@ %@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],[[NSUserDefaults standardUserDefaults]objectForKey:@"lastName"]];
+    NSString *userName=[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"]];
     NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":userName,@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"],@"topics":menuName};
     [Localytics tagEvent:name attributes:dictionary];
 }

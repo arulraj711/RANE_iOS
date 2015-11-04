@@ -812,7 +812,7 @@
             
             [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
             [self.contentView makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
-            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle,@"module":[[NSUserDefaults standardUserDefaults] objectForKey:@"parentName"]};
             
             [Localytics tagEvent:@"Remove Save Later in Drill" attributes:dictionary];
         } else {
@@ -857,7 +857,7 @@
             [managedObjectContext save:nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
             [self.contentView makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
-            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle,@"module":[[NSUserDefaults standardUserDefaults] objectForKey:@"parentName"]};
             
             [Localytics tagEvent:@"Save Later in Drill" attributes:dictionary];
         } else {
@@ -980,7 +980,7 @@
                 
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO],@"articleId":self.selectedArticleId}];
                 [self.contentView makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
-                NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+                NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle,@"module":[[NSUserDefaults standardUserDefaults] objectForKey:@"parentName"]};
                 
                 [Localytics tagEvent:@"Remove Mark Important in Drill" attributes:dictionary];
             } else {
@@ -1034,7 +1034,7 @@
             [managedObjectContext save:nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES],@"articleId":self.selectedArticleId}];
             [self.contentView makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
-            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle,@"module":[[NSUserDefaults standardUserDefaults] objectForKey:@"parentName"]};
             
             [Localytics tagEvent:@"Mark Important in Drill" attributes:dictionary];
         } else {

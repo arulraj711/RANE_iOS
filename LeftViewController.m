@@ -1370,6 +1370,7 @@
             if(dataObj.isParent == nil) {
                 NSLog(@"parent is nil");
                 [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+                [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"parentName"];
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
                 [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
@@ -1377,7 +1378,10 @@
                 NSLog(@"paraent is full");
                 NSNumber *rootParent = [self getParentIdFromObject:item];
                 NSLog(@"root parent:%@",rootParent);
+                NSString *rootParentName = [self getParentNameFromObject:item];
+                NSLog(@"root name:%@",rootParentName);
                 [[NSUserDefaults standardUserDefaults] setObject:rootParent forKey:@"parentId"];
+                [[NSUserDefaults standardUserDefaults]setObject:rootParentName forKey:@"parentName"];
                 [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"categoryId"];
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:rootParent listSize:10 activityTypeId:@"" categoryId:data.nodeId];
             }
@@ -1425,6 +1429,18 @@
     return dataObj.nodeId;
 }
 
+-(NSString *)getParentNameFromObject:(RADataObject *)item {
+    NSString *parentName;
+    RADataObject *dataObj = [self.treeView parentForItem:item];
+    //NSLog(@"recursive parent id:%@",dataObj.isParent);
+    if(![dataObj.isParent isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+        
+        parentName = [self getParentNameFromObject:dataObj];
+        NSLog(@"come inside if stmt:%@",parentName);
+        return parentName;
+    }
+    return dataObj.name;
+}
 
 //-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
 //(NSTimeInterval)duration {
