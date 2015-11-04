@@ -39,7 +39,29 @@
     layout.minimumInteritemSpacing = 3.0;
     layout.minimumLineSpacing = 1.0;
     
-    
+    CGFloat widthOfArticleImg = _articleImageView.frame.size.width;
+    CGFloat xOfBookMarkView = _bookmarkView.frame.origin.x;
+
+    if (IS_IPHONE_6P) {
+        _lastViewInTabl.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+        _lastViewInTabl.frame = CGRectMake(_lastViewInTabl.frame.origin.x+60, _lastViewInTabl.frame.origin.y, _lastViewInTabl.frame.size.width, _lastViewInTabl.frame.size.height);
+        
+        _articleImageView.translatesAutoresizingMaskIntoConstraints = YES; //This part hung me up
+        _articleImageView.frame = CGRectMake(_articleImageView.frame.origin.x, _articleImageView.frame.origin.y,widthOfArticleImg, _articleImageView.frame.size.height);
+        
+        
+//        _bookmarkView.translatesAutoresizingMaskIntoConstraints = YES; //This part hung me up
+//        _bookmarkView.frame = CGRectMake(xOfBookMarkView, _bookmarkView.frame.origin.y, _bookmarkView.frame.size.width, _bookmarkView.frame.size.height);
+        self.markedImpView.layer.masksToBounds = YES;
+        self.markedImpView.layer.cornerRadius = 12.0f;
+        //    self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
+        //    self.markedImpView.layer.borderWidth = 3.0;
+        
+        self.bookmarkView.layer.masksToBounds = YES;
+        self.bookmarkView.layer.cornerRadius = 12.0f;
+
+    }
+    else{
     self.markedImpView.layer.masksToBounds = YES;
     self.markedImpView.layer.cornerRadius = 22.0f;
     //    self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
@@ -47,6 +69,7 @@
     
     self.bookmarkView.layer.masksToBounds = YES;
     self.bookmarkView.layer.cornerRadius = 22.0f;
+    }
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
@@ -62,8 +85,12 @@
             self.articleDate.textAlignment = NSTextAlignmentRight;
             self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
             self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x+20, self.articleDate.frame.origin.y, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
+            
                }
-        
+//        else if (IS_IPHONE_6P)        
+//        self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//        self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x+80, self.articleDate.frame.origin.y, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
+
         
         
     }

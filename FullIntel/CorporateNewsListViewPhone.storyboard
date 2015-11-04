@@ -92,14 +92,11 @@
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.39999999999999963" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="AARON M. KESSLER and BRIAN X. CHEN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVI-Qx-ovZ">
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.39999999999999963" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AARON M. KESSLER and BRIAN X. CHEN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVI-Qx-ovZ">
                                                     <rect key="frame" x="122" y="55" width="113" height="13"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="9"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="112" y="55" width="200" height="11"/>
-                                                    </variation>
                                                 </label>
                                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="INX-rW-40B">
                                                     <rect key="frame" x="120" y="72" width="25" height="25"/>
@@ -125,43 +122,10 @@
                                                             <exclude reference="aGF-nD-nuY"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="112" y="70" width="25" height="25"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="Z8o-Yn-Dsu"/>
                                                             <include reference="aGF-nD-nuY"/>
-                                                        </mask>
-                                                    </variation>
-                                                </view>
-                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y1t-0k-wEK">
-                                                    <rect key="frame" x="169" y="72" width="25" height="25"/>
-                                                    <subviews>
-                                                        <button opaque="NO" alpha="0.14999999999999999" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDN-23-ZgQ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <state key="normal" image="bookmark_empty1">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="selected" image="bookmark_filled"/>
-                                                            <state key="highlighted" image="bookmark_filled"/>
-                                                        </button>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="5Qw-gt-KRx"/>
-                                                        <constraint firstAttribute="height" constant="25" id="rCg-L7-ax4"/>
-                                                    </constraints>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="5Qw-gt-KRx"/>
-                                                            <exclude reference="rCg-L7-ax4"/>
-                                                        </mask>
-                                                    </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="171" y="70" width="25" height="25"/>
-                                                        <mask key="constraints">
-                                                            <include reference="5Qw-gt-KRx"/>
-                                                            <include reference="rCg-L7-ax4"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
@@ -189,8 +153,7 @@
                                                             <exclude reference="uIU-WQ-L7a"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="226" y="70" width="25" height="25"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="jBj-eF-0gA"/>
                                                             <include reference="uIU-WQ-L7a"/>
@@ -243,9 +206,40 @@
                                                         </mask>
                                                     </variation>
                                                 </view>
+                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y1t-0k-wEK">
+                                                    <rect key="frame" x="169" y="72" width="25" height="25"/>
+                                                    <subviews>
+                                                        <button opaque="NO" alpha="0.14999999999999999" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDN-23-ZgQ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <state key="normal" image="bookmark_empty1">
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <state key="selected" image="bookmark_filled"/>
+                                                            <state key="highlighted" image="bookmark_filled"/>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="5Qw-gt-KRx"/>
+                                                        <constraint firstAttribute="height" constant="25" id="rCg-L7-ax4"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="5Qw-gt-KRx"/>
+                                                            <exclude reference="rCg-L7-ax4"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="5Qw-gt-KRx"/>
+                                                            <include reference="rCg-L7-ax4"/>
+                                                        </mask>
+                                                    </variation>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="k3x-zF-8Mt" firstAttribute="trailing" secondItem="rFw-gw-R62" secondAttribute="trailingMargin" constant="-95" id="0RI-yI-MOn">
+                                                <constraint firstItem="k3x-zF-8Mt" firstAttribute="trailing" secondItem="rFw-gw-R62" secondAttribute="trailing" constant="-95" id="0RI-yI-MOn">
                                                     <variation key="heightClass=compact-widthClass=regular" constant="1"/>
                                                     <variation key="heightClass=regular-widthClass=compact" constant="-13"/>
                                                 </constraint>
@@ -255,10 +249,10 @@
                                                     <variation key="heightClass=regular-widthClass=compact" constant="51"/>
                                                 </constraint>
                                                 <constraint firstItem="k3x-zF-8Mt" firstAttribute="trailing" secondItem="E7M-5b-22s" secondAttribute="trailing" id="3zQ-7S-38J">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="-17"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="-6"/>
                                                 </constraint>
                                                 <constraint firstItem="y1t-0k-wEK" firstAttribute="leading" secondItem="INX-rW-40B" secondAttribute="trailing" constant="51" id="7PO-82-CH0">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="34"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="42"/>
                                                 </constraint>
                                                 <constraint firstItem="hVI-Qx-ovZ" firstAttribute="leading" secondItem="HqS-Nk-1h1" secondAttribute="trailing" constant="11" id="7pj-YW-r49">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="7"/>
@@ -273,11 +267,13 @@
                                                     <variation key="heightClass=regular-widthClass=compact" constant="7"/>
                                                 </constraint>
                                                 <constraint firstItem="3Uz-ei-jVo" firstAttribute="top" secondItem="hVI-Qx-ovZ" secondAttribute="bottom" constant="4" id="QB8-gf-sf1"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="E7M-5b-22s" secondAttribute="trailing" constant="70" id="SBn-R5-uuA">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="-4"/>
+                                                <constraint firstAttribute="trailing" secondItem="E7M-5b-22s" secondAttribute="trailing" constant="70" id="SBn-R5-uuA">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="7"/>
                                                 </constraint>
                                                 <constraint firstItem="HqS-Nk-1h1" firstAttribute="bottom" secondItem="rd4-Dg-erx" secondAttribute="bottom" constant="34" id="WCx-R9-Vpj"/>
-                                                <constraint firstItem="bEK-lg-zgk" firstAttribute="top" secondItem="k3x-zF-8Mt" secondAttribute="bottom" constant="2" id="Wy5-GV-Awc"/>
+                                                <constraint firstItem="bEK-lg-zgk" firstAttribute="top" secondItem="k3x-zF-8Mt" secondAttribute="bottom" constant="2" id="Wy5-GV-Awc">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="4"/>
+                                                </constraint>
                                                 <constraint firstItem="y1t-0k-wEK" firstAttribute="top" secondItem="hVI-Qx-ovZ" secondAttribute="bottom" constant="4" id="ZAI-Pg-kHb"/>
                                                 <constraint firstItem="k3x-zF-8Mt" firstAttribute="top" secondItem="E7M-5b-22s" secondAttribute="bottom" constant="-4" id="f53-A7-1bH"/>
                                                 <constraint firstItem="3Uz-ei-jVo" firstAttribute="top" secondItem="hVI-Qx-ovZ" secondAttribute="bottom" constant="4" id="mHT-Pp-vvI"/>
@@ -286,17 +282,17 @@
                                                     <variation key="heightClass=regular-widthClass=compact" constant="-3"/>
                                                 </constraint>
                                                 <constraint firstItem="bEK-lg-zgk" firstAttribute="leading" secondItem="INX-rW-40B" secondAttribute="trailing" constant="226" id="qjj-cP-jxx">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="150"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="199"/>
                                                 </constraint>
                                                 <constraint firstItem="INX-rW-40B" firstAttribute="top" secondItem="hVI-Qx-ovZ" secondAttribute="bottom" constant="4" id="qnx-jb-mG2"/>
                                                 <constraint firstItem="3Uz-ei-jVo" firstAttribute="leading" secondItem="INX-rW-40B" secondAttribute="trailing" constant="134" id="sim-QR-nQh">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="89"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="118"/>
                                                 </constraint>
                                                 <constraint firstItem="HqS-Nk-1h1" firstAttribute="leading" secondItem="rd4-Dg-erx" secondAttribute="trailing" constant="-100" id="vGg-9W-y4h"/>
                                                 <constraint firstItem="E7M-5b-22s" firstAttribute="top" secondItem="rFw-gw-R62" secondAttribute="topMargin" constant="-9" id="vLk-TS-0bY"/>
                                                 <constraint firstItem="k3x-zF-8Mt" firstAttribute="leading" secondItem="hVI-Qx-ovZ" secondAttribute="trailing" constant="8" id="wse-nN-6aZ">
                                                     <variation key="heightClass=compact-widthClass=regular" constant="104"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="-10"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="20"/>
                                                 </constraint>
                                                 <constraint firstItem="hVI-Qx-ovZ" firstAttribute="top" secondItem="E7M-5b-22s" secondAttribute="bottom" constant="-4" id="zfu-94-a9C"/>
                                             </constraints>
@@ -346,6 +342,7 @@
                                             <outlet property="articleImageView" destination="HqS-Nk-1h1" id="Ma4-0X-5LA"/>
                                             <outlet property="authorName" destination="hVI-Qx-ovZ" id="hZe-Qe-j6I"/>
                                             <outlet property="bookmarkView" destination="y1t-0k-wEK" id="7vf-y6-qFa"/>
+                                            <outlet property="lastViewInTabl" destination="bEK-lg-zgk" id="USn-n6-1bE"/>
                                             <outlet property="markedImpButton" destination="ZI6-DB-U7w" id="zuy-TR-u20"/>
                                             <outlet property="markedImpView" destination="INX-rW-40B" id="T6y-ow-dBT"/>
                                             <outlet property="readStatusImageView" destination="rd4-Dg-erx" id="nwJ-Yv-mpW"/>
@@ -685,7 +682,7 @@
                                                                                 <constraint firstAttribute="width" constant="18" id="HNP-2A-mfZ"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3g-S3-vAr">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3g-S3-vAr">
                                                                             <rect key="frame" x="44" y="207" width="268" height="14"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="268" id="Kko-JG-XwK"/>
@@ -693,9 +690,6 @@
                                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
                                                                             <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
-                                                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                                                <rect key="frame" x="44" y="215" width="268" height="12"/>
-                                                                            </variation>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gGi-tL-puK">
                                                                             <rect key="frame" x="146" y="167" width="68" height="20"/>
@@ -1029,9 +1023,6 @@
                                                                                                 <subviews>
                                                                                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NDa-N1-0o2">
                                                                                                         <rect key="frame" x="5" y="5" width="20" height="20"/>
-                                                                                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                                                                            <rect key="frame" x="5" y="5" width="40" height="40"/>
-                                                                                                        </variation>
                                                                                                     </imageView>
                                                                                                 </subviews>
                                                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1053,9 +1044,6 @@
                                                                                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xJI-do-TuO">
                                                                                                 <rect key="frame" x="12" y="4" width="15" height="15"/>
                                                                                                 <color key="backgroundColor" red="0.27058823529999998" green="0.7843137255" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                                                                    <rect key="frame" x="12" y="4" width="25" height="25"/>
-                                                                                                </variation>
                                                                                             </view>
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1063,7 +1051,7 @@
                                                                                     <constraints>
                                                                                         <constraint firstItem="e6Y-D7-ZE3" firstAttribute="top" secondItem="nsg-2Q-y4q" secondAttribute="topMargin" constant="-8" id="0ho-vC-1AS"/>
                                                                                         <constraint firstAttribute="bottomMargin" secondItem="xJI-do-TuO" secondAttribute="bottom" constant="3" id="40X-f1-Fsc">
-                                                                                            <variation key="heightClass=regular-widthClass=compact" constant="-7"/>
+                                                                                            <variation key="heightClass=regular-widthClass=compact" constant="-17"/>
                                                                                         </constraint>
                                                                                         <constraint firstItem="e6Y-D7-ZE3" firstAttribute="trailing" secondItem="xJI-do-TuO" secondAttribute="trailing" constant="13" id="4gS-3h-bGT">
                                                                                             <variation key="heightClass=regular-widthClass=compact" constant="3"/>
@@ -1073,16 +1061,16 @@
                                                                                             <variation key="heightClass=regular-widthClass=compact" constant="13"/>
                                                                                         </constraint>
                                                                                         <constraint firstAttribute="trailingMargin" secondItem="xJI-do-TuO" secondAttribute="trailing" constant="-5" id="GXb-Hg-Yqd">
-                                                                                            <variation key="heightClass=regular-widthClass=compact" constant="-15"/>
+                                                                                            <variation key="heightClass=regular-widthClass=compact" constant="-25"/>
                                                                                         </constraint>
                                                                                         <constraint firstAttribute="bottomMargin" secondItem="e6Y-D7-ZE3" secondAttribute="bottom" constant="-18" id="O7e-du-APD">
-                                                                                            <variation key="heightClass=regular-widthClass=compact" constant="-18"/>
+                                                                                            <variation key="heightClass=regular-widthClass=compact" constant="-28"/>
                                                                                         </constraint>
                                                                                         <constraint firstItem="xJI-do-TuO" firstAttribute="top" secondItem="e6Y-D7-ZE3" secondAttribute="top" constant="4" id="PKo-OC-20P"/>
                                                                                         <constraint firstItem="e6Y-D7-ZE3" firstAttribute="leading" secondItem="nsg-2Q-y4q" secondAttribute="leadingMargin" constant="-8" id="ayX-kE-uw1"/>
                                                                                         <constraint firstItem="xJI-do-TuO" firstAttribute="leading" secondItem="nsg-2Q-y4q" secondAttribute="leadingMargin" constant="4" id="gfV-3P-t0f"/>
                                                                                         <constraint firstItem="e6Y-D7-ZE3" firstAttribute="centerX" secondItem="nsg-2Q-y4q" secondAttribute="centerX" constant="5" id="o3t-8S-2SA">
-                                                                                            <variation key="heightClass=regular-widthClass=compact" constant="5"/>
+                                                                                            <variation key="heightClass=regular-widthClass=compact" constant="10"/>
                                                                                         </constraint>
                                                                                     </constraints>
                                                                                     <variation key="default">
@@ -1163,7 +1151,7 @@
                                                                         <constraint firstItem="Uga-wb-A2o" firstAttribute="leading" secondItem="0dU-Et-Fnu" secondAttribute="leading" constant="15" id="Zce-Io-Zme"/>
                                                                         <constraint firstItem="oax-vi-SMr" firstAttribute="leading" secondItem="1P3-1d-HsQ" secondAttribute="trailing" constant="8" id="aVw-VC-B0K"/>
                                                                         <constraint firstItem="RTk-RP-7cO" firstAttribute="top" secondItem="0dU-Et-Fnu" secondAttribute="top" constant="103" id="bIC-Tf-JYp">
-                                                                            <variation key="heightClass=regular-widthClass=compact" constant="111"/>
+                                                                            <variation key="heightClass=regular-widthClass=compact" constant="119"/>
                                                                         </constraint>
                                                                         <constraint firstAttribute="trailing" secondItem="j07-En-Sd7" secondAttribute="trailing" constant="5" id="bLK-xo-Ruo">
                                                                             <variation key="heightClass=regular-widthClass=compact" constant="-45"/>
@@ -1175,7 +1163,9 @@
                                                                         <constraint firstItem="HN2-Zq-HFe" firstAttribute="leading" secondItem="1P3-1d-HsQ" secondAttribute="trailing" constant="8" id="fws-yf-dtK"/>
                                                                         <constraint firstItem="1P3-1d-HsQ" firstAttribute="leading" secondItem="0dU-Et-Fnu" secondAttribute="leading" constant="15" id="g3u-Td-ioU"/>
                                                                         <constraint firstAttribute="trailing" secondItem="Fjs-iK-Q7k" secondAttribute="trailing" constant="9" id="gGQ-fD-tmj"/>
-                                                                        <constraint firstItem="Uga-wb-A2o" firstAttribute="top" secondItem="RTk-RP-7cO" secondAttribute="bottom" constant="-59" id="gKE-w1-1VA"/>
+                                                                        <constraint firstItem="Uga-wb-A2o" firstAttribute="top" secondItem="RTk-RP-7cO" secondAttribute="bottom" constant="-59" id="gKE-w1-1VA">
+                                                                            <variation key="heightClass=regular-widthClass=compact" constant="-67"/>
+                                                                        </constraint>
                                                                         <constraint firstItem="1P3-1d-HsQ" firstAttribute="top" secondItem="d82-th-qD9" secondAttribute="bottom" constant="6" id="i5g-Om-Nkl"/>
                                                                         <constraint firstAttribute="trailing" secondItem="Pp8-Pp-bO8" secondAttribute="trailing" constant="2" id="kw8-Pl-fd7"/>
                                                                         <constraint firstItem="j07-En-Sd7" firstAttribute="top" secondItem="AFT-RU-ooA" secondAttribute="bottom" constant="1" id="kwG-jh-gyb"/>
@@ -1234,6 +1224,9 @@
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ti7-zW-61X">
                                                                     <rect key="frame" x="0.0" y="1" width="320" height="1"/>
                                                                     <color key="backgroundColor" red="0.86274509799999999" green="0.87450980389999999" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                                                    </variation>
                                                                 </imageView>
                                                                 <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTr-aa-idS">
                                                                     <rect key="frame" x="11" y="8" width="25" height="25"/>
@@ -1242,45 +1235,11 @@
                                                                     </state>
                                                                     <state key="selected" image="star_filled1"/>
                                                                     <state key="highlighted" image="star_filled1"/>
+                                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                                        <rect key="frame" x="15" y="10" width="30" height="30"/>
+                                                                    </variation>
                                                                     <connections>
                                                                         <action selector="markedImpButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="mAv-CZ-I83"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qot-8V-vnn">
-                                                                    <rect key="frame" x="101" y="8" width="25" height="25"/>
-                                                                    <state key="normal" image="chat">
-                                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    </state>
-                                                                    <connections>
-                                                                        <action selector="commentsButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="XsT-qX-KSt"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VtO-eq-LXu" customClass="MKNumberBadgeView">
-                                                                    <rect key="frame" x="104" y="-8" width="40" height="40"/>
-                                                                    <color key="backgroundColor" red="1" green="0.20353250649999999" blue="0.26871396730000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                                </view>
-                                                                <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4S-IC-JhN">
-                                                                    <rect key="frame" x="191" y="8" width="25" height="25"/>
-                                                                    <state key="normal" image="email">
-                                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    </state>
-                                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                                        <rect key="frame" x="195" y="8" width="25" height="25"/>
-                                                                    </variation>
-                                                                    <connections>
-                                                                        <action selector="mailButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="UN6-EY-0xm"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hOl-7Z-KDa">
-                                                                    <rect key="frame" x="146" y="8" width="25" height="25"/>
-                                                                    <state key="normal" image="folder">
-                                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    </state>
-                                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                                        <rect key="frame" x="148" y="8" width="25" height="25"/>
-                                                                    </variation>
-                                                                    <connections>
-                                                                        <action selector="savedListButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="aBC-hZ-agU"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yvy-zq-AH2">
@@ -1290,8 +1249,54 @@
                                                                     </state>
                                                                     <state key="selected" image="bookmark"/>
                                                                     <state key="highlighted" image="bookmark"/>
+                                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                                        <rect key="frame" x="60" y="10" width="30" height="30"/>
+                                                                    </variation>
                                                                     <connections>
                                                                         <action selector="saveButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="qVv-VV-fLU"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qot-8V-vnn">
+                                                                    <rect key="frame" x="101" y="8" width="25" height="25"/>
+                                                                    <state key="normal" image="chat">
+                                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    </state>
+                                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                                        <rect key="frame" x="110" y="10" width="30" height="30"/>
+                                                                    </variation>
+                                                                    <connections>
+                                                                        <action selector="commentsButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="XsT-qX-KSt"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VtO-eq-LXu" customClass="MKNumberBadgeView">
+                                                                    <rect key="frame" x="104" y="-8" width="40" height="40"/>
+                                                                    <color key="backgroundColor" red="1" green="0.20353250649999999" blue="0.26871396730000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                                        <rect key="frame" x="118" y="-8" width="40" height="41"/>
+                                                                    </variation>
+                                                                </view>
+                                                                <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hOl-7Z-KDa">
+                                                                    <rect key="frame" x="146" y="8" width="25" height="25"/>
+                                                                    <state key="normal" image="folder">
+                                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    </state>
+                                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                                        <rect key="frame" x="157" y="10" width="30" height="30"/>
+                                                                    </variation>
+                                                                    <connections>
+                                                                        <action selector="savedListButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="aBC-hZ-agU"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4S-IC-JhN">
+                                                                    <rect key="frame" x="191" y="8" width="25" height="25"/>
+                                                                    <state key="normal" image="email">
+                                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    </state>
+                                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                                        <rect key="frame" x="215" y="10" width="30" height="30"/>
+                                                                    </variation>
+                                                                    <connections>
+                                                                        <action selector="mailButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="UN6-EY-0xm"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvy-RL-T8a">
@@ -1300,7 +1305,7 @@
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                                        <rect key="frame" x="246" y="8" width="25" height="25"/>
+                                                                        <rect key="frame" x="269" y="10" width="30" height="30"/>
                                                                     </variation>
                                                                     <connections>
                                                                         <action selector="researchRequestButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="eyd-kC-pKz"/>
@@ -1312,7 +1317,7 @@
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                                        <rect key="frame" x="298" y="8" width="25" height="25"/>
+                                                                        <rect key="frame" x="321" y="10" width="30" height="30"/>
                                                                     </variation>
                                                                     <connections>
                                                                         <action selector="moreButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="wxy-o8-pMg"/>
@@ -1375,14 +1380,14 @@
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                                        <rect key="frame" x="41" y="129" width="307" height="21"/>
+                                                                        <rect key="frame" x="41" y="129" width="300" height="21"/>
                                                                     </variation>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KHK-Ee-DSk">
                                                                     <rect key="frame" x="279" y="115" width="40" height="5"/>
                                                                     <color key="backgroundColor" red="0.1764705882" green="0.56470588239999997" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                                        <rect key="frame" x="356" y="139" width="40" height="5"/>
+                                                                        <rect key="frame" x="356" y="139" width="66" height="5"/>
                                                                     </variation>
                                                                 </imageView>
                                                             </subviews>
@@ -1412,7 +1417,7 @@
                                                             <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                                                         </constraint>
                                                         <constraint firstAttribute="trailing" secondItem="Y11-Aj-5aY" secondAttribute="trailing" id="oRa-ui-xE3">
-                                                            <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                                                         </constraint>
                                                         <constraint firstItem="zNe-BC-vf1" firstAttribute="top" secondItem="hdV-cu-s8Z" secondAttribute="top" id="pfM-3w-uRK">
                                                             <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>

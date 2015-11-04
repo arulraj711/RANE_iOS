@@ -58,43 +58,33 @@
         self.overlayArticleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
         self.overlayArticleImageView.layer.borderWidth = 0.5f;
         if (IS_IPHONE_6) {
-            
-            //            self.bookmarkView.frame  = CGRectMake(197, self.bookmarkView.frame.origin.y, self.bookmarkView.frame.size.width, self.bookmarkView.frame.size.height);
-            //        self.articlesTableView.frame = CGRectMake(0.f, 0.f, 320, 667);
-            self.bottomView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.bottomView.frame = CGRectMake(self.bottomView.frame.origin.x, self.bottomView.frame.origin.y, self.bottomView.frame.size.width+65, self.bottomView.frame.size.height);
-            
-            self.articleWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.articleWebview.frame = CGRectMake(self.articleWebview.frame.origin.x, self.articleWebview.frame.origin.y, self.articleWebview.frame.size.width+65, self.articleWebview.frame.size.height);
+            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"65",@"65",@"65",@"65",@"65",@"65",@"20",@"65",@"20",@"20",@"65",@"35",@"70",@"18",@"0", nil];
+            [self methodForSizeMatch:contentForSize];
 
-            self.bottomImagevws.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.bottomImagevws.frame = CGRectMake(self.bottomImagevws.frame.origin.x, self.bottomImagevws.frame.origin.y, self.bottomImagevws.frame.size.width+65, self.bottomImagevws.frame.size.height);
-            
-            self.bottomImagevws.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.bottomImagevws.frame = CGRectMake(self.bottomImagevws.frame.origin.x, self.bottomImagevws.frame.origin.y, self.bottomImagevws.frame.size.width+65, self.bottomImagevws.frame.size.height);
-            
-            self.gradButtonTops.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.gradButtonTops.frame = CGRectMake(self.gradButtonTops.frame.origin.x, self.gradButtonTops.frame.origin.y, self.gradButtonTops.frame.size.width+65, self.gradButtonTops.frame.size.height);
-            
-            
-            self.articleImageView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.articleImageView.frame = CGRectMake(self.articleImageView.frame.origin.x, self.articleImageView.frame.origin.y, self.articleImageView.frame.size.width+65, self.articleImageView.frame.size.height);
-            
-            
-            
-            self.detailsWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.detailsWebview.frame = CGRectMake(self.detailsWebview.frame.origin.x, self.detailsWebview.frame.origin.y-20, self.detailsWebview.frame.size.width+65, self.detailsWebview.frame.size.height+20);
-            
-            self.overlayView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.overlayView.frame = CGRectMake(self.overlayView.frame.origin.x, self.overlayView.frame.origin.y-20, self.overlayView.frame.size.width+65, self.overlayView.frame.size.height);
-            
-            self.overlayArticleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.overlayArticleTitle.frame = CGRectMake(self.overlayArticleTitle.frame.origin.x, self.overlayArticleTitle.frame.origin.y, self.overlayArticleTitle.frame.size.width+35, self.overlayArticleTitle.frame.size.height);
-            
-            self.overlayArticleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.overlayArticleDate.frame = CGRectMake(self.overlayArticleDate.frame.origin.x+70, self.overlayArticleDate.frame.origin.y+18, self.overlayArticleDate.frame.size.width, self.overlayArticleDate.frame.size.height);
         }
-        
+        else if (IS_IPHONE_6P)
+        {
+            [self defaultMethodForOrigin:self.markedImpButton];
+            [self defaultMethodForOrigin:self.savedForLaterButton];
+            [self defaultMethodForOrigin:self.commentBtn];
+            [self defaultMethodForOrigin:self.folderBtn];
+            [self defaultMethodForOrigin:self.messageBtn];
+            [self defaultMethodForOrigin:self.moreButton];
+            [self defaultMethodForOrigin:self.requestBtn];
+
+
+            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"95",@"95",@"95",@"95",@"95",@"95",@"15",@"95",@"40",@"20",@"105",@"75",@"70",@"24",@"5", nil];
+            [self methodForSizeMatch:contentForSize];
+            
+            
+            
+        }
+        else if (IS_IPHONE_5)
+        {
+            self.articleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+            self.articleTitle.frame = CGRectMake(self.articleTitle.frame.origin.x, self.articleTitle.frame.origin.y, self.articleTitle.frame.size.width-50, self.articleTitle.frame.size.height);
+
+        }
     } else {
         self.authorImageView.layer.masksToBounds = YES;
         self.authorImageView.layer.cornerRadius = 25.0f;
@@ -133,11 +123,90 @@
     
 }
 
-//-(void)resetCellWebviewHeight {
-//    NSLog(@"resetCellWebviewHeight");
-//    self.webViewHeightConstraint.constant = 200;
+-(void)defaultMethodForOrigin:(UIButton *)buttonNam
+{
+    
+    NSLog(@"%@",buttonNam);
+
+    initialPositions = buttonNam.frame.origin.x;
+
+    buttonNam.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    buttonNam.frame = CGRectMake(initialPositions+30, 10, 30, 30);
+}
+-(void)methodForSizeMatch:(NSArray *)arrayName {
+    NSLog(@"%@",arrayName);
+    NSLog(@"%d",[(NSNumber *)[arrayName objectAtIndex:0] intValue]);
+
+    self.bottomView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.bottomView.frame = CGRectMake(self.bottomView.frame.origin.x, self.bottomView.frame.origin.y, self.bottomView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:0] intValue], self.bottomView.frame.size.height);
+    
+    self.articleWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.articleWebview.frame = CGRectMake(self.articleWebview.frame.origin.x, self.articleWebview.frame.origin.y, self.articleWebview.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:1] intValue], self.articleWebview.frame.size.height);
+    
+    self.bottomImagevws.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.bottomImagevws.frame = CGRectMake(self.bottomImagevws.frame.origin.x, self.bottomImagevws.frame.origin.y, self.bottomImagevws.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:2] intValue], self.bottomImagevws.frame.size.height);
+    
+    self.bottomImagevws.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.bottomImagevws.frame = CGRectMake(self.bottomImagevws.frame.origin.x, self.bottomImagevws.frame.origin.y, self.bottomImagevws.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:3]intValue], self.bottomImagevws.frame.size.height);
+    
+    self.gradButtonTops.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.gradButtonTops.frame = CGRectMake(self.gradButtonTops.frame.origin.x, self.gradButtonTops.frame.origin.y, self.gradButtonTops.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:4]intValue], self.gradButtonTops.frame.size.height);
+    
+    
+    self.articleImageView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.articleImageView.frame = CGRectMake(self.articleImageView.frame.origin.x, self.articleImageView.frame.origin.y, self.articleImageView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:5] intValue], self.articleImageView.frame.size.height);
+    
+    
+    self.detailsWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.detailsWebview.frame = CGRectMake(self.detailsWebview.frame.origin.x, self.detailsWebview.frame.origin.y-[(NSNumber *)[arrayName objectAtIndex:6] intValue], self.detailsWebview.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:7]intValue], self.detailsWebview.frame.size.height+[(NSNumber *)[arrayName objectAtIndex:8] intValue]);
+    
+    self.overlayView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.overlayView.frame = CGRectMake(self.overlayView.frame.origin.x, self.overlayView.frame.origin.y-[(NSNumber *)[arrayName objectAtIndex:9] intValue], self.overlayView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:10]intValue], self.overlayView.frame.size.height);
+    
+    self.overlayArticleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.overlayArticleTitle.frame = CGRectMake(self.overlayArticleTitle.frame.origin.x, self.overlayArticleTitle.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:14]intValue], self.overlayArticleTitle.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:11]intValue], self.overlayArticleTitle.frame.size.height);
+    
+    self.overlayArticleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.overlayArticleDate.frame = CGRectMake(self.overlayArticleDate.frame.origin.x+[(NSNumber *)[arrayName objectAtIndex:12] intValue], self.overlayArticleDate.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:13] intValue], self.overlayArticleDate.frame.size.width, self.overlayArticleDate.frame.size.height);
+}
+
+
+//-(void)origMEthod
+//{
+//    self.bottomView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.bottomView.frame = CGRectMake(self.bottomView.frame.origin.x, self.bottomView.frame.origin.y, self.bottomView.frame.size.width+65, self.bottomView.frame.size.height);
+//    
+//    self.articleWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.articleWebview.frame = CGRectMake(self.articleWebview.frame.origin.x, self.articleWebview.frame.origin.y, self.articleWebview.frame.size.width+65, self.articleWebview.frame.size.height);
+//    
+//    self.bottomImagevws.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.bottomImagevws.frame = CGRectMake(self.bottomImagevws.frame.origin.x, self.bottomImagevws.frame.origin.y, self.bottomImagevws.frame.size.width+65, self.bottomImagevws.frame.size.height);
+//    
+//    self.bottomImagevws.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.bottomImagevws.frame = CGRectMake(self.bottomImagevws.frame.origin.x, self.bottomImagevws.frame.origin.y, self.bottomImagevws.frame.size.width+65, self.bottomImagevws.frame.size.height);
+//    
+//    self.gradButtonTops.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.gradButtonTops.frame = CGRectMake(self.gradButtonTops.frame.origin.x, self.gradButtonTops.frame.origin.y, self.gradButtonTops.frame.size.width+65, self.gradButtonTops.frame.size.height);
+//    
+//    
+//    self.articleImageView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.articleImageView.frame = CGRectMake(self.articleImageView.frame.origin.x, self.articleImageView.frame.origin.y, self.articleImageView.frame.size.width+65, self.articleImageView.frame.size.height);
+//    
+//    
+//    
+//    self.detailsWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.detailsWebview.frame = CGRectMake(self.detailsWebview.frame.origin.x, self.detailsWebview.frame.origin.y-20, self.detailsWebview.frame.size.width+65, self.detailsWebview.frame.size.height+20);
+//    
+//    self.overlayView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.overlayView.frame = CGRectMake(self.overlayView.frame.origin.x, self.overlayView.frame.origin.y-20, self.overlayView.frame.size.width+65, self.overlayView.frame.size.height);
+//    
+//    self.overlayArticleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.overlayArticleTitle.frame = CGRectMake(self.overlayArticleTitle.frame.origin.x, self.overlayArticleTitle.frame.origin.y, self.overlayArticleTitle.frame.size.width+35, self.overlayArticleTitle.frame.size.height);
+//    
+//    self.overlayArticleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.overlayArticleDate.frame = CGRectMake(self.overlayArticleDate.frame.origin.x+70, self.overlayArticleDate.frame.origin.y+18, self.overlayArticleDate.frame.size.width, self.overlayArticleDate.frame.size.height);
 //}
-//
+
 -(void)drillDownButtonClick:(id)sender {
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;

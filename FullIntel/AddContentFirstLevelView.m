@@ -63,10 +63,11 @@
         if (IS_IPHONE_6)
         {
         layout.blockPixels = CGSizeMake(110,110);
+            
         }
         else if (IS_IPHONE_6P)
         {
-            layout.blockPixels = CGSizeMake(110,110);
+        layout.blockPixels = CGSizeMake(110,110);
 
         }
 
@@ -199,7 +200,7 @@
         
 
     }
-    
+    _tutorialDescriptionView.hidden=YES;
 //        BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
 //    if (coachMarksShown == YES) {
 //        _tutorialDescriptionView.hidden=YES;

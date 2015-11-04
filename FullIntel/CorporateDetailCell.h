@@ -28,6 +28,7 @@
     UIView *noTweetView;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
     FPPopoverKeyboardResponsiveController *popover;
+    CGFloat initialPositions;
 
 }
 @property UICollectionView *tweetsLocalCollectionView;

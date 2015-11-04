@@ -3,8 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -105,7 +103,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eqq-sW-IKM">
-                                        <rect key="frame" x="181" y="199" width="118" height="30"/>
+                                        <rect key="frame" x="181" y="199" width="118" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="118" id="i3E-9N-PpW"/>
                                         </constraints>
@@ -152,7 +150,6 @@
                                     <constraint firstItem="Eqq-sW-IKM" firstAttribute="top" secondItem="VOY-nc-I5c" secondAttribute="top" id="RYq-s5-nYm"/>
                                     <constraint firstItem="Eqq-sW-IKM" firstAttribute="trailing" secondItem="ouB-iA-Gdj" secondAttribute="trailing" id="VdA-Um-bVT"/>
                                     <constraint firstAttribute="trailing" secondItem="Szh-bE-irc" secondAttribute="trailing" constant="78" id="WSl-pP-P1l"/>
-                                    <constraint firstItem="Eqq-sW-IKM" firstAttribute="baseline" secondItem="VOY-nc-I5c" secondAttribute="firstBaseline" id="ZVN-MD-ANE"/>
                                     <constraint firstItem="Szh-bE-irc" firstAttribute="leading" secondItem="St9-FG-tJi" secondAttribute="leading" constant="77" id="Zbd-Sf-82t"/>
                                     <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="qJD-2r-Wir" secondAttribute="leading" constant="-1" id="ZlQ-2G-W9U"/>
                                     <constraint firstAttribute="width" constant="305" id="ffd-YK-jDF"/>
@@ -161,7 +158,6 @@
                                     <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="St9-FG-tJi" secondAttribute="leading" constant="5" id="jcx-Ew-D0W"/>
                                     <constraint firstAttribute="trailing" secondItem="Eqq-sW-IKM" secondAttribute="trailing" constant="6" id="nYQ-vQ-JUU"/>
                                     <constraint firstItem="Eqq-sW-IKM" firstAttribute="trailing" secondItem="qJD-2r-Wir" secondAttribute="trailing" id="o91-N3-VZc"/>
-                                    <constraint firstItem="VOY-nc-I5c" firstAttribute="baseline" secondItem="Eqq-sW-IKM" secondAttribute="firstBaseline" id="spf-DM-l0c"/>
                                     <constraint firstItem="Szh-bE-irc" firstAttribute="top" secondItem="St9-FG-tJi" secondAttribute="top" constant="8" id="tKt-79-I4l"/>
                                     <constraint firstItem="VOY-nc-I5c" firstAttribute="leading" secondItem="INF-nf-AHx" secondAttribute="leading" constant="-1" id="ubA-V0-vfS"/>
                                     <constraint firstAttribute="height" constant="229" id="wBg-PU-9Va"/>

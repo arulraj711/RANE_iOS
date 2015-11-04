@@ -45,6 +45,7 @@
 - (void)viewDidLoad {
     NSLog(@"view did load");
     [super viewDidLoad];
+  
     [self.revealController showViewController:self.revealController.leftViewController];
     messageString = @"Loading...";
     // NSLog(@"list did load");

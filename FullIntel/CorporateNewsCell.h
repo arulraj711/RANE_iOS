@@ -33,4 +33,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *articleNumber;
 @property (strong, nonatomic) IBOutlet UIImageView *readStatusImageView;
 @property (nonatomic,strong) NSMutableArray *legendsArray;
+@property (strong, nonatomic) IBOutlet UIView *lastViewInTabl;
+
+
+
 @end

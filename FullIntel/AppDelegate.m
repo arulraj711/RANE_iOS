@@ -17,7 +17,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "FIUtils.h"
 #import "Reachability.h"
-#import "ATAppUpdater.h"
+//#import "ATAppUpdater.h"
 #import "Localytics.h"
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
@@ -122,7 +122,7 @@
     
     [FISharedResources sharedResourceManager];
     
-    [[ATAppUpdater sharedUpdater] forceOpenNewAppVersion:YES];
+//    [[ATAppUpdater sharedUpdater] forceOpenNewAppVersion:YES];
     
     
     return YES;
