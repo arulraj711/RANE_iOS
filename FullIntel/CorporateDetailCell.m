@@ -70,6 +70,23 @@
             [self sizeAdjustmentForView:_messageBtn withFloatVal:(float)40];
             [self sizeAdjustmentForView:_moreButton withFloatVal:(float)60];
             [self sizeAdjustmentForView:_requestBtn withFloatVal:(float)50];
+            
+
+
+            
+
+            [self sizeAdjustmentForViews:_bookmarkButtonView withFloatVal:(float)10];
+            [self sizeAdjustmentForViews:_messageButtonView withFloatVal:(float)30];
+            [self sizeAdjustmentForViews:_folderButtonViews withFloatVal:(float)50];
+//          self.starButtnView.layer.masksToBounds = YES;
+//          self.starButtnView.layer.cornerRadius = 6.0f;
+//          self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
+//          self.markedImpView.layer.borderWidth = 3.0;
+//          self.bookmarkButtonView.layer.masksToBounds = YES;
+//          self.bookmarkButtonView.layer.cornerRadius = 6.0f;
+            
+            
+            
         }
         else if (IS_IPHONE_6P)
         {
@@ -81,6 +98,13 @@
             [self sizeAdjustmentForView:_messageBtn withFloatVal:(float)80];
             [self sizeAdjustmentForView:_moreButton withFloatVal:(float)110];
             [self sizeAdjustmentForView:_requestBtn withFloatVal:(float)100];
+            
+            
+            
+            [self sizeAdjustmentForViews:_bookmarkButtonView withFloatVal:(float)25];
+            [self sizeAdjustmentForViews:_messageButtonView withFloatVal:(float)60];
+            [self sizeAdjustmentForViews:_folderButtonViews withFloatVal:(float)100];
+
 
 
             NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"95",@"95",@"95",@"95",@"95",@"95",@"15",@"95",@"40",@"20",@"105",@"75",@"70",@"24",@"5",@"70", nil];
@@ -125,6 +149,12 @@
     
 }
 
+-(void)sizeAdjustmentForViews:(UIView *)viewName withFloatVal:(double)floatVal
+{
+    NSLog(@"%@ %f",viewName,floatVal);
+    viewName.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    viewName.frame = CGRectMake(viewName.frame.origin.x+floatVal, 84, viewName.frame.size.width, viewName.frame.size.height);
+}
 
 -(void)sizeAdjustmentForView:(UIButton *)buttonName withFloatVal:(double)floatVal
 {
@@ -159,14 +189,17 @@
     self.detailsWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
     self.detailsWebview.frame = CGRectMake(self.detailsWebview.frame.origin.x, self.detailsWebview.frame.origin.y-[(NSNumber *)[arrayName objectAtIndex:6] intValue], self.detailsWebview.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:7]intValue], self.detailsWebview.frame.size.height+[(NSNumber *)[arrayName objectAtIndex:8] intValue]);
     
-    self.overlayView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.overlayView.frame = CGRectMake(self.overlayView.frame.origin.x, self.overlayView.frame.origin.y-[(NSNumber *)[arrayName objectAtIndex:9] intValue], self.overlayView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:10]intValue], self.overlayView.frame.size.height);
+
     
-    self.overlayArticleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.overlayArticleTitle.frame = CGRectMake(self.overlayArticleTitle.frame.origin.x, self.overlayArticleTitle.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:14]intValue], self.overlayArticleTitle.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:11]intValue], self.overlayArticleTitle.frame.size.height);
     
-    self.overlayArticleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.overlayArticleDate.frame = CGRectMake(self.overlayArticleDate.frame.origin.x+[(NSNumber *)[arrayName objectAtIndex:12] intValue], self.overlayArticleDate.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:13] intValue], self.overlayArticleDate.frame.size.width, self.overlayArticleDate.frame.size.height);
+//    self.overlayView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.overlayView.frame = CGRectMake(self.overlayView.frame.origin.x, self.overlayView.frame.origin.y-[(NSNumber *)[arrayName objectAtIndex:9] intValue], self.overlayView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:10]intValue], self.overlayView.frame.size.height);
+//
+//    self.overlayArticleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.overlayArticleTitle.frame = CGRectMake(self.overlayArticleTitle.frame.origin.x, self.overlayArticleTitle.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:14]intValue], self.overlayArticleTitle.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:11]intValue], self.overlayArticleTitle.frame.size.height);
+//    
+//    self.overlayArticleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//    self.overlayArticleDate.frame = CGRectMake(self.overlayArticleDate.frame.origin.x+[(NSNumber *)[arrayName objectAtIndex:12] intValue], self.overlayArticleDate.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:13] intValue], self.overlayArticleDate.frame.size.width, self.overlayArticleDate.frame.size.height);
 }
 //last 15
 
@@ -831,7 +864,6 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         if (IS_IPHONE_6) {
             frame.size.height = 380;
-
         }
         else if(IS_IPHONE_6P)
         {

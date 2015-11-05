@@ -148,4 +148,16 @@
 @property (strong, nonatomic) IBOutlet UIImageView *bottomImagevws;
 @property (weak,nonatomic) IBOutlet UIButton *moreButton;
 @property (strong, nonatomic) IBOutlet UIImageView *gradButtonTops;
+@property (strong, nonatomic) IBOutlet UIView *starButtnView;
+@property (strong, nonatomic) IBOutlet UIView *bookmarkButtonView;
+@property (strong, nonatomic) IBOutlet UIView *messageButtonView;
+@property (strong, nonatomic) IBOutlet UIView *folderButtonViews;
+
+
+
+
+
+
+
+
 @end
