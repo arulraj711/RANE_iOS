@@ -159,14 +159,14 @@
     self.detailsWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
     self.detailsWebview.frame = CGRectMake(self.detailsWebview.frame.origin.x, self.detailsWebview.frame.origin.y-[(NSNumber *)[arrayName objectAtIndex:6] intValue], self.detailsWebview.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:7]intValue], self.detailsWebview.frame.size.height+[(NSNumber *)[arrayName objectAtIndex:8] intValue]);
     
-//    self.overlayView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//    self.overlayView.frame = CGRectMake(self.overlayView.frame.origin.x, self.overlayView.frame.origin.y-[(NSNumber *)[arrayName objectAtIndex:9] intValue], self.overlayView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:10]intValue], self.overlayView.frame.size.height);
+    self.overlayView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.overlayView.frame = CGRectMake(self.overlayView.frame.origin.x, self.overlayView.frame.origin.y-[(NSNumber *)[arrayName objectAtIndex:9] intValue], self.overlayView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:10]intValue], self.overlayView.frame.size.height);
     
-//    self.overlayArticleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//    self.overlayArticleTitle.frame = CGRectMake(self.overlayArticleTitle.frame.origin.x, self.overlayArticleTitle.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:14]intValue], self.overlayArticleTitle.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:11]intValue], self.overlayArticleTitle.frame.size.height);
+    self.overlayArticleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.overlayArticleTitle.frame = CGRectMake(self.overlayArticleTitle.frame.origin.x, self.overlayArticleTitle.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:14]intValue], self.overlayArticleTitle.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:11]intValue], self.overlayArticleTitle.frame.size.height);
     
-//    self.overlayArticleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//    self.overlayArticleDate.frame = CGRectMake(self.overlayArticleDate.frame.origin.x+[(NSNumber *)[arrayName objectAtIndex:12] intValue], self.overlayArticleDate.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:13] intValue], self.overlayArticleDate.frame.size.width, self.overlayArticleDate.frame.size.height);
+    self.overlayArticleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    self.overlayArticleDate.frame = CGRectMake(self.overlayArticleDate.frame.origin.x+[(NSNumber *)[arrayName objectAtIndex:12] intValue], self.overlayArticleDate.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:13] intValue], self.overlayArticleDate.frame.size.width, self.overlayArticleDate.frame.size.height);
 }
 //last 15
 
