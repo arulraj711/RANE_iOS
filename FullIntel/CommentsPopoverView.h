@@ -18,6 +18,8 @@
 @property (nonatomic,strong) IBOutlet UIView *outerView;
 @property (strong, nonatomic) IBOutlet UIButton *postButton;
 - (IBAction)postButton:(id)sender;
+- (IBAction)doneButton:(id)sender;
+@property (strong, nonatomic) IBOutlet UITextField *textfldNamed;
 
 @property NSIndexPath *selectedIndexPath;
 @end

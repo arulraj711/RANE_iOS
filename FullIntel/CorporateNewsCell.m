@@ -39,38 +39,6 @@
     layout.minimumInteritemSpacing = 3.0;
     layout.minimumLineSpacing = 1.0;
     
-    CGFloat widthOfArticleImg = _articleImageView.frame.size.width;
-    CGFloat xOfBookMarkView = _bookmarkView.frame.origin.x;
-
-    if (IS_IPHONE_6P) {
-        _lastViewInTabl.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-        _lastViewInTabl.frame = CGRectMake(_lastViewInTabl.frame.origin.x+60, _lastViewInTabl.frame.origin.y, _lastViewInTabl.frame.size.width, _lastViewInTabl.frame.size.height);
-        
-        _articleImageView.translatesAutoresizingMaskIntoConstraints = YES; //This part hung me up
-        _articleImageView.frame = CGRectMake(_articleImageView.frame.origin.x, _articleImageView.frame.origin.y,widthOfArticleImg, _articleImageView.frame.size.height);
-        
-        
-//        _bookmarkView.translatesAutoresizingMaskIntoConstraints = YES; //This part hung me up
-//        _bookmarkView.frame = CGRectMake(xOfBookMarkView, _bookmarkView.frame.origin.y, _bookmarkView.frame.size.width, _bookmarkView.frame.size.height);
-        self.markedImpView.layer.masksToBounds = YES;
-        self.markedImpView.layer.cornerRadius = 12.0f;
-        //    self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
-        //    self.markedImpView.layer.borderWidth = 3.0;
-        
-        self.bookmarkView.layer.masksToBounds = YES;
-        self.bookmarkView.layer.cornerRadius = 12.0f;
-
-    }
-    else{
-    self.markedImpView.layer.masksToBounds = YES;
-    self.markedImpView.layer.cornerRadius = 22.0f;
-    //    self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
-    //    self.markedImpView.layer.borderWidth = 3.0;
-    
-    self.bookmarkView.layer.masksToBounds = YES;
-    self.bookmarkView.layer.cornerRadius = 22.0f;
-    }
-    
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
         self.articleImageView.layer.masksToBounds = YES;
@@ -78,21 +46,48 @@
         self.articleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
         self.articleImageView.layer.borderWidth = 0.25f;
         
-        if (IS_IPHONE_5) {
-            
-//            self.bookmarkView.frame  = CGRectMake(197, self.bookmarkView.frame.origin.y, self.bookmarkView.frame.size.width, self.bookmarkView.frame.size.height);
-            //        self.articlesTableView.frame = CGRectMake(0.f, 0.f, 320, 667);
-            self.articleDate.textAlignment = NSTextAlignmentRight;
-            self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x+20, self.articleDate.frame.origin.y, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
-            
-               }
-//        else if (IS_IPHONE_6P)        
-//        self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//        self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x+80, self.articleDate.frame.origin.y, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
 
+        if (IS_IPHONE_6P)
+        {
+        [self sizeAdjustmentForView:_bookmarkView withFloatVal:(float)20];
+        [self sizeAdjustmentForView:_messageView withFloatVal:(float)60];
+        [self sizeAdjustmentForView:_lastViewInTabl withFloatVal:(float)100];
+        [self sizeAdjustmentForView:_articleDate withFloatVal:(float)110];
+        self.markedImpView.layer.masksToBounds = YES;
+        self.markedImpView.layer.cornerRadius = 6.0f;
+        //    self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
+        //    self.markedImpView.layer.borderWidth = 3.0;
+        
+        self.bookmarkView.layer.masksToBounds = YES;
+        self.bookmarkView.layer.cornerRadius = 6.0f;
+        }
+        else if (IS_IPHONE_5)
+        {
+        [self sizeAdjustmentForView:_bookmarkView withFloatVal:(float)-1];
+        [self sizeAdjustmentForView:_messageView withFloatVal:(float)-1];
+        [self sizeAdjustmentForView:_lastViewInTabl withFloatVal:(float)-1];
+        self.articleDate.textAlignment = NSTextAlignmentRight;
+        self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+        self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x, self.articleDate.frame.origin.y-5, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
         
         
+        self.markedImpView.layer.masksToBounds = YES;
+        self.markedImpView.layer.cornerRadius = 6.0f;
+        //    self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
+        //    self.markedImpView.layer.borderWidth = 3.0;
+        self.bookmarkView.layer.masksToBounds = YES;
+        self.bookmarkView.layer.cornerRadius = 6.0f;
+        }
+        else if (IS_IPHONE_4_OR_LESS)
+        {
+            [self sizeAdjustmentForView:_bookmarkView withFloatVal:(float)-1];
+            [self sizeAdjustmentForView:_messageView withFloatVal:(float)-1];
+            [self sizeAdjustmentForView:_lastViewInTabl withFloatVal:(float)-1];
+        }
+        else
+        {
+            
+        }
     }
     else
     {
@@ -112,7 +107,12 @@
     
     
 }
-
+-(void)sizeAdjustmentForView:(UIView *)viewName withFloatVal:(double)floatVal
+{
+    NSLog(@"%@ %f",viewName,floatVal);
+    viewName.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+    viewName.frame = CGRectMake(viewName.frame.origin.x+floatVal, viewName.frame.origin.y, viewName.frame.size.width, viewName.frame.size.height);
+}
 - (void)layoutSubviews {
     
     [super layoutSubviews];

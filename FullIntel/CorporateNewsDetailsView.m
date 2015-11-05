@@ -1068,8 +1068,10 @@
     popOverView.selectedIndexPath = indexPath;
     // popOverView.transitioningDelegate = self;
     navCtlr.modalPresentationStyle = UIModalPresentationCustom;
-    [self presentViewController:navCtlr animated:NO completion:nil];
     
+    [self presentViewController:navCtlr animated:NO completion:nil];
+
+
     //[self.navigationController presentViewController:popOverView
     //  animated:YES
     //completion:NULL];

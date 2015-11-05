@@ -21,6 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.textfldNamed.layer.masksToBounds = YES;
+    self.textfldNamed.layer.cornerRadius = 2.0f;
+
     // Do any additional setup after loading the view from its nib.
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.outerView.layer.masksToBounds = YES;
@@ -170,6 +173,11 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self postCommentCommonMethod:textField];
+    return YES;
+}
+-(void)postCommentCommonMethod :(UITextField *)textField
+{
     if(textField.text.length != 0) {
         NSMutableDictionary *commentsDic = [[NSMutableDictionary alloc] init];
         [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -194,9 +202,7 @@
             [window makeToast:@"Please enter a comment." duration:1 position:CSToastPositionCenter];
         }
     }
-    return YES;
 }
-
 
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -239,6 +245,8 @@
         rect.size.height=800;
     }else if(rect.size.height==568) {
         rect.size.height=370;
+    }else if(rect.size.height==736) {
+        rect.size.height=500;
     }
     self.view.frame = rect;
     
@@ -308,5 +316,12 @@
 }
 
 - (IBAction)postButton:(id)sender {
+    [self postCommentCommonMethod:_textfldNamed];
+}
+
+- (IBAction)doneButton:(id)sender {
+    [self dismissViewControllerAnimated:NO completion:NULL];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CloseComment"];
+
 }
 @end
