@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    messageString = @"";
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     label.backgroundColor = [UIColor clearColor];
@@ -41,7 +41,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchNewsLetter) name:@"FetchNewsLetterList" object:nil];
     
     [[FISharedResources sharedResourceManager]getNewsLetterListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.alpha = 1.0;
+    activityIndicator.center = self.view.center;
+    activityIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
     
 }
 
@@ -53,6 +58,7 @@
 -(void)fetchNewsLetter {
     newsLetterArray = [[NSMutableArray alloc]initWithArray:[[FISharedResources sharedResourceManager]newsLetterList]];
     NSLog(@"news letter:%@ and id:%@",newsLetterArray,self.newsletterArticleId);
+    [activityIndicator stopAnimating];
     if(self.newsletterArticleId.length != 0) {
         [[NSUserDefaults standardUserDefaults]setObject:self.newsletterId forKey:@"newsletterId"];
         [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:self.newsletterId withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO];
@@ -62,24 +68,43 @@
         CorporateNewsListView *listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
         listView.selectedNewsLetterArticleId = self.newsletterArticleId;
         [self.navigationController pushViewController:listView animated:YES];
+    } else {
+        messageString = @"No daily digest to display";
     }
     [self.newsListTableView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return newsLetterArray.count;
+    NSInteger rowCount;
+    if(newsLetterArray.count != 0) {
+        rowCount = newsLetterArray.count;
+    } else {
+        rowCount = 1;
+    }
+    return rowCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NewsLetterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    FINewsLetter *newsletter = [newsLetterArray objectAtIndex:indexPath.row];
-    int serialNumber = indexPath.row+1;
-    cell.serialNumber.text = [NSString stringWithFormat:@"%d",serialNumber];
-    cell.newsLetterTitle.text = newsletter.newsLetterSubject;
-    cell.articlesCount.text = [NSString stringWithFormat:@"%d",newsletter.newsLetterArticles.count];
-    cell.createdDate.text = newsletter.createdDate;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+    UITableViewCell *tableCell;
+    if(newsLetterArray.count != 0) {
+        NewsLetterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        FINewsLetter *newsletter = [newsLetterArray objectAtIndex:indexPath.row];
+        int serialNumber = indexPath.row+1;
+        cell.serialNumber.text = [NSString stringWithFormat:@"%d",serialNumber];
+        cell.newsLetterTitle.text = newsletter.newsLetterSubject;
+        cell.articlesCount.text = [NSString stringWithFormat:@"%d",newsletter.newsLetterArticles.count];
+        cell.createdDate.text = newsletter.createdDate;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        tableCell = cell;
+    } else {
+        tableCell = [[UITableViewCell alloc] init];
+        tableCell.textLabel.text = messageString;
+        tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
+        tableCell.textLabel.font = [UIFont fontWithName:@"OpenSans" size:28];
+        tableCell.textLabel.textColor = [UIColor lightGrayColor];
+    }
+    
+    return tableCell;
 }
 
 
@@ -91,7 +116,8 @@
     
     
     UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    UIViewController*listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+    CorporateNewsListView *listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+    listView.titleName = newsletter.newsLetterSubject;
     [self.navigationController pushViewController:listView animated:YES];
 }
 

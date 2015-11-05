@@ -11,6 +11,7 @@
 #import "FIFolder.h"
 #import "UIView+Toast.h"
 #import "FISharedResources.h"
+#import "CorporateNewsListView.h"
 
 @interface FolderViewController ()
 
@@ -39,6 +40,10 @@
     [self.navigationItem setLeftBarButtonItem:addButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
     [self fetchFolderDetails];
+    
+    
+    
+    
     
 }
 
@@ -87,6 +92,21 @@
     [cell.deleteButton setSelected:NO];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+   // [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:101] forKey:@"newsletterId"];
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFolderClick"];
+    FIFolder *folder = [folderArray objectAtIndex:indexPath.row];
+    [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folder.folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
+    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    CorporateNewsListView *listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+    listView.titleName = folder.folderName;
+//    UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+//    CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+//    CorporateNewsListViewObj.titleName=folder.folderName;
+    [self.navigationController pushViewController:listView animated:YES];
 }
 
 - (IBAction)rssButtonClick:(UIButton *)sender {

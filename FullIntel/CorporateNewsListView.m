@@ -29,7 +29,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.revealController showViewController:self.revealController.leftViewController];
+    NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+    BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
+    NSLog(@"newsletter id:%@",newsLetterId);
+    if(isFolderClick) {
+//        UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+//        [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+//        [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+//        [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+//        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+//        [self.navigationItem setLeftBarButtonItem:addButton];
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        [self.revealController showViewController:self.revealController.leftViewController];
+    } else {
+        [self.revealController showViewController:self.revealController.frontViewController];
+    }
     messageString = @"Loading...";
     // NSLog(@"list did load");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
@@ -454,12 +469,18 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate;
     if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
-        [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-        [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
-        [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-        [self.navigationItem setLeftBarButtonItem:addButton];
+        BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
+        if(isFolderClick) {
+            
+        } else {
+            UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+            [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+            [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+            [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+            UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+            [self.navigationItem setLeftBarButtonItem:addButton];
+        }
+        
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
                 NSLog(@"if part");
@@ -931,12 +952,22 @@
             cell.messageCountText.hidden = NO;
             if([totalUnreadCount isEqualToNumber:[NSNumber numberWithInt:0]]) {
                 //handle unread message count
-                cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comments",totalMsgCount];
+                if([totalMsgCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comment",totalMsgCount];
+                } else {
+                    cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comments",totalMsgCount];
+                }
+                
                 cell.messageCountText.textColor = [UIColor blackColor];
                 cell.messageIcon.image = [UIImage imageNamed:@"chat_read"];
             } else {
                 //handle read message count
-                cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comments",totalUnreadCount];
+                if([totalUnreadCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comment",totalUnreadCount];
+                } else {
+                    cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comments",totalUnreadCount];
+                }
+                
                 cell.messageCountText.textColor = UIColorFromRGB(0XF299A2);
                 cell.messageIcon.image = [UIImage imageNamed:@"chat_unread"];
                 
@@ -1344,6 +1375,7 @@
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
+            NSLog(@"before crash:%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"parentName"]);
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"],@"module":[[NSUserDefaults standardUserDefaults] objectForKey:@"parentName"]};
             [Localytics tagEvent:@"Marked Important" attributes:dictionary];
         }

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FolderViewController : UIViewController<UITableViewDataSource,UITextFieldDelegate> {
+@interface FolderViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate> {
     NSMutableArray *folderArray;
     UIActivityIndicatorView *activityIndicator;
 }

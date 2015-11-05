@@ -177,11 +177,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_read" translatesAutoresizingMaskIntoConstraints="NO" id="Vhf-Sg-a2E">
-                                                    <rect key="frame" x="771" y="66" width="12" height="12"/>
+                                                    <rect key="frame" x="777" y="66" width="12" height="12"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 Comments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAf-Xf-VbN">
-                                                    <rect key="frame" x="785" y="63" width="85" height="18"/>
+                                                    <rect key="frame" x="791" y="63" width="85" height="18"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -264,7 +264,7 @@
                                                 <constraint firstItem="INX-rW-40B" firstAttribute="top" secondItem="rFw-gw-R62" secondAttribute="topMargin" constant="42" id="Li6-D2-jTI"/>
                                                 <constraint firstItem="zCL-NR-aCN" firstAttribute="top" secondItem="E7M-5b-22s" secondAttribute="bottom" constant="31" id="OIa-4C-Apu"/>
                                                 <constraint firstItem="y1t-0k-wEK" firstAttribute="top" secondItem="INX-rW-40B" secondAttribute="bottom" constant="10" id="Q3v-dh-S1E"/>
-                                                <constraint firstItem="Vhf-Sg-a2E" firstAttribute="leading" secondItem="hVI-Qx-ovZ" secondAttribute="trailing" constant="2" id="SwP-jK-Lks"/>
+                                                <constraint firstItem="Vhf-Sg-a2E" firstAttribute="leading" secondItem="hVI-Qx-ovZ" secondAttribute="trailing" constant="8" id="SwP-jK-Lks"/>
                                                 <constraint firstItem="k3x-zF-8Mt" firstAttribute="leading" secondItem="gPq-W8-lCd" secondAttribute="trailing" constant="2" id="TD4-b4-ALZ"/>
                                                 <constraint firstItem="E7M-5b-22s" firstAttribute="leading" secondItem="HqS-Nk-1h1" secondAttribute="trailing" constant="28" id="XYF-XK-48z"/>
                                                 <constraint firstItem="qxC-tL-AyX" firstAttribute="top" secondItem="E7M-5b-22s" secondAttribute="bottom" constant="14" id="ZOd-7X-0dV"/>

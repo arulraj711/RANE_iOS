@@ -239,14 +239,14 @@
                 UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
                 if(navCtlr.viewControllers.count > 1) {
                     [navCtlr popToRootViewControllerAnimated:YES];
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
-                    UINavigationController *newsNavCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
-                    NewsLetterViewController *newsView = (NewsLetterViewController*)[[newsNavCtlr viewControllers] objectAtIndex:0];
-                    // NSLog(@"newsletter id:%@ and articleid:%@",digestNumber,itemId);
-                    newsView.newsletterId = digestNumber;
-                    newsView.newsletterArticleId = @"";
-                    [self.revealController setFrontViewController:newsNavCtlr];
-                }
+               }
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
+                UINavigationController *newsNavCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
+                NewsLetterViewController *newsView = (NewsLetterViewController*)[[newsNavCtlr viewControllers] objectAtIndex:0];
+                // NSLog(@"newsletter id:%@ and articleid:%@",digestNumber,itemId);
+                newsView.newsletterId = digestNumber;
+                newsView.newsletterArticleId = @"";
+                [self.revealController setFrontViewController:newsNavCtlr];
                 [self.revealController showViewController:self.revealController.leftViewController];
                 
                 

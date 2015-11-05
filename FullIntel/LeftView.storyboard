@@ -28,9 +28,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsa-DF-Mgs">
                                 <rect key="frame" x="4" y="0.0" width="280" height="293"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Leg-9q-Ekc">
-                                        <rect key="frame" x="5" y="7" width="270" height="150"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Leg-9q-Ekc">
+                                        <rect key="frame" x="5" y="25" width="270" height="150"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="270" id="5Cw-Cy-QXC"/>
+                                            <constraint firstAttribute="height" constant="150" id="AgH-Sr-f49"/>
+                                        </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0r-Ng-bX2">
                                         <rect key="frame" x="5" y="200" width="262" height="40"/>
@@ -69,6 +73,8 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="CA3-WP-2Yx"/>
+                                    <constraint firstItem="Leg-9q-Ekc" firstAttribute="top" secondItem="dsa-DF-Mgs" secondAttribute="top" constant="25" id="Fvi-gh-Egp"/>
+                                    <constraint firstItem="Leg-9q-Ekc" firstAttribute="leading" secondItem="dsa-DF-Mgs" secondAttribute="leading" constant="5" id="b6Z-yM-qwn"/>
                                     <constraint firstAttribute="height" constant="293" id="ghL-w0-y7J"/>
                                 </constraints>
                             </view>

@@ -1106,6 +1106,8 @@
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     data = item;
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFolderClick"];
+
 //    //if([[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]iseq)
     NSLog(@"access token:%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]);
     if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
@@ -1264,7 +1266,8 @@
         NSLog(@"newsletter click");
     } else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
         NSLog(@"hereeee");
-        
+        [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+        [[NSUserDefaults standardUserDefaults]setObject:data.name forKey:@"parentName"];
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Logout"];
         if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
             //handle null securtiy token
@@ -1328,7 +1331,11 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
         if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
             //NewsLetter Nav
+            [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+            [[NSUserDefaults standardUserDefaults]setObject:data.name forKey:@"parentName"];
         } else if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
+            [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+            [[NSUserDefaults standardUserDefaults]setObject:data.name forKey:@"parentName"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
             
@@ -1344,6 +1351,8 @@
             // NSLog(@"empty node id");
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:11]]) {
             NSLog(@"Communication Issue Click");
+            [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+            [[NSUserDefaults standardUserDefaults]setObject:data.name forKey:@"parentName"];
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"CommunicationIssues" bundle:nil];
             UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"CommunicationIssues"];
             CommunicationIssuesPage *communIssuePage = (CommunicationIssuesPage *)[[navCtlr viewControllers] objectAtIndex:0];
@@ -1370,7 +1379,7 @@
             if(dataObj.isParent == nil) {
                 NSLog(@"parent is nil");
                 [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
-                [[NSUserDefaults standardUserDefaults]setObject:data.nodeId forKey:@"parentName"];
+                [[NSUserDefaults standardUserDefaults]setObject:data.name forKey:@"parentName"];
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
                 inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
                 [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];

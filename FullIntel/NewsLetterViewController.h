@@ -10,6 +10,8 @@
 
 @interface NewsLetterViewController : UIViewController<UITableViewDelegate> {
     NSMutableArray *newsLetterArray;
+    UIActivityIndicatorView *activityIndicator;
+    NSString *messageString;
 }
 @property NSNumber *newsletterId;
 @property NSString *newsletterArticleId;
