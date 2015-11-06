@@ -36,44 +36,8 @@
 //    [Fabric with:@[[Twitter sharedInstance]]];
 //    [Fabric with:@[CrashlyticsKit]];
     
-    NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"did finish launching:%@",infoDict);
-//    NSString *newerVersion = [infoDict objectForKey:@"CFBundleShortVersionString"];
-//    //NSString *bundleId = [infoDict objectForKey:@"CFBundleIdentifier"];
-//    NSString *twitterUrl = [NSString stringWithFormat:@"https://itunes.apple.com/lookup?bundleId=com.capestart.fi"];
-//    //NSLog(@"twitter url:%@",twitterUrl);
-//    NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:twitterUrl]];
-//    //NSLog(@"result data:%d",data.length);
-//    NSError* error;
-//    NSDictionary* json;
-//    if(data.length > 0) {
-//        json = [NSJSONSerialization
-//                JSONObjectWithData:data //1
-//                
-//                options:kNilOptions
-//                error:&error];
-//    }
-//    NSLog(@"itunes JSON:%@",json);
-//    NSArray *itunesResultArray = [json objectForKey:@"results"];
-//    NSDictionary *itunesResultDic = [itunesResultArray objectAtIndex:0];
-//    //NSString *olderVersion = [];
-//    NSLog(@"old version:%@",[itunesResultDic objectForKey:@"version"]);
-//    NSString *oldVersion = [itunesResultDic objectForKey:@"version"];
-//    
-//        NSComparisonResult r= [oldVersion compare:newerVersion options:NSNumericSearch];
-//        NSLog(@"r value:%ld",(long)r);
-//        if (r == NSOrderedSame || r == NSOrderedDescending) {
-//            // do
-//           // NSLog(@"");
-//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message" message:@"Older Version" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-//            [alert show];
-//        } else {
-//            // do
-//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message" message:@"New Version" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-//            [alert show];
-//            
-//        }
-    [Localytics autoIntegrate:@"bd26cfe0964dbeac7c1c840-ba054dc0-56ba-11e5-acff-00d0fea82624" launchOptions:launchOptions];
+    
+    [Localytics autoIntegrate:@"f557a1d4226be8756ebd8dd-287a063c-5e18-11e5-7205-00736b041834" launchOptions:launchOptions];
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
 
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
@@ -137,11 +101,11 @@
     self.window.rootViewController = self.revealController;
     
     [self.window makeKeyAndVisible];
-    
+    [[ATAppUpdater sharedUpdater] forceOpenNewAppVersion:YES];
     
     [FISharedResources sharedResourceManager];
     
-    [[ATAppUpdater sharedUpdater] forceOpenNewAppVersion:YES];
+    
     
     
     return YES;
@@ -154,9 +118,6 @@
     
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    
-    
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:token forKey:@"deviceToken"];
     
@@ -257,7 +218,7 @@
                 NSLog(@"notification if part");
                 UINavigationController *navCtlr = (UINavigationController *)self.revealController.frontViewController;
                 NSLog(@"navCtlr count:%d",navCtlr.viewControllers.count);
-                
+                // [[FISharedResources sharedResourceManager]getNewsLetterListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
                 if(navCtlr.viewControllers.count > 1) {
                     [navCtlr popToRootViewControllerAnimated:YES];
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];

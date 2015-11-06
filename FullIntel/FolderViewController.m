@@ -40,11 +40,6 @@
     [self.navigationItem setLeftBarButtonItem:addButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
     [self fetchFolderDetails];
-    
-    
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -126,7 +121,7 @@
     
     UITextField *textField=[alertView textFieldAtIndex:0];
     textField.keyboardType=UIKeyboardTypeEmailAddress;
-    textField.returnKeyType=UIReturnKeySend;
+    textField.returnKeyType=UIReturnKeyDefault;
     textField.delegate=self;
     textField.tag = sender.tag;
     FIFolder *folder = [folderArray objectAtIndex:sender.tag];
@@ -137,8 +132,10 @@
     [alertView show];
 }
 
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+   // [self folderRenameFunctionwithText:textField.text];
     [textField resignFirstResponder];
     return YES;
 }
@@ -190,13 +187,31 @@
                 //  [[FISharedResources sharedResourceManager]createFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
             }
             
-        } else  {
-            [self.folderTable reloadData];
         }
     }
+}
+
+-(void)folderRenameFunctionwithText:(NSString *)text {
+    if(text.length == 0) {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window makeToast:@"￼Please enter a folder name." duration:1 position:CSToastPositionCenter];
+    } else {
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.alpha = 1.0;
+    activityIndicator.center = self.view.center;
+    activityIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+    self.view.userInteractionEnabled = NO;
+    NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
+    [folderdetails setObject:text forKey:@"folderName"];
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderdetails options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
     
+    FIFolder *folder = [folderArray objectAtIndex:alertView.tag];
     
-    //[self dismissViewControllerAnimated:YES completion:nil];
+    [[FISharedResources sharedResourceManager]renameFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFolderId:folder.folderId];
+    }
 }
 
 -(void)stopFolderLoading {
@@ -217,19 +232,23 @@
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
 -(void)backBtnPress {
-    NSLog(@"back button press");
+    //NSLog(@"back button press");
     if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
-        NSLog(@"left view closed");
+       // NSLog(@"left view closed");
         NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
         [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
         [self.revealController showViewController:self.revealController.frontViewController];
     } else {
-        NSLog(@"left view opened");
+        //NSLog(@"left view opened");
         NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
         [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
         [self.revealController showViewController:self.revealController.leftViewController];
     }
     
+}
+
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    [self.revealController showViewController:self.revealController.frontViewController];
 }
 
 @end

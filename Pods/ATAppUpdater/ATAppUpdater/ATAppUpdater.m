@@ -41,6 +41,7 @@
 
 - (void)forceOpenNewAppVersion:(BOOL)force
 {
+    //NSLog(@"come inside force to update");
     Reachability *connection = [Reachability reachabilityWithHostname:@"itunes.apple.com"];
     BOOL hasConnection = [connection isReachable];
     if (!hasConnection) return;
@@ -58,13 +59,15 @@
     NSURL *lookupURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?bundleId=%@", bundleIdentifier]];
     NSData *lookupResults = [NSData dataWithContentsOfURL:lookupURL];
     NSDictionary *jsonResults = [NSJSONSerialization JSONObjectWithData:lookupResults options:0 error:nil];
-    
+    //NSLog(@"json results:%@",jsonResults);
     NSUInteger resultCount = [[jsonResults objectForKey:@"resultCount"] integerValue];
     if (resultCount){
         NSDictionary *appDetails = [[jsonResults objectForKey:@"results"] firstObject];
         NSString *appItunesUrl = [[appDetails objectForKey:@"trackViewUrl"] stringByReplacingOccurrencesOfString:@"&uo=4" withString:@""];
         NSString *latestVersion = [appDetails objectForKey:@"version"];
+       // NSLog(@"latest version:%@ and itunesURL:%@ and currentVersion:%@",latestVersion,appItunesUrl,currentVersion);
         if ([latestVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
+            //NSLog(@"trueeeee");
             block(YES, appItunesUrl, latestVersion);
         } else {
             block(NO, nil, currentVersion);

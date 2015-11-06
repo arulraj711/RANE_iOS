@@ -40,7 +40,8 @@
     [self.navigationItem setLeftBarButtonItem:addButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchNewsLetter) name:@"FetchNewsLetterList" object:nil];
     
-    [[FISharedResources sharedResourceManager]getNewsLetterListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newsLetterNav) name:@"NewsLetterNavigation" object:nil];
+   
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.alpha = 1.0;
     activityIndicator.center = self.view.center;
@@ -55,6 +56,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)newsLetterNav {
+            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            CorporateNewsListView *listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+            listView.selectedNewsLetterArticleId = self.newsletterArticleId;
+            [self.navigationController pushViewController:listView animated:YES];
+}
 -(void)fetchNewsLetter {
     newsLetterArray = [[NSMutableArray alloc]initWithArray:[[FISharedResources sharedResourceManager]newsLetterList]];
     NSLog(@"news letter:%@ and id:%@",newsLetterArray,self.newsletterArticleId);
@@ -62,12 +69,12 @@
     if(self.newsletterArticleId.length != 0) {
         [[NSUserDefaults standardUserDefaults]setObject:self.newsletterId forKey:@"newsletterId"];
         [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:self.newsletterId withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO];
-        
-        
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         CorporateNewsListView *listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
         listView.selectedNewsLetterArticleId = self.newsletterArticleId;
         [self.navigationController pushViewController:listView animated:YES];
+        
+
     } else {
         messageString = @"No daily digest to display";
     }

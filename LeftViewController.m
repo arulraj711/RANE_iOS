@@ -33,6 +33,7 @@
 #import "FIUnreadMenu.h"
 #import "NewsLetterViewController.h"
 #import "CommunicationIssuesPage.h"
+#import "ATAppUpdater.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -296,7 +297,7 @@
 ////        
 //        [[NSNotificationCenter defaultCenter]postNotificationName:@"newsletterLoad" object:nil userInfo:@{@"index":[NSNumber numberWithInteger:dataIndex]}];
     }
-    
+     [[FISharedResources sharedResourceManager]getNewsLetterListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     NSNotification *notification = sender;
     NSDictionary *userInfo = notification.userInfo;
     NSLog(@"news letter navigation%@",userInfo);
@@ -587,6 +588,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [self presentTutorialPopViewController];
+    //[self checkVersionUpdate];
     //    if([[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."][0] intValue] >= 7) {
     //        CGRect statusBarViewRect = [[UIApplication sharedApplication] statusBarFrame];
     //        float heightPadding = statusBarViewRect.size.height+self.navigationController.navigationBar.frame.size.height;
@@ -615,6 +617,38 @@
     
     
     
+}
+
+-(void)checkVersionUpdate {
+    NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSLog(@"did finish launching:%@",infoDict);
+    NSString *currentVersion = [infoDict objectForKey:@"CFBundleShortVersionString"];
+    //NSString *bundleId = [infoDict objectForKey:@"CFBundleIdentifier"];
+    NSString *twitterUrl = [NSString stringWithFormat:@"https://itunes.apple.com/lookup?bundleId=com.capestart.fi"];
+    //NSLog(@"twitter url:%@",twitterUrl);
+    NSData* resultData = [NSData dataWithContentsOfURL:[NSURL URLWithString:twitterUrl]];
+    //NSLog(@"result data:%d",data.length);
+    NSError* error;
+    NSDictionary* json;
+    if(resultData.length > 0) {
+        json = [NSJSONSerialization
+                JSONObjectWithData:resultData //1
+                
+                options:kNilOptions
+                error:&error];
+    }
+    NSArray *itunesResultArray = [json objectForKey:@"results"];
+    NSDictionary *itunesResultDic = [itunesResultArray objectAtIndex:0];
+    NSString *oldVersion = [itunesResultDic objectForKey:@"version"];
+    NSComparisonResult r= [oldVersion compare:currentVersion options:NSNumericSearch];
+    if (r == NSOrderedSame || r == NSOrderedDescending) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message" message:@"Older Version" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    } else {
+        // do
+        [[ATAppUpdater sharedUpdater] forceOpenNewAppVersion:YES];
+        
+    }
 }
 
 -(void)updateUnreadCount {
@@ -1019,7 +1053,7 @@
             cell.iconImage.hidden = YES;
         }
     } else {
-        if([[dataObject.name uppercaseString]isEqualToString:@"FOLDER"]) {
+        if([[dataObject.name uppercaseString]isEqualToString:@"FOLDERS"]) {
             cell.iconWidthConstraint.constant =15;
             cell.titleConstraint.constant = 9;
             cell.titleWidthConstraint.constant = 160;
@@ -1290,6 +1324,7 @@
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
     } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
         NSLog(@"two");
+        [[FISharedResources sharedResourceManager]getNewsLetterListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
         //Newsletter navigation
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:1] forKey:@"newsletterId"];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
