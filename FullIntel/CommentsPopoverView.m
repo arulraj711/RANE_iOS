@@ -320,8 +320,7 @@
 }
 
 - (IBAction)doneButton:(id)sender {
-    [self dismissViewControllerAnimated:NO completion:NULL];
-    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CloseComment"];
+    
 
 }
 @end

@@ -1250,10 +1250,6 @@
     popover.arrowDirection = FPPopoverArrowDirectionAny;
     [popover presentPopoverFromView:_commentBtn];
 
-    
-    //[self.navigationController presentViewController:popOverView
-    //  animated:YES
-    //completion:NULL];
 }
 
 
