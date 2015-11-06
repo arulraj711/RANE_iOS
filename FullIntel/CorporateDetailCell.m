@@ -99,6 +99,9 @@
             [self sizeAdjustmentForView:_moreButton withFloatVal:(float)110];
             [self sizeAdjustmentForView:_requestBtn withFloatVal:(float)100];
             
+//            self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//            self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x, self.articleDate.frame.origin.y-5, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
+
             
             
             [self sizeAdjustmentForViews:_bookmarkButtonView withFloatVal:(float)25];
@@ -112,8 +115,8 @@
         }
         else if (IS_IPHONE_5)
         {
-            self.articleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-            self.articleTitle.frame = CGRectMake(self.articleTitle.frame.origin.x, self.articleTitle.frame.origin.y, self.articleTitle.frame.size.width-5, self.articleTitle.frame.size.height);
+//            self.articleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//            self.articleTitle.frame = CGRectMake(self.articleTitle.frame.origin.x, self.articleTitle.frame.origin.y, self.articleTitle.frame.size.width-5, self.articleTitle.frame.size.height);
         }
     }
     else {
@@ -1225,7 +1228,32 @@
         }
     }
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"showCommentsView" object:nil userInfo:@{@"articleId":self.selectedArticleId,@"indexPath":self.selectedIndexPath}];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        [self showCommentsViews];
+    }
+    else{
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"showCommentsView" object:nil userInfo:@{@"articleId":self.selectedArticleId,@"indexPath":self.selectedIndexPath}];
+
+    }
+}
+-(void)showCommentsViews
+{
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CommentsPhone" bundle:nil];
+    CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
+    popOverView.articleId = self.selectedArticleId;
+    popOverView.selectedIndexPath = self.selectedIndexPath;
+    
+    popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
+    popover.border = NO;
+    popover.tint = FPPopoverWhiteTint;
+    popover.contentSize = CGSizeMake(390, 700);
+    popover.arrowDirection = FPPopoverArrowDirectionAny;
+    [popover presentPopoverFromView:_commentBtn];
+
+    
+    //[self.navigationController presentViewController:popOverView
+    //  animated:YES
+    //completion:NULL];
 }
 
 

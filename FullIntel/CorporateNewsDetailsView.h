@@ -10,6 +10,7 @@
 #import "FISharedResources.h"
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
+#import "FPPopoverKeyboardResponsiveController.h"
 
 @interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate,WSCoachMarksViewDelegate> {
     NSTimer *oneSecondTicker;
@@ -26,6 +27,7 @@
     
     NSString *overallAuthorDetail;
     NSString *overallAuthorDetailOne;
+    FPPopoverKeyboardResponsiveController *popover;
 
 }
 @property NSString *selectedNewsArticleId;

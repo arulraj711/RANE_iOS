@@ -1054,16 +1054,13 @@
     UINavigationController *navCtlr;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         storyBoard = [UIStoryboard storyboardWithName:@"CommentsPhone" bundle:nil];
-
     }
     else{
         storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
-
     }
     navCtlr = [storyBoard instantiateViewControllerWithIdentifier:@"commentNav"];
-
-    CommentsPopoverView *popOverView=(CommentsPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
     
+    CommentsPopoverView *popOverView=(CommentsPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
     popOverView.articleId = articleId;
     popOverView.selectedIndexPath = indexPath;
     // popOverView.transitioningDelegate = self;
