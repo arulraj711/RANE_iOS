@@ -586,7 +586,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    
+    [self presentTutorialPopViewController];
     //    if([[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."][0] intValue] >= 7) {
     //        CGRect statusBarViewRect = [[UIApplication sharedApplication] statusBarFrame];
     //        float heightPadding = statusBarViewRect.size.height+self.navigationController.navigationBar.frame.size.height;
@@ -686,7 +686,7 @@
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
        // [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
-    [self presentTutorialPopViewController];
+    //[self presentTutorialPopViewController];
 }
 
 -(void)test:(NSMutableArray *)array {
@@ -1585,6 +1585,7 @@
     // }
     
 }
+
 
 
 -(void)afterLogout {

@@ -30,13 +30,50 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"did finish launching");
+    
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isNewsLetter"];
    // [[Twitter sharedInstance] startWithConsumerKey:@"lEJQRlkFDatgQmZrU24r3gVIM" consumerSecret:@"P401aFimzxdfFRFmKHTSw97vUENnB1pAQBJo8moGEoajMqNOIl"];
 //    [Fabric with:@[[Twitter sharedInstance]]];
 //    [Fabric with:@[CrashlyticsKit]];
     
-    [Localytics autoIntegrate:@"bd26cfe0964dbeac7c1c840-ba054dc0-56ba-11e5-acff-00d0fea82624" launchOptions:launchOptions]; 
+    NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSLog(@"did finish launching:%@",infoDict);
+//    NSString *newerVersion = [infoDict objectForKey:@"CFBundleShortVersionString"];
+//    //NSString *bundleId = [infoDict objectForKey:@"CFBundleIdentifier"];
+//    NSString *twitterUrl = [NSString stringWithFormat:@"https://itunes.apple.com/lookup?bundleId=com.capestart.fi"];
+//    //NSLog(@"twitter url:%@",twitterUrl);
+//    NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:twitterUrl]];
+//    //NSLog(@"result data:%d",data.length);
+//    NSError* error;
+//    NSDictionary* json;
+//    if(data.length > 0) {
+//        json = [NSJSONSerialization
+//                JSONObjectWithData:data //1
+//                
+//                options:kNilOptions
+//                error:&error];
+//    }
+//    NSLog(@"itunes JSON:%@",json);
+//    NSArray *itunesResultArray = [json objectForKey:@"results"];
+//    NSDictionary *itunesResultDic = [itunesResultArray objectAtIndex:0];
+//    //NSString *olderVersion = [];
+//    NSLog(@"old version:%@",[itunesResultDic objectForKey:@"version"]);
+//    NSString *oldVersion = [itunesResultDic objectForKey:@"version"];
+//    
+//        NSComparisonResult r= [oldVersion compare:newerVersion options:NSNumericSearch];
+//        NSLog(@"r value:%ld",(long)r);
+//        if (r == NSOrderedSame || r == NSOrderedDescending) {
+//            // do
+//           // NSLog(@"");
+//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message" message:@"Older Version" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+//            [alert show];
+//        } else {
+//            // do
+//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message" message:@"New Version" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+//            [alert show];
+//            
+//        }
+    [Localytics autoIntegrate:@"bd26cfe0964dbeac7c1c840-ba054dc0-56ba-11e5-acff-00d0fea82624" launchOptions:launchOptions];
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
 
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
@@ -325,7 +362,7 @@
     NSLog(@"applicationDidEnterBackground");
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     
-    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Minimize App"];
+   // [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Minimize App"];
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
         if(accessToken.length > 0) {
             NSTimeZone *timeZone = [NSTimeZone localTimeZone];

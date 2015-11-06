@@ -29,6 +29,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    NSString *v1 = @"2.0.1";
+//    NSString *v2 = @"2.1";
+//    
+//    NSComparisonResult r= [v1 compare:v2 options:NSNumericSearch];
+//    NSLog(@"r value:%ld",(long)r);
+//    if (r == NSOrderedSame || r == NSOrderedDescending) {
+//        // do
+//       // NSLog(@"");
+//    } else {
+//        // do
+//    }
+    
+    
+    
+    
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
     BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
     NSLog(@"newsletter id:%@",newsLetterId);

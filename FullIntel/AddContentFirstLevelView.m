@@ -160,6 +160,11 @@
     
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 -(void)triggerSecondTutorial{
     
     

@@ -120,7 +120,7 @@
 - (IBAction)editButtonClick:(UIButton *)sender {
     [sender setSelected:YES];
     self.isdeleteFlag = NO;
-    UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Rename Folder" message:@"Please enter the folder name." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
+    alertView=[[UIAlertView alloc]initWithTitle:@"Rename Folder" message:@"Please enter the folder name." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
     
     alertView.alertViewStyle=UIAlertViewStylePlainTextInput;
     
@@ -208,12 +208,14 @@
 - (IBAction)deleteButtonClick:(UIButton *)sender {
     [sender setSelected:YES];
     self.isdeleteFlag = YES;
-    UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Delete" message:@"Are you sure you want to delete the folder?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+    alertView =[[UIAlertView alloc]initWithTitle:@"Delete" message:@"Are you sure you want to delete the folder?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
     alertView.tag = sender.tag;
     [alertView show];
-    
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+}
 -(void)backBtnPress {
     NSLog(@"back button press");
     if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {

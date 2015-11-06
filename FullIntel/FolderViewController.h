@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FolderViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate> {
+@interface FolderViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIAlertViewDelegate> {
     NSMutableArray *folderArray;
     UIActivityIndicatorView *activityIndicator;
+    UIAlertView *alertView;
 }
 @property (nonatomic,strong) IBOutlet UITableView *folderTable;
 - (IBAction)rssButtonClick:(UIButton *)sender;
