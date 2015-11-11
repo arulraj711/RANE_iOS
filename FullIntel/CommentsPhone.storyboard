@@ -168,8 +168,12 @@
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rgo-Dy-1Hq">
                                                             <rect key="frame" x="20" y="7" width="45" height="45"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="45" id="0zv-n0-06m"/>
-                                                                <constraint firstAttribute="height" constant="45" id="FRJ-Xz-k22"/>
+                                                                <constraint firstAttribute="width" constant="45" id="0zv-n0-06m">
+                                                                    <variation key="heightClass=regular-widthClass=compact" constant="50"/>
+                                                                </constraint>
+                                                                <constraint firstAttribute="height" constant="45" id="FRJ-Xz-k22">
+                                                                    <variation key="heightClass=regular-widthClass=compact" constant="50"/>
+                                                                </constraint>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLZ-D6-qLv">
@@ -179,11 +183,8 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                             <nil key="highlightedColor"/>
-                                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                                <rect key="frame" x="75" y="9" width="125" height="21"/>
-                                                            </variation>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="289" translatesAutoresizingMaskIntoConstraints="NO" id="gEA-oF-0mV">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="289" translatesAutoresizingMaskIntoConstraints="NO" id="gEA-oF-0mV">
                                                             <rect key="frame" x="75" y="24" width="216" height="45"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="45" id="uuN-9S-XKF">
@@ -194,9 +195,6 @@
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
-                                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                                <rect key="frame" x="75" y="28" width="217" height="66"/>
-                                                            </variation>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LkJ-w2-usz">
                                                             <rect key="frame" x="200" y="10" width="100" height="21"/>
@@ -208,20 +206,21 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
-                                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                                <rect key="frame" x="238" y="9" width="56" height="21"/>
-                                                            </variation>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="xLZ-D6-qLv" firstAttribute="leading" secondItem="rgo-Dy-1Hq" secondAttribute="trailing" constant="10" id="DmF-kq-xib"/>
+                                                        <constraint firstItem="xLZ-D6-qLv" firstAttribute="leading" secondItem="rgo-Dy-1Hq" secondAttribute="trailing" constant="10" id="DmF-kq-xib">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="5"/>
+                                                        </constraint>
                                                         <constraint firstItem="rgo-Dy-1Hq" firstAttribute="top" secondItem="qSr-46-XLm" secondAttribute="topMargin" constant="-1" id="QZj-Zi-GBJ">
                                                             <variation key="heightClass=regular-widthClass=compact" constant="11"/>
                                                         </constraint>
                                                         <constraint firstItem="rgo-Dy-1Hq" firstAttribute="leading" secondItem="qSr-46-XLm" secondAttribute="leadingMargin" constant="12" id="Rm3-mp-HOy"/>
-                                                        <constraint firstItem="gEA-oF-0mV" firstAttribute="leading" secondItem="rgo-Dy-1Hq" secondAttribute="trailing" constant="10" id="UXy-1v-qny"/>
+                                                        <constraint firstItem="gEA-oF-0mV" firstAttribute="leading" secondItem="rgo-Dy-1Hq" secondAttribute="trailing" constant="10" id="UXy-1v-qny">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="5"/>
+                                                        </constraint>
                                                         <constraint firstAttribute="trailingMargin" secondItem="gEA-oF-0mV" secondAttribute="trailing" constant="1" id="V1A-Uq-ved">
-                                                            <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="19"/>
                                                         </constraint>
                                                         <constraint firstItem="xLZ-D6-qLv" firstAttribute="top" secondItem="qSr-46-XLm" secondAttribute="topMargin" constant="1" id="Yyv-IC-M5H"/>
                                                         <constraint firstItem="LkJ-w2-usz" firstAttribute="top" secondItem="qSr-46-XLm" secondAttribute="topMargin" constant="2" id="dZa-Ki-vY2">
@@ -231,13 +230,13 @@
                                                             <variation key="heightClass=regular-widthClass=compact" constant="20"/>
                                                         </constraint>
                                                         <constraint firstItem="LkJ-w2-usz" firstAttribute="leading" secondItem="xLZ-D6-qLv" secondAttribute="trailing" constant="-32" id="gnK-38-3Ar">
-                                                            <variation key="heightClass=regular-widthClass=compact" constant="38"/>
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="21"/>
                                                         </constraint>
                                                         <constraint firstAttribute="bottomMargin" secondItem="LkJ-w2-usz" secondAttribute="bottom" constant="31" id="voh-GZ-iQb">
                                                             <variation key="heightClass=regular-widthClass=compact" constant="61"/>
                                                         </constraint>
                                                         <constraint firstAttribute="trailingMargin" secondItem="xLZ-D6-qLv" secondAttribute="trailing" constant="60" id="yLh-mF-TFc">
-                                                            <variation key="heightClass=regular-widthClass=compact" constant="92"/>
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="77"/>
                                                         </constraint>
                                                     </constraints>
                                                 </tableViewCellContentView>

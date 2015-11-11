@@ -1252,7 +1252,6 @@
 
 }
 
-
 - (IBAction)markedImpButtonClick:(UIButton *)sender {
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -1260,16 +1259,16 @@
     [resultDic setObject:@"2" forKey:@"status"];
     
     NSString *loginUserId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"]];
-    
-    //if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-    
-    if(sender.selected) {
+
+        //if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+
+        if(sender.selected) {
         if([self.markedImpUserId isEqualToString:@"-1"]) {
             //Analyst
             [self.contentView makeToast:@"A FullIntel analyst marked this as important. If you like to change, please request via Feedback" duration:2.0 position:CSToastPositionCenter];
         } else if([self.markedImpUserId isEqualToString:loginUserId]) {
-            //LoginUser
-            
+            //LoginUser 
+           
             
             if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
                 [sender setSelected:NO];

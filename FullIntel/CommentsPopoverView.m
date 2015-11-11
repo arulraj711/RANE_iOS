@@ -12,13 +12,11 @@
 #import "UIImageView+Letters.h"
 #import "UIView+Toast.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
 @interface CommentsPopoverView ()
 
 @end
 
 @implementation CommentsPopoverView
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.textfldNamed.layer.masksToBounds = YES;
@@ -28,7 +26,6 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.outerView.layer.masksToBounds = YES;
         self.outerView.layer.cornerRadius = 5;
-        
        
 
     }
@@ -319,8 +316,12 @@
     [self postCommentCommonMethod:_textfldNamed];
 }
 
-- (IBAction)doneButton:(id)sender {
-    
-
+- (IBAction)doneButton:(id)sender {    
+    [self dismissViewControllerAnimated:YES completion:NULL];
+//    NSLog(@"%@",self.view);
+//    NSArray *viewsToRemove = [self.view subviews];
+//    for (UIView *v in viewsToRemove) {
+//        [v removeFromSuperview];
+//    }
 }
 @end

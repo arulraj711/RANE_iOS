@@ -49,6 +49,34 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MIE-pe-qD9">
+                                <rect key="frame" x="0.0" y="311" width="784" height="250"/>
+                                <color key="backgroundColor" red="0.1176470588" green="0.94117647059999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <segue destination="tiR-De-qBZ" kind="embed" id="HNu-83-d2y"/>
+                                </connections>
+                            </containerView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mtV-L6-9KY">
+                                <rect key="frame" x="0.0" y="320" width="784" height="1"/>
+                                <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBT-h3-iNn">
+                                <rect key="frame" x="38" y="-18" width="300" height="40"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="You are subscribed to these modules" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="07z-sj-8Hf">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.68627450980000004" green="0.035294117649999998" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="pR3-pP-W6y"/>
+                                    <constraint firstAttribute="height" constant="40" id="y3x-qU-eJi"/>
+                                </constraints>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JP1-Ds-C95">
                                 <rect key="frame" x="0.0" y="53" width="784" height="250"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -173,40 +201,11 @@
                                     <outlet property="delegate" destination="ngJ-7S-5Ay" id="zzL-zU-2nh"/>
                                 </connections>
                             </collectionView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MIE-pe-qD9">
-                                <rect key="frame" x="0.0" y="311" width="784" height="250"/>
-                                <color key="backgroundColor" red="0.1176470588" green="0.94117647059999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <segue destination="tiR-De-qBZ" kind="embed" id="HNu-83-d2y"/>
-                                </connections>
-                            </containerView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mtV-L6-9KY">
-                                <rect key="frame" x="0.0" y="320" width="784" height="1"/>
-                                <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBT-h3-iNn">
-                                <rect key="frame" x="38" y="-18" width="300" height="40"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="You are subscribed to these modules" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="07z-sj-8Hf">
-                                        <rect key="frame" x="0.0" y="0.0" width="400" height="40"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.68627450980000004" green="0.035294117649999998" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="pR3-pP-W6y"/>
-                                    <constraint firstAttribute="height" constant="40" id="y3x-qU-eJi"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xBT-h3-iNn" firstAttribute="top" secondItem="SrL-Lq-UyM" secondAttribute="bottom" constant="-38" id="1aw-vO-3I0"/>
                             <constraint firstItem="7Zw-DP-bsj" firstAttribute="top" secondItem="mtV-L6-9KY" secondAttribute="bottom" constant="329" id="3YF-OK-jN0"/>
-                            <constraint firstAttribute="centerX" secondItem="MIE-pe-qD9" secondAttribute="centerX" constant="8" id="6ok-Av-Ydf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MIE-pe-qD9" secondAttribute="trailing" id="861-aA-XtL"/>
                             <constraint firstItem="7Zw-DP-bsj" firstAttribute="top" secondItem="MIE-pe-qD9" secondAttribute="bottom" constant="89" id="88Y-FO-JDU"/>
                             <constraint firstItem="jBL-a0-5eC" firstAttribute="leading" secondItem="rWo-g7-aF9" secondAttribute="leadingMargin" id="DpU-PM-qts"/>
@@ -215,6 +214,7 @@
                             <constraint firstItem="JP1-Ds-C95" firstAttribute="top" secondItem="jBL-a0-5eC" secondAttribute="bottom" constant="2" id="Rdg-oz-6ss"/>
                             <constraint firstItem="jBL-a0-5eC" firstAttribute="top" secondItem="SrL-Lq-UyM" secondAttribute="bottom" constant="11" id="ZRW-67-Huv"/>
                             <constraint firstItem="mtV-L6-9KY" firstAttribute="leading" secondItem="rWo-g7-aF9" secondAttribute="leadingMargin" constant="-16" id="d8R-pZ-Nik"/>
+                            <constraint firstItem="MIE-pe-qD9" firstAttribute="leading" secondItem="rWo-g7-aF9" secondAttribute="leading" id="hDv-zD-kAA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mtV-L6-9KY" secondAttribute="trailing" id="hWN-NQ-VEr"/>
                             <constraint firstItem="JP1-Ds-C95" firstAttribute="leading" secondItem="rWo-g7-aF9" secondAttribute="leading" id="jjF-vX-9RX"/>
                             <constraint firstItem="MIE-pe-qD9" firstAttribute="leading" secondItem="rWo-g7-aF9" secondAttribute="leading" id="lKG-3o-cBa"/>
@@ -372,10 +372,10 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAN-eA-djL">
-                                <rect key="frame" x="210" y="196" width="400" height="40"/>
+                                <rect key="frame" x="210" y="196" width="384" height="40"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="And these topics" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vV4-tk-dfv">
-                                        <rect key="frame" x="0.0" y="0.0" width="400" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
@@ -386,7 +386,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="2mL-3L-5Cd"/>
                                     <constraint firstItem="vV4-tk-dfv" firstAttribute="top" secondItem="cAN-eA-djL" secondAttribute="top" id="4FR-s7-fcZ"/>
-                                    <constraint firstAttribute="width" constant="400" id="VxK-Fh-RuR"/>
                                     <constraint firstAttribute="bottom" secondItem="vV4-tk-dfv" secondAttribute="bottom" id="eq8-2T-9Cu"/>
                                     <constraint firstItem="vV4-tk-dfv" firstAttribute="leading" secondItem="cAN-eA-djL" secondAttribute="leading" id="hC3-oz-bMF"/>
                                     <constraint firstAttribute="trailing" secondItem="vV4-tk-dfv" secondAttribute="trailing" id="r7M-CK-JU2"/>

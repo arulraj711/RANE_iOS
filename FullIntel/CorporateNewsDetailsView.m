@@ -929,9 +929,9 @@
             
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
                 NSManagedObject *authorObjectOne = [authorArray objectAtIndex:0];
-                overallAuthorDetailOne = [ NSString stringWithFormat:@"%@, %@, %@",[authorObjectOne valueForKey:@"name"], [curatedNews valueForKey:@"outlet"], [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]]];
+                overallAuthorDetailOne = [ NSString stringWithFormat:@"%@, %@",[authorObjectOne valueForKey:@"name"], [curatedNews valueForKey:@"outlet"]];
 
-                
+                cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"]doubleValue]];
                 cell.articleAuthor.text = overallAuthorDetailOne;
                 cell.overlayArticleAuthor.text = overallAuthorDetailOne;
 
