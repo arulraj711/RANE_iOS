@@ -582,7 +582,7 @@
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
             {
 
-            htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 12px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+            htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
             }
             else
             {
@@ -929,9 +929,9 @@
             
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
                 NSManagedObject *authorObjectOne = [authorArray objectAtIndex:0];
-                overallAuthorDetailOne = [ NSString stringWithFormat:@"%@, %@, %@",[authorObjectOne valueForKey:@"name"], [curatedNews valueForKey:@"outlet"], [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]]];
+                overallAuthorDetailOne = [ NSString stringWithFormat:@"%@, %@",[authorObjectOne valueForKey:@"name"], [curatedNews valueForKey:@"outlet"]];
 
-                
+                cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"]doubleValue]];
                 cell.articleAuthor.text = overallAuthorDetailOne;
                 cell.overlayArticleAuthor.text = overallAuthorDetailOne;
 
@@ -1054,22 +1054,21 @@
     UINavigationController *navCtlr;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         storyBoard = [UIStoryboard storyboardWithName:@"CommentsPhone" bundle:nil];
-
     }
     else{
         storyBoard = [UIStoryboard storyboardWithName:@"Comments" bundle:nil];
-
     }
     navCtlr = [storyBoard instantiateViewControllerWithIdentifier:@"commentNav"];
-
-    CommentsPopoverView *popOverView=(CommentsPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
     
+    CommentsPopoverView *popOverView=(CommentsPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
     popOverView.articleId = articleId;
     popOverView.selectedIndexPath = indexPath;
     // popOverView.transitioningDelegate = self;
     navCtlr.modalPresentationStyle = UIModalPresentationCustom;
-    [self presentViewController:navCtlr animated:NO completion:nil];
     
+    [self presentViewController:navCtlr animated:NO completion:nil];
+
+
     //[self.navigationController presentViewController:popOverView
     //  animated:YES
     //completion:NULL];
@@ -1098,10 +1097,7 @@
     researchViewController.articleTitle = articleTitle;
     researchViewController.articleUrl = articleUrl;
     //   popOverView.transitioningDelegate = self;
-    popOverView.modalPresentationStyle = UIModalPresentationCustom;
-    
-    
-    
+    popOverView.modalPresentationStyle = UIModalPresentationPopover;    
     
     [self presentViewController:popOverView animated:NO completion:nil];
 }

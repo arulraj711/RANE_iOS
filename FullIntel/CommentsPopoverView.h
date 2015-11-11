@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface CommentsPopoverView : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+{
+}
 @property (nonatomic,strong) NSMutableArray *commentsArray;
 @property (weak, nonatomic) IBOutlet UIImageView *senderImage;
 @property (nonatomic,strong) IBOutlet UITableView *commentsTableView;
@@ -18,6 +19,8 @@
 @property (nonatomic,strong) IBOutlet UIView *outerView;
 @property (strong, nonatomic) IBOutlet UIButton *postButton;
 - (IBAction)postButton:(id)sender;
+- (IBAction)doneButton:(id)sender;
+@property (strong, nonatomic) IBOutlet UITextField *textfldNamed;
 
 @property NSIndexPath *selectedIndexPath;
 @end

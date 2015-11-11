@@ -30,27 +30,45 @@
             [[FISharedResources sharedResourceManager] showBannerView];
         }
     }
-    self.outerView.layer.masksToBounds = YES;
-    self.outerView.layer.cornerRadius = 10;
-    if(self.fromAddContent) {
-        self.titleText.text = @"Request Change";
-        self.articleDesc.text = [NSString stringWithFormat:@"Hi there,\n\nI would like to make the following changes to the topics\n\n"];
-        
-    }else {
-        self.titleText.text = @"Research Request/Feedback";
-        if(self.articleId.length != 0) {
-            self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\nArticleId : %@\nArticleTitle : %@\nArticleUrl : %@",self.articleId,self.articleTitle,self.articleUrl];
+    if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
+        if(self.fromAddContent) {
+            self.titleText.text = @"Request Change";
+            self.articleDesc.text = [NSString stringWithFormat:@"Hi there,\n\nI would like to make the following changes to the topics\n\n"];
+            
+        }else {
+            self.titleText.text = @"Research Request";
+            if(self.articleId.length != 0) {
+                self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\nArticleId : %@\nArticleTitle : %@\nArticleUrl : %@",self.articleId,self.articleTitle,self.articleUrl];
+            }
+            self.articleDesc.selectedRange = NSMakeRange(0, 0);
+            [self.articleDesc becomeFirstResponder];
         }
-        self.articleDesc.selectedRange = NSMakeRange(0, 0);
-        [self.articleDesc becomeFirstResponder];
+        //    [self.articleDesc setReturnKeyType: UIReturnKeyDone];
     }
-//    [self.articleDesc setReturnKeyType: UIReturnKeyDone];
-    
-    self.backImgeView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapEvent)];
-    [self.backImgeView addGestureRecognizer:tapEvent];
-    
+    else{
+        self.outerView.layer.masksToBounds = YES;
+        self.outerView.layer.cornerRadius = 10;
+        if(self.fromAddContent) {
+            self.titleText.text = @"Request Change";
+            self.articleDesc.text = [NSString stringWithFormat:@"Hi there,\n\nI would like to make the following changes to the topics\n\n"];
+            
+        }else {
+            self.titleText.text = @"Research Request/Feedback";
+            if(self.articleId.length != 0) {
+                self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\nArticleId : %@\nArticleTitle : %@\nArticleUrl : %@",self.articleId,self.articleTitle,self.articleUrl];
+            }
+            self.articleDesc.selectedRange = NSMakeRange(0, 0);
+            [self.articleDesc becomeFirstResponder];
+        }
+        //    [self.articleDesc setReturnKeyType: UIReturnKeyDone];
+        
+        self.backImgeView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapEvent)];
+        [self.backImgeView addGestureRecognizer:tapEvent];
+        
+        
 
+    }
     
 
 }
@@ -71,67 +89,77 @@
 }
 - (void)keyboardDidShow:(NSNotification *)notification
 {
-    // Assign new frame to your view
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.4]; // to slide the view up
-    
-    NSDictionary *userInfo = [notification userInfo];
-    
-    CGRect keyboardEndFrame;
-    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
-    
-    // Use keyboardEndFrame
-    
-    
-    CGRect rect = self.view.frame;
-    
-    NSLog(@"view frame height before keyboardDidShow:%f, %f",self.view.frame.size.height,rect.size.height);
-    
-    if(rect.size.height==768){
+   
+   if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPad) {
+        // Assign new frame to your view
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.4]; // to slide the view up
         
-        rect.size.height=410;
-    }else if(rect.size.height==1024) {
-        rect.size.height=800;
-    }else if(rect.size.height==568) {
-        rect.size.height=320;
+        NSDictionary *userInfo = [notification userInfo];
+        
+        CGRect keyboardEndFrame;
+        [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+        
+        // Use keyboardEndFrame
+        
+        
+        CGRect rect = self.view.frame;
+        
+        NSLog(@"view frame height before keyboardDidShow:%f, %f",self.view.frame.size.height,rect.size.height);
+        
+        if(rect.size.height==768){
+            
+            rect.size.height=410;
+        }else if(rect.size.height==1024) {
+            rect.size.height=800;
+        }else if(rect.size.height==568) {
+            rect.size.height=320;
+        }
+        self.view.frame = rect;
+        
+        NSLog(@"view frame height after keyboardDidShow:%f",self.view.frame.size.height);
+        
+        [UIView commitAnimations];
+        
+        
     }
-    self.view.frame = rect;
-    
-    NSLog(@"view frame height after keyboardDidShow:%f",self.view.frame.size.height);
-    
-    [UIView commitAnimations];
     
 }
 -(void)keyboardDidHide:(NSNotification *)notification
 {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.4]; // to slide the view up
+    if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPad) {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.4]; // to slide the view up
+        
+        NSDictionary *userInfo = [notification userInfo];
+        
+        CGRect keyboardEndFrame;
+        [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+        
+        
+        NSLog(@"view frame height before keyboardDidHide:%f",self.view.frame.size.height);
+        
+        
+        CGRect rect = self.view.frame;
+        
+        if(rect.size.height==410){
+            rect.size.height =768;
+        }else if(rect.size.height==800){
+            rect.size.height =1024;
+        }else if(rect.size.height==320){
+            rect.size.height =568;
+        }
+        
+        self.view.frame = rect;
+        
+        
+        //NSLog(@"view frame height after keyboardDidHide:%f",self.view.frame.size.height);
+        
+        [UIView commitAnimations];
     
-    NSDictionary *userInfo = [notification userInfo];
     
-    CGRect keyboardEndFrame;
-    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
-    
-    
-    NSLog(@"view frame height before keyboardDidHide:%f",self.view.frame.size.height);
-    
-    
-    CGRect rect = self.view.frame;
-    
-    if(rect.size.height==410){
-        rect.size.height =768;
-    }else if(rect.size.height==800){
-        rect.size.height =1024;
-    }else if(rect.size.height==320){
-        rect.size.height =568;
     }
     
-    self.view.frame = rect;
-    
-    
-    //NSLog(@"view frame height after keyboardDidHide:%f",self.view.frame.size.height);
-    
-    [UIView commitAnimations];
 }
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];

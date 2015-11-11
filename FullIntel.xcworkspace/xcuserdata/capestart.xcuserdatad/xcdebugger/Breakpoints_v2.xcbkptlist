@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FullIntel/CorporateDetailCell.m"
-            timestampString = "468247581.393235"
+            filePath = "FullIntel/CommentsPopoverView.m"
+            timestampString = "468753142.468996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "-defaultMethodForOrigin:"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "-tapEvent"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

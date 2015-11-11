@@ -552,11 +552,12 @@
         [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
         
         [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
-        
         [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
-        
+
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-        
+        [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                            forBarMetrics:UIBarMetricsDefault];
+
         [self.navigationItem setLeftBarButtonItem:addButton];
         
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {

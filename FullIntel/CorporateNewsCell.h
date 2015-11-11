@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface CorporateNewsCell : UITableViewCell
+{
+    NSArray *sizeArray;
+}
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UITextView *descTextView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *outletImageWidthConstraint;
@@ -35,6 +38,7 @@
 @property (nonatomic,strong) NSMutableArray *legendsArray;
 @property (strong, nonatomic) IBOutlet UIView *lastViewInTabl;
 
+@property (strong, nonatomic) IBOutlet UIView *messageView;
 
 
 @end

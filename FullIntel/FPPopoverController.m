@@ -304,14 +304,12 @@
 
     return p;
 }
-
 -(void)presentPopoverFromView:(UIView*)fromView
 {
     SAFE_ARC_RELEASE(_fromView);
     _fromView = SAFE_ARC_RETAIN(fromView);
     [self presentPopoverFromPoint:[self originFromView:_fromView]];
 }
-
 -(void)dismissPopover
 {
     [self.view removeFromSuperview];
@@ -323,7 +321,6 @@
      _parentView=nil;
     
 }
-
 -(void)dismissPopoverAnimated:(BOOL)animated {
 	[self dismissPopoverAnimated:animated completion:nil];
 }
@@ -353,10 +350,7 @@
 {
     _origin = origin;
 }
-
 #pragma mark observing
-
-
 
 -(void)deviceOrientationDidChange:(NSNotification*)notification
 {
