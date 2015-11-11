@@ -101,43 +101,39 @@
         
         buttonBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, window.frame.size.width , window.frame.size.height)];
         buttonBackView.backgroundColor = [UIColor clearColor];
-        
-        
-        UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake((window.frame.size.width/2)-(400/2), 70, 400, 80)];
-        backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
-        
-        UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 360, 80)];
-        errorLabel.text = @"It appears that you are not connected to the internet and some features are not available when you are offline.";
-        errorLabel.textColor = [UIColor whiteColor];
-        errorLabel.textAlignment = NSTextAlignmentLeft;
-        errorLabel.numberOfLines = 3;
-        errorLabel.font = [UIFont fontWithName:@"Open Sans" size:15];
-        [backgrView addSubview:errorLabel];
-        backgrView.layer.cornerRadius = 10.0f;
-        backgrView.layer.masksToBounds = YES;
-        
-        
-        
-        //    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        //    [button addTarget:self
-        //               action:@selector(closeBannerView)
-        //     forControlEvents:UIControlEventTouchUpInside];
-        //    [button setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-        //    //[button setTitle:@"Show View" forState:UIControlStateNormal];
-        //    button.frame = CGRectMake(0, 32, 16, 16);
-        //    [buttonBackView addSubview:button];
-        
-        
-        
-        
-        [buttonBackView addSubview:backgrView];
-        
-        
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake(10, 70, window.frame.size.width - 20, 80)];
+            backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
+            
+            UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, window.frame.size.width - 20, 80)];
+            errorLabel.text = @"It appears that you are not connected to the internet and some features are not available when you are offline.";
+            errorLabel.textColor = [UIColor whiteColor];
+            errorLabel.textAlignment = NSTextAlignmentLeft;
+            errorLabel.numberOfLines = 3;
+            errorLabel.font = [UIFont fontWithName:@"Open Sans" size:14];
+            [backgrView addSubview:errorLabel];
+            backgrView.layer.cornerRadius = 10.0f;
+            backgrView.layer.masksToBounds = YES;
+            [buttonBackView addSubview:backgrView];
+        } else {
+            UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake((window.frame.size.width/2)-(400/2), 70, 400, 80)];
+            backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
+            
+            UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 360, 80)];
+            errorLabel.text = @"It appears that you are not connected to the internet and some features are not available when you are offline.";
+            errorLabel.textColor = [UIColor whiteColor];
+            errorLabel.textAlignment = NSTextAlignmentLeft;
+            errorLabel.numberOfLines = 3;
+            errorLabel.font = [UIFont fontWithName:@"Open Sans" size:15];
+            [backgrView addSubview:errorLabel];
+            backgrView.layer.cornerRadius = 10.0f;
+            backgrView.layer.masksToBounds = YES;
+            [buttonBackView addSubview:backgrView];
+        }
         UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeBannerView)];
         tapEvent.numberOfTouchesRequired = 1;
         buttonBackView.userInteractionEnabled = YES;
         [buttonBackView addGestureRecognizer:tapEvent];
-        
         // backgrView.alpha = 0.6;
         [window addSubview:buttonBackView];
     });

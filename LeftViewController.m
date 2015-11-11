@@ -733,23 +733,23 @@
 
 -(void)presentTutorialPopViewController{
     
-    NSLog(@"presentTutorialPopViewController");
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
-    if (coachMarksShown == NO) {
-        
-        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"TutorialPhone" bundle:nil];
-        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
-        
-        //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
-        
-        //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
-        //  popOverView.transitioningDelegate = self;
-        popOverView.modalPresentationStyle = UIModalPresentationCustom;
-        [self presentViewController:popOverView animated:NO completion:nil];
-        
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialBoxShown"];
-        
-    }
+//    NSLog(@"presentTutorialPopViewController");
+//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
+//    if (coachMarksShown == NO) {
+//        
+//        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"TutorialPhone" bundle:nil];
+//        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
+//        
+//        //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+//        
+//        //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
+//        //  popOverView.transitioningDelegate = self;
+//        popOverView.modalPresentationStyle = UIModalPresentationCustom;
+//        [self presentViewController:popOverView animated:NO completion:nil];
+//        
+//        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialBoxShown"];
+//        
+//    }
     
 }
 #pragma mark - Actions
@@ -1057,14 +1057,14 @@
     @try {
         data = item;
         //    //if([[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]iseq)
-        NSLog(@"one:%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]);
+        //NSLog(@"one:%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]);
         if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
             
         } else {
             //        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"menuName":data.name};
             //        [Localytics tagEvent:@"SelectedTopic" attributes:dictionary];
         }
-        NSLog(@"two");
+       // NSLog(@"two");
         RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
         BOOL expanded = [self.treeView isCellForItemExpanded:item];
         if(expanded) {
@@ -1080,7 +1080,7 @@
         NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
         
         cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
-        NSLog(@"after this");
+       // NSLog(@"after this");
         if([data.nodeId integerValue] == 9 && !data.isFolder) {
             //1111
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click MarkedImportant"];
@@ -1268,7 +1268,7 @@
             
             
         }
-        NSLog(@"left click:%@",data.nodeId);
+       // NSLog(@"left click:%@",data.nodeId);
         if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
             NSLog(@"one");
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
@@ -1366,7 +1366,7 @@
             
         } else {
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
-            NSLog(@"four");
+           // NSLog(@"four");
             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
             if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
                 //NewsLetter Nav
@@ -1404,7 +1404,7 @@
                     
                     [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
                     [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
-//                    inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
+                    inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
 //                    [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
                     
                     
