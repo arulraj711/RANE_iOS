@@ -39,13 +39,13 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="hsD-Lg-tVu"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="11"/>
+                        <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@MacRumors" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhP-YM-RMd">
                         <rect key="frame" x="38" y="23" width="130" height="22"/>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -70,7 +70,7 @@
                             <constraint firstAttribute="height" constant="100" id="7Qe-5p-kJI"/>
                         </constraints>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="retweet" translatesAutoresizingMaskIntoConstraints="NO" id="M6O-4b-WMN">
@@ -80,17 +80,17 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kpy-mJ-wcy">
-                        <rect key="frame" x="31" y="170" width="30" height="16"/>
+                        <rect key="frame" x="31" y="170" width="30" height="19"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="1Da-iZ-yvb"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSH-ju-0hA">
-                        <rect key="frame" x="84" y="170" width="30" height="16"/>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
+                        <rect key="frame" x="84" y="170" width="30" height="19"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -101,11 +101,11 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U8G-9X-BYR">
-                        <rect key="frame" x="144" y="170" width="30" height="16"/>
+                        <rect key="frame" x="144" y="170" width="30" height="19"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="Rop-V3-JMF"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -122,7 +122,7 @@
                 <constraint firstItem="xW7-A7-3Vj" firstAttribute="leading" secondItem="hpQ-eD-j09" secondAttribute="leading" id="0QX-DH-pNH"/>
                 <constraint firstItem="slz-TB-f6K" firstAttribute="top" secondItem="CYx-XK-kAE" secondAttribute="top" constant="-5" id="24d-E9-Zve"/>
                 <constraint firstItem="nhP-YM-RMd" firstAttribute="top" secondItem="slz-TB-f6K" secondAttribute="bottom" constant="-4" id="6cO-Ha-EgH"/>
-                <constraint firstItem="ciY-Om-uiy" firstAttribute="bottom" secondItem="U8G-9X-BYR" secondAttribute="bottom" constant="2" id="91B-7y-4gj"/>
+                <constraint firstItem="ciY-Om-uiy" firstAttribute="bottom" secondItem="U8G-9X-BYR" secondAttribute="bottom" constant="-1" id="91B-7y-4gj"/>
                 <constraint firstItem="hpQ-eD-j09" firstAttribute="top" secondItem="CYx-XK-kAE" secondAttribute="bottom" constant="8" id="9TH-m6-vcf"/>
                 <constraint firstItem="CYx-XK-kAE" firstAttribute="leading" secondItem="5NE-sf-AWO" secondAttribute="leadingMargin" constant="-3" id="Br3-0b-PJu"/>
                 <constraint firstItem="ciY-Om-uiy" firstAttribute="leading" secondItem="dSH-ju-0hA" secondAttribute="trailing" constant="7" id="Cwx-mS-HBe"/>

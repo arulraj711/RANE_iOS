@@ -938,14 +938,14 @@
     [tweetFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+35, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
+        self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+45, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
 
         UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCellPhone" bundle:nil];
         [self.tweetsLocalCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
         [self.tweetsLocalCollectionView registerClass:[TweetsCellPhone class] forCellWithReuseIdentifier:@"Cell"];
         if(IS_IPHONE_6P)
         {
-            self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+35, self.tweetsCollectionView.frame.size.width+35, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
+            self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+45, self.tweetsCollectionView.frame.size.width+35, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
 
         }
 
@@ -997,7 +997,7 @@
     self.tweetsCollectionView.hidden = NO;
     UINib *cellNib;
     if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
-        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+60, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+70, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
 
         cellNib = [UINib nibWithNibName:@"SocialLinkCellPhone" bundle:nil];
         [self.socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
@@ -1244,9 +1244,10 @@
     popOverView.selectedIndexPath = self.selectedIndexPath;
     
     popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
-    popover.border = NO;
+//    popover.border = NO;
     popover.tint = FPPopoverWhiteTint;
-    popover.contentSize = CGSizeMake(390, 700);
+    [popover setShadowsHidden:YES];
+    popover.contentSize = CGSizeMake(390, 440);
     popover.arrowDirection = FPPopoverArrowDirectionAny;
     [popover presentPopoverFromView:_commentBtn];
 
@@ -1744,7 +1745,8 @@
         UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
         SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
         popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
-        popover.border = NO;
+//        popover.border = NO;
+        [popover setShadowsHidden:YES];
         popover.tint = FPPopoverWhiteTint;
         popover.contentSize = CGSizeMake(300, 260);
         popover.arrowDirection = FPPopoverArrowDirectionAny;
@@ -1772,6 +1774,7 @@
         popOverView.articleImageUrl = self.selectedArticleImageUrl;
         popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
         popover.border = NO;
+        [popover setShadowsHidden:YES];
         popover.tint = FPPopoverWhiteTint;
         popover.contentSize = CGSizeMake(300, 260);
         popover.arrowDirection = FPPopoverArrowDirectionAny;

@@ -2658,12 +2658,12 @@
         <image name="bookmark-empty" width="20" height="20"/>
         <image name="bookmark_empty1" width="30" height="30"/>
         <image name="bookmark_filled" width="20" height="20"/>
-        <image name="chat" width="30" height="30"/>
+        <image name="chat" width="20" height="20"/>
         <image name="clock" width="11" height="12"/>
         <image name="close" width="32" height="32"/>
         <image name="close_gray" width="28" height="28"/>
         <image name="email" width="30" height="30"/>
-        <image name="folder" width="30" height="30"/>
+        <image name="folder" width="20" height="20"/>
         <image name="globe" width="12" height="12"/>
         <image name="gradiant" width="608" height="200"/>
         <image name="group_blue" width="20" height="20"/>
