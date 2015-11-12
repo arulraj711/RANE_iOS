@@ -299,7 +299,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Xvu-Ql-uAA" firstAttribute="trailing" secondItem="2Jk-LR-Lbb" secondAttribute="trailingMargin" id="05f-fm-a6M"/>
                             <constraint firstItem="961-4j-HHT" firstAttribute="top" secondItem="4FS-a8-KWj" secondAttribute="bottom" id="86T-IK-7VF"/>
@@ -310,11 +310,17 @@
                             <constraint firstItem="JEM-Iu-vtz" firstAttribute="leading" secondItem="2Jk-LR-Lbb" secondAttribute="leadingMargin" constant="49" id="QEs-Gn-goN"/>
                             <constraint firstItem="4FS-a8-KWj" firstAttribute="leading" secondItem="2Jk-LR-Lbb" secondAttribute="leadingMargin" constant="-16" id="QIp-5p-MKf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Zjt-lA-j21" secondAttribute="trailing" constant="-18" id="WYw-7a-gCq"/>
-                            <constraint firstItem="Zjt-lA-j21" firstAttribute="top" secondItem="Z1I-a3-5w1" secondAttribute="bottom" id="Z4t-Au-bO6"/>
+                            <constraint firstItem="Zjt-lA-j21" firstAttribute="top" secondItem="Z1I-a3-5w1" secondAttribute="bottom" id="Z4t-Au-bO6">
+                                <variation key="heightClass=regular-widthClass=compact" constant="1"/>
+                            </constraint>
                             <constraint firstItem="uu8-Gy-88a" firstAttribute="top" secondItem="Zjt-lA-j21" secondAttribute="bottom" constant="43" id="cC4-gr-DiU"/>
                             <constraint firstItem="4FS-a8-KWj" firstAttribute="top" secondItem="Zjt-lA-j21" secondAttribute="bottom" constant="-1" id="gxy-9U-kyX"/>
-                            <constraint firstItem="8Yy-3d-iUr" firstAttribute="top" secondItem="Xvu-Ql-uAA" secondAttribute="bottom" constant="-3" id="htl-Fv-Gwa"/>
-                            <constraint firstItem="Z1I-a3-5w1" firstAttribute="top" secondItem="Xvu-Ql-uAA" secondAttribute="bottom" constant="4" id="ibr-x8-g1b"/>
+                            <constraint firstItem="8Yy-3d-iUr" firstAttribute="top" secondItem="Xvu-Ql-uAA" secondAttribute="bottom" constant="-3" id="htl-Fv-Gwa">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-36"/>
+                            </constraint>
+                            <constraint firstItem="Z1I-a3-5w1" firstAttribute="top" secondItem="Xvu-Ql-uAA" secondAttribute="bottom" constant="4" id="ibr-x8-g1b">
+                                <variation key="heightClass=regular-widthClass=compact" constant="5"/>
+                            </constraint>
                             <constraint firstItem="Xvu-Ql-uAA" firstAttribute="leading" secondItem="JEM-Iu-vtz" secondAttribute="trailing" constant="3" id="my9-B0-gE3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4FS-a8-KWj" secondAttribute="trailing" constant="-16" id="nTa-rW-crp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Z1I-a3-5w1" secondAttribute="trailing" constant="-16" id="pWc-oT-InC"/>
@@ -384,6 +390,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="390" height="440"/>
                     <connections>

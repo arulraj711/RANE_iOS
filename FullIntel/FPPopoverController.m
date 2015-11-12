@@ -8,6 +8,7 @@
 
 
 #import "FPPopoverController.h"
+#import <pop/POP.h>
 
 //ivars
 @interface FPPopoverController()
@@ -257,11 +258,39 @@
     
     
     [self setupView];
-    self.view.alpha = 0.0;
-    [UIView animateWithDuration:0.2 animations:^{
-        
-        self.view.alpha = self.alpha;
-    }];
+//    self.view.alpha = 0.0;
+    NSLog(@"its its its%f, %f",_alphawhsk,_alphaalphawhsk);
+    CGFloat ptx =_contentView.frame.origin.x;
+    CGFloat pty =_contentView.frame.origin.y;
+    CGFloat ptw =_contentView.frame.size.width;
+    CGFloat pth =_contentView.frame.size.height;
+    _contentView.frame = CGRectMake(_alphawhsk,596, 0, 0);
+    [UIView animateWithDuration:0.3
+                               delay:0.0
+                             options:0
+                          animations:^{
+                            _contentView.frame = CGRectMake(ptx, pty, ptw, pth);
+                            [_contentView layoutIfNeeded];
+                          } completion:^(BOOL finished){
+                              self.view.alpha = self.alpha;
+                              
+                          }];
+
+//    [UIView animateWithDuration:0.3
+//                          delay:0.0
+//                        options: UIViewAnimationOptionCurveEaseInOut
+//                     animations:^{
+//                         
+//                         self.view.alpha = self.alpha;
+//
+//                         
+//                     }
+//                     completion:NULL];
+
+//    [UIView animateWithDuration:0.2 animations:^{
+//        
+//        self.view.alpha = self.alpha;
+//    }];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"FPNewPopoverPresented" object:self];
     
@@ -306,12 +335,15 @@
 }
 -(void)presentPopoverFromView:(UIView*)fromView
 {
+    _alphawhsk = fromView.frame.origin.x + fromView.frame.size.width/2.0;
+    _alphaalphawhsk = fromView.frame.origin.y;
     SAFE_ARC_RELEASE(_fromView);
     _fromView = SAFE_ARC_RETAIN(fromView);
     [self presentPopoverFromPoint:[self originFromView:_fromView]];
 }
 -(void)dismissPopover
 {
+
     [self.view removeFromSuperview];
     if([self.delegate respondsToSelector:@selector(popoverControllerDidDismissPopover:)])
     {
@@ -322,20 +354,46 @@
     
 }
 -(void)dismissPopoverAnimated:(BOOL)animated {
-	[self dismissPopoverAnimated:animated completion:nil];
+    NSLog(@"its its its%f, %f",_alphawhsk,_alphaalphawhsk);
+    CGFloat ptx =_contentView.frame.origin.x;
+    CGFloat pty =_contentView.frame.origin.y;
+    CGFloat ptw =_contentView.frame.size.width;
+    CGFloat pth =_contentView.frame.size.height;
+    _contentView.frame = CGRectMake(ptx, pty, ptw, pth);
+    [UIView animateWithDuration:0.3
+                          delay:0.0
+                        options:0
+                     animations:^{
+                         _contentView.frame = CGRectMake(_alphawhsk,596, 0, 0);
+                         [_contentView layoutIfNeeded];
+                         
+                         
+                     } completion:^(BOOL finished){
+                         [self dismissPopoverAnimated:animated completion:nil];
+
+                     }];
 }
 
 -(void)dismissPopoverAnimated:(BOOL)animated completion:(FPPopoverCompletion)completionBlock
 {
     if(animated)
     {
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.2 delay:5 options:0 animations:^{
             self.view.alpha = 0.0;
-        } completion:^(BOOL finished) {
+        }completion:^(BOOL finished) {
             [self dismissPopover];
-			if (completionBlock)
-				completionBlock();
+            if (completionBlock)
+                completionBlock();
         }];
+        
+        
+//        [UIView animateWithDuration:0.2 animations:^{
+//            self.view.alpha = 0.0;
+//        } completion:^(BOOL finished) {
+//            [self dismissPopover];
+//			if (completionBlock)
+//				completionBlock();
+//        }];
     }
     else
     {

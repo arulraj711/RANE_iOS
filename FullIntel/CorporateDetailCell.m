@@ -72,21 +72,13 @@
             [self sizeAdjustmentForView:_requestBtn withFloatVal:(float)50];
             
 
-
-            
-
             [self sizeAdjustmentForViews:_bookmarkButtonView withFloatVal:(float)10];
             [self sizeAdjustmentForViews:_messageButtonView withFloatVal:(float)30];
             [self sizeAdjustmentForViews:_folderButtonViews withFloatVal:(float)50];
-//          self.starButtnView.layer.masksToBounds = YES;
-//          self.starButtnView.layer.cornerRadius = 6.0f;
-//          self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
-//          self.markedImpView.layer.borderWidth = 3.0;
-//          self.bookmarkButtonView.layer.masksToBounds = YES;
-//          self.bookmarkButtonView.layer.cornerRadius = 6.0f;
             
             
-            
+//            self.articleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+//            self.articleTitle.frame = CGRectMake(self.articleTitle.frame.origin.x, self.articleTitle.frame.origin.y-40, self.articleTitle.frame.size.width+20, self.articleTitle.frame.size.height+40);
         }
         else if (IS_IPHONE_6P)
         {
@@ -182,11 +174,11 @@
     self.bottomImagevws.frame = CGRectMake(self.bottomImagevws.frame.origin.x, self.bottomImagevws.frame.origin.y, self.bottomImagevws.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:3]intValue], self.bottomImagevws.frame.size.height);
     
     self.gradButtonTops.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.gradButtonTops.frame = CGRectMake(self.gradButtonTops.frame.origin.x, self.gradButtonTops.frame.origin.y, self.gradButtonTops.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:4]intValue], self.gradButtonTops.frame.size.height+[(NSNumber *)[arrayName objectAtIndex:17] intValue]);
+    self.gradButtonTops.frame = CGRectMake(self.gradButtonTops.frame.origin.x, self.gradButtonTops.frame.origin.y, self.gradButtonTops.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:4]intValue], self.gradButtonTops.frame.size.height);
     
     
     self.articleImageView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.articleImageView.frame = CGRectMake(self.articleImageView.frame.origin.x, self.articleImageView.frame.origin.y, self.articleImageView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:5] intValue], self.articleImageView.frame.size.height+[(NSNumber *)[arrayName objectAtIndex:16] intValue]);
+    self.articleImageView.frame = CGRectMake(self.articleImageView.frame.origin.x, self.articleImageView.frame.origin.y, self.articleImageView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:5] intValue], self.articleImageView.frame.size.height);
     
     
     self.detailsWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
@@ -1243,17 +1235,29 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CommentsPhone" bundle:nil];
     CommentsPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"CommentsPopoverView"];
     popOverView.articleId = self.selectedArticleId;
+    popOverView.commentsDelegate = self;
     popOverView.selectedIndexPath = self.selectedIndexPath;
-    
+    self.superview.alpha = 0.4;
+
     popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
     popover.border = NO;
+    popover.delegate = self;
 //    popover.title = nil;
     popover.tint = FPPopoverWhiteTint;
-    [popover setShadowsHidden:YES];
-    popover.contentSize = CGSizeMake(390, 440);
+    //[popover setShadowsHidden:YES];
+    popover.contentSize = CGSizeMake(390, 480);
     popover.arrowDirection = FPPopoverArrowDirectionAny;
     [popover presentPopoverFromView:_commentBtn];
 
+}
+
+- (void)popoverControllerDidDismissPopover:(FPPopoverController *)popoverController {
+    self.superview.alpha = 1;
+
+}
+
+- (void)dismissCommentsView {
+    [popover dismissPopoverAnimated:YES];
 }
 
 - (IBAction)markedImpButtonClick:(UIButton *)sender {
@@ -1747,9 +1751,11 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
         SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+        self.superview.alpha = 0.4;
         popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
         popover.border = NO;
-        [popover setShadowsHidden:YES];
+        popover.delegate = self;
+        //[popover setShadowsHidden:YES];
         popover.tint = FPPopoverWhiteTint;
         popover.contentSize = CGSizeMake(300, 260);
         popover.arrowDirection = FPPopoverArrowDirectionAny;
@@ -1775,9 +1781,11 @@
         popOverView.articleUrl = self.selectedArticleUrl;
         popOverView.articleDesc = self.articleDesc;
         popOverView.articleImageUrl = self.selectedArticleImageUrl;
+        self.superview.alpha = 0.4;
         popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
         popover.border = NO;
-        [popover setShadowsHidden:YES];
+        popover.delegate = self;
+        //[popover setShadowsHidden:YES];
         popover.tint = FPPopoverWhiteTint;
         popover.contentSize = CGSizeMake(300, 260);
         popover.arrowDirection = FPPopoverArrowDirectionAny;

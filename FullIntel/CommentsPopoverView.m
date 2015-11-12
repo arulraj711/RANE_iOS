@@ -25,7 +25,7 @@
     // Do any additional setup after loading the view from its nib.
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.outerView.layer.masksToBounds = YES;
-        self.outerView.layer.cornerRadius = 5;
+        self.outerView.layer.cornerRadius = 2;
        
 
     }
@@ -245,6 +245,9 @@
     }else if(rect.size.height==736) {
         rect.size.height=500;
     }
+    else if(rect.size.height<100) {
+        rect.size.height=270;
+    }
     self.view.frame = rect;
     
         //NSLog(@"view frame height after keyboardDidShow:%f",self.view.frame.size.height);
@@ -317,11 +320,6 @@
 }
 
 - (IBAction)doneButton:(id)sender {    
-    [self dismissViewControllerAnimated:YES completion:NULL];
-//    NSLog(@"%@",self.view);
-//    NSArray *viewsToRemove = [self.view subviews];
-//    for (UIView *v in viewsToRemove) {
-//        [v removeFromSuperview];
-//    }
+    [self.commentsDelegate dismissCommentsView];
 }
 @end

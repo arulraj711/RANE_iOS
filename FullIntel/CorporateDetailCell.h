@@ -16,8 +16,9 @@
 #import "UCZProgressView.h"
 #import "MKNumberBadgeView.h"
 #import "FPPopoverKeyboardResponsiveController.h"
+#import "CommentsPopoverView.h"
 
-@interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
+@interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,FPPopoverControllerDelegate,CommentsDelegate> {
     NSMutableArray *tweetArray;
     UCZProgressView *progressView;
     // UICollectionView *tweetsLocalCollectionView;
