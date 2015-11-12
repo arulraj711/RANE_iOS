@@ -111,6 +111,10 @@
 		A0CF5C7A1B1EFE1100DED2D9 /* legalDril.html in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C771B1EFE1100DED2D9 /* legalDril.html */; };
 		A0CF5C7B1B1EFE1100DED2D9 /* movesDrill.html in Resources */ = {isa = PBXBuildFile; fileRef = A0CF5C781B1EFE1100DED2D9 /* movesDrill.html */; };
 		A0D0585F1B206208008F69ED /* MKNumberBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D0585E1B206208008F69ED /* MKNumberBadgeView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A0D113071BF364D100403BCC /* ios7-folder-outline_2.png in Resources */ = {isa = PBXBuildFile; fileRef = A0D113051BF364D100403BCC /* ios7-folder-outline_2.png */; };
+		A0D113081BF364D100403BCC /* ios7-star-outline_2.png in Resources */ = {isa = PBXBuildFile; fileRef = A0D113061BF364D100403BCC /* ios7-star-outline_2.png */; };
+		A0D1130B1BF4482F00403BCC /* bookmark_outline30 copy.png in Resources */ = {isa = PBXBuildFile; fileRef = A0D113091BF4482F00403BCC /* bookmark_outline30 copy.png */; };
+		A0D1130C1BF4482F00403BCC /* x copy.png in Resources */ = {isa = PBXBuildFile; fileRef = A0D1130A1BF4482F00403BCC /* x copy.png */; };
 		A0D9567B1B0C4C0100DB013F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D956791B0C4C0100DB013F /* Fabric.framework */; };
 		A0D9567C1B0C4C0200DB013F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */; };
 		A0D956801B0C4D9100DB013F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */; };
@@ -407,6 +411,10 @@
 		A0CF5C781B1EFE1100DED2D9 /* movesDrill.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = movesDrill.html; sourceTree = "<group>"; };
 		A0D0585D1B206208008F69ED /* MKNumberBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNumberBadgeView.h; sourceTree = "<group>"; };
 		A0D0585E1B206208008F69ED /* MKNumberBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNumberBadgeView.m; sourceTree = "<group>"; };
+		A0D113051BF364D100403BCC /* ios7-folder-outline_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-folder-outline_2.png"; sourceTree = "<group>"; };
+		A0D113061BF364D100403BCC /* ios7-star-outline_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-star-outline_2.png"; sourceTree = "<group>"; };
+		A0D113091BF4482F00403BCC /* bookmark_outline30 copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmark_outline30 copy.png"; sourceTree = "<group>"; };
+		A0D1130A1BF4482F00403BCC /* x copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x copy.png"; sourceTree = "<group>"; };
 		A0D956791B0C4C0100DB013F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		A0D9567A1B0C4C0100DB013F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		A0D9567D1B0C4D9100DB013F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
@@ -1190,6 +1198,10 @@
 				A081459A1BCF855900AA5EE2 /* CommentsPhone.storyboard */,
 				A0DB6FC21B0B2BB400F6E2F4 /* CommentCell.h */,
 				A0DB6FC31B0B2BB400F6E2F4 /* CommentCell.m */,
+				A0D113051BF364D100403BCC /* ios7-folder-outline_2.png */,
+				A0D113061BF364D100403BCC /* ios7-star-outline_2.png */,
+				A0D113091BF4482F00403BCC /* bookmark_outline30 copy.png */,
+				A0D1130A1BF4482F00403BCC /* x copy.png */,
 			);
 			name = Comments_Popover;
 			sourceTree = "<group>";
@@ -1458,9 +1470,11 @@
 				F7E81FCA1A97057100F9A8D4 /* tim.jpeg in Resources */,
 				A033EC611BC4CF72003AAE4F /* SocialLinkCellPhone.xib in Resources */,
 				F7E81FC81A97057100F9A8D4 /* statistics.png in Resources */,
+				A0D113071BF364D100403BCC /* ios7-folder-outline_2.png in Resources */,
 				F7E81FC41A97057100F9A8D4 /* sony_topic.jpg in Resources */,
 				F7F876B51AB976B00042404D /* influ_drillin.json in Resources */,
 				A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */,
+				A0D1130B1BF4482F00403BCC /* bookmark_outline30 copy.png in Resources */,
 				A099E3C41AF10F110056C9FC /* OpenSans-Semibold.ttf in Resources */,
 				F5DAAA541B7080E80059425C /* TweetsCell.xib in Resources */,
 				A0CF5C5D1B1DD98B00DED2D9 /* IpAndLegal.storyboard in Resources */,
@@ -1565,7 +1579,9 @@
 				A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */,
 				F7E81FBB1A97057100F9A8D4 /* obama.jpg in Resources */,
 				F7E81F951A97057100F9A8D4 /* apple-logo.png in Resources */,
+				A0D1130C1BF4482F00403BCC /* x copy.png in Resources */,
 				F7E85EA91A9F3B710022B4D5 /* Influencer.json in Resources */,
+				A0D113081BF364D100403BCC /* ios7-star-outline_2.png in Resources */,
 				F7E81FAD1A97057100F9A8D4 /* ipod.jpg in Resources */,
 				F7E0049C1AB152C500390D51 /* ProductWidgetCell.xib in Resources */,
 				F7E81FBA1A97057100F9A8D4 /* o-NEW-YORK-facebook.jpg in Resources */,

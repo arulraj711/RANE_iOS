@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsDetailsView.m"
-            timestampString = "468914144.684245"
+            timestampString = "468936732.543132"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "933"
-            endingLineNumber = "933"
+            startingLineNumber = "982"
+            endingLineNumber = "982"
             landmarkName = "-configureCellAuthorDetails:forCuratedNews:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>

@@ -660,10 +660,20 @@
     NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
     if(workTitleArray.count != 0) {
         cell.workTitleIcon.hidden = NO;
-        cell.workTitleIconHeightConstraint.constant = 15;
-        cell.workTitleLabelHeightConstraint.constant = 21;
-        cell.outletImageTopConstraint.constant = 10;
-        cell.outletLabelTopConstraint.constant = 4;
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            cell.workTitleIconHeightConstraint.constant = 10;
+            cell.workTitleLabelHeightConstraint.constant = 16;
+            cell.outletImageTopConstraint.constant = 7;
+            cell.outletLabelTopConstraint.constant = 1;
+        }
+        else{
+            cell.workTitleIconHeightConstraint.constant = 15;
+            cell.workTitleLabelHeightConstraint.constant = 21;
+            cell.outletImageTopConstraint.constant = 10;
+            cell.outletLabelTopConstraint.constant = 4;
+        }
+        
         NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
         cell.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
     } else {
@@ -672,6 +682,8 @@
         cell.workTitleLabelHeightConstraint.constant = 0;
         cell.outletImageTopConstraint.constant = 0;
         cell.outletLabelTopConstraint.constant = 0;
+        cell.authorWorkTitleLabel.text = @"";
+
     }
     
     
@@ -679,10 +691,21 @@
     NSMutableArray *outletArray = [[NSMutableArray alloc]initWithArray:[outletSet allObjects]];
     if(outletArray.count != 0) {
         cell.outletIcon.hidden = NO;
-        cell.locationImageTopConstarint.constant = 10;
-        cell.outletIconHeightConstraint.constant = 15;
-        cell.locationLabelTopConstraint.constant = 4;
-        cell.outletLabelHeightConstraint.constant = 21;
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            cell.locationImageTopConstarint.constant = 7;
+            cell.outletIconHeightConstraint.constant = 10;
+            cell.locationLabelTopConstraint.constant = 1;
+            cell.outletLabelHeightConstraint.constant = 16;
+
+        }
+        else{
+            cell.locationImageTopConstarint.constant = 10;
+            cell.outletIconHeightConstraint.constant = 15;
+            cell.locationLabelTopConstraint.constant = 4;
+            cell.outletLabelHeightConstraint.constant = 21;
+
+        }
         NSManagedObject *outlet = [outletArray objectAtIndex:0];
         cell.authorOutletName.text = [outlet valueForKey:@"outletname"];
     }else {
@@ -691,6 +714,8 @@
         cell.locationImageTopConstarint.constant = 0;
         cell.locationLabelTopConstraint.constant = 0;
         cell.outletLabelHeightConstraint.constant = 0;
+        cell.authorOutletName.text = @"";
+
     }
     
     
@@ -709,10 +734,20 @@
     
     if(authorPlace.length !=0 ){
         cell.locationIcon.hidden = NO;
-        cell.locationIconHeightConstraint.constant = 15;
-        cell.locationLabelHeightConstraint.constant = 21;
-        cell.beatsImageTopConstraint.constant = 10;
-        cell.beatsLabelTopConstraint.constant = 4;
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            cell.locationIconHeightConstraint.constant = 10;
+            cell.locationLabelHeightConstraint.constant = 16;
+            cell.beatsImageTopConstraint.constant = 7;
+            cell.beatsLabelTopConstraint.constant = 1;
+        }
+        else{
+            cell.locationIconHeightConstraint.constant = 15;
+            cell.locationLabelHeightConstraint.constant = 21;
+            cell.beatsImageTopConstraint.constant = 10;
+            cell.beatsLabelTopConstraint.constant = 4;
+        }
+        
         cell.authorLocationLabel.text = authorPlace;
     } else {
         cell.locationIcon.hidden = YES;
@@ -720,6 +755,8 @@
         cell.locationLabelHeightConstraint.constant = 0;
         cell.beatsImageTopConstraint.constant = 0;
         cell.beatsLabelTopConstraint.constant = 0;
+        cell.authorLocationLabel.text = @"";
+
     }
     
     NSSet *beatSet = [curatedNewsAuthor valueForKey:@"authorBeat"];
@@ -731,13 +768,24 @@
     NSString *beatString = [beats componentsJoinedByString:@" "];
     if(beatString.length != 0){
         cell.beatsIcon.hidden = NO;
-        cell.beatsIconHeightConstraint.constant = 15;
-        cell.beatsLabelHeightConstraint.constant = 21;
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            cell.beatsIconHeightConstraint.constant = 10;
+            cell.beatsLabelHeightConstraint.constant = 16;
+
+        }
+        else{
+            cell.beatsIconHeightConstraint.constant = 15;
+            cell.beatsLabelHeightConstraint.constant = 21;
+
+        }
         cell.authorTagLabel.text = beatString;
     } else {
         cell.beatsIcon.hidden = YES;
         cell.beatsIconHeightConstraint.constant = 0;
         cell.beatsLabelHeightConstraint.constant = 0;
+        cell.authorTagLabel.text = @"";
+
     }
     
     NSString *bioString = [curatedNewsAuthor valueForKey:@"bibliography"];
@@ -748,6 +796,7 @@
         cell.bioDivider.hidden = NO;
         cell.bioLabel.hidden = NO;
         cell.bioLabel.text = bioString;
+        [cell.bioLabel sizeToFit];
     } else {
         cell.bioTitleLabel.hidden = YES;
         cell.bioDivider.hidden = YES;

@@ -61,7 +61,7 @@
         
         if (IS_IPHONE_6)
         {
-            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"65",@"65",@"65",@"65",@"65",@"65",@"20",@"65",@"20",@"20",@"65",@"35",@"70",@"18",@"0", @"0", nil];
+            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"65",@"65",@"65",@"65",@"65",@"65",@"20",@"65",@"20",@"20",@"65",@"35",@"70",@"18",@"0", @"0",@"20",@"20", nil];
             [self methodForSizeMatch:contentForSize];
             [self sizeAdjustmentForView:_markedImpButton withFloatVal:(float)5];
             [self sizeAdjustmentForView:_savedForLaterButton withFloatVal:(float)10];
@@ -110,7 +110,7 @@
 
 
 
-            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"95",@"95",@"95",@"95",@"95",@"95",@"15",@"95",@"40",@"20",@"105",@"75",@"70",@"24",@"5",@"70", nil];
+            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"95",@"95",@"95",@"95",@"95",@"95",@"15",@"95",@"40",@"20",@"105",@"75",@"70",@"24",@"5",@"70",@"20",@"20",nil];
             [self methodForSizeMatch:contentForSize];
         }
         else if (IS_IPHONE_5)
@@ -182,11 +182,11 @@
     self.bottomImagevws.frame = CGRectMake(self.bottomImagevws.frame.origin.x, self.bottomImagevws.frame.origin.y, self.bottomImagevws.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:3]intValue], self.bottomImagevws.frame.size.height);
     
     self.gradButtonTops.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.gradButtonTops.frame = CGRectMake(self.gradButtonTops.frame.origin.x, self.gradButtonTops.frame.origin.y, self.gradButtonTops.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:4]intValue], self.gradButtonTops.frame.size.height);
+    self.gradButtonTops.frame = CGRectMake(self.gradButtonTops.frame.origin.x, self.gradButtonTops.frame.origin.y, self.gradButtonTops.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:4]intValue], self.gradButtonTops.frame.size.height+[(NSNumber *)[arrayName objectAtIndex:17] intValue]);
     
     
     self.articleImageView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.articleImageView.frame = CGRectMake(self.articleImageView.frame.origin.x, self.articleImageView.frame.origin.y, self.articleImageView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:5] intValue], self.articleImageView.frame.size.height);
+    self.articleImageView.frame = CGRectMake(self.articleImageView.frame.origin.x, self.articleImageView.frame.origin.y, self.articleImageView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:5] intValue], self.articleImageView.frame.size.height+[(NSNumber *)[arrayName objectAtIndex:16] intValue]);
     
     
     self.detailsWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
@@ -204,7 +204,7 @@
 //    self.overlayArticleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
 //    self.overlayArticleDate.frame = CGRectMake(self.overlayArticleDate.frame.origin.x+[(NSNumber *)[arrayName objectAtIndex:12] intValue], self.overlayArticleDate.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:13] intValue], self.overlayArticleDate.frame.size.width, self.overlayArticleDate.frame.size.height);
 }
-//last 15
+//last 17
 
 
 -(void)drillDownButtonClick:(id)sender {
@@ -873,7 +873,7 @@
             frame.size.height =450;
         }
         else{
-            frame.size.height = 300;
+            frame.size.height = 350;
 
         }
 
@@ -896,7 +896,7 @@
         NSLog(@"%@",self.webViewHeightConstraint);
         CGFloat pointOfWebview = newBounds.size.height;
 
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+680);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+750);
         
     }
     else{
@@ -997,7 +997,9 @@
     self.tweetsCollectionView.hidden = NO;
     UINib *cellNib;
     if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
-        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+70, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+        self.socialcollectionView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+
+        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+95, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
 
         cellNib = [UINib nibWithNibName:@"SocialLinkCellPhone" bundle:nil];
         [self.socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
@@ -1244,7 +1246,8 @@
     popOverView.selectedIndexPath = self.selectedIndexPath;
     
     popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
-//    popover.border = NO;
+    popover.border = NO;
+//    popover.title = nil;
     popover.tint = FPPopoverWhiteTint;
     [popover setShadowsHidden:YES];
     popover.contentSize = CGSizeMake(390, 440);
@@ -1745,7 +1748,7 @@
         UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
         SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
         popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
-//        popover.border = NO;
+        popover.border = NO;
         [popover setShadowsHidden:YES];
         popover.tint = FPPopoverWhiteTint;
         popover.contentSize = CGSizeMake(300, 260);
