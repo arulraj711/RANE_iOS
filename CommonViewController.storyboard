@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Weq-1j-SBh">
+            <objects>
+                <navigationController storyboardIdentifier="navCtrlrCommonView" id="Lpt-mj-dbo" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aES-Ba-7nl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2iI-Z8-q7V" kind="relationship" relationship="rootViewController" id="ype-In-vNJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TDr-Sz-dYA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="144" y="436"/>
+        </scene>
+        <!--Common View Controller-->
+        <scene sceneID="fsQ-YD-tDO">
+            <objects>
+                <viewController id="2iI-Z8-q7V" customClass="CommonViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Isg-VD-ltm"/>
+                        <viewControllerLayoutGuide type="bottom" id="KQO-1b-CY6"/>
+                    </layoutGuides>
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zGv-u8-CWh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8G-z8-GOE">
+                                <rect key="frame" x="100" y="280" width="400" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="1eQ-hv-fbx"/>
+                                    <constraint firstAttribute="width" constant="363" id="ioF-si-ine"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
+                                <state key="normal" image="btn">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="btn_selected"/>
+                                <state key="highlighted" image="btn_pressed"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1eQ-hv-fbx"/>
+                                        <exclude reference="ioF-si-ine"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="1eQ-hv-fbx"/>
+                                        <include reference="ioF-si-ine"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="requestButton:" destination="2iI-Z8-q7V" eventType="touchUpInside" id="MDG-PK-37A"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="V8G-z8-GOE" secondAttribute="centerX" constant="-0.5" id="JIX-0i-fYp"/>
+                            <constraint firstAttribute="centerY" secondItem="V8G-z8-GOE" secondAttribute="centerY" id="KFs-Ou-CRU"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="JIX-0i-fYp"/>
+                                <exclude reference="KFs-Ou-CRU"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="JIX-0i-fYp"/>
+                                <include reference="KFs-Ou-CRU"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="Csr-MG-ecy"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jxb-xW-e5M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="946.5" y="435.75"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="btn" width="400" height="40"/>
+        <image name="btn_pressed" width="400" height="40"/>
+        <image name="btn_selected" width="400" height="40"/>
+    </resources>
+</document>

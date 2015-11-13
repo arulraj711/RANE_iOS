@@ -50,9 +50,9 @@
         if (IS_IPHONE_6P)
         {
         [self sizeAdjustmentForView:_bookmarkView withFloatVal:(float)20];
-        [self sizeAdjustmentForView:_messageView withFloatVal:(float)60];
-        [self sizeAdjustmentForView:_lastViewInTabl withFloatVal:(float)100];
-//        [self sizeAdjustmentForView:_articleDate withFloatVal:(float)110];
+        [self sizeAdjustmentForView:_messageView withFloatVal:(float)50];
+        [self sizeAdjustmentForView:_lastViewInTabl withFloatVal:(float)90];
+        //    [self sizeAdjustmentForView:_articleDate withFloatVal:(float)110];
         self.markedImpView.layer.masksToBounds = YES;
         self.markedImpView.layer.cornerRadius = 6.0f;
         //    self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
@@ -61,6 +61,18 @@
         self.bookmarkView.layer.masksToBounds = YES;
         self.bookmarkView.layer.cornerRadius = 6.0f;
         }
+        else if (IS_IPHONE_6)
+        {
+//            [self sizeAdjustmentForView:_bookmarkView withFloatVal:(float)20];
+//            [self sizeAdjustmentForView:_messageView withFloatVal:(float)60];
+//            [self sizeAdjustmentForView:_lastViewInTabl withFloatVal:(float)100];
+//            
+//            self.markedImpView.layer.masksToBounds = YES;
+//            self.markedImpView.layer.cornerRadius = 6.0f;
+//            self.bookmarkView.layer.masksToBounds = YES;
+//            self.bookmarkView.layer.cornerRadius = 6.0f;
+            
+        }
         else if (IS_IPHONE_5)
         {
         [self sizeAdjustmentForView:_bookmarkView withFloatVal:(float)-1];
@@ -68,7 +80,7 @@
         [self sizeAdjustmentForView:_lastViewInTabl withFloatVal:(float)-1];
 //        self.articleDate.textAlignment = NSTextAlignmentRight;
 //        self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//        self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x, self.articleDate.frame.origin.y-5, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
+//        self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x, self.articleDate.frame.origin.y-5,       self.articleDate.frame.size.width, self.articleDate.frame.size.height);
         
         
         self.markedImpView.layer.masksToBounds = YES;

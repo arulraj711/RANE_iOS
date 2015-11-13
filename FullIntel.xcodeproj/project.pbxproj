@@ -43,6 +43,8 @@
 		A05878A81BD0F39200DCE62B /* LaunchScreen~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05878A61BD0F39200DCE62B /* LaunchScreen~iphone.xib */; };
 		A05878AA1BD0F81500DCE62B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05878A91BD0F81500DCE62B /* Main.storyboard */; };
 		A05878AF1BD4A10200DCE62B /* AddContentPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05878AE1BD4A10200DCE62B /* AddContentPhone.storyboard */; };
+		A059B6BF1BF5F1200060683F /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A059B6BD1BF5F1200060683F /* CommonViewController.m */; };
+		A059B6C31BF5F43E0060683F /* CommonViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */; };
 		A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B41AF74CE60016AD46 /* FIContentCategory.m */; };
 		A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B71AF769040016AD46 /* AddContentSecondLevelView.m */; };
 		A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BA1AF769DE0016AD46 /* SecondLevelCell.m */; };
@@ -311,6 +313,9 @@
 		A05878A61BD0F39200DCE62B /* LaunchScreen~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "LaunchScreen~iphone.xib"; sourceTree = "<group>"; };
 		A05878A91BD0F81500DCE62B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A05878AE1BD4A10200DCE62B /* AddContentPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddContentPhone.storyboard; sourceTree = "<group>"; };
+		A059B6BC1BF5F1200060683F /* CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
+		A059B6BD1BF5F1200060683F /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
+		A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommonViewController.storyboard; sourceTree = "<group>"; };
 		A07A05B31AF74CE60016AD46 /* FIContentCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIContentCategory.h; sourceTree = "<group>"; };
 		A07A05B41AF74CE60016AD46 /* FIContentCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIContentCategory.m; sourceTree = "<group>"; };
 		A07A05B61AF769040016AD46 /* AddContentSecondLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentSecondLevelView.h; sourceTree = "<group>"; };
@@ -711,6 +716,17 @@
 			name = CorporateDetailCell;
 			sourceTree = "<group>";
 		};
+		A059B6C11BF5F1380060683F /* CommonViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A059B6BC1BF5F1200060683F /* CommonViewController.h */,
+				A059B6BD1BF5F1200060683F /* CommonViewController.m */,
+				A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */,
+			);
+			name = CommonViewController;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		A08145A41BD0B53D00AA5EE2 /* FPPopover */ = {
 			isa = PBXGroup;
 			children = (
@@ -867,6 +883,7 @@
 				F7E368771ABBF1710083F38E /* Popover_View */,
 				F78B42F51ABA88B200AB7FFB /* Corporate_News */,
 				F74A550F1AB048120009FE4C /* Widgets */,
+				A059B6C11BF5F1380060683F /* CommonViewController */,
 				F78F4E591AA872690013C09A /* Fonts */,
 				F7E239F51AA5E6D000708B6B /* Toast */,
 				F7E239F11AA5E47200708B6B /* Reachability */,
@@ -1495,6 +1512,7 @@
 				F708D9EE1AB1A19B001FF59F /* test.html in Resources */,
 				F7E81F931A97057100F9A8D4 /* about_walt.jpg in Resources */,
 				F78B42FA1ABA89A300AB7FFB /* CorporateNewsListView.storyboard in Resources */,
+				A059B6C31BF5F43E0060683F /* CommonViewController.storyboard in Resources */,
 				A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */,
 				F7EDA00C1AC136CD00A5C601 /* influencer_list.json in Resources */,
 				A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */,
@@ -1678,6 +1696,7 @@
 				A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */,
 				A0CF5C641B1DD98B00DED2D9 /* StockViewController.m in Sources */,
 				A0E223561A91C2F00073814A /* AppDelegate.m in Sources */,
+				A059B6BF1BF5F1200060683F /* CommonViewController.m in Sources */,
 				A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */,
 				F7E3687B1ABBF1DA0083F38E /* CommentsPopoverView.m in Sources */,
 				A0CF5C571B1DD98B00DED2D9 /* DealsViewController.m in Sources */,

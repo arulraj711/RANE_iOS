@@ -1261,6 +1261,8 @@
 }
 
 - (IBAction)markedImpButtonClick:(UIButton *)sender {
+ 
+    
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [resultDic setObject:self.selectedArticleId forKey:@"selectedArticleId"];

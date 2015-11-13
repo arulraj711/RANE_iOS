@@ -32,6 +32,8 @@
 #import "pop.h"
 #import "FIUnreadMenu.h"
 #import "NewsLetterViewController.h"
+#import "UIView+Toast.h"
+#import "CommonViewController.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -1206,6 +1208,9 @@
             CorporateNewsListViewObj.titleName=data.name;
             [self.revealController setFrontViewController:navCtlr];
         } else if([data.nodeId integerValue] == 7 && !data.isFolder) {
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+            {
+            
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click InfluencerList"];
             UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
             UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"InfluencerView"];
@@ -1215,41 +1220,105 @@
             InfluencerListViewObj.titleName=data.name;
             
             [self.revealController setFrontViewController:navCtlr];
+            }
+            else
+            {
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click InfluencerList"];
+                UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
+                UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
+                
+                CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+                CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
+                [self.revealController setFrontViewController:navCtlr];
+
+            }
         }else if([data.nodeId integerValue] == 8 && !data.isFolder) {
-            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Deals"];
-            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Deals" bundle:nil];
-            UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"DealsViewController"];
-            
-            DealsViewController *DealsViewControllerObj=(DealsViewController *)[[navCtlr viewControllers]objectAtIndex:0];
-            DealsViewControllerObj.titleName=data.name;
-            [self.revealController setFrontViewController:navCtlr];
-        }else if([data.nodeId integerValue] == 2 && !data.isFolder) {
-            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click StockWatch"];
-            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"stock" bundle:nil];
-            UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"StockViewController"];
-            StockViewController *StockViewControllerObj=(StockViewController *)[[navCtlr viewControllers]objectAtIndex:0];
-            StockViewControllerObj.titleName=data.name;
-            [self.revealController setFrontViewController:navCtlr];
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+            {
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Deals"];
+                UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Deals" bundle:nil];
+                UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"DealsViewController"];
+                
+                DealsViewController *DealsViewControllerObj=(DealsViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+                DealsViewControllerObj.titleName=data.name;
+                [self.revealController setFrontViewController:navCtlr];
+
+            }
+            else{
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Deals"];
+                UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
+                UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
+                
+                CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+                CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
+                [self.revealController setFrontViewController:navCtlr];
+            }
+                   }else if([data.nodeId integerValue] == 2 && !data.isFolder) {
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+            {
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click StockWatch"];
+                UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"stock" bundle:nil];
+                UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"StockViewController"];
+                StockViewController *StockViewControllerObj=(StockViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+                StockViewControllerObj.titleName=data.name;
+                [self.revealController setFrontViewController:navCtlr];
+            }
+            else{
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click StockWatch"];
+                UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
+                UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
+                
+                CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+                CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
+                [self.revealController setFrontViewController:navCtlr];
+            }
+           
         }
         else if([data.nodeId integerValue] == 4 && !data.isFolder) {
-            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click IpAndLegal"];
-            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"IpAndLegal" bundle:nil];
-            UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"IpAndLegalViewController"];
-            
-            IpAndLegalViewController *IpAndLegalViewControllerObj=(IpAndLegalViewController *)[[navCtlr viewControllers]objectAtIndex:0];
-            
-            IpAndLegalViewControllerObj.titleName=data.name;
-            [self.revealController setFrontViewController:navCtlr];
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+            {
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click IpAndLegal"];
+                UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"IpAndLegal" bundle:nil];
+                UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"IpAndLegalViewController"];
+                
+                IpAndLegalViewController *IpAndLegalViewControllerObj=(IpAndLegalViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+                
+                IpAndLegalViewControllerObj.titleName=data.name;
+                [self.revealController setFrontViewController:navCtlr];
+
+            }
+            else{
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click IpAndLegal"];
+                UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
+                UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
+                
+                CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+                CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
+                [self.revealController setFrontViewController:navCtlr];
+            }
             
             
         } else if([data.nodeId integerValue] == 5 && !data.isFolder) {
-            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click ExecutiveMoves"];
-            UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ExecutiveMoves" bundle:nil];
-            UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"ExecutiveMoves"];
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+            {
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click ExecutiveMoves"];
+                UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ExecutiveMoves" bundle:nil];
+                UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"ExecutiveMoves"];
+                
+                ExecutiveMovesController *ExecutiveMovesControllerObj=(ExecutiveMovesController *)[[navCtlr viewControllers]objectAtIndex:0];
+                ExecutiveMovesControllerObj.titleName=data.name;
+                [self.revealController setFrontViewController:navCtlr];
+            }
+            else{
+                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click ExecutiveMoves"];
+                UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
+                UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
+                
+                CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+                CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
+                [self.revealController setFrontViewController:navCtlr];
+            }
             
-            ExecutiveMovesController *ExecutiveMovesControllerObj=(ExecutiveMovesController *)[[navCtlr viewControllers]objectAtIndex:0];
-            ExecutiveMovesControllerObj.titleName=data.name;
-            [self.revealController setFrontViewController:navCtlr];
         } else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
             NSLog(@"hereeee");
             
