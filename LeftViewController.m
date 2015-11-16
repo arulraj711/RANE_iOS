@@ -1057,6 +1057,7 @@
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     @try {
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFolderClick"];
         data = item;
         //    //if([[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]iseq)
         //NSLog(@"one:%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]);

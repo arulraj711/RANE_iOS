@@ -46,7 +46,16 @@
     NSLog(@"view did load");
     [super viewDidLoad];
   
-    [self.revealController showViewController:self.revealController.leftViewController];
+    NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+    BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
+    NSLog(@"newsletter id:%@",newsLetterId);
+    if(isFolderClick) {
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        [self.revealController showViewController:self.revealController.leftViewController];
+    } else {
+        [self.revealController showViewController:self.revealController.frontViewController];
+    }
     messageString = @"Loading...";
     // NSLog(@"list did load");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
@@ -546,78 +555,48 @@
     NSPredicate *predicate;
     
     if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        
-        UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
-        
-        [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-        
-        [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
-        [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
-
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-        [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
-                                                            forBarMetrics:UIBarMetricsDefault];
-
-        [self.navigationItem setLeftBarButtonItem:addButton];
-        
-        if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-            
-            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-                
-                NSLog(@"if part");
-                
-                BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
-                
-                if(savedForLaterIsNew){
-                    
-                    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                        
-                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@",[NSNumber numberWithBool:YES],contentTypeId];
-                        
-                    } else {
-                        
-                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
-                        
-                    }
-                    
-                } else {
-                    
-                    NSLog(@"saved for later old");
-                    
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
-                    
-                }
-                
-                // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
-                
-                
-                
-            } else {
-                
-                NSLog(@"else part");
-                
-                NSLog(@"content btype:%@ and category:%@",contentTypeId,categoryId);
-                
-                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
-                
-            }
+        BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
+        if(isFolderClick) {
             
         } else {
-            
-            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
-            
+            UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+            [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+            [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+            [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+            UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+            [self.navigationItem setLeftBarButtonItem:addButton];
         }
         
-        
+        if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                NSLog(@"if part");
+                BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+                if(savedForLaterIsNew){
+                    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@",[NSNumber numberWithBool:YES],contentTypeId];
+                    } else {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                    }
+                } else {
+                    NSLog(@"saved for later old");
+                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@",[NSNumber numberWithBool:YES],categoryId];
+                }
+                // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
+                
+            } else {
+                NSLog(@"else part");
+                NSLog(@"content btype:%@ and category:%@",contentTypeId,categoryId);
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
+            }
+        } else {
+            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
+        }
         
     } else {
-        
+        [self.revealController showViewController:self.revealController.frontViewController];
         predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
         
-        
-        
     }
-    
     
     
     

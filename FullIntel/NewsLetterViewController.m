@@ -104,6 +104,7 @@
         centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
     }
+    listView.titleName = newsletter.newsLetterSubject;
     [self.navigationController pushViewController:listView animated:YES];
 }
 
