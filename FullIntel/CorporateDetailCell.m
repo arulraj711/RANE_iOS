@@ -1261,7 +1261,15 @@
 }
 
 - (IBAction)markedImpButtonClick:(UIButton *)sender {
- 
+    
+    
+        [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
+            CGAffineTransform transform = sender.transform;
+            CGAffineTransform transform_new = CGAffineTransformRotate(transform, M_PI);
+            sender.transform = transform_new;
+        } completion:^(BOOL finished){}];
+        
+    
     
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];

@@ -89,12 +89,18 @@
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="112" y="-1" width="280" height="38"/>
+                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.39999999999999963" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="AARON M. KESSLER and BRIAN X. CHEN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVI-Qx-ovZ">
                                                     <rect key="frame" x="122" y="55" width="113" height="13"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="112" y="35" width="190" height="17"/>
+                                                    </variation>
                                                 </label>
                                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="INX-rW-40B">
                                                     <rect key="frame" x="120" y="72" width="25" height="25"/>
@@ -220,6 +226,9 @@
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="315" y="35" width="77" height="17"/>
+                                                    </variation>
                                                 </label>
                                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bEK-lg-zgk">
                                                     <rect key="frame" x="269" y="72" width="25" height="25"/>
@@ -342,12 +351,12 @@
                                                     <exclude reference="iGn-zS-feO"/>
                                                     <exclude reference="1tq-bB-GPq"/>
                                                     <exclude reference="td6-H2-Jxf"/>
+                                                    <exclude reference="K9Z-Kv-WVf"/>
+                                                    <exclude reference="mSL-RL-b9S"/>
                                                     <exclude reference="Fx4-SL-FqC"/>
                                                     <exclude reference="PWx-vn-L5K"/>
                                                     <exclude reference="V3g-B5-mcf"/>
                                                     <exclude reference="pMb-Oc-goX"/>
-                                                    <exclude reference="K9Z-Kv-WVf"/>
-                                                    <exclude reference="mSL-RL-b9S"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=compact-widthClass=regular">
@@ -369,11 +378,11 @@
                                                     <include reference="1tq-bB-GPq"/>
                                                     <exclude reference="mHT-Pp-vvI"/>
                                                     <include reference="td6-H2-Jxf"/>
+                                                    <include reference="K9Z-Kv-WVf"/>
+                                                    <include reference="mSL-RL-b9S"/>
                                                     <include reference="PWx-vn-L5K"/>
                                                     <include reference="V3g-B5-mcf"/>
                                                     <include reference="pMb-Oc-goX"/>
-                                                    <include reference="K9Z-Kv-WVf"/>
-                                                    <include reference="mSL-RL-b9S"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -724,7 +733,8 @@
                                                                                     <exclude reference="vNB-bZ-Pvo"/>
                                                                                 </mask>
                                                                             </variation>
-                                                                            <variation key="heightClass=regular-widthClass=compact">
+                                                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                                                <rect key="frame" x="15" y="95" width="291" height="84"/>
                                                                                 <mask key="constraints">
                                                                                     <include reference="vNB-bZ-Pvo"/>
                                                                                 </mask>
@@ -1297,8 +1307,8 @@
                                                                     </constraints>
                                                                     <variation key="default">
                                                                         <mask key="constraints">
-                                                                            <exclude reference="nxI-3e-7Lj"/>
                                                                             <exclude reference="nVC-RO-SHz"/>
+                                                                            <exclude reference="nxI-3e-7Lj"/>
                                                                             <exclude reference="t3n-9a-709"/>
                                                                             <exclude reference="GAw-fC-AIr"/>
                                                                             <exclude reference="KE0-pN-aZR"/>
@@ -1619,6 +1629,9 @@
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                     <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
+                                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                                        <rect key="frame" x="112" y="61" width="124" height="17"/>
+                                                                    </variation>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t5p-Gd-TrB">
                                                                     <rect key="frame" x="0.0" y="115" width="40" height="5"/>
