@@ -1069,6 +1069,19 @@
 
 
 - (IBAction)saveButtonClick:(UIButton *)sender {
+    
+    [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
+        CGAffineTransform transform = sender.transform;
+        CGAffineTransform transform_new = CGAffineTransformRotate(transform, M_PI);
+        sender.transform = transform_new;
+        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
+            CGAffineTransform transform = sender.transform;
+            CGAffineTransform transform_new = CGAffineTransformRotate(transform, M_PI);
+            sender.transform = transform_new;
+        } completion:^(BOOL finished){}];
+    } completion:^(BOOL finished){
+    }];
+    
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [resultDic setObject:self.selectedArticleId forKey:@"selectedArticleId"];
@@ -1261,15 +1274,29 @@
 }
 
 - (IBAction)markedImpButtonClick:(UIButton *)sender {
+   
+
+    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
+    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+    sprintAnimation.springBounciness = 20.f;
+    [sender pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
     
-    
-        [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
-            CGAffineTransform transform = sender.transform;
-            CGAffineTransform transform_new = CGAffineTransformRotate(transform, M_PI);
-            sender.transform = transform_new;
-        } completion:^(BOOL finished){}];
-        
-    
+//
+//        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
+//            CGAffineTransform transform = sender.transform;
+//            CGAffineTransform transform_new = CGAffineTransformRotate(transform,  M_PI);
+//            sender.transform = transform_new;
+//            
+//        } completion:^(BOOL finished){[UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
+//            CGAffineTransform transform = sender.transform;
+//            CGAffineTransform transform_new = CGAffineTransformRotate(transform,  M_PI);
+//            sender.transform = transform_new;
+//            
+//        } completion:^(BOOL finished){}];}];
+//
+//    
     
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];

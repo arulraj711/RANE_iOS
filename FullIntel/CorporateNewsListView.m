@@ -1126,7 +1126,7 @@
         //cell.authorTitle.text = [author valueForKey:@"title"];
         //[cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         
-        cell.title.text = [curatedNews valueForKey:@"title"];
+//        cell.title.text = [curatedNews valueForKey:@"title"];
         NSRange r;
         NSString *s = [curatedNews valueForKey:@"desc"];
         while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
@@ -1235,9 +1235,7 @@
         tableCell.textLabel.font = [UIFont fontWithName:@"OpenSans" size:28];
         tableCell.textLabel.textColor = [UIColor lightGrayColor];
     }
-    
-    
-    
+
     tableCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return tableCell;
 }
@@ -1262,7 +1260,7 @@
         if (components.day > 1) {
             return [NSString stringWithFormat:@"%ld days ago", (long)components.day];
         } else {
-            return @"Yesterday";
+            return @"1d ago";
         }
     }else if (components.hour > 0) {
         return [NSString stringWithFormat:@"%ldh ago", (long)components.hour];
