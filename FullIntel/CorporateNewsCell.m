@@ -63,6 +63,13 @@
         }
         else if (IS_IPHONE_6)
         {
+            
+                    self.title.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+                   self.title.frame = CGRectMake(self.title.frame.origin.x, self.title.frame.origin.y, self.title.frame.size.width+40, self.title.frame.size.height);
+            
+            self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+            self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x+50, self.articleDate.frame.origin.y, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
+
 //            [self sizeAdjustmentForView:_bookmarkView withFloatVal:(float)20];
 //            [self sizeAdjustmentForView:_messageView withFloatVal:(float)60];
 //            [self sizeAdjustmentForView:_lastViewInTabl withFloatVal:(float)100];
