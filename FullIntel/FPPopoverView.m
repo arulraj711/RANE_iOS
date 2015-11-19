@@ -146,6 +146,7 @@
     }
     else if(direction == FPPopoverArrowDirectionDown)
     {
+        NSLog(@"%f", rect.size.width);
         rect.size.width = w - 2*b;
         rect.size.height = h - ah - 2*b;
         rect.origin.x = b;

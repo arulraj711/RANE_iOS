@@ -29,6 +29,7 @@
     [_moreInforArray addObject:@"Linkedin"];
     [_moreInforArray addObject:@"Twitter"];
     [_moreInforArray addObject:@"Facebook"];
+    [_moreInforArray addObject:@"Mail"];
 //    [_moreInforArray addObject:@"Google Plus"];
 //    [_moreInforArray addObject:@"Evernote"];
 //    [_moreInforArray addObject:@"Pocket"];
@@ -57,7 +58,10 @@
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
     if(indexPath.row == 1) {
         cell.iconImage.image = [UIImage imageNamed:@"twitter"];
-    } else {
+    } else if(indexPath.row == 3) {
+        cell.iconImage.image = [UIImage imageNamed:@"mail30.png"];
+        
+    }else {
         cell.iconImage.image = [UIImage imageNamed:[_moreInforArray objectAtIndex:indexPath.row]];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -151,7 +155,20 @@
 //             }];
         
         
-    } else {
+    } else if(indexPath.row == 3) {
+        //Mail Button Click
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MailButtonClick"];
+        
+        NSString *mailBodyStr;
+        if(self.articleUrl.length != 0) {
+            mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n\n%@",self.articleTitle,self.articleDesc,self.articleUrl];
+        } else {
+            mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n",self.articleTitle,self.articleDesc];
+        }
+        // NSLog(@"mail body string:%@ and title:%@",mailBodyStr,self.selectedArticleTitle);
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"articleId":self.articleId,@"title":self.articleTitle,@"body":mailBodyStr}];
+        //}
+    }else {
         [self targetedShare:@""];
     }
     

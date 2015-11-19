@@ -527,7 +527,7 @@
         //changestod
     } else if(collectionView == self.tweetsLocalCollectionView) {
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-            return CGSizeMake(179, 194);
+            return CGSizeMake(280, 194);
             
         } else {
             return CGSizeMake(320, 300);
@@ -1069,19 +1069,12 @@
 
 
 - (IBAction)saveButtonClick:(UIButton *)sender {
-    
-    [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
-        CGAffineTransform transform = sender.transform;
-        CGAffineTransform transform_new = CGAffineTransformRotate(transform, M_PI);
-        sender.transform = transform_new;
-        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
-            CGAffineTransform transform = sender.transform;
-            CGAffineTransform transform_new = CGAffineTransformRotate(transform, M_PI);
-            sender.transform = transform_new;
-        } completion:^(BOOL finished){}];
-    } completion:^(BOOL finished){
-    }];
-    
+    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
+    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+    sprintAnimation.springBounciness = 20.f;
+    [sender pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [resultDic setObject:self.selectedArticleId forKey:@"selectedArticleId"];
@@ -1818,6 +1811,7 @@
         popOverView.articleUrl = self.selectedArticleUrl;
         popOverView.articleDesc = self.articleDesc;
         popOverView.articleImageUrl = self.selectedArticleImageUrl;
+        popOverView.articleId = self.selectedArticleId;
         self.superview.alpha = 0.4;
         popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
         popover.border = NO;

@@ -17,4 +17,5 @@
 @property (nonatomic,strong) NSString *articleImageUrl;
 @property (nonatomic,strong) NSString *articleUrl;
 @property (nonatomic,strong) NSString *articleDesc;
+@property (nonatomic,strong) NSString *articleId;
 @end

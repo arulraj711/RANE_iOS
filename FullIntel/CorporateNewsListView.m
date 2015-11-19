@@ -45,14 +45,15 @@
 - (void)viewDidLoad {
     NSLog(@"view did load");
     [super viewDidLoad];
-  
+    _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
+    self.revealController.recognizesPanningOnFrontView = NO;
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
     BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
     NSLog(@"newsletter id:%@",newsLetterId);
     if(isFolderClick) {
         [self.revealController showViewController:self.revealController.frontViewController];
     } else if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        [self.revealController showViewController:self.revealController.leftViewController];
+        [self.revealController showViewController:self.revealController.frontViewController];
     } else {
         [self.revealController showViewController:self.revealController.frontViewController];
     }
@@ -139,7 +140,7 @@
     
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+   // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     label.text =_titleName;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor]; // change this color
@@ -147,7 +148,8 @@
     
     
     
-    refreshControl = [[UIRefreshControl alloc]init];
+    refreshControl = [[UIRefreshControl alloc]initWithFrame:CGRectMake(refreshControl.frame.origin.x-20, self.view.center.y, refreshControl.frame.size.width, refreshControl.frame.size.height)];
+    //refreshControl.center = self.view.center;
     [self.articlesTableView addSubview:refreshControl];
     [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
@@ -1055,11 +1057,38 @@
     }
     return rowCnt;
 }
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewRowAction *moreAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Mark" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        // maybe show an action sheet with more options
+        [_articlesTableView setEditing:NO];
+    }];
+    
+    moreAction.backgroundColor = UIColorFromRGB(0xb388ff);
+    
+    UITableViewRowAction *moreAction2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Save" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        [_articlesTableView setEditing:NO];
+    }];
+    moreAction2.backgroundColor = UIColorFromRGB(0x67df88);
+    
+    
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Folder"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    }];
+    moreAction2.backgroundColor = UIColorFromRGB(0xFF6A5D);
+
+    
+    return @[deleteAction, moreAction, moreAction2];
+}
+-(void)tableView:(UITableView *)tableView swipeAccessoryButtonPushedForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *tableCell;
     if(self.devices.count != 0) {
-      
+       
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
         
@@ -1182,7 +1211,7 @@
         
         if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             cell.readStatusImageView.hidden = NO;
-            cell.contentView.alpha = 0.5;
+            cell.contentView.alpha = 0.7;
         } else {
             cell.readStatusImageView.hidden = YES;
             cell.contentView.alpha = 1;
@@ -1229,6 +1258,9 @@
         
         tableCell = cell;
     } else {
+        
+        
+        
         tableCell = [[UITableViewCell alloc] init];
         tableCell.textLabel.text = messageString;
         tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -1236,7 +1268,7 @@
         tableCell.textLabel.textColor = [UIColor lightGrayColor];
     }
 
-    tableCell.selectionStyle = UITableViewCellSelectionStyleNone;
+   // tableCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return tableCell;
 }
 - (NSString *)relativeDateStringForDate:(NSDate *)date
@@ -1302,7 +1334,7 @@
     if(number == [NSNumber numberWithInt:1]) {
         // cell.title.alpha = 0.7f;
         cell.readStatusImageView.hidden = NO;
-        cell.contentView.alpha = 0.5;
+        cell.contentView.alpha = 0.7;
     } else {
         // cell.title.alpha = 1.0f;
         cell.readStatusImageView.hidden = YES;

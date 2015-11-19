@@ -28,6 +28,7 @@
 @implementation CorporateNewsCell
 
 - (void)awakeFromNib {
+    
     // Initialization code
     [self.legendCollectionView registerClass:[LegendCollectionViewCell class]
                   forCellWithReuseIdentifier:@"LegendCell"];
@@ -82,9 +83,9 @@
         }
         else if (IS_IPHONE_5)
         {
-        [self sizeAdjustmentForView:_bookmarkView withFloatVal:(float)-1];
-        [self sizeAdjustmentForView:_messageView withFloatVal:(float)-1];
-        [self sizeAdjustmentForView:_lastViewInTabl withFloatVal:(float)-1];
+//        [self sizeAdjustmentForView:_bookmarkView withFloatVal:(float)-1];
+//        [self sizeAdjustmentForView:_messageView withFloatVal:(float)-1];
+//        [self sizeAdjustmentForView:_lastViewInTabl withFloatVal:(float)-1];
 //        self.articleDate.textAlignment = NSTextAlignmentRight;
 //        self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
 //        self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x, self.articleDate.frame.origin.y-5,       self.articleDate.frame.size.width, self.articleDate.frame.size.height);
@@ -124,8 +125,8 @@
     self.selectionmageView.layer.masksToBounds = YES;
     
     
-    
 }
+
 -(void)sizeAdjustmentForView:(UIView *)viewName withFloatVal:(double)floatVal
 {
     NSLog(@"%@ %f",viewName,floatVal);
@@ -153,10 +154,6 @@
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
     return 1;
 }
-
-
-
-
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [self.legendCollectionView performBatchUpdates:nil completion:nil];
