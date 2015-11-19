@@ -21,8 +21,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5mh-Mj-ACK">
                                 <rect key="frame" x="-4" y="64" width="383" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUu-wd-Xff">
-                                        <rect key="frame" x="29" y="16" width="28" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUu-wd-Xff">
+                                        <rect key="frame" x="29" y="16" width="29" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -66,7 +66,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Boston Reach" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUg-34-Zg6">
-                                                    <rect key="frame" x="22" y="9" width="130" height="21"/>
+                                                    <rect key="frame" x="27" y="9" width="130" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Fjs-SE-xjX"/>
                                                         <constraint firstAttribute="width" constant="130" id="Mtx-4c-jRs"/>
@@ -75,8 +75,8 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTQ-Hq-ZbT">
-                                                    <rect key="frame" x="177" y="5" width="30" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTQ-Hq-ZbT">
+                                                    <rect key="frame" x="182" y="5" width="16" height="22"/>
                                                     <state key="normal" image="editphone">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -84,8 +84,8 @@
                                                         <action selector="editButtonClick:" destination="kDE-8t-dsI" eventType="touchUpInside" id="7l8-67-gyj"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9V-YX-Z1W">
-                                                    <rect key="frame" x="221" y="5" width="30" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9V-YX-Z1W">
+                                                    <rect key="frame" x="220" y="5" width="16" height="22"/>
                                                     <state key="normal" image="delPhone">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -93,8 +93,8 @@
                                                         <action selector="deleteButtonClick:" destination="kDE-8t-dsI" eventType="touchUpInside" id="uvY-Zh-61F"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcN-xf-ndM">
-                                                    <rect key="frame" x="202" y="5" width="30" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcN-xf-ndM">
+                                                    <rect key="frame" x="182" y="5" width="16" height="22"/>
                                                     <state key="normal" image="rss_icon">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -102,24 +102,24 @@
                                                         <action selector="rssButtonClick:" destination="kDE-8t-dsI" eventType="touchUpInside" id="Z3j-EW-ffy"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jan 01, 2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBs-6W-EzR">
-                                                    <rect key="frame" x="277" y="12" width="72" height="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jan 01, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBs-6W-EzR">
+                                                    <rect key="frame" x="266" y="12" width="72" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="RUg-34-Zg6" firstAttribute="leading" secondItem="YAV-OI-EdW" secondAttribute="leadingMargin" constant="14" id="9N7-9q-gni"/>
+                                                <constraint firstItem="C9V-YX-Z1W" firstAttribute="leading" secondItem="VcN-xf-ndM" secondAttribute="trailing" constant="22" id="0nE-FD-4wc"/>
+                                                <constraint firstItem="RUg-34-Zg6" firstAttribute="leading" secondItem="YAV-OI-EdW" secondAttribute="leadingMargin" constant="19" id="9N7-9q-gni"/>
                                                 <constraint firstItem="OTQ-Hq-ZbT" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="-3" id="Cb4-MM-NCV"/>
                                                 <constraint firstItem="RUg-34-Zg6" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="1" id="FaX-vT-f2I"/>
-                                                <constraint firstItem="xBs-6W-EzR" firstAttribute="leading" secondItem="C9V-YX-Z1W" secondAttribute="trailing" constant="26" id="Frj-gj-vr2"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="xBs-6W-EzR" secondAttribute="trailing" constant="18" id="N6I-Gy-OeK"/>
+                                                <constraint firstItem="xBs-6W-EzR" firstAttribute="leading" secondItem="C9V-YX-Z1W" secondAttribute="trailing" constant="30" id="Frj-gj-vr2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="xBs-6W-EzR" secondAttribute="trailing" constant="29" id="N6I-Gy-OeK"/>
                                                 <constraint firstItem="C9V-YX-Z1W" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="-3" id="RcJ-Kr-RXO"/>
-                                                <constraint firstItem="C9V-YX-Z1W" firstAttribute="leading" secondItem="OTQ-Hq-ZbT" secondAttribute="trailing" constant="8" id="SW1-yK-vdv"/>
+                                                <constraint firstItem="C9V-YX-Z1W" firstAttribute="leading" secondItem="OTQ-Hq-ZbT" secondAttribute="trailing" constant="22" id="SW1-yK-vdv"/>
                                                 <constraint firstItem="VcN-xf-ndM" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="-3" id="bLC-kU-kgR"/>
                                                 <constraint firstItem="xBs-6W-EzR" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="4" id="eBH-Rm-T5u"/>
-                                                <constraint firstItem="xBs-6W-EzR" firstAttribute="leading" secondItem="VcN-xf-ndM" secondAttribute="trailing" constant="45" id="waH-0x-bjt"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

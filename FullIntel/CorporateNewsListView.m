@@ -19,6 +19,7 @@
 #import "ResearchRequestPopoverView.h"
 #import "pop.h"
 #import "QuartzCore/QuartzCore.h"
+#import "BGTableViewRowActionWithImage.h"
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -1058,26 +1059,83 @@
     return rowCnt;
 }
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+    NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
+    NSLog(@"%ld",(long)indexPath.row);
+    UITableViewRowAction *moreAction;
     
-    UITableViewRowAction *moreAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Mark" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        // maybe show an action sheet with more options
+    if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star_selected_iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [self firstButtonMEthod:indexPath];
+            // maybe show an action sheet with more options
+            //[_articlesTableView setEditing:NO];
+        }];
+    } else {
+        moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [self firstButtonMEthod:indexPath];
+            // maybe show an action sheet with more options
+           // [_articlesTableView setEditing:NO];
+        }];
+    }
+    
+    UITableViewRowAction *moreAction2;
+    if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        moreAction2 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"saved_selected_iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+          //  [_articlesTableView setEditing:NO];
+        }];
+        
+    } else {
+        moreAction2 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"bookIphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+           // [_articlesTableView setEditing:NO];
+        }];
+        
+    }
+    
+    
+    
+    UITableViewRowAction *moreAction3 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"folderPhone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         [_articlesTableView setEditing:NO];
+        
     }];
     
-    moreAction.backgroundColor = UIColorFromRGB(0xb388ff);
-    
-    UITableViewRowAction *moreAction2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Save" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        [_articlesTableView setEditing:NO];
-    }];
-    moreAction2.backgroundColor = UIColorFromRGB(0x67df88);
     
     
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Folder"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-    }];
-    moreAction2.backgroundColor = UIColorFromRGB(0xFF6A5D);
-
     
-    return @[deleteAction, moreAction, moreAction2];
+    return @[moreAction, moreAction2, moreAction3];
+}
+-(void)firstButtonMEthod :(NSIndexPath *)indPath
+{
+    NSManagedObject *curatedNews = [self.devices objectAtIndex:indPath.row];
+    NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
+    
+    if(number == [NSNumber numberWithInt:1]) {
+        
+        //        [cell.markedImpButton setSelected:YES];
+    } else {
+        //        [cell.markedImpButton setSelected:NO];
+    }
+    
+    
+    //    if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+    ////        [cell.savedForLaterButton setSelected:YES];
+    //    } else {
+    ////        [cell.savedForLaterButton setSelected:NO];
+    //    }
+    //
+    //    if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+    ////        cell.readStatusImageView.hidden = NO;
+    //        cell.contentView.alpha = 0.7;
+    //    } else {
+    //        cell.readStatusImageView.hidden = YES;
+    //        cell.contentView.alpha = 1;
+    //    }
+    
+}
+- (void)willTransitionToState:(UITableViewCellStateMask)state{
+    
+}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
 }
 -(void)tableView:(UITableView *)tableView swipeAccessoryButtonPushedForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
@@ -1155,7 +1213,7 @@
         //cell.authorTitle.text = [author valueForKey:@"title"];
         //[cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         
-//        cell.title.text = [curatedNews valueForKey:@"title"];
+        cell.title.text = [curatedNews valueForKey:@"title"];
         NSRange r;
         NSString *s = [curatedNews valueForKey:@"desc"];
         while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)

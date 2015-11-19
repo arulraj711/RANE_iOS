@@ -154,8 +154,12 @@
 @property (strong, nonatomic) IBOutlet UIView *messageButtonView;
 @property (strong, nonatomic) IBOutlet UIView *folderButtonViews;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *requestIconHorizontalConstraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentIconHorizontalConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *moreIconHorizontalConstraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *savedIconHorizontalConstraint;
 
 
 

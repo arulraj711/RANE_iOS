@@ -61,54 +61,61 @@
         
         if (IS_IPHONE_6)
         {
-            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"65",@"65",@"65",@"65",@"65",@"65",@"20",@"65",@"20",@"20",@"65",@"35",@"70",@"18",@"0", @"0",@"20",@"20", nil];
-            [self methodForSizeMatch:contentForSize];
-            [self sizeAdjustmentForView:_markedImpButton withFloatVal:(float)5];
-            [self sizeAdjustmentForView:_savedForLaterButton withFloatVal:(float)10];
-            [self sizeAdjustmentForView:_commentBtn withFloatVal:(float)20];
-            [self sizeAdjustmentForView:_folderBtn withFloatVal:(float)30];
-            [self sizeAdjustmentForView:_messageBtn withFloatVal:(float)40];
-            [self sizeAdjustmentForView:_moreButton withFloatVal:(float)60];
-            [self sizeAdjustmentForView:_requestBtn withFloatVal:(float)50];
-            
-
-            [self sizeAdjustmentForViews:_bookmarkButtonView withFloatVal:(float)10];
-            [self sizeAdjustmentForViews:_messageButtonView withFloatVal:(float)30];
-            [self sizeAdjustmentForViews:_folderButtonViews withFloatVal:(float)50];
-            
-            
-//            self.articleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//            self.articleTitle.frame = CGRectMake(self.articleTitle.frame.origin.x, self.articleTitle.frame.origin.y-40, self.articleTitle.frame.size.width+20, self.articleTitle.frame.size.height+40);
+            self.savedIconHorizontalConstraint.constant = 35;
+            self.commentIconHorizontalConstraint.constant = 35;
+            self.moreIconHorizontalConstraint.constant = 35;
+            self.requestIconHorizontalConstraint.constant = 35;
+//            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"65",@"65",@"65",@"65",@"65",@"65",@"20",@"65",@"20",@"20",@"65",@"35",@"70",@"18",@"0", @"0",@"20",@"20", nil];
+//            [self methodForSizeMatch:contentForSize];
+//            [self sizeAdjustmentForView:_markedImpButton withFloatVal:(float)5];
+//            [self sizeAdjustmentForView:_savedForLaterButton withFloatVal:(float)10];
+//            [self sizeAdjustmentForView:_commentBtn withFloatVal:(float)20];
+//            [self sizeAdjustmentForView:_folderBtn withFloatVal:(float)30];
+//            [self sizeAdjustmentForView:_messageBtn withFloatVal:(float)40];
+//            [self sizeAdjustmentForView:_moreButton withFloatVal:(float)60];
+//            [self sizeAdjustmentForView:_requestBtn withFloatVal:(float)50];
+//            
+//
+//            [self sizeAdjustmentForViews:_bookmarkButtonView withFloatVal:(float)10];
+//            [self sizeAdjustmentForViews:_messageButtonView withFloatVal:(float)30];
+//            [self sizeAdjustmentForViews:_folderButtonViews withFloatVal:(float)50];
+//            
+//            
+////            self.articleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+////            self.articleTitle.frame = CGRectMake(self.articleTitle.frame.origin.x, self.articleTitle.frame.origin.y-40, self.articleTitle.frame.size.width+20, self.articleTitle.frame.size.height+40);
         }
         else if (IS_IPHONE_6P)
         {
-            
-            [self sizeAdjustmentForView:_markedImpButton withFloatVal:(float)5];
-            [self sizeAdjustmentForView:_savedForLaterButton withFloatVal:(float)20];
-            [self sizeAdjustmentForView:_commentBtn withFloatVal:(float)40];
-            [self sizeAdjustmentForView:_folderBtn withFloatVal:(float)60];
-            [self sizeAdjustmentForView:_messageBtn withFloatVal:(float)80];
-            [self sizeAdjustmentForView:_moreButton withFloatVal:(float)110];
-            [self sizeAdjustmentForView:_requestBtn withFloatVal:(float)100];
-            
-//            self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//            self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x, self.articleDate.frame.origin.y-5, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
-
-            
-            
-            [self sizeAdjustmentForViews:_bookmarkButtonView withFloatVal:(float)25];
-            [self sizeAdjustmentForViews:_messageButtonView withFloatVal:(float)60];
-            [self sizeAdjustmentForViews:_folderButtonViews withFloatVal:(float)100];
-
-
-
-            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"95",@"95",@"95",@"95",@"95",@"95",@"15",@"95",@"40",@"20",@"105",@"75",@"70",@"24",@"5",@"70",@"20",@"20",nil];
-            [self methodForSizeMatch:contentForSize];
+            self.savedIconHorizontalConstraint.constant = 35;
+            self.commentIconHorizontalConstraint.constant = 35;
+            self.moreIconHorizontalConstraint.constant = 35;
+            self.requestIconHorizontalConstraint.constant = 35;
+//            [self sizeAdjustmentForView:_markedImpButton withFloatVal:(float)5];
+//            [self sizeAdjustmentForView:_savedForLaterButton withFloatVal:(float)20];
+//            [self sizeAdjustmentForView:_commentBtn withFloatVal:(float)40];
+//            [self sizeAdjustmentForView:_folderBtn withFloatVal:(float)60];
+//            [self sizeAdjustmentForView:_messageBtn withFloatVal:(float)80];
+//            [self sizeAdjustmentForView:_moreButton withFloatVal:(float)110];
+//            [self sizeAdjustmentForView:_requestBtn withFloatVal:(float)100];
+//            
+////            self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+////            self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x, self.articleDate.frame.origin.y-5, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
+//
+//            
+//            
+//            [self sizeAdjustmentForViews:_bookmarkButtonView withFloatVal:(float)25];
+//            [self sizeAdjustmentForViews:_messageButtonView withFloatVal:(float)60];
+//            [self sizeAdjustmentForViews:_folderButtonViews withFloatVal:(float)100];
+//
+//
+//
+//            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"95",@"95",@"95",@"95",@"95",@"95",@"15",@"95",@"40",@"20",@"105",@"75",@"70",@"24",@"5",@"70",@"20",@"20",nil];
+//            [self methodForSizeMatch:contentForSize];
         }
         else if (IS_IPHONE_5)
         {
-//            self.articleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//            self.articleTitle.frame = CGRectMake(self.articleTitle.frame.origin.x, self.articleTitle.frame.origin.y, self.articleTitle.frame.size.width-5, self.articleTitle.frame.size.height);
+////            self.articleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+////            self.articleTitle.frame = CGRectMake(self.articleTitle.frame.origin.x, self.articleTitle.frame.origin.y, self.articleTitle.frame.size.width-5, self.articleTitle.frame.size.height);
         }
     }
     else {
@@ -527,7 +534,7 @@
         //changestod
     } else if(collectionView == self.tweetsLocalCollectionView) {
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-            return CGSizeMake(280, 194);
+            return CGSizeMake(280, 244);
             
         } else {
             return CGSizeMake(320, 300);
@@ -991,7 +998,7 @@
     if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
         self.socialcollectionView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
 
-        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+95, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+170, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
 
         cellNib = [UINib nibWithNibName:@"SocialLinkCellPhone" bundle:nil];
         [self.socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
@@ -1251,7 +1258,7 @@
 //    popover.title = nil;
     popover.tint = FPPopoverWhiteTint;
     //[popover setShadowsHidden:YES];
-    popover.contentSize = CGSizeMake(390, 480);
+    popover.contentSize = CGSizeMake(300, 480);
     popover.arrowDirection = FPPopoverArrowDirectionAny;
     [popover presentPopoverFromView:_commentBtn];
 

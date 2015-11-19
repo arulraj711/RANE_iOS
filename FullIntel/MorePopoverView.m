@@ -26,10 +26,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _moreInforArray = [[NSMutableArray alloc]init];
+    [_moreInforArray addObject:@"Mail"];
     [_moreInforArray addObject:@"Linkedin"];
     [_moreInforArray addObject:@"Twitter"];
     [_moreInforArray addObject:@"Facebook"];
-    [_moreInforArray addObject:@"Mail"];
+    
 //    [_moreInforArray addObject:@"Google Plus"];
 //    [_moreInforArray addObject:@"Evernote"];
 //    [_moreInforArray addObject:@"Pocket"];
@@ -56,9 +57,9 @@
     
     MoreViewCell *cell = (MoreViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
-    if(indexPath.row == 1) {
+    if(indexPath.row == 2) {
         cell.iconImage.image = [UIImage imageNamed:@"twitter"];
-    } else if(indexPath.row == 3) {
+    } else if(indexPath.row == 0) {
         cell.iconImage.image = [UIImage imageNamed:@"mail30.png"];
         
     }else {
@@ -70,92 +71,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    // NSLog(@"did select more tableview");
-    if(indexPath.row == 0) {
+    if(indexPath.row == 1) {
         
         
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"LinkedInShareClick"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"linkedinSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
-        
-//        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-//        
-//        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
-//        SocialWebView *socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
-//        socialWebViewObj.titleStr=@"LinkedIn Share";
-//        NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",self.articleUrl,self.articleTitle,self.articleDesc];
-//        NSLog(@"linked in url:%@",urlString);
-//       NSString* urlTextEscaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        NSLog(@"after link:%@",urlTextEscaped);
-//        socialWebViewObj.urlString=urlTextEscaped;
-//        modalController.modalPresentationStyle = UIModalPresentationCustom;
-//        
-//        [self presentViewController:modalController animated:NO completion:^{
-//           // [self dismissViewControllerAnimated:YES completion:nil];
-//        }];
-        
-    } else if(indexPath.row == 2) {
-        
-       // FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-//        content.contentURL = [NSURL URLWithString:self.articleUrl];
-//        [FBSDKShareDialog showFromViewController:self
-//                                     withContent:content
-//                                        delegate:nil];
-        
-//        FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
-//        dialog.fromViewController = self;
-//         dialog.content = content;
-//        dialog.mode = FBSDKShareDialogModeShareSheet;
-//        [dialog show];
-        
-//        FBSDKShareLinkContent *content = [FBSDKShareLinkContent new];
-//        content.contentURL = [NSURL URLWithString:self.articleUrl];
-//        content.contentTitle =self.articleTitle;
-//        content.contentDescription =self.articleDesc;
-//        FBSDKShareDialog *shareDialog = [FBSDKShareDialog new];
-//        [shareDialog setMode:FBSDKShareDialogModeAutomatic];
-//        [shareDialog setShareContent:content];
-//        [shareDialog setFromViewController:self];
-//        [shareDialog show];
-        
-      //  [self targetedShare:SLServiceTypeFacebook];
+    } else if(indexPath.row == 3) {
         
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FacebookShareClick"];
         
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"fbSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
         
         
-    } else if(indexPath.row == 1) {
+    } else if(indexPath.row == 2) {
         //[self targetedShare:@""];
        [self targetedShare:SLServiceTypeTwitter];
-        
-//            [[Twitter sharedInstance] logInWithCompletion:^
-//             (TWTRSession *session, NSError *error) {
-//                 if (session) {
-//                     NSLog(@"signed in as %@", [session userName]);
-//                    // [logInButton removeFromSuperview];
-//                     
-//                     TWTRComposer *composer = [[TWTRComposer alloc] init];
-//                     
-//                     [composer setText:self.articleTitle];
-//                     UIImageView *image = [[UIImageView alloc]init];
-//                     NSLog(@"article image:%@",self.articleImageUrl);
-//                     [image sd_setImageWithURL:[NSURL URLWithString:self.articleImageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
-//                     [composer setImage:image.image];
-//                     [composer setURL:[NSURL URLWithString:self.articleUrl]];
-//                     [composer showWithCompletion:^(TWTRComposerResult result) {
-//                         if (result == TWTRComposerResultCancelled) {
-//                             NSLog(@"Tweet composition cancelled");
-//                         }
-//                         else {
-//                             NSLog(@"Sending Tweet!");
-//                         }
-//                     }];
-//                     
-//                 } else {
-//                 }
-//             }];
-        
-        
-    } else if(indexPath.row == 3) {
+    } else if(indexPath.row == 0) {
         //Mail Button Click
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MailButtonClick"];
         
@@ -172,25 +103,6 @@
         [self targetedShare:@""];
     }
     
-    
-    
-//    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
-//    {
-//        SLComposeViewController *tweetSheet = [SLComposeViewController
-//                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
-//        [tweetSheet setInitialText:@"Great fun to learn iOS programming at appcoda.com!"];
-//        [self presentViewController:tweetSheet animated:YES completion:nil];
-//    } else if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-//        if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-//            SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-//            
-//            [controller setInitialText:@"First post from my iPhone app"];
-//           // [controller set];
-//            [self presentViewController:controller animated:YES completion:Nil];
-//        }
-//    } else {
-//        NSLog(@"share else part");
-//    }
 }
 
 -(void)targetedShare:(NSString *)serviceType {

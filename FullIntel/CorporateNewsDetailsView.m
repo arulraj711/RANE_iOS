@@ -978,10 +978,11 @@
             
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
                 NSManagedObject *authorObjectOne = [authorArray objectAtIndex:0];
-                overallAuthorDetailOne = [ NSString stringWithFormat:@"%@, %@",[authorObjectOne valueForKey:@"name"], [curatedNews valueForKey:@"outlet"]];
+                overallAuthorDetailOne = [authorObjectOne valueForKey:@"name"];
                 NSLog(@"%@",[FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"]doubleValue]]);
                 
                 cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
+                cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
                 cell.articleAuthor.text = overallAuthorDetailOne;
                 cell.overlayArticleAuthor.text = overallAuthorDetailOne;
 
@@ -998,9 +999,10 @@
             NSManagedObject *authorObject = [authorArray objectAtIndex:0];
             cell.overlayArticleAuthor.text = [authorObject valueForKey:@"name"];
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-                overallAuthorDetail = [ NSString stringWithFormat:@"%@, %@",[authorObject valueForKey:@"name"], [curatedNews valueForKey:@"outlet"]];
+                overallAuthorDetail = [authorObject valueForKey:@"name"];
                 cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
                 cell.articleAuthor.text = overallAuthorDetail;
+                cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
                 cell.overlayArticleAuthor.text = overallAuthorDetail;
 
             }

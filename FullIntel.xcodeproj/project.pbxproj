@@ -172,6 +172,7 @@
 		A0EF01911BDE379600B0191B /* NewsLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF01901BDE379600B0191B /* NewsLetterViewController.m */; };
 		A0EF01931BDE37AB00B0191B /* NewsLetterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF01921BDE37AB00B0191B /* NewsLetterView.storyboard */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
+		BA6347911BFE02A300DCF13F /* BGTableViewRowActionWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */; };
 		BAEADFDA1BDF77B800A3680B /* TutorialPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAEADFD91BDF77B800A3680B /* TutorialPhone.storyboard */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
@@ -525,6 +526,8 @@
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 3.xcdatamodel"; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
+		BA63478F1BFE02A200DCF13F /* BGTableViewRowActionWithImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGTableViewRowActionWithImage.h; sourceTree = "<group>"; };
+		BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGTableViewRowActionWithImage.m; sourceTree = "<group>"; };
 		BAEADFD91BDF77B800A3680B /* TutorialPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TutorialPhone.storyboard; sourceTree = "<group>"; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -770,6 +773,8 @@
 		A0066EED1B030B10008B4623 /* CorporateDetailCell */ = {
 			isa = PBXGroup;
 			children = (
+				BA63478F1BFE02A200DCF13F /* BGTableViewRowActionWithImage.h */,
+				BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */,
 				F5F727261B6F809400DE7980 /* SocialLinkCell.xib */,
 				A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */,
 				A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */,
@@ -1933,6 +1938,7 @@
 				A003B19F1B1841FF00857F35 /* CMPopTipView.m in Sources */,
 				A041F0011B2ADA9E00B5600C /* LegendCollectionViewCell.m in Sources */,
 				F7AE10821AC01E350091E1C7 /* InfluencerListView.m in Sources */,
+				BA6347911BFE02A300DCF13F /* BGTableViewRowActionWithImage.m in Sources */,
 				A033EC681BC4D49D003AAE4F /* TweetsCellPhone.m in Sources */,
 				F773CFEF1ADE9E0A002FC7CF /* AddContentFirstLevelView.m in Sources */,
 				A0CF5C681B1DD98B00DED2D9 /* ExecutiveMoveCell.m in Sources */,

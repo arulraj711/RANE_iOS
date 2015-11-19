@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -20,19 +21,19 @@
                         <viewControllerLayoutGuide type="bottom" id="uu8-Gy-88a"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2Jk-LR-Lbb">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="440"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z1I-a3-5w1">
                                 <rect key="frame" x="0.0" y="439" width="300" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="M0U-Ck-1To"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4FS-a8-KWj">
                                 <rect key="frame" x="0.0" y="439" width="300" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="4nQ-D6-d2Q"/>
                                 </constraints>
@@ -134,7 +135,7 @@
                                     </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -152,13 +153,13 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zjt-lA-j21">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="440"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="separatorColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="separatorColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="100" id="cfo-ci-nsC" customClass="CommentCell">
                                         <rect key="frame" x="0.0" y="22" width="400" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cfo-ci-nsC" id="qSr-46-XLm">
-                                            <rect key="frame" x="0.0" y="0.0" width="400" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rgo-Dy-1Hq">
@@ -177,7 +178,7 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="289" translatesAutoresizingMaskIntoConstraints="NO" id="gEA-oF-0mV">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="289" translatesAutoresizingMaskIntoConstraints="NO" id="gEA-oF-0mV">
                                                     <rect key="frame" x="75" y="24" width="216" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="uuN-9S-XKF">
@@ -337,25 +338,25 @@
                                 <exclude reference="Xvu-Ql-uAA"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="htl-Fv-Gwa"/>
-                                <exclude reference="A6g-UF-Rjf"/>
-                                <exclude reference="ibr-x8-g1b"/>
-                                <exclude reference="pWc-oT-InC"/>
-                                <exclude reference="wGl-W5-U8i"/>
-                                <exclude reference="DbA-WP-qNL"/>
-                                <exclude reference="WYw-7a-gCq"/>
-                                <exclude reference="Z4t-Au-bO6"/>
                                 <exclude reference="QEs-Gn-goN"/>
                                 <exclude reference="05f-fm-a6M"/>
                                 <exclude reference="my9-B0-gE3"/>
                                 <exclude reference="QIp-5p-MKf"/>
                                 <exclude reference="gxy-9U-kyX"/>
+                                <exclude reference="DbA-WP-qNL"/>
+                                <exclude reference="WYw-7a-gCq"/>
+                                <exclude reference="Z4t-Au-bO6"/>
+                                <exclude reference="htl-Fv-Gwa"/>
+                                <exclude reference="PCm-Wd-acK"/>
+                                <exclude reference="cC4-gr-DiU"/>
                                 <exclude reference="nTa-rW-crp"/>
+                                <exclude reference="A6g-UF-Rjf"/>
+                                <exclude reference="ibr-x8-g1b"/>
+                                <exclude reference="pWc-oT-InC"/>
+                                <exclude reference="wGl-W5-U8i"/>
                                 <exclude reference="86T-IK-7VF"/>
                                 <exclude reference="G3D-Iq-NO1"/>
                                 <exclude reference="poJ-lw-b9w"/>
-                                <exclude reference="PCm-Wd-acK"/>
-                                <exclude reference="cC4-gr-DiU"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -368,25 +369,25 @@
                                 <include reference="Xvu-Ql-uAA"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="htl-Fv-Gwa"/>
-                                <include reference="A6g-UF-Rjf"/>
-                                <include reference="ibr-x8-g1b"/>
-                                <include reference="pWc-oT-InC"/>
-                                <include reference="wGl-W5-U8i"/>
-                                <include reference="DbA-WP-qNL"/>
-                                <include reference="WYw-7a-gCq"/>
-                                <include reference="Z4t-Au-bO6"/>
                                 <include reference="QEs-Gn-goN"/>
                                 <include reference="05f-fm-a6M"/>
                                 <include reference="my9-B0-gE3"/>
                                 <include reference="QIp-5p-MKf"/>
                                 <include reference="gxy-9U-kyX"/>
+                                <include reference="DbA-WP-qNL"/>
+                                <include reference="WYw-7a-gCq"/>
+                                <include reference="Z4t-Au-bO6"/>
+                                <include reference="htl-Fv-Gwa"/>
+                                <include reference="PCm-Wd-acK"/>
+                                <include reference="cC4-gr-DiU"/>
                                 <include reference="nTa-rW-crp"/>
+                                <include reference="A6g-UF-Rjf"/>
+                                <include reference="ibr-x8-g1b"/>
+                                <include reference="pWc-oT-InC"/>
+                                <include reference="wGl-W5-U8i"/>
                                 <include reference="86T-IK-7VF"/>
                                 <include reference="G3D-Iq-NO1"/>
                                 <include reference="poJ-lw-b9w"/>
-                                <include reference="PCm-Wd-acK"/>
-                                <include reference="cC4-gr-DiU"/>
                             </mask>
                         </variation>
                     </view>
