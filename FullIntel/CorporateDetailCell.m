@@ -929,7 +929,7 @@
         
     }
     else{
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, 4000);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
 
     }
     UICollectionViewFlowLayout* tweetFlowLayout = [[UICollectionViewFlowLayout alloc]init];
