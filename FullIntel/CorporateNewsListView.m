@@ -1066,69 +1066,38 @@
     
     if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
         moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star_selected_iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-            [self firstButtonMEthod:indexPath];
-            // maybe show an action sheet with more options
-            //[_articlesTableView setEditing:NO];
+            [self markedImpAction:indexPath];
         }];
     } else {
         moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-            [self firstButtonMEthod:indexPath];
-            // maybe show an action sheet with more options
-           // [_articlesTableView setEditing:NO];
+            [self markedImpAction:indexPath];
         }];
     }
     
     UITableViewRowAction *moreAction2;
     if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
         moreAction2 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"saved_selected_iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-          //  [_articlesTableView setEditing:NO];
+            [self savedAction:indexPath];
         }];
         
     } else {
         moreAction2 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"bookIphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-           // [_articlesTableView setEditing:NO];
+            [self savedAction:indexPath];
+            moreAction2.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:@"saved_selected_iphone"]];
+
         }];
         
     }
-    
-    
     
     UITableViewRowAction *moreAction3 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"folderPhone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         [_articlesTableView setEditing:NO];
         
     }];
     
-    
-    
-    
     return @[moreAction, moreAction2, moreAction3];
 }
--(void)firstButtonMEthod :(NSIndexPath *)indPath
-{
-    NSManagedObject *curatedNews = [self.devices objectAtIndex:indPath.row];
-    NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
-    
-    if(number == [NSNumber numberWithInt:1]) {
-        
-        //        [cell.markedImpButton setSelected:YES];
-    } else {
-        //        [cell.markedImpButton setSelected:NO];
-    }
-    
-    
-    //    if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-    ////        [cell.savedForLaterButton setSelected:YES];
-    //    } else {
-    ////        [cell.savedForLaterButton setSelected:NO];
-    //    }
-    //
-    //    if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-    ////        cell.readStatusImageView.hidden = NO;
-    //        cell.contentView.alpha = 0.7;
-    //    } else {
-    //        cell.readStatusImageView.hidden = YES;
-    //        cell.contentView.alpha = 1;
-    //    }
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    // you need to implement this method too or nothing will work:
     
 }
 - (void)willTransitionToState:(UITableViewCellStateMask)state{
@@ -1142,9 +1111,250 @@
     
 }
 
+-(void)firstButtonMEthod:(id)sender
+{
+    
+    
+    
+    //    if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+    sender = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"bookIphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        //  [_articlesTableView setEditing:NO];
+    }];
+}
+-(void)savedAction:(NSIndexPath *)tapGesture {
+    
+    NSInteger selectedTag = tapGesture.row;
+    NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
+    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+    [resultDic setObject:@"3" forKey:@"status"];
+    
+    
+    NSNumber *number = [curatedNews valueForKey:@"saveForLater"];
+    // NSLog(@"marked imp read status:%@",number);
+    if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        if(number == [NSNumber numberWithInt:1]) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-3",@"isSelected":[NSNumber numberWithBool:NO]}];
+            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+        } else {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-3",@"isSelected":[NSNumber numberWithBool:YES]}];
+            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
+        }
+    }
+    
+    
+    
+    NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+        if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            [resultDic setObject:@"false" forKey:@"isSelected"];
+            [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
+            [Localytics tagEvent:@"Remove Save Later" attributes:dictionary];
+        }else {
+            [resultDic setObject:@"true" forKey:@"isSelected"];
+            //NSLog(@"curated news detail:%@",curatedNewsDetail);
+            if(curatedNewsDetail == nil) {
+                // NSLog(@"details is null");
+                NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+                [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+                [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+                NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                
+                NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                
+                NSMutableDictionary *auhtorResultDic = [[NSMutableDictionary alloc] init];
+                [auhtorResultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+                [auhtorResultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"articleId"];
+                NSData *authorJsondata = [NSJSONSerialization dataWithJSONObject:auhtorResultDic options:NSJSONWritingPrettyPrinted error:nil];
+                
+                NSString *authorResultStr = [[NSString alloc]initWithData:authorJsondata encoding:NSUTF8StringEncoding];
+                
+                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+                    //Background Thread
+                    [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
+                    [[FISharedResources sharedResourceManager]getCuratedNewsAuthorDetailsWithDetails:authorResultStr withArticleId:[curatedNews valueForKey:@"articleId"]];
+                    
+                });
+                
+            }
+            
+            [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
+            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
+            [Localytics tagEvent:@"Save Later" attributes:dictionary];
+        }
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [[FISharedResources sharedResourceManager] showBannerView];
+        }
+        //[FIUtils showNoNetworkToast];
+    }
+    [_articlesTableView reloadData];
+}
+
+-(void)markedImpAction:(NSIndexPath *)tapGesture {
+    NSInteger selectedTag = tapGesture.row;
+    NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
+    
+    NSString *markedImpUserId = [[curatedNews valueForKey:@"markAsImportantUserId"] stringValue];
+    NSString *markedImpUserName = [curatedNews valueForKey:@"markAsImportantUserName"];
+    NSString *loginUserIdString = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"]];
+    
+    //NSLog(@"markedUserId:%@ and markedUserName:%@ and loginUserId:%@ and intvalue:%d",markedImpUserId,markedImpUserName,loginUserIdString,[loginUserIdString intValue]);
+    
+    //    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    //    f.numberStyle = NSNumberFormatterDecimalStyle;
+    //    NSNumber *loginUserId = [f numberFromString:loginUserIdString];
+    
+    
+    
+    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [resultDic setObject:[curatedNews valueForKey:@"articleId"] forKey:@"selectedArticleId"];
+    [resultDic setObject:@"2" forKey:@"status"];
+    NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
+    // NSLog(@"marked imp read status:%@",number);
+    
+    NSManagedObject *curatedNewsDetail = [curatedNews valueForKey:@"details"];
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+        if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            
+            if([markedImpUserId isEqualToString:@"-1"]) {
+                //Analyst
+                [self.view makeToast:@"A FullIntel analyst marked this as important. If you like to change, please request via Feedback" duration:2.0 position:CSToastPositionCenter];
+            } else if([markedImpUserId isEqualToString:loginUserIdString]) {
+                //LoginUser
+                
+                [resultDic setObject:@"false" forKey:@"isSelected"];
+                [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                
+                
+                
+                //                NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+                //                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                //                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",[curatedNews valueForKey:@"articleId"]];
+                //                [fetchRequest setPredicate:predicate];
+                //                NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                //                // NSLog(@"new person array count:%d",newPerson.count);
+                //                if(newPerson.count != 0) {
+                //                    //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+                //                    for(NSManagedObject *curatedNews in newPerson) {
+                //                        // NSLog(@"for loop update");
+                //                        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                //
+                //                        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                //                            // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+                //                        } else {
+                //                            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
+                //                        }
+                //                    }
+                //                }
+                //                [managedObjectContext save:nil];
+                if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                    if(number == [NSNumber numberWithInt:1]) {
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+                        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                    } else {
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
+                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+                    }
+                }
+                
+                
+                
+                NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
+                NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
+                [Localytics tagEvent:@"Remove Marked Important" attributes:dictionary];
+                
+            } else {
+                //OtherUser
+                NSString *messageStrings = [NSString stringWithFormat:@"If you like to change, please contact %@. who marked this article as important",markedImpUserName];
+                [self.view makeToast:messageStrings duration:2.0 position:CSToastPositionCenter];
+            }
+            
+            
+        }else {
+            [resultDic setObject:@"true" forKey:@"isSelected"];
+            [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+            [curatedNews setValue:[NSNumber numberWithInt:[loginUserIdString intValue]] forKey:@"markAsImportantUserId"];
+            
+            //            NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+            //            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+            //            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",[curatedNews valueForKey:@"articleId"]];
+            //            [fetchRequest setPredicate:predicate];
+            //            NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+            //             NSLog(@"marked imp array count:%d",newPerson.count);
+            //            if(newPerson.count != 0) {
+            //                //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+            //                for(NSManagedObject *curatedNews in newPerson) {
+            //                     NSLog(@"for loop update");
+            //                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+            //
+            //                    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+            //                        // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+            //                    } else {
+            //                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isMarkedImpStatusSync"];
+            //                    }
+            //                }
+            //            }
+            //            [managedObjectContext save:nil];
+            
+            if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                if(number == [NSNumber numberWithInt:1]) {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+                    [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                } else {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
+                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+                }
+            }
+            
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
+            [Localytics tagEvent:@"Marked Important" attributes:dictionary];
+        }
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [[FISharedResources sharedResourceManager] showBannerView];
+        }
+        //[FIUtils showNoNetworkToast];
+    }
+    [_articlesTableView reloadData];
+    
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     UITableViewCell *tableCell;
+    
     if(self.devices.count != 0) {
        
         //whatever else to configure your one cell you're going to return
@@ -1501,7 +1711,7 @@
     }
 }
 
--(void)markedImpAction:(UITapGestureRecognizer *)tapGesture {
+-(void)markedImpActions:(UITapGestureRecognizer *)tapGesture {
     NSInteger selectedTag = [tapGesture view].tag;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
     
@@ -1646,7 +1856,7 @@
     
 }
 
--(void)savedAction:(UITapGestureRecognizer *)tapGesture {
+-(void)savedActions:(UITapGestureRecognizer *)tapGesture {
     
     NSInteger selectedTag = [tapGesture view].tag;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];

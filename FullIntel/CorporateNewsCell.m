@@ -68,12 +68,7 @@
     
 }
 
--(void)sizeAdjustmentForView:(UIView *)viewName withFloatVal:(double)floatVal
-{
-    NSLog(@"%@ %f",viewName,floatVal);
-    viewName.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    viewName.frame = CGRectMake(viewName.frame.origin.x+floatVal, viewName.frame.origin.y+10, viewName.frame.size.width, viewName.frame.size.height);
-}
+
 - (void)layoutSubviews {
     
     [super layoutSubviews];

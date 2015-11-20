@@ -57,9 +57,9 @@
         self.backgroundColor = [UIColor clearColor];
         self.clipsToBounds = YES;
         
-        self.layer.shadowOpacity = 0.1;
-        self.layer.shadowRadius = 2;
-        self.layer.shadowOffset = CGSizeMake(-1, 1);
+        self.layer.shadowOpacity = 0.1;                                                         //changed from 0.7-0.1
+        self.layer.shadowRadius = 2;                                                            //changed from 5-2
+        self.layer.shadowOffset = CGSizeMake(-1, 1);                                            //changed from -3->-1
 
         //to get working the animations
         self.contentMode = UIViewContentModeRedraw;
@@ -257,7 +257,6 @@
 	CGPathAddLineToPoint(path, NULL, outside_left, inside_top);
 	CGPathAddArcToPoint(path, NULL,  outside_left, outside_top, innerRect.origin.x, outside_top, radius);
 
-    
     CGPathCloseSubpath(path);
     
     return path;
@@ -413,28 +412,28 @@
 
     
     CGContextFillRect(ctx, CGRectMake(0, end.y, self.bounds.size.width, self.bounds.size.height-end.y));
-    //internal border
-    CGContextBeginPath(ctx);
-    CGContextAddPath(ctx, contentPath);
-    CGContextSetRGBStrokeColor(ctx, 0.7, 0.7, 0.7, 1.0);
-    CGContextSetLineWidth(ctx, 1);
-    CGContextSetLineCap(ctx,kCGLineCapRound);
-    CGContextSetLineJoin(ctx, kCGLineJoinRound);
-    CGContextStrokePath(ctx);
-    CGPathRelease(contentPath);
+//    internal border
+//    CGContextBeginPath(ctx);
+//    CGContextAddPath(ctx, contentPath);
+//    CGContextSetRGBStrokeColor(ctx, 0.7, 0.7, 0.7, 1.0);
+//    CGContextSetLineWidth(ctx, 1);
+//    CGContextSetLineCap(ctx,kCGLineCapRound);
+//    CGContextSetLineJoin(ctx, kCGLineJoinRound);
+//    CGContextStrokePath(ctx);
+//    CGPathRelease(contentPath);
 
-    //external border
-    CGPathRef externalBorderPath = [self newContentPathWithBorderWidth:1.0 arrowDirection:_arrowDirection];
-    CGContextBeginPath(ctx);
-    CGContextAddPath(ctx, externalBorderPath);
-    CGContextSetRGBStrokeColor(ctx, 0.4, 0.4, 0.4, 1.0);
-    CGContextSetLineWidth(ctx, 1);
-    CGContextSetLineCap(ctx,kCGLineCapRound);
-    CGContextSetLineJoin(ctx, kCGLineJoinRound);
-    CGContextStrokePath(ctx);
-    CGPathRelease(externalBorderPath);
+//    external border
+//    CGPathRef externalBorderPath = [self newContentPathWithBorderWidth:1.0 arrowDirection:_arrowDirection];
+//    CGContextBeginPath(ctx);
+//    CGContextAddPath(ctx, externalBorderPath);
+//    CGContextSetRGBStrokeColor(ctx, 0.4, 0.4, 0.4, 1.0);
+//    CGContextSetLineWidth(ctx, 1);
+//    CGContextSetLineCap(ctx,kCGLineCapRound);
+//    CGContextSetLineJoin(ctx, kCGLineJoinRound);
+//    CGContextStrokePath(ctx);
+//    CGPathRelease(externalBorderPath);
 
-    //3D border of the content view
+//3D border of the content view
     if(self.draw3dBorder) {
         CGRect cvRect = _contentView.frame;
         //firstLine

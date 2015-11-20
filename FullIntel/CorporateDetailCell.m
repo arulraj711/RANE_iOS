@@ -1259,7 +1259,7 @@
     popover.tint = FPPopoverWhiteTint;
     //[popover setShadowsHidden:YES];
     popover.contentSize = CGSizeMake(300, 480);
-    popover.arrowDirection = FPPopoverArrowDirectionAny;
+    popover.arrowDirection = FPPopoverArrowDirectionDown;
     [popover presentPopoverFromView:_commentBtn];
 
 }
@@ -1271,6 +1271,8 @@
 
 - (void)dismissCommentsView {
     [popover dismissPopoverAnimated:YES];
+    self.superview.alpha = 1;
+
 }
 
 - (IBAction)markedImpButtonClick:(UIButton *)sender {

@@ -28,6 +28,8 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    i = 0;
+
     self.isAnimated = YES;
     [super viewDidLoad];
     
@@ -99,23 +101,27 @@
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
 //to push up only the outerview.
-        NSTimeInterval duration = [notif.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-        UIViewAnimationCurve curve = [notif.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-        [UIView setAnimationCurve:curve];
-        [UIView setAnimationDuration:duration];
-        // Animation code
-        [UIView animateWithDuration:duration
-                              delay:0.0
-                            options: (curve<<20)
-                         animations:^{
-                             
-                             self.outerView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-                             self.outerView.frame = CGRectMake(self.outerView.frame.origin.x, self.outerView.frame.origin.y-kPictureFrameHorizontalOffset,  self.outerView.frame.size.width,self.outerView.frame.size.height);
-                             //self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
-                         }
-                         completion:^(BOOL finished){
-                         }];
-//        self.view.frame = CGRectMake(self.view.frame.origin.x, -25, self.view.frame.size.width,self.view.frame.size.height);
+        if (i == 0) {
+            NSTimeInterval duration = [notif.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+            UIViewAnimationCurve curve = [notif.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+            [UIView setAnimationCurve:curve];
+            [UIView setAnimationDuration:duration];
+            // Animation code
+            [UIView animateWithDuration:duration
+                                  delay:0.0
+                                options: (curve<<20)
+                             animations:^{
+                                 
+                                 self.outerView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+                                 self.outerView.frame = CGRectMake(self.outerView.frame.origin.x, self.outerView.frame.origin.y-kPictureFrameHorizontalOffset,  self.outerView.frame.size.width,self.outerView.frame.size.height);
+                                 //self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
+                             }
+                             completion:^(BOOL finished){
+                             }];
+            //        self.view.frame = CGRectMake(self.view.frame.origin.x, -25, self.view.frame.size.width,self.view.frame.size.height);
+            i = 1;
+        }
+        
     }
     else
     {
@@ -127,36 +133,40 @@
     // Do something here
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
-        NSTimeInterval duration = [notif.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-        UIViewAnimationCurve curve = [notif.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-        [UIView setAnimationCurve:curve];
-        [UIView setAnimationDuration:duration];
-        // Animation code
-
-//to push up only the outerview.
-        [UIView animateWithDuration:duration
-                              delay:0.0
-                            options: UIViewAnimationOptionCurveEaseIn
-                         animations:^{
-                             
-                             self.outerView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-                             
-                             self.outerView.frame = CGRectMake(self.outerView.frame.origin.x, self.outerView.frame.origin.y+kPictureFrameHorizontalOffset, self.outerView.frame.size.width,self.outerView.frame.size.height);
-
-//                             self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
-                         }
-                         completion:^(BOOL finished){
-                         }];
-
-//        [UIView transitionWithView:self.view duration:8.4f options:UIViewAnimationOptionTransitionNone animations:^{
-//            self.view.frame = CGRectMake(self.view.frame.origin.x, -25, self.view.frame.size.width,self.view.frame.size.height);
-//
-//        }completion:^(BOOL finished){
-//
-//        }];
-//        
-
-
+        if (i ==1) {
+            NSTimeInterval duration = [notif.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+            UIViewAnimationCurve curve = [notif.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+            [UIView setAnimationCurve:curve];
+            [UIView setAnimationDuration:duration];
+            // Animation code
+            
+            //to push up only the outerview.
+            
+            [UIView animateWithDuration:duration
+                                  delay:0.0
+                                options: UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                                 
+                                 self.outerView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
+                                 
+                                 self.outerView.frame = CGRectMake(self.outerView.frame.origin.x, self.outerView.frame.origin.y+kPictureFrameHorizontalOffset, self.outerView.frame.size.width,self.outerView.frame.size.height);
+                                 
+                                 //                             self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
+                             }
+                             completion:^(BOOL finished){
+                             }];
+            
+            //        [UIView transitionWithView:self.view duration:8.4f options:UIViewAnimationOptionTransitionNone animations:^{
+            //            self.view.frame = CGRectMake(self.view.frame.origin.x, -25, self.view.frame.size.width,self.view.frame.size.height);
+            //
+            //        }completion:^(BOOL finished){
+            //
+            //        }];
+            //        
+            
+            i= 0 ;
+        }
+       
     }
     else
     {

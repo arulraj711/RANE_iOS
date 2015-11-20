@@ -477,6 +477,7 @@
 
 -(CGRect)bestArrowDirectionAndFrameFromView:(UIView*)v
 {
+    
     // thanks @Niculcea
     // If we presentFromPoint with _fromView nil will calculate based on self.orgin with 2x2 size.
     // Fix for presentFromPoint from avolovoy's FPPopover fork
@@ -517,6 +518,7 @@
             
             r.origin.x = p.x + v.frame.size.width/2.0 - r.size.width/2.0;
             r.origin.y = p.y - r.size.height;
+            
         }
         else
         {
