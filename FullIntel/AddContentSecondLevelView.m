@@ -94,7 +94,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSelectedCategory:) name:@"selectedCategory" object:nil];
     
     
-  //tut  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SecondLevelTutorialTrigger) name:@"SecondLevelTutorialTrigger" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SecondLevelTutorialTrigger) name:@"SecondLevelTutorialTrigger" object:nil];
     
     
     //   UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
@@ -106,8 +106,8 @@
     [self.view addSubview:availableTopic];
     
     
-//    _tutorialContentView.hidden=YES;
-//    _tutorialContentView.layer.cornerRadius=5.0f;
+    _tutorialContentView.hidden=YES;
+    _tutorialContentView.layer.cornerRadius=5.0f;
     
 }
 
@@ -349,25 +349,25 @@
     cell.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     cell.contentView.layer.borderWidth = 1.0f;
     
-//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
-//    if (coachMarksShown == YES) {
-//        
-//        
-//        if(indexPath.row==0){
-//            
-//            NSLog(@"animate first cell");
-//            
-//            cell.layer.borderWidth=1.0;
-//            cell.layer.borderColor=[[UIColor redColor]CGColor];
-//            
-//            
-//            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
-//        }
-//    }else{
-//        
-//        cell.layer.borderWidth=0.0;
-//        
-//    }
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
+    if (coachMarksShown == YES) {
+        
+        
+        if(indexPath.row==0){
+            
+            NSLog(@"animate first cell");
+            
+            cell.layer.borderWidth=1.0;
+            cell.layer.borderColor=[[UIColor redColor]CGColor];
+            
+            
+            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
+        }
+    }else{
+        
+        cell.layer.borderWidth=0.0;
+        
+    }
     
     UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cellTap:)];
     cell.tag = indexPath.row;
@@ -379,8 +379,8 @@
 
 -(void)cellTap:(UITapGestureRecognizer *)tapGesture {
     NSLog(@"cell tap is working:%d",[tapGesture.view tag]);
-//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
-//    if (coachMarksShown == NO) {
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
+    if (coachMarksShown == NO) {
         SecondLevelCell *cell = (SecondLevelCell *)tapGesture.view;
        // SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:[tapGesture.view tag] inSection:0]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
@@ -403,7 +403,7 @@
             
             [self.navigationController pushViewController:thirdLevel animated:YES];
         }
-   // }
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
