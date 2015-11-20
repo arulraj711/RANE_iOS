@@ -405,6 +405,7 @@
         <!--Corporate News Details Test-->
         <scene sceneID="BGK-cY-LR1">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IuY-Ek-6G3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="NormalView" id="Ugq-kh-fU4" customClass="CorporateNewsDetailsTest" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bg5-pQ-OZZ"/>
@@ -1229,7 +1230,6 @@
                         <outlet property="collectionView" destination="DPI-mC-pre" id="D2n-VL-6om"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IuY-Ek-6G3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="288" y="-1282"/>
         </scene>
@@ -2001,10 +2001,10 @@
             </objects>
             <point key="canvasLocation" x="148" y="549"/>
         </scene>
-        <!--Corporate News Details Test-->
+        <!--Corporate News Details View-->
         <scene sceneID="cXk-gR-KzG">
             <objects>
-                <viewController storyboardIdentifier="UpgradeView" id="Bj5-Cy-oOg" customClass="CorporateNewsDetailsTest" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UpgradeView" id="Bj5-Cy-oOg" customClass="CorporateNewsDetailsView" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RdY-hO-DzT"/>
                         <viewControllerLayoutGuide type="bottom" id="0wB-yb-hPx"/>
@@ -2512,6 +2512,10 @@
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
+                                                                        <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dZb-BI-Vse">
+                                                                            <rect key="frame" x="38" y="0.0" width="1000" height="520"/>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </webView>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
@@ -2612,10 +2616,6 @@
                                                                 <outlet property="delegate" destination="fhx-9s-TUj" id="kdI-QO-7Bq"/>
                                                             </connections>
                                                         </scrollView>
-                                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZb-BI-Vse">
-                                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="520"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </webView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oex-Cd-qa0">
                                                             <rect key="frame" x="0.0" y="520" width="1000" height="80"/>
                                                             <subviews>
@@ -2781,16 +2781,12 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="dZb-BI-Vse" secondAttribute="trailing" id="7T6-Nv-7jb"/>
-                                                        <constraint firstItem="dZb-BI-Vse" firstAttribute="top" secondItem="GIQ-yB-mey" secondAttribute="top" id="8LR-xN-e4e"/>
-                                                        <constraint firstItem="oex-Cd-qa0" firstAttribute="top" secondItem="dZb-BI-Vse" secondAttribute="bottom" id="OYl-Ko-2G4"/>
                                                         <constraint firstItem="oex-Cd-qa0" firstAttribute="leading" secondItem="8yd-AS-WPi" secondAttribute="leading" id="QpB-na-KWg"/>
                                                         <constraint firstItem="oex-Cd-qa0" firstAttribute="leading" secondItem="GIQ-yB-mey" secondAttribute="leading" id="SW4-ch-TPE"/>
                                                         <constraint firstAttribute="bottom" secondItem="oex-Cd-qa0" secondAttribute="bottom" id="Uqa-ar-p38"/>
                                                         <constraint firstItem="oex-Cd-qa0" firstAttribute="trailing" secondItem="8yd-AS-WPi" secondAttribute="trailing" id="blR-6c-H6I"/>
                                                         <constraint firstItem="oex-Cd-qa0" firstAttribute="top" secondItem="8yd-AS-WPi" secondAttribute="bottom" id="gXA-jo-Fi8"/>
                                                         <constraint firstItem="8yd-AS-WPi" firstAttribute="top" secondItem="GIQ-yB-mey" secondAttribute="top" id="pF2-fy-hd1"/>
-                                                        <constraint firstItem="dZb-BI-Vse" firstAttribute="leading" secondItem="GIQ-yB-mey" secondAttribute="leading" id="q8r-Wj-Zk3"/>
                                                         <constraint firstAttribute="trailing" secondItem="8yd-AS-WPi" secondAttribute="trailing" id="yLU-0i-hs5"/>
                                                     </constraints>
                                                 </view>
