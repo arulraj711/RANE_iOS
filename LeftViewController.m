@@ -532,7 +532,7 @@
     self.treeView.frame = self.treeBackView.bounds;
     
     
-    
+    [self presentTutorialPopViewController];
 }
 
 -(void)updateUnreadCount {
@@ -603,7 +603,7 @@
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
     }
-    [self presentTutorialPopViewController];
+    
 }
 
 -(void)test:(NSMutableArray *)array {
@@ -735,23 +735,21 @@
 
 -(void)presentTutorialPopViewController{
     
-//    NSLog(@"presentTutorialPopViewController");
-//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
-//    if (coachMarksShown == NO) {
-//        
-//        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"TutorialPhone" bundle:nil];
-//        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
-//        
-//        //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
-//        
-//        //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
-//        //  popOverView.transitioningDelegate = self;
-//        popOverView.modalPresentationStyle = UIModalPresentationCustom;
-//        [self presentViewController:popOverView animated:NO completion:nil];
-//        
-//        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialBoxShown"];
-//        
-//    }
+    NSLog(@"presentTutorialPopViewController");
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
+    if (coachMarksShown == NO) {
+        UIStoryboard *centerStoryBoard;
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"TutorialPhone" bundle:nil];
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+        }
+        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
+        popOverView.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:popOverView animated:NO completion:nil];
+        //[[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialBoxShown"];
+        
+    }
     
 }
 #pragma mark - Actions
@@ -1754,11 +1752,6 @@
         
         UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
         UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
-        
-        //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
-        
-        //  ResearchRequestPopoverView *popOverView = [[ResearchRequestPopoverView alloc]initWithNibName:@"ResearchRequestPopoverView" bundle:nil];
-        //  popOverView.transitioningDelegate = self;
         popOverView.modalPresentationStyle = UIModalPresentationCustom;
         [self presentViewController:popOverView animated:NO completion:nil];
         
