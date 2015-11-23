@@ -32,9 +32,16 @@
     // First let's remove any existing animations
 
     [_upImageView.layer removeAllAnimations];
-    
     POPDecayAnimation  *anim = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPositionY];
-    anim.fromValue = @(350);
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        
+        anim.fromValue = @(320);
+
+    }
+    else{
+        anim.fromValue = @(400);
+
+    }
     anim.velocity = @(-1000.0);
     anim.deceleration = 0.995;
     anim.completionBlock = ^(POPAnimation *anim, BOOL finished) {
@@ -52,15 +59,19 @@
     [_downImageView.layer removeAllAnimations];
     
     POPDecayAnimation  *anim = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPositionY];
-    
-
-    if(self.view.frame.size.height==768){
-    
-    anim.fromValue = @(500);
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         
-    }else{
+            anim.fromValue = @(250);
+        }
+    else{
+        if(self.view.frame.size.height==768){
+            
+            anim.fromValue = @(500);
+            
+        }else{
             anim.fromValue = @(700);
-        
+            
+        }
     }
     anim.velocity = @(1000.0);
     anim.deceleration = 0.995;
@@ -74,7 +85,24 @@
 }
 
 
-
+-(void)performSwipeRighAnimation
+{
+    // First let's remove any existing animations
+    
+    // First let's remove any existing animations
+    
+    [_swipeRightImageView.layer removeAllAnimations];
+    
+    POPDecayAnimation  *anim = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPositionX];
+    anim.fromValue = @(self.view.frame.origin.x+self.view.frame.size.width+90);
+    anim.velocity = @(-1000.0);
+    anim.deceleration = 0.995;
+    anim.completionBlock = ^(POPAnimation *anim, BOOL finished) {
+        NSLog(@"Animation has completed.");
+        // [self resetTutorialStateTimer:0.5];
+    };
+    [_swipeRightImageView.layer pop_addAnimation:anim forKey:@"slideup"];
+}
 -(void)setUpViews{
     
     
@@ -94,10 +122,19 @@
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SwipeUpAndDownTutorialTrigger"];
     if (coachMarksShown == NO) {
         
+
         
-         _textView.text=@"￼Tap here to add to “Saved For Later” folder";
-        
-        
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            _swipeRightImageView.hidden=NO;
+            _textView.text=@"￼Swipe each row, to reveal more options";
+            popAnimationTimerThree=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performSwipeRighAnimation) userInfo:nil repeats:YES];
+
+        }
+        else{
+            _textView.text=@"￼￼Tap here to add to “Saved For Later” folder";
+
+        }
+
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SwipeUpAndDownTutorialTrigger"];
         
          [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveForLaterTutorialTrigger" object:nil userInfo:nil];
@@ -161,6 +198,7 @@
     popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performSwipeUpAnimation) userInfo:nil repeats:YES];
     
        popAnimationTimerTwo=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performSwipeDownAnimation) userInfo:nil repeats:YES];
+    self.swipeRightImageView.hidden = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

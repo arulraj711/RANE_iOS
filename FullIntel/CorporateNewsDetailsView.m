@@ -183,40 +183,71 @@
 
 
 - (void)coachMarksView:(WSCoachMarksView*)coachMarksView didNavigateToIndex:(NSInteger)index{
-    
     NSLog(@"Index:%ld",(long)index);
     
     NSString *indexString=[NSString stringWithFormat:@"%ld",(long)index];
-    
-    if(index==0){
-        
-        
-        _tutorialTextView.text=@"Mark Important";
-        
-    }else if (index==1){
-        
-        _tutorialTextView.text=@"Comment";
-        
-    }else if (index==2){
-        
-        _tutorialTextView.text=@"Email";
-        
-    }else if (index==3){
-        
-        _tutorialTextView.text=@"Folder and RSS";
-        
-    }else if (index==4){
-        
-        
-        _tutorialTextView.text=@"Save For Later";
-    }else if (index==5){
-        
-        _tutorialTextView.text=@"Research Request / Feedback";
-        
-    }else{
-        
-        _tutorialTextView.text=@"Social Post";
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        if(index==0){
+            
+            _tutorialTextView.text=@"Mark Important";
+            
+        }else if (index==1){
+            
+            _tutorialTextView.text=@"Save For Later";
+            
+        }else if (index==2){
+            
+            _tutorialTextView.text=@"Comment";
+            
+        }else if (index==3){
+            
+            _tutorialTextView.text=@"Folder and RSS";
+            
+        }else if (index==4){
+            
+            
+            _tutorialTextView.text=@"Research Request / Feedback";
+        }else if (index==5){
+            
+            _tutorialTextView.text=@"Social Post";
+            
+        }else{
+            
+            _tutorialTextView.text=@"Social Post";
+        }
+    } else {
+        if(index==0){
+            
+            _tutorialTextView.text=@"Mark Important";
+            
+        }else if (index==1){
+            
+            _tutorialTextView.text=@"Comment";
+            
+        }else if (index==2){
+            
+            _tutorialTextView.text=@"Email";
+            
+        }else if (index==3){
+            
+            _tutorialTextView.text=@"Folder and RSS";
+            
+        }else if (index==4){
+            
+            
+            _tutorialTextView.text=@"Save For Later";
+        }else if (index==5){
+            
+            _tutorialTextView.text=@"Research Request / Feedback";
+            
+        }else{
+            
+            _tutorialTextView.text=@"Social Post";
+        }
     }
+    
+    
+    
     
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"DrillDownToolBoxTutorialNavigation" object:nil userInfo:@{@"index":indexString}];
@@ -224,7 +255,6 @@
     
     
 }
-
 - (void)coachMarksViewDidCleanup:(WSCoachMarksView*)coachMarksView{
     
     

@@ -10,7 +10,7 @@
 
 @interface MainListTutorialViewController : UIViewController{
     
-   NSTimer *popAnimationTimer,*popAnimationTimerTwo;
+   NSTimer *popAnimationTimer,*popAnimationTimerTwo, *popAnimationTimerThree;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (weak, nonatomic) IBOutlet UIView *textBoxView;
@@ -18,4 +18,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *downImageView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *upImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *swipeRightImageView;
 @end

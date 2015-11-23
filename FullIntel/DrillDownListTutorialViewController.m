@@ -108,7 +108,15 @@
     [_swipeDownImageView.layer removeAllAnimations];
     
     POPDecayAnimation  *anim = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPositionY];
-    anim.fromValue = @(350);
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        
+        anim.fromValue = @(320);
+        
+    }
+    else{
+        anim.fromValue = @(350);
+
+    }
     anim.velocity = @(-1000.0);
     anim.deceleration = 0.995;
     anim.completionBlock = ^(POPAnimation *anim, BOOL finished) {
