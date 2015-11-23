@@ -30,6 +30,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
@@ -1519,18 +1520,38 @@
                                     <outlet property="delegate" destination="Pcd-ds-Fp4" id="p3y-ZO-jut"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qYT-Tp-kY3">
+                                <rect key="frame" x="150" y="280" width="300" height="40"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="￼Mark important" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1XP-Sv-tgw">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.68627450980000004" green="0.039215686270000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="30C-XL-B8h"/>
+                                    <constraint firstAttribute="width" constant="300" id="Xn3-yq-GpM"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="yuu-Xb-K2j" firstAttribute="top" secondItem="hcI-3t-Kiw" secondAttribute="bottom" id="2FK-tz-kuc"/>
+                            <constraint firstItem="qYT-Tp-kY3" firstAttribute="centerY" secondItem="M6P-9F-S0p" secondAttribute="centerY" id="46L-Q3-wAF"/>
                             <constraint firstAttribute="trailing" secondItem="hcI-3t-Kiw" secondAttribute="trailing" id="TWd-Rj-pDE"/>
                             <constraint firstItem="hcI-3t-Kiw" firstAttribute="top" secondItem="M6P-9F-S0p" secondAttribute="top" id="VNf-JL-EyN"/>
+                            <constraint firstItem="qYT-Tp-kY3" firstAttribute="centerX" secondItem="M6P-9F-S0p" secondAttribute="centerX" id="pZG-Iz-nXc"/>
                             <constraint firstItem="hcI-3t-Kiw" firstAttribute="leading" secondItem="M6P-9F-S0p" secondAttribute="leading" id="zww-pv-tWL"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
                         <outlet property="collectionView" destination="hcI-3t-Kiw" id="prq-GB-zD7"/>
+                        <outlet property="tutorialTextBoxView" destination="qYT-Tp-kY3" id="519-CR-Qh6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vlt-rS-cEs" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -217,8 +217,12 @@
     
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
     if (coachMarksShown == NO) {
-        
-        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+        UIStoryboard *centerStoryBoard;
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"TutorialiPhone" bundle:nil];
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+        }
         UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"tutorialPop"];
         
         //  ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
@@ -240,8 +244,12 @@
     [self.revealController showViewController:self.revealController.leftViewController];
     
     
-    
-    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    UIStoryboard *centerStoryBoard;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"TutorialiPhone" bundle:nil];
+    } else {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    }
     // UIViewController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"MainListTutorialViewController"];
     
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"EndOfTutorialViewController"];
@@ -291,9 +299,12 @@
     
     [self.revealController showViewController:self.revealController.frontViewController];
     
-    
-    
-    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    UIStoryboard *centerStoryBoard;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"TutorialiPhone" bundle:nil];
+    } else {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    }
     // UIViewController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"MainListTutorialViewController"];
     
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"MainListTutorialPopUp"];

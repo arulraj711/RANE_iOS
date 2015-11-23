@@ -240,7 +240,12 @@
     
     
     
-    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    UIStoryboard *centerStoryBoard;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"TutorialiPhone" bundle:nil];
+    } else {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"Tutorial" bundle:nil];
+    }
     // UIViewController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"MainListTutorialViewController"];
     
     UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"DrillDownListTutorialViewController"];

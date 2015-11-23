@@ -104,6 +104,7 @@
 		A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF674C1B16EC1C007EDD26 /* UIColor+CustomColors.m */; };
 		A0AF67501B16EC4D007EDD26 /* PresentingAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF674F1B16EC4D007EDD26 /* PresentingAnimator.m */; };
 		A0AF67531B16EC67007EDD26 /* DismissingAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF67521B16EC67007EDD26 /* DismissingAnimator.m */; };
+		A0AFB6D31C03102B003F5E4D /* TutorialiPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0AFB6D21C03102B003F5E4D /* TutorialiPhone.storyboard */; };
 		A0B0F5CA1B256AE300BB1169 /* City-Boston.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C71B256AE300BB1169 /* City-Boston.jpg */; };
 		A0B0F5CB1B256AE300BB1169 /* Eiffel_Tower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C81B256AE300BB1169 /* Eiffel_Tower.jpg */; };
 		A0B0F5CC1B256AE300BB1169 /* san_francisco.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0B0F5C91B256AE300BB1169 /* san_francisco.jpg */; };
@@ -174,7 +175,6 @@
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
 		BA0778E11BFF2FC6006742F8 /* CorporateNewsListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA0778E01BFF2FC6006742F8 /* CorporateNewsListView.storyboard */; };
 		BA6347911BFE02A300DCF13F /* BGTableViewRowActionWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */; };
-		BAEADFDA1BDF77B800A3680B /* TutorialPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAEADFD91BDF77B800A3680B /* TutorialPhone.storyboard */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
@@ -423,6 +423,7 @@
 		A0AF674F1B16EC4D007EDD26 /* PresentingAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentingAnimator.m; sourceTree = "<group>"; };
 		A0AF67511B16EC67007EDD26 /* DismissingAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissingAnimator.h; sourceTree = "<group>"; };
 		A0AF67521B16EC67007EDD26 /* DismissingAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissingAnimator.m; sourceTree = "<group>"; };
+		A0AFB6D21C03102B003F5E4D /* TutorialiPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TutorialiPhone.storyboard; sourceTree = "<group>"; };
 		A0B0F5C71B256AE300BB1169 /* City-Boston.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "City-Boston.jpg"; sourceTree = "<group>"; };
 		A0B0F5C81B256AE300BB1169 /* Eiffel_Tower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Eiffel_Tower.jpg; sourceTree = "<group>"; };
 		A0B0F5C91B256AE300BB1169 /* san_francisco.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = san_francisco.jpg; sourceTree = "<group>"; };
@@ -529,7 +530,6 @@
 		BA0778E01BFF2FC6006742F8 /* CorporateNewsListView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CorporateNewsListView.storyboard; sourceTree = "<group>"; };
 		BA63478F1BFE02A200DCF13F /* BGTableViewRowActionWithImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGTableViewRowActionWithImage.h; sourceTree = "<group>"; };
 		BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGTableViewRowActionWithImage.m; sourceTree = "<group>"; };
-		BAEADFD91BDF77B800A3680B /* TutorialPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TutorialPhone.storyboard; sourceTree = "<group>"; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -1142,7 +1142,7 @@
 				F583CD121BA3103B0080C384 /* LeftMenuTutorialPopViewController.m */,
 				F583CD141BA310590080C384 /* MainListTutorialViewController.h */,
 				F583CD151BA310590080C384 /* MainListTutorialViewController.m */,
-				BAEADFD91BDF77B800A3680B /* TutorialPhone.storyboard */,
+				A0AFB6D21C03102B003F5E4D /* TutorialiPhone.storyboard */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -1664,7 +1664,6 @@
 				F7E81FBF1A97057100F9A8D4 /* samsung_topic.jpg in Resources */,
 				A0CF5C611B1DD98B00DED2D9 /* PersonalityExecutiveCell.xib in Resources */,
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,
-				BAEADFDA1BDF77B800A3680B /* TutorialPhone.storyboard in Resources */,
 				A0CF5C621B1DD98B00DED2D9 /* RecentPaternsCell.xib in Resources */,
 				A0AAF0201BFCB12B0006A48C /* conf-30.png in Resources */,
 				A0AAEFF41BFCA6C20006A48C /* conf-60.png in Resources */,
@@ -1743,6 +1742,7 @@
 				A0AAF0061BFCA7DC0006A48C /* mail30.png in Resources */,
 				A033EC5D1BC37B9B003AAE4F /* Icon-Small@2x.png in Resources */,
 				F7E81FA01A97057100F9A8D4 /* Ed.jpeg in Resources */,
+				A0AFB6D31C03102B003F5E4D /* TutorialiPhone.storyboard in Resources */,
 				A0AAF0261BFCB12B0006A48C /* star-30.png in Resources */,
 				A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */,
 				F5F727271B6F809400DE7980 /* SocialLinkCell.xib in Resources */,

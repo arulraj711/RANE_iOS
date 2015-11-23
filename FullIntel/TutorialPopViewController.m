@@ -38,6 +38,8 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)viewWillAppear:(BOOL)animated{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialBoxShown"];
+
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden=YES;
     
@@ -89,7 +91,7 @@
 - (IBAction)continueButtonPressed:(id)sender {
     
      [popAnimationTimer invalidate];
-    
+
      [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"TutorialContinueClick"];
     
    [self dismissViewControllerAnimated:NO completion:NULL];
