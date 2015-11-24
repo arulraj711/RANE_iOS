@@ -942,7 +942,7 @@
     if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
         self.socialcollectionView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
 
-        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+170, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+178, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
 
         cellNib = [UINib nibWithNibName:@"SocialLinkCellPhone" bundle:nil];
         [self.socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
@@ -1196,13 +1196,13 @@
     popOverView.selectedIndexPath = self.selectedIndexPath;
     self.superview.alpha = 0.4;
 
-    popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
+    popover = [[FPPopoverController alloc] initWithViewController:popOverView];
     popover.border = NO;
     popover.delegate = self;
 //    popover.title = nil;
     popover.tint = FPPopoverWhiteTint;
     //[popover setShadowsHidden:YES];
-    popover.contentSize = CGSizeMake(300, 480);
+    popover.contentSize = CGSizeMake(340, 480);
     popover.arrowDirection = FPPopoverArrowDirectionDown;
     [popover presentPopoverFromView:_commentBtn];
 
@@ -1735,7 +1735,7 @@
         UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
         SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
         self.superview.alpha = 0.4;
-        popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
+        popover = [[FPPopoverController alloc] initWithViewController:popOverView];
         popover.border = NO;
         popover.delegate = self;
         //[popover setShadowsHidden:YES];
@@ -1766,7 +1766,7 @@
         popOverView.articleImageUrl = self.selectedArticleImageUrl;
         popOverView.articleId = self.selectedArticleId;
         self.superview.alpha = 0.4;
-        popover = [[FPPopoverKeyboardResponsiveController alloc] initWithViewController:popOverView];
+        popover = [[FPPopoverController alloc] initWithViewController:popOverView];
         popover.border = NO;
         popover.delegate = self;
         //[popover setShadowsHidden:YES];

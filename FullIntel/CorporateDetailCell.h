@@ -15,9 +15,9 @@
 #import "CMPopTipView.h"
 #import "UCZProgressView.h"
 #import "MKNumberBadgeView.h"
-#import "FPPopoverKeyboardResponsiveController.h"
+#import "FPPopoverController.h"
 #import "CommentsPopoverView.h"
-
+#import "FPPopoverController.h"
 @interface CorporateDetailCell : UICollectionViewCell<CMPopTipViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,FPPopoverControllerDelegate,CommentsDelegate> {
     NSMutableArray *tweetArray;
     UCZProgressView *progressView;
@@ -28,7 +28,7 @@
     UIView *lbl;
     UIView *noTweetView;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
-    FPPopoverKeyboardResponsiveController *popover;
+    FPPopoverController *popover;
     CGFloat initialPositions;
 
 }

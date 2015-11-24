@@ -48,11 +48,11 @@
     [super viewDidLoad];
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-//        self.revealController.recognizesPanningOnFrontView = NO;
-        NSDictionary *options = @{
-                                  PKRevealControllerRecognizesPanningOnFrontViewKey : @NO
-                                  };
-        [self.navigationController.navigationBar addGestureRecognizer:self.revealController.revealPanGestureRecognizer];
+        self.revealController.recognizesPanningOnFrontView = NO;
+//        NSDictionary *options = @{
+//                                  PKRevealControllerRecognizesPanningOnFrontViewKey : @NO
+//                                  };
+//        [self.navigationController.navigationBar addGestureRecognizer:self.revealController.revealPanGestureRecognizer];
 
     }
     else{
@@ -1515,7 +1515,7 @@
         
         if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             cell.readStatusImageView.hidden = NO;
-            cell.contentView.alpha = 0.7;
+            cell.contentView.alpha = 1;
         } else {
             cell.readStatusImageView.hidden = YES;
             cell.contentView.alpha = 1;
@@ -1638,7 +1638,7 @@
     if(number == [NSNumber numberWithInt:1]) {
         // cell.title.alpha = 0.7f;
         cell.readStatusImageView.hidden = NO;
-        cell.contentView.alpha = 0.7;
+        cell.contentView.alpha = 1.0;
     } else {
         // cell.title.alpha = 1.0f;
         cell.readStatusImageView.hidden = YES;

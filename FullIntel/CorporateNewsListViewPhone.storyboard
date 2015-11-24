@@ -104,7 +104,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.39999999999999963" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30d ago" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3x-zF-8Mt">
-                                                    <rect key="frame" x="528" y="58" width="54" height="16"/>
+                                                    <rect key="frame" x="533" y="58" width="54" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="54" id="lkw-2T-4a1"/>
                                                         <constraint firstAttribute="height" constant="16" id="sD8-EN-w8h"/>
@@ -116,7 +116,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="HqS-Nk-1h1" firstAttribute="leading" secondItem="rFw-gw-R62" secondAttribute="leadingMargin" constant="2" id="FbU-Hs-qbO"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="k3x-zF-8Mt" secondAttribute="trailing" constant="10" id="Lb2-qZ-l3C"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="k3x-zF-8Mt" secondAttribute="trailing" constant="5" id="Lb2-qZ-l3C"/>
                                                 <constraint firstItem="E7M-5b-22s" firstAttribute="top" secondItem="rFw-gw-R62" secondAttribute="topMargin" constant="-9" id="MXj-D7-ea4"/>
                                                 <constraint firstItem="hVI-Qx-ovZ" firstAttribute="leading" secondItem="HqS-Nk-1h1" secondAttribute="trailing" constant="10" id="N8Z-Zf-Zca"/>
                                                 <constraint firstItem="E7M-5b-22s" firstAttribute="leading" secondItem="HqS-Nk-1h1" secondAttribute="trailing" constant="10" id="WPR-P5-cok"/>
@@ -723,7 +723,7 @@
                                                                                 <constraint firstAttribute="width" constant="160" id="ejs-Hx-Kjy"/>
                                                                                 <constraint firstAttribute="height" constant="16" id="jTF-1G-E5C"/>
                                                                             </constraints>
-                                                                            <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="14"/>
+                                                                            <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="16"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -740,7 +740,7 @@
                                                                                 <constraint firstAttribute="height" constant="16" id="qyZ-Zc-ELt"/>
                                                                                 <constraint firstAttribute="width" constant="210" id="wfX-7u-eso"/>
                                                                             </constraints>
-                                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -757,7 +757,7 @@
                                                                                 <constraint firstAttribute="width" constant="210" id="1q3-er-0fQ"/>
                                                                                 <constraint firstAttribute="height" constant="16" id="EYr-D7-2DY"/>
                                                                             </constraints>
-                                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -774,7 +774,7 @@
                                                                                 <constraint firstAttribute="width" constant="210" id="9TD-Js-HCe"/>
                                                                                 <constraint firstAttribute="height" constant="16" id="ve3-iL-8YH"/>
                                                                             </constraints>
-                                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -791,11 +791,11 @@
                                                                                 <constraint firstAttribute="height" constant="16" id="o88-gB-OBo"/>
                                                                                 <constraint firstAttribute="width" constant="210" id="ulN-Tr-m9x"/>
                                                                             </constraints>
-                                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Pp8-Pp-bO8">
-                                                                            <rect key="frame" x="92" y="1017" width="218" height="30"/>
+                                                                            <rect key="frame" x="15" y="1038" width="240" height="30"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3cH-qN-21S">
                                                                                 <size key="itemSize" width="20" height="20"/>
@@ -895,7 +895,7 @@
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="51" id="uRm-fB-U5E"/>
                                                                             </constraints>
-                                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
