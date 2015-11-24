@@ -704,7 +704,7 @@
     dataObj.name = menu.name;
     dataObj.nodeId = menu.nodeId;
     dataObj.unReadCount = menu.unreadCount;
-    NSLog(@"menu parent value:%@",menu.isParent);
+    //NSLog(@"menu parent value:%@",menu.isParent);
     dataObj.isParent = menu.isParent;
     // menu.name = [dic objectForKey:@"Name"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
@@ -1149,23 +1149,17 @@
             
             CorporateNewsListViewObj.titleName=data.name;
             [self.revealController setFrontViewController:navCtlr];
-            
-            NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+    
             NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-            [gradedetails setObject:accessToken forKey:@"securityToken"];
-            [gradedetails setObject:@"" forKey:@"lastArticleId"];
-            [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
-            [gradedetails setObject:@"" forKey:@"activityTypeIds"];
-            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-            
-            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             if(accessToken.length > 0) {
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
                 [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
                 [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
                 
                 NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
+                NSString *companyName = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"companyName"]];
+                NSString *queryString = [FIUtils formArticleListInuptFromSecurityToken:accessToken withContentTypeId:contentTypeId withPageNumber:[NSNumber numberWithInt:1] withSize:[NSNumber numberWithInt:10] withQuery:companyName withContentCategoryId:[NSNumber numberWithInt:-1] withOrderBy:@"" withFilterBy:@""];
+                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:queryString withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
             }
             
             
@@ -1342,7 +1336,7 @@
         }
        // NSLog(@"left click:%@",data.nodeId);
         if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
-            NSLog(@"one");
+           // NSLog(@"one");
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {

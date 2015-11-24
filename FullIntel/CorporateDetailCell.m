@@ -216,8 +216,46 @@
     
     
     [popAnimationTimer invalidate];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(performAnimationForiPhoneButton:) userInfo:indexString repeats:YES];
+    } else {
+        popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(performAnimationForButton:) userInfo:indexString repeats:YES];
+    }
     
-    popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(performAnimationForButton:) userInfo:indexString repeats:YES];
+}
+
+-(void)performAnimationForiPhoneButton:(NSTimer *)timer {
+    NSString *indexString=timer.userInfo;
+    if([indexString isEqualToString:@"0"]) {
+        //Marked Important button animation
+        [self performAnimationForView:self.markedImpButton];
+        [self addBorderForButton:self.markedImpButton];
+    } else if([indexString isEqualToString:@"1"]) {
+        //Saved for later button animation
+        [self performAnimationForView:self.savedForLaterButton];
+        [self removeBorderForButton:self.markedImpButton];
+        [self addBorderForButton:self.savedForLaterButton];
+    } else if([indexString isEqualToString:@"2"]) {
+        //Comments button animation
+        [self performAnimationForView:self.commentBtn];
+        [self removeBorderForButton:self.savedForLaterButton];
+        [self addBorderForButton:self.commentBtn];
+    } else if([indexString isEqualToString:@"3"]) {
+        //Folder button animation
+        [self performAnimationForView:self.folderBtn];
+        [self removeBorderForButton:self.commentBtn];
+        [self addBorderForButton:self.folderBtn];
+    } else if([indexString isEqualToString:@"4"]) {
+        //Research request button animation
+        [self performAnimationForView:self.requestBtn];
+        [self removeBorderForButton:self.folderBtn];
+        [self addBorderForButton:self.requestBtn];
+    } else if([indexString isEqualToString:@"5"]) {
+        //More button animation
+        [self performAnimationForView:self.moreButton];
+        [self removeBorderForButton:self.requestBtn];
+        [self addBorderForButton:self.moreButton];
+    }
 }
 
 -(void)performAnimationForButton:(NSTimer *)timer{
@@ -591,7 +629,7 @@
     //    } else
     
     if(cv == self.socialcollectionView) {
-        NSLog(@"one");
+        //NSLog(@"one");
         // NSLog(@"inside social link collectionview cellfor item");
         if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
             [self.socialcollectionView registerClass:[SocialLinkCellPhone class]

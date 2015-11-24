@@ -1552,6 +1552,7 @@
                     <connections>
                         <outlet property="collectionView" destination="hcI-3t-Kiw" id="prq-GB-zD7"/>
                         <outlet property="tutorialTextBoxView" destination="qYT-Tp-kY3" id="519-CR-Qh6"/>
+                        <outlet property="tutorialTextView" destination="1XP-Sv-tgw" id="4bt-Eg-OkN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vlt-rS-cEs" userLabel="First Responder" sceneMemberID="firstResponder"/>

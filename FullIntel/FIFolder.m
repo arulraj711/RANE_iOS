@@ -20,7 +20,7 @@
         [[NSUserDefaults standardUserDefaults]setObject:self.rssFeedUrl forKey:@"RSSURL"];
     }
     NSString *createdDateString = [FIUtils getDateFromTimeStamp:[[dictionary objectForKey:@"createdAt"] doubleValue]];
-    NSLog(@"created date:%@",createdDateString);
+    //NSLog(@"created date:%@",createdDateString);
     self.createdDate = createdDateString;
     //NSMutableArray *array = [[NSMutableArray alloc]init];
     NSArray *menuArray = [dictionary objectForKey:@"folderArticles"];

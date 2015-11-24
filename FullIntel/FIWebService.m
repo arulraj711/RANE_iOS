@@ -12,8 +12,8 @@
 #define LIVE_URL @"http://fullintel.com/services/mv01/sv00/appuser"
 #define STAGE_URL @"http://104.236.78.199/services/mv01/sv00/appuser"
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
-NSString *url = @"http://stage.fullintel.com/1.1.2";
-#define FUNCTION_URL @"services/mv01/sv00/appuser"
+NSString *url = @"http://stage.fullintel.com/1.2.0";
+#define FUNCTION_URL @"api/v1"
 @implementation FIWebService
 
 +(NSString *) getServerURL{
@@ -122,9 +122,9 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
 }
 
 
-+ (void)getQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
++ (void)getQueryResultsForFunctionName:(NSString *)functionName onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
+    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",functionName];
     NSURL *url = [NSURL URLWithString:postURL];
     NSLog(@"url string:%@",url);
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
@@ -142,7 +142,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
          
          NSString *str = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
          NSData *metOfficeData = [str dataUsingEncoding:NSUTF8StringEncoding];
-         NSLog(@"\n=========REQUEST=========\n%@\n%@\n===========================",operation.request.URL.absoluteString,securityToken);
+         NSLog(@"\n=========REQUEST=========\n%@\n===========================",operation.request.URL.absoluteString);
          // NSLog(@"response object:%@",responseObject);
          id JSON = [NSJSONSerialization JSONObjectWithData:metOfficeData options:kNilOptions error:nil];
          NSLog(@"\n=========RESPONSE=========\n%@\n===========================",JSON);
@@ -254,11 +254,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
 +(void)fetchCuratedNewsListWithAccessToken:(NSString*)details
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-//    NSDictionary *JSON = [self dictionaryWithFileName:@"corporate_news_list"];
-//    NSLog(@"curated news JSON:%@",JSON);
-//    success(nil,JSON);
-    
-    [self getResultsForFunctionName:@"articles" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getQueryResultsForFunctionName:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -333,7 +329,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
     
     NSString *functionName = [NSString stringWithFormat:@"customer/menu?security_token=%@",accessToken];
     NSLog(@"fetch folder function name:%@",functionName);
-    [self getQueryResultsForFunctionName:functionName withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -346,7 +342,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName = [NSString stringWithFormat:@"customer/menuunreadcount?security_token=%@",accessToken];
-    [self getQueryResultsForFunctionName:functionName withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -360,7 +356,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
                           onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName = [NSString stringWithFormat:@"folders?security_token=%@",accessToken];
     NSLog(@"fetch folder function name:%@",functionName);
-    [self getQueryResultsForFunctionName:functionName withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -374,7 +370,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
                                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName = [NSString stringWithFormat:@"client/newsletters?security_token=%@",accessToken];
    // NSLog(@"fetch folder function name:%@",functionName);
-    [self getQueryResultsForFunctionName:functionName withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -452,7 +448,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
                              onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
     NSString *functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&offset=%@&limit=%@",folderId,securityToken,offset,limit];
-    [self getQueryResultsForFunctionName:functionName withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -465,7 +461,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
                                           onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                           onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&lastArticleId=%@&limit=%@",newsletterId,securityToken,lastArticleId,limit];
-    [self getQueryResultsForFunctionName:functionName withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -560,7 +556,7 @@ NSString *url = @"http://stage.fullintel.com/1.1.2";
 +(void)loginProcessWithDetails:(NSString*)details
             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    [self getResultsForFunctionName:@"validatecredentials" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getResultsForFunctionName:@"userauthentication" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation, error);

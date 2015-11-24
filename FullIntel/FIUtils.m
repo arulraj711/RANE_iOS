@@ -94,8 +94,19 @@
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
     
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    NSLog(@"after result:%@",resultStr);
+   // NSLog(@"after result:%@",resultStr);
     return resultStr;
+}
+
++(NSString *)formArticleListInuptFromSecurityToken:(NSString *)securitytoken withContentTypeId:(NSNumber *)contentTypeId withPageNumber:(NSNumber *)page withSize:(NSNumber *)size withQuery:(NSString *)query withContentCategoryId:(NSNumber *)contentCategoryId withOrderBy:(NSString *)orderBy withFilterBy:(NSString *)filterBy {
+    NSString *queryString;
+    if([contentCategoryId isEqualToNumber:[NSNumber numberWithInt:-1]]){
+        queryString = [NSString stringWithFormat:@"articles?security_token=%@&contentTypeId=%@&page=%@&size=%@&query=%@",securitytoken,contentTypeId,page,size,query];
+    } else {
+        queryString = [NSString stringWithFormat:@"articles?security_token=%@&contentTypeId=%@&page=%@&size=%@&query=%@&contentCategoryId=%@",securitytoken,contentTypeId,page,size,query,contentCategoryId];
+    }
+        
+    return queryString;
 }
 
 

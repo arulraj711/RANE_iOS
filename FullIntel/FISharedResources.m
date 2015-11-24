@@ -175,38 +175,54 @@
     if([self serviceIsReachable]) {
        // [self showProgressHUDForView];
         [FIWebService loginProcessWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-            NSDictionary *preferenceDic = NULL_TO_NIL([responseObject objectForKey:@"preferences"]);
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"headerColor"]) forKey:@"headerColor"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"highlightColor"]) forKey:@"highlightColor"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"menuBgColor"]) forKey:@"menuBgColor"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject objectForKey:@"securityToken"]) forKey:@"accesstoken"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"companyLogoURL"]) forKey:@"companyLogo"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"companyName"]) forKey:@"companyName"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"customerid"]) forKey:@"customerId"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userid"]) forKey:@"userId"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"firstName"]) forKey:@"firstName"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoUrl"]) forKey:@"photoUrl"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
-            NSString *appViewType = [NSString stringWithFormat:@"%@",NULL_TO_NIL([responseObject valueForKey:@"appViewTypeId"])];
-            
-            if([appViewType isEqualToString:@"1"]) {
-                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
-            } else if([appViewType isEqualToString:@"2"]) {
-                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+            NSLog(@"success block");
+            @try {
+                //Prefercence Info
+                NSDictionary *preferenceDic = NULL_TO_NIL([responseObject objectForKey:@"preference"]);
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"headerColor"]) forKey:@"headerColor"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"highlightColor"]) forKey:@"highlightColor"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"menuBgColor"]) forKey:@"menuBgColor"];
+                
+                //Company Info
+                NSDictionary *companyDic = NULL_TO_NIL([responseObject objectForKey:@"company"]);
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"companyLogoURL"]) forKey:@"companyLogo"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"companyname"]) forKey:@"companyName"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"id"]) forKey:@"customerId"];
+                
+                //User Info
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject objectForKey:@"securityToken"]) forKey:@"accesstoken"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"id"]) forKey:@"userId"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"firstName"]) forKey:@"firstName"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoUrl"]) forKey:@"photoUrl"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
+                NSString *appViewType = [NSString stringWithFormat:@"%@",NULL_TO_NIL([responseObject valueForKey:@"appViewTypeId"])];
+                
+                if([appViewType isEqualToString:@"1"]) {
+                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
+                } else if([appViewType isEqualToString:@"2"]) {
+                    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+                }
+                
+                
+                //[[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"appViewTypeId"] forKey:@"appViewTypeId"];
+                NSString *username = [NSString stringWithFormat:@"%@ %@",NULL_TO_NIL([responseObject valueForKey:@"firstName"]),NULL_TO_NIL([responseObject valueForKey:@"lastName"])];
+                [[NSUserDefaults standardUserDefaults]setObject:username forKey:@"username"];
+                window.userInteractionEnabled = YES;
+                NSLog(@"before notification");
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"Login" object:responseObject];
+            } @catch(NSException *e) {
+                NSLog(@"Error-------->%@",e);
             }
-            
-            
-            //[[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"appViewTypeId"] forKey:@"appViewTypeId"];
-            NSString *username = [NSString stringWithFormat:@"%@ %@",NULL_TO_NIL([responseObject valueForKey:@"firstName"]),NULL_TO_NIL([responseObject valueForKey:@"lastName"])];
-            [[NSUserDefaults standardUserDefaults]setObject:username forKey:@"username"];
-            window.userInteractionEnabled = YES;
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"Login" object:responseObject];
-
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             window.userInteractionEnabled = YES;
-            [FIUtils showErrorToast];
+            NSLog(@"Error---->%@",error);
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            [window makeToast:[errorJson objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+            //[FIUtils showErrorToast];
             
             
 //            NSError* error1;
@@ -437,9 +453,9 @@
     NSLog(@"refresh list with flag:%@ and categoryId:%@",updownFlag,categoryId);
     if([self serviceIsReachable]) {
     [FIWebService fetchCuratedNewsListWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        
         [self hideProgressView];
-        NSArray *curatedNewsArray = [responseObject objectForKey:@"articleList"];
+        NSArray *curatedNewsArray = responseObject;
             NSLog(@"curated news array count:%d and array:%@ and lastarticle:%@ and length:%d",curatedNewsArray.count,curatedNewsArray,lastArticleId,lastArticleId.length);
             //Handle Pagination
             if(curatedNewsArray.count == 0) {
@@ -510,7 +526,7 @@
             
             [fetchRequest setPredicate:predicate];
             NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
-            NSLog(@"existing count:%d",existingArray.count);
+            //NSLog(@"existing count:%d",existingArray.count);
             if(existingArray.count != 0) {
                 //Excisting Object
                 curatedNews = [existingArray objectAtIndex:0];
@@ -540,7 +556,8 @@
             [curatedNews setValue:[dic objectForKey:@"articlePublishedDate"] forKey:@"publishedDate"];
             [curatedNews setValue:[dic objectForKey:@"articleImageURL"] forKey:@"image"];
             [curatedNews setValue:[dic objectForKey:@"articleUrl"] forKey:@"articleUrl"];
-            [curatedNews setValue:[dic objectForKey:@"articleTypeId"] forKey:@"articleTypeId"];
+            NSArray *articleTypeIdArray = [dic objectForKey:@"articleTypeId"];
+            [curatedNews setValue:[articleTypeIdArray objectAtIndex:0] forKey:@"articleTypeId"];
             [curatedNews setValue:[dic objectForKey:@"articleType"] forKey:@"articleType"];
             [curatedNews setValue:[dic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
             
@@ -712,7 +729,7 @@
             // Save the object to persistent store
             if (![context save:&error]) {
                // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-                NSLog(@"one");
+                //NSLog(@"one");
             }else {
               //  NSLog(@"else part:%@",error);
                 NSLog(@"two");
@@ -724,13 +741,15 @@
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
-        } else {
-            [self hideProgressView];
-            [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
-        }
+        
         
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [FIUtils showErrorToast];
+        NSError* error1;
+        NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+        NSLog(@"error JSON:%@",errorJson);
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window makeToast:[errorJson objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+        
     }];
     } else {
         //[FIUtils showNoNetworkToast];
@@ -1507,7 +1526,7 @@
                     // Save the object to persistent store
                     if (![context save:&error]) {
                         // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-                        NSLog(@"one");
+                       // NSLog(@"one");
                     }else {
                         //  NSLog(@"else part:%@",error);
                         NSLog(@"two");
@@ -1773,7 +1792,7 @@
                     // Save the object to persistent store
                     if (![context save:&error]) {
                         // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-                        NSLog(@"one");
+                        //NSLog(@"one");
                     }else {
                         //  NSLog(@"else part:%@",error);
                         NSLog(@"two");

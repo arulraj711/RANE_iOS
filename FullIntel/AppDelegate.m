@@ -101,7 +101,7 @@
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
     {
-        NSLog(@"one");
+        //NSLog(@"one");
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
