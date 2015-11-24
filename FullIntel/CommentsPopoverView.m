@@ -234,21 +234,27 @@
     CGRect rect = self.view.frame;
 
     NSLog(@"view frame height before keyboardDidShow:%f, %f",self.view.frame.size.height,rect.size.height);
-
-    if(rect.size.height==768){
-
-      rect.size.height=410;
-    }else if(rect.size.height==1024) {
-        rect.size.height=800;
-    }else if(rect.size.height==568) {
-        rect.size.height=370;
-    }else if(rect.size.height==736) {
-        rect.size.height=500;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        
+        rect.size.height=250;
+        self.view.frame = rect;
+    } else {
+        if(rect.size.height==768){
+            
+            rect.size.height=410;
+        }else if(rect.size.height==1024) {
+            rect.size.height=800;
+        }else if(rect.size.height==568) {
+            rect.size.height=370;
+        }else if(rect.size.height==736) {
+            rect.size.height=500;
+        }
+        else if(rect.size.height<100) {
+            rect.size.height=270;
+        }
+        self.view.frame = rect;
     }
-    else if(rect.size.height<100) {
-        rect.size.height=270;
-    }
-    self.view.frame = rect;
+    
     
         //NSLog(@"view frame height after keyboardDidShow:%f",self.view.frame.size.height);
     
@@ -278,19 +284,25 @@
     
        NSLog(@"view frame height before keyboardDidHide:%f",self.view.frame.size.height);
     
-    
+   
     CGRect rect = self.view.frame;
-
-    if(rect.size.height==410){
-    rect.size.height =768;
-    }else if(rect.size.height==800){
-      rect.size.height =1024;
-    }else if(rect.size.height==370){
-        rect.size.height =568;
-    }
- 
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+    rect.size.height =440;
     self.view.frame = rect;
-    
+    }
+    else{
+        if(rect.size.height==410){
+            rect.size.height =768;
+        }else if(rect.size.height==800){
+            rect.size.height =1024;
+        }else if(rect.size.height==370){
+            rect.size.height =568;
+        }
+        
+        self.view.frame = rect;
+        
+
+    }
     
     //NSLog(@"view frame height after keyboardDidHide:%f",self.view.frame.size.height);
     
