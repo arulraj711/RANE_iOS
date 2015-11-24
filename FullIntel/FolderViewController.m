@@ -12,6 +12,7 @@
 #import "UIView+Toast.h"
 #import "FISharedResources.h"
 #import "CorporateNewsListView.h"
+#import "ViewController.h"
 @interface FolderViewController ()
 
 @end
@@ -20,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.revealController showViewController:self.revealController.frontViewController];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     label.backgroundColor = [UIColor clearColor];
@@ -41,6 +42,58 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
     [self fetchFolderDetails];
     
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length == 0) {
+        // NSLog(@"corporate if part");
+        
+        [self showLoginPage];
+    }
+}
+
+-(void)showLoginPage {
+    NSArray *navArray = self.navigationController.viewControllers;
+    if(navArray.count > 1) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        UIStoryboard *loginStoryBoard;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            loginStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewPhone"];
+            [self presentViewController:loginView animated:YES completion:nil];
+            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            //        [window addSubview:loginView.view];
+            
+        } else {
+            loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            [self presentViewController:loginView animated:YES completion:nil];
+            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            //        [window addSubview:loginView.view];
+        }
+        
+    } else {
+        UIStoryboard *loginStoryBoard;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            loginStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewPhone"];
+            [self presentViewController:loginView animated:YES completion:nil];
+            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            //        [window addSubview:loginView.view];
+            
+        } else {
+            loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            [self presentViewController:loginView animated:YES completion:nil];
+            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            //        [window addSubview:loginView.view];
+        }        //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        //        [window addSubview:loginView.view];
+    }
+    
+    
+    //[self presentViewController:loginView animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

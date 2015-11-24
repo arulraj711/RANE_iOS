@@ -590,7 +590,8 @@
         
         cell.layer.borderWidth=0.0;
     }
-    
+    cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
+    cell.contentView.layer.borderWidth = 1.0f;
     
     return cell;
 }

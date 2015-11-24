@@ -278,8 +278,8 @@
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.0, 0.0)];
     scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
-    scaleAnimation.springBounciness = 50;
-    scaleAnimation.springSpeed=5;
+    scaleAnimation.springBounciness = 20;
+    scaleAnimation.springSpeed=1;
     [btn.layer  pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
 }
 -(void)removeWebView:(id)sender {

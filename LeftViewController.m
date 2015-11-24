@@ -678,7 +678,7 @@
         insideMenu.isFolder = YES;
         [childArray addObject:insideMenu];
     }
-    folderDataObj.children = childArray;
+    folderDataObj.children = nil;
     [self.data addObject:folderDataObj];
     
     //Add newsletter menu

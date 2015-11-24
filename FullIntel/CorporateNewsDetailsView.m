@@ -209,11 +209,11 @@
             _tutorialTextView.text=@"Research Request / Feedback";
         }else if (index==5){
             
-            _tutorialTextView.text=@"Social Post";
+            _tutorialTextView.text=@"Share";
             
         }else{
             
-            _tutorialTextView.text=@"Social Post";
+            _tutorialTextView.text=@"Share";
         }
     } else {
         if(index==0){
@@ -242,7 +242,7 @@
             
         }else{
             
-            _tutorialTextView.text=@"Social Post";
+            _tutorialTextView.text=@"Share";
         }
     }
     

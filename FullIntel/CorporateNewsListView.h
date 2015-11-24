@@ -23,7 +23,7 @@
     MFMailComposeViewController *mailComposer;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
 }
-
+-(void)showLoginPage;
 -(void)loadCuratedNews;
 @property BOOL isNewsLetterNav;
 @property BOOL isStarting;

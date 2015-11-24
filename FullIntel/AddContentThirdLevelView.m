@@ -199,7 +199,7 @@
 //        [cell.checkMarkButton setSelected:NO];
 //    }
     cell.checkMarkButton.tag = indexPath.row;
-    cell.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
     cell.contentView.layer.borderWidth = 1.0f;
     UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cellTap:)];
     cell.tag = indexPath.row;
