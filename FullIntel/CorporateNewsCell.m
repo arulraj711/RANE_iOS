@@ -46,9 +46,6 @@
         self.articleImageView.layer.cornerRadius = 5.0f;
         self.articleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
         self.articleImageView.layer.borderWidth = 0.25f;
-        
-
-        
     }
     else
     {
@@ -57,26 +54,16 @@
         self.articleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;
         self.articleImageView.layer.borderWidth = 0.5f;
     }
-
-    
     self.legendCollectionView.collectionViewLayout = layout;
     self.selectionmageView.layer.borderColor = [UIColor blueColor].CGColor;
     self.selectionmageView.layer.borderWidth = 1.0f;
     self.selectionmageView.layer.cornerRadius = 15.0f;
     self.selectionmageView.layer.masksToBounds = YES;
-    
-    
 }
 
 
 - (void)layoutSubviews {
-    
     [super layoutSubviews];
-    
-    
-    
-    
-    
     [self.contentView updateConstraintsIfNeeded];
     [self.contentView layoutIfNeeded];
 }
@@ -99,7 +86,6 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 

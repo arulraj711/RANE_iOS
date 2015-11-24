@@ -33,8 +33,15 @@
 #pragma mark - Configuring Rows for the Table View
 
 -(void)directLoad {
+    NSIndexPath *indexPath;
   //  NSLog(@"direct load function calling");
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+
+    } else {
+        indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+
+    }
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 

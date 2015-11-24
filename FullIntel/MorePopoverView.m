@@ -60,7 +60,7 @@
     if(indexPath.row == 2) {
         cell.iconImage.image = [UIImage imageNamed:@"twitter"];
     } else if(indexPath.row == 0) {
-        cell.iconImage.image = [UIImage imageNamed:@"mail30.png"];
+        cell.iconImage.image = [UIImage imageNamed:@"email"];
         
     }else {
         cell.iconImage.image = [UIImage imageNamed:[_moreInforArray objectAtIndex:indexPath.row]];

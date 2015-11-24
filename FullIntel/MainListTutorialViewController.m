@@ -89,8 +89,6 @@
 {
     // First let's remove any existing animations
     
-    // First let's remove any existing animations
-    
     [_swipeRightImageView.layer removeAllAnimations];
     
     POPDecayAnimation  *anim = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPositionX];
@@ -122,8 +120,6 @@
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SwipeUpAndDownTutorialTrigger"];
     if (coachMarksShown == NO) {
         
-
-        
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
             _swipeRightImageView.hidden=NO;
             _textView.text=@"￼Swipe each row, to reveal more options";
@@ -137,7 +133,7 @@
 
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SwipeUpAndDownTutorialTrigger"];
         
-         [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveForLaterTutorialTrigger" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveForLaterTutorialTrigger" object:nil userInfo:nil];
         
         
         [popAnimationTimer invalidate];

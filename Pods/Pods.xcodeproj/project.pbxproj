@@ -88,7 +88,6 @@
 		620920967F6C1FB5C501AD33EFDA1639 /* POPAnimationEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0DF3C83EBC5F7BF6DAAACEBD7D72791 /* POPAnimationEvent.mm */; };
 		6446E8316DE5CEE9931B5ADB321FCF02 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8868E76B0C2B4B5B262EF75FD75DF4C9 /* Foundation.framework */; };
 		646A6FC808A0B280B80AD4949D8357F8 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E19C4AEA9338236A9FD2DDA753E214 /* UIView+WebCacheOperation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		6796B9F0D37B460F02A404B03321815C /* PKRevealController.m in Sources */ = {isa = PBXBuildFile; fileRef = D76ECE26E28168A90BB3B540F98013FF /* PKRevealController.m */; };
 		682853F57B3DD958DB6841DBF410CCFE /* AFNetworking-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4793C752C0DCF2FEF05AFA2DA17275 /* AFNetworking-dummy.m */; };
 		683D4409569BB94EA3E3CA4B20630763 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD298F4EF2F68C4B172982286D20D49 /* ImageIO.framework */; };
 		68AD2BCC98A2EB08578858CE1B094D0C /* PKSequentialAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = AFA4A99FB2DC5698D11C9816777DBD66 /* PKSequentialAnimation.h */; };
@@ -142,6 +141,7 @@
 		9E9BAEC79F607B99E02AB192232EAE5A /* UIViewController+TargetViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B7E6CDBEDC9BE935AA9E29CDD1BC429F /* UIViewController+TargetViewController.h */; };
 		9F06D20C669FC0141B6027DCCA0FCE09 /* CALayer+PKConvenienceAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A6D65BABCC21B410C8BECA9D38DBE8 /* CALayer+PKConvenienceAnimations.m */; };
 		9FC80BE3A37C86259C84F594F2BFEEC0 /* MZFormSheetBackgroundWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9106E3AA0D28957DE65DD39D4892A598 /* MZFormSheetBackgroundWindowViewController.m */; };
+		A0AFB6DF1C046E65003F5E4D /* PKRevealController.m in Sources */ = {isa = PBXBuildFile; fileRef = D76ECE26E28168A90BB3B540F98013FF /* PKRevealController.m */; };
 		A21B81BAEC6E70B4F72905219EC16048 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = C8CFBAF2BB62CD687E61E27961BBB4C4 /* AFURLRequestSerialization.m */; };
 		A2222CEDD905A2D387F4A9C3895A093B /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8BE0864137B3554F8C368D6F6EA646 /* UIImage+GIF.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		A2578AB3C851741F70F66CAC426EDE50 /* MZAppearance-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 05063A3F7478347FD212364348FC24D1 /* MZAppearance-dummy.m */; };
@@ -2022,8 +2022,8 @@
 				6CD0C840E1BC4E1186A7FAC7CA9BDC14 /* PKLayerAnimator.m in Sources */,
 				2F9E0C93EB8DBD7B782D41AE5868A8EF /* PKLog.m in Sources */,
 				245D87ADF22AB50E3576C196765586EB /* PKRevealController-dummy.m in Sources */,
-				6796B9F0D37B460F02A404B03321815C /* PKRevealController.m in Sources */,
 				61F22EA935F6A97C3F74782A04FDE945 /* PKRevealControllerView.m in Sources */,
+				A0AFB6DF1C046E65003F5E4D /* PKRevealController.m in Sources */,
 				441173893BBD3854D0592DDBC989004F /* PKSequentialAnimation.m in Sources */,
 				37FB7D1FCD171DDCA70C8FDB11FBB128 /* UIViewController+PKRevealController.m in Sources */,
 			);

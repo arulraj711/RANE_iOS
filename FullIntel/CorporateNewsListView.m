@@ -47,7 +47,17 @@
     NSLog(@"view did load");
     [super viewDidLoad];
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
-    self.revealController.recognizesPanningOnFrontView = NO;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//        self.revealController.recognizesPanningOnFrontView = NO;
+        NSDictionary *options = @{
+                                  PKRevealControllerRecognizesPanningOnFrontViewKey : @NO
+                                  };
+        [self.navigationController.navigationBar addGestureRecognizer:self.revealController.revealPanGestureRecognizer];
+
+    }
+    else{
+        
+    }
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
     BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
     NSLog(@"newsletter id:%@",newsLetterId);
@@ -1075,6 +1085,8 @@
     return rowCnt;
 }
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
     NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
     NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
     NSLog(@"%ld",(long)indexPath.row);
@@ -1082,35 +1094,39 @@
     
     if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
         moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star_selected_iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-            [self markedImpAction:indexPath];
+            [self markedImpActions:indexPath];
         }];
     } else {
         moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-            [self markedImpAction:indexPath];
+            [self markedImpActions:indexPath];
         }];
     }
     
     UITableViewRowAction *moreAction2;
     if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
         moreAction2 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"saved_selected_iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-            [self savedAction:indexPath];
+            [self savedActions:indexPath];
         }];
         
     } else {
         moreAction2 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"bookIphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-            [self savedAction:indexPath];
+            [self savedActions:indexPath];
             moreAction2.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:@"saved_selected_iphone"]];
 
         }];
         
     }
     
-    UITableViewRowAction *moreAction3 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"folderPhone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        [_articlesTableView setEditing:NO];
-        
-    }];
+//    UITableViewRowAction *moreAction3 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"folderPhone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+//        [_articlesTableView setEditing:NO];
+//        
+//    }];
     
-    return @[moreAction, moreAction2, moreAction3];
+    return @[moreAction, moreAction2];
+    }
+    else{
+        return nil;
+    }
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     // you need to implement this method too or nothing will work:
@@ -1120,7 +1136,13 @@
     
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
     return YES;
+    }
+    else{
+        return NO;
+    }
 }
 -(void)tableView:(UITableView *)tableView swipeAccessoryButtonPushedForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
@@ -1130,14 +1152,12 @@
 -(void)firstButtonMEthod:(id)sender
 {
     
-    
-    
     //    if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
     sender = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"bookIphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         //  [_articlesTableView setEditing:NO];
     }];
 }
--(void)savedAction:(NSIndexPath *)tapGesture {
+-(void)savedActions:(NSIndexPath *)tapGesture {
     
     NSInteger selectedTag = tapGesture.row;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
@@ -1224,7 +1244,7 @@
     [_articlesTableView reloadData];
 }
 
--(void)markedImpAction:(NSIndexPath *)tapGesture {
+-(void)markedImpActions:(NSIndexPath *)tapGesture {
     NSInteger selectedTag = tapGesture.row;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
     
@@ -1727,7 +1747,7 @@
     }
 }
 
--(void)markedImpActions:(UITapGestureRecognizer *)tapGesture {
+-(void)markedImpAction:(UITapGestureRecognizer *)tapGesture {
     NSInteger selectedTag = [tapGesture view].tag;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
     
@@ -1872,7 +1892,7 @@
     
 }
 
--(void)savedActions:(UITapGestureRecognizer *)tapGesture {
+-(void)savedAction:(UITapGestureRecognizer *)tapGesture {
     
     NSInteger selectedTag = [tapGesture view].tag;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];

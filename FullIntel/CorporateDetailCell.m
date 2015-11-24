@@ -65,24 +65,7 @@
             self.commentIconHorizontalConstraint.constant = 35;
             self.moreIconHorizontalConstraint.constant = 35;
             self.requestIconHorizontalConstraint.constant = 35;
-//            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"65",@"65",@"65",@"65",@"65",@"65",@"20",@"65",@"20",@"20",@"65",@"35",@"70",@"18",@"0", @"0",@"20",@"20", nil];
-//            [self methodForSizeMatch:contentForSize];
-//            [self sizeAdjustmentForView:_markedImpButton withFloatVal:(float)5];
-//            [self sizeAdjustmentForView:_savedForLaterButton withFloatVal:(float)10];
-//            [self sizeAdjustmentForView:_commentBtn withFloatVal:(float)20];
-//            [self sizeAdjustmentForView:_folderBtn withFloatVal:(float)30];
-//            [self sizeAdjustmentForView:_messageBtn withFloatVal:(float)40];
-//            [self sizeAdjustmentForView:_moreButton withFloatVal:(float)60];
-//            [self sizeAdjustmentForView:_requestBtn withFloatVal:(float)50];
-//            
-//
-//            [self sizeAdjustmentForViews:_bookmarkButtonView withFloatVal:(float)10];
-//            [self sizeAdjustmentForViews:_messageButtonView withFloatVal:(float)30];
-//            [self sizeAdjustmentForViews:_folderButtonViews withFloatVal:(float)50];
-//            
-//            
-////            self.articleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-////            self.articleTitle.frame = CGRectMake(self.articleTitle.frame.origin.x, self.articleTitle.frame.origin.y-40, self.articleTitle.frame.size.width+20, self.articleTitle.frame.size.height+40);
+
         }
         else if (IS_IPHONE_6P)
         {
@@ -90,32 +73,11 @@
             self.commentIconHorizontalConstraint.constant = 35;
             self.moreIconHorizontalConstraint.constant = 35;
             self.requestIconHorizontalConstraint.constant = 35;
-//            [self sizeAdjustmentForView:_markedImpButton withFloatVal:(float)5];
-//            [self sizeAdjustmentForView:_savedForLaterButton withFloatVal:(float)20];
-//            [self sizeAdjustmentForView:_commentBtn withFloatVal:(float)40];
-//            [self sizeAdjustmentForView:_folderBtn withFloatVal:(float)60];
-//            [self sizeAdjustmentForView:_messageBtn withFloatVal:(float)80];
-//            [self sizeAdjustmentForView:_moreButton withFloatVal:(float)110];
-//            [self sizeAdjustmentForView:_requestBtn withFloatVal:(float)100];
-//            
-////            self.articleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-////            self.articleDate.frame = CGRectMake(self.articleDate.frame.origin.x, self.articleDate.frame.origin.y-5, self.articleDate.frame.size.width, self.articleDate.frame.size.height);
-//
-//            
-//            
-//            [self sizeAdjustmentForViews:_bookmarkButtonView withFloatVal:(float)25];
-//            [self sizeAdjustmentForViews:_messageButtonView withFloatVal:(float)60];
-//            [self sizeAdjustmentForViews:_folderButtonViews withFloatVal:(float)100];
-//
-//
-//
-//            NSArray *contentForSize = [[NSArray alloc]initWithObjects:@"95",@"95",@"95",@"95",@"95",@"95",@"15",@"95",@"40",@"20",@"105",@"75",@"70",@"24",@"5",@"70",@"20",@"20",nil];
-//            [self methodForSizeMatch:contentForSize];
+
         }
         else if (IS_IPHONE_5)
         {
-////            self.articleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-////            self.articleTitle.frame = CGRectMake(self.articleTitle.frame.origin.x, self.articleTitle.frame.origin.y, self.articleTitle.frame.size.width-5, self.articleTitle.frame.size.height);
+
         }
     }
     else {
@@ -183,60 +145,6 @@
         [self addBorderForButton:self.moreButton];
     }
 }
--(void)sizeAdjustmentForViews:(UIView *)viewName withFloatVal:(double)floatVal
-{
-    NSLog(@"%@ %f",viewName,floatVal);
-    viewName.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    viewName.frame = CGRectMake(viewName.frame.origin.x+floatVal, 84, viewName.frame.size.width, viewName.frame.size.height);
-}
-
--(void)sizeAdjustmentForView:(UIButton *)buttonName withFloatVal:(double)floatVal
-{
-    NSLog(@"%@ %f",buttonName,floatVal);
-    buttonName.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    buttonName.frame = CGRectMake(buttonName.frame.origin.x+floatVal, 10, buttonName.frame.size.width, buttonName.frame.size.height);
-}
--(void)methodForSizeMatch:(NSArray *)arrayName {
-    NSLog(@"%@",arrayName);
-    NSLog(@"%d",[(NSNumber *)[arrayName objectAtIndex:15] intValue]);
-
-    self.bottomView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.bottomView.frame = CGRectMake(self.bottomView.frame.origin.x, self.bottomView.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:15] intValue], self.bottomView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:0] intValue], self.bottomView.frame.size.height);
-    
-    self.articleWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.articleWebview.frame = CGRectMake(self.articleWebview.frame.origin.x, self.articleWebview.frame.origin.y, self.articleWebview.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:1] intValue], self.articleWebview.frame.size.height);
-    
-    self.bottomImagevws.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.bottomImagevws.frame = CGRectMake(self.bottomImagevws.frame.origin.x, self.bottomImagevws.frame.origin.y, self.bottomImagevws.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:2] intValue], self.bottomImagevws.frame.size.height);
-    
-    self.bottomImagevws.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.bottomImagevws.frame = CGRectMake(self.bottomImagevws.frame.origin.x, self.bottomImagevws.frame.origin.y, self.bottomImagevws.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:3]intValue], self.bottomImagevws.frame.size.height);
-    
-    self.gradButtonTops.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.gradButtonTops.frame = CGRectMake(self.gradButtonTops.frame.origin.x, self.gradButtonTops.frame.origin.y, self.gradButtonTops.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:4]intValue], self.gradButtonTops.frame.size.height);
-    
-    
-    self.articleImageView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.articleImageView.frame = CGRectMake(self.articleImageView.frame.origin.x, self.articleImageView.frame.origin.y, self.articleImageView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:5] intValue], self.articleImageView.frame.size.height);
-    
-    
-    self.detailsWebview.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-    self.detailsWebview.frame = CGRectMake(self.detailsWebview.frame.origin.x, self.detailsWebview.frame.origin.y-[(NSNumber *)[arrayName objectAtIndex:6] intValue], self.detailsWebview.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:7]intValue], self.detailsWebview.frame.size.height+[(NSNumber *)[arrayName objectAtIndex:8] intValue]);
-    
-
-    
-    
-//    self.overlayView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//    self.overlayView.frame = CGRectMake(self.overlayView.frame.origin.x, self.overlayView.frame.origin.y-[(NSNumber *)[arrayName objectAtIndex:9] intValue], self.overlayView.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:10]intValue], self.overlayView.frame.size.height);
-//
-//    self.overlayArticleTitle.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//    self.overlayArticleTitle.frame = CGRectMake(self.overlayArticleTitle.frame.origin.x, self.overlayArticleTitle.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:14]intValue], self.overlayArticleTitle.frame.size.width+[(NSNumber *)[arrayName objectAtIndex:11]intValue], self.overlayArticleTitle.frame.size.height);
-//    
-//    self.overlayArticleDate.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
-//    self.overlayArticleDate.frame = CGRectMake(self.overlayArticleDate.frame.origin.x+[(NSNumber *)[arrayName objectAtIndex:12] intValue], self.overlayArticleDate.frame.origin.y+[(NSNumber *)[arrayName objectAtIndex:13] intValue], self.overlayArticleDate.frame.size.width, self.overlayArticleDate.frame.size.height);
-}
-//last 17
-
 
 -(void)drillDownButtonClick:(id)sender {
     NSNotification *notification = sender;
@@ -1863,7 +1771,7 @@
         popover.delegate = self;
         //[popover setShadowsHidden:YES];
         popover.tint = FPPopoverWhiteTint;
-        popover.contentSize = CGSizeMake(300, 260);
+        popover.contentSize = CGSizeMake(300, 280);
         popover.arrowDirection = FPPopoverArrowDirectionAny;
         [popover presentPopoverFromView:sender];
 
