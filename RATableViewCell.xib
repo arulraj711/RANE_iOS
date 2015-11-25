@@ -39,7 +39,7 @@
                         <state key="highlighted" image="expand_down"/>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="markedImp" translatesAutoresizingMaskIntoConstraints="NO" id="jGr-gU-7RH">
-                        <rect key="frame" x="28" y="12" width="15" height="15"/>
+                        <rect key="frame" x="15" y="12" width="15" height="15"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="VEm-wr-m2b"/>
@@ -60,9 +60,9 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="jGr-gU-7RH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="S95-YQ-4aY"/>
+                    <constraint firstItem="jGr-gU-7RH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="S95-YQ-4aY"/>
                     <constraint firstItem="jGr-gU-7RH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="ZZ2-2k-3Jp"/>
-                    <constraint firstItem="ycQ-BJ-LHx" firstAttribute="leading" secondItem="jGr-gU-7RH" secondAttribute="trailing" constant="9" id="ZoV-yi-P5E"/>
+                    <constraint firstItem="ycQ-BJ-LHx" firstAttribute="leading" secondItem="jGr-gU-7RH" secondAttribute="trailing" constant="22" id="ZoV-yi-P5E"/>
                     <constraint firstItem="ycQ-BJ-LHx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="yr9-rI-tss"/>
                 </constraints>
             </tableViewCellContentView>

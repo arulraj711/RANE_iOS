@@ -71,7 +71,7 @@
         self.border = YES;
         
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.backgroundColor = [UIColor whiteColor];
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.clipsToBounds = YES;

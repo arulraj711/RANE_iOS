@@ -1017,9 +1017,9 @@
         cell.rssImage.hidden = YES;
     }
     
-//    CGRect titleFrame = cell.customTitleLabel.frame;
-//    titleFrame.origin.x = left;
-//    cell.customTitleLabel.frame = titleFrame;
+    CGRect titleFrame = cell.customTitleLabel.frame;
+    titleFrame.origin.x = left;
+    cell.customTitleLabel.frame = titleFrame;
     
     
     NSString *highlightColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];

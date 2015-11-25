@@ -1410,30 +1410,75 @@
                 [legendsList addObject:[legends valueForKey:@"name"]];
             }
         }
+        
         // NSLog(@"curated news legends list:%d",legendsList.count);
-        NSString *dateStr = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
-        NSLog(@"%@",dateStr);
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        NSLog(@"total cnt:%@ and unread cnt:%@",[curatedNews valueForKey:@"totalComments"],[curatedNews valueForKey:@"unreadComments"]);
+        NSNumber *totalMsgCount = [curatedNews valueForKey:@"totalComments"];
+        NSNumber *totalUnreadCount = [curatedNews valueForKey:@"unreadComments"];
+        if([totalMsgCount isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            //Handle empty message count
+            cell.messageIcon.hidden = YES;
+            cell.messageCountText.hidden = YES;
+        } else {
+            cell.messageIcon.hidden = NO;
+            cell.messageCountText.hidden = NO;
+            if([totalUnreadCount isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                //handle unread message count
+                if([totalMsgCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comment",totalMsgCount];
+                } else {
+                    cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comments",totalMsgCount];
+                }
+                
+                cell.messageCountText.textColor = [UIColor blackColor];
+                cell.messageIcon.image = [UIImage imageNamed:@"chat_read"];
+            } else {
+                //handle read message count
+                if([totalUnreadCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comment",totalUnreadCount];
+                } else {
+                    cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comments",totalUnreadCount];
+                }
+                
+                cell.messageCountText.textColor = UIColorFromRGB(0XF299A2);
+                cell.messageIcon.image = [UIImage imageNamed:@"chat_unread"];
+                
+            }
+        }
+        
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            NSString *dateStr = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
+            NSLog(@"%@",dateStr);
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+            
+            
+            NSDate *formattedDateString = [dateFormatter dateFromString:dateStr];
+            NSLog(@"formattedDateString: %@", formattedDateString);
+            NSLog(@"%@",[self relativeDateStringForDate:formattedDateString]);
+            NSString *finalDateString = [self relativeDateStringForDate:formattedDateString];
+            NSLog(@"%@",finalDateString);
+            cell.articleDate.text = finalDateString;
+
+        } else {
+            NSString *dateStr = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
+            cell.articleDate.text = dateStr;
+        }
         
         
-        NSDate *formattedDateString = [dateFormatter dateFromString:dateStr];
-        NSLog(@"formattedDateString: %@", formattedDateString);
-        NSLog(@"%@",[self relativeDateStringForDate:formattedDateString]);
-        NSString *finalDateString = [self relativeDateStringForDate:formattedDateString];
-        NSLog(@"%@",finalDateString);
-        cell.articleDate.text = finalDateString;
+        // NSLog(@"curated news legends list:%d",legendsList.count);
 
-        NSString *trialDate = [NSString stringWithFormat:@"2015-10-05 02:30:00 +0000"];
-        NSLog(@"%@",trialDate);
-        NSDateFormatter *dateFormattr = [[NSDateFormatter alloc] init];
-        [dateFormattr setDateFormat:@"yyyy-MM-dd hh:ss:mm zzzz"];
-        NSDate *formattedDateStrings = [dateFormattr dateFromString:trialDate];
-        NSLog(@"%@",formattedDateStrings);
-
-        NSString *finalDateStrings = [self relativeDateStringForDate:formattedDateStrings];
-        NSLog(@"%@",finalDateStrings);
+//        NSString *trialDate = [NSString stringWithFormat:@"2015-10-05 02:30:00 +0000"];
+//        NSLog(@"%@",trialDate);
+//        NSDateFormatter *dateFormattr = [[NSDateFormatter alloc] init];
+//        [dateFormattr setDateFormat:@"yyyy-MM-dd hh:ss:mm zzzz"];
+//        NSDate *formattedDateStrings = [dateFormattr dateFromString:trialDate];
+//        NSLog(@"%@",formattedDateStrings);
+//
+//        NSString *finalDateStrings = [self relativeDateStringForDate:formattedDateStrings];
+//        NSLog(@"%@",finalDateStrings);
 
         
         
@@ -1490,7 +1535,7 @@
             cell.outletImageWidthConstraint.constant = 12;
             cell.outletHorizontalConstraint.constant = value+12+25;
         }
-//        cell.outlet.text = [curatedNews valueForKey:@"outlet"];
+        cell.outlet.text = [curatedNews valueForKey:@"outlet"];
         CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
         CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.title.font constrainedToSize:maximumLabelSize lineBreakMode:cell.title.lineBreakMode];
         //NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);

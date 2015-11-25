@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsa-DF-Mgs">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsa-DF-Mgs">
                                 <rect key="frame" x="-4" y="0.0" width="280" height="140"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Leg-9q-Ekc">
@@ -57,8 +57,8 @@
                                 <rect key="frame" x="63" y="633" width="100" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pX9-aV-U8w">
-                                <rect key="frame" x="-12" y="139" width="334" height="470"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pX9-aV-U8w">
+                                <rect key="frame" x="0.0" y="139" width="334" height="470"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -68,14 +68,14 @@
                             <constraint firstItem="BAr-Y0-fGY" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leading" constant="19" id="FGe-Kh-Tka"/>
                             <constraint firstItem="Ngc-2i-mQd" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-16" id="SWw-TW-B84"/>
                             <constraint firstItem="9VO-WP-Jjk" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="10" id="UfM-gC-zzM"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pX9-aV-U8w" secondAttribute="trailing" constant="37" id="XuJ-6j-WIV"/>
-                            <constraint firstItem="dsa-DF-Mgs" firstAttribute="leading" secondItem="pX9-aV-U8w" secondAttribute="leading" constant="8" id="ZIo-wE-ez4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pX9-aV-U8w" secondAttribute="trailing" constant="21" id="XuJ-6j-WIV"/>
+                            <constraint firstItem="dsa-DF-Mgs" firstAttribute="leading" secondItem="pX9-aV-U8w" secondAttribute="leading" constant="-4" id="ZIo-wE-ez4"/>
                             <constraint firstItem="pX9-aV-U8w" firstAttribute="top" secondItem="dsa-DF-Mgs" secondAttribute="bottom" constant="-1" id="bOM-fa-QOj"/>
                             <constraint firstItem="DvD-gs-tsd" firstAttribute="top" secondItem="BAr-Y0-fGY" secondAttribute="bottom" constant="11" id="eJT-Yp-egG"/>
                             <constraint firstItem="Ngc-2i-mQd" firstAttribute="top" secondItem="pX9-aV-U8w" secondAttribute="bottom" constant="13" id="gYN-LF-Vph"/>
                             <constraint firstItem="9VO-WP-Jjk" firstAttribute="leading" secondItem="BAr-Y0-fGY" secondAttribute="trailing" constant="19" id="jxT-9X-csR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ngc-2i-mQd" secondAttribute="trailing" constant="39" id="od4-II-pIi"/>
-                            <constraint firstItem="pX9-aV-U8w" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-28" id="x23-d8-wMA"/>
+                            <constraint firstItem="pX9-aV-U8w" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-20" id="x23-d8-wMA"/>
                             <constraint firstItem="BAr-Y0-fGY" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="8" id="zoJ-cT-FkB"/>
                         </constraints>
                     </view>

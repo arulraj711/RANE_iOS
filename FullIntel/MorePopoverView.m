@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _moreInforArray = [[NSMutableArray alloc]init];
-    [_moreInforArray addObject:@"Mail"];
+    [_moreInforArray addObject:@"Email"];
     [_moreInforArray addObject:@"Linkedin"];
     [_moreInforArray addObject:@"Twitter"];
     [_moreInforArray addObject:@"Facebook"];

@@ -37,7 +37,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *readStatusImageView;
 @property (nonatomic,strong) NSMutableArray *legendsArray;
 @property (strong, nonatomic) IBOutlet UIView *lastViewInTabl;
-
+@property (weak, nonatomic) IBOutlet UILabel *messageCountText;
+@property (weak, nonatomic) IBOutlet UIImageView *messageIcon;
 @property (strong, nonatomic) IBOutlet UIView *messageView;
 
 

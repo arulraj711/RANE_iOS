@@ -552,7 +552,8 @@
                 [curatedNews setValue:[markedImpDictionary objectForKey:@"userId"] forKey:@"markAsImportantUserId"];
             }
             [curatedNews setValue:[dic objectForKey:@"saveForLater"] forKey:@"saveForLater"];
-            
+            [curatedNews setValue:[dic objectForKey:@"totalComments"] forKey:@"totalComments"];
+            [curatedNews setValue:[dic objectForKey:@"unReadComment"] forKey:@"unreadComments"];
             //Fetch saved for later data in background
             NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
             if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {

@@ -288,6 +288,8 @@
                                             <outlet property="descTextView" destination="zCL-NR-aCN" id="d3h-vN-wDE"/>
                                             <outlet property="markedImpButton" destination="ZI6-DB-U7w" id="zuy-TR-u20"/>
                                             <outlet property="markedImpView" destination="INX-rW-40B" id="T6y-ow-dBT"/>
+                                            <outlet property="messageCountText" destination="gAf-Xf-VbN" id="5L1-Md-iAu"/>
+                                            <outlet property="messageIcon" destination="Vhf-Sg-a2E" id="RCp-S3-bj6"/>
                                             <outlet property="outlet" destination="0pc-tW-uGy" id="vCh-dY-YJy"/>
                                             <outlet property="readStatusImageView" destination="rd4-Dg-erx" id="nwJ-Yv-mpW"/>
                                             <outlet property="savedForLaterButton" destination="GDN-23-ZgQ" id="DZP-Ya-SAe"/>
