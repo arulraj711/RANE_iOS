@@ -133,7 +133,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="51e-z5-NOa"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="articleDesc" destination="Hfp-gc-fH4" id="K1e-rK-CXI"/>
                         <outlet property="backImgeView" destination="w2s-98-p57" id="A3F-tX-42p"/>

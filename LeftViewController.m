@@ -968,7 +968,7 @@
             cell.iconImage.hidden = YES;
         }
     } else {
-        if([[dataObject.name uppercaseString]isEqualToString:@"FOLDER"]) {
+        if([[dataObject.name uppercaseString]isEqualToString:@"FOLDERS"]) {
             cell.iconWidthConstraint.constant =15;
             cell.titleConstraint.constant = 9;
             cell.titleWidthConstraint.constant = 160;
@@ -1398,6 +1398,25 @@
                              completion:^{
                                  
                              }];
+        } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-400]]) {
+            UIStoryboard *centerStoryBoard;
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequestPhone" bundle:nil];
+            }
+            else{
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
+            }
+            UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
+            
+            ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+            //   popOverView.transitioningDelegate = self;
+            popOverView.modalPresentationStyle = UIModalPresentationCustom;
+            
+            [self presentViewController:popOverView animated:NO completion:nil];
+            
+            
+            
+            //research
         }else if(data.isFolder){
             NSLog(@"three");
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];

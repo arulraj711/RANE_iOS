@@ -1185,7 +1185,7 @@
     researchViewController.articleTitle = articleTitle;
     researchViewController.articleUrl = articleUrl;
     //   popOverView.transitioningDelegate = self;
-    popOverView.modalPresentationStyle = UIModalPresentationPopover;    
+    popOverView.modalPresentationStyle = UIModalPresentationCustom;
     
     [self presentViewController:popOverView animated:NO completion:nil];
 }
@@ -1288,9 +1288,13 @@
     if(buttonIndex == 1) {
         [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"mailto:test@test.com"]];
     } else if(buttonIndex == 2) {
-        UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"MailStoryboard" bundle:nil];
-        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"mailNav"];
-        
+        UIStoryboard *centerStoryBoard;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"MailStoryboardPhone" bundle:nil];
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"MailStoryboard" bundle:nil];
+        }
+        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"mailNav"];        
         MailPopoverView *mailViewController=(MailPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
         mailViewController.articleId= mailArticleId;
         mailViewController.mailSubject = mailTitle;

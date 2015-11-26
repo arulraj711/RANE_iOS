@@ -399,6 +399,8 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            self.revealController.revealPanGestureRecognizer.delegate = nil;
     [self closeMenu];
 }
 
@@ -1786,8 +1788,7 @@
 //    [self closeMenu];
 //}
 - (void)scrollViewDidScroll: (UIScrollView*)scroll {
-    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-        self.revealController.revealPanGestureRecognizer.delegate = nil;
+
 
     // UITableView only moves in one direction, y axis
     CGFloat currentOffset = scroll.contentOffset.y;
@@ -2040,7 +2041,8 @@
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView
                   willDecelerate:(BOOL)decelerate{
-
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            self.revealController.revealPanGestureRecognizer.delegate = self;
     //NSLog(@"tableview scroll dragging");
     if(self.devices.count != 0){
         //NSLog(@"stepppp");

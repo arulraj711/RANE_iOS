@@ -1014,6 +1014,7 @@
 }
 
 
+
 - (IBAction)researchRequestButtonClick:(UIButton *)sender {
     [[NSNotificationCenter defaultCenter]postNotificationName:@"showResearchView" object:nil userInfo:@{@"articleId":self.selectedArticleId,@"articleTitle":self.selectedArticleTitle,@"articleUrl":self.selectedArticleUrl}];
 }
@@ -1735,9 +1736,11 @@
         UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
         SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
         self.superview.alpha = 0.4;
+        popOverView.selectedArticleId = self.selectedArticleId;
         popover = [[FPPopoverController alloc] initWithViewController:popOverView];
         popover.border = NO;
         popover.delegate = self;
+        
         //[popover setShadowsHidden:YES];
         popover.tint = FPPopoverWhiteTint;
         popover.contentSize = CGSizeMake(300, 260);

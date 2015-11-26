@@ -1064,6 +1064,14 @@
                                                                         <action selector="commentsButtonClick:" destination="Ihx-d5-IbV" eventType="touchUpInside" id="XsT-qX-KSt"/>
                                                                     </connections>
                                                                 </button>
+                                                                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zoy-vJ-1zZ" customClass="MKNumberBadgeView">
+                                                                    <rect key="frame" x="123" y="-14" width="50" height="50"/>
+                                                                    <color key="backgroundColor" red="1" green="0.20353250649999999" blue="0.26871396730000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="50" id="XzD-Jv-DWZ"/>
+                                                                        <constraint firstAttribute="width" constant="50" id="cWv-M6-TUg"/>
+                                                                    </constraints>
+                                                                </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hOl-7Z-KDa">
                                                                     <rect key="frame" x="450" y="8" width="30" height="30"/>
                                                                     <state key="normal" image="folderPhone">
@@ -1094,6 +1102,7 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="zoy-vJ-1zZ" secondAttribute="bottom" constant="5" id="1UD-LA-Z5N"/>
                                                                 <constraint firstItem="Yvy-zq-AH2" firstAttribute="top" secondItem="Y11-Aj-5aY" secondAttribute="top" constant="8" id="7SQ-lw-JDk"/>
                                                                 <constraint firstItem="k83-WV-cuL" firstAttribute="top" secondItem="Y11-Aj-5aY" secondAttribute="top" constant="8" id="93Z-OW-ydf"/>
                                                                 <constraint firstItem="qot-8V-vnn" firstAttribute="leading" secondItem="Yvy-zq-AH2" secondAttribute="trailing" constant="25" id="I7W-Jo-RfT"/>
@@ -1106,6 +1115,7 @@
                                                                 <constraint firstItem="LTr-aa-idS" firstAttribute="top" secondItem="Y11-Aj-5aY" secondAttribute="top" constant="8" id="Zp3-4L-J8e"/>
                                                                 <constraint firstItem="Ti7-zW-61X" firstAttribute="leading" secondItem="Y11-Aj-5aY" secondAttribute="leading" id="b8y-Q3-717"/>
                                                                 <constraint firstAttribute="height" constant="41" id="eAA-uR-WHv"/>
+                                                                <constraint firstItem="zoy-vJ-1zZ" firstAttribute="leading" secondItem="Yvy-zq-AH2" secondAttribute="trailing" constant="28" id="koU-Wg-0tw"/>
                                                                 <constraint firstItem="hOl-7Z-KDa" firstAttribute="top" secondItem="Y11-Aj-5aY" secondAttribute="top" constant="8" id="urN-Sn-0hD"/>
                                                                 <constraint firstItem="LTr-aa-idS" firstAttribute="leading" secondItem="Y11-Aj-5aY" secondAttribute="leading" constant="10" id="vvI-ot-y66"/>
                                                                 <constraint firstAttribute="trailing" secondItem="k83-WV-cuL" secondAttribute="trailing" constant="10" id="x4l-4d-8Ul"/>
@@ -1468,6 +1478,7 @@
                                             <outlet property="authorOutletName" destination="s9b-lq-bFD" id="V98-mP-ekB"/>
                                             <outlet property="authorTagLabel" destination="Fjs-iK-Q7k" id="04a-co-MOa"/>
                                             <outlet property="authorWorkTitleLabel" destination="uR8-iY-vSK" id="vPz-G6-nhw"/>
+                                            <outlet property="badgeTwo" destination="zoy-vJ-1zZ" id="AEY-nG-SsM"/>
                                             <outlet property="beatsIcon" destination="HN2-Zq-HFe" id="iuc-GE-tGC"/>
                                             <outlet property="beatsIconHeightConstraint" destination="Z7t-8k-Nfa" id="2JB-kQ-qqq"/>
                                             <outlet property="beatsImageTopConstraint" destination="ZNN-yi-RER" id="rED-Fd-qr1"/>
