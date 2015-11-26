@@ -124,6 +124,7 @@
             _swipeRightImageView.hidden=NO;
             _textView.text=@"￼Swipe each row, to reveal more options";
             popAnimationTimerThree=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performSwipeRighAnimation) userInfo:nil repeats:YES];
+            self.mainListTutHeightConstraint.constant = 45;
 
         }
         else{

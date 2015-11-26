@@ -19,4 +19,5 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *upImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *swipeRightImageView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *mainListTutHeightConstraint;
 @end

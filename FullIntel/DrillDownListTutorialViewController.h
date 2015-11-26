@@ -19,5 +19,6 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIImageView *swipeLeftImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *swipeRightImageView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *drilldownTutHeightConstraint;
 
 @end

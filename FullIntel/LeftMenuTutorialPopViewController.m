@@ -73,7 +73,8 @@
     if (coachMarksShown == NO) {
         
         _textView.text=@"Marked Important folder contains the articles hand selected by FullIntel Analysts or your colleagues";
-        
+        self.leftTextViewHeightConstraint.constant = 75;
+
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"MarkImportantTutorialTrigger"];
         
         [[NSNotificationCenter defaultCenter]postNotificationName:@"MarkImportantTutorialTrigger" object:nil userInfo:nil];
@@ -82,7 +83,6 @@
          [[NSNotificationCenter defaultCenter]postNotificationName:@"MainListTutorialTrigger" object:nil userInfo:nil];
         
         [self dismissViewControllerAnimated:NO completion:^{
-            
             
                      [[NSNotificationCenter defaultCenter]postNotificationName:@"MainListArrowTutorial" object:nil userInfo:nil];
             

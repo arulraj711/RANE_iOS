@@ -665,7 +665,7 @@
     
     
     RADataObject *folderDataObj = [[RADataObject alloc]init];
-    folderDataObj.name = @"FOLDER";
+    folderDataObj.name = @"FOLDERS";
     folderDataObj.nodeId = [NSNumber numberWithInt:-100];
     folderDataObj.isFolder = YES;
     NSMutableArray *childArray = [[NSMutableArray alloc]init];
@@ -1725,10 +1725,25 @@
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyLogo"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyName"];
-    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+    UIStoryboard *centerStoryBoard;
+    UINavigationController *navCtlr;
     // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
     // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
+    
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateViewPhone"];
+        
+        
+    } else {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+        
+        
+    }
+    
+    
     [self.revealController setFrontViewController:navCtlr];
     [self.revealController showViewController:self.revealController.frontViewController];
 }

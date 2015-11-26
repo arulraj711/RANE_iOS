@@ -12,4 +12,5 @@
 @property (weak, nonatomic) IBOutlet UIView *tutorialContentView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *leftTextViewHeightConstraint;
 @end

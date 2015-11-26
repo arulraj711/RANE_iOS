@@ -199,6 +199,7 @@
                     </view>
                     <connections>
                         <outlet property="bgImageView" destination="w7C-vl-IAe" id="FM3-NI-kNS"/>
+                        <outlet property="leftTextViewHeightConstraint" destination="oRU-bI-oDO" id="gZY-wB-T0r"/>
                         <outlet property="textView" destination="9EX-LC-OXz" id="rK7-Tp-NnF"/>
                         <outlet property="tutorialContentView" destination="pdC-zw-bSp" id="652-lf-lgi"/>
                     </connections>
@@ -279,7 +280,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F9m-IR-xzo">
-                                <rect key="frame" x="150" y="265" width="300" height="69"/>
+                                <rect key="frame" x="150" y="262" width="300" height="75"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="Swipe up or down to quickly read the headlines and summary of articles in a folder" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jNW-xJ-nDS">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="69"/>
@@ -291,7 +292,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.68627450980000004" green="0.039215686270000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="69" id="2Ke-tg-foU"/>
+                                    <constraint firstAttribute="height" constant="75" id="2Ke-tg-foU"/>
                                     <constraint firstAttribute="width" constant="300" id="5el-aB-LJv"/>
                                 </constraints>
                             </view>
@@ -341,6 +342,7 @@
                     <connections>
                         <outlet property="bgImageView" destination="O2y-Dy-3Fj" id="4nS-98-J7g"/>
                         <outlet property="downImageView" destination="H6j-Xr-Zcp" id="dRd-bY-URx"/>
+                        <outlet property="mainListTutHeightConstraint" destination="2Ke-tg-foU" id="CUj-Dp-ndh"/>
                         <outlet property="swipeRightImageView" destination="icV-2M-XJW" id="mnm-T3-onS"/>
                         <outlet property="textBoxView" destination="F9m-IR-xzo" id="jlg-qZ-xfs"/>
                         <outlet property="textView" destination="jNW-xJ-nDS" id="gEu-n2-Ey7"/>
@@ -420,6 +422,7 @@
                     </view>
                     <connections>
                         <outlet property="bgImageView" destination="unF-wA-V3b" id="Hrm-N5-aAE"/>
+                        <outlet property="drilldownTutHeightConstraint" destination="JCP-Al-e7M" id="Fzj-t3-cpa"/>
                         <outlet property="swipeDownImageView" destination="4cM-aI-UgI" id="JZ3-E0-1Lz"/>
                         <outlet property="swipeLeftImageView" destination="Pwq-Nc-YRo" id="men-d2-AhQ"/>
                         <outlet property="swipeRightImageView" destination="XM5-7N-vNy" id="Nqc-mr-lmm"/>

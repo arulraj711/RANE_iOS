@@ -49,7 +49,8 @@
         
         
         _textView.text=@"￼￼Swipe right or left to flip pages";
-        
+        self.drilldownTutHeightConstraint.constant = 45;
+
         
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SwipeDownTutorialTrigger"];
         

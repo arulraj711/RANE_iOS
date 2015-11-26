@@ -90,13 +90,13 @@
         leftStoryBoard = [UIStoryboard storyboardWithName:@"LeftView" bundle:nil];
         leftViewController = [leftStoryBoard instantiateViewControllerWithIdentifier:@"LeftView"];
     }
+    
     self.revealController = [PKRevealController revealControllerWithFrontViewController:navCtlr
                                                                      leftViewController:leftViewController
                                                                     rightViewController:nil];
     // Step 3: Configure.
     self.revealController.delegate = self;
     self.revealController.animationDuration = 0.25;
-    
     
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)

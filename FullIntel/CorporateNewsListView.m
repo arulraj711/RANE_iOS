@@ -48,7 +48,9 @@
     [super viewDidLoad];
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        self.revealController.recognizesPanningOnFrontView = NO;
+//        self.revealController.recognizesPanningOnFrontView = NO;
+//        self.revealController. = @{PKRevealControllerRecognizesPanningOnFrontViewKey : @NO};
+    
 //        NSDictionary *options = @{
 //                                  PKRevealControllerRecognizesPanningOnFrontViewKey : @NO
 //                                  };
@@ -184,6 +186,15 @@
     
 }
 
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if (self.articlesTableView.editing)
+        return NO;
+    else
+        return YES;
+}
 
 -(void)redirectToNewsLetterArticleWithId:(NSString *)articleId {
     if(self.devices.count != 0) {
@@ -394,8 +405,6 @@
 
 -(void)closeMenu{
     
-    
-    
     if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
         // NSLog(@"left view opened");
         [self.revealController showViewController:self.revealController.frontViewController];
@@ -423,14 +432,9 @@
     }
 }
 -(void)viewWillAppear:(BOOL)animated{
-    
-    
-    if (IS_IPHONE_5) {
-
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
+    self.revealController.revealPanGestureRecognizer.delegate = self;
     }
-    
-    
-    
 //    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
 //    if ( screenHeight > 480 && screenHeight < 736 ){
 //        NSLog(@"iPhone 6");
@@ -447,8 +451,7 @@
 //    else if ( screenHeight > 480 ){
 //        NSLog(@"iPhone 6 Plus");
 //    }
-//    
-
+//
 }
 -(void)viewDidAppear:(BOOL)animated {
     
@@ -1731,7 +1734,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    self.revealController.revealPanGestureRecognizer.delegate = nil;
+
     //    NSManagedObject *influencer = [self.devices objectAtIndex:indexPath.row];
     //    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     //    CorporateNewsDetailsView *detailView = [storyBoard instantiateViewControllerWithIdentifier:@"DetailView"];
@@ -1781,6 +1786,9 @@
 //    [self closeMenu];
 //}
 - (void)scrollViewDidScroll: (UIScrollView*)scroll {
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        self.revealController.revealPanGestureRecognizer.delegate = nil;
+
     // UITableView only moves in one direction, y axis
     CGFloat currentOffset = scroll.contentOffset.y;
     CGFloat maximumOffset = scroll.contentSize.height - scroll.frame.size.height;
@@ -1790,6 +1798,7 @@
         //NSLog(@"tableview reach the limt");
         // [self methodThatAddsDataAndReloadsTableView];
     }
+    
 }
 
 -(void)markedImpAction:(UITapGestureRecognizer *)tapGesture {
@@ -2025,9 +2034,13 @@
         //[FIUtils showNoNetworkToast];
     }
 }
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;      // called when scroll view grinds to a halt
+{
 
+}
 - (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView
                   willDecelerate:(BOOL)decelerate{
+
     //NSLog(@"tableview scroll dragging");
     if(self.devices.count != 0){
         //NSLog(@"stepppp");
