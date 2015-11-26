@@ -133,7 +133,7 @@
         <!--Navigation Controller-->
         <scene sceneID="2jt-Jm-MO8">
             <objects>
-                <navigationController storyboardIdentifier="requestNav" automaticallyAdjustsScrollViewInsets="NO" id="tip-ak-hoR" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tip-ak-hoR" sceneMemberID="viewController">
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="600"/>

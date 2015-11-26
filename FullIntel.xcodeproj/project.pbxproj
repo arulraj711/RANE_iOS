@@ -62,6 +62,7 @@
 		A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A087980C1ADFE47D00D93114 /* FirstLevelCell.m */; };
 		A08860801B427B9500939D51 /* FIFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = A088607F1B427B9500939D51 /* FIFolder.m */; };
 		A08860821B42910D00939D51 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A08860811B42910D00939D51 /* FBSDKShareKit.framework */; };
+		A08E6E221C06D135003DB4B2 /* MailStoryboardPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A08E6E211C06D135003DB4B2 /* MailStoryboardPhone.storyboard */; };
 		A098EA171B4E6AF8003FC501 /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A098EA151B4E6AF8003FC501 /* DigitsKit.framework */; };
 		A098EA181B4E6AF8003FC501 /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A098EA161B4E6AF8003FC501 /* DigitsKitResources.bundle */; };
 		A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */; };
@@ -380,6 +381,7 @@
 		A088607E1B427B9500939D51 /* FIFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIFolder.h; sourceTree = "<group>"; };
 		A088607F1B427B9500939D51 /* FIFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIFolder.m; sourceTree = "<group>"; };
 		A08860811B42910D00939D51 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		A08E6E211C06D135003DB4B2 /* MailStoryboardPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboardPhone.storyboard; sourceTree = "<group>"; };
 		A098EA151B4E6AF8003FC501 /* DigitsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DigitsKit.framework; sourceTree = SOURCE_ROOT; };
 		A098EA161B4E6AF8003FC501 /* DigitsKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DigitsKitResources.bundle; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle; sourceTree = SOURCE_ROOT; };
 		A0A678621B1C159400FB2AEA /* influencer_new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = influencer_new.json; sourceTree = "<group>"; };
@@ -1369,6 +1371,7 @@
 				F7E368801ABC18F70083F38E /* MailPopoverView.m */,
 				F7E368811ABC18F70083F38E /* MailPopoverView.xib */,
 				F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */,
+				A08E6E211C06D135003DB4B2 /* MailStoryboardPhone.storyboard */,
 			);
 			name = Mail_Popover;
 			sourceTree = "<group>";
@@ -1707,6 +1710,7 @@
 				F7E81FB01A97057100F9A8D4 /* Josh.jpeg in Resources */,
 				F7C1AB5C1ABFEC6B00D8588A /* SavedListPopoverView.storyboard in Resources */,
 				F7AE10841AC01E4D0091E1C7 /* InfluencerListView.storyboard in Resources */,
+				A08E6E221C06D135003DB4B2 /* MailStoryboardPhone.storyboard in Resources */,
 				A0AAF0241BFCB12B0006A48C /* mail-30.png in Resources */,
 				A081459D1BCF8B7200AA5EE2 /* SavedListPopoverViewPhone.storyboard in Resources */,
 				A05878A81BD0F39200DCE62B /* LaunchScreen~iphone.xib in Resources */,

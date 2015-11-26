@@ -26,10 +26,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _moreInforArray = [[NSMutableArray alloc]init];
-    [_moreInforArray addObject:@"Email"];
-    [_moreInforArray addObject:@"Linkedin"];
-    [_moreInforArray addObject:@"Twitter"];
-    [_moreInforArray addObject:@"Facebook"];
+
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        [_moreInforArray addObject:@"Email"];
+        [_moreInforArray addObject:@"Linkedin"];
+        [_moreInforArray addObject:@"Twitter"];
+        [_moreInforArray addObject:@"Facebook"];
+
+    }
+    else{
+        [_moreInforArray addObject:@"Linkedin"];
+        [_moreInforArray addObject:@"Twitter"];
+        [_moreInforArray addObject:@"Facebook"];
+
+    }
     
 //    [_moreInforArray addObject:@"Google Plus"];
 //    [_moreInforArray addObject:@"Evernote"];
@@ -57,50 +67,88 @@
     
     MoreViewCell *cell = (MoreViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
-    if(indexPath.row == 2) {
-        cell.iconImage.image = [UIImage imageNamed:@"twitter"];
-    } else if(indexPath.row == 0) {
-        cell.iconImage.image = [UIImage imageNamed:@"email"];
-        
-    }else {
-        cell.iconImage.image = [UIImage imageNamed:[_moreInforArray objectAtIndex:indexPath.row]];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        if(indexPath.row == 2) {
+            cell.iconImage.image = [UIImage imageNamed:@"twitter"];
+        } else if(indexPath.row == 0) {
+            cell.iconImage.image = [UIImage imageNamed:@"email"];
+            
+        }else {
+            cell.iconImage.image = [UIImage imageNamed:[_moreInforArray objectAtIndex:indexPath.row]];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    else{
+        if(indexPath.row == 1) {
+            cell.iconImage.image = [UIImage imageNamed:@"twitter"];
+        } else {
+            cell.iconImage.image = [UIImage imageNamed:[_moreInforArray objectAtIndex:indexPath.row]];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   // NSLog(@"did select more tableview");
-    if(indexPath.row == 1) {
-        
-        
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"LinkedInShareClick"];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"linkedinSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
-    } else if(indexPath.row == 3) {
-        
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FacebookShareClick"];
-        
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"fbSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
-        
-        
-    } else if(indexPath.row == 2) {
-        //[self targetedShare:@""];
-       [self targetedShare:SLServiceTypeTwitter];
-    } else if(indexPath.row == 0) {
-        //Mail Button Click
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MailButtonClick"];
-        
-        NSString *mailBodyStr;
-        if(self.articleUrl.length != 0) {
-            mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n\n%@",self.articleTitle,self.articleDesc,self.articleUrl];
-        } else {
-            mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n",self.articleTitle,self.articleDesc];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        // NSLog(@"did select more tableview");
+        if(indexPath.row == 1) {
+            
+            
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"LinkedInShareClick"];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"linkedinSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
+        } else if(indexPath.row == 3) {
+            
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FacebookShareClick"];
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"fbSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
+            
+            
+        } else if(indexPath.row == 2) {
+            //[self targetedShare:@""];
+            [self targetedShare:SLServiceTypeTwitter];
+        } else if(indexPath.row == 0) {
+            //Mail Button Click
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MailButtonClick"];
+            
+            NSString *mailBodyStr;
+            if(self.articleUrl.length != 0) {
+                mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n\n%@",self.articleTitle,self.articleDesc,self.articleUrl];
+            } else {
+                mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n",self.articleTitle,self.articleDesc];
+            }
+            // NSLog(@"mail body string:%@ and title:%@",mailBodyStr,self.selectedArticleTitle);
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"articleId":self.articleId,@"title":self.articleTitle,@"body":mailBodyStr}];
+            //}
+        }else {
+            [self targetedShare:@""];
         }
-        // NSLog(@"mail body string:%@ and title:%@",mailBodyStr,self.selectedArticleTitle);
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"articleId":self.articleId,@"title":self.articleTitle,@"body":mailBodyStr}];
-        //}
-    }else {
-        [self targetedShare:@""];
+
+    }
+    else{
+        // NSLog(@"did select more tableview");
+        if(indexPath.row == 0) {
+            
+            
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"LinkedInShareClick"];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"linkedinSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
+        } else if(indexPath.row == 2) {
+            
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FacebookShareClick"];
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"fbSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
+            
+            
+        } else if(indexPath.row == 1) {
+            //[self targetedShare:@""];
+            [self targetedShare:SLServiceTypeTwitter];
+        } else {
+            [self targetedShare:@""];
+        }
+
     }
     
 }

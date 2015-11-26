@@ -1014,6 +1014,7 @@
 }
 
 
+
 - (IBAction)researchRequestButtonClick:(UIButton *)sender {
     [[NSNotificationCenter defaultCenter]postNotificationName:@"showResearchView" object:nil userInfo:@{@"articleId":self.selectedArticleId,@"articleTitle":self.selectedArticleTitle,@"articleUrl":self.selectedArticleUrl}];
 }

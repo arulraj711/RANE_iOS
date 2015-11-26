@@ -102,7 +102,7 @@
 - (IBAction)laterButtonPressed:(id)sender {
     
      [popAnimationTimer invalidate];
-    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialShown"];
     
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"TutorialLaterClick"];
     
