@@ -32,6 +32,7 @@
 }
 
 -(void)fetchFolderDetails {
+    NSLog(@"folder selected article id:%@",self.selectedArticleId);
     NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
     NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"FolderList"];
     if (dataRepresentingSavedArray != nil)
