@@ -63,6 +63,7 @@
 		A08860801B427B9500939D51 /* FIFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = A088607F1B427B9500939D51 /* FIFolder.m */; };
 		A08860821B42910D00939D51 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A08860811B42910D00939D51 /* FBSDKShareKit.framework */; };
 		A08E6E221C06D135003DB4B2 /* MailStoryboardPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A08E6E211C06D135003DB4B2 /* MailStoryboardPhone.storyboard */; };
+		A08E6E261C07015E003DB4B2 /* NSDate+NVTimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = A08E6E251C07015E003DB4B2 /* NSDate+NVTimeAgo.m */; };
 		A098EA171B4E6AF8003FC501 /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A098EA151B4E6AF8003FC501 /* DigitsKit.framework */; };
 		A098EA181B4E6AF8003FC501 /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A098EA161B4E6AF8003FC501 /* DigitsKitResources.bundle */; };
 		A099E3C31AF10F0D0056C9FC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7EC6D581ADF846600A43CCA /* OpenSans-Bold.ttf */; };
@@ -382,6 +383,8 @@
 		A088607F1B427B9500939D51 /* FIFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIFolder.m; sourceTree = "<group>"; };
 		A08860811B42910D00939D51 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		A08E6E211C06D135003DB4B2 /* MailStoryboardPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboardPhone.storyboard; sourceTree = "<group>"; };
+		A08E6E241C07015E003DB4B2 /* NSDate+NVTimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+NVTimeAgo.h"; sourceTree = "<group>"; };
+		A08E6E251C07015E003DB4B2 /* NSDate+NVTimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+NVTimeAgo.m"; sourceTree = "<group>"; };
 		A098EA151B4E6AF8003FC501 /* DigitsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DigitsKit.framework; sourceTree = SOURCE_ROOT; };
 		A098EA161B4E6AF8003FC501 /* DigitsKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DigitsKitResources.bundle; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle; sourceTree = SOURCE_ROOT; };
 		A0A678621B1C159400FB2AEA /* influencer_new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = influencer_new.json; sourceTree = "<group>"; };
@@ -818,9 +821,19 @@
 			name = FPPopover;
 			sourceTree = "<group>";
 		};
+		A08E6E271C07016D003DB4B2 /* Time formatter */ = {
+			isa = PBXGroup;
+			children = (
+				A08E6E241C07015E003DB4B2 /* NSDate+NVTimeAgo.h */,
+				A08E6E251C07015E003DB4B2 /* NSDate+NVTimeAgo.m */,
+			);
+			name = "Time formatter";
+			sourceTree = "<group>";
+		};
 		A0AAEFE61BFC92570006A48C /* New Imgs */ = {
 			isa = PBXGroup;
 			children = (
+				A08E6E271C07016D003DB4B2 /* Time formatter */,
 				A0AAEFE01BFC92410006A48C /* upload-30.png */,
 				A0AAEFE11BFC92410006A48C /* upload-60.png */,
 			);
@@ -1910,6 +1923,7 @@
 				F7E0049B1AB152C500390D51 /* ProductWidgetCell.m in Sources */,
 				A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */,
 				A0DEC3E41AE94FF10046E8BB /* SocialWebView.m in Sources */,
+				A08E6E261C07015E003DB4B2 /* NSDate+NVTimeAgo.m in Sources */,
 				F7CE36E31A95E9490005AA0A /* RATreeNodeItem+Private.m in Sources */,
 				F7E368881ABC1C6F0083F38E /* SavedListPopoverView.m in Sources */,
 				F7CE36E71A95E9490005AA0A /* RATreeView+RATreeNodeCollectionControllerDataSource.m in Sources */,

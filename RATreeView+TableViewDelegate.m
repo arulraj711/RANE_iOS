@@ -35,13 +35,13 @@
 -(void)directLoad {
     NSIndexPath *indexPath;
   //  NSLog(@"direct load function calling");
-//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-//        indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//
-//    } else {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+
+    } else {
         indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
 
-//    }
+    }
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
