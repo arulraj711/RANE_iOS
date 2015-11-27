@@ -25,4 +25,6 @@
 +(void)hideNoNetworkBanner;
 +(void)showErrorWithMessage:(NSString *)message;
 +(BOOL) NSStringIsValidEmail:(NSString *)checkString;
++(NSString*)getDateFromTimeStampTwo:(double)timeStamp;
++(NSString *)relativeDateStringForDate:(NSDate *)date;
 @end

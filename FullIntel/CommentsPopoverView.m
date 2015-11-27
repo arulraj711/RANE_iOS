@@ -12,6 +12,8 @@
 #import "UIImageView+Letters.h"
 #import "UIView+Toast.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "FIUtils.h"
+
 @interface CommentsPopoverView ()
 
 @end
@@ -148,7 +150,32 @@
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
         NSManagedObject *comment = [self.commentsArray objectAtIndex:indexPath.row];
         cell.userName.text = [comment valueForKey:@"userName"];
-        cell.date.text = [comment valueForKey:@"createdDate"];
+        
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            //for date
+            
+            NSString *dateForComments =[comment valueForKey:@"createdDate"];
+            NSLog(@"%@",dateForComments);
+            
+            NSDateFormatter *frmaeer=[[NSDateFormatter alloc]init];
+            [frmaeer setDateFormat:@"yyyy-MM-dd HH:mm:ss.zzz"];
+            [frmaeer setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+            NSDate *dats = [frmaeer dateFromString:dateForComments];
+            NSLog(@"%@",dats);
+            NSLog(@"%@",[FIUtils relativeDateStringForDate:dats]);
+            
+            NSString *finalDateString =[FIUtils relativeDateStringForDate:dats];
+            NSLog(@"%@",finalDateString);
+            cell.date.text = finalDateString;
+
+        } else {
+            
+            cell.date.text = [comment valueForKey:@"createdDate"];
+
+        }
+
+        
+
         NSData *newdata=[[comment valueForKey:@"comment"] dataUsingEncoding:NSUTF8StringEncoding
                                   allowLossyConversion:YES];
         NSString *mystring=[[NSString alloc] initWithData:newdata encoding:NSNonLossyASCIIStringEncoding];

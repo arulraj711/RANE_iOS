@@ -34,6 +34,7 @@
 }
 @property UICollectionView *tweetsLocalCollectionView;
 @property UICollectionView *socialcollectionView;
+@property UILabel *bioInfoLabel;
 @property BOOL isTwitterLoad;
 @property BOOL isTwitterAPICalled;
 @property BOOL isFIViewSelected;
@@ -65,7 +66,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorOutletName;
 @property (weak, nonatomic) IBOutlet UILabel *authorLocationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorTagLabel;
-@property (weak, nonatomic) IBOutlet UILabel *bioLabel;
+@property (weak, nonatomic) IBOutlet UITextView *bioLabel;
 @property (strong, nonatomic) IBOutlet UIView *ratingControl;
 @property (strong, nonatomic) IBOutlet UIView *overlayView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;

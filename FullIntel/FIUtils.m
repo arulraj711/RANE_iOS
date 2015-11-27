@@ -24,6 +24,51 @@
     NSString *dateStr=[_formatter stringFromDate:date];
     return dateStr;
 }
++(NSString*)getDateFromTimeStampTwo:(double)timeStamp {
+    double unixTimeStamp = timeStamp;
+    NSTimeInterval _interval=unixTimeStamp/1000;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:_interval];
+    NSDateFormatter *frmaer=[[NSDateFormatter alloc]init];
+    [frmaer setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [frmaer setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    NSString *dateStsr=[frmaer stringFromDate:date];
+    return dateStsr;
+}
++(NSString *)relativeDateStringForDate:(NSDate *)date
+{
+    NSLog(@"%@",date);
+    NSCalendarUnit units = NSCalendarUnitDay | NSCalendarUnitWeekOfYear |
+    NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    
+    // if `date` is before "now" (i.e. in the past) then the components will be positive
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:units
+                                                                   fromDate:date
+                                                                     toDate:[NSDate date]
+                                                                    options:0];
+    if (components.year > 0) {
+        return [NSString stringWithFormat:@"%ldy ago", (long)components.year];
+    }
+        else if (components.month > 0) {
+            return [NSString stringWithFormat:@"%ldmonth ago", (long)components.month];
+        }
+    else if (components.weekOfYear > 0) {
+        return [NSString stringWithFormat:@"%ldw ago", (long)components.weekOfYear];
+    } else if (components.day > 0) {
+        if (components.day > 1) {
+            return [NSString stringWithFormat:@"%ldd ago", (long)components.day];
+        } else {
+            return @"1d ago";
+        }
+    }else if (components.hour > 0) {
+        return [NSString stringWithFormat:@"%ldh ago", (long)components.hour];
+    }else if (components.minute > 0) {
+        return [NSString stringWithFormat:@"%ldm ago", (long)components.minute];
+    }else if (components.second > 0) {
+        return [NSString stringWithFormat:@"%lds ago", (long)components.second];
+    }   else {
+        return @"Today";
+    }
+}
 
 +(BOOL) NSStringIsValidEmail:(NSString *)checkString
 {

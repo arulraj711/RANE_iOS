@@ -1459,40 +1459,49 @@
         
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
-            NSString *dateStr = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
+            NSLog(@"%f",[[curatedNews valueForKey:@"publishedDate"] doubleValue]);
+            
+            NSString *dateStr = [FIUtils getDateFromTimeStampTwo:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
             NSLog(@"%@",dateStr);
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
             
+            NSDateFormatter *frmaer=[[NSDateFormatter alloc]init];
+            [frmaer setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            [frmaer setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+            NSDate *dats = [frmaer dateFromString:dateStr];
+            NSLog(@"%@",dats);
+            NSLog(@"%@",[FIUtils relativeDateStringForDate:dats]);
             
-            NSDate *formattedDateString = [dateFormatter dateFromString:dateStr];
-            NSLog(@"formattedDateString: %@", formattedDateString);
-            NSLog(@"%@",[self relativeDateStringForDate:formattedDateString]);
-            NSString *finalDateString = [self relativeDateStringForDate:formattedDateString];
+            NSString *finalDateString =[FIUtils relativeDateStringForDate:dats];
             NSLog(@"%@",finalDateString);
             cell.articleDate.text = finalDateString;
-
-        } else {
+            
+            //used for hardcoded testing of minutes**********************************************************
+            
+            NSString *dateStrnn = @"2015-11-27 11:00:00";
+            NSDateFormatter *dateFormaeert = [[NSDateFormatter alloc] init];
+            [dateFormaeert setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSDate *dateiah = [dateFormaeert dateFromString:dateStrnn];
+            NSLog(@"%@",dateiah);
+            NSLog(@"%@",[FIUtils relativeDateStringForDate:dateiah]);
+            
+            //used for hardcoded testing of minutes**********************************************************
+            
+           
+        } else
+        {
             NSString *dateStr = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
             cell.articleDate.text = dateStr;
         }
-        
-        
-        // NSLog(@"curated news legends list:%d",legendsList.count);
-
+// NSLog(@"curated news legends list:%d",legendsList.count);
 //        NSString *trialDate = [NSString stringWithFormat:@"2015-10-05 02:30:00 +0000"];
 //        NSLog(@"%@",trialDate);
 //        NSDateFormatter *dateFormattr = [[NSDateFormatter alloc] init];
-//        [dateFormattr setDateFormat:@"yyyy-MM-dd hh:ss:mm zzzz"];
+//        [dateFormattr setDateFormat:@"yyyy-MM-dd hh:ss:mm zzzz"];542195656  204901501724
 //        NSDate *formattedDateStrings = [dateFormattr dateFromString:trialDate];
 //        NSLog(@"%@",formattedDateStrings);
 //
 //        NSString *finalDateStrings = [self relativeDateStringForDate:formattedDateStrings];
-//        NSLog(@"%@",finalDateStrings);
-
-        
-        
+//      NSLog(@"%@",finalDateStrings);        
 //      cell.articleDate.text = dateStr;
         [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -1631,39 +1640,40 @@
    // tableCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return tableCell;
 }
-- (NSString *)relativeDateStringForDate:(NSDate *)date
-{
-    NSCalendarUnit units = NSCalendarUnitDay | NSCalendarUnitWeekOfYear |
-    NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    
-    // if `date` is before "now" (i.e. in the past) then the components will be positive
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:units
-                                                                   fromDate:date
-                                                                     toDate:[NSDate date]
-                                                                    options:0];
-    
-    if (components.year > 0) {
-        return [NSString stringWithFormat:@"%ldy ago", (long)components.year];
-    } else if (components.month > 0) {
-        return [NSString stringWithFormat:@"%ldm ago", (long)components.month];
-    } else if (components.weekOfYear > 0) {
-        return [NSString stringWithFormat:@"%ldw ago", (long)components.weekOfYear];
-    } else if (components.day > 0) {
-        if (components.day > 1) {
-            return [NSString stringWithFormat:@"%ld days ago", (long)components.day];
-        } else {
-            return @"1d ago";
-        }
-    }else if (components.hour > 0) {
-        return [NSString stringWithFormat:@"%ldh ago", (long)components.hour];
-    }else if (components.minute > 0) {
-        return [NSString stringWithFormat:@"%ldm ago", (long)components.minute];
-    }else if (components.second > 0) {
-        return [NSString stringWithFormat:@"%lds ago", (long)components.second];
-    }   else {
-        return @"Today";
-    }
-}
+//- (NSString *)relativeDateStringForDate:(NSDate *)date
+//{
+//    NSCalendarUnit units = NSCalendarUnitDay | NSCalendarUnitWeekOfYear |
+//    NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+//    
+//    // if `date` is before "now" (i.e. in the past) then the components will be positive
+//    NSDateComponents *components = [[NSCalendar currentCalendar] components:units
+//                                                                   fromDate:date
+//                                                                     toDate:[NSDate date]
+//                                                                    options:0];
+//    if (components.year > 0) {
+//        return [NSString stringWithFormat:@"%ldy ago", (long)components.year];
+//    }
+////    else if (components.month > 0) {
+////        return [NSString stringWithFormat:@"%ldm ago", (long)components.month];
+////    }
+//    else if (components.weekOfYear > 0) {
+//        return [NSString stringWithFormat:@"%ldw ago", (long)components.weekOfYear];
+//    } else if (components.day > 0) {
+//        if (components.day > 1) {
+//            return [NSString stringWithFormat:@"%ldd ago", (long)components.day];
+//        } else {
+//            return @"1d ago";
+//        }
+//    }else if (components.hour > 0) {
+//        return [NSString stringWithFormat:@"%ldh ago", (long)components.hour];
+//    }else if (components.minute > 0) {
+//        return [NSString stringWithFormat:@"%ldm ago", (long)components.minute];
+//    }else if (components.second > 0) {
+//        return [NSString stringWithFormat:@"%lds ago", (long)components.second];
+//    }   else {
+//        return @"Today";
+//    }
+//}
 -(void)performAnimationForMarkImportant:(NSTimer *)timer{
     
     CorporateNewsCell *cell=timer.userInfo;
