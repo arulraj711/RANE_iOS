@@ -1369,7 +1369,7 @@
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
         
         if(self.articleIdArray.count != 0) {
-            self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             [self.view addSubview:self.activityIndicator];
             self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
             [self.activityIndicator startAnimating];
@@ -1406,7 +1406,7 @@
             
             oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                                              selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
-            // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
             
         }
     }

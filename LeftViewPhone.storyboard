@@ -19,21 +19,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsa-DF-Mgs">
-                                <rect key="frame" x="-4" y="0.0" width="280" height="140"/>
+                                <rect key="frame" x="-4" y="0.0" width="280" height="148"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Leg-9q-Ekc">
-                                        <rect key="frame" x="15" y="8" width="250" height="125"/>
+                                        <rect key="frame" x="15" y="18" width="250" height="125"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="9ON-fV-1U3"/>
-                                    <constraint firstAttribute="height" constant="140" id="GEH-ed-RFQ"/>
+                                    <constraint firstAttribute="height" constant="148" id="GEH-ed-RFQ"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ngc-2i-mQd">
-                                <rect key="frame" x="0.0" y="622" width="320" height="1"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ngc-2i-mQd">
+                                <rect key="frame" x="0.0" y="622" width="360" height="1"/>
                                 <color key="backgroundColor" red="0.86274509803921573" green="0.87450980392156863" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="wz6-bN-OuZ"/>
@@ -58,7 +58,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pX9-aV-U8w">
-                                <rect key="frame" x="0.0" y="139" width="334" height="470"/>
+                                <rect key="frame" x="0.0" y="150" width="334" height="470"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -66,15 +66,15 @@
                         <constraints>
                             <constraint firstItem="dsa-DF-Mgs" firstAttribute="top" secondItem="0nW-UY-enU" secondAttribute="top" id="69e-v3-gwD"/>
                             <constraint firstItem="BAr-Y0-fGY" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leading" constant="19" id="FGe-Kh-Tka"/>
-                            <constraint firstItem="Ngc-2i-mQd" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-16" id="SWw-TW-B84"/>
+                            <constraint firstItem="Ngc-2i-mQd" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-20" id="SWw-TW-B84"/>
                             <constraint firstItem="9VO-WP-Jjk" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="10" id="UfM-gC-zzM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pX9-aV-U8w" secondAttribute="trailing" constant="21" id="XuJ-6j-WIV"/>
                             <constraint firstItem="dsa-DF-Mgs" firstAttribute="leading" secondItem="pX9-aV-U8w" secondAttribute="leading" constant="-4" id="ZIo-wE-ez4"/>
-                            <constraint firstItem="pX9-aV-U8w" firstAttribute="top" secondItem="dsa-DF-Mgs" secondAttribute="bottom" constant="-1" id="bOM-fa-QOj"/>
+                            <constraint firstItem="pX9-aV-U8w" firstAttribute="top" secondItem="dsa-DF-Mgs" secondAttribute="bottom" constant="2" id="bOM-fa-QOj"/>
                             <constraint firstItem="DvD-gs-tsd" firstAttribute="top" secondItem="BAr-Y0-fGY" secondAttribute="bottom" constant="11" id="eJT-Yp-egG"/>
-                            <constraint firstItem="Ngc-2i-mQd" firstAttribute="top" secondItem="pX9-aV-U8w" secondAttribute="bottom" constant="13" id="gYN-LF-Vph"/>
+                            <constraint firstItem="Ngc-2i-mQd" firstAttribute="top" secondItem="pX9-aV-U8w" secondAttribute="bottom" constant="2" id="gYN-LF-Vph"/>
                             <constraint firstItem="9VO-WP-Jjk" firstAttribute="leading" secondItem="BAr-Y0-fGY" secondAttribute="trailing" constant="19" id="jxT-9X-csR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ngc-2i-mQd" secondAttribute="trailing" constant="39" id="od4-II-pIi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ngc-2i-mQd" secondAttribute="trailing" constant="-5" id="od4-II-pIi"/>
                             <constraint firstItem="pX9-aV-U8w" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-20" id="x23-d8-wMA"/>
                             <constraint firstItem="BAr-Y0-fGY" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="8" id="zoJ-cT-FkB"/>
                         </constraints>
