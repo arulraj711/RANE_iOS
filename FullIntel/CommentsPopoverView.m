@@ -291,9 +291,12 @@
     
    
     CGRect rect = self.view.frame;
+    CGRect popRect = self.view.superview.frame;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-    rect.size.height =440;
-    self.view.frame = rect;
+        popRect.size.height = 480;
+        rect.size.height=50;
+        self.view.frame = rect;
+        self.view.superview.frame = popRect;
     }
     else{
         if(rect.size.height==410){
@@ -336,7 +339,8 @@
     [self postCommentCommonMethod:_textfldNamed];
 }
 
-- (IBAction)doneButton:(id)sender {    
+- (IBAction)doneButton:(id)sender {
+    [self.textfldNamed resignFirstResponder];
     [self.commentsDelegate dismissCommentsView];
 }
 @end
