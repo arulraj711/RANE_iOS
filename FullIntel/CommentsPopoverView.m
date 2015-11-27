@@ -148,7 +148,7 @@
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
         NSManagedObject *comment = [self.commentsArray objectAtIndex:indexPath.row];
         cell.userName.text = [comment valueForKey:@"userName"];
-        
+        cell.date.text = [comment valueForKey:@"createdDate"];
         NSData *newdata=[[comment valueForKey:@"comment"] dataUsingEncoding:NSUTF8StringEncoding
                                   allowLossyConversion:YES];
         NSString *mystring=[[NSString alloc] initWithData:newdata encoding:NSNonLossyASCIIStringEncoding];
@@ -171,6 +171,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self postCommentCommonMethod:textField];
+    
     return YES;
 }
 -(void)postCommentCommonMethod :(UITextField *)textField
@@ -190,14 +191,17 @@
         [commentsDic setObject:optionString forKey:@"comment"];
         NSData *commentsJsondata = [NSJSONSerialization dataWithJSONObject:commentsDic options:NSJSONWritingPrettyPrinted error:nil];
         NSString *commentsResultStr = [[NSString alloc]initWithData:commentsJsondata encoding:NSUTF8StringEncoding];
-        if(textField.text.length != 0) {
+//        if(textField.text.length != 0) {
             [[FISharedResources sharedResourceManager]addCommentsWithDetails:commentsResultStr];
             textField.text = @"";
             [textField resignFirstResponder];
-        } else {
-            UIWindow *window = [[UIApplication sharedApplication]windows][0];
-            [window makeToast:@"Please enter a comment." duration:1 position:CSToastPositionCenter];
-        }
+//        } else {
+ //        }
+    }
+    else{
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window makeToast:@"Please enter a comment." duration:1 position:CSToastPositionCenter];
+
     }
 }
 
@@ -224,7 +228,7 @@
     [UIView setAnimationDuration:0.4]; // to slide the view up
     
     NSDictionary *userInfo = [notification userInfo];
-    
+    NSLog(@"keyboard userinfo:%@",userInfo);
     CGRect keyboardEndFrame;
     [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
     
@@ -232,12 +236,13 @@
     
     
     CGRect rect = self.view.frame;
-
-    NSLog(@"view frame height before keyboardDidShow:%f, %f",self.view.frame.size.height,rect.size.height);
+    CGRect popRect = self.view.superview.frame;
+    NSLog(@"view frame height before keyboardDidShow:%f, %f,minu value:%f",self.view.frame.size.height,rect.size.height,popRect.size.height - keyboardEndFrame.size.height);
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        
-        rect.size.height=250;
+        popRect.size.height = 300;
+        rect.size.height=50;
         self.view.frame = rect;
+        self.view.superview.frame = popRect;
     } else {
         if(rect.size.height==768){
             

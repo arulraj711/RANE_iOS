@@ -48,7 +48,7 @@
     [super viewDidLoad];
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-//        self.revealController.recognizesPanningOnFrontView = NO;
+        self.revealController.recognizesPanningOnFrontView = NO;
 //        self.revealController. = @{PKRevealControllerRecognizesPanningOnFrontViewKey : @NO};
     
 //        NSDictionary *options = @{
@@ -399,8 +399,8 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-            self.revealController.revealPanGestureRecognizer.delegate = nil;
+//        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+//            self.revealController.revealPanGestureRecognizer.delegate = nil;
     [self closeMenu];
 }
 
@@ -434,9 +434,9 @@
     }
 }
 -(void)viewWillAppear:(BOOL)animated{
-    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
-    self.revealController.revealPanGestureRecognizer.delegate = self;
-    }
+//    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
+//    self.revealController.revealPanGestureRecognizer.delegate = self;
+//    }
 //    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
 //    if ( screenHeight > 480 && screenHeight < 736 ){
 //        NSLog(@"iPhone 6");
@@ -1096,10 +1096,11 @@
     NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
     NSLog(@"%ld",(long)indexPath.row);
     UITableViewRowAction *moreAction;
-    
+        _articlesTableView.editing = nil;
     if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
         moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star_selected_iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
             [self markedImpActions:indexPath];
+            
         }];
     } else {
         moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
@@ -1400,7 +1401,12 @@
        
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        
+        if(cell.isEditing == YES) {
+            NSLog(@"cell editing yes ------------");
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        } else {
+            NSLog(@"cell editing no ---------");
+        }
         // Configure the cell...
         NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
         NSSet *authorSet = [curatedNews valueForKey:@"author"];
@@ -1736,8 +1742,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-    self.revealController.revealPanGestureRecognizer.delegate = nil;
+//    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+//    self.revealController.revealPanGestureRecognizer.delegate = nil;
 
     //    NSManagedObject *influencer = [self.devices objectAtIndex:indexPath.row];
     //    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
@@ -2041,8 +2047,8 @@
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView
                   willDecelerate:(BOOL)decelerate{
-        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-            self.revealController.revealPanGestureRecognizer.delegate = self;
+//        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+//            self.revealController.revealPanGestureRecognizer.delegate = self;
     //NSLog(@"tableview scroll dragging");
     if(self.devices.count != 0){
         //NSLog(@"stepppp");

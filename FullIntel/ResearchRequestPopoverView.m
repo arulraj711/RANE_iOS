@@ -8,7 +8,7 @@
 
 #import "ResearchRequestPopoverView.h"
 #import "FISharedResources.h"
-
+#import "UIView+Toast.h"
 @interface ResearchRequestPopoverView ()
 
 @end
@@ -191,26 +191,32 @@
     [self dismissViewControllerAnimated:NO completion:NULL];
 }
 - (IBAction)send:(id)sender {
-    NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"] forKey:@"userId"];
-    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"] forKey:@"customerId"];
-    [gradedetails setObject:@"1" forKey:@"version"];
-    if(self.articleId.length != 0) {
-        [gradedetails setObject:self.articleId forKey:@"articleId"];
-        [gradedetails setObject:self.articleDesc.text forKey:@"description"];
-        [gradedetails setObject:self.articleTitle forKey:@"headLine"];
+    if(self.articleDesc.text.length != 0) {
+        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"] forKey:@"userId"];
+        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"] forKey:@"customerId"];
+        [gradedetails setObject:@"1" forKey:@"version"];
+        if(self.articleId.length != 0) {
+            [gradedetails setObject:self.articleId forKey:@"articleId"];
+            [gradedetails setObject:self.articleDesc.text forKey:@"description"];
+            [gradedetails setObject:self.articleTitle forKey:@"headLine"];
+        } else {
+            [gradedetails setObject:@"Sent from Menu Id Research Request" forKey:@"articleId"];
+            [gradedetails setObject:self.articleDesc.text forKey:@"description"];
+            [gradedetails setObject:@"Sent from Menu Head Research Request" forKey:@"headLine"];
+        }
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        //NSLog(@"request input:%@",resultStr);
+        [[FISharedResources sharedResourceManager]sendResearchRequestWithDetails:resultStr];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SendResearchRequest"];
     } else {
-        [gradedetails setObject:@"Sent from Menu Id Research Request" forKey:@"articleId"];
-        [gradedetails setObject:self.articleDesc.text forKey:@"description"];
-        [gradedetails setObject:@"Sent from Menu Head Research Request" forKey:@"headLine"];
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window makeToast:@"Please enter a message to proceed." duration:1 position:CSToastPositionCenter];
     }
-    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
     
-    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    //NSLog(@"request input:%@",resultStr);
-    [[FISharedResources sharedResourceManager]sendResearchRequestWithDetails:resultStr];
-    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SendResearchRequest"];
 }
 
 -(void)researchSend {

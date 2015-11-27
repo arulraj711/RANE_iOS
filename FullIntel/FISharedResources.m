@@ -1040,7 +1040,7 @@
                 for(NSDictionary *commentsDic in commentsArray) {
                     NSManagedObject *comments = [NSEntityDescription insertNewObjectForEntityForName:@"Comments" inManagedObjectContext:managedObjectContext];
                     [comments setValue:[commentsDic valueForKey:@"comment"] forKey:@"comment"];
-                   // [comments setValue:[commentsDic valueForKey:@"createdDate"] forKey:@"createdDate"];
+                    [comments setValue:[commentsDic valueForKey:@"createdDate"] forKey:@"createdDate"];
                     [comments setValue:[commentsDic valueForKey:@"id"] forKey:@"id"];
                     [comments setValue:[commentsDic valueForKey:@"likeCount"] forKey:@"likeCount"];
                     [comments setValue:[commentsDic valueForKey:@"parentId"] forKey:@"parentId"];
