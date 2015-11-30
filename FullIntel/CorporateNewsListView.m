@@ -67,7 +67,7 @@
         [self.revealController showViewController:self.revealController.frontViewController];
     } else if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
-            [self.revealController showViewController:self.revealController.frontViewController];
+            [self.revealController showViewController:self.revealController.leftViewController];
         } else {
             [self.revealController showViewController:self.revealController.leftViewController];
         }

@@ -839,7 +839,7 @@
         NSLog(@"%@",self.webViewHeightConstraint);
         CGFloat pointOfWebview = newBounds.size.height;
 
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+800);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+1000+self.bioLabel.frame.size.height);
         
     }
     else{
