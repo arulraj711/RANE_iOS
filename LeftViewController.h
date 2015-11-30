@@ -11,7 +11,9 @@
 #import "RADataObject.h"
 #import "MZFormSheetController.h"
 #import "WSCoachMarksView.h"
-@interface LeftViewController : UIViewController <RATreeViewDataSource,RATreeViewDelegate,MZFormSheetBackgroundWindowDelegate,UIViewControllerTransitioningDelegate,WSCoachMarksViewDelegate>{
+#import "RATableViewCell.h"
+#import "RATreeView+Private.h"
+@interface LeftViewController : UIViewController <RATreeViewDataSource,RATreeViewDelegate,MZFormSheetBackgroundWindowDelegate,UIViewControllerTransitioningDelegate,WSCoachMarksViewDelegate,ExpandButtonDelegate>{
     WSCoachMarksView *coachMarksView;
     RATreeView *treeView;
     MZFormSheetController *formSheet;

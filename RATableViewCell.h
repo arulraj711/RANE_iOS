@@ -20,7 +20,11 @@
 
 #import <UIKit/UIKit.h>
 #import "JSCustomBadge.h"
-
+#import "RADataObject.h"
+@protocol ExpandButtonDelegate <NSObject>
+@optional
+- (void)expandButtonClickWithObject:(RADataObject *)dataObject;
+@end
 @interface RATableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleWidthConstraint;
@@ -28,7 +32,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconWidthConstraint;
 @property (nonatomic, copy) void (^additionButtonTapAction)(id sender);
 @property (nonatomic) BOOL additionButtonHidden;
-
+- (IBAction)expandButtonAction:(id)sender;
+@property RADataObject *cellItem;
 - (void)setupWithTitle:(NSString *)title detailText:(NSString *)detailText level:(NSInteger)level additionButtonHidden:(BOOL)additionButtonHidden;
 - (void)setAdditionButtonHidden:(BOOL)additionButtonHidden animated:(BOOL)animated;
 @property (weak, nonatomic) IBOutlet UIButton *expandButton;
@@ -37,4 +42,5 @@
 @property (nonatomic,strong) IBOutlet UIImageView *iconImage;
 @property (nonatomic,strong) IBOutlet UIImageView *rssImage;
 @property (nonatomic,strong) IBOutlet UILabel *countLabel;
+@property(nonatomic,weak) id<ExpandButtonDelegate> expandButtonDelegate;
 @end

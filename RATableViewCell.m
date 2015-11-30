@@ -69,6 +69,10 @@
     
 }
 
+- (IBAction)expandButtonAction:(id)sender {
+    NSLog(@"expand button click");
+}
+
 - (void)setupWithTitle:(NSString *)title detailText:(NSString *)detailText level:(NSInteger)level additionButtonHidden:(BOOL)additionButtonHidden
 {
   self.customTitleLabel.text = title;
@@ -135,9 +139,13 @@
 
 - (IBAction)additionButtonTapped:(id)sender
 {
-  if (self.additionButtonTapAction) {
-    self.additionButtonTapAction(sender);
-  }
+    RADataObject *data = self.cellItem;
+    NSLog(@"selected item:%@ and name:%@",data,data.name);
+    [self.expandButtonDelegate expandButtonClickWithObject:data];
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isExpandButtonClick"];
+//  if (self.additionButtonTapAction) {
+//    self.additionButtonTapAction(sender);
+//  }
 }
 
 @end

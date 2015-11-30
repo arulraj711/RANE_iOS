@@ -45,6 +45,13 @@
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
+-(void)expandMenu:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *userInfo = notification.userInfo;
+    NSIndexPath *indexPath = [userInfo objectForKey:@"indexpath"];
+    [self expandButtonClickForIndexPath:indexPath];
+   // [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -135,6 +142,28 @@
       [self expandCellForTreeNode:treeNode informDelegate:YES];
     }
   }
+}
+
+
+-(void)expandButtonClickForIndexPath:(NSIndexPath *)indexPath {
+    RATreeNode *treeNode = [self treeNodeForIndexPath:indexPath];
+    if (treeNode.expanded) {
+        if ([self.delegate respondsToSelector:@selector(treeView:shouldCollapaseRowForItem:)]) {
+            if ([self.delegate treeView:self shouldCollapaseRowForItem:treeNode.item]) {
+                [self collapseCellForTreeNode:treeNode informDelegate:YES];
+            }
+        } else {
+            [self collapseCellForTreeNode:treeNode informDelegate:YES];
+        }
+    } else {
+        if ([self.delegate respondsToSelector:@selector(treeView:shouldExpandRowForItem:)]) {
+            if ([self.delegate treeView:self shouldExpandRowForItem:treeNode.item]) {
+                [self expandCellForTreeNode:treeNode informDelegate:YES];
+            }
+        } else {
+            [self expandCellForTreeNode:treeNode informDelegate:YES];
+        }
+    }
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath

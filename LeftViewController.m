@@ -866,6 +866,8 @@
     [self.treeView setShowsVerticalScrollIndicator:NO ];
     
     RATableViewCell *cell = [self.treeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
+    cell.cellItem = item;
+    cell.expandButtonDelegate = self;
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     cell.backgroundColor = [FIUtils colorWithHexString:stringWithoutSpaces];
@@ -1033,8 +1035,33 @@
     {
         cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:highColor];
     }
+    
+   // [cell.expandButton addTarget:self action:@selector(yourButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
+
+
+-(void)yourButtonClicked:(UIButton*)sender {
+    
+    NSLog(@"selected data object:%@",data.name);
+}
+
+- (void)expandButtonClickWithObject:(RADataObject *)dataObject {
+    NSLog(@"expanded object:%@",dataObject.name);
+    RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:dataObject];
+    BOOL expanded = [self.treeView isCellForItemExpanded:dataObject];
+    if(expanded) {
+        // NSLog(@"list is expanded");
+        [cell.expandButton setSelected:NO];
+    }else {
+        // NSLog(@"list is clopsed");
+        [cell.expandButton setSelected:YES];
+    }
+    NSIndexPath *indexPath = [self.treeView indexPathForItem:dataObject];
+    NSLog(@"indexpath:%@",indexPath);
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"expandMenu" object:nil userInfo:@{@"indexpath":indexPath}];
+}
+
 
 - (NSInteger)treeView:(RATreeView *)treeView numberOfChildrenOfItem:(id)item
 {
@@ -1074,6 +1101,7 @@
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     @try {
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFolderClick"];
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isExpandButtonClick"];
         data = item;
         //    //if([[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]iseq)
         //NSLog(@"one:%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]);

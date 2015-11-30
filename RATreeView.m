@@ -118,7 +118,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:(id<UITableViewDelegate>)self selector:@selector(directLoad) name:@"directLoad" object:nil];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:(id<UITableViewDelegate>)self selector:@selector(expandMenu:) name:@"expandMenu" object:nil];
   [self addSubview:tableView];
   [self setTableView:tableView];
   
