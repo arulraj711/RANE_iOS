@@ -46,6 +46,7 @@
 - (void)viewDidLoad {
     NSLog(@"view did load");
     [super viewDidLoad];
+    _articlesTableView.multipleTouchEnabled = NO;
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.recognizesPanningOnFrontView = NO;

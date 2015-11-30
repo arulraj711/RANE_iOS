@@ -1026,12 +1026,17 @@
 
 
 - (IBAction)saveButtonClick:(UIButton *)sender {
-    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
-    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
-    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
-    sprintAnimation.springBounciness = 20.f;
-    [sender pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+    
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+        sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
+        sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+        sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+        sprintAnimation.springBounciness = 20.f;
+        [sender pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+    }
+  
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [resultDic setObject:self.selectedArticleId forKey:@"selectedArticleId"];
@@ -1227,14 +1232,15 @@
 
 - (IBAction)markedImpButtonClick:(UIButton *)sender {
    
-
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
     POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
     sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
     sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
     sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
     sprintAnimation.springBounciness = 20.f;
     [sender pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
-    
+    }
 //
 //        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
 //            CGAffineTransform transform = sender.transform;

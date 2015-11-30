@@ -170,7 +170,7 @@
 
         } else {
             
-            cell.date.text = [comment valueForKey:@"createdDate"];
+//            cell.date.text = [comment valueForKey:@"createdDate"];
 
         }
 
@@ -201,8 +201,16 @@
     
     return YES;
 }
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (range.location == 0 && [string isEqualToString:@" "]) {
+        return NO;
+    }
+    return YES;
+}
 -(void)postCommentCommonMethod :(UITextField *)textField
 {
+
     if(textField.text.length != 0) {
         NSMutableDictionary *commentsDic = [[NSMutableDictionary alloc] init];
         [commentsDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -223,7 +231,7 @@
             textField.text = @"";
             [textField resignFirstResponder];
 //        } else {
- //        }
+//        }
     }
     else{
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
