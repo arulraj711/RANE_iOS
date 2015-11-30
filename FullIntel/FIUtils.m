@@ -49,7 +49,7 @@
         return [NSString stringWithFormat:@"%ldy ago", (long)components.year];
     }
         else if (components.month > 0) {
-            return [NSString stringWithFormat:@"%ldmonth ago", (long)components.month];
+            return [NSString stringWithFormat:@"%ldmon ago", (long)components.month];
         }
     else if (components.weekOfYear > 0) {
         return [NSString stringWithFormat:@"%ldw ago", (long)components.weekOfYear];

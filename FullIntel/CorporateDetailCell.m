@@ -47,6 +47,12 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    if (IS_IPHONE_6 | IS_IPHONE_6P) {
+        self.biolabelWidthConstraint.constant = 360;
+        self.bioLabel.preferredMaxLayoutWidth = 360;
+
+    }
+
     self.badgeTwo.hideWhenZero = YES;
     self.socialLinkCollectionView.hidden = YES;
 
@@ -839,7 +845,7 @@
         NSLog(@"%@",self.webViewHeightConstraint);
         CGFloat pointOfWebview = newBounds.size.height;
 
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+1000+self.bioLabel.frame.size.height);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+750+self.bioLabel.frame.size.height);
         
     }
     else{

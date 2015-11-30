@@ -66,7 +66,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorOutletName;
 @property (weak, nonatomic) IBOutlet UILabel *authorLocationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorTagLabel;
-@property (weak, nonatomic) IBOutlet UITextView *bioLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (strong, nonatomic) IBOutlet UIView *ratingControl;
 @property (strong, nonatomic) IBOutlet UIView *overlayView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
@@ -163,6 +163,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *savedIconHorizontalConstraint;
 
 
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *biolabelWidthConstraint;
 
 
 

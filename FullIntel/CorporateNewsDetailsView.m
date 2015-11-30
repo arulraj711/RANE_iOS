@@ -831,7 +831,6 @@
         cell.bioDivider.hidden = NO;
         cell.bioLabel.hidden = NO;
         cell.bioLabel.text = bioString;
-        [cell.bioLabel sizeToFit];
     } else {
         cell.bioTitleLabel.hidden = YES;
         cell.bioDivider.hidden = YES;
