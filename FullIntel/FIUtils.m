@@ -46,10 +46,19 @@
                                                                      toDate:[NSDate date]
                                                                     options:0];
     if (components.year > 0) {
-        return [NSString stringWithFormat:@"%ldy ago", (long)components.year];
+        NSDateFormatter *frmaers=[[NSDateFormatter alloc]init];
+        [frmaers setDateFormat:@"MM/dd/yy"];
+        [frmaers setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        NSString *dateStsr=[frmaers stringFromDate:date];
+        return dateStsr;
     }
         else if (components.month > 0) {
-            return [NSString stringWithFormat:@"%ldmon ago", (long)components.month];
+            
+            NSDateFormatter *frmaers=[[NSDateFormatter alloc]init];
+            [frmaers setDateFormat:@"MM/dd/yy"];
+            [frmaers setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+            NSString *dateStsr=[frmaers stringFromDate:date];
+            return dateStsr;
         }
     else if (components.weekOfYear > 0) {
         return [NSString stringWithFormat:@"%ldw ago", (long)components.weekOfYear];

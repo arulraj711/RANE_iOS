@@ -601,7 +601,7 @@
             
         } else {
             UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
-            [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+            [Btn setFrame:CGRectMake(0.0f,0.0f,25.0f,25.0f)];
             [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
             [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
             UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
@@ -1527,6 +1527,28 @@
                 cell.authorName.text = [authorObject valueForKey:@"name"];
             }
         }
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            
+            UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+            
+            if(orientation == 0){
+                //Default orientation
+                //UI is in Default (Portrait) -- this is really a just a failsafe.
+            }else if(orientation == UIInterfaceOrientationPortrait) {
+                //Do something if the orientation is in Portrait
+                NSString *authorName = cell.authorName.text;
+                if(authorName.length > 15) {
+                    cell.authorName.text = [NSString stringWithFormat:@"%@...",[authorName substringToIndex:15]];
+                    cell.messageIcon.hidden = YES;
+                    cell.messageCountText.hidden = YES;
+                } else {
+                    cell.messageIcon.hidden = NO;
+                    cell.messageCountText.hidden = NO;
+                }
+
+            }
+                  }
+        
         // NSLog(@"multiple author array:%@",multipleAuthorArray);
         //cell.authorTitle.text = [author valueForKey:@"title"];
         //[cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
