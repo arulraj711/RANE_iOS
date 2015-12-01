@@ -145,7 +145,23 @@
     }
     return self.commentsArray.count;
 }
+- (void)setUpCell:(CommentCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        if(self.commentsArray.count != 0) {
+            
+            NSManagedObject *comment = [self.commentsArray objectAtIndex:indexPath.row];
+            NSData *newdata=[[comment valueForKey:@"comment"] dataUsingEncoding:NSUTF8StringEncoding
+                                                           allowLossyConversion:YES];
+            NSString *mystring=[[NSString alloc] initWithData:newdata encoding:NSNonLossyASCIIStringEncoding];
+            
+            cell.message.text = mystring;
+        }
 
+    }
+    else{
+        
+    }
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *tableCell;
     if(self.commentsArray.count == 0) {
@@ -175,20 +191,20 @@
             NSString *finalDateString =[FIUtils relativeDateStringForDate:dats];
             NSLog(@"%@",finalDateString);
             cell.date.text = finalDateString;
+            [self setUpCell:cell atIndexPath:indexPath];
 
         } else {
             
 //            cell.date.text = [comment valueForKey:@"createdDate"];
+            NSData *newdata=[[comment valueForKey:@"comment"] dataUsingEncoding:NSUTF8StringEncoding
+                                              allowLossyConversion:YES];
+            NSString *mystring=[[NSString alloc] initWithData:newdata encoding:NSNonLossyASCIIStringEncoding];
+            
+            cell.message.text = mystring;
 
         }
 
-        
 
-        NSData *newdata=[[comment valueForKey:@"comment"] dataUsingEncoding:NSUTF8StringEncoding
-                                  allowLossyConversion:YES];
-        NSString *mystring=[[NSString alloc] initWithData:newdata encoding:NSNonLossyASCIIStringEncoding];
-        
-        cell.message.text = mystring;
         NSString *name = [comment valueForKey:@"userName"];
         
         NSString *receiverImageUrl = [comment valueForKey:@"photoUrl"];
@@ -203,7 +219,35 @@
     }
     return tableCell;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
 
+    static CommentCell *cell = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        cell = [self.commentsTableView dequeueReusableCellWithIdentifier:@"Cell"];
+    });
+    
+    [self setUpCell:cell atIndexPath:indexPath];
+    
+    return [self calculateHeightForConfiguredSizingCell:cell];
+    }
+    else
+        return 70;
+}
+
+- (CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell *)sizingCell {
+    [sizingCell layoutIfNeeded];
+    
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    NSLog(@"%f",size.height);
+    if (size.height < 100) {
+        CGFloat finVal = size.height+10;
+        return finVal;
+    }
+    return size.height;
+}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self postCommentCommonMethod:textField];
     
