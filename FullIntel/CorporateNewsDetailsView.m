@@ -304,14 +304,14 @@
 -(void)addCustomNavRightButton {
     
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:17];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text = @"Article";
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"Open Sans" size:17];
+//    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text = @"Article";
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor]; // change this color
+//    self.navigationItem.titleView = label;
     
     
     UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
@@ -698,7 +698,7 @@
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
             cell.workTitleIconHeightConstraint.constant = 10;
-            cell.workTitleLabelHeightConstraint.constant = 16;
+            cell.workTitleLabelHeightConstraint.constant = 18;
             cell.outletImageTopConstraint.constant = 7;
             cell.outletLabelTopConstraint.constant = 1;
         }
@@ -731,7 +731,7 @@
             cell.locationImageTopConstarint.constant = 7;
             cell.outletIconHeightConstraint.constant = 10;
             cell.locationLabelTopConstraint.constant = 1;
-            cell.outletLabelHeightConstraint.constant = 16;
+            cell.outletLabelHeightConstraint.constant = 18;
 
         }
         else{
@@ -772,7 +772,7 @@
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
             cell.locationIconHeightConstraint.constant = 10;
-            cell.locationLabelHeightConstraint.constant = 16;
+            cell.locationLabelHeightConstraint.constant = 18;
             cell.beatsImageTopConstraint.constant = 7;
             cell.beatsLabelTopConstraint.constant = 1;
         }
@@ -806,7 +806,7 @@
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
             cell.beatsIconHeightConstraint.constant = 10;
-            cell.beatsLabelHeightConstraint.constant = 16;
+            cell.beatsLabelHeightConstraint.constant = 18;
 
         }
         else{
