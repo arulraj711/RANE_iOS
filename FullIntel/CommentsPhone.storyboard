@@ -56,6 +56,9 @@
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="289" translatesAutoresizingMaskIntoConstraints="NO" id="gEA-oF-0mV">
                                                     <rect key="frame" x="62" y="29" width="240" height="67"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="67" id="5Yg-XQ-eM3"/>
+                                                    </constraints>
                                                     <string key="text"> a major issue. If the title of a ViewController is lengthy, the next ViewController's title won't show in the center. Rather it would take offset space from left and the title text seems right aligned. I was working on a project started by other guy and wasted hours to figure out why the title text is not horizontal center of the navigation b</string>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -86,7 +89,6 @@
                                                 <constraint firstItem="gEA-oF-0mV" firstAttribute="trailing" secondItem="qSr-46-XLm" secondAttribute="trailingMargin" id="I0I-jU-qMy"/>
                                                 <constraint firstItem="rgo-Dy-1Hq" firstAttribute="top" secondItem="qSr-46-XLm" secondAttribute="topMargin" constant="-1" id="JNh-DJ-Bly"/>
                                                 <constraint firstItem="xLZ-D6-qLv" firstAttribute="leading" secondItem="gEA-oF-0mV" secondAttribute="leading" id="L7K-e2-e5q"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="gEA-oF-0mV" secondAttribute="bottom" constant="-5" id="MjS-sc-bcA"/>
                                                 <constraint firstItem="xLZ-D6-qLv" firstAttribute="top" secondItem="qSr-46-XLm" secondAttribute="topMargin" id="PNZ-Lw-rae"/>
                                                 <constraint firstItem="LkJ-w2-usz" firstAttribute="leading" secondItem="xLZ-D6-qLv" secondAttribute="trailing" constant="23" id="bPg-5O-MWn"/>
                                                 <constraint firstItem="LkJ-w2-usz" firstAttribute="top" secondItem="qSr-46-XLm" secondAttribute="topMargin" constant="1" id="dw2-eP-bQ2"/>

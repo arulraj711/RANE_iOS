@@ -373,6 +373,7 @@
     [cell addGestureRecognizer:cellTap];
     
     
+    
     return cell;
 }
 

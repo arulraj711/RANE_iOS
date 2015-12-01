@@ -24,4 +24,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *requestChangeButton;
 @property (weak,nonatomic) IBOutlet UIView *tutorialDescriptionView;
 - (IBAction)checkMark:(id)sender;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *tutorialModuleLeading;
 @end

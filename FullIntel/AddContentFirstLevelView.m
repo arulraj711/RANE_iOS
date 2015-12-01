@@ -40,6 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadContentCategory) name:@"contentCategory" object:nil];
@@ -63,6 +64,7 @@
         if (IS_IPHONE_6)
         {
         layout.blockPixels = CGSizeMake(110,110);
+            
             
         }
         else if (IS_IPHONE_6P)
@@ -216,7 +218,19 @@
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
     
     [self.view addGestureRecognizer:tapEvent];
+    
 }
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    
+    
+}
+-(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    
+    
+}
+
 -(void)cancelButtonPress{
     [self dismissViewControllerAnimated:YES completion:nil];
 //    NSLog(@"back button press");

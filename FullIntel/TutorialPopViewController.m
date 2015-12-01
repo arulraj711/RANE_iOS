@@ -29,8 +29,9 @@
     self.outerBoxView.layer.cornerRadius = 10.0f;
     
     self.bgImageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapEvent)];
-    [self.bgImageView addGestureRecognizer:tapEvent];
+//    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapEvent)];
+//    [self.bgImageView addGestureRecognizer:tapEvent];
+    
 }
 
 - (void)didReceiveMemoryWarning {

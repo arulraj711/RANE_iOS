@@ -75,10 +75,10 @@
         }
         else if (IS_IPHONE_6P)
         {
-            self.savedIconHorizontalConstraint.constant = 35;
-            self.commentIconHorizontalConstraint.constant = 35;
-            self.moreIconHorizontalConstraint.constant = 35;
-            self.requestIconHorizontalConstraint.constant = 35;
+            self.savedIconHorizontalConstraint.constant = 45;
+            self.commentIconHorizontalConstraint.constant = 45;
+            self.moreIconHorizontalConstraint.constant = 45;
+            self.requestIconHorizontalConstraint.constant = 45;
 
         }
         else if (IS_IPHONE_5)

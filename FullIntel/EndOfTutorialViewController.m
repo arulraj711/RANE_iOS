@@ -47,6 +47,17 @@
     
     
 }
+//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    
+//    
+//    [self tapEvent];
+//}
+//-(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    
+//    
+//    [self tapEvent];
+//    
+//}
 -(void)viewWillAppear:(BOOL)animated{
     
     

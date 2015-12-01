@@ -101,7 +101,17 @@
     
     
 }
-
+//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    
+//    
+//    [self tapEvent];
+//}
+//-(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    
+//    
+//    [self tapEvent];
+//
+//}
 - (void)performSwipeUpAnimation
 {
     // First let's remove any existing animations
