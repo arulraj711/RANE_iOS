@@ -79,7 +79,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="Fjs-SE-xjX"/>
                                                         <constraint firstAttribute="width" constant="130" id="Mtx-4c-jRs"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -115,8 +115,8 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jan 01, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBs-6W-EzR">
-                                                    <rect key="frame" x="270" y="12" width="68" height="17"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
+                                                    <rect key="frame" x="268" y="9" width="79" height="20"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -126,12 +126,12 @@
                                                 <constraint firstItem="RUg-34-Zg6" firstAttribute="leading" secondItem="YAV-OI-EdW" secondAttribute="leadingMargin" constant="19" id="9N7-9q-gni"/>
                                                 <constraint firstItem="OTQ-Hq-ZbT" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" id="Cb4-MM-NCV"/>
                                                 <constraint firstItem="RUg-34-Zg6" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="1" id="FaX-vT-f2I"/>
-                                                <constraint firstItem="xBs-6W-EzR" firstAttribute="leading" secondItem="C9V-YX-Z1W" secondAttribute="trailing" constant="30" id="Frj-gj-vr2"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="xBs-6W-EzR" secondAttribute="trailing" constant="29" id="N6I-Gy-OeK"/>
+                                                <constraint firstItem="xBs-6W-EzR" firstAttribute="leading" secondItem="C9V-YX-Z1W" secondAttribute="trailing" constant="28" id="Frj-gj-vr2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="xBs-6W-EzR" secondAttribute="trailing" constant="20" id="N6I-Gy-OeK"/>
                                                 <constraint firstItem="C9V-YX-Z1W" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" id="RcJ-Kr-RXO"/>
                                                 <constraint firstItem="C9V-YX-Z1W" firstAttribute="leading" secondItem="OTQ-Hq-ZbT" secondAttribute="trailing" constant="17" id="SW1-yK-vdv"/>
                                                 <constraint firstItem="VcN-xf-ndM" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" id="bLC-kU-kgR"/>
-                                                <constraint firstItem="xBs-6W-EzR" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="4" id="eBH-Rm-T5u"/>
+                                                <constraint firstItem="xBs-6W-EzR" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="1" id="eBH-Rm-T5u"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
