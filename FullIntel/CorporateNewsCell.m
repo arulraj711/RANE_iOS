@@ -49,6 +49,13 @@
     }
     else
     {
+        self.markedImpView.layer.masksToBounds = YES;
+        self.markedImpView.layer.cornerRadius = 22.0f;
+        //    self.markedImpView.layer.borderColor = [UIColor blackColor].CGColor;
+        //    self.markedImpView.layer.borderWidth = 3.0;
+        
+        self.bookmarkView.layer.masksToBounds = YES;
+        self.bookmarkView.layer.cornerRadius = 22.0f;
         self.articleImageView.layer.masksToBounds = YES;
         self.articleImageView.layer.cornerRadius = 10.0f;
         self.articleImageView.layer.borderColor = [UIColor colorWithRed:(237/255.0) green:(240/255.0) blue:(240/255.0) alpha:1].CGColor;

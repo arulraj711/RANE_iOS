@@ -475,7 +475,7 @@
     }
     else if(collectionView == self.socialcollectionView) {
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-            return CGSizeMake(50, 50);
+            return CGSizeMake(40, 40);
 
         } else {
             return CGSizeMake(50, 50);
@@ -564,7 +564,7 @@
             socialCell.cellOuterView.layer.borderWidth = 1.0f;
             socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
             socialCell.cellOuterView.layer.masksToBounds = YES;
-            socialCell.cellOuterView.layer.cornerRadius = 15.0f;
+            socialCell.cellOuterView.layer.cornerRadius = 20.0f;
             socialCell.blueCircleView.layer.masksToBounds = YES;
             socialCell.blueCircleView.layer.cornerRadius = 2.5f;
             
@@ -944,12 +944,12 @@
     self.tweetsCollectionView.hidden = NO;
     UINib *cellNib;
     if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
-        flowLayout.itemSize = CGSizeMake(40, 40);
+        //flowLayout.itemSize = CGSizeMake(40, 40);
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
         self.socialcollectionView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
 
-        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+200, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
+        self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+190, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];
 
         cellNib = [UINib nibWithNibName:@"SocialLinkCellPhone" bundle:nil];
         [self.socialcollectionView registerNib:cellNib forCellWithReuseIdentifier:@"Cell"];
