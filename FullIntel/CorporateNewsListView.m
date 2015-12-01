@@ -601,7 +601,7 @@
             
         } else {
             UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
-            [Btn setFrame:CGRectMake(0.0f,0.0f,25.0f,25.0f)];
+            [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
             [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
             [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
             UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
@@ -1609,9 +1609,11 @@
         
         if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             cell.readStatusImageView.hidden = NO;
+            cell.articleImageView.alpha = 0.5;
             cell.contentView.alpha = 1;
         } else {
             cell.readStatusImageView.hidden = YES;
+            cell.articleImageView.alpha = 1;
             cell.contentView.alpha = 1;
         }
         
