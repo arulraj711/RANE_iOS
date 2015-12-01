@@ -137,6 +137,8 @@
         cell.editButton.hidden = NO;
         cell.deleteButton.hidden = NO;
     }
+    [cell.editButton setSelected:NO];
+    [cell.deleteButton setSelected:NO];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -168,6 +170,7 @@
     [window makeToast:@"RSS url copied successfully" duration:1 position:CSToastPositionCenter];
 }
 - (IBAction)editButtonClick:(UIButton *)sender {
+    [sender setSelected:YES];
     self.isdeleteFlag = NO;
     UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Rename Folder" message:@"Please enter the folder name." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
     
@@ -251,6 +254,7 @@
 }
 
 - (IBAction)deleteButtonClick:(UIButton *)sender {
+    [sender setSelected:YES];
     self.isdeleteFlag = YES;
     UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Delete" message:@"Are you sure you want to delete the folder?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
     alertView.tag = sender.tag;
@@ -274,4 +278,7 @@
     
 }
 
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    [self.revealController showViewController:self.revealController.frontViewController];
+}
 @end

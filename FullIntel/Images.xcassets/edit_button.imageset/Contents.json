@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "Edit-30.png"
+      "filename" : "fa-edit_20_0_6e6e6e_none.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Edit-60.png"
+      "filename" : "fa-edit_40_0_6e6e6e_none.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "Edit-90.png"
+      "filename" : "fa-edit_60_0_6e6e6e_none.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

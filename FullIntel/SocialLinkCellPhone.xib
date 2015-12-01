@@ -15,10 +15,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZYQ-dc-9oo">
-                        <rect key="frame" x="5" y="5" width="30" height="30"/>
+                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                         <subviews>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qvy-xH-hJ4">
-                                <rect key="frame" x="5" y="5" width="20" height="20"/>
+                                <rect key="frame" x="12" y="12" width="16" height="16"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -30,6 +30,7 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="blueCircleView" destination="AjI-Rm-Txj" id="zi3-PH-iEO"/>
                 <outlet property="cellOuterView" destination="ZYQ-dc-9oo" id="Tbz-bo-NCL"/>
