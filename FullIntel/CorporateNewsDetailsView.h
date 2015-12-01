@@ -30,6 +30,7 @@
     FPPopoverKeyboardResponsiveController *popover;
 
 }
+@property (nonatomic,strong) NSString *articleTitle;
 @property NSString *selectedNewsArticleId;
 @property NSIndexPath *selectedIndexPath;
 @property (nonatomic,strong) NSMutableArray *socialLinksArray;

@@ -83,26 +83,30 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTQ-Hq-ZbT">
-                                                    <rect key="frame" x="182" y="5" width="16" height="22"/>
-                                                    <state key="normal" image="editphone">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTQ-Hq-ZbT">
+                                                    <rect key="frame" x="183" y="8" width="20" height="22"/>
+                                                    <state key="normal" image="edit_button">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <state key="selected" image="edit-selected"/>
+                                                    <state key="highlighted" image="edit-selected"/>
                                                     <connections>
                                                         <action selector="editButtonClick:" destination="kDE-8t-dsI" eventType="touchUpInside" id="7l8-67-gyj"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9V-YX-Z1W">
-                                                    <rect key="frame" x="220" y="5" width="16" height="22"/>
-                                                    <state key="normal" image="delPhone">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9V-YX-Z1W">
+                                                    <rect key="frame" x="220" y="8" width="20" height="22"/>
+                                                    <state key="normal" image="delete_button">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <state key="selected" image="delete-selected"/>
+                                                    <state key="highlighted" image="delete-selected"/>
                                                     <connections>
                                                         <action selector="deleteButtonClick:" destination="kDE-8t-dsI" eventType="touchUpInside" id="uvY-Zh-61F"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcN-xf-ndM">
-                                                    <rect key="frame" x="182" y="5" width="16" height="22"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcN-xf-ndM">
+                                                    <rect key="frame" x="182" y="8" width="16" height="22"/>
                                                     <state key="normal" image="rss_icon">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -110,8 +114,8 @@
                                                         <action selector="rssButtonClick:" destination="kDE-8t-dsI" eventType="touchUpInside" id="Z3j-EW-ffy"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Jan 01, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBs-6W-EzR">
-                                                    <rect key="frame" x="266" y="12" width="72" height="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jan 01, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBs-6W-EzR">
+                                                    <rect key="frame" x="270" y="12" width="68" height="17"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -120,13 +124,13 @@
                                             <constraints>
                                                 <constraint firstItem="C9V-YX-Z1W" firstAttribute="leading" secondItem="VcN-xf-ndM" secondAttribute="trailing" constant="22" id="0nE-FD-4wc"/>
                                                 <constraint firstItem="RUg-34-Zg6" firstAttribute="leading" secondItem="YAV-OI-EdW" secondAttribute="leadingMargin" constant="19" id="9N7-9q-gni"/>
-                                                <constraint firstItem="OTQ-Hq-ZbT" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="-3" id="Cb4-MM-NCV"/>
+                                                <constraint firstItem="OTQ-Hq-ZbT" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" id="Cb4-MM-NCV"/>
                                                 <constraint firstItem="RUg-34-Zg6" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="1" id="FaX-vT-f2I"/>
                                                 <constraint firstItem="xBs-6W-EzR" firstAttribute="leading" secondItem="C9V-YX-Z1W" secondAttribute="trailing" constant="30" id="Frj-gj-vr2"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="xBs-6W-EzR" secondAttribute="trailing" constant="29" id="N6I-Gy-OeK"/>
-                                                <constraint firstItem="C9V-YX-Z1W" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="-3" id="RcJ-Kr-RXO"/>
-                                                <constraint firstItem="C9V-YX-Z1W" firstAttribute="leading" secondItem="OTQ-Hq-ZbT" secondAttribute="trailing" constant="22" id="SW1-yK-vdv"/>
-                                                <constraint firstItem="VcN-xf-ndM" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="-3" id="bLC-kU-kgR"/>
+                                                <constraint firstItem="C9V-YX-Z1W" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" id="RcJ-Kr-RXO"/>
+                                                <constraint firstItem="C9V-YX-Z1W" firstAttribute="leading" secondItem="OTQ-Hq-ZbT" secondAttribute="trailing" constant="17" id="SW1-yK-vdv"/>
+                                                <constraint firstItem="VcN-xf-ndM" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" id="bLC-kU-kgR"/>
                                                 <constraint firstItem="xBs-6W-EzR" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="4" id="eBH-Rm-T5u"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -190,8 +194,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="delPhone" width="16" height="16"/>
-        <image name="editphone" width="16" height="16"/>
+        <image name="delete-selected" width="20" height="20"/>
+        <image name="delete_button" width="20" height="20"/>
+        <image name="edit-selected" width="20" height="20"/>
+        <image name="edit_button" width="20" height="20"/>
         <image name="rss_icon" width="16" height="16"/>
     </resources>
 </document>
