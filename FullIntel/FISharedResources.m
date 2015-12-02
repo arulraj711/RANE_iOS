@@ -105,10 +105,10 @@
             UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake(10, 70, window.frame.size.width - 20, 80)];
             backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
             
-            UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, window.frame.size.width - 20, 80)];
+            UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, window.frame.size.width - 40, 80)];
             errorLabel.text = @"It appears that you are not connected to the internet and some features are not available when you are offline.";
             errorLabel.textColor = [UIColor whiteColor];
-            errorLabel.textAlignment = NSTextAlignmentLeft;
+            errorLabel.textAlignment = NSTextAlignmentCenter;
             errorLabel.numberOfLines = 3;
             errorLabel.font = [UIFont fontWithName:@"Open Sans" size:14];
             [backgrView addSubview:errorLabel];

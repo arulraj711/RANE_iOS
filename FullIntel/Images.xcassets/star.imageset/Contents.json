@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "star-30.png",
+      "filename" : "ion-ios-star-outline_30_0_666e73_none.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "star-60.png",
+      "filename" : "ion-ios-star-outline_60_0_666e73_none.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ios7-star-outline_90.png",
+      "filename" : "ion-ios-star-outline_90_0_666e73_none.png",
       "scale" : "3x"
     }
   ],
