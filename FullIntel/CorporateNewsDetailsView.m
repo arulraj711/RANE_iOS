@@ -953,7 +953,14 @@
     {
         CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.articleTitle.font constrainedToSize:maximumLabelSize lineBreakMode:cell.articleTitle.lineBreakMode];
         NSLog(@"title height:%f",expectedLabelSize.height);
-        cell.articleTitleHeightConstraint.constant = expectedLabelSize.height;
+        UIFont *myFont = [UIFont fontWithName:@"OpenSans-Semibold" size:24.0];
+        CGRect textRect = [[curatedNews valueForKey:@"title"] boundingRectWithSize:maximumLabelSize
+                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                          attributes:@{NSFontAttributeName:myFont}
+                                             context:nil];
+        NSLog(@"another title calc:%f",textRect.size.height);
+        
+        cell.articleTitleHeightConstraint.constant = expectedLabelSize.height+10;
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
     } else {
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
