@@ -138,6 +138,7 @@
 - (IBAction)mailButtonClick:(UIButton *)sender;
 - (IBAction)commentsButtonClick:(UIButton *)sender;
 - (IBAction)markedImpButtonClick:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *articleTitleHeightConstraint;
 - (IBAction)globeButtonClick:(UIButton *)sender;
 - (IBAction)savedListButtonClick:(UIButton *)sender;
 - (IBAction)moreButtonClick:(UIButton *)sender;

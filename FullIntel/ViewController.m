@@ -16,6 +16,7 @@
 #import "SocialWebView.h"
 #import "FIWebService.h"
 #import <TwitterKit/TwitterKit.h>
+#define kPictureFrameHorizontalOffseta +35
 #define kPictureFrameHorizontalOffset +25
 
 //#import "WToast.h"
@@ -125,7 +126,29 @@
     }
     else
     {
-    self.view.frame = CGRectMake(self.view.frame.origin.x, -60, self.view.frame.size.width,self.view.frame.size.height);
+        if (i == 0) {
+            
+            NSLog(@"%f",self.centreYOuter.constant);
+            
+            NSTimeInterval duration = [notif.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+            UIViewAnimationCurve curve = [notif.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+            [UIView setAnimationCurve:curve];
+            [UIView setAnimationDuration:duration];
+            // Animation code
+            
+            [UIView animateWithDuration:duration
+                                  delay:0.0
+                                options: (curve<<20)
+                             animations:^{
+                                 self.centreYOuter.constant = kPictureFrameHorizontalOffseta;
+                                 NSLog(@"%f",self.centreYOuter.constant);
+                                 //self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
+                             }
+                             completion:^(BOOL finished){
+                             }];
+            //        self.view.frame = CGRectMake(self.view.frame.origin.x, -25, self.view.frame.size.width,self.view.frame.size.height);
+            i = 1;
+        }
     }
 }
 
@@ -170,7 +193,29 @@
     }
     else
     {
-    self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
+        if (i ==1) {
+            
+            NSLog(@"%f",self.centreYOuter.constant);
+            
+            NSTimeInterval duration = [notif.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+            UIViewAnimationCurve curve = [notif.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+            [UIView setAnimationCurve:curve];
+            [UIView setAnimationDuration:duration];
+            // Animation code
+            [UIView animateWithDuration:duration
+                                  delay:0.0
+                                options: (curve<<20)
+                             animations:^{
+                                 self.centreYOuter.constant = 0;
+                                 NSLog(@"%f",self.centreYOuter.constant);
+                                 
+                                 //self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width,self.view.frame.size.height);
+                             }
+                             completion:^(BOOL finished){
+                             }];
+            i=0;
+            
+        }
     }
     
 

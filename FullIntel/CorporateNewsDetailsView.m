@@ -948,7 +948,17 @@
 
 
 -(void)configureCell:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
-    cell.articleTitle.text = [curatedNews valueForKey:@"title"];
+    CGSize maximumLabelSize = CGSizeMake(296, FLT_MAX);
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.articleTitle.font constrainedToSize:maximumLabelSize lineBreakMode:cell.articleTitle.lineBreakMode];
+        NSLog(@"title height:%f",expectedLabelSize.height);
+        cell.articleTitleHeightConstraint.constant = expectedLabelSize.height;
+        cell.articleTitle.text = [curatedNews valueForKey:@"title"];
+    } else {
+        cell.articleTitle.text = [curatedNews valueForKey:@"title"];
+    }
+    
     NSString *articleImageStr = [curatedNews valueForKey:@"image"];
     [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"bannerImage"]];
     [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];

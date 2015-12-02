@@ -9,9 +9,6 @@
         <mutableArray key="OpenSans-Bold.ttf">
             <string>OpenSans-Bold</string>
         </mutableArray>
-        <mutableArray key="OpenSans-Regular.ttf">
-            <string>OpenSans</string>
-        </mutableArray>
     </customFonts>
     <scenes>
         <!--Folder View Controller-->
@@ -36,16 +33,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sli-MM-KWR">
-                                        <rect key="frame" x="186" y="16" width="49" height="17"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mm-oz-bJN">
-                                        <rect key="frame" x="260" y="16" width="102" height="17"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="102" id="jIm-ld-7Wd"/>
-                                        </constraints>
+                                        <rect key="frame" x="302" y="16" width="49" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -55,11 +43,9 @@
                                 <constraints>
                                     <constraint firstItem="LUu-wd-Xff" firstAttribute="top" secondItem="5mh-Mj-ACK" secondAttribute="top" constant="15.5" id="6jF-8p-WAn"/>
                                     <constraint firstAttribute="height" constant="40" id="KkA-TH-bYf"/>
-                                    <constraint firstItem="6Mm-oz-bJN" firstAttribute="leading" secondItem="sli-MM-KWR" secondAttribute="trailing" constant="25" id="Lky-uc-dz6"/>
-                                    <constraint firstAttribute="trailing" secondItem="6Mm-oz-bJN" secondAttribute="trailing" constant="21" id="Q5s-hh-Dxu"/>
-                                    <constraint firstItem="6Mm-oz-bJN" firstAttribute="top" secondItem="5mh-Mj-ACK" secondAttribute="top" constant="15.5" id="SsP-F0-kHx"/>
                                     <constraint firstItem="LUu-wd-Xff" firstAttribute="leading" secondItem="5mh-Mj-ACK" secondAttribute="leading" constant="29" id="YY9-BS-w5A"/>
                                     <constraint firstItem="sli-MM-KWR" firstAttribute="top" secondItem="5mh-Mj-ACK" secondAttribute="top" constant="15.5" id="gRR-T6-9RX"/>
+                                    <constraint firstAttribute="trailing" secondItem="sli-MM-KWR" secondAttribute="trailing" constant="32" id="z90-AV-YoB"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="moK-is-QOL">
@@ -74,17 +60,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Boston Reach" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUg-34-Zg6">
-                                                    <rect key="frame" x="27" y="9" width="130" height="21"/>
+                                                    <rect key="frame" x="27" y="9" width="245" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Fjs-SE-xjX"/>
-                                                        <constraint firstAttribute="width" constant="130" id="Mtx-4c-jRs"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTQ-Hq-ZbT">
-                                                    <rect key="frame" x="183" y="8" width="20" height="22"/>
+                                                    <rect key="frame" x="293" y="8" width="20" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="UpZ-la-6jY"/>
+                                                        <constraint firstAttribute="width" constant="20" id="kgh-ER-684"/>
+                                                    </constraints>
                                                     <state key="normal" image="edit_button">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -95,7 +84,11 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9V-YX-Z1W">
-                                                    <rect key="frame" x="220" y="8" width="20" height="22"/>
+                                                    <rect key="frame" x="330" y="8" width="20" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="1EE-kA-c2a"/>
+                                                        <constraint firstAttribute="height" constant="22" id="gL4-0K-X9V"/>
+                                                    </constraints>
                                                     <state key="normal" image="delete_button">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -106,7 +99,11 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcN-xf-ndM">
-                                                    <rect key="frame" x="182" y="8" width="16" height="22"/>
+                                                    <rect key="frame" x="292" y="8" width="16" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="4mA-0m-aXi"/>
+                                                        <constraint firstAttribute="width" constant="16" id="tKA-Jw-aq6"/>
+                                                    </constraints>
                                                     <state key="normal" image="rss_icon">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -114,30 +111,22 @@
                                                         <action selector="rssButtonClick:" destination="kDE-8t-dsI" eventType="touchUpInside" id="Z3j-EW-ffy"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jan 01, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBs-6W-EzR">
-                                                    <rect key="frame" x="268" y="9" width="79" height="20"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="C9V-YX-Z1W" firstAttribute="leading" secondItem="VcN-xf-ndM" secondAttribute="trailing" constant="22" id="0nE-FD-4wc"/>
+                                                <constraint firstItem="OTQ-Hq-ZbT" firstAttribute="leading" secondItem="RUg-34-Zg6" secondAttribute="trailing" constant="21" id="2yd-t8-Oa0"/>
                                                 <constraint firstItem="RUg-34-Zg6" firstAttribute="leading" secondItem="YAV-OI-EdW" secondAttribute="leadingMargin" constant="19" id="9N7-9q-gni"/>
                                                 <constraint firstItem="OTQ-Hq-ZbT" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" id="Cb4-MM-NCV"/>
                                                 <constraint firstItem="RUg-34-Zg6" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="1" id="FaX-vT-f2I"/>
-                                                <constraint firstItem="xBs-6W-EzR" firstAttribute="leading" secondItem="C9V-YX-Z1W" secondAttribute="trailing" constant="28" id="Frj-gj-vr2"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="xBs-6W-EzR" secondAttribute="trailing" constant="20" id="N6I-Gy-OeK"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="C9V-YX-Z1W" secondAttribute="trailing" constant="17" id="RbG-sq-d1R"/>
                                                 <constraint firstItem="C9V-YX-Z1W" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" id="RcJ-Kr-RXO"/>
                                                 <constraint firstItem="C9V-YX-Z1W" firstAttribute="leading" secondItem="OTQ-Hq-ZbT" secondAttribute="trailing" constant="17" id="SW1-yK-vdv"/>
                                                 <constraint firstItem="VcN-xf-ndM" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" id="bLC-kU-kgR"/>
-                                                <constraint firstItem="xBs-6W-EzR" firstAttribute="top" secondItem="YAV-OI-EdW" secondAttribute="topMargin" constant="1" id="eBH-Rm-T5u"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="deleteButton" destination="C9V-YX-Z1W" id="y9A-gS-qdk"/>
                                             <outlet property="editButton" destination="OTQ-Hq-ZbT" id="R0m-9p-CLn"/>
-                                            <outlet property="folderCreatedDate" destination="xBs-6W-EzR" id="N14-DM-mJd"/>
                                             <outlet property="folderTitle" destination="RUg-34-Zg6" id="3B2-pB-pup"/>
                                             <outlet property="rssButton" destination="VcN-xf-ndM" id="gPL-GL-9iK"/>
                                         </connections>

@@ -124,4 +124,8 @@
     
 }
 
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    [self.revealController showViewController:self.revealController.frontViewController];
+}
+
 @end

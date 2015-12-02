@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *centreYOuter;
 @property (nonatomic,strong)  IBOutlet UIView *outerView;
 - (IBAction)signInButtonClicked:(id)sender;
 @property BOOL isAnimated;

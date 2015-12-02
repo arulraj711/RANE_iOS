@@ -1110,7 +1110,7 @@
             
         }];
     } else {
-        moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star-iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
             [self markedImpActions:indexPath];
         }];
     }

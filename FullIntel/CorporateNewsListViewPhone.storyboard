@@ -1279,6 +1279,7 @@
                                             <outlet property="articleImageView" destination="Fvy-aP-B9D" id="IxF-Y9-RXL"/>
                                             <outlet property="articleOutlet" destination="hPY-jL-Ky5" id="GWd-bI-drf"/>
                                             <outlet property="articleTitle" destination="Uga-wb-A2o" id="ofc-z6-b68"/>
+                                            <outlet property="articleTitleHeightConstraint" destination="pQs-jE-3xj" id="eLF-4Y-ypr"/>
                                             <outlet property="articleWebview" destination="aWL-oA-5U9" id="L5Y-bH-DMK"/>
                                             <outlet property="authorImageView" destination="p2x-9z-cKA" id="9ky-NJ-dR8"/>
                                             <outlet property="authorLocationLabel" destination="FYc-3r-O7W" id="KBP-Aj-vUu"/>
