@@ -701,7 +701,7 @@
         {
             cell.workTitleIconHeightConstraint.constant = 10;
             cell.workTitleLabelHeightConstraint.constant = 18;
-            cell.outletImageTopConstraint.constant = 7;
+            cell.outletImageTopConstraint.constant = 9;
             cell.outletLabelTopConstraint.constant = 1;
         }
         else{
@@ -730,7 +730,7 @@
         cell.outletIcon.hidden = NO;
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
-            cell.locationImageTopConstarint.constant = 7;
+            cell.locationImageTopConstarint.constant = 9;
             cell.outletIconHeightConstraint.constant = 10;
             cell.locationLabelTopConstraint.constant = 1;
             cell.outletLabelHeightConstraint.constant = 18;
@@ -775,7 +775,7 @@
         {
             cell.locationIconHeightConstraint.constant = 10;
             cell.locationLabelHeightConstraint.constant = 18;
-            cell.beatsImageTopConstraint.constant = 7;
+            cell.beatsImageTopConstraint.constant = 9;
             cell.beatsLabelTopConstraint.constant = 1;
         }
         else{
@@ -1424,7 +1424,7 @@
             
             oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                                              selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
-             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+           //  [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
             
         }
     }
