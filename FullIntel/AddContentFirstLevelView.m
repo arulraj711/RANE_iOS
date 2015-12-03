@@ -138,23 +138,6 @@
         Btn.titleLabel.font= [UIFont fontWithName:@"OpenSans" size:17];
         [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-        
-        
-        
-        //        UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 150, 30)];
-        //        searchBtnView.backgroundColor = [UIColor clearColor];
-        //        UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        //        [searchBtn setFrame:CGRectMake(0, 0, 150, 30)];
-        //     //   [searchBtn setBackgroundImage:[UIImage imageNamed:@"researchReq"]  forState:UIControlStateNormal];
-        //
-        //
-        ////    searchBtn.titleLabel.font= [UIFont fontWithName:@"OpenSans" size:17];
-        ////       [searchBtn setTitle:@"Research Request" forState:UIControlStateNormal];
-        ////        [searchBtn addTarget:self action:@selector(requestChange:) forControlEvents:UIControlEventTouchUpInside];
-        ////        [searchBtnView addSubview:searchBtn];
-        ////        UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
-        
-        
         [[UIBarButtonItem appearance]setTintColor:[UIColor whiteColor]];
         [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:addButton,  nil]];
         
@@ -171,27 +154,6 @@
         [addBtn addTarget:self action:@selector(saveAction:) forControlEvents:UIControlEventTouchUpInside];
         [addBtnView addSubview:addBtn];
         UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
-        
-        
-        
-        //    UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
-        //    searchBtnView.backgroundColor = [UIColor clearColor];
-        //    UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        //    [searchBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-        //    [searchBtn setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
-        //    [searchBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-        //    [searchBtnView addSubview:searchBtn];
-        //    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
-        //
-        //    UIView *settingsBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
-        //    settingsBtnView.backgroundColor = [UIColor clearColor];
-        //    UIButton *settingsBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        //    [settingsBtn setFrame:CGRectMake(0.0f,0.0f,15.0f,15.0f)];
-        //    [settingsBtn setBackgroundImage:[UIImage imageNamed:@"settings"]  forState:UIControlStateNormal];
-        //    [settingsBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-        //    [settingsBtnView addSubview:settingsBtn];
-        //    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithCustomView:settingsBtnView];
-        
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,  nil]];
         
         
