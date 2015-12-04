@@ -1219,22 +1219,25 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
         
-        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"widgetWebViewPhone"];
+        SocialWebView *SocialWebViewObj = [storyBoard instantiateViewControllerWithIdentifier:@"widgetWebViewPhone"];
+        SocialWebViewObj.titleStr=title;
+        SocialWebViewObj.urlString=link;
+        [self.navigationController pushViewController:SocialWebViewObj animated:YES];
 
     }
     else{
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         
         modalController = [storyBoard instantiateViewControllerWithIdentifier:@"widgetWebView"];
-
+        SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        SocialWebViewObj.titleStr=title;
+        SocialWebViewObj.urlString=link;
+        modalController.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:modalController animated:NO completion:nil];
     }
     
     
-    SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
-    SocialWebViewObj.titleStr=title;
-    SocialWebViewObj.urlString=link;
-    modalController.modalPresentationStyle = UIModalPresentationCustom;    
-    [self presentViewController:modalController animated:NO completion:nil];
+    
     
 }
 

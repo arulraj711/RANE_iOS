@@ -77,8 +77,11 @@
 //    MZFormSheetController *controller = self.navigationController.formSheetController;
 //    controller.shouldDismissOnBackgroundViewTap = YES;
     
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+    } else {
+        self.navigationController.navigationBarHidden=YES;
+    }
     
-    self.navigationController.navigationBarHidden=YES;
     
 }
 
