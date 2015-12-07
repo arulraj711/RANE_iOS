@@ -236,8 +236,7 @@
 
 
 
-- (IBAction)signInButtonClicked:(id)sender {
-    
+- (IBAction)signInButtonClicked:(id)sender {    
     [_usernameTextField resignFirstResponder];
     [_passwordTextField resignFirstResponder];
     [self callSignInFunction];
@@ -266,7 +265,7 @@
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        
+        NSLog(@"%@",resultStr);
         [[FISharedResources sharedResourceManager] checkLoginUserWithDetails:resultStr];
         
     }

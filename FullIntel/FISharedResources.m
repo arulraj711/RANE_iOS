@@ -176,8 +176,11 @@
        // [self showProgressHUDForView];
         [FIWebService loginProcessWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"success block");
+            NSLog(@"%@",details);
+
             @try {
                 //Prefercence Info
+
                 NSDictionary *preferenceDic = NULL_TO_NIL([responseObject objectForKey:@"preference"]);
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"headerColor"]) forKey:@"headerColor"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"highlightColor"]) forKey:@"highlightColor"];
@@ -550,12 +553,12 @@
             [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isFolder"];
             [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [curatedNews setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
-            [curatedNews setValue:[dic objectForKey:@"articleHeading"] forKey:@"title"];
+            [curatedNews setValue:[dic objectForKey:@"heading"] forKey:@"title"];
             [curatedNews setValue:[dic objectForKey:@"articleDescription"] forKey:@"desc"];
-            [curatedNews setValue:[dic objectForKey:@"articleModifiedDate"] forKey:@"date"];
-            [curatedNews setValue:[dic objectForKey:@"articlePublishedDate"] forKey:@"publishedDate"];
-            [curatedNews setValue:[dic objectForKey:@"articleImageURL"] forKey:@"image"];
-            [curatedNews setValue:[dic objectForKey:@"articleUrl"] forKey:@"articleUrl"];
+            [curatedNews setValue:[dic objectForKey:@"modifiedDate"] forKey:@"date"];
+            [curatedNews setValue:[dic objectForKey:@"publishedDate"] forKey:@"publishedDate"];
+            [curatedNews setValue:[dic objectForKey:@"articleImage"] forKey:@"image"];
+            [curatedNews setValue:[dic objectForKey:@"articleURL"] forKey:@"articleUrl"];
             NSArray *articleTypeIdArray = [dic objectForKey:@"articleTypeId"];
             [curatedNews setValue:[articleTypeIdArray objectAtIndex:0] forKey:@"articleTypeId"];
             [curatedNews setValue:[dic objectForKey:@"articleType"] forKey:@"articleType"];
@@ -573,7 +576,7 @@
             //Fetch saved for later data in background
             NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
             if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                NSString *str = [dic objectForKey:@"articleUrl"];
+                NSString *str = [dic objectForKey:@"articleURL"];
                 if(str.length != 0) {
 //                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
 //                        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
@@ -586,17 +589,26 @@
             NSArray *outletArray = [dic objectForKey:@"outlet"];
             if(outletArray.count != 0){
                 NSDictionary *outletDic = [outletArray objectAtIndex:0];
-                 [curatedNews setValue:[outletDic objectForKey:@"outletname"] forKey:@"outlet"];
+                 [curatedNews setValue:[outletDic objectForKey:@"name"] forKey:@"outlet"];
             }
-            //Set author info
-            NSArray *authorArray = [dic objectForKey:@"author"];
+            
+//            NSArray *authorArray = [dic objectForKey:@"contact"];
+//            if(authorArray.count != 0) {
+//                 NSDictionary *authorDic = [authorArray objectAtIndex:0];
+//                [curatedNews setValue:[authorDic objectForKey:@"name"] forKey:@"authorName"];
+//            }
+           
+            
+            
+//            //Set author info
+            NSArray *authorArray = [dic objectForKey:@"contact"];
             NSMutableArray *authorList = [[NSMutableArray alloc]init];
             for(NSDictionary *dict in authorArray) {
                 NSManagedObject *author;
                 author = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedAuthor" inManagedObjectContext:context];
                 [author setValue:[dict objectForKey:@"name"] forKey:@"name"];
-                [author setValue:[dict objectForKey:@"title"] forKey:@"title"];
-                [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
+//                [author setValue:[dict objectForKey:@"title"] forKey:@"title"];
+//                [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
                 [authorList addObject:author];
                 
             }

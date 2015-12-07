@@ -1470,7 +1470,7 @@
             cell.outletImageWidthConstraint.constant = 12;
             cell.outletHorizontalConstraint.constant = value+12+25;
         }
-//        cell.outlet.text = [curatedNews valueForKey:@"outlet"];
+        cell.outlet.text = [curatedNews valueForKey:@"outlet"];
         CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
         CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.title.font constrainedToSize:maximumLabelSize lineBreakMode:cell.title.lineBreakMode];
         //NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
