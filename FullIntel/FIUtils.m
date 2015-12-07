@@ -153,6 +153,18 @@
 }
 
 
++(NSString *)formArticleListInuptFromSecurityToken:(NSString *)securitytoken withContentTypeId:(NSNumber *)contentTypeId withPageNumber:(NSNumber *)page withSize:(NSNumber *)size withQuery:(NSString *)query withContentCategoryId:(NSNumber *)contentCategoryId withOrderBy:(NSString *)orderBy withFilterBy:(NSString *)filterBy {
+    NSString *queryString;
+    if([contentCategoryId isEqualToNumber:[NSNumber numberWithInt:-1]]){
+        queryString = [NSString stringWithFormat:@"articles?security_token=%@&contentTypeId=%@&page=%@&size=%@&query=%@",securitytoken,contentTypeId,page,size,query];
+    } else {
+        queryString = [NSString stringWithFormat:@"articles?security_token=%@&contentTypeId=%@&page=%@&size=%@&query=%@&contentCategoryId=%@",securitytoken,contentTypeId,page,size,query,contentCategoryId];
+    }
+    
+    return queryString;
+}
+
+
 +(void)deleteExistingData {
     NSError * error;
     // retrieve the store URL

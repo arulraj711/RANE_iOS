@@ -105,10 +105,10 @@
             UIView *backgrView = [[UIView alloc] initWithFrame:CGRectMake(10, 70, window.frame.size.width - 20, 80)];
             backgrView.backgroundColor = [FIUtils colorWithHexString:@"AA0000"];
             
-            UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, window.frame.size.width - 40, 80)];
+            UILabel *errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, window.frame.size.width - 20, 80)];
             errorLabel.text = @"It appears that you are not connected to the internet and some features are not available when you are offline.";
             errorLabel.textColor = [UIColor whiteColor];
-            errorLabel.textAlignment = NSTextAlignmentCenter;
+            errorLabel.textAlignment = NSTextAlignmentLeft;
             errorLabel.numberOfLines = 3;
             errorLabel.font = [UIFont fontWithName:@"Open Sans" size:14];
             [backgrView addSubview:errorLabel];
@@ -175,38 +175,57 @@
     if([self serviceIsReachable]) {
        // [self showProgressHUDForView];
         [FIWebService loginProcessWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"success block");
+            NSLog(@"%@",details);
 
-            NSDictionary *preferenceDic = NULL_TO_NIL([responseObject objectForKey:@"preferences"]);
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"headerColor"]) forKey:@"headerColor"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"highlightColor"]) forKey:@"highlightColor"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"menuBgColor"]) forKey:@"menuBgColor"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject objectForKey:@"securityToken"]) forKey:@"accesstoken"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"companyLogoURL"]) forKey:@"companyLogo"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"companyName"]) forKey:@"companyName"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"customerid"]) forKey:@"customerId"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userid"]) forKey:@"userId"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"firstName"]) forKey:@"firstName"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoUrl"]) forKey:@"photoUrl"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
-            [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
-            NSString *appViewType = [NSString stringWithFormat:@"%@",NULL_TO_NIL([responseObject valueForKey:@"appViewTypeId"])];
-            
-            if([appViewType isEqualToString:@"1"]) {
-                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
-            } else if([appViewType isEqualToString:@"2"]) {
-                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+            @try {
+                //Prefercence Info
+
+                NSDictionary *preferenceDic = NULL_TO_NIL([responseObject objectForKey:@"preference"]);
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"headerColor"]) forKey:@"headerColor"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"highlightColor"]) forKey:@"highlightColor"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"menuBgColor"]) forKey:@"menuBgColor"];
+                
+                //Company Info
+                NSDictionary *companyDic = NULL_TO_NIL([responseObject objectForKey:@"company"]);
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"companyLogoURL"]) forKey:@"companyLogo"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"companyname"]) forKey:@"companyName"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"id"]) forKey:@"customerId"];
+                
+                //User Info
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject objectForKey:@"securityToken"]) forKey:@"accesstoken"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"id"]) forKey:@"userId"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"firstName"]) forKey:@"firstName"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoUrl"]) forKey:@"photoUrl"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
+                NSString *appViewType = [NSString stringWithFormat:@"%@",NULL_TO_NIL([responseObject valueForKey:@"appViewTypeId"])];
+                
+                if([appViewType isEqualToString:@"1"]) {
+                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
+                } else if([appViewType isEqualToString:@"2"]) {
+                    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+                }
+                
+                
+                //[[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"appViewTypeId"] forKey:@"appViewTypeId"];
+                NSString *username = [NSString stringWithFormat:@"%@ %@",NULL_TO_NIL([responseObject valueForKey:@"firstName"]),NULL_TO_NIL([responseObject valueForKey:@"lastName"])];
+                [[NSUserDefaults standardUserDefaults]setObject:username forKey:@"username"];
+                window.userInteractionEnabled = YES;
+                NSLog(@"before notification");
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"Login" object:responseObject];
+            } @catch(NSException *e) {
+                NSLog(@"Error-------->%@",e);
             }
-            
-            
-            //[[NSUserDefaults standardUserDefaults]setObject:[responseObject valueForKey:@"appViewTypeId"] forKey:@"appViewTypeId"];
-            NSString *username = [NSString stringWithFormat:@"%@ %@",NULL_TO_NIL([responseObject valueForKey:@"firstName"]),NULL_TO_NIL([responseObject valueForKey:@"lastName"])];
-            [[NSUserDefaults standardUserDefaults]setObject:username forKey:@"username"];
-            window.userInteractionEnabled = YES;
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"Login" object:responseObject];
-
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             window.userInteractionEnabled = YES;
-            [FIUtils showErrorToast];
+            NSLog(@"Error---->%@",error);
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            [window makeToast:[errorJson objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+            //[FIUtils showErrorToast];
             
             
 //            NSError* error1;
@@ -437,9 +456,9 @@
     NSLog(@"refresh list with flag:%@ and categoryId:%@",updownFlag,categoryId);
     if([self serviceIsReachable]) {
     [FIWebService fetchCuratedNewsListWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        
         [self hideProgressView];
-        NSArray *curatedNewsArray = [responseObject objectForKey:@"articleList"];
+        NSArray *curatedNewsArray = responseObject;
             NSLog(@"curated news array count:%d and array:%@ and lastarticle:%@ and length:%d",curatedNewsArray.count,curatedNewsArray,lastArticleId,lastArticleId.length);
             //Handle Pagination
             if(curatedNewsArray.count == 0) {
@@ -510,7 +529,7 @@
             
             [fetchRequest setPredicate:predicate];
             NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
-            NSLog(@"existing count:%d",existingArray.count);
+            //NSLog(@"existing count:%d",existingArray.count);
             if(existingArray.count != 0) {
                 //Excisting Object
                 curatedNews = [existingArray objectAtIndex:0];
@@ -534,13 +553,14 @@
             [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isFolder"];
             [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [curatedNews setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
-            [curatedNews setValue:[dic objectForKey:@"articleHeading"] forKey:@"title"];
+            [curatedNews setValue:[dic objectForKey:@"heading"] forKey:@"title"];
             [curatedNews setValue:[dic objectForKey:@"articleDescription"] forKey:@"desc"];
-            [curatedNews setValue:[dic objectForKey:@"articleModifiedDate"] forKey:@"date"];
-            [curatedNews setValue:[dic objectForKey:@"articlePublishedDate"] forKey:@"publishedDate"];
-            [curatedNews setValue:[dic objectForKey:@"articleImageURL"] forKey:@"image"];
-            [curatedNews setValue:[dic objectForKey:@"articleUrl"] forKey:@"articleUrl"];
-            [curatedNews setValue:[dic objectForKey:@"articleTypeId"] forKey:@"articleTypeId"];
+            [curatedNews setValue:[dic objectForKey:@"modifiedDate"] forKey:@"date"];
+            [curatedNews setValue:[dic objectForKey:@"publishedDate"] forKey:@"publishedDate"];
+            [curatedNews setValue:[dic objectForKey:@"articleImage"] forKey:@"image"];
+            [curatedNews setValue:[dic objectForKey:@"articleURL"] forKey:@"articleUrl"];
+            NSArray *articleTypeIdArray = [dic objectForKey:@"articleTypeId"];
+            [curatedNews setValue:[articleTypeIdArray objectAtIndex:0] forKey:@"articleTypeId"];
             [curatedNews setValue:[dic objectForKey:@"articleType"] forKey:@"articleType"];
             [curatedNews setValue:[dic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
             
@@ -552,12 +572,11 @@
                 [curatedNews setValue:[markedImpDictionary objectForKey:@"userId"] forKey:@"markAsImportantUserId"];
             }
             [curatedNews setValue:[dic objectForKey:@"saveForLater"] forKey:@"saveForLater"];
-            [curatedNews setValue:[dic objectForKey:@"totalComments"] forKey:@"totalComments"];
-            [curatedNews setValue:[dic objectForKey:@"unReadComment"] forKey:@"unreadComments"];
+            
             //Fetch saved for later data in background
             NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
             if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                NSString *str = [dic objectForKey:@"articleUrl"];
+                NSString *str = [dic objectForKey:@"articleURL"];
                 if(str.length != 0) {
 //                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
 //                        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
@@ -570,17 +589,26 @@
             NSArray *outletArray = [dic objectForKey:@"outlet"];
             if(outletArray.count != 0){
                 NSDictionary *outletDic = [outletArray objectAtIndex:0];
-                 [curatedNews setValue:[outletDic objectForKey:@"outletname"] forKey:@"outlet"];
+                 [curatedNews setValue:[outletDic objectForKey:@"name"] forKey:@"outlet"];
             }
-            //Set author info
-            NSArray *authorArray = [dic objectForKey:@"author"];
+            
+//            NSArray *authorArray = [dic objectForKey:@"contact"];
+//            if(authorArray.count != 0) {
+//                 NSDictionary *authorDic = [authorArray objectAtIndex:0];
+//                [curatedNews setValue:[authorDic objectForKey:@"name"] forKey:@"authorName"];
+//            }
+           
+            
+            
+//            //Set author info
+            NSArray *authorArray = [dic objectForKey:@"contact"];
             NSMutableArray *authorList = [[NSMutableArray alloc]init];
             for(NSDictionary *dict in authorArray) {
                 NSManagedObject *author;
                 author = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedAuthor" inManagedObjectContext:context];
                 [author setValue:[dict objectForKey:@"name"] forKey:@"name"];
-                [author setValue:[dict objectForKey:@"title"] forKey:@"title"];
-                [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
+//                [author setValue:[dict objectForKey:@"title"] forKey:@"title"];
+//                [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
                 [authorList addObject:author];
                 
             }
@@ -713,7 +741,7 @@
             // Save the object to persistent store
             if (![context save:&error]) {
                // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-                NSLog(@"one");
+                //NSLog(@"one");
             }else {
               //  NSLog(@"else part:%@",error);
                 NSLog(@"two");
@@ -725,13 +753,16 @@
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
-        } else {
-            [self hideProgressView];
-            [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
-        }
+        
         
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [FIUtils showErrorToast];
+        NSError* error1;
+        NSLog(@"error JSON:%@",operation);
+        NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+        NSLog(@"error JSON:%@",errorJson);
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window makeToast:[errorJson objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+        
     }];
     } else {
         //[FIUtils showNoNetworkToast];
@@ -1040,7 +1071,7 @@
                 for(NSDictionary *commentsDic in commentsArray) {
                     NSManagedObject *comments = [NSEntityDescription insertNewObjectForEntityForName:@"Comments" inManagedObjectContext:managedObjectContext];
                     [comments setValue:[commentsDic valueForKey:@"comment"] forKey:@"comment"];
-                    [comments setValue:[commentsDic valueForKey:@"createdDate"] forKey:@"createdDate"];
+                   // [comments setValue:[commentsDic valueForKey:@"createdDate"] forKey:@"createdDate"];
                     [comments setValue:[commentsDic valueForKey:@"id"] forKey:@"id"];
                     [comments setValue:[commentsDic valueForKey:@"likeCount"] forKey:@"likeCount"];
                     [comments setValue:[commentsDic valueForKey:@"parentId"] forKey:@"parentId"];
@@ -1508,7 +1539,7 @@
                     // Save the object to persistent store
                     if (![context save:&error]) {
                         // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-                        NSLog(@"one");
+                       // NSLog(@"one");
                     }else {
                         //  NSLog(@"else part:%@",error);
                         NSLog(@"two");
@@ -1774,7 +1805,7 @@
                     // Save the object to persistent store
                     if (![context save:&error]) {
                         // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-                        NSLog(@"one");
+                        //NSLog(@"one");
                     }else {
                         //  NSLog(@"else part:%@",error);
                         NSLog(@"two");
@@ -1966,7 +1997,7 @@
 -(void)renameFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId {
     if([self serviceIsReachable]) {
         [FIWebService renameFolderWithDetails:details withSecurityToken:accessToken withFolderId:folderId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:YES];
+            [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:NO];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             //[FIUtils showErrorToast];
             NSError* error1;

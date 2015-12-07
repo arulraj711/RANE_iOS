@@ -316,105 +316,70 @@
 }
 
 -(void)afterLogin:(NSNotification *)notification {
-    if([[notification.object objectForKey:@"statusCode"] intValue]==200 && [[notification.object objectForKey:@"logicStatusCode"]intValue] == 1) {
-        
+    //    if([[notification.object objectForKey:@"statusCode"] intValue]==200 && [[notification.object objectForKey:@"logicStatusCode"]intValue] == 1) {
+    
+    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
+    // NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[notification.object objectForKey:@"securityToken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInteger:-1]];
+    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
+    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [[UINavigationBar appearance] setBarTintColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    
+    
+    dispatch_queue_t globalConcurrentQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    dispatch_async(globalConcurrentQueue, ^{
+        // NSLog(@"A - 1");
+        [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
+    });
+    if(accessToken.length > 0) {
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
-        // NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[notification.object objectForKey:@"securityToken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInteger:-1]];
-        NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
-        NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-        [[UINavigationBar appearance] setBarTintColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
-        NSMutableDictionary *menuDic = [[NSMutableDictionary alloc] init];
-        [menuDic setObject:[notification.object objectForKey:@"securityToken"] forKey:@"securityToken"];
-        NSData *menuJsondata = [NSJSONSerialization dataWithJSONObject:menuDic options:NSJSONWritingPrettyPrinted error:nil];
-        
-        NSString *resultJson = [[NSString alloc]initWithData:menuJsondata encoding:NSUTF8StringEncoding];
-        
-        
-        
-        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
-        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-        [gradedetails setObject:accessToken forKey:@"securityToken"];
-        [gradedetails setObject:@"" forKey:@"lastArticleId"];
-        [gradedetails setObject:[NSNumber numberWithInt:10] forKey:@"listSize"];
-        [gradedetails setObject:@"" forKey:@"activityTypeIds"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
-        
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        //
-        //       // BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
-        //        if(accessToken.length > 0) {
-        //            [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withFlag:@"" withLastArticleId:@""];
-        //        }
-        //        [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
-        //        });
-        
-        
-        dispatch_queue_t globalConcurrentQueue =
-        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        
-        
-        // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
-        
-        dispatch_async(globalConcurrentQueue, ^{
-            // NSLog(@"A - 1");
-            [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
-        });
-        
-        dispatch_async(globalConcurrentQueue, ^{
-            NSLog(@"A - 2");
-            if(accessToken.length > 0) {
-                [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
-                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
-                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
-                
-                NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-                //  [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:resultStr withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@""];
-            }
-            
-        });
-        
-        dispatch_queue_t globalBackgroundQueue =
-        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
-        
-        dispatch_async(globalBackgroundQueue, ^{
-            NSLog(@"calling folder option");
-            [[FISharedResources sharedResourceManager] getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
-        });
-        
-        
-        NSTimeZone *timeZone = [NSTimeZone localTimeZone];
-        NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
-        
-        NSString *deviceTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
-        if(deviceTokenStr.length != 0) {
-            [pushDic setObject:deviceTokenStr forKey:@"deviceToken"];
-            [pushDic setObject:timeZone.name forKey:@"locale"];
-            [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
-            [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
-            [pushDic setObject:[NSNumber numberWithInteger:timeZone.secondsFromGMT] forKey:@"offset"];
-            NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
-            
-            NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
-            NSLog(@"push notification json:%@",pushResultJson);
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
-                
-                [[FISharedResources sharedResourceManager]pushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
-            });
-        } else {
-            
-        }
-        
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-    } else {
-        [self.view makeToast:[notification.object objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
-        //        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"FullIntel" message:[notification.object objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        //        [alert show];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
     }
     
+    dispatch_queue_t globalBackgroundQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    
+    dispatch_async(globalBackgroundQueue, ^{
+        NSLog(@"calling folder option");
+        [[FISharedResources sharedResourceManager] getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
+    });
+    
+    
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+    NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
+    
+    NSString *deviceTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
+    if(deviceTokenStr.length != 0) {
+        [pushDic setObject:deviceTokenStr forKey:@"deviceToken"];
+        [pushDic setObject:timeZone.name forKey:@"locale"];
+        [pushDic setObject:timeZone.abbreviation forKey:@"timeZone"];
+        [pushDic setObject:[NSNumber numberWithBool:YES] forKey:@"isAllowPushNotification"];
+        [pushDic setObject:[NSNumber numberWithInteger:timeZone.secondsFromGMT] forKey:@"offset"];
+        NSData *pushJsondata = [NSJSONSerialization dataWithJSONObject:pushDic options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
+        NSLog(@"push notification json:%@",pushResultJson);
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+            
+            [[FISharedResources sharedResourceManager]pushNotificationWithDetails:pushResultJson withAccessToken:[notification.object objectForKey:@"securityToken"]];
+        });
+    } else {
+        
+    }
+    
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    //    } else {
+    //        [self.view makeToast:[notification.object objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+    //        //        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"FullIntel" message:[notification.object objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    //        //        [alert show];
+    //    }
+    
+
 }
 
 - (IBAction)forgetPasswordButtonPressed:(id)sender {

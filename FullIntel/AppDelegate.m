@@ -386,6 +386,8 @@
     NSArray *existingCuratedNewsArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     NSManagedObject *curatedNews = [existingCuratedNewsArray lastObject];
    NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] valueForKey:@"accesstoken"] lastArticleId:[curatedNews valueForKey:@"articleId"] contentTypeId:[NSNumber numberWithInt:1] listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
+    NSLog(@"%@",inputJson);
+
     NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
     [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
 

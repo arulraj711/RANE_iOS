@@ -1541,7 +1541,12 @@
                     cell.authorName.text = [NSString stringWithFormat:@"%@...",[authorName substringToIndex:15]];
                     cell.messageIcon.hidden = YES;
                     cell.messageCountText.hidden = YES;
-                } else {
+                }
+                else if (authorName.length == 0){
+                    cell.iconForAuthor.hidden = YES;
+
+                }
+                else {
                     cell.messageIcon.hidden = NO;
                     cell.messageCountText.hidden = NO;
                 }

@@ -41,5 +41,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *messageIcon;
 @property (strong, nonatomic) IBOutlet UIView *messageView;
 
+@property (strong, nonatomic) IBOutlet UIImageView *iconForAuthor;
 
 @end
