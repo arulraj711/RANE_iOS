@@ -200,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/PKRevealController/Source/PKRevealController/PKRevealController.m"
-            timestampString = "471430125.909273"
+            timestampString = "471432505.917279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "950"
-            endingLineNumber = "950"
+            startingLineNumber = "959"
+            endingLineNumber = "959"
             landmarkName = "-updateRearViewVisibility"
             landmarkType = "5">
          </BreakpointContent>
@@ -216,11 +216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/PKRevealController/Source/PKRevealController/PKRevealController.m"
-            timestampString = "471430125.909273"
+            timestampString = "471432505.917279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1009"
-            endingLineNumber = "1009"
+            startingLineNumber = "1018"
+            endingLineNumber = "1018"
             landmarkName = "-hideRearViews"
             landmarkType = "5">
          </BreakpointContent>
@@ -232,11 +232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/PKRevealController/Source/PKRevealController/PKRevealController.m"
-            timestampString = "471430125.909273"
+            timestampString = "471432505.917279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "807"
-            endingLineNumber = "807"
+            startingLineNumber = "816"
+            endingLineNumber = "816"
             landmarkName = "-handlePanGestureEndedWithRecognizer:"
             landmarkType = "5">
          </BreakpointContent>
@@ -264,11 +264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/PKRevealController/Source/PKRevealController/PKRevealController.m"
-            timestampString = "471430125.909273"
+            timestampString = "471432505.917279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "846"
-            endingLineNumber = "846"
+            startingLineNumber = "855"
+            endingLineNumber = "855"
             landmarkName = "-dampenedValueForRealValue:inRange:"
             landmarkType = "5">
          </BreakpointContent>
@@ -344,11 +344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/PKRevealController/Source/PKRevealController/PKRevealController.m"
-            timestampString = "471430125.909273"
+            timestampString = "471432505.917279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1020"
-            endingLineNumber = "1020"
+            startingLineNumber = "1029"
+            endingLineNumber = "1029"
             landmarkName = "-showRightView"
             landmarkType = "5">
          </BreakpointContent>

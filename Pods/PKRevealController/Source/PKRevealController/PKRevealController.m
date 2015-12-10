@@ -691,7 +691,15 @@ typedef struct
     {
         case UIGestureRecognizerStateBegan:
         {
-            [self handlePanGestureBeganWithRecognizer:recognizer];
+            CGPoint touchUpPoint = [recognizer translationInView:self.view]; // or `locationInView:`
+            
+            NSLog(@"__TOUCH_END_POINT__ = %@", NSStringFromCGPoint(touchUpPoint));
+            
+            if(touchUpPoint.x == 0 && touchUpPoint.y == 0) {
+            } else {
+                [self handlePanGestureBeganWithRecognizer:recognizer];
+            }
+            
         }
             break;
             
@@ -726,7 +734,7 @@ typedef struct
     
     if(touchUpPoint.x == 0 && touchUpPoint.y == 0) {
         NSLog(@"Both");
-        _frontViewInteraction.isInteracting = NO;
+       // _frontViewInteraction.isInteracting = NO;
     } else {
         if(touchUpPoint.x == 0) {
             NSLog(@"Vertical");
