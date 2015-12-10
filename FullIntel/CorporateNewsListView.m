@@ -12,7 +12,6 @@
 #import "UIView+Toast.h"
 #import "FISharedResources.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "PKRevealController.h"
 #import "CorporateNewsDetailsView.h"
 #import "FIUtils.h"
 #import "AddContentFirstLevelView.h"
@@ -48,8 +47,8 @@
     [super viewDidLoad];
     _articlesTableView.multipleTouchEnabled = NO;
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        self.revealController.recognizesPanningOnFrontView = NO;
+//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//        self.revealController.recognizesPanningOnFrontView = NO;
 //        self.revealController. = @{PKRevealControllerRecognizesPanningOnFrontViewKey : @NO};
     
 //        NSDictionary *options = @{
@@ -57,10 +56,10 @@
 //                                  };
 //        [self.navigationController.navigationBar addGestureRecognizer:self.revealController.revealPanGestureRecognizer];
 
-    }
-    else{
-        
-    }
+//    }
+//    else{
+//        
+//    }
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
     BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
     NSLog(@"newsletter id:%@",newsLetterId);
@@ -190,17 +189,30 @@
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
+    self.revealController.revealPanGestureRecognizer.delegate = self;
+    
+    self.revealController.panDelegate = self;
+}
+
+- (void)handlePanGestureStart {
+    self.articlesTableView.scrollEnabled = NO;
     
 }
 
-
+-(void)handleVeriticalPan {
+    self.articlesTableView.scrollEnabled = YES;
+}
+-(void)handlePanGestureEnd {
+    self.articlesTableView.scrollEnabled = YES;
+}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    if (self.articlesTableView.editing)
+    if ([gestureRecognizer.view isKindOfClass:[UITableView class]]) {
         return NO;
-    else
-        return YES;
+    } else {
+        return  YES;
+    }
 }
 
 -(void)redirectToNewsLetterArticleWithId:(NSString *)articleId {

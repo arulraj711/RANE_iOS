@@ -11,7 +11,8 @@
 #import "MZFormSheetController.h"
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
-@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate> {
+#import "PKRevealController.h"
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate,PanDelegate> {
     WSCoachMarksView *coachMarksView;
     NSMutableArray *legendsList;
     NSManagedObject *author;
