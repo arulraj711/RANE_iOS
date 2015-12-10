@@ -87,6 +87,28 @@
      [FIUtils makeRoundedView:_authorImageView];
     
      _rotateView.transform = CGAffineTransformMakeRotation(-0.6);
+    
+    self.revealController.revealPanGestureRecognizer.delegate = self;
+    self.revealController.panDelegate = self;
+}
+
+- (void)handlePanGestureStart {
+    // self.articlesTableView.scrollEnabled = NO;
+    
+}
+
+-(void)handleVeriticalPan {
+    // self.articlesTableView.scrollEnabled = YES;
+}
+-(void)handlePanGestureEnd {
+    //  self.articlesTableView.scrollEnabled = YES;
+}
+
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return  YES;
 }
 
 - (void)didReceiveMemoryWarning {

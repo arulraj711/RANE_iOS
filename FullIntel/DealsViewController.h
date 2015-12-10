@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PKRevealController.h"
 
-@interface DealsViewController : UIViewController
+@interface DealsViewController : UIViewController<UIGestureRecognizerDelegate,PanDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *widgetCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *twitterCollectionView;

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PKRevealController.h"
 
-@interface InfluencerListView : UIViewController {
+@interface InfluencerListView : UIViewController<UIGestureRecognizerDelegate,PanDelegate> {
     NSMutableArray *legendsList;
 }
 - (IBAction)requestUpgradeButtonClick:(id)sender;

@@ -31,6 +31,26 @@ NHAlignmentFlowLayout *layout;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"authenticationFailed" object:nil];
 
     [self setUpViews];
+    self.revealController.revealPanGestureRecognizer.delegate = self;
+    self.revealController.panDelegate = self;
+}
+
+- (void)handlePanGestureStart {
+    // self.articlesTableView.scrollEnabled = NO;
+    
+}
+
+-(void)handleVeriticalPan {
+    // self.articlesTableView.scrollEnabled = YES;
+}
+-(void)handlePanGestureEnd {
+    //  self.articlesTableView.scrollEnabled = YES;
+}
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return  YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated{

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PKRevealController.h"
 
-@interface IpAndLegalViewController : UIViewController
+@interface IpAndLegalViewController : UIViewController<UIGestureRecognizerDelegate,PanDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UICollectionView *widgetCollectionView;

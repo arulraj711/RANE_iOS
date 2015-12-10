@@ -34,6 +34,7 @@
 #import "NewsLetterViewController.h"
 #import "UIView+Toast.h"
 #import "CommonViewController.h"
+#import "CommunicationIssuesPage.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -1517,7 +1518,17 @@
                 }
                 
                 // NSLog(@"empty node id");
-            }else {
+            } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:11]]) {
+                NSLog(@"Communication Issue Click");
+                [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+                [[NSUserDefaults standardUserDefaults]setObject:data.name forKey:@"parentName"];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"CommunicationIssues" bundle:nil];
+                UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"CommunicationIssues"];
+                CommunicationIssuesPage *communIssuePage = (CommunicationIssuesPage *)[[navCtlr viewControllers] objectAtIndex:0];
+                communIssuePage.title = data.name;
+                [self.revealController setFrontViewController:navCtlr];
+                
+            } else {
                 UIStoryboard *centerStoryBoard;
                 UINavigationController *navCtlr;
                 

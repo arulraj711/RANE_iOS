@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PKRevealController.h"
 
-@interface StockViewController : UIViewController
+@interface StockViewController : UIViewController<UIGestureRecognizerDelegate,PanDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *stockCollectionView;
 @property (weak, nonatomic) IBOutlet UITableView *topStoriesTableView;
 
