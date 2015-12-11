@@ -18,7 +18,7 @@
 @property (nonatomic,strong) NSString *urlString;
 
 @property (nonatomic,strong) NSString *titleStr;
-
+@property BOOL isFlag;
 @property (weak, nonatomic) IBOutlet UILabel *titleString;
 @property (weak, nonatomic) IBOutlet UIView *outerView;
 

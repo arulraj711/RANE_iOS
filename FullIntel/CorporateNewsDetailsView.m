@@ -1220,6 +1220,7 @@
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
         
         SocialWebView *SocialWebViewObj = [storyBoard instantiateViewControllerWithIdentifier:@"widgetWebViewPhone"];
+        SocialWebViewObj.isFlag = NO;
         SocialWebViewObj.titleStr=title;
         SocialWebViewObj.urlString=link;
         [self.navigationController pushViewController:SocialWebViewObj animated:YES];

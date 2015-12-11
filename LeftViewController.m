@@ -863,6 +863,12 @@
     NSInteger level = [self.treeView levelForCellForItem:item];
     NSInteger numberOfChildren = [dataObject.children count];
     
+    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:11]]) {
+        dataObject.children = nil;
+    } else {
+        
+    }
+    
     NSString *detailText = [NSString localizedStringWithFormat:@"Number of children %@", [@(numberOfChildren) stringValue]];
     [self.treeView setShowsVerticalScrollIndicator:NO ];
     

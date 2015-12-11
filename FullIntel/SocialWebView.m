@@ -78,6 +78,11 @@
 //    controller.shouldDismissOnBackgroundViewTap = YES;
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        if(self.isFlag) {
+            self.navigationController.navigationBarHidden=YES;
+        } else {
+            self.navigationController.navigationBarHidden=NO;
+        }
     } else {
         self.navigationController.navigationBarHidden=YES;
     }

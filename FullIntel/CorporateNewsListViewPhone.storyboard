@@ -271,7 +271,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Es5-RM-L3q">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4AK-s8-F6j" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SocialWebViewPhone" automaticallyAdjustsScrollViewInsets="NO" id="4AK-s8-F6j" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NSb-3l-Meo">

@@ -169,8 +169,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:101] forKey:@"newsletterId"];
+    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFolderClick"];
     FIFolder *folder = [folderArray objectAtIndex:indexPath.row];
+    [[NSUserDefaults standardUserDefaults]setObject:folder.folderId forKey:@"folderId"];
     [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folder.folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
     UIStoryboard *centerStoryBoard;
     CorporateNewsListView *listView;

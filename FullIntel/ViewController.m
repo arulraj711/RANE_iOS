@@ -501,6 +501,7 @@
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
         UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebViewPhone"];
         SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        SocialWebViewObj.isFlag = YES;
         SocialWebViewObj.titleStr=@"Sign Up";
         NSString *signUpUrlString = [NSString stringWithFormat:@"%@/newusersignup.html",[FIWebService getServerURL]];
         SocialWebViewObj.urlString=signUpUrlString;
