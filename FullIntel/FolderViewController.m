@@ -41,7 +41,31 @@
     [self.navigationItem setLeftBarButtonItem:addButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
     [self fetchFolderDetails];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.revealController.revealPanGestureRecognizer.delegate = self;
+        self.revealController.panDelegate = self;
+    } else {
+        
+    }
+}
+
+
+- (void)handlePanGestureStart {
+    // self.articlesTableView.scrollEnabled = NO;
     
+}
+
+-(void)handleVeriticalPan {
+    // self.articlesTableView.scrollEnabled = YES;
+}
+-(void)handlePanGestureEnd {
+    //  self.articlesTableView.scrollEnabled = YES;
+}
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return  YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated {

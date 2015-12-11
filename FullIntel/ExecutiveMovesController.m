@@ -88,8 +88,12 @@
     
      _rotateView.transform = CGAffineTransformMakeRotation(-0.6);
     
-    self.revealController.revealPanGestureRecognizer.delegate = self;
-    self.revealController.panDelegate = self;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.revealController.revealPanGestureRecognizer.delegate = self;
+        self.revealController.panDelegate = self;
+    } else {
+        
+    }
 }
 
 - (void)handlePanGestureStart {
@@ -109,6 +113,13 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return  YES;
+}
+
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        // NSLog(@"left view opened");
+        [self.revealController showViewController:self.revealController.frontViewController];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface FolderViewController : UIViewController<UITableViewDataSource,UITextFieldDelegate> {
+#import "PKRevealController.h"
+@interface FolderViewController : UIViewController<UITableViewDataSource,UITextFieldDelegate,PanDelegate,UIGestureRecognizerDelegate> {
     NSMutableArray *folderArray;
     UIActivityIndicatorView *activityIndicator;
 }

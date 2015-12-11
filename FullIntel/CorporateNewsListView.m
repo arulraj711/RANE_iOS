@@ -189,9 +189,13 @@
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
-    self.revealController.revealPanGestureRecognizer.delegate = self;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.revealController.revealPanGestureRecognizer.delegate = self;
+        self.revealController.panDelegate = self;
+    } else {
+        
+    }
     
-    self.revealController.panDelegate = self;
 }
 
 - (void)handlePanGestureStart {

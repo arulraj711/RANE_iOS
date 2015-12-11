@@ -36,8 +36,12 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor]; // change this color
     self.navigationItem.titleView = label;
-    self.revealController.revealPanGestureRecognizer.delegate = self;
-    self.revealController.panDelegate = self;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.revealController.revealPanGestureRecognizer.delegate = self;
+        self.revealController.panDelegate = self;
+    } else {
+        
+    }
 }
 - (void)handlePanGestureStart {
    // self.articlesTableView.scrollEnabled = NO;

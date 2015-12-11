@@ -31,8 +31,12 @@ NHAlignmentFlowLayout *layout;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"authenticationFailed" object:nil];
 
     [self setUpViews];
-    self.revealController.revealPanGestureRecognizer.delegate = self;
-    self.revealController.panDelegate = self;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.revealController.revealPanGestureRecognizer.delegate = self;
+        self.revealController.panDelegate = self;
+    } else {
+        
+    }
 }
 
 - (void)handlePanGestureStart {
@@ -51,6 +55,13 @@ NHAlignmentFlowLayout *layout;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return  YES;
+}
+
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        // NSLog(@"left view opened");
+        [self.revealController showViewController:self.revealController.frontViewController];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{

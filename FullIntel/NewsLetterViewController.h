@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface NewsLetterViewController : UIViewController<UITableViewDelegate> {
+#import "PKRevealController.h"
+@interface NewsLetterViewController : UIViewController<UITableViewDelegate,PanDelegate,UIGestureRecognizerDelegate> {
     NSMutableArray *newsLetterArray;
     UIActivityIndicatorView *activityIndicator;
 }

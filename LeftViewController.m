@@ -1520,13 +1520,24 @@
                 // NSLog(@"empty node id");
             } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:11]]) {
                 NSLog(@"Communication Issue Click");
-                [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
-                [[NSUserDefaults standardUserDefaults]setObject:data.name forKey:@"parentName"];
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"CommunicationIssues" bundle:nil];
-                UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"CommunicationIssues"];
-                CommunicationIssuesPage *communIssuePage = (CommunicationIssuesPage *)[[navCtlr viewControllers] objectAtIndex:0];
-                communIssuePage.title = data.name;
-                [self.revealController setFrontViewController:navCtlr];
+                if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+                {
+                    [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
+                    [[NSUserDefaults standardUserDefaults]setObject:data.name forKey:@"parentName"];
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"CommunicationIssues" bundle:nil];
+                    UINavigationController *navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"CommunicationIssues"];
+                    CommunicationIssuesPage *communIssuePage = (CommunicationIssuesPage *)[[navCtlr viewControllers] objectAtIndex:0];
+                    communIssuePage.title = data.name;
+                    [self.revealController setFrontViewController:navCtlr];
+                } else {
+                    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
+                    UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
+                    
+                    CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+                    CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
+                    [self.revealController setFrontViewController:navCtlr];
+                }
+                
                 
             } else {
                 UIStoryboard *centerStoryBoard;

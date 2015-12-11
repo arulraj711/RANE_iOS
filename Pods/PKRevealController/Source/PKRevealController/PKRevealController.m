@@ -691,14 +691,14 @@ typedef struct
     {
         case UIGestureRecognizerStateBegan:
         {
-            CGPoint touchUpPoint = [recognizer translationInView:self.view]; // or `locationInView:`
+           // CGPoint touchUpPoint = [recognizer translationInView:self.view]; // or `locationInView:`
             
-            NSLog(@"__TOUCH_END_POINT__ = %@", NSStringFromCGPoint(touchUpPoint));
-            
-            if(touchUpPoint.x == 0 && touchUpPoint.y == 0) {
-            } else {
+//            NSLog(@"__TOUCH_END_POINT__ = %@", NSStringFromCGPoint(touchUpPoint));
+//            
+//            if(touchUpPoint.x == 0 && touchUpPoint.y == 0) {
+//            } else {
                 [self handlePanGestureBeganWithRecognizer:recognizer];
-            }
+            //}
             
         }
             break;
@@ -727,33 +727,39 @@ typedef struct
 
 - (void)handlePanGestureBeganWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
-    CGPoint vel = [recognizer velocityInView:self.view];
-    CGPoint touchUpPoint = [recognizer translationInView:self.view]; // or `locationInView:`
-    
-    NSLog(@"__TOUCH_END_POINT__ = %@", NSStringFromCGPoint(touchUpPoint));
-    
-    if(touchUpPoint.x == 0 && touchUpPoint.y == 0) {
-        NSLog(@"Both");
-       // _frontViewInteraction.isInteracting = NO;
-    } else {
-        if(touchUpPoint.x == 0) {
-            NSLog(@"Vertical");
-            _frontViewInteraction.isInteracting = YES;
-            [self.panDelegate handleVeriticalPan];
-            
-        } else if(touchUpPoint.y == 0) {
-            NSLog(@"Horizontal");
-            [self.panDelegate handlePanGestureStart];
-            [self.animator stopAnimationForKey:kPKRevealControllerFrontViewTranslationAnimationKey];
-            
-            _frontViewInteraction.recognizerFlags.initialTouchPoint = [recognizer translationInView:self.frontView];
-            _frontViewInteraction.recognizerFlags.previousTouchPoint = _frontViewInteraction.recognizerFlags.initialTouchPoint;
-            _frontViewInteraction.initialFrontViewPosition = self.frontView.layer.position;
-            _frontViewInteraction.isInteracting = YES;
-            
-            [self updateRearViewVisibility];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        CGPoint touchUpPoint = [recognizer translationInView:self.view]; // or `locationInView:`
+        if(touchUpPoint.x == 0 && touchUpPoint.y == 0) {
+            NSLog(@"Both");
+            // _frontViewInteraction.isInteracting = NO;
+        } else {
+            if(touchUpPoint.x == 0) {
+                NSLog(@"Vertical");
+                _frontViewInteraction.isInteracting = YES;
+                [self.panDelegate handleVeriticalPan];
+                
+            } else if(touchUpPoint.y == 0) {
+                NSLog(@"Horizontal");
+                [self.panDelegate handlePanGestureStart];
+                [self.animator stopAnimationForKey:kPKRevealControllerFrontViewTranslationAnimationKey];
+                _frontViewInteraction.recognizerFlags.initialTouchPoint = [recognizer translationInView:self.frontView];
+                _frontViewInteraction.recognizerFlags.previousTouchPoint = _frontViewInteraction.recognizerFlags.initialTouchPoint;
+                _frontViewInteraction.initialFrontViewPosition = self.frontView.layer.position;
+                _frontViewInteraction.isInteracting = YES;
+                
+                [self updateRearViewVisibility];
+            }
         }
+    } else {
+        [self.animator stopAnimationForKey:kPKRevealControllerFrontViewTranslationAnimationKey];
+        _frontViewInteraction.recognizerFlags.initialTouchPoint = [recognizer translationInView:self.frontView];
+        _frontViewInteraction.recognizerFlags.previousTouchPoint = _frontViewInteraction.recognizerFlags.initialTouchPoint;
+        _frontViewInteraction.initialFrontViewPosition = self.frontView.layer.position;
+        _frontViewInteraction.isInteracting = YES;
+        
+        [self updateRearViewVisibility];
     }
+    
 }
 
 - (void)handlePanGestureChangedWithRecognizer:(UIPanGestureRecognizer *)recognizer

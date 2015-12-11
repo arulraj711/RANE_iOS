@@ -98,6 +98,13 @@
     return  YES;
 }
 
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+        // NSLog(@"left view opened");
+        [self.revealController showViewController:self.revealController.frontViewController];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

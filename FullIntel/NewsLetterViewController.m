@@ -49,7 +49,30 @@
     
     [[FISharedResources sharedResourceManager]getNewsLetterListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.revealController.revealPanGestureRecognizer.delegate = self;
+        self.revealController.panDelegate = self;
+    } else {
+        
+    }
+}
+
+- (void)handlePanGestureStart {
+    // self.articlesTableView.scrollEnabled = NO;
     
+}
+
+-(void)handleVeriticalPan {
+    // self.articlesTableView.scrollEnabled = YES;
+}
+-(void)handlePanGestureEnd {
+    //  self.articlesTableView.scrollEnabled = YES;
+}
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return  YES;
 }
 
 - (void)didReceiveMemoryWarning {
