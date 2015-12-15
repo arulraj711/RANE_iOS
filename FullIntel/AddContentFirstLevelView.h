@@ -12,10 +12,12 @@
 @interface AddContentFirstLevelView : UIViewController<RFQuiltLayoutDelegate,UICollectionViewDelegate,SecondLevelDelegate> {
     RFQuiltLayout* layout;
     NSTimer *popAnimationTimer;
+    UIActivityIndicatorView *activityIndicator;
 }
 - (IBAction)closeAction:(id)sender;
 - (IBAction)requestChange:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *contentCollectionView;
+@property (weak, nonatomic) IBOutlet UIView *loadingOuterView;
 @property (nonatomic,strong) NSMutableArray *contentTypeArray;
 @property (nonatomic,strong) NSMutableArray *contentCategoryArray;
 @property (nonatomic,strong) NSMutableArray *selectedIdArray;

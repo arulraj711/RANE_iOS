@@ -292,11 +292,17 @@
     [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated List Detailed View"];
     
     // [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Curated List Detailed View"];
-    CGSize currentSize = self.collectionView.bounds.size;
-    float offset = self.currentIndex * currentSize.width;
-    [self.collectionView setContentOffset:CGPointMake(offset, 0)];
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
+    
+    BOOL isFromList = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFromList"];
+    if(isFromList) {
+        CGSize currentSize = self.collectionView.bounds.size;
+        float offset = self.currentIndex * currentSize.width;
+        NSLog(@"offset value:%f and index:%d",offset,self.currentIndex);
+        [self.collectionView setContentOffset:CGPointMake(offset, 0)];
+        self.collectionView.dataSource = self;
+        self.collectionView.delegate = self;
+    }
+    
 }
 
 
@@ -340,7 +346,10 @@
 
 -(void)getArticleIdListFromDB {
     BOOL testFlag = [[NSUserDefaults standardUserDefaults]boolForKey:@"Test"];
-    if(testFlag) {
+    NSString *testStr = [[NSUserDefaults standardUserDefaults]valueForKey:@"TestStr"];
+    //[[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"TestStr"];
+    NSLog(@"test string:%@",testStr);
+    if([testStr isEqualToString:@"1"] || [testStr isEqualToString:@"0"]) {
         NSLog(@"test flag is TRUE");
         
         [self.activityIndicator stopAnimating];
@@ -417,7 +426,8 @@
         
         
         
-    } else {
+    }
+    else if([testStr isEqualToString:@"0"]){
         NSLog(@"test flag is FALSE");
     }
     NSLog(@"selected article id:%@",self.articleIdArray);
@@ -1416,9 +1426,21 @@
                     
                 }
                 NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-                [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
+                if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
+                    [[NSUserDefaults standardUserDefaults] setObject:@"-1" forKey:@"TestStr"];
+                    //[[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"TestStr"];
+                    [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:inputJson withCategoryId:[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
+                } else {
+                    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"TestStr"];
+                }
+                
             } else {
+                if([[FISharedResources sharedResourceManager] serviceIsReachable]) {
+                    [[NSUserDefaults standardUserDefaults] setObject:@"-1" forKey:@"TestStr"];
                 [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withOffset:[NSNumber numberWithInt:self.articleIdArray.count] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
+                } else {
+                    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"TestStr"];
+                }
             }
             
             //            dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
@@ -1428,7 +1450,8 @@
             
             oneSecondTicker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                                              selector:@selector(getArticleIdListFromDB) userInfo:nil repeats:YES];
-           //  [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+            //[[NSUserDefaults standardUserDefaults] setObject:@"-1" forKey:@"TestStr"];
             
         }
     }

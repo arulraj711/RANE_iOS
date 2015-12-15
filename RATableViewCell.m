@@ -39,7 +39,7 @@
   
  // self.selectedBackgroundView = [UIView new];
  // self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
-    
+    //self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.countLabel.layer.masksToBounds = YES;
     self.countLabel.layer.cornerRadius = 13;
    // self.companyName.text = [companyNameStr uppercaseString];
@@ -92,7 +92,8 @@
 //  }
   
     
-    CGFloat left;
+    //CGFloat left;
+    CGFloat left = 11 + 20 * level;
 //    if([[title uppercaseString] isEqualToString:@"MARKED IMPORTANT"]) {
 //        left = 40 + 11 + 20 * level;
 //        self.iconImage.hidden = NO;

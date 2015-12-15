@@ -150,8 +150,9 @@
     [self test:self.menus];
     [treeView reloadData];
     
+    BOOL isMenuCalled = [[NSUserDefaults standardUserDefaults]boolForKey:@"isMenuCalled"];
     
-    if(self.data.count > 2) {
+    if(self.data.count > 2 && isMenuCalled) {
         NSLog(@"come selectrow method");
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
             [self.treeView selectRowForItem:[self.data objectAtIndex:0] animated:YES scrollPosition:RATreeViewScrollPositionTop];
@@ -391,7 +392,7 @@
     NSDictionary *userInfo = notification.userInfo;
     NSString *type = [userInfo objectForKey:@"type"];
     NSMutableArray *reloadArray = [[NSMutableArray alloc]init];
-    //NSLog(@"type value:%@",type);
+    NSLog(@"type value:%@",type);
     
     if([type isEqualToString:@"all"]) {
         dataObj = [self.data objectAtIndex:2];
@@ -949,72 +950,73 @@
     CGFloat left;
     if(!dataObject.isFolder) {
         if([dataObject.nodeId integerValue] == 9) {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9;
-            cell.titleWidthConstraint.constant = 160;
-            left = 40 + 11 + 20 * level;
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9;
+//            cell.titleWidthConstraint.constant = 160;
+            left = 40 * level+10;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
         } else if([dataObject.nodeId integerValue] == 6) {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9;
-            cell.titleWidthConstraint.constant = 160;
-            left = 40 + 11 + 20 * level;
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9;
+//            cell.titleWidthConstraint.constant = 160;
+            left = 40 * level+10;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"savedForLater"];
         } else if([[dataObject.name uppercaseString] isEqualToString:@"LOGOUT"]) {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9;
-            cell.titleWidthConstraint.constant = 160;
-            left = 40 + 11 + 20 * level;
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9;
+//            cell.titleWidthConstraint.constant = 160;
+            left = 40 * level+10;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"logout"];
         } else {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant =9;
-            cell.titleWidthConstraint.constant = 185;
-            left = 34 + 20 * level;
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant =9;
+//            cell.titleWidthConstraint.constant = 185;
+            NSLog(@"level --->%d",level);
+            left = 15 * level+10;
             cell.iconImage.hidden = YES;
         }
     } else {
         if([[dataObject.name uppercaseString]isEqualToString:@"FOLDERS"]) {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9;
-            cell.titleWidthConstraint.constant = 160;
-            left = 40 + 11 + 20 * level;
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9;
+//            cell.titleWidthConstraint.constant = 160;
+            left = 40 * level+10;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
         }else {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9;
-            cell.titleWidthConstraint.constant = 185;
-            left = 34 + 20 * level;
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9;
+//            cell.titleWidthConstraint.constant = 185;
+            left = 40 * level+10;
             cell.iconImage.hidden = YES;
         }
     }
     
     if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
         //For Daily Digest
-        cell.iconWidthConstraint.constant =15;
-        cell.titleConstraint.constant = 9;
-        cell.titleWidthConstraint.constant = 160;
-        left = 40 + 11 + 20 * level;
+//        cell.iconWidthConstraint.constant =15;
+//        cell.titleConstraint.constant = 9;
+//        cell.titleWidthConstraint.constant = 160;
+        left = 40 *level+10;
         cell.iconImage.hidden = NO;
         cell.iconImage.image = [UIImage imageNamed:@"dailydigest_menu"];
     } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-300]]) {
         //For Add Content
-        cell.iconWidthConstraint.constant =15;
-        cell.titleConstraint.constant = 9;
-        cell.titleWidthConstraint.constant = 160;
-        left = 40 + 11 + 20 * level;
+//        cell.iconWidthConstraint.constant =15;
+//        cell.titleConstraint.constant = 9;
+//        cell.titleWidthConstraint.constant = 160;
+        left = 40 * level+10;
         cell.iconImage.hidden = NO;
         cell.iconImage.image = [UIImage imageNamed:@"addcontent_menu"];
     } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-400]])  {
         //For Research request
-        cell.iconWidthConstraint.constant =15;
-        cell.titleConstraint.constant = 9;
-        cell.titleWidthConstraint.constant = 160;
-        left = 40 + 11 + 20 * level;
+//        cell.iconWidthConstraint.constant =15;
+//        cell.titleConstraint.constant = 9;
+//        cell.titleWidthConstraint.constant = 160;
+        left = 40 * level+10;
         cell.iconImage.hidden = NO;
         cell.iconImage.image = [UIImage imageNamed:@"researchReq"];
     }
@@ -1025,9 +1027,10 @@
     } else {
         cell.rssImage.hidden = YES;
     }
-    
+   // NSLog(@"left value:%f and level:%d",left,level);
     CGRect titleFrame = cell.customTitleLabel.frame;
     titleFrame.origin.x = left;
+    cell.titleLeftConstraint.constant = left;
     cell.customTitleLabel.frame = titleFrame;
     
     
@@ -1107,6 +1110,7 @@
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     @try {
+        
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFolderClick"];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isExpandButtonClick"];
         data = item;
@@ -1375,6 +1379,7 @@
             NSLog(@"hereeee");
             
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Logout"];
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isMenuCalled"];
             if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
                 //handle null securtiy token
             } else {
@@ -1402,7 +1407,7 @@
             UINavigationController *navCtlr;
              if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
                  storyboard = [UIStoryboard storyboardWithName:@"NewsLetterViewPhone" bundle:nil];
-                 navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
+                 navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterViewPhone"];
              } else {
                  storyboard = [UIStoryboard storyboardWithName:@"NewsLetterView" bundle:nil];
                  navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];

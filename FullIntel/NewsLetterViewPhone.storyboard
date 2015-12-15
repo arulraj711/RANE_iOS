@@ -156,7 +156,7 @@
         <!--Navigation Controller-->
         <scene sceneID="5yT-gx-uKj">
             <objects>
-                <navigationController storyboardIdentifier="NewsLetterView" automaticallyAdjustsScrollViewInsets="NO" id="KQx-HV-fCv" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NewsLetterViewPhone" automaticallyAdjustsScrollViewInsets="NO" id="KQx-HV-fCv" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="W4U-wp-O8v">

@@ -173,6 +173,11 @@
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFolderClick"];
     FIFolder *folder = [folderArray objectAtIndex:indexPath.row];
     [[NSUserDefaults standardUserDefaults]setObject:folder.folderId forKey:@"folderId"];
+    if([[folder.folderName uppercaseString]isEqualToString:@"RSS"]) {
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isRSSField"];
+    } else {
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
+    }
     [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folder.folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
     UIStoryboard *centerStoryBoard;
     CorporateNewsListView *listView;

@@ -20,6 +20,7 @@
     int unreadCnt;
     RADataObject *data;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
+    
 }
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;
 @property (weak, nonatomic) IBOutlet UIButton *researchButton;

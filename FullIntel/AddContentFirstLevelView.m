@@ -181,6 +181,27 @@
     
     [self.view addGestureRecognizer:tapEvent];
     
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.alpha = 1.0;
+        activityIndicator.center = self.view.center;
+        activityIndicator.hidesWhenStopped = YES;
+        [self.view addSubview:activityIndicator];
+        [activityIndicator startAnimating];
+        
+    } else {
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.alpha = 1.0;
+        //activityIndicator.center = self.loadingOuterView.center;
+        activityIndicator.hidesWhenStopped = YES;
+        [self.loadingOuterView addSubview:activityIndicator];
+        [activityIndicator startAnimating];
+    }
+    
+    
+    
+    
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
@@ -289,6 +310,7 @@
 
 
 -(void)loadContentCategory {
+     [activityIndicator stopAnimating];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isThirdLevelChanged"];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFourthLevelChanged"];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFifthLevelChanged"];

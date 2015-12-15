@@ -26,12 +26,12 @@
                             <constraint firstAttribute="height" constant="39" id="E2h-Yp-Dt2"/>
                             <constraint firstAttribute="width" constant="160" id="Mex-ZI-vdx"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                         <color key="textColor" red="0.40000000000000002" green="0.43137254901960786" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RCW-5S-Op6">
-                        <rect key="frame" x="265" y="12" width="15" height="15"/>
+                        <rect key="frame" x="257" y="5" width="30" height="30"/>
                         <state key="normal" image="expand_right">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -79,6 +79,7 @@
                 <outlet property="iconWidthConstraint" destination="v4j-Me-8vW" id="LMP-bD-LLO"/>
                 <outlet property="rssImage" destination="5Ri-QU-86W" id="u8C-te-GMb"/>
                 <outlet property="titleConstraint" destination="ZoV-yi-P5E" id="FwI-GA-XeG"/>
+                <outlet property="titleLeftConstraint" destination="ZoV-yi-P5E" id="35x-wi-MWQ"/>
                 <outlet property="titleWidthConstraint" destination="Mex-ZI-vdx" id="YfT-Ca-aN5"/>
             </connections>
             <point key="canvasLocation" x="213" y="155"/>

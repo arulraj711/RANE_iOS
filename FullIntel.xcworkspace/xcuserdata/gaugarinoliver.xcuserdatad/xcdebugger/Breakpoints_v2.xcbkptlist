@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FullIntel/CommunicationIssuesPage.m"
-            timestampString = "471514458.889111"
+            filePath = "FullIntel/CorporateNewsListView.m"
+            timestampString = "471850499.945303"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "-gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:"
+            startingLineNumber = "2025"
+            endingLineNumber = "2025"
+            landmarkName = "-savedAction:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -723,9 +723,12 @@
         [self hideProgressView];
        // NSLog(@"reached end");
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
+            [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"TestStr"];
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
         } else {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"TestStr"];
             [self hideProgressView];
             [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
         }
@@ -734,6 +737,8 @@
         [FIUtils showErrorToast];
     }];
     } else {
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"TestStr"];
         //[FIUtils showNoNetworkToast];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsFail" object:nil];
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -1138,6 +1143,7 @@
             FIMenu *menu = [FIMenu recursiveMenu:dic];
             [_menuList addObject:menu];
         }
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isMenuCalled"];
         [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
        // [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
@@ -1324,7 +1330,7 @@
                     context = [self managedObjectContext];
                     
                     NSDictionary *articleDic = [dic objectForKey:@"article"];
-                    //NSLog(@"article dic:%@",articleDic);
+                    NSLog(@"article dic:%@",articleDic);
                     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
                     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[articleDic objectForKey:@"id"]];
                     [fetchRequest setPredicate:predicate];
@@ -1338,6 +1344,7 @@
                         NSLog(@"no");
                         //Create new object
                         curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
+                        [curatedNews setValue:[articleDic objectForKey:@"readStatus"] forKey:@"readStatus"];
                         
                         [_articleIdArray addObject:[articleDic objectForKey:@"id"]];
                     }
@@ -1485,6 +1492,7 @@
                     //Set CuratedNewsDetails
                     NSManagedObject *curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:context];
                     [curatedNewsDrillIn setValue:NULL_TO_NIL([articleDic objectForKey:@"id"]) forKey:@"articleId"];
+                    [curatedNewsDrillIn setValue:[articleDic objectForKey:@"readStatus"] forKey:@"readStatus"];
                     //            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"totalComments"] forKey:@"totalComments"];
                     //            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"unReadComment"] forKey:@"unReadComment"];
                     [curatedNewsDrillIn setValue:NULL_TO_NIL([articleDic objectForKey:@"articleDetailedDescription"]) forKey:@"article"];
@@ -1516,6 +1524,7 @@
 
                 }
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
+                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"TestStr"];
                 //[[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
                 //[[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil userInfo:@{@"isLoading":[NSNumber numberWithBool:YES]}];
@@ -1604,7 +1613,7 @@
                         NSLog(@"no");
                         //Create new object
                         curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
-                        
+                        [curatedNews setValue:[articleDic objectForKey:@"readStatus"] forKey:@"readStatus"];
                         [_articleIdArray addObject:[articleDic objectForKey:@"id"]];
                     }
                     
@@ -1751,6 +1760,7 @@
                     //Set CuratedNewsDetails
                     NSManagedObject *curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:context];
                     [curatedNewsDrillIn setValue:NULL_TO_NIL([articleDic objectForKey:@"id"]) forKey:@"articleId"];
+                    [curatedNewsDrillIn setValue:[articleDic objectForKey:@"readStatus"] forKey:@"readStatus"];
                     //            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"totalComments"] forKey:@"totalComments"];
                     //            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"unReadComment"] forKey:@"unReadComment"];
                     [curatedNewsDrillIn setValue:NULL_TO_NIL([articleDic objectForKey:@"articleDetailedDescription"]) forKey:@"article"];
@@ -1782,6 +1792,7 @@
                     
                 }
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
+                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"TestStr"];
                 //[[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
                 //[[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil userInfo:@{@"isLoading":[NSNumber numberWithBool:YES]}];

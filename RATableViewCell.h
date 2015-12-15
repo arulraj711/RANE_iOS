@@ -26,6 +26,7 @@
 - (void)expandButtonClickWithObject:(RADataObject *)dataObject;
 @end
 @interface RATableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLeftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleWidthConstraint;
 

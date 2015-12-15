@@ -48,7 +48,7 @@
     _articlesTableView.multipleTouchEnabled = NO;
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
 //    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-//        self.revealController.recognizesPanningOnFrontView = NO;
+        self.revealController.recognizesPanningOnFrontView = NO;
 //        self.revealController. = @{PKRevealControllerRecognizesPanningOnFrontViewKey : @NO};
     
 //        NSDictionary *options = @{
@@ -1121,19 +1121,19 @@
     UITableViewRowAction *moreAction;
         _articlesTableView.editing = nil;
     if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star_selected_iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star_selected_iphone1"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
             [self markedImpActions:indexPath];
             
         }];
     } else {
-        moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star-iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        moreAction  =[BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"star-iphone1"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
             [self markedImpActions:indexPath];
         }];
     }
     
     UITableViewRowAction *moreAction2;
     if([[curatedNews valueForKey:@"saveForLater"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        moreAction2 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"saved_selected_iphone"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        moreAction2 = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault title:@"    " backgroundColor:[UIColor whiteColor] image:[UIImage imageNamed:@"saved_selected_iphone1"] forCellHeight:100 handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
             [self savedActions:indexPath];
         }];
         
@@ -1464,7 +1464,7 @@
                     cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comments",totalMsgCount];
                 }
                 
-                cell.messageCountText.textColor = [UIColor blackColor];
+                cell.messageCountText.textColor = UIColorFromRGB(0X666E73);
                 cell.messageIcon.image = [UIImage imageNamed:@"chat_read"];
             } else {
                 //handle read message count
@@ -1831,6 +1831,7 @@
         testView.articleTitle = _titleName;
         testView.currentIndex = indexPath.row;
         testView.selectedIndexPath = indexPath;
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFromList"];
         [self.navigationController pushViewController:testView animated:YES];
     }
 }
@@ -2022,7 +2023,7 @@
     
     
     NSNumber *number = [curatedNews valueForKey:@"saveForLater"];
-    // NSLog(@"marked imp read status:%@",number);
+    NSLog(@"saved read status:%@",[curatedNews valueForKey:@"readStatus"]);
     if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
         if(number == [NSNumber numberWithInt:1]) {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-3",@"isSelected":[NSNumber numberWithBool:NO]}];

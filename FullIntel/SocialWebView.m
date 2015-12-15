@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFromList"];
   //  NSString *fullURL = @"http://conecode.com";
     NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
     NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
