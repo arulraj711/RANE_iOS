@@ -47,6 +47,15 @@
 - (void)viewDidLoad {
     NSLog(@"view did load");
     [super viewDidLoad];
+    
+    UISearchBar *searchDrugBar = [[UISearchBar alloc] init];
+    searchDrugBar.frame = CGRectMake(0, 0, 200,44); // it could be unnecessary
+    searchDrugBar.delegate = self;
+    searchDrugBar.placeholder = @"Search for info";
+    
+    self.navigationItem.titleView = self.searchDisplayController.searchBar;
+    [self.searchDisplayController setActive: YES animated: YES];
+    [self.searchDisplayController.searchBar becomeFirstResponder];
     _articlesTableView.multipleTouchEnabled = NO;
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -57,6 +66,7 @@
 //                                  PKRevealControllerRecognizesPanningOnFrontViewKey : @NO
 //                                  };
 //        [self.navigationController.navigationBar addGestureRecognizer:self.revealController.revealPanGestureRecognizer];
+        
 
     }
     else{

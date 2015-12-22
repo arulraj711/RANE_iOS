@@ -42,7 +42,20 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
 //    NSLog(@"start time in ms------>%f",startTimeInMiliseconds);
     NSLog(@"%@",postDetails);
-    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,FUNCTION_URL,urlPath];
+    NSString *postURL;
+
+    if ([urlPath isEqualToString:@"useractivitiesonarticles"]) {
+        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+
+    }
+    else if ([urlPath isEqualToString:@"managecontentcategories"]){
+        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+
+    }
+    else{
+        postURL = [NSString stringWithFormat:@"%@/%@/%@",url,FUNCTION_URL,urlPath];
+
+    }
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"POST"];
