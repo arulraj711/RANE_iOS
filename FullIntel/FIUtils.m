@@ -153,13 +153,34 @@
 }
 
 
-+(NSString *)formArticleListInuptFromSecurityToken:(NSString *)securitytoken withContentTypeId:(NSNumber *)contentTypeId withPageNumber:(NSNumber *)page withSize:(NSNumber *)size withQuery:(NSString *)query withContentCategoryId:(NSNumber *)contentCategoryId withOrderBy:(NSString *)orderBy withFilterBy:(NSString *)filterBy {
++(NSString *)formArticleListInuptFromSecurityToken:(NSString *)securitytoken withContentTypeId:(NSNumber *)contentTypeId withPageNumber:(NSNumber *)page withSize:(NSNumber *)size withQuery:(NSString *)query withContentCategoryId:(NSNumber *)contentCategoryId withOrderBy:(NSString *)orderBy withFilterBy:(NSString *)filterBy withActivityTypeID:(NSNumber *)activityTypId {
     NSString *queryString;
     if([contentCategoryId isEqualToNumber:[NSNumber numberWithInt:-1]]){
-        queryString = [NSString stringWithFormat:@"articles?security_token=%@&contentTypeId=%@&page=%@&size=%@&query=%@",securitytoken,contentTypeId,page,size,query];
+        if(query.length == 0) {
+            if([activityTypId intValue]== 2){
+                queryString = [NSString stringWithFormat:@"articles/2?security_token=%@&contentTypeId=%@&page=%@&size=%@",securitytoken,contentTypeId,page,size];
+            }
+            else if ([activityTypId intValue]==3){
+                queryString = [NSString stringWithFormat:@"articles/3?security_token=%@&contentTypeId=%@&page=%@&size=%@",securitytoken,contentTypeId,page,size];
+
+            }
+            else{
+                queryString = [NSString stringWithFormat:@"articles?security_token=%@&contentTypeId=%@&page=%@&size=%@",securitytoken,contentTypeId,page,size];
+            }
+        } else {
+            queryString = [NSString stringWithFormat:@"articles?security_token=%@&contentTypeId=%@&page=%@&size=%@&query=%@",securitytoken,contentTypeId,page,size,query];
+        }
+        
     } else {
-        queryString = [NSString stringWithFormat:@"articles?security_token=%@&contentTypeId=%@&page=%@&size=%@&query=%@&contentCategoryId=%@",securitytoken,contentTypeId,page,size,query,contentCategoryId];
+        if(query.length == 0) {
+            queryString = [NSString stringWithFormat:@"articles?security_token=%@&contentTypeId=%@&page=%@&size=%@&contentCategoryId=%@",securitytoken,contentTypeId,page,size,contentCategoryId];
+        } else {
+            queryString = [NSString stringWithFormat:@"articles?security_token=%@&contentTypeId=%@&page=%@&size=%@&query=%@&contentCategoryId=%@",securitytoken,contentTypeId,page,size,query,contentCategoryId];
+        }
+        
     }
+    
+    
     
     return queryString;
 }

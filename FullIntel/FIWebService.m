@@ -1,3 +1,5 @@
+
+
 //
 //  FIWebService.m
 //  FullIntel
@@ -39,7 +41,8 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
     //NSLog(@"start  time--->%f",CFAbsoluteTimeGetCurrent());
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
 //    NSLog(@"start time in ms------>%f",startTimeInMiliseconds);
-    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@/",url,FUNCTION_URL,urlPath];
+    NSLog(@"%@",postDetails);
+    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,FUNCTION_URL,urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"POST"];
@@ -251,23 +254,22 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
 
 
 
-+(void)fetchCuratedNewsListWithAccessToken:(NSString*)details
++(void)fetchCuratedNewsListWithAccessToken:(NSString*)details withActivityTypeID:(NSNumber *)activityTypeId
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     [self getQueryResultsForFunctionName:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure(operation, error);
-        
-    }];
+        failure(operation, error);}];
 }
 
-+(void)fetchCuratedNewsDetailsWithDetails:(NSString *)details
++(void)fetchCuratedNewsDetailsWithDetails:(NSString *)details withSecurtityToken:(NSString *)securityToken
                                 onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    [self getResultsForFunctionName:@"selectedarticledetail" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-       // NSLog(@"curated news response:%@",responseObject);
+                                    NSString *urlstr = [NSString stringWithFormat:@"articles/detail?security_token=%@",securityToken];
+    [self getResultsForFunctionName:urlstr withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation, error);
@@ -443,11 +445,11 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
 }
 
 
-+(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit
++(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal
                              onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                              onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
-    NSString *functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&offset=%@&limit=%@",folderId,securityToken,offset,limit];
+    NSString *functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@",folderId,securityToken,pageNo,sizeVal];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);

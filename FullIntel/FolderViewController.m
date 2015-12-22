@@ -147,7 +147,9 @@
     // [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:101] forKey:@"newsletterId"];
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFolderClick"];
     FIFolder *folder = [folderArray objectAtIndex:indexPath.row];
-    [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folder.folderId withOffset:[NSNumber numberWithInt:0] withLimit:[NSNumber numberWithInt:5] withUpFlag:NO];
+    [[NSUserDefaults standardUserDefaults]setObject:folder.folderId forKey:@"folderId"];
+
+    [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folder.folderId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:NO];
     UIStoryboard *centerStoryBoard;
     CorporateNewsListView *listView;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {

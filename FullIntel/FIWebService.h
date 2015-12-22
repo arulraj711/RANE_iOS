@@ -13,7 +13,7 @@
 
 +(NSString *) getServerURL;
 +(void) setServerURL:(NSString *)url;
-+(void)fetchCuratedNewsListWithAccessToken:(NSString*)details
++(void)fetchCuratedNewsListWithAccessToken:(NSString*)details withActivityTypeID:(NSNumber *)activityTypeId
                onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
@@ -54,7 +54,8 @@
 +(void)renameFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)    securityToken withFolderId:(NSNumber *)folderId
                      onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                      onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
-+(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit
+
++(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal
                                       onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                       onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 +(void)fetchArticlesFromNewsLetterWithSecurityToken:(NSString *)securityToken withNewsLetterId:(NSNumber *)newsletterId withLimit:(NSNumber *)limit withLastArticleId:(NSString *)lastArticleId
@@ -72,9 +73,10 @@
                      onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
-+(void)fetchCuratedNewsDetailsWithDetails:(NSString *)details
-                          onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                          onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)fetchCuratedNewsDetailsWithDetails:(NSString *)details withSecurtityToken:(NSString *)securityToken
+onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 +(void)fetchCuratedNewsAuthorDetailsWithDetails:(NSString *)details
                                 onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;

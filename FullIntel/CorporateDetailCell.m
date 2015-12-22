@@ -341,64 +341,105 @@
 
 
 -(void)loadTweetsFromPost {
+    //321
+    
+    
+    
     self.isTwitterAPICalled = YES;
     tweetIds= [[NSMutableArray alloc]init];
     NSLog(@"related post array:%@",self.relatedPostArray);
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-        if(self.relatedPostArray.count != 0) {
-            [lbl removeFromSuperview];
-            lbl.hidden = YES;
-            for(NSManagedObject *relatedPost in self.relatedPostArray) {
-                [tweetIds addObject:[relatedPost valueForKey:@"postId"]];
-                
-            }
-            NSLog(@"tweet ids:%@",tweetIds);
-            // NSLog(@"tweeter share instance:%@",[Twitter sharedInstance].guestSession);
-            if([[Twitter sharedInstance]session]) {
-                //NSLog(@"twitter session exist");
-            } else {
-                //NSLog(@"no twitter session");
-                [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
-                    // NSLog(@"tweet error:%@",error);
-                    [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
-                        NSLog(@"Tweet array:%@",tweet);
-                        if(tweet.count != 0) {
-                            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
-                                tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
-                                
-                                tweetScreenNameArray= [[NSMutableArray alloc]init];
-                                
-                                for(TWTRTweet *tweetObj in tweetArray) {
-                                    TWTRUser *author = tweetObj.author;
-                                    [tweetScreenNameArray addObject:author.screenName];
-                                }
-                                
-                                NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
-                                followersArray = [NSMutableArray arrayWithArray:followArray];
-                                NSLog(@"Tweet follwers array:%@",followersArray);
-                                dispatch_async(dispatch_get_main_queue(), ^(void){
-                                    [self.activityIndicator removeFromSuperview];
-                                    [self.activityIndicator stopAnimating];
-                                    self.tweetsLocalCollectionView.hidden = NO;
-                                    [self.tweetsLocalCollectionView reloadData];
-                                });
-                            });
-                        }
-                    }];
-                }];
-            }
+        
+        
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
+            NSMutableArray *idArray = [[NSMutableArray alloc]init];
+            NSMutableDictionary *idDetailsDic = [[NSMutableDictionary alloc] init];
+            [idDetailsDic setObject:self.selectedArticleId forKey:@"id"];
+            [idArray addObject:idDetailsDic];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:idArray options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            NSLog(@"Tweet array:%@",resultStr);
+            NSString *secToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+            [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr withSecurtityToken:secToken];
             
-        } else {
-            lbl.hidden = NO;
-            [self.activityIndicator removeFromSuperview];
-            [self.activityIndicator stopAnimating];
-            
-            
-            //        self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            //        self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
-            //        [self.activityIndicator startAnimating];
-            
-        }
+            NSLog(@"Tweet follwers array:%@",followersArray);
+        });
+
+        
+        
+        
+        
+        
+//        if(self.relatedPostArray.count != 0) {
+//            [lbl removeFromSuperview];
+//            lbl.hidden = YES;
+//            for(NSManagedObject *relatedPost in self.relatedPostArray) {
+//                [tweetIds addObject:[relatedPost valueForKey:@"postId"]];                
+//            }
+//            NSLog(@"tweet ids:%@",tweetIds);
+//            // NSLog(@"tweeter share instance:%@",[Twitter sharedInstance].guestSession);
+//            if([[Twitter sharedInstance]session]) {
+//                //NSLog(@"twitter session exist");
+//            } else {
+//                //NSLog(@"no twitter session");
+//                [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
+//                    // NSLog(@"tweet error:%@",error);
+//                    [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
+//                        NSLog(@"Tweet array:%@",tweet);
+//                        if(tweet.count != 0) {
+//                            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
+//                                NSMutableArray *idArray = [[NSMutableArray alloc]init];
+//                                NSMutableDictionary *idDetailsDic = [[NSMutableDictionary alloc] init];
+//                                [idDetailsDic setObject:self.selectedArticleId forKey:@"id"];
+//                                [idArray addObject:idDetailsDic];
+//                                NSData *jsondata = [NSJSONSerialization dataWithJSONObject:idArray options:NSJSONWritingPrettyPrinted error:nil];
+//                                NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+//                                NSLog(@"Tweet array:%@",resultStr);
+//
+//                        [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
+//               
+//                        NSLog(@"Tweet follwers array:%@",followersArray);
+//
+//                                
+//                                
+//                                
+//                                
+////                                tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
+////                                tweetScreenNameArray= [[NSMutableArray alloc]init];
+////                                for(TWTRTweet *tweetObj in tweetArray) {
+////                                    TWTRUser *author = tweetObj.author;
+////                                    [tweetScreenNameArray addObject:author.screenName];
+////                                }
+////                                NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
+////                                followersArray = [NSMutableArray arrayWithArray:followArray];
+////                                NSLog(@"Tweet follwers array:%@",followersArray);
+////                                dispatch_async(dispatch_get_main_queue(), ^(void){
+////                                    [self.activityIndicator removeFromSuperview];
+////                                    [self.activityIndicator stopAnimating];
+////                                    self.tweetsLocalCollectionView.hidden = NO;
+////                                    [self.tweetsLocalCollectionView reloadData];
+////                                });
+//                                
+//                                
+//                                
+//                                
+//                                
+//                                
+//                            });
+//                        }
+//                    }];
+//                }];
+//            }
+//            
+//        }
+//        else {
+//            lbl.hidden = NO;
+//            [self.activityIndicator removeFromSuperview];
+//            [self.activityIndicator stopAnimating];
+//            //        self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//            //        self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
+//            //        [self.activityIndicator startAnimating];
+//        }
     } else {
         lbl.hidden = NO;
         [self.activityIndicator removeFromSuperview];
@@ -409,7 +450,69 @@
 }
 
 
-
+-(void)LoadTweetsFinally
+{
+    
+            if(self.relatedPostArray.count != 0) {
+                [lbl removeFromSuperview];
+                lbl.hidden = YES;
+                for(NSManagedObject *relatedPost in self.relatedPostArray) {
+                    [tweetIds addObject:[relatedPost valueForKey:@"postId"]];
+                }
+                NSLog(@"tweet ids:%@",tweetIds);
+                // NSLog(@"tweeter share instance:%@",[Twitter sharedInstance].guestSession);
+                if([[Twitter sharedInstance]session]) {
+                    //NSLog(@"twitter session exist");
+                } else {
+                    //NSLog(@"no twitter session");
+                    [[Twitter sharedInstance] logInGuestWithCompletion:^(TWTRGuestSession *guestSession, NSError *error) {
+                        // NSLog(@"tweet error:%@",error);
+                        [[[Twitter sharedInstance] APIClient] loadTweetsWithIDs:tweetIds completion:^(NSArray *tweet, NSError *error) {
+                            NSLog(@"Tweet array:%@",tweet);
+                            if(tweet.count != 0) {
+                                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
+                                    NSMutableArray *idArray = [[NSMutableArray alloc]init];
+                                    NSMutableDictionary *idDetailsDic = [[NSMutableDictionary alloc] init];
+                                    [idDetailsDic setObject:self.selectedArticleId forKey:@"id"];
+                                    [idArray addObject:idDetailsDic];
+                                    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:idArray options:NSJSONWritingPrettyPrinted error:nil];
+                                    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+                                    NSLog(@"Tweet array:%@",resultStr);
+    
+//                            [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr];
+        
+                                    tweetArray = [[NSMutableArray alloc]initWithArray:tweet];
+                                    tweetScreenNameArray= [[NSMutableArray alloc]init];
+                                    for(TWTRTweet *tweetObj in tweetArray) {
+                                        TWTRUser *author = tweetObj.author;
+                                        [tweetScreenNameArray addObject:author.screenName];
+                                    }
+                                    NSArray *followArray = [[FISharedResources sharedResourceManager]getTweetDetails:[tweetScreenNameArray componentsJoinedByString:@","]];
+                                    followersArray = [NSMutableArray arrayWithArray:followArray];
+                                    NSLog(@"Tweet follwers array:%@",followersArray);
+                                    dispatch_async(dispatch_get_main_queue(), ^(void){
+                                        [self.activityIndicator removeFromSuperview];
+                                        [self.activityIndicator stopAnimating];
+                                        self.tweetsLocalCollectionView.hidden = NO;
+                                        [self.tweetsLocalCollectionView reloadData];
+                                    });
+        
+                                });
+                            }
+                        }];
+                    }];
+                }
+    
+            }
+            else {
+                lbl.hidden = NO;
+                [self.activityIndicator removeFromSuperview];
+                [self.activityIndicator stopAnimating];
+                //        self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                //        self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
+                //        [self.activityIndicator startAnimating];
+            }
+}
 
 
 
@@ -631,7 +734,8 @@
             
             NSLog(@"screen name:%@",author.screenName);
             NSDictionary *followDic =[followersArray objectAtIndex:indexPath.row];
-            
+            NSLog(@"followersArray:%@",[followersArray objectAtIndex:indexPath.row]);
+
             NSString *follwersCnt= [NSString stringWithFormat:@"%@",[followDic objectForKey:@"formatted_followers_count"]];
             NSArray *splitValues=[follwersCnt componentsSeparatedByString:@" "];
             tweetCell.followers.text = [splitValues objectAtIndex:0];
@@ -1231,7 +1335,6 @@
 - (void)dismissCommentsView {
     [popover dismissPopoverAnimated:YES];
     self.superview.alpha = 1;
-
 }
 
 - (IBAction)markedImpButtonClick:(UIButton *)sender {
@@ -1390,6 +1493,187 @@
 
 - (IBAction)globeButtonClick:(UIButton *)sender {
     [[NSNotificationCenter defaultCenter]postNotificationName:@"globeButtonClick" object:nil userInfo:@{@"url":[self.curatedNewsDetail valueForKey:@"articleUrl"]}];
+}
+
+-(void)loadCuratedNewsDetails:(id)sender {
+    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+   // NSLog(@"Curated News ---> %@",fetchRequest);
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
+    [fetchRequest setPredicate:predicate];
+    //NSLog(@"%@",predicate);
+    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSLog(@"Article ---->%@",newPerson);
+    if(newPerson.count != 0) {
+        NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+        NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
+        NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
+        NSManagedObject *author;
+        if(legendsArray.count != 0) {
+            author  = [legendsArray objectAtIndex:0];
+        }
+        NSLog(@"Author Info ---->%@",author);
+        [self.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
+        [self.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
+        self.authorNameStr = [author valueForKey:@"firstName"];
+        
+        if([[author valueForKey:@"starRating"] integerValue] == 0) {
+            self.ratingControl.hidden = YES;
+        } else {
+            self.ratingControl.hidden = NO;
+            self.starRating.rating = [[author valueForKey:@"starRating"] integerValue];
+        }
+        
+        if([[author valueForKey:@"isInfluencer"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            self.influencerIconImage.hidden = NO;
+        } else {
+            self.influencerIconImage.hidden = YES;
+        }
+        
+        NSSet *workTitleSet = [author valueForKey:@"authorWorkTitle"];
+        NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
+        if(workTitleArray.count != 0) {
+            self.workTitleIcon.hidden = NO;
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            {
+                self.workTitleIconHeightConstraint.constant = 10;
+                self.workTitleLabelHeightConstraint.constant = 18;
+                self.outletImageTopConstraint.constant = 9;
+                self.outletLabelTopConstraint.constant = 1;
+            }
+            else{
+                self.workTitleIconHeightConstraint.constant = 15;
+                self.workTitleLabelHeightConstraint.constant = 21;
+                self.outletImageTopConstraint.constant = 10;
+                self.outletLabelTopConstraint.constant = 4;
+            }
+            
+            NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
+            self.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
+        }
+        else {
+            self.workTitleIcon.hidden = YES;
+            self.workTitleIconHeightConstraint.constant = 0;
+            self.workTitleLabelHeightConstraint.constant = 0;
+            self.outletImageTopConstraint.constant = 0;
+            self.outletLabelTopConstraint.constant = 0;
+            self.authorWorkTitleLabel.text = @"";
+            
+        }
+        NSSet *outletSet = [author valueForKey:@"authorOutlet"];
+        NSMutableArray *outletArray = [[NSMutableArray alloc]initWithArray:[outletSet allObjects]];
+        if(outletArray.count != 0) {
+            self.outletIcon.hidden = NO;
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            {
+                self.locationImageTopConstarint.constant = 9;
+                self.outletIconHeightConstraint.constant = 10;
+                self.locationLabelTopConstraint.constant = 1;
+                self.outletLabelHeightConstraint.constant = 18;
+                
+            }
+            else{
+                self.locationImageTopConstarint.constant = 10;
+                self.outletIconHeightConstraint.constant = 15;
+                self.locationLabelTopConstraint.constant = 4;
+                self.outletLabelHeightConstraint.constant = 21;
+                
+            }
+            NSManagedObject *outlet = [outletArray objectAtIndex:0];
+            self.authorOutletName.text = [outlet valueForKey:@"outletname"];
+        }else {
+            self.outletIcon.hidden = YES;
+            self.outletIconHeightConstraint.constant = 0;
+            self.locationImageTopConstarint.constant = 0;
+            self.locationLabelTopConstraint.constant = 0;
+            self.outletLabelHeightConstraint.constant = 0;
+            self.authorOutletName.text = @"";
+            
+        }
+        NSString *city = [author valueForKey:@"city"];
+        NSString *country = [author valueForKey:@"country"];
+        NSString *authorPlace;
+        if(city.length == 0 && country.length == 0) {
+            authorPlace = @"";
+        } else if(city.length == 0) {
+            authorPlace = [NSString stringWithFormat:@"%@",country];
+        } else if(country.length == 0) {
+            authorPlace = [NSString stringWithFormat:@"%@",city];
+        } else {
+            authorPlace = [NSString stringWithFormat:@"%@, %@",city,country];
+        }
+        if(authorPlace.length !=0 ){
+            self.locationIcon.hidden = NO;
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            {
+                self.locationIconHeightConstraint.constant = 10;
+                self.locationLabelHeightConstraint.constant = 18;
+                self.beatsImageTopConstraint.constant = 9;
+                self.beatsLabelTopConstraint.constant = 1;
+            }
+            else{
+                self.locationIconHeightConstraint.constant = 15;
+                self.locationLabelHeightConstraint.constant = 21;
+                self.beatsImageTopConstraint.constant = 10;
+                self.beatsLabelTopConstraint.constant = 4;
+            }
+            
+            self.authorLocationLabel.text = authorPlace;
+        } else {
+            self.locationIcon.hidden = YES;
+            self.locationIconHeightConstraint.constant = 0;
+            self.locationLabelHeightConstraint.constant = 0;
+            self.beatsImageTopConstraint.constant = 0;
+            self.beatsLabelTopConstraint.constant = 0;
+            self.authorLocationLabel.text = @"";
+            
+        }
+        
+        NSSet *beatSet = [author valueForKey:@"authorBeat"];
+        NSMutableArray *beatsArray = [[NSMutableArray alloc]initWithArray:[beatSet allObjects]];
+        NSMutableArray *beats = [[NSMutableArray alloc]init];
+        for(NSManagedObject *beat in beatsArray) {
+            [beats addObject:[NSString stringWithFormat:@"#%@",[beat valueForKey:@"name"]]];
+        }
+        NSString *beatString = [beats componentsJoinedByString:@" "];
+        if(beatString.length != 0){
+            self.beatsIcon.hidden = NO;
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            {
+                self.beatsIconHeightConstraint.constant = 10;
+                self.beatsLabelHeightConstraint.constant = 18;
+                
+            }
+            else{
+                self.beatsIconHeightConstraint.constant = 15;
+                self.beatsLabelHeightConstraint.constant = 21;
+                
+            }
+            self.authorTagLabel.text = beatString;
+        } else {
+            self.beatsIcon.hidden = YES;
+            self.beatsIconHeightConstraint.constant = 0;
+            self.beatsLabelHeightConstraint.constant = 0;
+            self.authorTagLabel.text = @"";
+            
+        }
+        
+        NSString *bioString = [author valueForKey:@"bibliography"];
+        
+        if(bioString.length != 0) {
+            
+            self.bioTitleLabel.hidden = NO;
+            self.bioDivider.hidden = NO;
+            self.bioLabel.hidden = NO;
+            self.bioLabel.text = bioString;
+        } else {
+            self.bioTitleLabel.hidden = YES;
+            self.bioDivider.hidden = YES;
+            self.bioLabel.hidden = YES;
+        }
+
+    }
+    [self LoadTweetsFinally];//99999999
 }
 
 //-(void)loadCuratedNewsDetails:(id)sender {

@@ -1,4 +1,4 @@
-//
+
 //  FISharedResources.m
 //  FullIntel
 //
@@ -451,11 +451,11 @@
 }
 
 
--(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withContentTypeId:(NSNumber *)contentTypeId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
+-(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withContentTypeId:(NSNumber *)contentTypeId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId withActivityTypeId:(NSNumber *)activityTypeId {
    // [self showProgressView];
     NSLog(@"refresh list with flag:%@ and categoryId:%@",updownFlag,categoryId);
     if([self serviceIsReachable]) {
-    [FIWebService fetchCuratedNewsListWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [FIWebService fetchCuratedNewsListWithAccessToken:details withActivityTypeID:activityTypeId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self hideProgressView];
         NSArray *curatedNewsArray = responseObject;
@@ -643,18 +643,18 @@
             [curatedNewsDrillIn setValue:[dic objectForKey:@"unReadComment"] forKey:@"unReadComment"];
             [curatedNewsDrillIn setValue:[dic objectForKey:@"articleDetailedDescription"] forKey:@"article"];
             //Set Related Post
-            NSArray *relatedPostArray = [dic objectForKey:@"articleRelatedPosts"];
-            NSMutableArray *postArray = [[NSMutableArray alloc]init];
-            for(NSDictionary *postDic in relatedPostArray) {
-                NSManagedObject *relatedPost = [NSEntityDescription insertNewObjectForEntityForName:@"RelatedPost" inManagedObjectContext:context];
-                [relatedPost setValue:[postDic valueForKey:@"postId"] forKey:@"postId"];
-                [relatedPost setValue:[postDic valueForKey:@"socialMediaUsername"] forKey:@"socialMediaUsername"];
-                [relatedPost setValue:[postDic valueForKey:@"tweetURL"] forKey:@"tweetURL"];
-                [postArray addObject:relatedPost];
-            }
-            
-            NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:postArray];
-            [curatedNewsDrillIn setValue:outletObj forKey:@"relatedPost"];
+//            NSArray *relatedPostArray = [dic objectForKey:@"articleRelatedPosts"];
+//            NSMutableArray *postArray = [[NSMutableArray alloc]init];
+//            for(NSDictionary *postDic in relatedPostArray) {
+//                NSManagedObject *relatedPost = [NSEntityDescription insertNewObjectForEntityForName:@"RelatedPost" inManagedObjectContext:context];
+//                [relatedPost setValue:[postDic valueForKey:@"postId"] forKey:@"postId"];
+//                [relatedPost setValue:[postDic valueForKey:@"socialMediaUsername"] forKey:@"socialMediaUsername"];
+//                [relatedPost setValue:[postDic valueForKey:@"tweetURL"] forKey:@"tweetURL"];
+//                [postArray addObject:relatedPost];
+//            }
+//            
+//            NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:postArray];
+//            [curatedNewsDrillIn setValue:outletObj forKey:@"relatedPost"];
             [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
             
             
@@ -934,7 +934,6 @@
             }
             NSOrderedSet *socialMediaObj = [[NSOrderedSet alloc]initWithArray:socialMediaArray];
             [authorDetails setValue:socialMediaObj forKey:@"authorSocialMedia"];
-            
             [authorList addObject:authorDetails];
         }
         
@@ -963,74 +962,227 @@
 
 
 
--(void)getCuratedNewsDetailsWithDetails:(NSString *)details {
+-(void)getCuratedNewsDetailsWithDetails:(NSString *)details withSecurtityToken:(NSString *)securityToken{
     if([self serviceIsReachable]) {
-    [FIWebService fetchCuratedNewsDetailsWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        
-        NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-        NSFetchRequest *fetchRequest;
-        NSManagedObject *curatedNewsDrillIn;
-            fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-            curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:managedObjectContext];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@", [[responseObject objectForKey:@"articleDetail"] objectForKey:@"id"]];
-        [fetchRequest setPredicate:predicate];
-        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-        NSManagedObject *curatedNews;
-        if(newPerson.count != 0) {
-            curatedNews = [newPerson objectAtIndex:0];
-        }
-        
-      //  NSLog(@"curated result:%@",[curatedNews valueForKey:@"details"]);
-        
-        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"id"] forKey:@"articleId"];
-            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"totalComments"] forKey:@"totalComments"];
-            [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"unReadComment"] forKey:@"unReadComment"];
-        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"articleImageURL"] forKey:@"articleImageURL"];
-        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"articleDetailedDescription"] forKey:@"article"];
-        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"publisheddate"] forKey:@"articlePublisheddate"];
-        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"articleType"] forKey:@"articleType"];
-        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"url"] forKey:@"articleUrl"];
-         [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"heading"] forKey:@"articleHeading"];
-        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
-        NSArray *outletArray = [[responseObject objectForKey:@"articleDetail"] objectForKey:@"outlet"];
-        if(outletArray.count != 0) {
-            NSDictionary *outletDic = [outletArray objectAtIndex:0];
-            [curatedNewsDrillIn setValue:[outletDic objectForKey:@"outletname"] forKey:@"outletname"];
-        }
-        
-        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"readStatus"] forKey:@"readStatus"];
-        [curatedNewsDrillIn setValue:[[responseObject objectForKey:@"articleDetail"] objectForKey:@"saveForLater"] forKey:@"saveForLater"];
+        [FIWebService fetchCuratedNewsDetailsWithDetails:details withSecurtityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%@",responseObject);
+            NSLog(@"%@",[[responseObject objectAtIndex:0] objectForKey:@"id"]);
             
-            NSArray *relatedPostArray = [[responseObject objectForKey:@"articleDetail"] objectForKey:@"articleRelatedPosts"];
-            NSMutableArray *postArray = [[NSMutableArray alloc]init];
-            for(NSDictionary *postDic in relatedPostArray) {
-                NSManagedObject *relatedPost = [NSEntityDescription insertNewObjectForEntityForName:@"RelatedPost" inManagedObjectContext:managedObjectContext];
-                [relatedPost setValue:[postDic valueForKey:@"postId"] forKey:@"postId"];
-                [relatedPost setValue:[postDic valueForKey:@"socialMediaUsername"] forKey:@"socialMediaUsername"];
-                [relatedPost setValue:[postDic valueForKey:@"tweetURL"] forKey:@"tweetURL"];
-                [postArray addObject:relatedPost];
+            
+            
+            NSArray *curatedNewsArray = responseObject;
+            for(NSDictionary *dic in curatedNewsArray) {
+                
+                NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+                NSFetchRequest *fetchRequest;
+                NSManagedObject *curatedNewsDrillIn;
+                fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:managedObjectContext];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[dic objectForKey:@"id"]];
+                [fetchRequest setPredicate:predicate];
+                
+                
+                NSArray *existingArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                
+                //            //NSLog(@"existing count:%d",existingArray.count);
+                //            if(existingArray.count != 0) {
+                //                //Excisting Object
+                //                curatedNewsDrillIn = [existingArray objectAtIndex:0];
+                //            } else {
+                //                //Create new object
+                //                curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
+                //                [curatedNews setValue:contentTypeId forKey:@"contentTypeId"];
+                //                //                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+                //                //                    [curatedNews setValue:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+                //                //                } else {
+                //                [curatedNews setValue:categoryId forKey:@"categoryId"];
+                //                //  }
+                //
+                //                [curatedNews setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
+                //                [_articleIdArray addObject:[dic objectForKey:@"id"]];
+                //            }
+                //
+                //            //Set values in local db
+                //
+                //            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isFolder"];
+
+                
+                //        if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                
+                //        NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+                //        NSFetchRequest *fetchRequest;
+                //        NSManagedObject *curatedNewsDrillIn;
+                //            fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                //            curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:managedObjectContext];
+                //        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[[responseObject objectAtIndex:0] objectForKey:@"id"]];
+                //        [fetchRequest setPredicate:predicate];
+                NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                NSManagedObject *curatedNews;
+                if(newPerson.count != 0) {
+                    curatedNews = [newPerson objectAtIndex:0];
+                }
+                //  NSLog(@"curated result:%@",[curatedNews valueForKey:@"details"]);
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"id"]) forKey:@"articleId"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"totalComments"]) forKey:@"totalComments"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"unReadComment"]) forKey:@"unReadComment"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"articleImageURL"]) forKey:@"articleImageURL"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"articleDetailedDescription"]) forKey:@"article"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"publishedDate"]) forKey:@"articlePublisheddate"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"articleType"]) forKey:@"articleType"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"articleURL"]) forKey:@"articleUrl"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"heading"]) forKey:@"articleHeading"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"markAsImportant"]) forKey:@"markAsImportant"];
+                NSArray *outletArray = NULL_TO_NIL([dic objectForKey:@"outlets"]);
+                if(outletArray.count != 0) {
+                    NSDictionary *outletDic = [outletArray objectAtIndex:0];
+                    [curatedNewsDrillIn setValue:[outletDic objectForKey:@"outletName"] forKey:@"outletname"];
+                }
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"readStatus"]) forKey:@"readStatus"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"saveForLater"]) forKey:@"saveForLater"];
+                
+                NSArray *relatedPostArray = NULL_TO_NIL([dic objectForKey:@"articleRelatedPosts"]);
+                NSMutableArray *postArray = [[NSMutableArray alloc]init];
+                for(NSDictionary *postDic in relatedPostArray) {
+                    NSManagedObject *relatedPost = [NSEntityDescription insertNewObjectForEntityForName:@"RelatedPost" inManagedObjectContext:managedObjectContext];
+                    [relatedPost setValue:[postDic valueForKey:@"postId"] forKey:@"postId"];
+                    [relatedPost setValue:[postDic valueForKey:@"socialMediaUsername"] forKey:@"socialMediaUsername"];
+                    [relatedPost setValue:[postDic valueForKey:@"tweetURL"] forKey:@"tweetURL"];
+                    [postArray addObject:relatedPost];
+                }
+
+                NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:postArray];
+                [curatedNewsDrillIn setValue:outletObj forKey:@"relatedPost"];
+                
+                
+                
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                //12345678
+                
+                
+                NSArray *authorDetailsArray = NULL_TO_NIL([dic objectForKey:@"contacts"]);
+                //NSLog(@"before author count:%lu",(unsigned long)authorDetailsArray.count);
+                
+//                NSMutableArray *authorList = [[NSMutableArray alloc]init];
+//                for(NSDictionary *dict in authorDetailsArray) {
+//                    NSManagedObject *author;
+//                    author = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedAuthor" inManagedObjectContext:managedObjectContext];
+//                    
+//                    NSArray *authorWorkTitleArray = NULL_TO_NIL([dict valueForKey:@"workTitles"]);
+//                    // NSMutableArray *workTitleArray = [[NSMutableArray alloc]init];
+//                    if(authorWorkTitleArray.count != 0) {
+//                        NSDictionary *workDic = [authorWorkTitleArray objectAtIndex:0];
+//                        [author setValue:[workDic valueForKey:@"workTitle"] forKey:@"title"];
+//                    }
+//                    //                [author setValue:[dict objectForKey:@"name"] forKey:@"name"];
+//                    //                [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
+//                    [authorList addObject:author];
+//                    
+//                }
+//                NSOrderedSet *Obj = [[NSOrderedSet alloc]initWithArray:authorList];
+//                [curatedNews setValue:Obj forKey:@"author"];
+                
+                NSMutableArray *authorDetailsList = [[NSMutableArray alloc]init];
+                for(NSDictionary *dict in authorDetailsArray) {
+                    NSManagedObject *authorDetails;
+                    authorDetails = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetailAuthor" inManagedObjectContext:managedObjectContext];
+                    NSLog(@"Server Author Info--->%@",dict);
+                    [authorDetails setValue:NULL_TO_NIL([dict valueForKey:@"id"]) forKey:@"id"];
+                    [authorDetails setValue:NULL_TO_NIL([dict valueForKey:@"firstName"]) forKey:@"firstName"];
+                    [authorDetails setValue:NULL_TO_NIL([dict valueForKey:@"lastName"]) forKey:@"lastName"];
+                    [authorDetails setValue:NULL_TO_NIL([dict valueForKey:@"cityName"]) forKey:@"city"];
+                    [authorDetails setValue:NULL_TO_NIL([dict valueForKey:@"countryName"]) forKey:@"country"];
+                    [authorDetails setValue:NULL_TO_NIL([dict valueForKey:@"image"]) forKey:@"imageURL"];
+                    [authorDetails setValue:NULL_TO_NIL([dict valueForKey:@"bibliography"]) forKey:@"bibliography"];
+                    [authorDetails setValue:NULL_TO_NIL([dict valueForKey:@"influencer"]) forKey:@"isInfluencer"];
+                    [authorDetails setValue:NULL_TO_NIL([dict valueForKey:@"starRating"]) forKey:@"starRating"];
+                    
+                    
+                    NSArray *authorOutletArray = NULL_TO_NIL([dict valueForKey:@"outlets"]);
+                    NSMutableArray *outletArray = [[NSMutableArray alloc]init];
+                    for(NSDictionary *outletDic in authorOutletArray) {
+                        NSManagedObject *authorOutlet = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorOutlet" inManagedObjectContext:managedObjectContext];
+                        [authorOutlet setValue:NULL_TO_NIL([outletDic valueForKey:@"id"]) forKey:@"id"];
+                        [authorOutlet setValue:NULL_TO_NIL([outletDic valueForKey:@"outletName"]) forKey:@"outletname"];
+                        [outletArray addObject:authorOutlet];
+                    }
+                    NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:outletArray];
+                    [authorDetails setValue:outletObj forKey:@"authorOutlet"];
+                    
+                    NSArray *authorWorkTitleArray = NULL_TO_NIL([dict valueForKey:@"workTitles"]);
+                    NSMutableArray *workTitleArray = [[NSMutableArray alloc]init];
+                    for(NSDictionary *workTitleDic in authorWorkTitleArray) {
+                        NSManagedObject *authorWorkTitle = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorWorkTitle" inManagedObjectContext:managedObjectContext];
+                        [authorWorkTitle setValue:NULL_TO_NIL([workTitleDic valueForKey:@"id"]) forKey:@"id"];
+                        [authorWorkTitle setValue:NULL_TO_NIL([workTitleDic valueForKey:@"workTitle"]) forKey:@"title"];
+                        [workTitleArray addObject:authorWorkTitle];
+                    }
+                    NSOrderedSet *worktitleObj = [[NSOrderedSet alloc]initWithArray:workTitleArray];
+                    [authorDetails setValue:worktitleObj forKey:@"authorWorkTitle"];
+                    
+                    
+                    //Trial blocks!
+                    
+                                    NSArray *authorBeatArray = NULL_TO_NIL([dic valueForKey:@"categories"]);
+                                    NSMutableArray *beatArray = [[NSMutableArray alloc]init];
+                                    for(NSDictionary *beatDic in authorBeatArray) {
+                                        NSManagedObject *authorBeat = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorBeat" inManagedObjectContext:managedObjectContext];
+                                        [authorBeat setValue:NULL_TO_NIL([beatDic valueForKey:@"id"]) forKey:@"id"];
+                                        [authorBeat setValue:NULL_TO_NIL([beatDic valueForKey:@"categoryName"]) forKey:@"name"];
+                                        [beatArray addObject:authorBeat];
+                                    }
+                                    NSOrderedSet *beatObj = [[NSOrderedSet alloc]initWithArray:beatArray];
+                                    [authorDetails setValue:beatObj forKey:@"authorBeat"];
+                    
+                    
+                    
+                                    NSArray *authorSocialMediaArray = NULL_TO_NIL([dict valueForKey:@"socialMedias"]);
+                                    NSMutableArray *socialMediaArray = [[NSMutableArray alloc]init];
+                                    for(NSDictionary *socialMediaDic in authorSocialMediaArray) {
+                                        NSManagedObject *authorSocialMedia = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorSocialMedia" inManagedObjectContext:managedObjectContext];
+                                         NSLog(@"social mediaType:%@",[socialMediaDic valueForKey:@"mediaType"]);
+                                        [authorSocialMedia setValue:NULL_TO_NIL([socialMediaDic valueForKey:@"active"]) forKey:@"isactive"];
+                                        [authorSocialMedia setValue:NULL_TO_NIL([socialMediaDic valueForKey:@"mediaType"]) forKey:@"mediatype"];
+                                        [authorSocialMedia setValue:NULL_TO_NIL([socialMediaDic valueForKey:@"mediaTypeId"]) forKey:@"mediatypeId"];
+                                        [authorSocialMedia setValue:NULL_TO_NIL([socialMediaDic valueForKey:@"url"]) forKey:@"url"];
+                                        [authorSocialMedia setValue:NULL_TO_NIL([socialMediaDic valueForKey:@"userName"]) forKey:@"username"];
+                                        [socialMediaArray addObject:authorSocialMedia];
+                                    }
+                                    NSOrderedSet *socialMediaObj = [[NSOrderedSet alloc]initWithArray:socialMediaArray];
+                                    [authorDetails setValue:socialMediaObj forKey:@"authorSocialMedia"];
+                                    [authorDetailsList addObject:authorDetails];
+                }
+                //
+                //  [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
+                
+                
+                // NSLog(@"author list count:%lu",(unsigned long)authorDetailsList.count);
+                NSOrderedSet *authorObj = [[NSOrderedSet alloc]initWithArray:authorDetailsList];
+                [curatedNews setValue:authorObj forKey:@"authorDetails"];
+                [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
+                
+                
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                
+                
+                
+                NSError *error = nil;
+                // Save the object to persistent store
+                if (![managedObjectContext save:&error]) {
+                    //NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+                }else {
+                    //  NSLog(@"else part:%@",error);
+                }
+                
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetails" object:nil userInfo:@{@"articleId":[dic  objectForKey:@"id"]}];
+                //        } else {
+                //            [self hideProgressView];
+                //            [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+                //        }
             }
-            
-            NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:postArray];
-            [curatedNewsDrillIn setValue:outletObj forKey:@"relatedPost"];
-        [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
-        NSError *error = nil;
-        // Save the object to persistent store
-        if (![managedObjectContext save:&error]) {
-            //NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-        }else {
-            //  NSLog(@"else part:%@",error);
-        }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [FIUtils showErrorToast];
+        }];
         
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetails" object:nil userInfo:@{@"articleId":[[responseObject objectForKey:@"articleDetail"] objectForKey:@"id"]}];
-        } else {
-            [self hideProgressView];
-            [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
-        }
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [FIUtils showErrorToast];
-    }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];
@@ -1323,14 +1475,14 @@
     }
 }
 
--(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit withUpFlag:(BOOL)flag{
+-(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withUpFlag:(BOOL)flag{
     if([self serviceIsReachable]) {
-        [FIWebService fetchArticlesFromFolderWithSecurityToken:accessToken withFolderId:[folderId stringValue] withOffset:offset withLimit:limit  onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService fetchArticlesFromFolderWithSecurityToken:accessToken withFolderId:[folderId stringValue] withPageNo:pageNo withSize:size  onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([responseObject isKindOfClass:[NSArray class]]){
                 NSArray *curatedNewsArray = responseObject;
                 //Handle Pagination
                 if(curatedNewsArray.count == 0) {
-                    if(![offset isEqualToNumber:[NSNumber numberWithInt:0]]){
+                    if(![pageNo isEqualToNumber:[NSNumber numberWithInt:0]]){
                         UIWindow *window = [[UIApplication sharedApplication]windows][0];
                         [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
                     } else {
@@ -1342,7 +1494,7 @@
                     [self updateFolderId:@"CuratedNews" withFolderId:folderId];
                 }
                 
-                if([offset isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                if([pageNo isEqualToNumber:[NSNumber numberWithInt:0]]) {
                     [self updateFolderId:@"CuratedNews" withFolderId:folderId];
                 }
                
@@ -1354,7 +1506,7 @@
                    // NSManagedObject *curatedNewsDrillIn;
                     context = [self managedObjectContext];
                     
-                    NSDictionary *articleDic = [dic objectForKey:@"article"];
+                    NSDictionary *articleDic = dic;
                     //NSLog(@"article dic:%@",articleDic);
                     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
                     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[articleDic objectForKey:@"id"]];
@@ -1372,7 +1524,6 @@
                         
                         [_articleIdArray addObject:[articleDic objectForKey:@"id"]];
                     }
-                    
 //                    if(flag) {
 //                        [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
 //                    } else {
@@ -1390,7 +1541,13 @@
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"publishedDate"]) forKey:@"publishedDate"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleImage"]) forKey:@"image"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleURL"]) forKey:@"articleUrl"];
-                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleTypeId"]) forKey:@"articleTypeId"];
+                    
+                    NSArray *articleTypeIdArray = NULL_TO_NIL([articleDic valueForKey:@"articleTypeId"]);
+                    // NSMutableArray *workTitleArray = [[NSMutableArray alloc]init];
+                    if(articleTypeIdArray.count != 0) {
+                        [curatedNews setValue:NULL_TO_NIL([articleTypeIdArray objectAtIndex:0]) forKey:@"articleTypeId"];
+                    }
+                    
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleType"]) forKey:@"articleType"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"markAsImportant"]) forKey:@"markAsImportant"];
                     
@@ -1403,15 +1560,15 @@
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"saveForLater"]) forKey:@"saveForLater"];
                     
                     //Set outlet info
-                    NSArray *outletArray = NULL_TO_NIL([articleDic objectForKey:@"outlets"]);
+                    NSArray *outletArray = NULL_TO_NIL([articleDic objectForKey:@"outlet"]);
                     if(outletArray.count != 0){
                         NSDictionary *outletDic = [outletArray objectAtIndex:0];
-                        [curatedNews setValue:NULL_TO_NIL([outletDic objectForKey:@"outletName"]) forKey:@"outlet"];
+                        [curatedNews setValue:NULL_TO_NIL([outletDic objectForKey:@"name"]) forKey:@"outlet"];
                     }
                     
                     
                     //Set CuratedNews Author Details
-                    NSArray *authorDetailsArray = NULL_TO_NIL([articleDic objectForKey:@"contacts"]);
+                    NSArray *authorDetailsArray = NULL_TO_NIL([articleDic objectForKey:@"contact"]);
                     //NSLog(@"before author count:%lu",(unsigned long)authorDetailsArray.count);
                     
                     NSMutableArray *authorList = [[NSMutableArray alloc]init];
@@ -1428,7 +1585,6 @@
                         
                         
                         [author setValue:[dict objectForKey:@"name"] forKey:@"name"];
-                        
                         [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
                         [authorList addObject:author];
                         
@@ -1451,12 +1607,12 @@
                         [authorDetails setValue:NULL_TO_NIL([dic valueForKey:@"starRating"]) forKey:@"starRating"];
                         
                         
-                        NSArray *authorOutletArray = NULL_TO_NIL([dic valueForKey:@"outlets"]);
+                        NSArray *authorOutletArray = NULL_TO_NIL([dic valueForKey:@"outlet"]);
                         NSMutableArray *outletArray = [[NSMutableArray alloc]init];
                         for(NSDictionary *outletDic in authorOutletArray) {
                             NSManagedObject *authorOutlet = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorOutlet" inManagedObjectContext:context];
                             [authorOutlet setValue:NULL_TO_NIL([outletDic valueForKey:@"id"]) forKey:@"id"];
-                            [authorOutlet setValue:NULL_TO_NIL([outletDic valueForKey:@"outletName"]) forKey:@"outletname"];
+                            [authorOutlet setValue:NULL_TO_NIL([outletDic valueForKey:@"name"]) forKey:@"outletname"];
                             [outletArray addObject:authorOutlet];
                         }
                         NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:outletArray];
@@ -1620,7 +1776,7 @@
                     // NSManagedObject *curatedNewsDrillIn;
                     context = [self managedObjectContext];
                     
-                    NSDictionary *articleDic = [dic objectForKey:@"article"];
+                    NSDictionary *articleDic = dic;
                     //NSLog(@"article dic:%@",articleDic);
                     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
                     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[articleDic objectForKey:@"id"]];
@@ -1656,8 +1812,14 @@
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"publishedDate"]) forKey:@"publishedDate"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleImage"]) forKey:@"image"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleURL"]) forKey:@"articleUrl"];
-                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleTypeId"]) forKey:@"articleTypeId"];
-                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleType"]) forKey:@"articleType"];
+                    
+                    NSArray *articleTypeIdArray = NULL_TO_NIL([articleDic valueForKey:@"articleTypeId"]);
+                    if(articleTypeIdArray.count != 0) {
+                        [curatedNews setValue:NULL_TO_NIL([articleTypeIdArray objectAtIndex:0]) forKey:@"articleTypeId"];
+                    }
+
+//                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleTypeId"]) forKey:@"articleTypeId"];
+//                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleType"]) forKey:@"articleType"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"markAsImportant"]) forKey:@"markAsImportant"];
                     
                     NSNumber *markImp = NULL_TO_NIL([articleDic valueForKey:@"markAsImportant"]);
@@ -1669,15 +1831,15 @@
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"saveForLater"]) forKey:@"saveForLater"];
                     
                     //Set outlet info
-                    NSArray *outletArray = NULL_TO_NIL([articleDic objectForKey:@"outlets"]);
+                    NSArray *outletArray = NULL_TO_NIL([articleDic objectForKey:@"outlet"]);
                     if(outletArray.count != 0){
                         NSDictionary *outletDic = [outletArray objectAtIndex:0];
-                        [curatedNews setValue:NULL_TO_NIL([outletDic objectForKey:@"outletName"]) forKey:@"outlet"];
+                        [curatedNews setValue:NULL_TO_NIL([outletDic objectForKey:@"name"]) forKey:@"outlet"];
                     }
                     
                     
                     //Set CuratedNews Author Details
-                    NSArray *authorDetailsArray = NULL_TO_NIL([articleDic objectForKey:@"contacts"]);
+                    NSArray *authorDetailsArray = NULL_TO_NIL([articleDic objectForKey:@"contact"]);
                     //NSLog(@"before author count:%lu",(unsigned long)authorDetailsArray.count);
                     
                     NSMutableArray *authorList = [[NSMutableArray alloc]init];

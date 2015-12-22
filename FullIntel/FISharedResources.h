@@ -18,9 +18,9 @@
 @property (nonatomic,strong) NSMutableArray *articleIdArray;
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
 +(FISharedResources*)sharedResourceManager;
--(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withContentTypeId:(NSNumber *)contentTypeId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+-(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withContentTypeId:(NSNumber *)contentTypeId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId withActivityTypeId:(NSNumber *)activityTypeId;
 -(void)getInfluencerListWithAccessToken:(NSString *)details;
--(void)getCuratedNewsDetailsWithDetails:(NSString *)details;
+-(void)getCuratedNewsDetailsWithDetails:(NSString *)details withSecurtityToken:(NSString *)securityToken;
 -(void)getCuratedNewsAuthorDetailsWithDetails:(NSString *)details withArticleId:(NSString *)articleId;
 -(void)getInfluencerDetailsWithDetails:(NSString *)details;
 -(void)getMenuListWithAccessToken:(NSString *)accessToken;
@@ -31,7 +31,7 @@
 -(void)createFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)pushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
 -(void)updatePushNotificationWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken;
--(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withOffset:(NSNumber *)offset withLimit:(NSNumber *)limit withUpFlag:(BOOL)flag;
+-(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withUpFlag:(BOOL)flag;
 -(void)fetchArticleFromNewsLetterWithAccessToken:(NSString *)accessToken withNewsLetterId:(NSNumber *)newsletterId withLastArticleId:(NSString *)lastArticleId withLimit:(NSNumber *)limit withUpFlag:(BOOL)flag withFlag:(BOOL)test;
 -(void)saveArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId;
 -(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId;
