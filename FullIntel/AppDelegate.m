@@ -152,7 +152,7 @@
 {
     NSLog(@"Calling Application Bundle ID: %@", sourceApplication);
     NSLog(@"URL scheme:%@ and url:%@", [url scheme],url);
-    NSLog(@"URL query: %@ and length:%d", [url query],[url query].length);
+    NSLog(@"URL query: %@ and length:%lu", [url query],[url query].length);
     
     if([url query].length != 0) {
         
