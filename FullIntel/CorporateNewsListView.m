@@ -108,34 +108,26 @@
     
     
     
-    // [self.revealController showViewController:self.revealController.leftViewController];
-//    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
-//    
-//    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-//    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
-//    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-//    [self.navigationItem setLeftBarButtonItem:addButton];
-//    
-//    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
-//    addBtnView.backgroundColor = [UIColor clearColor];
-//    
-//    UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-//    [addBtn setFrame:CGRectMake(0,0,40,40)];
-//    [addBtn setImage :[UIImage imageNamed:@"addcontent"]  forState:UIControlStateNormal];
-//    [addBtn addTarget:self action:@selector(addContentView) forControlEvents:UIControlEventTouchUpInside];
-//    [addBtnView addSubview:addBtn];
-//    UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
+    UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
+    addBtnView.backgroundColor = [UIColor clearColor];
     
-    //    UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
-    //    searchBtnView.backgroundColor = [UIColor clearColor];
-    //    UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    //    [searchBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    //    [searchBtn setBackgroundImage:[UIImage imageNamed:@"rss_whiteicon"]  forState:UIControlStateNormal];
-    //    [searchBtn setTitle:@"RSS" forState:UIControlStateNormal];
-    //    [searchBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    //    [searchBtnView addSubview:searchBtn];
-    //    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
+    UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    [addBtn setFrame:CGRectMake(0,0,16,15)];
+    [addBtn setImage :[UIImage imageNamed:@"addcontent"]  forState:UIControlStateNormal];
+    [addBtn addTarget:self action:@selector(addContentView) forControlEvents:UIControlEventTouchUpInside];
+    [addBtnView addSubview:addBtn];
+    UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
+    
+    UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 16, 15)];
+    searchBtnView.backgroundColor = [UIColor clearColor];
+    UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    [searchBtn setFrame:CGRectMake(0,0.0f,16.0f,15.0f)];
+    [searchBtn setBackgroundImage:[UIImage imageNamed:@"settings"] forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [searchBtnView addSubview:searchBtn];
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
+    
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:searchButton,addContentButton, nil]];
     //
     
     
