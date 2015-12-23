@@ -11,6 +11,7 @@
 #import "MZFormSheetController.h"
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
+
 @interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate> {
     WSCoachMarksView *coachMarksView;
     NSMutableArray *legendsList;
@@ -22,6 +23,8 @@
     NSString *messageString;
     MFMailComposeViewController *mailComposer;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
+    UIButton *Btns;
+    
 }
 -(void)showLoginPage;
 -(void)loadCuratedNews;

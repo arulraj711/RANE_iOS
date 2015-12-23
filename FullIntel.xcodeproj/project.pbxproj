@@ -50,6 +50,10 @@
 		A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BA1AF769DE0016AD46 /* SecondLevelCell.m */; };
 		A07A05BE1AF78EBC0016AD46 /* AddContentThirdLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BD1AF78EBC0016AD46 /* AddContentThirdLevelView.m */; };
 		A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */; };
+		A07C1EC11C2A64B900447D33 /* MoreSettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07C1EBC1C2A64B900447D33 /* MoreSettingsCell.m */; };
+		A07C1EC21C2A64BA00447D33 /* MoreSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07C1EBE1C2A64B900447D33 /* MoreSettingsView.m */; };
+		A07C1EC31C2A64BA00447D33 /* MoreSettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07C1EBF1C2A64B900447D33 /* MoreSettingsView.storyboard */; };
+		A07C1EC41C2A64BA00447D33 /* MoreSettingsViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07C1EC01C2A64B900447D33 /* MoreSettingsViewPhone.storyboard */; };
 		A081459B1BCF855900AA5EE2 /* CommentsPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A081459A1BCF855900AA5EE2 /* CommentsPhone.storyboard */; };
 		A081459D1BCF8B7200AA5EE2 /* SavedListPopoverViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A081459C1BCF8B7200AA5EE2 /* SavedListPopoverViewPhone.storyboard */; };
 		A081459F1BCFB6A300AA5EE2 /* ResearchRequestPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A081459E1BCFB6A300AA5EE2 /* ResearchRequestPhone.storyboard */; };
@@ -364,6 +368,12 @@
 		A07A05BD1AF78EBC0016AD46 /* AddContentThirdLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentThirdLevelView.m; sourceTree = "<group>"; };
 		A07A05BF1AF7981A0016AD46 /* AddContentFourthLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentFourthLevelView.h; sourceTree = "<group>"; };
 		A07A05C01AF7981A0016AD46 /* AddContentFourthLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentFourthLevelView.m; sourceTree = "<group>"; };
+		A07C1EBB1C2A64B900447D33 /* MoreSettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreSettingsCell.h; sourceTree = "<group>"; };
+		A07C1EBC1C2A64B900447D33 /* MoreSettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSettingsCell.m; sourceTree = "<group>"; };
+		A07C1EBD1C2A64B900447D33 /* MoreSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreSettingsView.h; sourceTree = "<group>"; };
+		A07C1EBE1C2A64B900447D33 /* MoreSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSettingsView.m; sourceTree = "<group>"; };
+		A07C1EBF1C2A64B900447D33 /* MoreSettingsView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MoreSettingsView.storyboard; sourceTree = "<group>"; };
+		A07C1EC01C2A64B900447D33 /* MoreSettingsViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MoreSettingsViewPhone.storyboard; sourceTree = "<group>"; };
 		A081459A1BCF855900AA5EE2 /* CommentsPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommentsPhone.storyboard; sourceTree = "<group>"; };
 		A081459C1BCF8B7200AA5EE2 /* SavedListPopoverViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SavedListPopoverViewPhone.storyboard; sourceTree = "<group>"; };
 		A081459E1BCFB6A300AA5EE2 /* ResearchRequestPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ResearchRequestPhone.storyboard; sourceTree = "<group>"; };
@@ -808,6 +818,19 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		A07C1EC51C2A64C300447D33 /* More_Settings_Filter */ = {
+			isa = PBXGroup;
+			children = (
+				A07C1EBB1C2A64B900447D33 /* MoreSettingsCell.h */,
+				A07C1EBC1C2A64B900447D33 /* MoreSettingsCell.m */,
+				A07C1EBD1C2A64B900447D33 /* MoreSettingsView.h */,
+				A07C1EBE1C2A64B900447D33 /* MoreSettingsView.m */,
+				A07C1EBF1C2A64B900447D33 /* MoreSettingsView.storyboard */,
+				A07C1EC01C2A64B900447D33 /* MoreSettingsViewPhone.storyboard */,
+			);
+			name = More_Settings_Filter;
+			sourceTree = "<group>";
+		};
 		A08145A41BD0B53D00AA5EE2 /* FPPopover */ = {
 			isa = PBXGroup;
 			children = (
@@ -1008,6 +1031,7 @@
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
+				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
 				A0AAF0081BFCA7E20006A48C /* SecondTools */,
 				A0AAEFF71BFCA6CD0006A48C /* Toolbar */,
 				A0E2234F1A91C2F00073814A /* FullIntel */,
@@ -1725,6 +1749,7 @@
 				F7E81FBC1A97057100F9A8D4 /* pattern.png in Resources */,
 				F7E81FBE1A97057100F9A8D4 /* samsung.ico in Resources */,
 				A0AAEFF21BFCA6C20006A48C /* chat-60.png in Resources */,
+				A07C1EC31C2A64BA00447D33 /* MoreSettingsView.storyboard in Resources */,
 				F7E81FB01A97057100F9A8D4 /* Josh.jpeg in Resources */,
 				F7C1AB5C1ABFEC6B00D8588A /* SavedListPopoverView.storyboard in Resources */,
 				F7AE10841AC01E4D0091E1C7 /* InfluencerListView.storyboard in Resources */,
@@ -1762,6 +1787,7 @@
 				A0CF5C651B1DD98B00DED2D9 /* TimeLineCell.xib in Resources */,
 				A033EC571BC37B9B003AAE4F /* Icon-40@3x.png in Resources */,
 				A0AAF0061BFCA7DC0006A48C /* mail30.png in Resources */,
+				A07C1EC41C2A64BA00447D33 /* MoreSettingsViewPhone.storyboard in Resources */,
 				A033EC5D1BC37B9B003AAE4F /* Icon-Small@2x.png in Resources */,
 				F7E81FA01A97057100F9A8D4 /* Ed.jpeg in Resources */,
 				A0AFB6D31C03102B003F5E4D /* TutorialiPhone.storyboard in Resources */,
@@ -1890,6 +1916,7 @@
 				A0CF5C6A1B1DD98B00DED2D9 /* NumberOfPatternsCell.m in Sources */,
 				A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */,
 				A0CF5C641B1DD98B00DED2D9 /* StockViewController.m in Sources */,
+				A07C1EC11C2A64B900447D33 /* MoreSettingsCell.m in Sources */,
 				A0E223561A91C2F00073814A /* AppDelegate.m in Sources */,
 				A059B6BF1BF5F1200060683F /* CommonViewController.m in Sources */,
 				A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */,
@@ -1908,6 +1935,7 @@
 				F7DB32611AA56F50002724D6 /* FIMenu.m in Sources */,
 				A0CF5C5A1B1DD98B00DED2D9 /* ExecutiveMovesController.m in Sources */,
 				A0CF5C691B1DD98B00DED2D9 /* IpAndLegalCell.m in Sources */,
+				A07C1EC21C2A64BA00447D33 /* MoreSettingsView.m in Sources */,
 				A0CF5C711B1DD98B00DED2D9 /* TopStoriesCell.m in Sources */,
 				F7CE36E01A95E9490005AA0A /* RATreeNode.m in Sources */,
 				F7E354E31A947A19009677D2 /* LeftViewController.m in Sources */,

@@ -21,6 +21,7 @@
 #import "pop.h"
 #import "QuartzCore/QuartzCore.h"
 #import "BGTableViewRowActionWithImage.h"
+#import "MoreSettingsView.h"
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -46,16 +47,10 @@
 
 - (void)viewDidLoad {
     NSLog(@"view did load");
+    
     [super viewDidLoad];
+
     
-    UISearchBar *searchDrugBar = [[UISearchBar alloc] init];
-    searchDrugBar.frame = CGRectMake(0, 0, 200,44); // it could be unnecessary
-    searchDrugBar.delegate = self;
-    searchDrugBar.placeholder = @"Search for info";
-    
-    self.navigationItem.titleView = self.searchDisplayController.searchBar;
-    [self.searchDisplayController setActive: YES animated: YES];
-    [self.searchDisplayController.searchBar becomeFirstResponder];
     _articlesTableView.multipleTouchEnabled = NO;
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -95,6 +90,8 @@
     }
     messageString = @"Loading...";
     // NSLog(@"list did load");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAlpha) name:@"changeAlphaVal" object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failToLoad) name:@"CuratedNewsFail" object:nil];
     self.isNewsLetterNav = NO;
@@ -137,7 +134,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endOfTutorial) name:@"EndOfTutorial" object:nil];
     
     
-    
     // [self.revealController showViewController:self.revealController.leftViewController];
 //    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
 //    
@@ -168,9 +164,7 @@
     //    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
     //
     
-    
     [self addRightBarItems];
-    
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     
@@ -200,11 +194,13 @@
     
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    
-    
 }
 
+-(void)changeAlpha{
+    self.view.alpha = 1;
 
+    
+}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
@@ -617,6 +613,13 @@
             [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
             UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
             [self.navigationItem setLeftBarButtonItem:addButton];
+            
+            Btns =[UIButton buttonWithType:UIButtonTypeCustom];
+            [Btns setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+            [Btns setBackgroundImage:[UIImage imageNamed:@"settingsMIcon"]  forState:UIControlStateNormal];
+            [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+            UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
+            [self.navigationItem setRightBarButtonItem:addButtons];
         }
         
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
@@ -746,11 +749,16 @@
     //   [self.revealController showViewController:self.revealController.leftViewController];
     
 }
+-(void)settingsButtonFilter{ 
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
+    MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
+    popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    self.view.alpha = 0.89;
+    [self presentViewController:popOverView animated:NO completion:nil];
 
+}
 -(void)loadLocalData {
-    
-    
-    
     
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
