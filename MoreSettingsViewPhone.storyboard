@@ -22,21 +22,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ft4-90-Cix">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="bgButton:" destination="pVo-sT-sfc" eventType="touchUpInside" id="DAn-VS-JaF"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="12" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="57d-kT-Nrs">
-                                <rect key="frame" x="213" y="65" width="155" height="96"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="12" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="57d-kT-Nrs">
+                                <rect key="frame" x="441" y="67" width="155" height="96"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="155" id="NBB-kS-F7Z"/>
+                                    <constraint firstAttribute="height" constant="96" id="eap-ao-Ntz"/>
+                                </constraints>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="4Nj-QP-1gi" customClass="MoreSettingsCell">
@@ -69,8 +61,13 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="57d-kT-Nrs" firstAttribute="top" secondItem="Xqa-iy-zl5" secondAttribute="bottom" constant="47" id="CBW-S2-sJg"/>
+                            <constraint firstAttribute="trailing" secondItem="57d-kT-Nrs" secondAttribute="trailing" constant="4" id="DZ5-Ls-Otw"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="bgView" destination="Afb-OX-RZc" id="J4X-zp-B6N"/>
                         <outlet property="moreTableView" destination="57d-kT-Nrs" id="oy7-Px-WY4"/>
                     </connections>
                 </viewController>

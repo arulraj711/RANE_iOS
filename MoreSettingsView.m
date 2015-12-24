@@ -49,44 +49,35 @@
     _moreInforArray = [[NSMutableArray alloc]init];
     self.moreTableView.layer.cornerRadius = 5;
     self.moreTableView.layer.masksToBounds = YES;
-    CGFloat ptx =self.moreTableView.frame.origin.x;
-    CGFloat pty =self.moreTableView.frame.origin.y;
-    CGFloat ptw =self.moreTableView.frame.size.width;
-    CGFloat pth =self.moreTableView.frame.size.height;
-    if (IS_IPHONE_5) {
-        self.moreTableView.frame = CGRectMake(100,pty, ptw,pth);
-        
-    } else if(IS_IPHONE_6){
-        self.moreTableView.frame = CGRectMake(ptx,pty, ptw,pth);
-        
-    }else if(IS_IPHONE_6P){
-        self.moreTableView.frame = CGRectMake(ptx,pty, ptw,pth);
-        
-    }
+//    CGFloat ptx =self.moreTableView.frame.origin.x;
+//    CGFloat pty =self.moreTableView.frame.origin.y;
+//    CGFloat ptw =self.moreTableView.frame.size.width;
+//    CGFloat pth =self.moreTableView.frame.size.height;
+// self.moreTableView.frame = CGRectMake(self.moreTableView.frame.origin.x-160,self.moreTableView.frame.origin.y, self.moreTableView.frame.size.width, self.moreTableView.frame.size.height);
+//    UIBezierPath* trianglePath = [UIBezierPath bezierPath];
+//    if (IS_IPHONE_5) {
+//        [trianglePath moveToPoint:CGPointMake(valFor5, 55)];
+//
+//    } else if(IS_IPHONE_6){
+//        [trianglePath moveToPoint:CGPointMake(valFor6, 55)];
+//
+//    }else if(IS_IPHONE_6P){
+//        [trianglePath moveToPoint:CGPointMake(valFor6p, 55)];
+//    }
 
-//    [UIView animateWithDuration:0.9
-//                          delay:0.0
-//                        options:0
-//                     animations:^{
-//                         self.moreTableView.frame = CGRectMake(ptx, pty, ptw, pth);
-//                     } completion:^(BOOL finished){
-//                         
-//                     }];
     
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView)];
+    tap.delegate = self;
+    [self.bgView addGestureRecognizer:tap];
+
     
     UIBezierPath* trianglePath = [UIBezierPath bezierPath];
-    if (IS_IPHONE_5) {
-        [trianglePath moveToPoint:CGPointMake(valFor5, 55)];
+    NSLog(@"%f",SCREEN_WIDTH-125);
+    [trianglePath moveToPoint:CGPointMake(SCREEN_WIDTH-24, 55)];
 
-    } else if(IS_IPHONE_6){
-        [trianglePath moveToPoint:CGPointMake(valFor6, 55)];
-
-    }else if(IS_IPHONE_6P){
-        [trianglePath moveToPoint:CGPointMake(valFor6p, 55)];
-
-    }
-    [trianglePath addLineToPoint:CGPointMake(self.moreTableView.frame.origin.x+130, self.moreTableView.frame.origin.y)];
-    [trianglePath addLineToPoint:CGPointMake(self.moreTableView.frame.origin.x+145, self.moreTableView.frame.origin.y)];
+    [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-34, self.moreTableView.frame.origin.y)];
+    [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-14, self.moreTableView.frame.origin.y)];
     [trianglePath closePath];
     
     CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
@@ -97,45 +88,9 @@
     view.backgroundColor = [UIColor whiteColor];
     view.layer.mask = triangleMaskLayer;
     [self.view addSubview:view];
-    
-//    UIBezierPath* trianglePath = [UIBezierPath bezierPath];
-//    [trianglePath moveToPoint:CGPointMake(0, 0)];
-//    [trianglePath addLineToPoint:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2)];
-//    [trianglePath addLineToPoint:CGPointMake(self.view.frame.size.width, 0)];
-//    [trianglePath closePath];
-//    
-//    CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
-//    [triangleMaskLayer setPath:trianglePath.CGPath];
-//    
-//    UIView *firstView = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height)];
-//    
-//    firstView.backgroundColor = [UIColor colorWithWhite:.75 alpha:1];
-//    firstView.layer.mask = triangleMaskLayer;
-//    [self.view addSubview:firstView];
-    
-    
-//    UIBezierPath* trianglePath = [UIBezierPath bezierPath];
-//    [trianglePath moveToPoint:CGPointMake(0,  -25)];
-//    [trianglePath addLineToPoint:CGPointMake( 60,  100)];
-//    [trianglePath addLineToPoint:CGPointMake( 40,  30)];
-//
-////    [trianglePath moveToPoint:CGPointMake(0, view3.frame.size.height-100)];
-////    [trianglePath addLineToPoint:CGPointMake(view3.frame.size.width/2,100)];
-////    [trianglePath addLineToPoint:CGPointMake(view3.frame.size.width, view2.frame.size.height)];
-//
-//    
-//    [trianglePath closePath];
-//    
-//    CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
-//    [triangleMaskLayer setPath:trianglePath.CGPath];
-//    
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(self.moreTableView.frame.origin.x+120,self.moreTableView.frame.origin.y-20, 650, 10)];
-//    
-//    view.backgroundColor = [UIColor colorWithWhite:.75 alpha:1];
-//    view.layer.mask = triangleMaskLayer;
-//    [self.view addSubview:view];
-//    
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         [_moreInforArray addObject:@"Unread"];
         [_moreInforArray addObject:@"Last 24 Hours"];
@@ -148,17 +103,96 @@
 
     }
     
-//    [_moreInforArray addObject:@"Google Plus"];
-//    [_moreInforArray addObject:@"Evernote"];
-//    [_moreInforArray addObject:@"Pocket"];
-//    [_moreInforArray addObject:@"Buffer"];
-//    [_moreInforArray addObject:@"Instapaper"];
     
     self.moreTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self.moreTableView reloadData];
 }
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    CATransition* transition = [CATransition animation];
+    
+    transition.duration = 0.3;
+    transition.type = kCATransitionFade;
+    
+    [self.view.layer addAnimation:transition forKey:kCATransition];
+    [self dismissViewControllerAnimated:NO completion:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeAlphaVal" object:nil];
 
+    
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gesture
+{
+    CGPoint point = [gesture locationInView:self.moreTableView.superview];
+    CGPoint location = [gesture locationInView:self.moreTableView];
+    NSIndexPath *path = [self.moreTableView indexPathForRowAtPoint:location];
+    
+    if(path)
+    {
+        // tap was on existing row, so pass it to the delegate method
+        [self tableView:self.moreTableView didSelectRowAtIndexPath:path];
+    }
+    else
+    {
+        // handle tap on empty space below existing rows however you want
+    }
+
+    return !CGRectContainsPoint(self.moreTableView.frame, point);
+}
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+//{
+//    if ([touch.view isDescendantOfView:self.view]) {
+//        
+//        // Don't let selections of auto-complete entries fire the
+//        // gesture recognizer
+//        return NO;
+// 
+//    }
+//    
+//    return YES;
+//}
+-(void)didTapOnTableView
+{
+    
+    CATransition* transition = [CATransition animation];
+    
+    transition.duration = 0.3;
+    transition.type = kCATransitionFade;
+    
+    [self.view.layer addAnimation:transition forKey:kCATransition];
+    [self dismissViewControllerAnimated:NO completion:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeAlphaVal" object:nil];
+}
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    
+//    CGFloat ptx =self.moreTableView.frame.origin.x;
+//    CGFloat pty =self.moreTableView.frame.origin.y;
+//    CGFloat ptw =self.moreTableView.frame.size.width;
+//    CGFloat pth =self.moreTableView.frame.size.height;
+//    
+//    CATransition* transition = [CATransition animation];
+//    
+//    transition.duration = 0.3;
+//    transition.type = kCATransitionFade;
+//    
+//    [self.view.layer addAnimation:transition forKey:kCATransition];
+//    [self dismissViewControllerAnimated:NO completion:nil];
+//
+////    [UIView animateWithDuration:0.3
+////                          delay:0.0
+////                        options:0
+////                     animations:^{
+////                         self.view.frame = CGRectMake(0, 0, ptw, pth);
+////                         [self.view layoutIfNeeded];
+////                     } completion:^(BOOL finished){
+////                         [self dismissViewControllerAnimated:YES completion:nil];
+////
+////                     }];
+//
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeAlphaVal" object:nil];
+//
+//    
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -201,10 +235,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 //    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-//        // NSLog(@"did select more tableview");
-//        if(indexPath.row == 1) {
-//            
-//            
+         NSLog(@"tableview%@",indexPath);
+    
+        if(indexPath.row == 1) {
+            NSLog(@"tableview,indexPath 1");
+
+        }else{
+            NSLog(@"tableview,indexPath0");
+
+        }
+//
+//
 //            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"LinkedInShareClick"];
 //            [[NSNotificationCenter defaultCenter]postNotificationName:@"linkedinSelection" object:nil userInfo:@{@"artileUrl":self.articleUrl,@"articleTitle":self.articleTitle,@"articleDescription":self.articleDesc}];
 //        } else if(indexPath.row == 3) {
@@ -354,10 +395,5 @@
 //    [FIUtils callRequestionUpdateWithModuleId:10 withFeatureId:10];
 }
 
-- (IBAction)bgButton:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeAlphaVal" object:nil];
 
-
-}
 @end

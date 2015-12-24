@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface MoreSettingsView : UIViewController
+@interface MoreSettingsView : UIViewController<UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *moreTableView;
 @property (nonatomic,strong) NSMutableArray *moreInforArray;
 @property (nonatomic,strong) NSString *articleTitle;
@@ -15,7 +15,7 @@
 @property (nonatomic,strong) NSString *articleImageUrl;
 @property (nonatomic,strong) NSString *articleUrl;
 @property (nonatomic,strong) NSString *articleDesc;
-- (IBAction)bgButton:(id)sender;
 @property (nonatomic,strong) NSString *articleId;
 @property (nonatomic,strong) UIButton *buttonName;
+@property (strong, nonatomic) IBOutlet UIView *bgView;
 @end
