@@ -12,7 +12,7 @@
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
 
-@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate> {
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate, UISearchBarDelegate> {
     WSCoachMarksView *coachMarksView;
     NSMutableArray *legendsList;
     NSManagedObject *author;
@@ -24,7 +24,9 @@
     MFMailComposeViewController *mailComposer;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
     UIButton *Btns;
-    
+    UIButton *searchButtons;
+
+    int switchForUnread;
 }
 -(void)showLoginPage;
 -(void)loadCuratedNews;

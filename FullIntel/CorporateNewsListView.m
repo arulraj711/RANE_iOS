@@ -49,8 +49,7 @@
     NSLog(@"view did load");
     
     [super viewDidLoad];
-
-    
+    switchForUnread = 0;
     _articlesTableView.multipleTouchEnabled = NO;
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -89,7 +88,10 @@
         [self.revealController showViewController:self.revealController.frontViewController];
     }
     messageString = @"Loading...";
-    // NSLog(@"list did load");
+    // NSLog(@"list did load");notifyForLast24
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyForUnread) name:@"notifyForUnreadMenu" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyForLast) name:@"notifyForLast24" object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAlpha) name:@"changeAlphaVal" object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNews) name:@"CuratedNews" object:nil];
@@ -201,7 +203,89 @@
 
     
 }
+-(void)notifyForUnread{
+    NSLog(@"unRead");
+    switchForUnread = 0;
+    NSLog(@"%@",self.devices);
+    
+    NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+    // NSInteger category = categoryStr.integerValue;
+    
+    //newcomers
+    
+    NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+    NSLog(@"parent id:%@",parentId);
+    NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSPredicate *predicate;
+    predicate = [NSPredicate predicateWithFormat:@"readStatus = 0"];
+    [fetchRequest setPredicate:predicate];
+    NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSLog(@"%@",existingArray);
 
+    self.devices = [existingArray mutableCopy];
+    NSLog(@"%@",self.devices);
+
+    [_articlesTableView reloadData];
+    
+}
+-(void)notifyForLast{
+    NSLog(@"last24");
+    NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+    // NSInteger category = categoryStr.integerValue;
+    
+    //newcomers
+    
+    NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+    NSLog(@"parent id:%@",parentId);
+    NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSPredicate *predicate;
+    predicate = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",parentId,category];
+    [fetchRequest setPredicate:predicate];
+    NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSLog(@"Existing Array count ---->%lu",(unsigned long)existingArray.count);
+
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"publishedDate" ascending:YES];
+    
+    NSArray *sortedPeople = [existingArray sortedArrayUsingDescriptors:@[sortDescriptor]];
+    NSLog(@"%@", sortedPeople);
+    
+//    NSLog(@"%f",[[sortedPeople valueForKey:@"publishedDate"] doubleValue]);
+//    
+//    NSString *dateStr = [FIUtils getDateFromTimeStampTwo:[[sortedPeople valueForKey:@"publishedDate"] doubleValue]];
+//    NSLog(@"%@",dateStr);
+//    
+//    NSDateFormatter *frmaer=[[NSDateFormatter alloc]init];
+//    [frmaer setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    [frmaer setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+//    NSDate *dats = [frmaer dateFromString:dateStr];
+//    NSLog(@"%@",dats);
+//    NSLog(@"%@",[FIUtils relativeDateStringForDate:dats]);
+//    
+//    NSString *finalDateString =[FIUtils relativeDateStringForDate:dats];
+//    NSLog(@"%@",finalDateString);
+//
+    
+    self.devices = [sortedPeople mutableCopy];
+
+    [_articlesTableView reloadData];
+    
+//    NSError *error = nil;
+//    NSArray *result = [context executeFetchRequest:fetchRequest error:&error];
+//    
+//    if (error) {
+//        NSLog(@"Unable to execute fetch request.");
+//        NSLog(@"%@, %@", error, error.localizedDescription);
+//        
+//    } else {
+//        NSLog(@"%@", result);
+//    }
+//
+//    NSLog(@"%@",fetchRequest);
+
+    
+}
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     if (self.articlesTableView.editing)
@@ -619,7 +703,15 @@
             [Btns setBackgroundImage:[UIImage imageNamed:@"settingsMIcon"]  forState:UIControlStateNormal];
             [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
             UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
-            [self.navigationItem setRightBarButtonItem:addButtons];
+//            [self.navigationItem setRightBarButtonItem:addButtons];
+            
+            searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
+            [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+            [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
+            [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+            UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
+            NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsRight, nil];
+            [self.navigationItem setRightBarButtonItems:buttonsArr];
         }
         
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
@@ -758,6 +850,19 @@
     [self presentViewController:popOverView animated:NO completion:nil];
 
 }
+-(void)searchButtonFilter{
+    self.navigationItem.rightBarButtonItems = nil;
+    self.navigationItem.leftBarButtonItems = nil;
+
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 240.0, 44.0)];
+    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 270.0, 44.0)];
+    searchBar.barTintColor = [UIColor clearColor];
+    searchBar.backgroundImage = [UIImage new];
+    [self.searchDisplayController setActive:NO animated:YES];
+    searchBar.delegate = self;
+    [searchBarView addSubview:searchBar];
+    self.navigationItem.titleView = searchBarView;
+}
 -(void)loadLocalData {
     
     self.articlesTableView.dataSource = self;
@@ -766,7 +871,7 @@
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
     NSLog(@"load curated news list:%@ and folderid:%@",categoryId,folderId);
-    // NSLog(@"category id in curated news:%@",categoryId);
+    //NSLog(@"category id in curated news:%@",categoryId);
     self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
@@ -1432,7 +1537,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     UITableViewCell *tableCell;
     
     if(self.devices.count != 0) {
@@ -1446,7 +1551,9 @@
             NSLog(@"cell editing no ---------");
         }
         // Configure the cell...
+        
         NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+        
         NSSet *authorSet = [curatedNews valueForKey:@"author"];
         NSMutableArray *authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
         
