@@ -227,7 +227,6 @@
     NSLog(@"%@",self.devices);
 
     [_articlesTableView reloadData];
-    
 }
 -(void)notifyForLast{
     NSLog(@"last24");
@@ -286,6 +285,7 @@
 
     
 }
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     if (self.articlesTableView.editing)
@@ -656,7 +656,31 @@
     [activityIndicator stopAnimating];
     [self.articlesTableView reloadData];
 }
+-(void)addButtonsOnNavigationBar
+{
+    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+    [self.navigationItem setLeftBarButtonItem:addButton];
+    
+    Btns =[UIButton buttonWithType:UIButtonTypeCustom];
+    [Btns setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    [Btns setBackgroundImage:[UIImage imageNamed:@"settingsMIcon"]  forState:UIControlStateNormal];
+    [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
+    //            [self.navigationItem setRightBarButtonItem:addButtons];
+    
+    searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
+    [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
+    [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
+    NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsRight, nil];
+    [self.navigationItem setRightBarButtonItems:buttonsArr];
 
+}
 -(void)loadCuratedNews {
     // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:100];
     
@@ -691,27 +715,7 @@
         if(isFolderClick) {
             
         } else {
-            UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
-            [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-            [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
-            [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
-            UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-            [self.navigationItem setLeftBarButtonItem:addButton];
-            
-            Btns =[UIButton buttonWithType:UIButtonTypeCustom];
-            [Btns setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-            [Btns setBackgroundImage:[UIImage imageNamed:@"settingsMIcon"]  forState:UIControlStateNormal];
-            [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
-            UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
-//            [self.navigationItem setRightBarButtonItem:addButtons];
-            
-            searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
-            [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-            [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
-            [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
-            UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
-            NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsRight, nil];
-            [self.navigationItem setRightBarButtonItems:buttonsArr];
+            [self addButtonsOnNavigationBar];
         }
         
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
@@ -851,18 +855,96 @@
 
 }
 -(void)searchButtonFilter{
+    self.navigationItem.rightBarButtonItems.hid
     self.navigationItem.rightBarButtonItems = nil;
-    self.navigationItem.leftBarButtonItems = nil;
+    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.title = nil;
 
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 240.0, 44.0)];
-    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 270.0, 44.0)];
-    searchBar.barTintColor = [UIColor clearColor];
-    searchBar.backgroundImage = [UIImage new];
-    [self.searchDisplayController setActive:NO animated:YES];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-20, 44)];
+    searchBar.showsCancelButton = YES;
     searchBar.delegate = self;
-    [searchBarView addSubview:searchBar];
-    self.navigationItem.titleView = searchBarView;
+    [self.navigationController.navigationBar addSubview:searchBar];
+
 }
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBars
+{
+    [searchBars resignFirstResponder];
+    searchBars.hidden = YES;
+    NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+    
+    NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+    NSLog(@"parent id:%@",parentId);
+    NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSPredicate *predicate;
+    predicate = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",parentId,category];
+    [fetchRequest setPredicate:predicate];
+    NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    self.devices = [existingArray mutableCopy];
+    
+    [_articlesTableView reloadData];
+
+    [self addButtonsOnNavigationBar];
+
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self searchTableList];
+}
+//    NSLog(@"Text change - %d",isSearching);
+//    
+//    //Remove all objects first.
+//    [filteredContentList removeAllObjects];
+//    
+//    if([searchText length] != 0) {
+//        isSearching = YES;
+//        [self searchTableList];
+//    }
+//    else {
+//        isSearching = NO;
+//    }
+//    // [self.tblContentList reloadData];
+//}
+//
+//
+//
+//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+//    NSLog(@"Search Clicked");
+//    [self searchTableList];
+//}
+- (void)searchTableList {
+    NSString *searchString = searchBar.text;
+    NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+
+    NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+    NSLog(@"parent id:%@",parentId);
+    NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSPredicate *predicate;
+    predicate = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",parentId,category];
+    [fetchRequest setPredicate:predicate];
+    NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSLog(@"Existing Array count ---->%lu",(unsigned long)existingArray.count);
+    NSLog(@"Existing Array count ---->%@",existingArray);
+    NSArray *idList = [existingArray valueForKey:@"title"]; // array of "id" numbers
+    NSLog(@"---->%@",idList);
+
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"title beginswith[c] %@ OR title contains[cd] %@", searchString, searchString];
+
+    NSArray *beginWithB = [existingArray filteredArrayUsingPredicate:pred];
+    NSLog(@"beginwithB = %@",beginWithB);
+
+   
+    self.devices = [beginWithB mutableCopy];
+    
+    [_articlesTableView reloadData];
+    
+}
+
 -(void)loadLocalData {
     
     self.articlesTableView.dataSource = self;
