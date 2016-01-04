@@ -190,7 +190,6 @@
 ////                     }];
 //
 //    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeAlphaVal" object:nil];
-
 //}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -300,7 +299,6 @@
 //        }
 //
 //    }
-    
 }
 
 -(void)targetedShare:(NSString *)serviceType {
@@ -334,7 +332,7 @@
 //        UIAlertView *alert;
 //        alert = [[UIAlertView alloc]
 //                 initWithTitle:@"Twitter"
-//                 message:@"You can't send a tweet right now. Please make sure you have at least one Twitter account setup in device Settings -> Twitter -> Add Account."
+//                 message:@"You can't send a tweet right now. Please make sure you have at least one Twitter account setup in device Settings ->TwitterAddAccount."
 //                 delegate:self
 //                 cancelButtonTitle:@"Settings"
 //                 otherButtonTitles:@"OK",nil];

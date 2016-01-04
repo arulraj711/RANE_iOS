@@ -871,7 +871,7 @@
     [cell setupWithTitle:dataObject.name detailText:detailText level:level additionButtonHidden:NO];
     UIView *selectionColor = [[UIView alloc] init];
     selectionColor.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1];
-    //cell.selectedBackgroundView = selectionColor;
+//cell.selectedBackgroundView = selectionColor;
     
 //    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:1]]){
 //        unreadCnt = unreadCnt + [dataObject.unReadCount intValue];
@@ -932,7 +932,6 @@
     }else {
         cell.expandButton.hidden = YES;
     }
-    
     
     
     

@@ -33,7 +33,7 @@
     NSMutableArray *filteredContentList;
     BOOL isSearching;
     UISearchBar *searchBar;
-    NSString *articleIdToBePassed;
+    NSMutableArray *articleIdToBePassed;
 }
 -(void)showLoginPage;
 -(void)loadCuratedNews;

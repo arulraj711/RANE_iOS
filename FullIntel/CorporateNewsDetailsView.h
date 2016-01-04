@@ -38,7 +38,7 @@
 @property (nonatomic, strong) NSMutableArray *articleIdArray;
 @property (nonatomic) int currentIndex;
 @property (nonatomic) int isSearching;
-@property (nonatomic, strong) NSString *articleIdFromSearchLst;
+@property (nonatomic, strong) NSMutableArray *articleIdFromSearchLst;
 
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) int selectedIndex;

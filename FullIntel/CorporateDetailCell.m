@@ -272,14 +272,11 @@
     
 }
 -(void)afterSwipeDownTutorial{
-    
-    
     CGPoint bottomOffset = CGPointMake(0, self.scrollView.contentSize.height - self.scrollView.bounds.size.height);
     [self.scrollView setContentOffset:bottomOffset animated:NO];
 }
 
 -(void)performAnimationForView:(UIButton *)btn{
-    
     [btn.layer removeAllAnimations];
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.0, 0.0)];
@@ -320,7 +317,6 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
         //[self.contentView addSubview:self.detailsWebview];
     }
-    
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -338,7 +334,6 @@
     self.overlayView.hidden = YES;
     return status;
 }
-
 
 -(void)loadTweetsFromPost {
     //321
@@ -361,7 +356,6 @@
             NSLog(@"Tweet array:%@",resultStr);
             NSString *secToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
             [[FISharedResources sharedResourceManager]getCuratedNewsDetailsWithDetails:resultStr withSecurtityToken:secToken];
-            
             NSLog(@"Tweet follwers array:%@",followersArray);
         });
 
@@ -1050,7 +1044,6 @@
     if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
         //flowLayout.itemSize = CGSizeMake(40, 40);
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-
         self.socialcollectionView.translatesAutoresizingMaskIntoConstraints = YES;  //This part hung me up
 
         self.socialcollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.socialLinkCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+self.tweetsLocalCollectionView.frame.size.height+190, self.socialLinkCollectionView.frame.size.width, self.socialLinkCollectionView.frame.size.height) collectionViewLayout:flowLayout];

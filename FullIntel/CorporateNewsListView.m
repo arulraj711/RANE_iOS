@@ -200,34 +200,79 @@
 }
 
 -(void)notifyForUnread{
-    NSLog(@"%@",_titleName);
-    if ([_titleName isEqualToString:@"MARKED IMPORTANT"]) {
+    NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
+    
+    NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
+    
+    NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+    
+    NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+    
+    
+    
+    NSLog(@"load curated news categoryId:%@ and folderid:%@ and contentTypeId:%@ and newsletterid:%@",categoryId,folderId,contentTypeId,newsLetterId);
+    
+    // NSLog(@"category id in curated news:%@",categoryId);
+    
+    self.devices = [[NSMutableArray alloc]init];
+    
+    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    
+    NSPredicate *predicate;
+    
+    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
+        if(isFolderClick) {
+            
+        } else {
+            [self addButtonsOnNavigationBar];
+        }
+        
+        if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                NSLog(@"if part");
+                BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+                if(savedForLaterIsNew){
+                    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@ AND readStatus == %@",[NSNumber numberWithBool:YES],contentTypeId,[NSNumber numberWithBool:NO]];
+                    } else {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@ AND readStatus == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithBool:NO]];
+                    }
+                } else {
+                    NSLog(@"saved for later old");
+                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@ AND readStatus == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithBool:NO]];
+                }
+                // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
+                
+            } else {
+                NSLog(@"else part");
+                NSLog(@"content btype:%@ and category:%@",contentTypeId,categoryId);
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND readStatus == %@",categoryId,contentTypeId,[NSNumber numberWithBool:NO]];
+            }
+        } else {
+            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND readStatus == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithBool:NO]];
+        }
+        
+    } else {
+        [self.revealController showViewController:self.revealController.frontViewController];
+        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND readStatus == %@",newsLetterId,[NSNumber numberWithBool:NO]];
         
     }
-    else if([_titleName isEqualToString:@"CURATED NEWS"]){
-        
+    [fetchRequest setPredicate:predicate];
+
+    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+        self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    }else {
+        self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     }
-    else if([_titleName isEqualToString:@"SAVED FOR LATER"]){
-        
-    }
-    else if([_titleName isEqualToString:@"CURATED SOCIAL MEDIA"]){
-        
-    }
-    else if([_titleName isEqualToString:@"CURATED NEWS"]){
-        
-    }
-    else {
-        
-    }
+
     switchForUnread = 0;
     NSLog(@"%@",self.devices);
 
-    NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate;
-    predicate = [NSPredicate predicateWithFormat:@"readStatus = 0"];
-    [fetchRequest setPredicate:predicate];
-    NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+  
+    NSArray *existingArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     NSLog(@"%@",existingArray);
 
     NSLog(@"%@",self.devices);
@@ -240,10 +285,10 @@
         self.devices = [existingArray mutableCopy];
         [_articlesTableView reloadData];
     }
-    
 }
 
 -(void)notifyForLast{
+    
     NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
     NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
     NSLog(@"parent id:%@",parentId);
@@ -969,7 +1014,9 @@
         NSArray *beginWithB = [existingArray filteredArrayUsingPredicate:pred];
         NSLog(@"beginwithB = %@",beginWithB);
         
-        
+        articleIdToBePassed = [beginWithB valueForKey:@"articleId"];
+        NSLog(@"articleIdToBePassed = %@",articleIdToBePassed);
+
         self.devices = [beginWithB mutableCopy];
         isSearchingInteger = 1;
         [_articlesTableView reloadData];
@@ -1744,7 +1791,7 @@
             NSLog(@"%@",dateiah);
             NSLog(@"%@",[FIUtils relativeDateStringForDate:dateiah]);
             
-            //used for hardcoded testing of minutes**********************************************************
+            //used for hardcoded testing of minutes***********************************************************
             
            
         } else
@@ -1752,24 +1799,24 @@
             NSString *dateStr = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
             cell.articleDate.text = dateStr;
         }
-// NSLog(@"curated news legends list:%d",legendsList.count);
+        
+//        NSLog(@"curated news legends list:%d",legendsList.count);
 //        NSString *trialDate = [NSString stringWithFormat:@"2015-10-05 02:30:00 +0000"];
 //        NSLog(@"%@",trialDate);
 //        NSDateFormatter *dateFormattr = [[NSDateFormatter alloc] init];
 //        [dateFormattr setDateFormat:@"yyyy-MM-dd hh:ss:mm zzzz"];542195656  204901501724
 //        NSDate *formattedDateStrings = [dateFormattr dateFromString:trialDate];
 //        NSLog(@"%@",formattedDateStrings);
-//
 //        NSString *finalDateStrings = [self relativeDateStringForDate:formattedDateStrings];
-//      NSLog(@"%@",finalDateStrings);        
-//      cell.articleDate.text = dateStr;
+//        NSLog(@"%@",finalDateStrings);
+//        cell.articleDate.text = dateStr;
         
         [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
         cell.articleNumber.text = [curatedNews valueForKey:@"articleId"];
-        if (isSearchingInteger == 1) {
-            articleIdToBePassed =[curatedNews valueForKey:@"articleId"];
-        }
+//        if (isSearchingInteger == 1) {
+//            articleIdToBePassed =[curatedNews valueForKey:@"articleId"];
+//        }
         cell.legendsArray = [[NSMutableArray alloc]initWithArray:legendsList];
         NSMutableArray *multipleAuthorArray = [[NSMutableArray alloc]init];
         if(authorArray.count != 0) {
@@ -1785,9 +1832,7 @@
             }
         }
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-            
             UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-            
             if(orientation == 0){
                 //Default orientation
                 //UI is in Default (Portrait) -- this is really a just a failsafe.
@@ -1807,13 +1852,12 @@
                     cell.messageIcon.hidden = NO;
                     cell.messageCountText.hidden = NO;
                 }
-
             }
                   }
         
         // NSLog(@"multiple author array:%@",multipleAuthorArray);
-        //cell.authorTitle.text = [author valueForKey:@"title"];
-        //[cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
+        // cell.authorTitle.text = [author valueForKey:@"title"];
+        // [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         
         cell.title.text = [curatedNews valueForKey:@"title"];
         NSRange r;
@@ -2045,7 +2089,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     [self searchBarCancelButtonClicked:searchBar];
     //    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     //    self.revealController.revealPanGestureRecognizer.delegate = nil;
@@ -2055,8 +2098,7 @@
     //    detailView.curatedNews = influencer;
     //    detailView.selectedIndexPath = indexPath;
     //    detailView.legendsArray = legendsList;
-    //    [self.navigationController pushViewController:detailView animated:YES];
-    
+    //    [self.navigationController pushViewController:detailView animated:YES];    
     if(self.devices.count != 0) {
         
         //UpgradeView
