@@ -125,7 +125,6 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
          //NSLog(@"differ: %f", differ*1000);
          [self getResponseTimeFromTimeStamp:differ];
          
-         
          NSLog(@"\n=========REQUEST=========\n%@",operation.request);
          NSLog(@"\n=========RESPONSE(ERROR)=========\n%@\n==================",error);
          
