@@ -49,22 +49,19 @@
     NSLog(@"view did load");
     
     [super viewDidLoad];
+    isSearchingInteger = 0;
     switchForUnread = 0;
     _articlesTableView.multipleTouchEnabled = NO;
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.recognizesPanningOnFrontView = NO;
 //        self.revealController. = @{PKRevealControllerRecognizesPanningOnFrontViewKey : @NO};
-    
 //        NSDictionary *options = @{
 //                                  PKRevealControllerRecognizesPanningOnFrontViewKey : @NO
 //                                  };
 //        [self.navigationController.navigationBar addGestureRecognizer:self.revealController.revealPanGestureRecognizer];
-        
-
     }
     else{
-        
     }
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
     BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
@@ -136,7 +133,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endOfTutorial) name:@"EndOfTutorial" object:nil];
     
     
-    // [self.revealController showViewController:self.revealController.leftViewController];
+//    [self.revealController showViewController:self.revealController.leftViewController];
 //    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
 //    
 //    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
@@ -155,16 +152,16 @@
 //    [addBtnView addSubview:addBtn];
 //    UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
     
-    //    UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
-    //    searchBtnView.backgroundColor = [UIColor clearColor];
-    //    UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    //    [searchBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    //    [searchBtn setBackgroundImage:[UIImage imageNamed:@"rss_whiteicon"]  forState:UIControlStateNormal];
-    //    [searchBtn setTitle:@"RSS" forState:UIControlStateNormal];
-    //    [searchBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    //    [searchBtnView addSubview:searchBtn];
-    //    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
-    //
+//    UIView *searchBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 15)];
+//    searchBtnView.backgroundColor = [UIColor clearColor];
+//    UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//    [searchBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+//    [searchBtn setBackgroundImage:[UIImage imageNamed:@"rss_whiteicon"]  forState:UIControlStateNormal];
+//    [searchBtn setTitle:@"RSS" forState:UIControlStateNormal];
+//    [searchBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+//    [searchBtnView addSubview:searchBtn];
+//    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
+
     
     [self addRightBarItems];
     
@@ -200,21 +197,31 @@
 
 -(void)changeAlpha{
     self.view.alpha = 1;
-
-    
 }
+
 -(void)notifyForUnread{
-    NSLog(@"unRead");
+    NSLog(@"%@",_titleName);
+    if ([_titleName isEqualToString:@"MARKED IMPORTANT"]) {
+        
+    }
+    else if([_titleName isEqualToString:@"CURATED NEWS"]){
+        
+    }
+    else if([_titleName isEqualToString:@"SAVED FOR LATER"]){
+        
+    }
+    else if([_titleName isEqualToString:@"CURATED SOCIAL MEDIA"]){
+        
+    }
+    else if([_titleName isEqualToString:@"CURATED NEWS"]){
+        
+    }
+    else {
+        
+    }
     switchForUnread = 0;
     NSLog(@"%@",self.devices);
-    
-    NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
-    // NSInteger category = categoryStr.integerValue;
-    
-    //newcomers
-    
-    NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-    NSLog(@"parent id:%@",parentId);
+
     NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate;
@@ -223,18 +230,21 @@
     NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
     NSLog(@"%@",existingArray);
 
-    self.devices = [existingArray mutableCopy];
     NSLog(@"%@",self.devices);
-
-    [_articlesTableView reloadData];
+    NSLog(@"%lu",[self.devices count]);
+    if ([existingArray count] == 0) {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window makeToast:@"No unread articles" duration:1.5 position:CSToastPositionCenter];
+    } else {
+        isSearchingInteger = 1;
+        self.devices = [existingArray mutableCopy];
+        [_articlesTableView reloadData];
+    }
+    
 }
+
 -(void)notifyForLast{
-    NSLog(@"last24");
     NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
-    // NSInteger category = categoryStr.integerValue;
-    
-    //newcomers
-    
     NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
     NSLog(@"parent id:%@",parentId);
     NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
@@ -245,45 +255,56 @@
     NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
     NSLog(@"Existing Array count ---->%lu",(unsigned long)existingArray.count);
 
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"publishedDate" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"publishedDate" ascending:NO];
     
     NSArray *sortedPeople = [existingArray sortedArrayUsingDescriptors:@[sortDescriptor]];
     NSLog(@"%@", sortedPeople);
     
-//    NSLog(@"%f",[[sortedPeople valueForKey:@"publishedDate"] doubleValue]);
-//    
-//    NSString *dateStr = [FIUtils getDateFromTimeStampTwo:[[sortedPeople valueForKey:@"publishedDate"] doubleValue]];
-//    NSLog(@"%@",dateStr);
-//    
-//    NSDateFormatter *frmaer=[[NSDateFormatter alloc]init];
-//    [frmaer setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//    [frmaer setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-//    NSDate *dats = [frmaer dateFromString:dateStr];
-//    NSLog(@"%@",dats);
-//    NSLog(@"%@",[FIUtils relativeDateStringForDate:dats]);
-//    
-//    NSString *finalDateString =[FIUtils relativeDateStringForDate:dats];
-//    NSLog(@"%@",finalDateString);
-//
     
-    self.devices = [sortedPeople mutableCopy];
-
-    [_articlesTableView reloadData];
+     //newcomers to define just 24hours--------------------------------------------------------------------------------------------------------------------
     
-//    NSError *error = nil;
-//    NSArray *result = [context executeFetchRequest:fetchRequest error:&error];
-//    
-//    if (error) {
-//        NSLog(@"Unable to execute fetch request.");
-//        NSLog(@"%@, %@", error, error.localizedDescription);
-//        
-//    } else {
-//        NSLog(@"%@", result);
-//    }
-//
-//    NSLog(@"%@",fetchRequest);
+    
+    NSDate *now = [[NSDate alloc]init];
+    NSLog(@"%@", now);
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setDay:-1];
+    NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate date] options:0];
+    NSLog(@"%@", yesterday);
+    
+    double todayDate = [self timeStampValeOfDate:now];
+    double yesterdayDate = [self timeStampValeOfDate:yesterday];
+    NSLog(@"%@",  [NSDecimalNumber numberWithDouble:todayDate]);
+    NSLog(@"%@",  [NSDecimalNumber numberWithDouble:yesterdayDate]);
+    NSFetchRequest *fetchRequesta = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSPredicate *predicatea;
+//    [NSPredicate predicateWithFormat:@"date BETWEEN %@", [NSArray arrayWithObjects:startOfDay, endOfDay, nil]]
+    predicatea = [NSPredicate predicateWithFormat:@"publishedDate >= %@ AND publishedDate <= %@", [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
+    [fetchRequesta setPredicate:predicatea];
+    NSArray *existingArraya = [[context executeFetchRequest:fetchRequesta error:nil] mutableCopy];
+    NSLog(@"Existing Array count ---->%lu",(unsigned long)existingArraya.count);
 
     
+    if ([existingArraya count] == 0) {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [window makeToast:@"No articles within past 24 hours" duration:1.5 position:CSToastPositionCenter];
+    } else {
+        isSearchingInteger = 1;
+        self.devices = [existingArraya mutableCopy];
+        [_articlesTableView reloadData];
+    }
+}
+- (double)timeStampValeOfDate: (NSDate *)dateInput{
+    
+//    NSDateFormatter *df=[[NSDateFormatter alloc] init];
+//    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    NSString *inputDate = [df stringFromDate:dateInput];
+//    [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+//    NSDate *date = [df dateFromString:inputDate];
+    
+    NSTimeInterval since1970 = [dateInput timeIntervalSince1970]; // January 1st 1970
+    
+    double result = since1970 * 1000;
+    return result;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -469,9 +490,7 @@
     NSLog(@"scrollViewWillBeginDecelerating");
     
     [self closeMenu];
-    
-    
-    
+
 }
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
@@ -491,9 +510,6 @@
 - (void)handleDeviceOrientationChange:(WSCoachMarksView*)coachMarksView {
     
     // Begin the whole coach marks process again from the beginning, rebuilding the coachmarks with updated co-ordinates
-    
-    
-    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -552,6 +568,10 @@
 //        NSLog(@"iPhone 6 Plus");
 //    }
 //
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    isSearchingInteger = 0;
+
 }
 -(void)viewDidAppear:(BOOL)animated {
     
@@ -642,12 +662,12 @@
             [self presentViewController:loginView animated:YES completion:nil];
             //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
             //        [window addSubview:loginView.view];
-        }        //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        //        [window addSubview:loginView.view];
+        }   //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            //        [window addSubview:loginView.view];
     }
     
     
-    //[self presentViewController:loginView animated:YES completion:nil];
+            //        [self presentViewController:loginView animated:YES completion:nil];
 }
 
 -(void)stopLoading {
@@ -670,7 +690,7 @@
     [Btns setBackgroundImage:[UIImage imageNamed:@"settingsMIcon"]  forState:UIControlStateNormal];
     [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
-    //            [self.navigationItem setRightBarButtonItem:addButtons];
+    // [self.navigationItem setRightBarButtonItem:addButtons];
     
     searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
     [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
@@ -682,6 +702,7 @@
 
 }
 -(void)loadCuratedNews {
+    
     // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:100];
     
     self.articlesTableView.dataSource = self;
@@ -855,7 +876,6 @@
 
 }
 -(void)searchButtonFilter{
-    self.navigationItem.rightBarButtonItems.hid
     self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.title = nil;
@@ -863,6 +883,7 @@
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-20, 44)];
     searchBar.showsCancelButton = YES;
     searchBar.delegate = self;
+    [searchBar setPlaceholder:@"Search article or topic"];
     [self.navigationController.navigationBar addSubview:searchBar];
 
 }
@@ -887,13 +908,22 @@
     [self addButtonsOnNavigationBar];
 
 }
-
+-(void)commonMethodForSearchBarExit
+{
+}
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    [self searchTableList];
+        if([searchText length] != 0) {
+            isSearching = YES;
+            [self searchTableList];
+        }
+        else {
+            isSearching = NO;
+        }
+
 }
 //    NSLog(@"Text change - %d",isSearching);
 //    
@@ -917,31 +947,34 @@
 //    [self searchTableList];
 //}
 - (void)searchTableList {
-    NSString *searchString = searchBar.text;
-    NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
-
-    NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-    NSLog(@"parent id:%@",parentId);
-    NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate;
-    predicate = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",parentId,category];
-    [fetchRequest setPredicate:predicate];
-    NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    NSLog(@"Existing Array count ---->%lu",(unsigned long)existingArray.count);
-    NSLog(@"Existing Array count ---->%@",existingArray);
-    NSArray *idList = [existingArray valueForKey:@"title"]; // array of "id" numbers
-    NSLog(@"---->%@",idList);
-
-    NSPredicate *pred =[NSPredicate predicateWithFormat:@"title beginswith[c] %@ OR title contains[cd] %@", searchString, searchString];
-
-    NSArray *beginWithB = [existingArray filteredArrayUsingPredicate:pred];
-    NSLog(@"beginwithB = %@",beginWithB);
-
-   
-    self.devices = [beginWithB mutableCopy];
+    if (isSearching) {
+        NSString *searchString = searchBar.text;
+        NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
+        
+        NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+        NSLog(@"parent id:%@",parentId);
+        NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate;
+        predicate = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",parentId,category];
+        [fetchRequest setPredicate:predicate];
+        NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        NSLog(@"Existing Array count ---->%lu",(unsigned long)existingArray.count);
+        NSLog(@"Existing Array count ---->%@",existingArray);
+        NSArray *idList = [existingArray valueForKey:@"title"]; // array of "id" numbers
+        NSLog(@"---->%@",idList);
+        
+        NSPredicate *pred =[NSPredicate predicateWithFormat:@"title beginswith[c] %@ OR title contains[cd] %@", searchString, searchString];
+        
+        NSArray *beginWithB = [existingArray filteredArrayUsingPredicate:pred];
+        NSLog(@"beginwithB = %@",beginWithB);
+        
+        
+        self.devices = [beginWithB mutableCopy];
+        isSearchingInteger = 1;
+        [_articlesTableView reloadData];
+    }
     
-    [_articlesTableView reloadData];
     
 }
 
@@ -1730,9 +1763,13 @@
 //        NSString *finalDateStrings = [self relativeDateStringForDate:formattedDateStrings];
 //      NSLog(@"%@",finalDateStrings);        
 //      cell.articleDate.text = dateStr;
+        
         [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
         cell.articleNumber.text = [curatedNews valueForKey:@"articleId"];
+        if (isSearchingInteger == 1) {
+            articleIdToBePassed =[curatedNews valueForKey:@"articleId"];
+        }
         cell.legendsArray = [[NSMutableArray alloc]initWithArray:legendsList];
         NSMutableArray *multipleAuthorArray = [[NSMutableArray alloc]init];
         if(authorArray.count != 0) {
@@ -2008,9 +2045,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-//    self.revealController.revealPanGestureRecognizer.delegate = nil;
-
+    
+    [self searchBarCancelButtonClicked:searchBar];
+    //    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    //    self.revealController.revealPanGestureRecognizer.delegate = nil;
     //    NSManagedObject *influencer = [self.devices objectAtIndex:indexPath.row];
     //    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
     //    CorporateNewsDetailsView *detailView = [storyBoard instantiateViewControllerWithIdentifier:@"DetailView"];
@@ -2031,16 +2069,24 @@
             storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
             
         }
-        NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"]];
+        NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"d"]];
         CorporateNewsDetailsView *testView;
         //        if([userAccountTypeId isEqualToString:@"3"]) {
         //            testView = [storyBoard instantiateViewControllerWithIdentifier:@"NormalView"];
         //        }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
+        NSLog(@"%@",_titleName);
+        NSLog(@"%ld",(long)indexPath.row);
+        NSLog(@"%@",indexPath);
+        NSLog(@"%d",isSearchingInteger);
+        NSLog(@"%@",articleIdToBePassed);
+
         testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
-        // }
+        // } =
         testView.articleTitle = _titleName;
         testView.currentIndex = indexPath.row;
         testView.selectedIndexPath = indexPath;
+        testView.isSearching = isSearchingInteger;
+        testView.articleIdFromSearchLst =articleIdToBePassed;
         [self.navigationController pushViewController:testView animated:YES];
     }
 }
@@ -2053,6 +2099,7 @@
         [checkMarkBtn setSelected:YES];
     }
 }
+
 //- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
 //
 //    [self closeMenu];
@@ -2061,6 +2108,7 @@
 //
 //    [self closeMenu];
 //}
+
 - (void)scrollViewDidScroll: (UIScrollView*)scroll {
 
 
@@ -2084,8 +2132,7 @@
     NSString *markedImpUserName = [curatedNews valueForKey:@"markAsImportantUserName"];
     NSString *loginUserIdString = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"]];
     
-    //NSLog(@"markedUserId:%@ and markedUserName:%@ and loginUserId:%@ and intvalue:%d",markedImpUserId,markedImpUserName,loginUserIdString,[loginUserIdString intValue]);
-    
+    // NSLog(@"markedUserId:%@ and markedUserName:%@ and loginUserId:%@ and intvalue:%d",markedImpUserId,markedImpUserName,loginUserIdString,[loginUserIdString intValue]);
     //    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     //    f.numberStyle = NSNumberFormatterDecimalStyle;
     //    NSNumber *loginUserId = [f numberFromString:loginUserIdString];

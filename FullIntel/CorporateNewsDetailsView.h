@@ -37,6 +37,9 @@
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *articleIdArray;
 @property (nonatomic) int currentIndex;
+@property (nonatomic) int isSearching;
+@property (nonatomic, strong) NSString *articleIdFromSearchLst;
+
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) int selectedIndex;
 -(void)getArticleIdListFromDB;

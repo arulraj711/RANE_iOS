@@ -29,10 +29,11 @@
     
     int switchForUnread;
     
+    int isSearchingInteger;
     NSMutableArray *filteredContentList;
     BOOL isSearching;
     UISearchBar *searchBar;
-
+    NSString *articleIdToBePassed;
 }
 -(void)showLoginPage;
 -(void)loadCuratedNews;

@@ -81,14 +81,10 @@
     [activityIndicator startAnimating];
     
     innerWebView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)];
-    
     // self.navigationItem.rightBarButtonItem =nil;
-    
     [self getArticleIdListFromDB];
     
     _tutorialTextBoxView.hidden=YES;
-    
-    
     _tutorialTextBoxView.layer.cornerRadius=5.0f;
     
 }
@@ -358,7 +354,6 @@
         NSLog(@"newsletter id:%@",newsLetterId);
         if(![newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
             predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
-            
         } else {
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
@@ -376,12 +371,12 @@
             } else {
                 predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
             }
-        } else {
+        }
+        else
+        {
             predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
         }
         }
-        
-        
         [fetchRequest setPredicate:predicate];
         [fetchRequest setEntity:entity];
         
@@ -398,7 +393,7 @@
             [elementsFromColumn addObject:[fetchedObject valueForKey:@"articleId"]];
         }
         
-        //NSLog(@"elementsfrom column:%@",elementsFromColumn);
+        NSLog(@"elementsfrom column:%@",elementsFromColumn);
         self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
         NSLog(@"article id array:%@ and selected articleId:%@",self.articleIdArray,self.selectedNewsArticleId);
         if(self.selectedNewsArticleId.length != 0) {
@@ -407,7 +402,7 @@
             self.selectedIndexPath = indexPath;
 //            [self.view layoutIfNeeded];
 //            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-            NSLog(@"selected indexpath:%d",self.selectedIndexPath.row);
+            NSLog(@"selected indexpath:%ld",(long)self.selectedIndexPath.row);
             [self.collectionView reloadData];
         } else {
             if(self.articleIdArray.count != 0) {
@@ -582,7 +577,7 @@
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-     NSLog(@"cell indexpath:%d",indexPath.row);
+     NSLog(@"cell indexpath:%ld",(long)indexPath.row);
     self.selectedIndexPath = indexPath;
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
@@ -604,7 +599,15 @@
     NSLog(@"%@",fetchRequest);
 
     NSLog(@"cell article id:%@",[self.articleIdArray objectAtIndex:indexPath.row]);
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];
+    NSPredicate *predicate;
+    if (_isSearching ==1) {
+        predicate = [NSPredicate predicateWithFormat:@"articleId == %@",_articleIdFromSearchLst];
+
+    }
+    else{
+        predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];
+
+    }
     [fetchRequest setPredicate:predicate];
     NSLog(@"%@",predicate);
 
