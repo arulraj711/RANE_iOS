@@ -461,16 +461,7 @@
         NSArray *curatedNewsArray = responseObject;
             NSLog(@"curated news array count:%d and array:%@ and lastarticle:%@ and length:%d",curatedNewsArray.count,curatedNewsArray,lastArticleId,lastArticleId.length);
             //Handle Pagination
-            if(curatedNewsArray.count == 0) {
-                if(lastArticleId.length != 0){
-                    NSLog(@"inside stop loading");
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
-                    UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                    [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
-                } else {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
-                }
-            }
+        
             
             //Handle pull down to refresh
             if([updownFlag isEqualToString:@"up"]) {
@@ -750,9 +741,22 @@
         }
         [self hideProgressView];
        // NSLog(@"reached end");
+        if(curatedNewsArray.count == 0) {
+            if(lastArticleId.length != 0){
+                NSLog(@"inside stop loading");
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"stopLoadingForAlert" object:nil];
+                UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
+            } else {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
+            }
+        }
+        else{
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
+            
+        }
         
         
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
