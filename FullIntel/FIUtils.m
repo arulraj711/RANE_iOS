@@ -46,6 +46,7 @@
                                                                      toDate:[NSDate date]
                                                                     options:0];
     NSLog(@"%@",date);
+    NSLog(@"%@",[NSDate date]);
     NSLog(@"%ld",(long)components.minute);
     NSLog(@"%ld",(long)components.year);
     NSLog(@"%ld",(long)components.month);

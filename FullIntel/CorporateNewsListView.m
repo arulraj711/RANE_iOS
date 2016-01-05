@@ -201,14 +201,15 @@
 }
 
 -(void)notifyForUnread{
-
+    switchForUnread = 1;
     [self callSearchAPIWithStringForUnread:@"" withFilterString:@"UNREAD"];
 
 }
 
 -(void)notifyForLast{
+    switchForUnread = 2;
     [self callSearchAPIWithStringForUnread:@"" withFilterString:@"RECENT"];
-    
+    [self newMethodFor24Hrs];
 }
 
 
@@ -675,244 +676,245 @@
 -(void)newMethodFor24Hrs
 {
     
-    NSDate *now = [[NSDate alloc]init];
-    
-    NSLog(@"%@", now);
-    
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    
-    [components setDay:-1];
-    
-    NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate date] options:0];
-    
-    NSLog(@"%@", yesterday);
-    
-    
-    
-    double todayDate = [self timeStampValeOfDate:now];
-    
-    double yesterdayDate = [self timeStampValeOfDate:yesterday];
-    
-    NSLog(@"%@",  [NSDecimalNumber numberWithDouble:todayDate]);
-    
-    NSLog(@"%@",  [NSDecimalNumber numberWithDouble:yesterdayDate]);
-    
-    
-    
-    
-    
-    NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
-    
-    
-    
-    NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
-    
-    
-    
-    NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-    
-    
-    
-    NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
-    
-    
-    
-    
-    
-    
-    
-    NSLog(@"load curated news categoryId:%@ and folderid:%@ and contentTypeId:%@ and newsletterid:%@",categoryId,folderId,contentTypeId,newsLetterId);
-    
-    
-    
-    //    NSLog(@"category id in curated news:%@",categoryId);
-    
-    
-    
-    //    self.devices = [[NSMutableArray alloc]init];
-    
-    
-    
-    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-    
-    
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    
-    
-    
-    NSPredicate *predicate;
-    
-    
-    
-    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        
-        BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
-        
-        if(isFolderClick) {
-            
-            
-            
-        } else {
-            
-            [self addButtonsOnNavigationBar];
-            
-        }
-        
-        
-        
-        if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-            
-            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-                
-                NSLog(@"if part");
-                
-                BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
-                
-                if(savedForLaterIsNew){
-                    
-                    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                        
-                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@ AND publishedDate >= %@ AND publishedDate <= %@",[NSNumber numberWithBool:YES],contentTypeId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
-                        
-                    } else {
-                        
-                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@  AND publishedDate >= %@ AND publishedDate <= %@",[NSNumber numberWithBool:YES],categoryId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
-                        
-                    }
-                    
-                } else {
-                    
-                    NSLog(@"saved for later old");
-                    
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@  AND publishedDate >= %@ AND publishedDate <= %@",[NSNumber numberWithBool:YES],categoryId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
-                    
-                }
-                
-                // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
-                
-                
-                
-            } else {
-                
-                NSLog(@"else part");
-                
-                NSLog(@"content btype:%@ and category:%@",contentTypeId,categoryId);
-                
-                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@  AND publishedDate >= %@ AND publishedDate <= %@",categoryId,contentTypeId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
-                
-            }
-            
-        } else {
-            
-            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@  AND publishedDate >= %@ AND publishedDate <= %@",[NSNumber numberWithBool:YES],folderId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
-            
-        }
-        
-        
-        
-    } else {
-        
-        [self.revealController showViewController:self.revealController.frontViewController];
-        
-        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@  AND publishedDate >= %@ AND publishedDate <= %@",newsLetterId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
-        
-        
-        
-    }
-    
-    [fetchRequest setPredicate:predicate];
-    
-    
-    
-    //    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-    
-    //        self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
-    //    }else {
-    
-    //        self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
-    //    }
-    
-    
-    
-    switchForUnread = 0;
-    
-    NSLog(@"%@",self.devices);
-    
-    
-    
-    
-    
-    NSArray *existingArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
-    NSLog(@"%@",existingArray);
-    
-    
-    
-    
-    
-    
-    
-    //first for date sorting--------------------------------------------------------------------------------------------------------------------
-    
-    
-    
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"publishedDate" ascending:NO];
-    
-    
-    
-    NSArray *sortedPeople = [existingArray sortedArrayUsingDescriptors:@[sortDescriptor]];
-    
-    NSLog(@"%@", sortedPeople);
-    
+//    NSDate *now = [[NSDate alloc]init];
+//    
+//    NSLog(@"%@", now);
+//    
+//    NSDateComponents *components = [[NSDateComponents alloc] init];
+//    
+//    [components setDay:-1];
+//    
+//    NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate date] options:0];
+//    
+//    NSLog(@"%@", yesterday);
+//    
+//    
+//    
+//    double todayDate = [self timeStampValeOfDate:now];
+//    
+//    double yesterdayDate = [self timeStampValeOfDate:yesterday];
+//    
+//    NSLog(@"%@",  [NSDecimalNumber numberWithDouble:todayDate]);
+//    
+//    NSLog(@"%@",  [NSDecimalNumber numberWithDouble:yesterdayDate]);
+//    
+//    
+//    
+//    
+//    
+//    NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
+//    
+//    
+//    
+//    NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
+//    
+//    
+//    
+//    NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+//    
+//    
+//    
+//    NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    NSLog(@"load curated news categoryId:%@ and folderid:%@ and contentTypeId:%@ and newsletterid:%@",categoryId,folderId,contentTypeId,newsLetterId);
+//    
+//    
+//    
+//    //    NSLog(@"category id in curated news:%@",categoryId);
+//    
+//    
+//    
+//    //    self.devices = [[NSMutableArray alloc]init];
+//    
+//    
+//    
+//    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+//    
+//    
+//    
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+//    
+//    
+//    
+//    NSPredicate *predicate;
+//    
+//    
+//    
+//    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+//        
+//        BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
+//        
+//        if(isFolderClick) {
+//            
+//            
+//            
+//        } else {
+//            
+//            [self addButtonsOnNavigationBar];
+//            
+//        }
+//        
+//        
+//        
+//        if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+//            
+//            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+//                
+//                NSLog(@"if part");
+//                
+//                BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+//                
+//                if(savedForLaterIsNew){
+//                    
+//                    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+//                        
+//                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@ AND publishedDate >= %@ AND publishedDate <= %@",[NSNumber numberWithBool:YES],contentTypeId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
+//                        
+//                    } else {
+//                        
+//                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@  AND publishedDate >= %@ AND publishedDate <= %@",[NSNumber numberWithBool:YES],categoryId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
+//                        
+//                    }
+//                    
+//                } else {
+//                    
+//                    NSLog(@"saved for later old");
+//                    
+//                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId == %@  AND publishedDate >= %@ AND publishedDate <= %@",[NSNumber numberWithBool:YES],categoryId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
+//                    
+//                }
+//                
+//                // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
+//                
+//                
+//                
+//            } else {
+//                
+//                NSLog(@"else part");
+//                
+//                NSLog(@"content btype:%@ and category:%@",contentTypeId,categoryId);
+//                
+//                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@  AND publishedDate >= %@ AND publishedDate <= %@",categoryId,contentTypeId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
+//                
+//            }
+//            
+//        } else {
+//            
+//            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@  AND publishedDate >= %@ AND publishedDate <= %@",[NSNumber numberWithBool:YES],folderId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
+//            
+//        }
+//        
+//        
+//        
+//    } else {
+//        
+//        [self.revealController showViewController:self.revealController.frontViewController];
+//        
+//        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@  AND publishedDate >= %@ AND publishedDate <= %@",newsLetterId, [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
+//        
+//        
+//        
+//    }
+//    
+//    [fetchRequest setPredicate:predicate];
+//    
+//    
+//    
+//    //    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+//    
+//    //        self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//    
+//    //    }else {
+//    
+//    //        self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//    
+//    //    }
+//    
+//    
+//    
+//    switchForUnread = 0;
+//    
+//    NSLog(@"%@",self.devices);
+//    
+//    
+//    
+//    
+//    
+//    NSArray *existingArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//    
+//    NSLog(@"%@",existingArray);
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    //first for date sorting--------------------------------------------------------------------------------------------------------------------
+//    
+//    
+//    
+//    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"publishedDate" ascending:NO];
+//    
+//    
+//    
+//    NSArray *sortedPeople = [existingArray sortedArrayUsingDescriptors:@[sortDescriptor]];
+//    
+//    NSLog(@"%@", sortedPeople);
+//    
     
     
     //newcomers to define just 24hours--------------------------------------------------------------------------------------------------------------------
     
     
-    //    NSDate *now = [[NSDate alloc]init];
+        NSDate *now = [[NSDate alloc]init];
     
-    //    NSLog(@"%@", now);
+        NSLog(@"%@", now);
     
-    //    NSDateComponents *components = [[NSDateComponents alloc] init];
+        NSDateComponents *components = [[NSDateComponents alloc] init];
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+
+        [components setDay:-1];
     
-    //    [components setDay:-1];
+        NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate date] options:0];
     
-    //    NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate date] options:0];
-    
-    //    NSLog(@"%@", yesterday);
-    
-    //
-    
-    //    double todayDate = [self timeStampValeOfDate:now];
-    
-    //    double yesterdayDate = [self timeStampValeOfDate:yesterday];
-    
-    //    NSLog(@"%@",  [NSDecimalNumber numberWithDouble:todayDate]);
-    
-    //    NSLog(@"%@",  [NSDecimalNumber numberWithDouble:yesterdayDate]);
-    
-    //    NSFetchRequest *fetchRequesta = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    
-    //    NSPredicate *predicatea;
-    
-    ////    [NSPredicate predicateWithFormat:@"date BETWEEN %@", [NSArray arrayWithObjects:startOfDay, endOfDay, nil]]
-    
-    //    predicatea = [NSPredicate predicateWithFormat:@"publishedDate >= %@ AND publishedDate <= %@", [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
-    
-    //    [fetchRequesta setPredicate:predicatea];
-    
-    //    NSArray *existingArraya = [[managedObjectContext executeFetchRequest:fetchRequesta error:nil] mutableCopy];
-    
-    //    NSLog(@"Existing Array count ---->%lu",(unsigned long)existingArraya.count);
+        NSLog(@"%@", yesterday);
     
     
     
+        double todayDate = [self timeStampValeOfDate:now];
+    
+        double yesterdayDate = [self timeStampValeOfDate:yesterday];
+    
+        NSLog(@"%@",  [NSDecimalNumber numberWithDouble:todayDate]);
+    
+        NSLog(@"%@",  [NSDecimalNumber numberWithDouble:yesterdayDate]);
+    
+        NSFetchRequest *fetchRequesta = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    
+        NSPredicate *predicatea;
+    
+    //    [NSPredicate predicateWithFormat:@"date BETWEEN %@", [NSArray arrayWithObjects:startOfDay, endOfDay, nil]]
+    
+        predicatea = [NSPredicate predicateWithFormat:@"publishedDate >= %@ AND publishedDate <= %@", [NSDecimalNumber numberWithDouble:yesterdayDate], [NSDecimalNumber numberWithDouble:todayDate]];
+    
+        [fetchRequesta setPredicate:predicatea];
+    
+        NSArray *existingArraya = [[managedObjectContext executeFetchRequest:fetchRequesta error:nil] mutableCopy];
+    
+        NSLog(@"Existing Array count ---->%lu",(unsigned long)existingArraya.count);
     
     
-    if ([existingArray count] == 0) {
+    
+    
+    
+    if ([existingArraya count] == 0) {
         
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         
@@ -924,7 +926,7 @@
         
         self.devices = [[NSMutableArray alloc]init];
         
-        self.devices = [existingArray mutableCopy];
+        self.devices = [existingArraya mutableCopy];
         
         [_articlesTableView reloadData];
         
@@ -934,6 +936,7 @@
     
 }
 -(void)loadCuratedNews {
+    
     NSLog(@"%lu",(unsigned long)[self.devices count]);
 
     // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:100];
