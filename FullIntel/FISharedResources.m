@@ -498,31 +498,19 @@
             context = [self managedObjectContext];
             
             
-            NSLog(@"incoming content type:%@",contentTypeId);
+            NSLog(@"incoming content type:%@ and categoryid:%@ and articleID:%@",contentTypeId,categoryId,[dic objectForKey:@"id"]);
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
             NSPredicate *predicate;
            // if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
                 predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@",[dic objectForKey:@"id"],contentTypeId,categoryId];
-//            } else {
-//                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND categoryId == %@",[dic objectForKey:@"id"],categoryId];
-//            }
-            
-//            NSPredicate *fetchContentTypePredicate = [NSPredicate predicateWithFormat:@"contentTypeId == %@",contentTypeId];
-//            
-//            NSPredicate *fetchCategoryPredicate = [NSPredicate predicateWithFormat:@"categoryId == %@",categoryId];
-//            
-//            NSPredicate *fetchArticlePredicate = [NSPredicate predicateWithFormat:@"articleId == %@",[dic objectForKey:@"id"]];
-//            
-//            NSPredicate *compoundPredicate
-//            = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:fetchContentTypePredicate,fetchCategoryPredicate,fetchArticlePredicate, nil]];
-            
-           // predicate = [NSPredicate predicateWithFormat:@"(articleId = %@) and (contentTypeId = %d) and (categoryId = %d)", [dic objectForKey:@"id"], [contentTypeId integerValue],[categoryId integerValue]];
+
             
             [fetchRequest setPredicate:predicate];
             NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
-            //NSLog(@"existing count:%d",existingArray.count);
+            NSLog(@"existing article list count:%d",existingArray.count);
             if(existingArray.count != 0) {
                 //Excisting Object
+                NSLog(@"existing object");
                 curatedNews = [existingArray objectAtIndex:0];
             } else {
                 NSLog(@"creating new article with categoryId:%@ and contentTypeId:%@",categoryId,contentTypeId);

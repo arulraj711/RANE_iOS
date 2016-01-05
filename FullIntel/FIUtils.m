@@ -45,6 +45,13 @@
                                                                    fromDate:date
                                                                      toDate:[NSDate date]
                                                                     options:0];
+    NSLog(@"%@",date);
+    NSLog(@"%ld",(long)components.minute);
+    NSLog(@"%ld",(long)components.year);
+    NSLog(@"%ld",(long)components.month);
+    NSLog(@"%ld",(long)components.second);
+    NSLog(@"%ld",(long)components.day);
+
     if (components.year > 0) {
         NSDateFormatter *frmaers=[[NSDateFormatter alloc]init];
         [frmaers setDateFormat:@"MM/dd/yy"];
