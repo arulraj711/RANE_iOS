@@ -139,7 +139,9 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
 
 + (void)getQueryResultsForFunctionName:(NSString *)functionName onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",functionName];
+    NSLog(@"get function name:%@",functionName);
+    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",[functionName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSLog(@"post url:%@",postURL);
     NSURL *url = [NSURL URLWithString:postURL];
     NSLog(@"url string:%@",url);
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
@@ -269,6 +271,7 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
 +(void)fetchCuratedNewsListWithAccessToken:(NSString*)details withActivityTypeID:(NSNumber *)activityTypeId
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSLog(@"webservice input:%@",details);
     [self getQueryResultsForFunctionName:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);

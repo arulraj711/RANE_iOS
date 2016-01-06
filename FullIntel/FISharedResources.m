@@ -453,6 +453,7 @@
 
 -(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withContentTypeId:(NSNumber *)contentTypeId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId withActivityTypeId:(NSNumber *)activityTypeId {
    // [self showProgressView];
+    NSLog(@"incoming details:%@",details);
     NSLog(@"refresh list with flag:%@ and categoryId:%@",updownFlag,categoryId);
     if([self serviceIsReachable]) {
     [FIWebService fetchCuratedNewsListWithAccessToken:details withActivityTypeID:activityTypeId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1743,14 +1744,14 @@
                     [delegateObj test];
                 }
                 //Handle Pagination
-//                if(curatedNewsArray.count == 0) {
-//                    if(![offset isEqualToNumber:[NSNumber numberWithInt:0]]){
-//                        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-//                        [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
-//                    } else {
-//                        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
-//                    }
-//                }
+                if(curatedNewsArray.count == 0) {
+                    if(![pageNo isEqualToNumber:[NSNumber numberWithInt:0]]){
+                        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                        [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
+                    } else {
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
+                    }
+                }
                 //Handle pull down to refresh
 //                if(flag) {
 //                    [self updateFolderId:@"CuratedNews" withFolderId:folderId];
