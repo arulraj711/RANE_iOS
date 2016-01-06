@@ -67,6 +67,7 @@
     BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
     NSLog(@"newsletter id:%@",newsLetterId);
     if(isFolderClick) {
+        [self addButtonsOnNavigationBar];
         [self.revealController showViewController:self.revealController.frontViewController];
     } else if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
         [self addButtonsOnNavigationBar];
@@ -934,8 +935,6 @@
     
 }
 -(void)loadCuratedNews {
-    NSLog(@"%lu",(unsigned long)[self.devices count]);
-
     // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:100];
     
     self.articlesTableView.dataSource = self;
@@ -965,15 +964,6 @@
     NSPredicate *predicate;
     
     if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-
-        BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
-        if(isFolderClick) {
-            [self addButtonsOnNavigationBar];
-
-        } else {
-            [self addButtonsOnNavigationBar];
-        }
-
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
             if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
                 NSLog(@"if part");
