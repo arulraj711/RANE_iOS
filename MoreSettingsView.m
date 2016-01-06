@@ -75,7 +75,6 @@
     UIBezierPath* trianglePath = [UIBezierPath bezierPath];
     NSLog(@"%f",SCREEN_WIDTH-125);
     [trianglePath moveToPoint:CGPointMake(SCREEN_WIDTH-24, 55)];
-
     [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-34, self.moreTableView.frame.origin.y)];
     [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-14, self.moreTableView.frame.origin.y)];
     [trianglePath closePath];
@@ -92,20 +91,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        [_moreInforArray addObject:@"All articles"];
         [_moreInforArray addObject:@"Unread"];
         [_moreInforArray addObject:@"Last 24 Hours"];
 
 
     }
     else{
+        [_moreInforArray addObject:@"All articles"];
         [_moreInforArray addObject:@"Unread"];
         [_moreInforArray addObject:@"Last 24 Hours"];
 
-    }
-    
-    
+    }    
     self.moreTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
     [self.moreTableView reloadData];
 }
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
@@ -205,25 +203,33 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MoreSettingsCell *cell = (MoreSettingsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        if(indexPath.row == 1) {
-            cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
-        } else  {
+        if(indexPath.row == 0){
+            cell.iconImage.image = [UIImage imageNamed:@""];
+        }
+        else if(indexPath.row == 1) {
             cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
+        }
+        else if(indexPath.row == 2){
+            cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
             
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     }
     else{
-        if(indexPath.row == 1) {
-            cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
-        } else  {
+        if(indexPath.row == 0){
+            cell.iconImage.image = [UIImage imageNamed:@""];
+        }
+        else if(indexPath.row == 1) {
             cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
+        }
+        else if(indexPath.row == 2){
+            cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
             
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         
     }
@@ -234,17 +240,22 @@
     
 //    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
          NSLog(@"tableview%@",indexPath);
+    if(indexPath.row == 0){
+        NSLog(@"tableview,indexPath 1");
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAll" object:nil];
+        
+    }
     
-        if(indexPath.row == 1) {
-            NSLog(@"tableview,indexPath 1");
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
+    else if(indexPath.row == 1) {
+        NSLog(@"tableview,indexPath 1");
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForUnreadMenu" object:nil];
+        
+    }
+    else if(indexPath.row == 2){
+        NSLog(@"tableview,indexPath0");
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
 
-
-        }else{
-            NSLog(@"tableview,indexPath0");
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForUnreadMenu" object:nil];
-
-        }
+    }
 //
 //
 //            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"LinkedInShareClick"];

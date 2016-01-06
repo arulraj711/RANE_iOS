@@ -22,26 +22,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="12" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="57d-kT-Nrs">
-                                <rect key="frame" x="441" y="67" width="155" height="96"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="12" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="57d-kT-Nrs">
+                                <rect key="frame" x="441" y="67" width="155" height="120"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="155" id="NBB-kS-F7Z"/>
-                                    <constraint firstAttribute="height" constant="96" id="eap-ao-Ntz"/>
+                                    <constraint firstAttribute="height" constant="120" id="eap-ao-Ntz"/>
                                 </constraints>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="4Nj-QP-1gi" customClass="MoreSettingsCell">
-                                        <rect key="frame" x="0.0" y="12" width="155" height="50"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="40" id="4Nj-QP-1gi" customClass="MoreSettingsCell">
+                                        <rect key="frame" x="0.0" y="12" width="155" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Nj-QP-1gi" id="jyD-vz-dKj">
-                                            <rect key="frame" x="0.0" y="0.0" width="155" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="155" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Facebook" translatesAutoresizingMaskIntoConstraints="NO" id="bCl-dQ-g8x">
                                                     <rect key="frame" x="15" y="17" width="15" height="15"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSd-XD-YqS">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSd-XD-YqS">
                                                     <rect key="frame" x="38" y="14" width="112" height="21"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                     <nil key="highlightedColor"/>

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "473756673.624444"
+            timestampString = "473773580.01394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1290"
-            endingLineNumber = "1290"
+            startingLineNumber = "1257"
+            endingLineNumber = "1257"
             landmarkName = "-refreshTable"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "473758270.802346"
+            timestampString = "473773580.01394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1237"
-            endingLineNumber = "1237"
+            startingLineNumber = "1204"
+            endingLineNumber = "1204"
             landmarkName = "-callSearchAPIWithString:"
             landmarkType = "5">
          </BreakpointContent>

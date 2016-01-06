@@ -27,7 +27,8 @@
     UIButton *searchButtons;
     UIView *searchbarView;
     
-    int switchForUnread;
+    
+    int switchForFilter;
     
     int isSearchingInteger;
     NSMutableArray *filteredContentList;

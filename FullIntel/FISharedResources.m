@@ -454,13 +454,27 @@
 -(void)getCuratedNewsListWithAccessToken:(NSString *)details withCategoryId:(NSNumber *)categoryId withContentTypeId:(NSNumber *)contentTypeId withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId withActivityTypeId:(NSNumber *)activityTypeId {
    // [self showProgressView];
     NSLog(@"incoming details:%@",details);
+    BOOL isSearch;
+    if([details containsString:@"query"]) {
+        isSearch = YES;
+    } else {
+        isSearch = NO;
+    }
+    NSNumber *filterBy;
+    if([details containsString:@"UNREAD"]) {
+        filterBy = [NSNumber numberWithInt:1];
+    } else if([details containsString:@"RECENT"]) {
+        filterBy = [NSNumber numberWithInt:2];
+    } else {
+        filterBy = [NSNumber numberWithInt:0];
+    }
     NSLog(@"refresh list with flag:%@ and categoryId:%@",updownFlag,categoryId);
     if([self serviceIsReachable]) {
     [FIWebService fetchCuratedNewsListWithAccessToken:details withActivityTypeID:activityTypeId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self hideProgressView];
         NSArray *curatedNewsArray = responseObject;
-            NSLog(@"curated news array count:%d and array:%@ and lastarticle:%@ and length:%d",curatedNewsArray.count,curatedNewsArray,lastArticleId,lastArticleId.length);
+        //    NSLog(@"curated news array count:%d and array:%@ and lastarticle:%@ and length:%d",curatedNewsArray.count,curatedNewsArray,lastArticleId,lastArticleId.length);
             //Handle Pagination
         
             
@@ -502,13 +516,23 @@
             NSLog(@"incoming content type:%@ and categoryid:%@ and articleID:%@",contentTypeId,categoryId,[dic objectForKey:@"id"]);
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
             NSPredicate *predicate;
-           // if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+            if(isSearch) {
+                //search records
+                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@ AND isSearch == %@",[dic objectForKey:@"id"],contentTypeId,categoryId,[NSNumber numberWithBool:YES]];
+            } else if([filterBy isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                //unread records
+                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@ AND isFilter == %@",[dic objectForKey:@"id"],contentTypeId,categoryId,[NSNumber numberWithInt:1]];
+            } else if([filterBy isEqualToNumber:[NSNumber numberWithInt:2]]) {
+                //recent records
+                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@ AND isFilter == %@",[dic objectForKey:@"id"],contentTypeId,categoryId,[NSNumber numberWithInt:1]];
+            } else {
                 predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@",[dic objectForKey:@"id"],contentTypeId,categoryId];
+            }
+            
 
             
             [fetchRequest setPredicate:predicate];
             NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
-            NSLog(@"existing article list count:%d",existingArray.count);
             if(existingArray.count != 0) {
                 //Excisting Object
                 NSLog(@"existing object");
@@ -528,8 +552,11 @@
                 [_articleIdArray addObject:[dic objectForKey:@"id"]];
             }
             
-            //Set values in local db
             
+            [curatedNews setValue:[NSNumber numberWithBool:isSearch] forKey:@"isSearch"];
+            [curatedNews setValue:filterBy forKey:@"isFilter"];
+            
+            //Set values in local db
             [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isFolder"];
             [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [curatedNews setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
@@ -1470,6 +1497,20 @@
 
 -(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withUpFlag:(BOOL)flag withQuery:(NSString *)query withFilterBy:(NSString *)filterBy {
     if([self serviceIsReachable]) {
+        BOOL isSearch;
+        if(query.length != 0) {
+            isSearch = YES;
+        } else {
+            isSearch = NO;
+        }
+        NSNumber *filterdValue;
+        if([filterBy isEqualToString:@"UNREAD"]) {
+            filterdValue = [NSNumber numberWithInt:1];
+        } else if([filterBy isEqualToString:@"RECENT"]) {
+            filterdValue = [NSNumber numberWithInt:2];
+        } else {
+            filterdValue = [NSNumber numberWithInt:0];
+        }
         [FIWebService fetchArticlesFromFolderWithSecurityToken:accessToken withFolderId:[folderId stringValue] withPageNo:pageNo withSize:size  withQuery:query withFilterBy:filterBy onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([responseObject isKindOfClass:[NSArray class]]){
                 NSArray *curatedNewsArray = responseObject;
@@ -1487,9 +1528,9 @@
                     [self updateFolderId:@"CuratedNews" withFolderId:folderId];
                 }
                 
-                if([pageNo isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                    [self updateFolderId:@"CuratedNews" withFolderId:folderId];
-                }
+//                if([pageNo isEqualToNumber:[NSNumber numberWithInt:0]]) {
+//                    [self updateFolderId:@"CuratedNews" withFolderId:folderId];
+//                }
                
                 for(NSDictionary *dic in curatedNewsArray) {
                     
@@ -1502,7 +1543,19 @@
                     NSDictionary *articleDic = dic;
                     //NSLog(@"article dic:%@",articleDic);
                     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[articleDic objectForKey:@"id"]];
+                    NSPredicate *predicate;
+                    if(isSearch) {
+                        //search records
+                        predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND isSearch == %@",[articleDic objectForKey:@"id"],[NSNumber numberWithBool:isSearch]];
+                    } else if([filterdValue isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                        //unread records
+                        predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND isFilter == %@",[articleDic objectForKey:@"id"],[NSNumber numberWithInt:1]];
+                    } else if([filterdValue isEqualToNumber:[NSNumber numberWithInt:2]]) {
+                        //recent records
+                        predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND isFilter == %@",[articleDic objectForKey:@"id"],[NSNumber numberWithInt:2]];
+                    } else {
+                        predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[articleDic objectForKey:@"id"]];
+                    }
                     [fetchRequest setPredicate:predicate];
                     NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
                     //NSLog(@"existing array:%@",existingArray);
@@ -1522,6 +1575,10 @@
 //                    } else {
                         [curatedNews setValue:folderId forKey:@"folderId"];
                    // }
+                    
+                    [curatedNews setValue:[NSNumber numberWithBool:isSearch] forKey:@"isSearch"];
+                    [curatedNews setValue:filterdValue forKey:@"isFilter"];
+                    
                     
                     //Set values in local db
                     [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isFolder"];
@@ -1735,7 +1792,23 @@
 
 -(void)fetchArticleFromNewsLetterWithAccessToken:(NSString *)accessToken withNewsLetterId:(NSNumber *)newsletterId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withUpFlag:(BOOL)flag withFlag:(BOOL)test withQuery:(NSString *)query withFilterBy:(NSString *)filterBy {
     if([self serviceIsReachable]) {
-        [FIWebService fetchArticlesFromNewsLetterWithSecurityToken:accessToken withNewsLetterId:newsletterId withPageNo:pageNo withSize:size withQuery:@"" withFilterBy:@"" onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        BOOL isSearch;
+        if(query.length != 0) {
+            isSearch = YES;
+        } else {
+            isSearch = NO;
+        }
+        NSNumber *filterdValue;
+        if([filterBy isEqualToString:@"UNREAD"]) {
+            filterdValue = [NSNumber numberWithInt:1];
+        } else if([filterBy isEqualToString:@"RECENT"]) {
+            filterdValue = [NSNumber numberWithInt:2];
+        } else {
+            filterdValue = [NSNumber numberWithInt:0];
+        }
+        
+        [FIWebService fetchArticlesFromNewsLetterWithSecurityToken:accessToken withNewsLetterId:newsletterId withPageNo:pageNo withSize:size withQuery:query withFilterBy:filterBy onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([responseObject isKindOfClass:[NSArray class]]){
                 NSArray *curatedNewsArray = responseObject;
                 if(curatedNewsArray.count != 0 && test) {
@@ -1772,7 +1845,20 @@
                     NSDictionary *articleDic = dic;
                     //NSLog(@"article dic:%@",articleDic);
                     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[articleDic objectForKey:@"id"]];
+                    
+                    NSPredicate *predicate;
+                    if(isSearch) {
+                        //search records
+                        predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND isSearch == %@",[articleDic objectForKey:@"id"],[NSNumber numberWithBool:isSearch]];
+                    } else if([filterdValue isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                        //unread records
+                        predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND isFilter == %@",[articleDic objectForKey:@"id"],[NSNumber numberWithInt:1]];
+                    } else if([filterdValue isEqualToNumber:[NSNumber numberWithInt:2]]) {
+                        //recent records
+                        predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND isFilter == %@",[articleDic objectForKey:@"id"],[NSNumber numberWithInt:2]];
+                    } else {
+                        predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[articleDic objectForKey:@"id"]];
+                    }
                     [fetchRequest setPredicate:predicate];
                     NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
                     //NSLog(@"existing array:%@",existingArray);
@@ -1793,6 +1879,10 @@
                     //                    } else {
                     [curatedNews setValue:newsletterId forKey:@"newsletterId"];
                     // }
+                    
+                    
+                    [curatedNews setValue:[NSNumber numberWithBool:isSearch] forKey:@"isSearch"];
+                    [curatedNews setValue:filterdValue forKey:@"isFilter"];
                     
                     //Set values in local db
                     [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isFolder"];

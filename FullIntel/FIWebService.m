@@ -482,9 +482,9 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
 +(void)fetchArticlesFromNewsLetterWithSecurityToken:(NSString *)securityToken withNewsLetterId:(NSNumber *)newsletterId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal withQuery:(NSString *)query withFilterBy:(NSString *)filterBy onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName;
     if(query.length != 0) {
-        
+        functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&page=%@&size=%@&query=%@",newsletterId,securityToken,pageNo,sizeVal,query];
     } else if(filterBy.length != 0) {
-        
+        functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&page=%@&size=%@&filterby=%@",newsletterId,securityToken,pageNo,sizeVal,filterBy];
     } else {
         functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&page=%@&size=%@",newsletterId,securityToken,pageNo,sizeVal];
     }
