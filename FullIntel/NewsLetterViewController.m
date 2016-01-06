@@ -63,7 +63,7 @@
     [activityIndicator stopAnimating];
     if(self.newsletterArticleId.length != 0) {
         [[NSUserDefaults standardUserDefaults]setObject:self.newsletterId forKey:@"newsletterId"];
-        [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:self.newsletterId withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO];
+        [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:self.newsletterId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO withQuery:@"" withFilterBy:@""];
         UIStoryboard *centerStoryBoard;
         CorporateNewsListView *listView;
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -100,7 +100,7 @@
   //  [self.revealController showViewController:self.revealController.frontViewController];
     FINewsLetter *newsletter = [newsLetterArray objectAtIndex:indexPath.row];
     [[NSUserDefaults standardUserDefaults]setObject:newsletter.newsLetterId forKey:@"newsletterId"];
-    [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:newsletter.newsLetterId withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO];    
+    [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:newsletter.newsLetterId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO withQuery:@"" withFilterBy:@""];
     UIStoryboard *centerStoryBoard;
     CorporateNewsListView *listView;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {

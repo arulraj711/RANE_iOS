@@ -1467,9 +1467,9 @@
     }
 }
 
--(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withUpFlag:(BOOL)flag{
+-(void)fetchArticleFromFolderWithAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withUpFlag:(BOOL)flag withQuery:(NSString *)query withFilterBy:(NSString *)filterBy {
     if([self serviceIsReachable]) {
-        [FIWebService fetchArticlesFromFolderWithSecurityToken:accessToken withFolderId:[folderId stringValue] withPageNo:pageNo withSize:size  onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService fetchArticlesFromFolderWithSecurityToken:accessToken withFolderId:[folderId stringValue] withPageNo:pageNo withSize:size  withQuery:query withFilterBy:filterBy onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([responseObject isKindOfClass:[NSArray class]]){
                 NSArray *curatedNewsArray = responseObject;
                 //Handle Pagination
@@ -1732,9 +1732,9 @@
 }
 
 
--(void)fetchArticleFromNewsLetterWithAccessToken:(NSString *)accessToken withNewsLetterId:(NSNumber *)newsletterId withLastArticleId:(NSString *)lastArticleId withLimit:(NSNumber *)limit withUpFlag:(BOOL)flag withFlag:(BOOL)test{
+-(void)fetchArticleFromNewsLetterWithAccessToken:(NSString *)accessToken withNewsLetterId:(NSNumber *)newsletterId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withUpFlag:(BOOL)flag withFlag:(BOOL)test withQuery:(NSString *)query withFilterBy:(NSString *)filterBy {
     if([self serviceIsReachable]) {
-        [FIWebService fetchArticlesFromNewsLetterWithSecurityToken:accessToken withNewsLetterId:newsletterId withLimit:limit withLastArticleId:lastArticleId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService fetchArticlesFromNewsLetterWithSecurityToken:accessToken withNewsLetterId:newsletterId withPageNo:pageNo withSize:size withQuery:@"" withFilterBy:@"" onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([responseObject isKindOfClass:[NSArray class]]){
                 NSArray *curatedNewsArray = responseObject;
                 if(curatedNewsArray.count != 0 && test) {

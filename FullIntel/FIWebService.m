@@ -457,11 +457,16 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
 }
 
 
-+(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal
-                             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
++(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal withQuery:(NSString*)query withFilterBy:(NSString *)filterBy onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *functionName;
+    if(query.length != 0) {
+        functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@&query=%@",folderId,securityToken,pageNo,sizeVal,query];
+    } else if(filterBy.length != 0) {
+        functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@&filterby=%@",folderId,securityToken,pageNo,sizeVal,filterBy];
+    } else {
+        functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@",folderId,securityToken,pageNo,sizeVal];
+    }
     
-    NSString *functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@",folderId,securityToken,pageNo,sizeVal];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -471,10 +476,16 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
     }];
 }
 
-+(void)fetchArticlesFromNewsLetterWithSecurityToken:(NSString *)securityToken withNewsLetterId:(NSNumber *)newsletterId withLimit:(NSNumber *)limit withLastArticleId:(NSString *)lastArticleId
-                                          onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                                          onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&lastArticleId=%@&limit=%@",newsletterId,securityToken,lastArticleId,limit];
++(void)fetchArticlesFromNewsLetterWithSecurityToken:(NSString *)securityToken withNewsLetterId:(NSNumber *)newsletterId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal withQuery:(NSString *)query withFilterBy:(NSString *)filterBy onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *functionName;
+    if(query.length != 0) {
+        
+    } else if(filterBy.length != 0) {
+        
+    } else {
+        functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&page=%@&size=%@",newsletterId,securityToken,pageNo,sizeVal];
+    }
+    
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);

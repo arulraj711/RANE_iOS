@@ -249,7 +249,8 @@
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"NewsLetterNavigation" object:nil userInfo:@{@"newsletterId":digestNumber,@"articleId":itemId}];
             } else {
                 [[NSUserDefaults standardUserDefaults]setObject:digestNumber forKey:@"newsletterId"];
-                [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:digestNumber withLastArticleId:@"" withLimit:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:YES];
+                [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:digestNumber withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:YES withQuery:@"" withFilterBy:@""];
+                
 //                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Article not available to access" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
 //                [alert show];
             }

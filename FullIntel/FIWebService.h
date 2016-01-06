@@ -55,12 +55,8 @@
                      onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                      onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
-+(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal
-                                      onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                                      onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
-+(void)fetchArticlesFromNewsLetterWithSecurityToken:(NSString *)securityToken withNewsLetterId:(NSNumber *)newsletterId withLimit:(NSNumber *)limit withLastArticleId:(NSString *)lastArticleId
-                                          onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                                          onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal withQuery:(NSString*)query withFilterBy:(NSString *)filterBy onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)fetchArticlesFromNewsLetterWithSecurityToken:(NSString *)securityToken withNewsLetterId:(NSNumber *)newsletterId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal withQuery:(NSString *)query withFilterBy:(NSString *)filterBy onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
 +(void)loginProcessWithDetails:(NSString*)details

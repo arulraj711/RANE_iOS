@@ -53,6 +53,7 @@
     switchForUnread = 0;
     _articlesTableView.multipleTouchEnabled = NO;
     _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
+    [self addButtonsOnNavigationBar];
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.recognizesPanningOnFrontView = NO;
 //        self.revealController. = @{PKRevealControllerRecognizesPanningOnFrontViewKey : @NO};
@@ -67,10 +68,8 @@
     BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
     NSLog(@"newsletter id:%@",newsLetterId);
     if(isFolderClick) {
-        [self addButtonsOnNavigationBar];
         [self.revealController showViewController:self.revealController.frontViewController];
     } else if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        [self addButtonsOnNavigationBar];
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
             BOOL isExpandButtonClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isExpandButtonClick"];
             if(isExpandButtonClick) {
@@ -165,7 +164,7 @@
 //    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBtnView];
 
     
-    [self addRightBarItems];
+   // [self addRightBarItems];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     
@@ -252,7 +251,7 @@
         
         // }
     } else {
-        [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:YES];
+        [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:YES withQuery:searchString withFilterBy:filterString];
     }
     [refreshControl endRefreshing];
     //    [self.influencerTableView reloadData];
@@ -656,7 +655,16 @@
     [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
     [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-    [self.navigationItem setLeftBarButtonItem:addButton];
+    NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+    BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
+    if(isFolderClick) {
+        
+    } else if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        [self.navigationItem setLeftBarButtonItem:addButton];
+    } else {
+        
+    }
+    
     
     Btns =[UIButton buttonWithType:UIButtonTypeCustom];
     [Btns setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
@@ -1028,13 +1036,13 @@
     
     if(newPerson.count != 0) {
         
-        [self addRightBarItems];
+       // [self addRightBarItems];
         
         [activityIndicator stopAnimating];
         
     } else {
         
-        self.navigationItem.rightBarButtonItems = nil;
+       // self.navigationItem.rightBarButtonItems = nil;
         
         //messageString = @"No articles to display";
         
@@ -1255,99 +1263,11 @@
         
         // }
     } else {
-        [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:YES];
+        [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:YES withQuery:searchString withFilterBy:@""];
     }
     [refreshControl endRefreshing];
     //    [self.influencerTableView reloadData];
 }
-
--(void)loadLocalData {
-    
-    self.articlesTableView.dataSource = self;
-    self.articlesTableView.delegate = self;
-    NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
-    NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
-    NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-    NSLog(@"load curated news list:%@ and folderid:%@",categoryId,folderId);
-    //NSLog(@"category id in curated news:%@",categoryId);
-    self.devices = [[NSMutableArray alloc]init];
-    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSPredicate *predicate;
-    if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-            NSLog(@"if part");
-            BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
-            if(savedForLaterIsNew){
-                //                NSLog(@"saved for later new");
-                //                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                //                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND contentTypeId==%@",[NSNumber numberWithBool:YES],contentTypeId];
-                //                } else {
-                predicate  = [NSPredicate predicateWithFormat:@"contentTypeId == %@ AND categoryId == %@",contentTypeId,categoryId];
-                //}
-                
-            } else {
-                NSLog(@"saved for later old");
-                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES]];
-            }
-            // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SavedForLaterIsNew"];
-            
-        } else {
-            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-1]]) {
-                predicate  = [NSPredicate predicateWithFormat:@"contentTypeId==%@ AND categoryId==%@",contentTypeId,categoryId];
-            } else if([categoryId isEqualToNumber:[NSNumber numberWithInt:-2]]) {
-                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@",categoryId];
-            } else {
-                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
-            }
-            //}
-        }
-    } else {
-        predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
-    }
-    
-    
-    [fetchRequest setPredicate:predicate];
-    
-    
-    NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-    NSLog(@"date:%@",date);
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    
-    
-    NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    NSLog(@"curated news list count:%lu",(unsigned long)newPerson.count);
-    if(newPerson.count != 0) {
-        [self addRightBarItems];
-        [activityIndicator stopAnimating];
-    } else {
-        self.navigationItem.rightBarButtonItems = nil;
-        
-    }
-    
-    //    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]] && newPerson.count == 0) {
-    //        [self stopLoading];
-    //    }
-    //    if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]] && newPerson.count == 0) {
-    //        [activityIndicator stopAnimating];
-    //    }
-    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-        self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-        
-    }else {
-        self.devices = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    }
-    
-    //NSLog(@"devices:%d",self.devices.count);
-    _spinner.hidden = YES;
-    [_spinner stopAnimating];
-    [self.articlesTableView reloadData];
-    //   [self.revealController showViewController:self.revealController.leftViewController];
-}
-
-
 
 
 -(void)failToLoad {
@@ -1403,7 +1323,12 @@
         
         // }
     } else {
-        [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:YES];
+        if (isSearching) {
+            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withQuery:searchBar.text withFilterBy:@""];
+        } else {
+            [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:YES withQuery:@"" withFilterBy:@""];
+        }
+        
     }
     [refreshControl endRefreshing];
     //    [self.influencerTableView reloadData];
@@ -2753,7 +2678,12 @@
                 
             } else {
                 [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FetchNextArticlesList"];
-                [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInteger:pageNo] withSize:[NSNumber numberWithInt:10] withUpFlag:NO];
+                if (isSearching) {
+                    [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInteger:pageNo] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withQuery:searchBar.text withFilterBy:@""];
+                } else {
+                    [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInteger:pageNo] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withQuery:@"" withFilterBy:@""];
+                }
+                
             }
         }
         //[self reloadData];
