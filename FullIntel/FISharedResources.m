@@ -187,14 +187,14 @@
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"menuBgColor"]) forKey:@"menuBgColor"];
                 
                 //Company Info
-                NSDictionary *companyDic = NULL_TO_NIL([responseObject objectForKey:@"company"]);
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"companyLogoURL"]) forKey:@"companyLogo"];
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"companyname"]) forKey:@"companyName"];
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"id"]) forKey:@"customerId"];
+               // NSDictionary *companyDic = NULL_TO_NIL([responseObject objectForKey:@"company"]);
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"companyLogoURL"]) forKey:@"companyLogo"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"companyName"]) forKey:@"companyName"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"customerid"]) forKey:@"customerId"];
                 
                 //User Info
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject objectForKey:@"securityToken"]) forKey:@"accesstoken"];
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"id"]) forKey:@"userId"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userid"]) forKey:@"userId"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"firstName"]) forKey:@"firstName"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoUrl"]) forKey:@"photoUrl"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
@@ -1608,7 +1608,7 @@
                         [curatedNews setValue:NULL_TO_NIL([markedImpDictionary objectForKey:@"userId"]) forKey:@"markAsImportantUserId"];
                     }
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"saveForLater"]) forKey:@"saveForLater"];
-                    
+                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"readStatus"]) forKey:@"readStatus"];
                     //Set outlet info
                     NSArray *outletArray = NULL_TO_NIL([articleDic objectForKey:@"outlet"]);
                     if(outletArray.count != 0){
@@ -1912,7 +1912,7 @@
                         [curatedNews setValue:NULL_TO_NIL([markedImpDictionary objectForKey:@"userId"]) forKey:@"markAsImportantUserId"];
                     }
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"saveForLater"]) forKey:@"saveForLater"];
-                    
+                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"readStatus"]) forKey:@"readStatus"];
                     //Set outlet info
                     NSArray *outletArray = NULL_TO_NIL([articleDic objectForKey:@"outlet"]);
                     if(outletArray.count != 0){

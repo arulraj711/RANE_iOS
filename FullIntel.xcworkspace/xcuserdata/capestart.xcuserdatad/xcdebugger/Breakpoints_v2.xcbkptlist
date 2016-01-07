@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FullIntel/FIUtils.m"
-            timestampString = "473690997.890438"
+            filePath = "FullIntel/CorporateNewsDetailsView.m"
+            timestampString = "473867897.316419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "+relativeDateStringForDate:"
+            startingLineNumber = "1386"
+            endingLineNumber = "1386"
+            landmarkName = "-stopLoadingForAlert"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/CorporateNewsDetailsView.m"
+            timestampString = "473867846.027573"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +42,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "473692045.180965"
+            timestampString = "473868917.25651"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2024"
-            endingLineNumber = "2024"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "687"
+            endingLineNumber = "687"
+            landmarkName = "-loadCuratedNews"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/CorporateNewsListView.m"
+            timestampString = "473869777.722038"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1342"
+            endingLineNumber = "1342"
+            landmarkName = "-savedActions:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/CorporateNewsListView.m"
+            timestampString = "473870125.099609"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1414"
+            endingLineNumber = "1414"
+            landmarkName = "-savedActions:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

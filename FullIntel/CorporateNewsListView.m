@@ -166,16 +166,9 @@
 }
 
 -(void)notifyForUnread{
-    if (switchForFilter == 0 | switchForFilter == 2 | switchForFilter == 3) {
         switchForFilter = 1;
         [self callSearchAPIWithStringForUnread:@"" withFilterString:@"UNREAD"];
-        
-    } else {
-        switchForFilter = 0;
-        [self callSearchAPIWithStringForUnread:@"" withFilterString:@""];
-        
-    }
-    
+            
     
 }
 -(void)notifyForAll{
@@ -186,14 +179,10 @@
     
 }
 -(void)notifyForLast{
-    if (switchForFilter == 0 | switchForFilter == 1 | switchForFilter == 3) {
         switchForFilter = 2;
         [self callSearchAPIWithStringForUnread:@"" withFilterString:@"RECENT"];
-    }
-    else{
-        switchForFilter = 0;
-        [self callSearchAPIWithStringForUnread:@"" withFilterString:@""];
-    }
+    
+   
 }
 
 
@@ -497,6 +486,11 @@
     }
 }
 -(void)viewWillAppear:(BOOL)animated{
+    if (isSearching) {
+        searchBar.hidden = NO;
+
+    }
+
 //    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
 //    self.revealController.revealPanGestureRecognizer.delegate = self;
 //    }
@@ -519,7 +513,9 @@
 //
 }
 -(void)viewDidDisappear:(BOOL)animated{
-    isSearchingInteger = 0;
+//    isSearchingInteger = 0;
+    [searchBar resignFirstResponder];
+    searchBar.hidden = YES;
 
 }
 -(void)viewDidAppear:(BOOL)animated {
@@ -650,9 +646,10 @@
     }
     
     
+    
     Btns =[UIButton buttonWithType:UIButtonTypeCustom];
-    [Btns setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    [Btns setBackgroundImage:[UIImage imageNamed:@"settingsMIcon"]  forState:UIControlStateNormal];
+    [Btns setFrame:CGRectMake(0.0f,0.0f,20.0f,20.0f)];
+    [Btns setBackgroundImage:[UIImage imageNamed:@"settingsFilter"]  forState:UIControlStateNormal];
     [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
     // [self.navigationItem setRightBarButtonItem:addButtons];
@@ -753,6 +750,12 @@
     NSLog(@"%lu",(unsigned long)[self.devices count]);
     NSLog(@"news article id:%@",self.selectedNewsLetterArticleId);
     
+        
+    articleIdToBePassed = [self.devices valueForKey:@"articleId"];
+    NSLog(@"articleIdToBePassed = %@",articleIdToBePassed);
+    
+
+    
     if(self.selectedNewsLetterArticleId.length != 0 && !self.isNewsLetterNav) {
         
         self.isNewsLetterNav = YES;
@@ -797,7 +800,7 @@
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBars
 {
-    
+    isSearching =0;
     [searchBars resignFirstResponder];
     searchBars.hidden = YES;
     [self clearSearchedDataFromTable:@"CuratedNews"];
@@ -1210,6 +1213,7 @@
         for(NSManagedObject *curatedNews in newPerson) {
             NSLog(@"for loop update");
             [curatedNews setValue:[userInfo objectForKey:@"status"] forKey:@"readStatus"];
+            [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"isFilter"];
             
             if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
                 // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
@@ -1407,6 +1411,10 @@
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
             [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+            NSLog(@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"]);
+            NSLog(@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"]);
+            NSLog(@"%@",[curatedNews valueForKey:@"title"]);
+            NSLog(@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]);
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Save Later" attributes:dictionary];
         }
@@ -1956,7 +1964,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self searchBarCancelButtonClicked:searchBar];
     //    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     //    self.revealController.revealPanGestureRecognizer.delegate = nil;
     //    NSManagedObject *influencer = [self.devices objectAtIndex:indexPath.row];
@@ -1986,15 +1993,16 @@
         NSLog(@"%@",_titleName);
         NSLog(@"%ld",(long)indexPath.row);
         NSLog(@"%@",indexPath);
-        NSLog(@"%d",isSearchingInteger);
+        NSLog(@"%d",isSearching);
         NSLog(@"%@",articleIdToBePassed);
 
         testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
-        // } =
+        testView.searchText = searchBar.text;
+        testView.switchForFilter = switchForFilter;
         testView.articleTitle = _titleName;
         testView.currentIndex = indexPath.row;
         testView.selectedIndexPath = indexPath;
-        testView.isSearching = isSearchingInteger;
+        testView.isSearching = isSearching;
         testView.articleIdFromSearchLst =articleIdToBePassed;
         [self.navigationController pushViewController:testView animated:YES];
     }
