@@ -44,18 +44,19 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
     NSLog(@"%@",postDetails);
     NSString *postURL;
 
-    if ([urlPath isEqualToString:@"useractivitiesonarticles"]) {
+    //if ([urlPath isEqualToString:@"useractivitiesonarticles"]) {
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
 
-    }
-    else if ([urlPath isEqualToString:@"managecontentcategories"]){
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
-
-    }
-    else{
-        postURL = [NSString stringWithFormat:@"%@/%@/%@",url,FUNCTION_URL,urlPath];
-
-    }
+//    }
+//    else if ([urlPath isEqualToString:@"managecontentcategories"]){
+//        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+//
+//    } else if([urlPath isEqualToString:@"validateuseronresume"]) {
+//        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+//    } else{
+//        postURL = [NSString stringWithFormat:@"%@/%@/%@",url,FUNCTION_URL,urlPath];
+//
+//    }
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"POST"];
@@ -584,7 +585,7 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
 +(void)loginProcessWithDetails:(NSString*)details
             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    [self getResultsForFunctionName:@"userauthentication" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getResultsForFunctionName:@"validatecredentials" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation, error);
