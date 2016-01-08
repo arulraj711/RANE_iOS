@@ -2658,4 +2658,23 @@
     return (saveError == nil);
 }
 
+- (IBAction)filterButtonClick:(id)sender {
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
+    MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
+    popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    self.view.alpha = 0.89;
+    [self presentViewController:popOverView animated:NO completion:nil];
+}
+
+- (IBAction)actionsButtonClick:(id)sender {
+}
+- (IBAction)segmentControlAction:(id)sender {
+    if (self.segmentControl.selectedSegmentIndex == 0) {
+        
+    } else if(self.segmentControl.selectedSegmentIndex == 1) {
+        
+    } else if(self.segmentControl.selectedSegmentIndex == 2) {
+        
+    }
+}
 @end

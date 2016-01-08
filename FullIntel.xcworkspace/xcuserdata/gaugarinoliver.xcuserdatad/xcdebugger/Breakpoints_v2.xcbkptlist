@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "473840753.675134"
+            filePath = "LeftViewController.m"
+            timestampString = "473934363.123138"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "685"
-            endingLineNumber = "685"
-            landmarkName = "-loadCuratedNews"
+            startingLineNumber = "1127"
+            endingLineNumber = "1127"
+            landmarkName = "-treeView:didSelectRowForItem:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

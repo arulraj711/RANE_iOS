@@ -46,10 +46,14 @@
 @property BOOL isNewsLetterNav;
 @property BOOL isStarting;
 @property NSString *selectedNewsLetterArticleId;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *corporateListWidthConstraint;
+- (IBAction)filterButtonClick:(id)sender;
+- (IBAction)actionsButtonClick:(id)sender;
 @property(strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpacing;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalSpacing;
+- (IBAction)segmentControlAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 @property (weak, nonatomic) IBOutlet UITableView *articlesTableView;
 @property (nonatomic,strong) NSNumber *categoryId;
