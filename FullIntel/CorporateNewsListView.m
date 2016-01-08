@@ -49,11 +49,46 @@
     NSLog(@"view did load");
     
     [super viewDidLoad];
+    
+    //toolbar additions---------------------------------------------------
+    CGRect frame, remain;
+    CGRectDivide(self.view.bounds, &frame, &remain, 44, CGRectMaxYEdge);
+    toolbar = [[UIToolbar alloc] initWithFrame:frame];
+    markAsReadButton = [[UIBarButtonItem alloc] initWithTitle:@"Mark as read" style:UIBarButtonItemStyleDone target:self action:@selector(markAsRead) ];
+    [markAsReadButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]
+                                    forState:UIControlStateNormal];
+    
+    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    addTofolder=[[UIBarButtonItem alloc]initWithTitle:@"Add to folder" style:UIBarButtonItemStyleDone target:self action:@selector(addTOFolder)];
+    [addTofolder setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]
+                               forState:UIControlStateNormal];
+    
+    [toolbar setItems:[[NSArray alloc] initWithObjects:markAsReadButton,spacer,addTofolder,nil]];
+    
+    NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
+    NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [toolbar setBarTintColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
+    [toolbar setBarTintColor: [UIColor colorWithRed:97/255.0 green:98/255.0 blue:100/255.0 alpha:1.0]];
+    toolbar.tintColor = [UIColor whiteColor];
+    toolbar.barStyle = UIBarStyleBlack;
+    [toolbar setBackgroundColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
+    [toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+    [self.view addSubview:toolbar];
+    toolbar.hidden = YES;
+    
+    
+    
+    
+    //toolbar additions---------------------------------------------------
+
+    
+    
+    
     isSearchingInteger = 0;
     switchForFilter = 0;
-    _articlesTableView.multipleTouchEnabled = NO;
-    _articlesTableView.allowsMultipleSelectionDuringEditing = NO;
     [self addButtonsOnNavigationBar];
+    self.articlesTableView.allowsMultipleSelection = YES;
+
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.recognizesPanningOnFrontView = NO;
 //        self.revealController. = @{PKRevealControllerRecognizesPanningOnFrontViewKey : @NO};
@@ -159,6 +194,9 @@
     
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    UILongPressGestureRecognizer *markedImpTap = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)];
+    [self.articlesTableView addGestureRecognizer:markedImpTap];
+
 }
 
 -(void)changeAlpha{
@@ -630,11 +668,11 @@
 }
 -(void)addButtonsOnNavigationBar
 {
-    UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
-    [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
-    [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+    navBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    [navBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+    [navBtn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+    [navBtn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:navBtn];
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
     BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
     if(isFolderClick) {
@@ -782,7 +820,7 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
     MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
     popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    self.view.alpha = 0.89;
+    self.view.alpha = 0.65;
     [self presentViewController:popOverView animated:NO completion:nil];
 
 }
@@ -1581,6 +1619,13 @@
        
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        
+        if([[tableView indexPathsForSelectedRows] containsObject:indexPath]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+
         if(cell.isEditing == YES) {
             NSLog(@"cell editing yes ------------");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -1964,48 +2009,177 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-    //    self.revealController.revealPanGestureRecognizer.delegate = nil;
-    //    NSManagedObject *influencer = [self.devices objectAtIndex:indexPath.row];
-    //    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-    //    CorporateNewsDetailsView *detailView = [storyBoard instantiateViewControllerWithIdentifier:@"DetailView"];
-    //    detailView.curatedNews = influencer;
-    //    detailView.selectedIndexPath = indexPath;
-    //    detailView.legendsArray = legendsList;
-    //    [self.navigationController pushViewController:detailView animated:YES];    
-    if(self.devices.count != 0) {
+    NSLog(longPressActive ? @"yes" : @"No");
+
+    if (longPressActive) { //Perform action desired when cell is long pressed
         
-        //UpgradeView
-        UIStoryboard *storyBoard;
-        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-        {
-            storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+        UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settingsFilter"]];
+        accessoryViewImage.center = CGPointMake(12, 25);
+        [accessoryView addSubview:accessoryViewImage];
+        [cell setAccessoryView:accessoryView];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+        [self addToolbarAndChangeNavBar];
+        
+      
+
+    }else { //Perform action desired when cell is selected normally
+        
+        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        
+        
+        //    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        //    self.revealController.revealPanGestureRecognizer.delegate = nil;
+        //    NSManagedObject *influencer = [self.devices objectAtIndex:indexPath.row];
+        //    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        //    CorporateNewsDetailsView *detailView = [storyBoard instantiateViewControllerWithIdentifier:@"DetailView"];
+        //    detailView.curatedNews = influencer;
+        //    detailView.selectedIndexPath = indexPath;
+        //    detailView.legendsArray = legendsList;
+        //    [self.navigationController pushViewController:detailView animated:YES];
+        if(self.devices.count != 0) {
             
-        } else {
-            storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            //UpgradeView
+            UIStoryboard *storyBoard;
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            {
+                storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+                
+            } else {
+                storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+                
+            }
+            NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"d"]];
+            CorporateNewsDetailsView *testView;
+            //        if([userAccountTypeId isEqualToString:@"3"]) {
+            //            testView = [storyBoard instantiateViewControllerWithIdentifier:@"NormalView"];
+            //        }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
+            NSLog(@"%@",_titleName);
+            NSLog(@"%ld",(long)indexPath.row);
+            NSLog(@"%@",indexPath);
+            NSLog(@"%d",isSearching);
+            NSLog(@"%@",articleIdToBePassed);
+            
+            testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
+            testView.searchText = searchBar.text;
+            testView.switchForFilter = switchForFilter;
+            testView.articleTitle = _titleName;
+            testView.currentIndex = indexPath.row;
+            testView.selectedIndexPath = indexPath;
+            testView.isSearching = isSearching;
+            testView.articleIdFromSearchLst =articleIdToBePassed;
+            [self.navigationController pushViewController:testView animated:YES];
+        }
+    }
+
+}
+-(void)addToolbarAndChangeNavBar{
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = nil;
+
+    toolbar.hidden = NO;
+    
+    [searchButtons setHidden:YES];
+    [Btns setHidden:YES];
+    [navBtn setHidden:YES];
+    
+    //navigation additions---------------------------------------------------
+
+    CancelButton =[UIButton buttonWithType:UIButtonTypeCustom];
+    [CancelButton setFrame:CGRectMake(0.0f,0.0f,66.0f,36.0f)];
+    [CancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [CancelButton addTarget:self action:@selector(cancelButtonEvent) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:CancelButton];
+    
+    [self.navigationItem setLeftBarButtonItem:addButton];
+
+    
+    selectAll =[UIButton buttonWithType:UIButtonTypeCustom];
+    [selectAll setFrame:CGRectMake(0.0f,0.0f,86.0f,36.0f)];
+    [selectAll setTitle:@"Select all" forState:UIControlStateNormal];
+    [selectAll addTarget:self action:@selector(selectAllButtonEvent) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:selectAll];
+    
+    [self.navigationItem setRightBarButtonItem:addButtons];
+
+//    UIBarButtonItem *CancelButton =
+//    [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonEvent)];
+//    UIBarButtonItem *selectAll =
+//    [[UIBarButtonItem alloc]initWithTitle:@"Select All" style:UIBarButtonItemStylePlain target:self action:@selector(selectAllButtonEvent)];
+//    self.navigationItem.leftBarButtonItem = CancelButton;
+//    self.navigationItem.rightBarButtonItem = selectAll;
+}
+-(void)markAsRead{
+    
+}
+-(void)addTOFolder{
+    
+}
+-(void)cancelButtonEvent{
+      self.navigationItem.rightBarButtonItem = nil;
+      self.navigationItem.leftBarButtonItem = nil;
+      [self addButtonsOnNavigationBar];
+      longPressActive = NO;
+    [self.articlesTableView reloadData];
+
+//    [searchButtons setHidden:NO];
+//    [Btns setHidden:NO];
+//    [navBtn setHidden:NO];
+
+//    self.navigationItem.rightBarButtonItem = nil;
+//    self.navigationItem.leftBarButtonItem = nil;
+    [self.navigationController setToolbarHidden:YES animated:YES];
+//    [toolbar removeFromSuperview];
+//    [self.view :toolbar];
+
+    toolbar.hidden = YES;
+}
+-(void)selectAllButtonEvent{
+    
+        NSUInteger numberOfrows = [self.articlesTableView numberOfRowsInSection:0];
+        NSLog(@"%lu",(unsigned long)numberOfrows);
+        for (NSUInteger s = 0; s < numberOfrows; ++s) {
+            NSUInteger numberOfRowsInSection = [self.articlesTableView numberOfRowsInSection:s];
+//           NSIndexPath *idxPath = [NSIndexPath indexPathForRow:r inSection:s];
+//          [self.selectedCells addObject:idxPath];
+//          [self.selecedStates addObject:self.states[idxPath.row]];
+            longPressActive = YES;
+            [self.articlesTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+            [self tableView:self.articlesTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0]];
             
         }
-        NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"d"]];
-        CorporateNewsDetailsView *testView;
-        //        if([userAccountTypeId isEqualToString:@"3"]) {
-        //            testView = [storyBoard instantiateViewControllerWithIdentifier:@"NormalView"];
-        //        }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
-        NSLog(@"%@",_titleName);
-        NSLog(@"%ld",(long)indexPath.row);
-        NSLog(@"%@",indexPath);
-        NSLog(@"%d",isSearching);
-        NSLog(@"%@",articleIdToBePassed);
-
-        testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
-        testView.searchText = searchBar.text;
-        testView.switchForFilter = switchForFilter;
-        testView.articleTitle = _titleName;
-        testView.currentIndex = indexPath.row;
-        testView.selectedIndexPath = indexPath;
-        testView.isSearching = isSearching;
-        testView.articleIdFromSearchLst =articleIdToBePassed;
-        [self.navigationController pushViewController:testView animated:YES];
-    }
+//        [self.articlesTableView reloadData];
+}
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    
+    CGPoint p = [gestureRecognizer locationInView:self.articlesTableView];
+    NSIndexPath *indexPath = [self.articlesTableView indexPathForRowAtPoint:p];
+//    if (indexPath == nil) {
+//        NSLog(@"long press on table view but not on a row");
+//    }
+//    else
+//    {
+//        if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
+        {
+            NSLog(@"long press on table view at row %ld", (long)indexPath.row);
+            longPressActive = YES;
+            
+            [self.articlesTableView selectRowAtIndexPath:indexPath
+                                        animated:NO
+                                  scrollPosition:UITableViewScrollPositionNone];
+            [self tableView:self.articlesTableView didSelectRowAtIndexPath:indexPath];
+        }
+//        }else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
+//                  gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
+//            longPressActive = NO;
+//            
+//        }
+//    }
 }
 
 -(void)checkMark:(UITapGestureRecognizer *)tapGesture {

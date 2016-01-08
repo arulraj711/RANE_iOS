@@ -23,15 +23,20 @@
     NSString *messageString;
     MFMailComposeViewController *mailComposer;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
-    UIButton *Btns;
-    UIButton *searchButtons;
-    UIView *searchbarView;
     
+    UIButton *Btns;
+    UIButton *navBtn;
+    UIButton *searchButtons;
+    UIButton *CancelButton;
+    UIButton *selectAll;
+    UIBarButtonItem *markAsReadButton;
+    UIBarButtonItem *addTofolder;
+    UIToolbar *toolbar;
+    BOOL longPressActive;
     
     int switchForFilter;
-    
     int isSearchingInteger;
-    NSMutableArray *filteredContentList;
+    
     BOOL isSearching;
     UISearchBar *searchBar;
     NSMutableArray *articleIdToBePassed;

@@ -67,6 +67,7 @@
     
     MoreViewCell *cell = (MoreViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
+    
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         if(indexPath.row == 2) {
             cell.iconImage.image = [UIImage imageNamed:@"twitter"];
