@@ -44,7 +44,7 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
     NSLog(@"%@",postDetails);
     NSString *postURL;
 
-    if ([urlPath isEqualToString:@"useractivitiesonarticles"]) {
+    if ([urlPath isEqualToString:@"useractivitiesonarticles"]||[urlPath isEqualToString:@"updateappviewtype"]) {
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
 
     }
@@ -56,6 +56,9 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
     }else if([urlPath isEqualToString:@"applogout"]){
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
     } else if([urlPath isEqualToString:@"validatecredentials"]) {
+        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+    }
+    else if([urlPath isEqualToString:@"useractivity/article/getcomment"]) {
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
     }
     else{

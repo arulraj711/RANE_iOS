@@ -552,6 +552,9 @@
 }
 -(void)viewDidDisappear:(BOOL)animated{
 //    isSearchingInteger = 0;
+    if ([searchBar.text isEqualToString:@""]) {
+        [self cancelButtonEvent];
+    }
     [searchBar resignFirstResponder];
     searchBar.hidden = YES;
 
@@ -1636,6 +1639,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     UITableViewCell *tableCell;
+    
     if(self.devices.count != 0) {
        
         //whatever else to configure your one cell you're going to return
@@ -2030,31 +2034,25 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(longPressActive ? @"yes" : @"No");
-
-    if (longPressActive) { //Perform action desired when cell is long pressed
-        
-        
-        [self addToolbarAndChangeNavBar];
-        NSUInteger numberOfrows = [self.articlesTableView numberOfRowsInSection:0];
-        NSLog(@"%lu",(unsigned long)numberOfrows);
-        for (NSUInteger s = 0; s < numberOfrows; ++s) {
-            
-            UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-            UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
-            UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
-            accessoryViewImage.center = CGPointMake(12, 25);
-            [accessoryView addSubview:accessoryViewImage];
-            [cell setAccessoryView:accessoryView];
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            longPressActive = YES;
-            
-        }
-
-      
-
-    }else { //Perform action desired when cell is selected normally
-        
+//    NSLog(longPressActive ? @"yes" : @"No");
+//
+//    if (longPressActive) { //Perform action desired when cell is long pressed
+//        
+//        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+//        
+//        UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+//        UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settingsFilter"]];
+//        accessoryViewImage.center = CGPointMake(12, 25);
+//        [accessoryView addSubview:accessoryViewImage];
+//        [cell setAccessoryView:accessoryView];
+//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        
+//        [self addToolbarAndChangeNavBar];
+//        
+//      
+//
+//    }else { //Perform action desired when cell is selected normally
+    
         UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
         
         
@@ -2101,7 +2099,7 @@
             testView.articleIdFromSearchLst =articleIdToBePassed;
             [self.navigationController pushViewController:testView animated:YES];
         }
-    }
+//    }
 
 }
 -(void)addToolbarAndChangeNavBar{
@@ -2150,7 +2148,7 @@
       self.navigationItem.rightBarButtonItem = nil;
       self.navigationItem.leftBarButtonItem = nil;
       [self addButtonsOnNavigationBar];
-      longPressActive = NO;
+//      longPressActive = NO;
     [self.articlesTableView reloadData];
 
 //    [searchButtons setHidden:NO];
@@ -2174,7 +2172,7 @@
 //           NSIndexPath *idxPath = [NSIndexPath indexPathForRow:r inSection:s];
 //          [self.selectedCells addObject:idxPath];
 //          [self.selecedStates addObject:self.states[idxPath.row]];
-            longPressActive = YES;
+//            longPressActive = YES;
             [self.articlesTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
             [self tableView:self.articlesTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0]];
             
@@ -2194,7 +2192,7 @@
 //        if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
         {
             NSLog(@"long press on table view at row %ld", (long)indexPath.row);
-            longPressActive = YES;
+//            longPressActive = YES;
             
             [self.articlesTableView selectRowAtIndexPath:indexPath
                                         animated:NO
