@@ -684,21 +684,43 @@
     }
     
     
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        Btns =[UIButton buttonWithType:UIButtonTypeCustom];
+        [Btns setFrame:CGRectMake(0.0f,0.0f,20.0f,20.0f)];
+        [Btns setBackgroundImage:[UIImage imageNamed:@"settingsFilter"]  forState:UIControlStateNormal];
+        [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
+        // [self.navigationItem setRightBarButtonItem:addButtons];
+        
+        searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
+        [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+        [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
+        [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
+        NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsRight, nil];
+        [self.navigationItem setRightBarButtonItems:buttonsArr];
+
+        
+    }
+    else{
+//        Btns =[UIButton buttonWithType:UIButtonTypeCustom];
+//        [Btns setFrame:CGRectMake(0.0f,0.0f,20.0f,20.0f)];
+//        [Btns setBackgroundImage:[UIImage imageNamed:@"settingsFilter"]  forState:UIControlStateNormal];
+//        [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+//        UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
+        // [self.navigationItem setRightBarButtonItem:addButtons];
+        
+        searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
+        [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
+        [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
+        [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
+        NSArray *buttonsArr = [NSArray arrayWithObjects:addButtonsRight, nil];
+        [self.navigationItem setRightBarButtonItems:buttonsArr];
+
+        
+    }
     
-    Btns =[UIButton buttonWithType:UIButtonTypeCustom];
-    [Btns setFrame:CGRectMake(0.0f,0.0f,20.0f,20.0f)];
-    [Btns setBackgroundImage:[UIImage imageNamed:@"settingsFilter"]  forState:UIControlStateNormal];
-    [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
-    // [self.navigationItem setRightBarButtonItem:addButtons];
-    
-    searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
-    [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
-    [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
-    NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsRight, nil];
-    [self.navigationItem setRightBarButtonItems:buttonsArr];
 
 }
 
@@ -1614,7 +1636,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     UITableViewCell *tableCell;
-    
     if(self.devices.count != 0) {
        
         //whatever else to configure your one cell you're going to return
@@ -2013,17 +2034,23 @@
 
     if (longPressActive) { //Perform action desired when cell is long pressed
         
-        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-        
-        UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
-        UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settingsFilter"]];
-        accessoryViewImage.center = CGPointMake(12, 25);
-        [accessoryView addSubview:accessoryViewImage];
-        [cell setAccessoryView:accessoryView];
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
         [self addToolbarAndChangeNavBar];
-        
+        NSUInteger numberOfrows = [self.articlesTableView numberOfRowsInSection:0];
+        NSLog(@"%lu",(unsigned long)numberOfrows);
+        for (NSUInteger s = 0; s < numberOfrows; ++s) {
+            
+            UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+            UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+            UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
+            accessoryViewImage.center = CGPointMake(12, 25);
+            [accessoryView addSubview:accessoryViewImage];
+            [cell setAccessoryView:accessoryView];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            longPressActive = YES;
+            
+        }
+
       
 
     }else { //Perform action desired when cell is selected normally

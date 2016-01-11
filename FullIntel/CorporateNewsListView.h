@@ -33,7 +33,8 @@
     UIBarButtonItem *addTofolder;
     UIToolbar *toolbar;
     BOOL longPressActive;
-    
+    BOOL tickImageStatus;
+
     int switchForFilter;
     int isSearchingInteger;
     
