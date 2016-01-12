@@ -526,6 +526,9 @@
 -(void)viewWillAppear:(BOOL)animated{
     if (isSearching) {
         searchBar.hidden = NO;
+        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.titleView = nil;
 
     }
 
@@ -671,6 +674,7 @@
 }
 -(void)addButtonsOnNavigationBar
 {
+    
     navBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     [navBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
     [navBtn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
@@ -706,11 +710,13 @@
         
     }
     else{
-//        Btns =[UIButton buttonWithType:UIButtonTypeCustom];
-//        [Btns setFrame:CGRectMake(0.0f,0.0f,20.0f,20.0f)];
-//        [Btns setBackgroundImage:[UIImage imageNamed:@"settingsFilter"]  forState:UIControlStateNormal];
-//        [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
-//        UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
+        self.navigationItem.rightBarButtonItem = nil;
+        
+        Btns =[UIButton buttonWithType:UIButtonTypeCustom];
+        [Btns setFrame:CGRectMake(0.0f,0.0f,20.0f,20.0f)];
+        [Btns setBackgroundImage:[UIImage imageNamed:@"settingsFilter"]  forState:UIControlStateNormal];
+        [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
         // [self.navigationItem setRightBarButtonItem:addButtons];
         
         searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
@@ -718,7 +724,7 @@
         [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
         [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
-        NSArray *buttonsArr = [NSArray arrayWithObjects:addButtonsRight, nil];
+        NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsRight, nil];
         [self.navigationItem setRightBarButtonItems:buttonsArr];
 
         
@@ -853,12 +859,32 @@
     self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.title = nil;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-18, 44)];
+        searchBar.showsCancelButton = YES;
+        searchBar.delegate = self;
+        [searchBar setPlaceholder:@"Search article or topic"];
+        [self.navigationController.navigationBar addSubview:searchBar];
 
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-18, 44)];
-    searchBar.showsCancelButton = YES;
-    searchBar.delegate = self;
-    [searchBar setPlaceholder:@"Search article or topic"];
-    [self.navigationController.navigationBar addSubview:searchBar];
+    }
+    else{
+        searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-100, 44)];
+        searchBar.showsCancelButton = YES;
+        searchBar.delegate = self;
+        [searchBar setPlaceholder:@"Search article or topic"];
+        [self.navigationController.navigationBar addSubview:searchBar];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(didClickCancelButton)];
+
+    }
+
+}
+-(void)didClickCancelButton{
+    isSearching =0;
+    [searchBar resignFirstResponder];
+    searchBar.hidden = YES;
+    [self clearSearchedDataFromTable:@"CuratedNews"];
+    [self loadCuratedNews];
+    [self addButtonsOnNavigationBar];
 
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBars
@@ -869,6 +895,16 @@
     [self clearSearchedDataFromTable:@"CuratedNews"];
     [self loadCuratedNews];
     [self addButtonsOnNavigationBar];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =_titleName;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
+
 
 }
 
