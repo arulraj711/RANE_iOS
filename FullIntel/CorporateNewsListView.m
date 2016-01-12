@@ -854,7 +854,7 @@
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.title = nil;
 
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-20, 44)];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-18, 44)];
     searchBar.showsCancelButton = YES;
     searchBar.delegate = self;
     [searchBar setPlaceholder:@"Search article or topic"];

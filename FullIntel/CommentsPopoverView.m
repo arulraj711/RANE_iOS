@@ -108,7 +108,7 @@
         NSSet *commentSet = [userComments valueForKey:@"comments"];
         self.commentsArray = [[NSMutableArray alloc]initWithArray:[commentSet allObjects]];
     }
-    
+    NSLog(@"%@",self.commentsArray);
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
     [resultDic setObject:self.articleId forKey:@"articleId"];
@@ -173,6 +173,7 @@
     } else {
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
         NSManagedObject *comment = [self.commentsArray objectAtIndex:indexPath.row];
+        NSLog(@"%@",comment);
         cell.userName.text = [comment valueForKey:@"userName"];
         
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {

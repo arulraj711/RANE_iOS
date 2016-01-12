@@ -771,7 +771,8 @@
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil];
-            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetailsUpdate" object:nil];
+
         }
         
         
@@ -1251,6 +1252,7 @@
                     [comments setValue:[commentsDic valueForKey:@"userId"] forKey:@"userId"];
                     [comments setValue:[commentsDic valueForKey:@"userName"] forKey:@"userName"];
                     [comments setValue:[commentsDic valueForKey:@"photoUrl"] forKey:@"photoUrl"];
+                    [comments setValue:[commentsDic valueForKey:@"createdDate"] forKey:@"createdDate"];
                     [userCommentsArray addObject:comments];
                 }
                 NSOrderedSet *commentsObj = [[NSOrderedSet alloc]initWithArray:userCommentsArray];

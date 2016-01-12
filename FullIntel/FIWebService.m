@@ -40,7 +40,7 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
     //NSLog(@"get ress for function ");
     //NSLog(@"start  time--->%f",CFAbsoluteTimeGetCurrent());
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-//    NSLog(@"start time in ms------>%f",startTimeInMiliseconds);
+    //NSLog(@"start time in ms------>%f",startTimeInMiliseconds);
     NSLog(@"%@",postDetails);
     NSString *postURL;
 
@@ -59,6 +59,9 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
     }
     else if([urlPath isEqualToString:@"useractivity/article/getcomment"]) {
+        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+    }
+    else if([urlPath isEqualToString:@"useractivity/comment/markasRead"]) {
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
     }
     else{
@@ -95,7 +98,6 @@ NSString *url = @"http://stage.fullintel.com/1.2.1";
          NSLog(@"\n=========RESPONSE(ERROR)=========\n%@\n==================",error);
          if(error.code != -999)
          failure(operation, error);
-         
      }];
     [[NSOperationQueue mainQueue] addOperation:requestOperation];
     

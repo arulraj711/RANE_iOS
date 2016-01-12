@@ -16,10 +16,11 @@
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import <Fabric/Fabric.h>
 #import "FISharedResources.h"
+#import "FIUtils.h"
+
 #define valFor5 295
 #define valFor6 350
 #define valFor6p 389
-
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
@@ -38,13 +39,18 @@
 #define kPictureFrameHorizontalOffseta +35
 
 @interface MoreSettingsView ()
-
+{
+    UIColor *SelectedCellBGColor;
+    UIColor *NotSelectedCellBGColor;
+}
 @end
 
 @implementation MoreSettingsView
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    SelectedCellBGColor = [FIUtils colorWithHexString:@"F55567"];
+    NotSelectedCellBGColor = [UIColor clearColor];
 
     // Do any additional setup after loading the view from its nib.
     _moreInforArray = [[NSMutableArray alloc]init];
@@ -145,20 +151,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     MoreSettingsCell *cell = (MoreSettingsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if(cell.isEditing == YES) {
-        NSLog(@"cell editing yes ------------");
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    } else {
-        NSLog(@"cell editing no ---------");
-    }
 
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         if(indexPath.row == 0){
-            cell.iconImage.image = [UIImage imageNamed:@""];
+            cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
         }
         else if(indexPath.row == 1) {
             cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
@@ -170,7 +169,7 @@
     }
     else{
         if(indexPath.row == 0){
-            cell.iconImage.image = [UIImage imageNamed:@""];
+            cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
         }
         else if(indexPath.row == 1) {
             cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
@@ -182,28 +181,62 @@
     }
     return cell;
 }
-
+//- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+//{
+//    if(selected) {
+//        self.contentView.backgroundColor = UIColor.blueColor;
+//    } else {
+//        self.contentView.backgroundColor = UIColor.whiteColor;
+//    }
+//}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    MoreSettingsCell *cells = [tableView cellForRowAtIndexPath:indexPath];
+    NSLog(@"%@",indexPath);
+    for (int i = 0; i < [tableView numberOfRowsInSection:indexPath.section]; i++) {
+        if (i != indexPath.row) {
+//            UITableViewCell* cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
+            MoreSettingsCell* cellse = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
+
+            cellse.name.textColor = [UIColor lightGrayColor];
+
+//            cell.backgroundColor =NotSelectedCellBGColor;
+            [tableView reloadData];
+            //Do your stuff
+        }
+    }
+    if (cells.name.textColor ==SelectedCellBGColor) {
+    } else {
+//        cells.backgroundColor =SelectedCellBGColor;
+        cells.name.textColor = SelectedCellBGColor;
+    }
+    
+//   [[tableView cellForRowAtIndexPath:indexPath] setBackgroundColor:SelectedCellBGColor];
 
     NSLog(@"tableview%@",indexPath);
     if(indexPath.row == 0){
         NSLog(@"tableview,indexPath 1");
         [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAll" object:nil];
-        
     }
     
     else if(indexPath.row == 1) {
         NSLog(@"tableview,indexPath 1");
         [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForUnreadMenu" object:nil];
-        
     }
     else if(indexPath.row == 2){
         NSLog(@"tableview,indexPath0");
         [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
-
     }
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MoreSettingsCell *cells = [tableView cellForRowAtIndexPath:indexPath];
+    
+//    cell.backgroundColor =NotSelectedCellBGColor;
+    cells.name.textColor = [UIColor lightGrayColor];
+
+}
 
 - (void) drawLine: (CGContextRef) context from: (CGPoint) from to: (CGPoint) to
 {
