@@ -45,6 +45,7 @@
 		A05878AF1BD4A10200DCE62B /* AddContentPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05878AE1BD4A10200DCE62B /* AddContentPhone.storyboard */; };
 		A059B6BF1BF5F1200060683F /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A059B6BD1BF5F1200060683F /* CommonViewController.m */; };
 		A059B6C31BF5F43E0060683F /* CommonViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */; };
+		A05DA9C11C466422009ACB48 /* CorporateNewsListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */; };
 		A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B41AF74CE60016AD46 /* FIContentCategory.m */; };
 		A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B71AF769040016AD46 /* AddContentSecondLevelView.m */; };
 		A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BA1AF769DE0016AD46 /* SecondLevelCell.m */; };
@@ -176,7 +177,6 @@
 		A0EF01911BDE379600B0191B /* NewsLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF01901BDE379600B0191B /* NewsLetterViewController.m */; };
 		A0EF01931BDE37AB00B0191B /* NewsLetterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF01921BDE37AB00B0191B /* NewsLetterView.storyboard */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
-		BA0778E11BFF2FC6006742F8 /* CorporateNewsListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA0778E01BFF2FC6006742F8 /* CorporateNewsListView.storyboard */; };
 		BA4FB3351C0FFFD800D96DDA /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4FB3341C0FFFD800D96DDA /* Images-2.xcassets */; };
 		BA6347911BFE02A300DCF13F /* BGTableViewRowActionWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */; };
 		BAB29F0E1C3D275A0008ED71 /* MoreSettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB29F0C1C3D275A0008ED71 /* MoreSettingsView.storyboard */; };
@@ -358,6 +358,7 @@
 		A059B6BC1BF5F1200060683F /* CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
 		A059B6BD1BF5F1200060683F /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
 		A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommonViewController.storyboard; sourceTree = "<group>"; };
+		A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CorporateNewsListView.storyboard; sourceTree = "<group>"; };
 		A07A05B31AF74CE60016AD46 /* FIContentCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIContentCategory.h; sourceTree = "<group>"; };
 		A07A05B41AF74CE60016AD46 /* FIContentCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIContentCategory.m; sourceTree = "<group>"; };
 		A07A05B61AF769040016AD46 /* AddContentSecondLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentSecondLevelView.h; sourceTree = "<group>"; };
@@ -539,7 +540,6 @@
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 3.xcdatamodel"; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
-		BA0778E01BFF2FC6006742F8 /* CorporateNewsListView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CorporateNewsListView.storyboard; sourceTree = "<group>"; };
 		BA4FB3341C0FFFD800D96DDA /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-2.xcassets"; sourceTree = "<group>"; };
 		BA63478F1BFE02A200DCF13F /* BGTableViewRowActionWithImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGTableViewRowActionWithImage.h; sourceTree = "<group>"; };
 		BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGTableViewRowActionWithImage.m; sourceTree = "<group>"; };
@@ -1240,7 +1240,7 @@
 				A0066EED1B030B10008B4623 /* CorporateDetailCell */,
 				F78B42F61ABA896E00AB7FFB /* CorporateNewsListView.h */,
 				F78B42F71ABA896E00AB7FFB /* CorporateNewsListView.m */,
-				BA0778E01BFF2FC6006742F8 /* CorporateNewsListView.storyboard */,
+				A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */,
 				F78B42FB1ABA8F4800AB7FFB /* CorporateNewsCell.h */,
 				F78B42FC1ABA8F4800AB7FFB /* CorporateNewsCell.m */,
 				A0DEC3DC1AE8E31D0046E8BB /* SocialLinkCell.h */,
@@ -1751,6 +1751,7 @@
 				A0AAEFF21BFCA6C20006A48C /* chat-60.png in Resources */,
 				BAB29F0E1C3D275A0008ED71 /* MoreSettingsView.storyboard in Resources */,
 				F7E81FB01A97057100F9A8D4 /* Josh.jpeg in Resources */,
+				A05DA9C11C466422009ACB48 /* CorporateNewsListView.storyboard in Resources */,
 				F7C1AB5C1ABFEC6B00D8588A /* SavedListPopoverView.storyboard in Resources */,
 				F7AE10841AC01E4D0091E1C7 /* InfluencerListView.storyboard in Resources */,
 				A08E6E221C06D135003DB4B2 /* MailStoryboardPhone.storyboard in Resources */,
@@ -1769,7 +1770,6 @@
 				A081459B1BCF855900AA5EE2 /* CommentsPhone.storyboard in Resources */,
 				A0CF5C591B1DD98B00DED2D9 /* ExecutiveMoves.storyboard in Resources */,
 				A0AAEFEF1BFCA6C20006A48C /* book-30.png in Resources */,
-				BA0778E11BFF2FC6006742F8 /* CorporateNewsListView.storyboard in Resources */,
 				A0AAF0251BFCB12B0006A48C /* mail-60.png in Resources */,
 				A0CF5C791B1EFE1100DED2D9 /* dealsDril.html in Resources */,
 				A033EC5A1BC37B9B003AAE4F /* Icon-76.png in Resources */,

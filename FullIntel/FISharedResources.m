@@ -181,7 +181,7 @@
             @try {
                 //Prefercence Info
 
-                NSDictionary *preferenceDic = NULL_TO_NIL([responseObject objectForKey:@"preference"]);
+                NSDictionary *preferenceDic = NULL_TO_NIL([responseObject objectForKey:@"preferences"]);
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"headerColor"]) forKey:@"headerColor"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"highlightColor"]) forKey:@"highlightColor"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"menuBgColor"]) forKey:@"menuBgColor"];

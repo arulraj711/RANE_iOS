@@ -219,14 +219,12 @@
 -(void)notifyForLast{
         switchForFilter = 2;
         [self callSearchAPIWithStringForUnread:@"" withFilterString:@"RECENT"];
-    
-   
 }
 
 
 - (void)callSearchAPIWithStringForUnread:(NSString *)searchString withFilterString:(NSString *)filterString {
     //TODO: refresh your data
-    //if(self.devices.count == 0) {
+    //if(self.devices.count == 0){
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
     // NSInteger category = categoryStr.integerValue;
@@ -258,7 +256,6 @@
         NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
         
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:queryString withCategoryId:category withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@"" withActivityTypeId:[NSNumber numberWithInt:2]];
-        
         
         // }
     } else {
@@ -526,8 +523,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     if (isSearching) {
         searchBar.hidden = NO;
-        self.navigationItem.rightBarButtonItems = nil;
-        self.navigationItem.leftBarButtonItem = nil;
+//        self.navigationItem.rightBarButtonItems = nil;
+//        self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.titleView = nil;
 
     }
@@ -885,7 +882,20 @@
     [self clearSearchedDataFromTable:@"CuratedNews"];
     [self loadCuratedNews];
     [self addButtonsOnNavigationBar];
-
+    
+    [self commonMethodToAddTitle];
+}
+-(void)commonMethodToAddTitle{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =_titleName;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    
+    self.navigationItem.titleView = label;
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBars
 {
@@ -895,17 +905,7 @@
     [self clearSearchedDataFromTable:@"CuratedNews"];
     [self loadCuratedNews];
     [self addButtonsOnNavigationBar];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text =_titleName;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
-
-
+    [self commonMethodToAddTitle];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBars {

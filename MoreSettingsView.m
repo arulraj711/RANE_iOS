@@ -48,7 +48,9 @@
 @implementation MoreSettingsView
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
     SelectedCellBGColor = [FIUtils colorWithHexString:@"F55567"];
     NotSelectedCellBGColor = [UIColor clearColor];
 
