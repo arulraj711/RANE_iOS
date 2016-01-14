@@ -60,9 +60,9 @@
     self.moreTableView.layer.masksToBounds = YES;
    
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView)];
-    tap.delegate = self;
-    [self.bgView addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView)];
+//    tap.delegate = self;
+//    [self.bgView addGestureRecognizer:tap];
 
     
     UIBezierPath* trianglePath = [UIBezierPath bezierPath];
@@ -110,25 +110,52 @@
 
     
 }
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gesture
-{
-    
-    CGPoint point = [gesture locationInView:self.moreTableView.superview];
-    CGPoint location = [gesture locationInView:self.moreTableView];
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+//    CGPoint touchLocation = [touch locationInView:touch.view];
+//    CGPoint point = [touch locationInView:self.moreTableView.superview];
+    CGPoint location = [touch locationInView:self.moreTableView];
     NSIndexPath *path = [self.moreTableView indexPathForRowAtPoint:location];
-    
-    if(path)
-    {
-        // tap was on existing row, so pass it to the delegate method
+
+    if(path){
         [self tableView:self.moreTableView didSelectRowAtIndexPath:path];
+
     }
     else
     {
-        // handle tap on empty space below existing rows however you want
+        CATransition* transition = [CATransition animation];
+        
+        transition.duration = 0.3;
+        transition.type = kCATransitionFade;
+        
+        [self.view.layer addAnimation:transition forKey:kCATransition];
+        [self dismissViewControllerAnimated:NO completion:nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"changeAlphaVal" object:nil];
+
+            // handle tap on empty space below existing rows however you want
     }
 
-    return !CGRectContainsPoint(self.moreTableView.frame, point);
 }
+
+//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gesture
+//{
+//    
+//    CGPoint point = [gesture locationInView:self.moreTableView.superview];
+//    CGPoint location = [gesture locationInView:self.moreTableView];
+//    NSIndexPath *path = [self.moreTableView indexPathForRowAtPoint:location];
+//    
+//    if(path)
+//    {
+//        // tap was on existing row, so pass it to the delegate method
+//        [self tableView:self.moreTableView didSelectRowAtIndexPath:path];
+//    }
+//    else
+//    {
+//        // handle tap on empty space below existing rows however you want
+//    }
+//
+//    return !CGRectContainsPoint(self.moreTableView.frame, point);
+//}
 -(void)didTapOnTableView
 {
     
