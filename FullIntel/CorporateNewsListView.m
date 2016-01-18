@@ -862,6 +862,7 @@
         searchBar.delegate = self;
         [searchBar setPlaceholder:@"Search article or topic"];
         [self.navigationController.navigationBar addSubview:searchBar];
+        [searchBar becomeFirstResponder];
 
     }
     else{

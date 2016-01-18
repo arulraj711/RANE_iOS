@@ -50,7 +50,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+  
     SelectedCellBGColor = [FIUtils colorWithHexString:@"F55567"];
     NotSelectedCellBGColor = [UIColor clearColor];
 
@@ -180,7 +180,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
     MoreSettingsCell *cell = (MoreSettingsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
@@ -219,6 +218,7 @@
 //    }
 //}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self didTapOnTableView];
 
     MoreSettingsCell *cells = [tableView cellForRowAtIndexPath:indexPath];
     NSLog(@"%@",indexPath);

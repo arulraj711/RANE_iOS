@@ -32,8 +32,8 @@
     UIBarButtonItem *markAsReadButton;
     UIBarButtonItem *addTofolder;
     UIToolbar *toolbar;
-//    BOOL longPressActive;
-//    BOOL tickImageStatus;
+    BOOL longPressActive;
+    BOOL tickImageStatus;
 
     int switchForFilter;
     int isSearchingInteger;
