@@ -204,21 +204,27 @@
 }
 
 -(void)notifyForUnread{
+        _spinner.hidden=NO;
         switchForFilter = 1;
         [self callSearchAPIWithStringForUnread:@"" withFilterString:@"UNREAD"];
-            
+        _spinner.hidden=YES;
+   
     
 }
 -(void)notifyForAll{
-    
+    _spinner.hidden=NO;
     switchForFilter = 0;
     [self clearFilteredDataFromTable:@"CuratedNews"];
     [self loadCuratedNews];
-    
+    _spinner.hidden=YES;
+
 }
 -(void)notifyForLast{
+        _spinner.hidden=NO;
         switchForFilter = 2;
         [self callSearchAPIWithStringForUnread:@"" withFilterString:@"RECENT"];
+        _spinner.hidden=YES;
+
 }
 
 
@@ -557,6 +563,8 @@
     }
     [searchBar resignFirstResponder];
     searchBar.hidden = YES;
+    [[NSUserDefaults standardUserDefaults] setInteger:5 forKey:@"selectionValue"];
+
 
 }
 -(void)viewDidAppear:(BOOL)animated {
@@ -859,6 +867,9 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-18, 44)];
         searchBar.showsCancelButton = YES;
+        [searchBar setTintColor:[UIColor whiteColor]];
+        [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor darkGrayColor]];
+        
         searchBar.delegate = self;
         [searchBar setPlaceholder:@"Search article or topic"];
         [self.navigationController.navigationBar addSubview:searchBar];
@@ -868,6 +879,9 @@
     else{
         searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-100, 44)];
         searchBar.showsCancelButton = YES;
+        [searchBar setTintColor:[UIColor whiteColor]];
+        [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor darkGrayColor]];
+
         searchBar.delegate = self;
         [searchBar setPlaceholder:@"Search article or topic"];
         [self.navigationController.navigationBar addSubview:searchBar];

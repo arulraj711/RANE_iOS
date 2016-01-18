@@ -40,6 +40,7 @@
 
 @interface MoreSettingsView ()
 {
+    NSInteger selectedIndexPath;
     UIColor *SelectedCellBGColor;
     UIColor *NotSelectedCellBGColor;
 }
@@ -50,7 +51,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-  
     SelectedCellBGColor = [FIUtils colorWithHexString:@"F55567"];
     NotSelectedCellBGColor = [UIColor clearColor];
 
@@ -137,25 +137,7 @@
 
 }
 
-//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gesture
-//{
-//    
-//    CGPoint point = [gesture locationInView:self.moreTableView.superview];
-//    CGPoint location = [gesture locationInView:self.moreTableView];
-//    NSIndexPath *path = [self.moreTableView indexPathForRowAtPoint:location];
-//    
-//    if(path)
-//    {
-//        // tap was on existing row, so pass it to the delegate method
-//        [self tableView:self.moreTableView didSelectRowAtIndexPath:path];
-//    }
-//    else
-//    {
-//        // handle tap on empty space below existing rows however you want
-//    }
-//
-//    return !CGRectContainsPoint(self.moreTableView.frame, point);
-//}
+
 -(void)didTapOnTableView
 {
     
@@ -181,8 +163,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MoreSettingsCell *cell = (MoreSettingsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-
+    NSLog(@"%@",indexPath);
+    NSLog(@"%ld",(long)selectedIndexPath);
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
+    
+    NSInteger selectionValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectionValue"];
+    NSLog(@"%ld",(long)selectionValue);
+    NSLog(@"%ld",indexPath.row);
+
+    
+    if (selectionValue  == indexPath.row) {
+        if (cell.name.textColor == SelectedCellBGColor) {
+        cell.name.textColor = [UIColor lightGrayColor];
+        }
+    else {
+        cell.name.textColor = SelectedCellBGColor;
+         }
+    }
+    
+    
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         if(indexPath.row == 0){
             cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
@@ -209,60 +208,58 @@
     }
     return cell;
 }
-//- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-//{
-//    if(selected) {
-//        self.contentView.backgroundColor = UIColor.blueColor;
-//    } else {
-//        self.contentView.backgroundColor = UIColor.whiteColor;
-//    }
-//}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self didTapOnTableView];
-
     MoreSettingsCell *cells = [tableView cellForRowAtIndexPath:indexPath];
-    NSLog(@"%@",indexPath);
+    NSLog(@"%ld",(long)indexPath.row);
+    NSLog(@"%@",cells);
+
     for (int i = 0; i < [tableView numberOfRowsInSection:indexPath.section]; i++) {
         if (i != indexPath.row) {
-//            UITableViewCell* cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
             MoreSettingsCell* cellse = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
-
             cellse.name.textColor = [UIColor lightGrayColor];
-
-//            cell.backgroundColor =NotSelectedCellBGColor;
             [tableView reloadData];
-            //Do your stuff
         }
     }
-    if (cells.name.textColor ==SelectedCellBGColor) {
-    } else {
-//        cells.backgroundColor =SelectedCellBGColor;
-        cells.name.textColor = SelectedCellBGColor;
-    }
-    
-//   [[tableView cellForRowAtIndexPath:indexPath] setBackgroundColor:SelectedCellBGColor];
+    if (cells.isSelected == YES)
+    {
+        if (cells.name.textColor ==SelectedCellBGColor) {
+        } else {
+            cells.name.textColor = SelectedCellBGColor;
+        }
+        
 
+        
+    }
     NSLog(@"tableview%@",indexPath);
     if(indexPath.row == 0){
         NSLog(@"tableview,indexPath 1");
         [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAll" object:nil];
+        [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+        NSLog(@"tableview%@",indexPath);
+
     }
     
     else if(indexPath.row == 1) {
         NSLog(@"tableview,indexPath 1");
         [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForUnreadMenu" object:nil];
+        [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+        NSLog(@"tableview%@",indexPath);
+
     }
     else if(indexPath.row == 2){
         NSLog(@"tableview,indexPath0");
         [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
+        [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+        NSLog(@"tableview%@",indexPath);
+
     }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MoreSettingsCell *cells = [tableView cellForRowAtIndexPath:indexPath];
-    
-//    cell.backgroundColor =NotSelectedCellBGColor;
     cells.name.textColor = [UIColor lightGrayColor];
 
 }
