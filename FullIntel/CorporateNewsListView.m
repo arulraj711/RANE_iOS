@@ -49,7 +49,8 @@
     NSLog(@"view did load");
     
     [super viewDidLoad];
-    
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"selectionValue"];
+
     //toolbar additions---------------------------------------------------
     CGRect frame, remain;
     CGRectDivide(self.view.bounds, &frame, &remain, 44, CGRectMaxYEdge);
@@ -605,21 +606,17 @@
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
 (NSTimeInterval)duration {
+
     
-    // Fade the collectionView out
+
     
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
-    // Force realignment of cell being displayed
-    
-    //    CGSize contentSize=self.articlesTableView.contentSize;
-    //    contentSize.width=self.articlesTableView.bounds.size.width;
-    //    self.articlesTableView.contentSize=contentSize;
-    
-    //    [self.articlesTableView beginUpdates];
-    //    [self.articlesTableView endUpdates];
+
+    [self didClickCancelButton];
+
 }
 -(void)showLoginPage {
     NSArray *navArray = self.navigationController.viewControllers;
@@ -853,6 +850,7 @@
 }
 -(void)settingsButtonFilter{ 
     
+
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
     MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
     popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
@@ -861,10 +859,11 @@
 
 }
 -(void)searchButtonFilter{
-    self.navigationItem.rightBarButtonItems = nil;
-    self.navigationItem.leftBarButtonItem = nil;
-    self.navigationItem.title = nil;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.title = nil;
+
         searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-18, 44)];
         searchBar.showsCancelButton = YES;
         [searchBar setTintColor:[UIColor whiteColor]];
@@ -877,11 +876,12 @@
 
     }
     else{
-        searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-100, 44)];
+        self.navigationItem.rightBarButtonItems = nil;
+        NSLog(@"%f %f",SCREEN_WIDTH-580, SCREEN_WIDTH-320);
         searchBar.showsCancelButton = YES;
+        searchBar.translatesAutoresizingMaskIntoConstraints = NO;
         [searchBar setTintColor:[UIColor whiteColor]];
         [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor darkGrayColor]];
-
         searchBar.delegate = self;
         [searchBar setPlaceholder:@"Search article or topic"];
         [self.navigationController.navigationBar addSubview:searchBar];
@@ -925,7 +925,23 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBars {
     [searchBars resignFirstResponder];
-     [self callSearchAPIWithString:searchBars.text];
+    if (switchForFilter ==0)
+    {
+         [self callSearchAPIWithStringForUnread:searchBars.text withFilterString:@""];
+
+    }
+    else if (switchForFilter == 1)
+    {
+         [self callSearchAPIWithStringForUnread:searchBars.text withFilterString:@"UNREAD"];
+
+    }
+    else if (switchForFilter == 2)
+    {
+         [self callSearchAPIWithStringForUnread:searchBars.text withFilterString:@"RECENT"];
+ 
+    }
+
+//     [self callSearchAPIWithString:searchBars.text];
 }
 
 -(void)commonMethodForSearchBarExit

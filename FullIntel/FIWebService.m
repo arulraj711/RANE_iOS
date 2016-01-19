@@ -55,13 +55,17 @@ NSString *url = @"http://stage.fullintel.com/1.2.0";
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
     }else if([urlPath isEqualToString:@"applogout"]){
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
-    } else if([urlPath isEqualToString:@"validatecredentials"]) {
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
     }
     else if([urlPath isEqualToString:@"useractivity/article/getcomment"]) {
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
     }
+    else if([urlPath isEqualToString:@"useractivity/article/addcomment"]) {
+        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+    }
     else if([urlPath isEqualToString:@"useractivity/comment/markasRead"]) {
+        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+    }
+    else if([urlPath isEqualToString:@"useractivity/article/researchrequest"]) {
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
     }
     else{
@@ -594,7 +598,7 @@ NSString *url = @"http://stage.fullintel.com/1.2.0";
 +(void)loginProcessWithDetails:(NSString*)details
             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    [self getResultsForFunctionName:@"validatecredentials" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getResultsForFunctionName:@"userauthentication" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation, error);

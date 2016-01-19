@@ -181,22 +181,22 @@
             @try {
                 //Prefercence Info
 
-                NSDictionary *preferenceDic = NULL_TO_NIL([responseObject objectForKey:@"preferences"]);
+                NSDictionary *preferenceDic = NULL_TO_NIL([responseObject objectForKey:@"preference"]);
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"headerColor"]) forKey:@"headerColor"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"highlightColor"]) forKey:@"highlightColor"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"menuBgColor"]) forKey:@"menuBgColor"];
                 
                 //Company Info
-               // NSDictionary *companyDic = NULL_TO_NIL([responseObject objectForKey:@"company"]);
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"companyLogoURL"]) forKey:@"companyLogo"];
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"companyName"]) forKey:@"companyName"];
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"customerid"]) forKey:@"customerId"];
+                NSDictionary *companyDic = NULL_TO_NIL([responseObject objectForKey:@"company"]);
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"companyLogoURL"]) forKey:@"companyLogo"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"companyname"]) forKey:@"companyName"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"id"]) forKey:@"customerId"];
                 
                 //User Info
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject objectForKey:@"securityToken"]) forKey:@"accesstoken"];
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userid"]) forKey:@"userId"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"id"]) forKey:@"userId"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"firstName"]) forKey:@"firstName"];
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoUrl"]) forKey:@"photoUrl"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoURL"]) forKey:@"photoUrl"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
                 NSString *appViewType = [NSString stringWithFormat:@"%@",NULL_TO_NIL([responseObject valueForKey:@"appViewTypeId"])];
@@ -223,8 +223,23 @@
             NSError* error1;
             NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
             NSLog(@"error JSON:%@",errorJson);
-            UIWindow *window = [[UIApplication sharedApplication]windows][0];
-            [window makeToast:[errorJson objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+            
+            if(errorJson == nil){
+                [FIUtils showErrorToast];
+            } else {
+                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:400]]){
+                    [self hideProgressView];
+                    [self showLoginView:[NSNumber numberWithInt:0]];
+                } else {
+                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                }
+            }
+
+            
+//                UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//                [window makeToast:[errorJson objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+
+            
             //[FIUtils showErrorToast];
             
             
@@ -781,8 +796,21 @@
         NSLog(@"error JSON:%@",operation);
         NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
         NSLog(@"error JSON:%@",errorJson);
-        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        [window makeToast:[errorJson objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+        
+        if(errorJson == nil){
+            [FIUtils showErrorToast];
+        } else {
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
+        }
+
+        
+//        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//        [window makeToast:[errorJson objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
         
     }];
     } else {
