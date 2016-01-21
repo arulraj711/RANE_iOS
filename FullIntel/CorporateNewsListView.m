@@ -614,7 +614,8 @@
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
-
+////    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-270, 0, 188, 44)];
+//    [searchBar setFrame:CGRectMake(searchBar.frame.origin.x+20 , 0.f, 0.f, 0.f)];
     [self didClickCancelButton];
 
 }
@@ -878,10 +879,11 @@
     else{
         self.navigationItem.rightBarButtonItems = nil;
         NSLog(@"%f %f",SCREEN_WIDTH-580, SCREEN_WIDTH-320);
+        searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-270, 0, 188, 44)];
         searchBar.showsCancelButton = YES;
-        searchBar.translatesAutoresizingMaskIntoConstraints = NO;
         [searchBar setTintColor:[UIColor whiteColor]];
         [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor darkGrayColor]];
+        
         searchBar.delegate = self;
         [searchBar setPlaceholder:@"Search article or topic"];
         [self.navigationController.navigationBar addSubview:searchBar];
