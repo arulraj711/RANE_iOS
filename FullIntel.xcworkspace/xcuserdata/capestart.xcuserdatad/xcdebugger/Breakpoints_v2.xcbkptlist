@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "475592934.996033"
+            timestampString = "475594317.910279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2321"
-            endingLineNumber = "2321"
+            startingLineNumber = "2322"
+            endingLineNumber = "2322"
             landmarkName = "-handleLongPress:"
             landmarkType = "5">
          </BreakpointContent>

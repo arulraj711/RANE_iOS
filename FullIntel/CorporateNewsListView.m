@@ -1736,26 +1736,25 @@
        
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-       
 
         
             if (longPressActive) { //Perform action desired when cell is long pressed
                 accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
-
-                if (indexPath.row == firstTimeFlags)
+                NSNumber *rowNsNum = [NSNumber numberWithUnsignedInt:indexPath.row];
+                if ( [selectedCells containsObject:rowNsNum]  )
                 {
                     accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
                 }
-                else
-                {
+                else{
                     accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle"]];
                 }
+                
                 accessoryViewImage.center = CGPointMake(12, 25);
                 [accessoryView addSubview:accessoryViewImage];
                 [cell setAccessoryView:accessoryView];
                 [self addToolbarAndChangeNavBar];
-
             }
+        cell.accessoryView = nil;
         
         if([[tableView indexPathsForSelectedRows] containsObject:indexPath]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -2169,8 +2168,8 @@
     NSLog(longPressActive ? @"yes" : @"No");
 
     if (longPressActive) { //Perform action desired when cell is long pressed
-        
-        firstTimeFlags = indexPath.row;
+        [selectedCells addObject:[NSNumber numberWithInt:indexPath.row]];
+//        firstTimeFlags = indexPath.row;
         [self.articlesTableView reloadData];
 
 //        if ([cell isSelected]) {
@@ -2287,7 +2286,8 @@
       self.navigationItem.rightBarButtonItem = nil;
       self.navigationItem.leftBarButtonItem = nil;
       [self addButtonsOnNavigationBar];
-//      longPressActive = NO;
+      longPressActive = NO;
+//    accessoryView = nil;
     [self.articlesTableView reloadData];
 
 //    [searchButtons setHidden:NO];
@@ -2296,7 +2296,7 @@
 
 //    self.navigationItem.rightBarButtonItem = nil;
 //    self.navigationItem.leftBarButtonItem = nil;
-    [self.navigationController setToolbarHidden:YES animated:YES];
+//    [self.navigationController setToolbarHidden:YES animated:YES];
 //    [toolbar removeFromSuperview];
 //    [self.view :toolbar];
 
