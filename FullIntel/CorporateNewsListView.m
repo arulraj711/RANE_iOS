@@ -197,8 +197,30 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     UILongPressGestureRecognizer *markedImpTap = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)];
     [self.articlesTableView addGestureRecognizer:markedImpTap];
+    
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.revealController.revealPanGestureRecognizer.delegate = self;
+        self.revealController.panDelegate = self;
+    } else {
+        
+    }
+
 
 }
+
+- (void)handlePanGestureStart {
+    self.articlesTableView.scrollEnabled = NO;
+    
+}
+
+-(void)handleVeriticalPan {
+    self.articlesTableView.scrollEnabled = YES;
+}
+-(void)handlePanGestureEnd {
+    self.articlesTableView.scrollEnabled = YES;
+}
+
 
 -(void)changeAlpha{
     self.view.alpha = 1;

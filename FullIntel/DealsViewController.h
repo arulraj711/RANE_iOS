@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface DealsViewController : UIViewController
+#import "PKRevealController.h"
+@interface DealsViewController : UIViewController<PanDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *widgetCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *twitterCollectionView;

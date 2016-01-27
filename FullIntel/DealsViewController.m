@@ -114,9 +114,28 @@
     
     _rotateView.transform = CGAffineTransformMakeRotation(-0.6);
 
-    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        self.revealController.revealPanGestureRecognizer.delegate = self;
+        self.revealController.panDelegate = self;
+    } else {
+        
+    }
     
 }
+
+
+- (void)handlePanGestureStart {
+    // self.articlesTableView.scrollEnabled = NO;
+    
+}
+
+-(void)handleVeriticalPan {
+    // self.articlesTableView.scrollEnabled = YES;
+}
+-(void)handlePanGestureEnd {
+    //  self.articlesTableView.scrollEnabled = YES;
+}
+
 
 -(void)viewDidAppear:(BOOL)animated {
     [[FISharedResources sharedResourceManager]tagScreenInLocalytics:@"Deals"];

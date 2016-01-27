@@ -69,8 +69,9 @@ NSString *url = @"http://stage.fullintel.com/1.2.0";
     }
     else if([urlPath isEqualToString:@"useractivity/article/researchrequest"]) {
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
-    }
-    else{
+    } else if([urlPath isEqualToString:@"featureaccessrequest"]) {
+        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+    } else{
         postURL = [NSString stringWithFormat:@"%@/%@/%@",url,FUNCTION_URL,urlPath];
     }
     NSURL *url = [NSURL URLWithString:postURL];
