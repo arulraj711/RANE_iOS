@@ -1867,29 +1867,7 @@
                 cell.authorName.text = [authorObject valueForKey:@"name"];
             }
         }
-        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-            UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-            if(orientation == 0){
-                //Default orientation
-                //UI is in Default (Portrait) -- this is really a just a failsafe.
-            }else if(orientation == UIInterfaceOrientationPortrait) {
-                //Do something if the orientation is in Portrait
-                NSString *authorName = cell.authorName.text;
-                if(authorName.length > 15) {
-                    cell.authorName.text = [NSString stringWithFormat:@"%@...",[authorName substringToIndex:15]];
-                    cell.messageIcon.hidden = YES;
-                    cell.messageCountText.hidden = YES;
-                }
-                else if (authorName.length == 0){
-                    cell.iconForAuthor.hidden = YES;
-
-                }
-                else {
-                    cell.messageIcon.hidden = NO;
-                    cell.messageCountText.hidden = NO;
-                }
-            }
-                  }
+        
         
         // NSLog(@"multiple author array:%@",multipleAuthorArray);
         // cell.authorTitle.text = [author valueForKey:@"title"];
@@ -1927,6 +1905,39 @@
             cell.outletHorizontalConstraint.constant = value+12+25;
         }
         cell.outlet.text = [curatedNews valueForKey:@"outlet"];
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+            if(orientation == 0){
+                //Default orientation
+                //UI is in Default (Portrait) -- this is really a just a failsafe.
+            }else if(orientation == UIInterfaceOrientationPortrait) {
+                //Do something if the orientation is in Portrait
+                NSString *authorName = cell.authorName.text;
+                NSString *outletName = cell.outlet.text;
+                if(outletName.length > 15 && authorName.length > 15) {
+                    cell.outlet.text = [NSString stringWithFormat:@"%@...",[outletName substringToIndex:15]];
+                    cell.authorName.text = [NSString stringWithFormat:@"%@...",[authorName substringToIndex:15]];
+                    cell.messageIcon.hidden = YES;
+                    cell.messageCountText.hidden = YES;
+                } else if(outletName.length > 15) {
+                    cell.outlet.text = [NSString stringWithFormat:@"%@...",[outletName substringToIndex:15]];
+                    cell.messageIcon.hidden = YES;
+                    cell.messageCountText.hidden = YES;
+                } else if(authorName.length > 15) {
+                    cell.authorName.text = [NSString stringWithFormat:@"%@...",[authorName substringToIndex:15]];
+                    cell.messageIcon.hidden = YES;
+                    cell.messageCountText.hidden = YES;
+                }
+                else if (authorName.length == 0){
+                    cell.iconForAuthor.hidden = YES;
+                    
+                }
+                else {
+                    cell.messageIcon.hidden = NO;
+                    cell.messageCountText.hidden = NO;
+                }
+            }
+        }
         CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
         CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.title.font constrainedToSize:maximumLabelSize lineBreakMode:cell.title.lineBreakMode];
         //NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
