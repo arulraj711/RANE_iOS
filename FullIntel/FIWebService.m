@@ -46,7 +46,6 @@ NSString *url = @"http://stage.fullintel.com/1.2.0";
 
     if ([urlPath isEqualToString:@"useractivitiesonarticles"]||[urlPath isEqualToString:@"updateappviewtype"]) {
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
-
     }
     else if ([urlPath isEqualToString:@"managecontentcategories"]){
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
@@ -54,6 +53,9 @@ NSString *url = @"http://stage.fullintel.com/1.2.0";
     } else if([urlPath isEqualToString:@"validateuseronresume"]) {
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
     }else if([urlPath isEqualToString:@"applogout"]){
+        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+    }
+    else if([urlPath isEqualToString:@"retrievepassword"]){
         postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
     }
     else if([urlPath isEqualToString:@"useractivity/article/getcomment"]) {

@@ -465,6 +465,7 @@
     {
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
         UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebViewPhone"];
+        [modalController setNavigationBarHidden:YES animated:NO];
         SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
         SocialWebViewObj.titleStr=@"Sign Up";
         NSString *signUpUrlString = [NSString stringWithFormat:@"%@/newusersignup.html",[FIWebService getServerURL]];
@@ -493,6 +494,7 @@
     {
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
         UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebViewPhone"];
+        [modalController setNavigationBarHidden:YES animated:NO];
         SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
         SocialWebViewObj.titleStr=@"Privacy Policy";
         NSString *privacyUrlString = [NSString stringWithFormat:@"%@/common/privacy",[FIWebService getServerURL]];

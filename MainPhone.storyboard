@@ -102,7 +102,7 @@
                                             <action selector="signInButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kFQ-4u-gU4"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eqq-sW-IKM">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eqq-sW-IKM">
                                         <rect key="frame" x="181" y="199" width="118" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="118" id="i3E-9N-PpW"/>
