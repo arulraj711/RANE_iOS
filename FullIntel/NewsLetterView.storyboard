@@ -123,7 +123,6 @@
                                                     <rect key="frame" x="110" y="19" width="400" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="22N-s6-T9l"/>
-                                                        <constraint firstAttribute="width" constant="400" id="XcI-GZ-HhM"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.1176470588" green="0.54901960780000003" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -155,6 +154,7 @@
                                                 <constraint firstItem="dpf-SP-zZi" firstAttribute="leading" secondItem="VbA-jN-lzQ" secondAttribute="trailing" constant="33" id="3ef-35-SBb"/>
                                                 <constraint firstItem="dpf-SP-zZi" firstAttribute="top" secondItem="e78-rt-Sok" secondAttribute="topMargin" constant="11" id="K0s-BT-czr"/>
                                                 <constraint firstItem="VbA-jN-lzQ" firstAttribute="leading" secondItem="e78-rt-Sok" secondAttribute="leadingMargin" constant="12" id="UWM-6b-94J"/>
+                                                <constraint firstItem="H5D-Xe-SHI" firstAttribute="leading" secondItem="dpf-SP-zZi" secondAttribute="trailing" constant="19" id="geu-jW-gXw"/>
                                                 <constraint firstItem="8Mt-Hm-T4t" firstAttribute="top" secondItem="e78-rt-Sok" secondAttribute="topMargin" constant="9" id="jwF-Kv-rVC"/>
                                                 <constraint firstItem="VbA-jN-lzQ" firstAttribute="top" secondItem="e78-rt-Sok" secondAttribute="topMargin" constant="11" id="nab-4r-b2f"/>
                                                 <constraint firstItem="8Mt-Hm-T4t" firstAttribute="leading" secondItem="H5D-Xe-SHI" secondAttribute="trailing" constant="159" id="w4z-7T-58S"/>
