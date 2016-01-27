@@ -35,9 +35,13 @@
     UIToolbar *toolbar;
     BOOL longPressActive;
     BOOL tickImageStatus;
-
+    int firstTimeFlags;
     int switchForFilter;
     int isSearchingInteger;
+    NSMutableArray *selectedCells;
+    UIView* accessoryView;
+    UIImageView* accessoryViewImage;
+    
     
     BOOL isSearching;
     UISearchBar *searchBar;

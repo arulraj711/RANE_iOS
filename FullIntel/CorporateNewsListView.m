@@ -50,7 +50,8 @@
     
     [super viewDidLoad];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"selectionValue"];
-
+    firstTimeFlags = -1;
+    selectedCells = [[NSMutableArray alloc]init];
     //toolbar additions---------------------------------------------------
     CGRect frame, remain;
     CGRectDivide(self.view.bounds, &frame, &remain, 44, CGRectMaxYEdge);
@@ -1735,6 +1736,26 @@
        
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+       
+
+        
+            if (longPressActive) { //Perform action desired when cell is long pressed
+                accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+
+                if (indexPath.row == firstTimeFlags)
+                {
+                    accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
+                }
+                else
+                {
+                    accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle"]];
+                }
+                accessoryViewImage.center = CGPointMake(12, 25);
+                [accessoryView addSubview:accessoryViewImage];
+                [cell setAccessoryView:accessoryView];
+                [self addToolbarAndChangeNavBar];
+
+            }
         
         if([[tableView indexPathsForSelectedRows] containsObject:indexPath]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -2145,22 +2166,34 @@
 //    cell.accessoryType = UITableViewCellAccessoryCheckmark;
 //}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSLog(longPressActive ? @"yes" : @"No");
+    NSLog(longPressActive ? @"yes" : @"No");
 
-//    if (longPressActive) { //Perform action desired when cell is long pressed
-//        
-//        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-//        
-//        UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
-//        UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
-//        accessoryViewImage.center = CGPointMake(12, 25);
-//        [accessoryView addSubview:accessoryViewImage];
-//        [cell setAccessoryView:accessoryView];
-//        [self addToolbarAndChangeNavBar];
-//        
-//      
+    if (longPressActive) { //Perform action desired when cell is long pressed
+        
+        firstTimeFlags = indexPath.row;
+        [self.articlesTableView reloadData];
+
+//        if ([cell isSelected]) {
+//            UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+//            UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
+//            accessoryViewImage.center = CGPointMake(12, 25);
+//            [accessoryView addSubview:accessoryViewImage];
+//            [cell setAccessoryView:accessoryView];
+//            [self addToolbarAndChangeNavBar];
 //
-//    }else { //Perform action desired when cell is selected normally
+//        } else {
+////            UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+////            UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle"]];
+////            accessoryViewImage.center = CGPointMake(12, 25);
+////            [accessoryView addSubview:accessoryViewImage];
+////            [cell setAccessoryView:accessoryView];
+////            [self addToolbarAndChangeNavBar];
+//
+//        }
+//        
+//        selectedCells = [tableView indexPathsForSelectedRows];
+
+    }else { //Perform action desired when cell is selected normally
     
         UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
         
@@ -2206,7 +2239,7 @@
             testView.articleIdFromSearchLst =articleIdToBePassed;
             [self.navigationController pushViewController:testView animated:YES];
         }
-//    }
+    }
 }
 -(void)addToolbarAndChangeNavBar{
         self.navigationItem.rightBarButtonItem = nil;
@@ -2298,19 +2331,17 @@
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
         {
             NSLog(@"long press on table view at row %ld", (long)indexPath.row);
-            
-            [gestureRecognizer cancelsTouchesInView];
-            //longPressActive = YES;
-            //[self.articlesTableView selectRowAtIndexPath:indexPath
-            //                           animated:NO
-            //                      scrollPosition:UITableViewScrollPositionNone];
+            longPressActive = YES;
+            [self.articlesTableView reloadData];
+            [self.articlesTableView selectRowAtIndexPath:indexPath
+                                       animated:NO
+                                  scrollPosition:UITableViewScrollPositionNone];
             //[self tableView:self.articlesTableView didSelectRowAtIndexPath:indexPath];
         }
-//        }else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
-//                  gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
-//            longPressActive = NO;
-//            
-//        }
+        else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
+                  gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
+
+        }
     }
 }
 
