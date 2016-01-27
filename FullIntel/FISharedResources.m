@@ -1486,11 +1486,11 @@
                 
                 if(flag && createdFlag) {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+//                    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
                 } else if(flag) {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
                 }else {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+//                    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
                 }
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
@@ -2272,7 +2272,7 @@
 -(void)renameFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withFolderId:(NSNumber *)folderId {
     if([self serviceIsReachable]) {
         [FIWebService renameFolderWithDetails:details withSecurityToken:accessToken withFolderId:folderId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:NO];
+            [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:YES];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             //[FIUtils showErrorToast];
             NSError* error1;

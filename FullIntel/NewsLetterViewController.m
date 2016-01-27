@@ -88,6 +88,22 @@
     FINewsLetter *newsletter = [newsLetterArray objectAtIndex:indexPath.row];
     int serialNumber = indexPath.row+1;
     cell.serialNumber.text = [NSString stringWithFormat:@"%d",serialNumber];
+//    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+//        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+//        if(orientation == 0){
+//            //Default orientation
+//            //UI is in Default (Portrait) -- this is really a just a failsafe.
+//        }else if(orientation == UIInterfaceOrientationPortrait) {
+//            //Do something if the orientation is in Portrait
+//            NSString *titName = newsletter.newsLetterSubject;
+//            if(titName.length > 15) {
+//                cell.newsLetterTitle.text = [NSString stringWithFormat:@"%@...",[titName substringToIndex:15]];
+//            }
+//            else {
+//                cell.newsLetterTitle.text = newsletter.newsLetterSubject;
+//            }
+//        }
+//    }
     cell.newsLetterTitle.text = newsletter.newsLetterSubject;
     cell.articlesCount.text = [NSString stringWithFormat:@"%d",newsletter.newsLetterArticles.count];
     cell.createdDate.text = newsletter.createdDate;

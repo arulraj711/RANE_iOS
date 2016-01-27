@@ -2134,22 +2134,22 @@
 //    cell.accessoryType = UITableViewCellAccessoryCheckmark;
 //}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(longPressActive ? @"yes" : @"No");
+//    NSLog(longPressActive ? @"yes" : @"No");
 
-    if (longPressActive) { //Perform action desired when cell is long pressed
-        
-        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-        
-        UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
-        UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
-        accessoryViewImage.center = CGPointMake(12, 25);
-        [accessoryView addSubview:accessoryViewImage];
-        [cell setAccessoryView:accessoryView];
-        [self addToolbarAndChangeNavBar];
-        
-      
-
-    }else { //Perform action desired when cell is selected normally
+//    if (longPressActive) { //Perform action desired when cell is long pressed
+//        
+//        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+//        
+//        UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+//        UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
+//        accessoryViewImage.center = CGPointMake(12, 25);
+//        [accessoryView addSubview:accessoryViewImage];
+//        [cell setAccessoryView:accessoryView];
+//        [self addToolbarAndChangeNavBar];
+//        
+//      
+//
+//    }else { //Perform action desired when cell is selected normally
     
         UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
         
@@ -2195,7 +2195,7 @@
             testView.articleIdFromSearchLst =articleIdToBePassed;
             [self.navigationController pushViewController:testView animated:YES];
         }
-    }
+//    }
 }
 -(void)addToolbarAndChangeNavBar{
         self.navigationItem.rightBarButtonItem = nil;
@@ -2287,12 +2287,13 @@
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
         {
             NSLog(@"long press on table view at row %ld", (long)indexPath.row);
-            longPressActive = YES;
             
-            [self.articlesTableView selectRowAtIndexPath:indexPath
-                                        animated:NO
-                                  scrollPosition:UITableViewScrollPositionNone];
-            [self tableView:self.articlesTableView didSelectRowAtIndexPath:indexPath];
+            [gestureRecognizer cancelsTouchesInView];
+            //longPressActive = YES;
+            //[self.articlesTableView selectRowAtIndexPath:indexPath
+            //                           animated:NO
+            //                      scrollPosition:UITableViewScrollPositionNone];
+            //[self tableView:self.articlesTableView didSelectRowAtIndexPath:indexPath];
         }
 //        }else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
 //                  gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
