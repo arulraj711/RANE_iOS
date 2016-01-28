@@ -335,6 +335,7 @@
 }
 -(void)presentPopoverFromView:(UIView*)fromView
 {
+    NSLog(@"%@",fromView);
     _alphawhsk = fromView.frame.origin.x + fromView.frame.size.width/2.0;
     _alphaalphawhsk = fromView.frame.origin.y;
     SAFE_ARC_RELEASE(_fromView);

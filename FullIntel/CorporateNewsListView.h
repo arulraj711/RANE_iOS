@@ -36,9 +36,12 @@
     BOOL longPressActive;
     BOOL tickImageStatus;
     NSMutableArray *unreadArticleIdArray;
+    int firstTimeFlags;
     int switchForFilter;
     int isSearchingInteger;
-    
+    NSMutableArray *selectedCells;
+    UIView* accessoryView;
+    UIImageView* accessoryViewImage;
     BOOL isSearching;
     UISearchBar *searchBar;
     NSMutableArray *articleIdToBePassed;
