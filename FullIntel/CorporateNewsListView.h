@@ -12,8 +12,9 @@
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
 #import "PKRevealController.h"
+#import "FPPopoverController.h"
 
-@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate, UISearchBarDelegate, UISearchControllerDelegate,UISearchDisplayDelegate,PanDelegate> {
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate, UISearchBarDelegate, UISearchControllerDelegate,UISearchDisplayDelegate,PanDelegate,FPPopoverControllerDelegate> {
     WSCoachMarksView *coachMarksView;
     NSMutableArray *legendsList;
     NSManagedObject *author;
@@ -41,7 +42,8 @@
     NSMutableArray *selectedCells;
     UIView* accessoryView;
     UIImageView* accessoryViewImage;
-    
+    FPPopoverController *popover;
+
     
     BOOL isSearching;
     UISearchBar *searchBar;

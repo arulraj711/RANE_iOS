@@ -22,6 +22,7 @@
 #import "QuartzCore/QuartzCore.h"
 #import "BGTableViewRowActionWithImage.h"
 #import "MoreSettingsView.h"
+#import "SavedListPopoverView.h"
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -61,7 +62,7 @@
                                     forState:UIControlStateNormal];
     
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    addTofolder=[[UIBarButtonItem alloc]initWithTitle:@"Add to folder" style:UIBarButtonItemStyleDone target:self action:@selector(addTOFolder)];
+    addTofolder=[[UIBarButtonItem alloc]initWithTitle:@"Add to folder" style:UIBarButtonItemStyleDone target:self action:@selector(addTOFolder:)];
     [addTofolder setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]
                                forState:UIControlStateNormal];
     
@@ -1740,13 +1741,25 @@
         
             if (longPressActive) { //Perform action desired when cell is long pressed
                 accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
-                NSNumber *rowNsNum = [NSNumber numberWithUnsignedInt:indexPath.row];
+                NSNumber *rowNsNum = [NSNumber numberWithInteger:indexPath.row];
                 if ( [selectedCells containsObject:rowNsNum]  )
                 {
                     accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
+//                    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+//                    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
+//                    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+//                    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+//                    sprintAnimation.springBounciness = 20.f;
+//                    [accessoryViewImage pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
                 }
                 else{
                     accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle"]];
+//                    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+//                    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
+//                    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+//                    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+//                    sprintAnimation.springBounciness = 20.f;
+//                    [accessoryViewImage pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
                 }
                 
                 accessoryViewImage.center = CGPointMake(12, 25);
@@ -1754,13 +1767,15 @@
                 [cell setAccessoryView:accessoryView];
                 [self addToolbarAndChangeNavBar];
             }
-        cell.accessoryView = nil;
-        
-        if([[tableView indexPathsForSelectedRows] containsObject:indexPath]) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
+            else{
+                [cell.accessoryView removeFromSuperview];
+                cell.accessoryView = nil;
+            }
+//        if([[tableView indexPathsForSelectedRows] containsObject:indexPath]) {
+//            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        } else {
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//        }
 
         if(cell.isEditing == YES) {
             NSLog(@"cell editing yes ------------");
@@ -1992,7 +2007,7 @@
         
         //[self updateReadUnReadStatusForRow:indexPath];
         //[self updateMarkedImportantStatusForRow:indexPath];
-        // [self updateSaveForLaterStatusForRow:indexPath];
+        //[self updateSaveForLaterStatusForRow:indexPath];
         
         
         UITapGestureRecognizer *markedImpTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(markedImpAction:)];
@@ -2154,7 +2169,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.0;
 }
-//-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (longPressActive) { //Perform action desired when cell is long pressed
+        NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
+        [selectedCells removeObject:[NSNumber numberWithInteger:indexPath.row]];
+        [self.articlesTableView reloadData];
+    }
+    
+}
 //    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
 //    
 //    UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
@@ -2166,11 +2189,28 @@
 //}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(longPressActive ? @"yes" : @"No");
-
+    NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
+    NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+    
+    NSSet *authorSet = [curatedNews valueForKey:@"articleId"];
+    NSMutableArray *authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
     if (longPressActive) { //Perform action desired when cell is long pressed
-        [selectedCells addObject:[NSNumber numberWithInt:indexPath.row]];
-//        firstTimeFlags = indexPath.row;
-        [self.articlesTableView reloadData];
+        NSLog(@"%@",[selectedCells lastObject]);
+        NSNumber *rowNsNum = [NSNumber numberWithInteger:indexPath.row];
+        if ([selectedCells containsObject:rowNsNum])
+        {
+            
+            [selectedCells removeObject:[NSNumber numberWithInteger:indexPath.row]];
+            [self.articlesTableView reloadData];
+
+        }
+        else
+        {
+            [selectedCells addObject:[NSNumber numberWithInteger:indexPath.row]];
+            [self.articlesTableView reloadData];
+
+        }
+
 
 //        if ([cell isSelected]) {
 //            UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
@@ -2279,14 +2319,38 @@
 -(void)markAsRead{
     
 }
--(void)addTOFolder{
+-(void)addTOFolder:(id)sender{
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
+    SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+    self.view.alpha = 0.4;
+//    popOverView.selectedArticleId = self.selectedArticleId;
+    popover = [[FPPopoverController alloc] initWithViewController:popOverView];
+    popover.border = NO;
+    popover.delegate = self;    
+    //[popover setShadowsHidden:YES];
+    popover.tint = FPPopoverWhiteTint;
+    popover.contentSize = CGSizeMake(300, 260);
+    popover.arrowDirection = FPPopoverArrowDirectionAny;
+    [popover presentPopoverFromView:toolbar];
+
+}
+- (void)popoverControllerDidDismissPopover:(FPPopoverController *)popoverController {
+    self.view.alpha = 1;
     
+}
+
+
+- (CGRect)frameForBarButtonItem:(UIBarButtonItem *)buttonItem
+{
+    UIView *view = [buttonItem valueForKey:@"view"];
+    return  view ? view.frame : CGRectZero;
 }
 -(void)cancelButtonEvent{
       self.navigationItem.rightBarButtonItem = nil;
       self.navigationItem.leftBarButtonItem = nil;
       [self addButtonsOnNavigationBar];
       longPressActive = NO;
+    [selectedCells removeAllObjects];
 //    accessoryView = nil;
     [self.articlesTableView reloadData];
 
@@ -2307,13 +2371,18 @@
         NSUInteger numberOfrows = [self.articlesTableView numberOfRowsInSection:0];
         NSLog(@"%lu",(unsigned long)numberOfrows);
         for (NSUInteger s = 0; s < numberOfrows; ++s) {
-            NSUInteger numberOfRowsInSection = [self.articlesTableView numberOfRowsInSection:s];
-//           NSIndexPath *idxPath = [NSIndexPath indexPathForRow:r inSection:s];
-//          [self.selectedCells addObject:idxPath];
-//          [self.selecedStates addObject:self.states[idxPath.row]];
-//            longPressActive = YES;
-            [self.articlesTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-            [self tableView:self.articlesTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0]];
+//            NSUInteger numberOfRowsInSection = [self.articlesTableView numberOfRowsInSection:s];
+////           NSIndexPath *idxPath = [NSIndexPath indexPathForRow:r inSection:s];
+////          [self.selectedCells addObject:idxPath];
+////          [self.selecedStates addObject:self.states[idxPath.row]];
+////            longPressActive = YES;
+//            [self.articlesTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+//            [self tableView:self.articlesTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0]];
+         
+            [selectedCells addObject:[NSNumber numberWithInteger:s]];
+            [self.articlesTableView reloadData];
+
+            
             
         }
 //        [self.articlesTableView reloadData];
@@ -2332,6 +2401,7 @@
         {
             NSLog(@"long press on table view at row %ld", (long)indexPath.row);
             longPressActive = YES;
+            [selectedCells addObject:[NSNumber numberWithInteger:indexPath.row]];
             [self.articlesTableView reloadData];
             [self.articlesTableView selectRowAtIndexPath:indexPath
                                        animated:NO
