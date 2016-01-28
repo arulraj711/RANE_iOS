@@ -2473,10 +2473,10 @@
     [popover presentPopoverFromView:toolbar];
 
 }
-- (void)popoverControllerDidDismissPopover:(FPPopoverController *)popoverController {
-    self.view.alpha = 1;
-    
-}
+//- (void)popoverControllerDidDismissPopover:(FPPopoverController *)popoverController {
+//    self.view.alpha = 1;
+//    
+//}
 
 
 - (CGRect)frameForBarButtonItem:(UIBarButtonItem *)buttonItem
