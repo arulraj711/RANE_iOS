@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 @interface MoreSettingsView : UIViewController<UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
+@property NSInteger dropDownValue;
+@property float xPosition;
+@property float yPosition;
 @property (weak, nonatomic) IBOutlet UITableView *moreTableView;
 @property (nonatomic,strong) NSMutableArray *moreInforArray;
 @property (nonatomic,strong) NSString *articleTitle;
@@ -19,4 +22,7 @@
 @property (nonatomic,strong) UIButton *buttonName;
 @property (strong, nonatomic) IBOutlet UIView *bgView;
 @property (strong)  NSIndexPath* lastIndexPath;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewYConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewXConstraint;
 @end
+

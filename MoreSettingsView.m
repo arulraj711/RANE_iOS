@@ -53,23 +53,29 @@
     [super viewDidLoad];
     SelectedCellBGColor = [FIUtils colorWithHexString:@"F55567"];
     NotSelectedCellBGColor = [UIColor clearColor];
-
+    
     // Do any additional setup after loading the view from its nib.
     _moreInforArray = [[NSMutableArray alloc]init];
     self.moreTableView.layer.cornerRadius = 5;
     self.moreTableView.layer.masksToBounds = YES;
-   
     
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView)];
-//    tap.delegate = self;
-//    [self.bgView addGestureRecognizer:tap];
-
+    
+    //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView)];
+    //    tap.delegate = self;
+    //    [self.bgView addGestureRecognizer:tap];
+    
     
     UIBezierPath* trianglePath = [UIBezierPath bezierPath];
-    NSLog(@"%f",SCREEN_WIDTH-125);
-    [trianglePath moveToPoint:CGPointMake(SCREEN_WIDTH-24, 55)];
-    [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-34, self.moreTableView.frame.origin.y)];
-    [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-14, self.moreTableView.frame.origin.y)];
+    NSLog(@"screen width%f",self.xPosition);
+    //    [trianglePath moveToPoint:CGPointMake(SCREEN_WIDTH-24, 55)];
+    //    [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-34, self.moreTableView.frame.origin.y)];
+    //    [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-14, self.moreTableView.frame.origin.y)];
+    //    NSLog(@"first:(%f,%d) second:(%f,%f) three:(%f,%f)",self.xPosition-24,55,self.xPosition-34,self.yPosition,self.xPosition-14,self.yPosition);
+    //    [trianglePath moveToPoint:CGPointMake(self.xPosition-24, 55)];
+    //    [trianglePath addLineToPoint:CGPointMake(self.xPosition-34, self.yPosition)];
+    //    [trianglePath addLineToPoint:CGPointMake(self.xPosition-14, self.yPosition)];
+    
+    
     [trianglePath closePath];
     
     CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
@@ -80,21 +86,23 @@
     view.backgroundColor = [UIColor whiteColor];
     view.layer.mask = triangleMaskLayer;
     [self.view addSubview:view];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+    if(self.dropDownValue == 1) {
+        //filter view
+        self.tableViewXConstraint.constant = SCREEN_WIDTH-self.xPosition;
+        self.tableViewYConstraint.constant = self.yPosition;
         [_moreInforArray addObject:@"All articles"];
         [_moreInforArray addObject:@"Unread"];
         [_moreInforArray addObject:@"Last 24 Hours"];
-
+    } else if(self.dropDownValue == 2) {
+        //actions view
+        self.tableViewXConstraint.constant = SCREEN_WIDTH-self.xPosition;
+        self.tableViewYConstraint.constant = self.yPosition;
+        [_moreInforArray addObject:@"ADD TO FOLDER"];
+        [_moreInforArray addObject:@"MARK AS READ"];
     }
-    else{
-        [_moreInforArray addObject:@"All articles"];
-        [_moreInforArray addObject:@"Unread"];
-        [_moreInforArray addObject:@"Last 24 Hours"];
-
-    }    
+    
     self.moreTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.moreTableView reloadData];
 }
@@ -107,19 +115,19 @@
     [self.view.layer addAnimation:transition forKey:kCATransition];
     [self dismissViewControllerAnimated:NO completion:nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"changeAlphaVal" object:nil];
-
+    
     
 }
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];
-//    CGPoint touchLocation = [touch locationInView:touch.view];
-//    CGPoint point = [touch locationInView:self.moreTableView.superview];
+    //    CGPoint touchLocation = [touch locationInView:touch.view];
+    //    CGPoint point = [touch locationInView:self.moreTableView.superview];
     CGPoint location = [touch locationInView:self.moreTableView];
     NSIndexPath *path = [self.moreTableView indexPathForRowAtPoint:location];
-
+    
     if(path){
         [self tableView:self.moreTableView didSelectRowAtIndexPath:path];
-
+        
     }
     else
     {
@@ -131,10 +139,10 @@
         [self.view.layer addAnimation:transition forKey:kCATransition];
         [self dismissViewControllerAnimated:NO completion:nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"changeAlphaVal" object:nil];
-
-            // handle tap on empty space below existing rows however you want
+        
+        // handle tap on empty space below existing rows however you want
     }
-
+    
 }
 
 
@@ -167,45 +175,26 @@
     NSLog(@"%ld",(long)selectedIndexPath);
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
     
-    NSInteger selectionValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectionValue"];
-    NSLog(@"%ld",(long)selectionValue);
-    NSLog(@"%ld",indexPath.row);
-
-    
-    if (selectionValue  == indexPath.row) {
-        if (cell.name.textColor == SelectedCellBGColor) {
-        cell.name.textColor = [UIColor lightGrayColor];
-        }
-    else {
-        cell.name.textColor = SelectedCellBGColor;
-         }
+    //    NSInteger selectionValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectionValue"];
+    //    if (selectionValue  == indexPath.row) {
+    //        if (cell.name.textColor == SelectedCellBGColor) {
+    //        cell.name.textColor = [UIColor lightGrayColor];
+    //        }
+    //    else {
+    //        cell.name.textColor = SelectedCellBGColor;
+    //         }
+    //    }
+    if(indexPath.row == 0){
+        cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
+    }
+    else if(indexPath.row == 1) {
+        cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
+    }
+    else if(indexPath.row == 2){
+        cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
     }
     
     
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        if(indexPath.row == 0){
-            cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
-        }
-        else if(indexPath.row == 1) {
-            cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
-        }
-        else if(indexPath.row == 2){
-            cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
-        }
-
-    }
-    else{
-        if(indexPath.row == 0){
-            cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
-        }
-        else if(indexPath.row == 1) {
-            cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
-        }
-        else if(indexPath.row == 2){
-            cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
-        }
-        
-    }
     return cell;
 }
 
@@ -214,7 +203,7 @@
     MoreSettingsCell *cells = [tableView cellForRowAtIndexPath:indexPath];
     NSLog(@"%ld",(long)indexPath.row);
     NSLog(@"%@",cells);
-
+    
     for (int i = 0; i < [tableView numberOfRowsInSection:indexPath.section]; i++) {
         if (i != indexPath.row) {
             MoreSettingsCell* cellse = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
@@ -229,31 +218,41 @@
             cells.name.textColor = SelectedCellBGColor;
         }
         
-
+        
         
     }
-    NSLog(@"tableview%@",indexPath);
-    if(indexPath.row == 0){
-        NSLog(@"tableview,indexPath 1");
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAll" object:nil];
-        [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
-        NSLog(@"tableview%@",indexPath);
-
-    }
-    
-    else if(indexPath.row == 1) {
-        NSLog(@"tableview,indexPath 1");
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForUnreadMenu" object:nil];
-        [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
-        NSLog(@"tableview%@",indexPath);
-
-    }
-    else if(indexPath.row == 2){
-        NSLog(@"tableview,indexPath0");
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
-        [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
-        NSLog(@"tableview%@",indexPath);
-
+    if(self.dropDownValue == 2) {
+        if(indexPath.row == 0) {
+            //trigger Add to folder
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAddToFolder" object:nil];
+        } else if(indexPath.row == 1) {
+            //Trigger Mark as Read
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForMarkAsRead" object:nil];
+        }
+    } else {
+        if(indexPath.row == 0){
+            NSLog(@"tableview,indexPath 1");
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAll" object:nil];
+            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            NSLog(@"tableview%@",indexPath);
+            
+        }
+        
+        else if(indexPath.row == 1) {
+            NSLog(@"tableview,indexPath 1");
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForUnreadMenu" object:nil];
+            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            NSLog(@"tableview%@",indexPath);
+            
+        }
+        else if(indexPath.row == 2){
+            NSLog(@"tableview,indexPath0");
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
+            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            NSLog(@"tableview%@",indexPath);
+            
+        }
+        
     }
 }
 
@@ -261,7 +260,7 @@
 {
     MoreSettingsCell *cells = [tableView cellForRowAtIndexPath:indexPath];
     cells.name.textColor = [UIColor lightGrayColor];
-
+    
 }
 
 - (void) drawLine: (CGContextRef) context from: (CGPoint) from to: (CGPoint) to

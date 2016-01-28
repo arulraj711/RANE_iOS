@@ -21,6 +21,7 @@
 @property (nonatomic,strong) NSMutableArray *savedListArray;
 - (IBAction)savedAction:(id)sender;
 @property (nonatomic,strong) NSString *selectedArticleId;
+@property (nonatomic,strong) NSMutableArray *selectedArticleIdArray;
 - (IBAction)requestButtonClick:(id)sender;
 @property (nonatomic,strong) IBOutlet UIButton *saveButton;
 @end

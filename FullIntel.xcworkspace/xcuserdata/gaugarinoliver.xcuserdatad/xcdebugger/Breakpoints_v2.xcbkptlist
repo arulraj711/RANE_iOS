@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LeftViewController.m"
-            timestampString = "473934363.123138"
+            filePath = "FullIntel/SavedListPopoverView.m"
+            timestampString = "475654868.496348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1127"
-            endingLineNumber = "1127"
-            landmarkName = "-treeView:didSelectRowForItem:"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
+            landmarkName = "-addMultipleArticleToMultipleFolder"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

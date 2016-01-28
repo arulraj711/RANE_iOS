@@ -22,6 +22,7 @@
 #import "QuartzCore/QuartzCore.h"
 #import "BGTableViewRowActionWithImage.h"
 #import "MoreSettingsView.h"
+#import "SavedListPopoverView.h"
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -122,6 +123,13 @@
         [self.revealController showViewController:self.revealController.frontViewController];
     }
     messageString = @"Loading...";
+    
+    
+    //Receive AddToFolder and MarkAsRead Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyForAddToFolder) name:@"notifyForAddToFolder" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyForMarkAsRead) name:@"notifyForMarkAsRead" object:nil];
+    
+    
     // NSLog(@"list did load");notifyForLast24
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyForUnread) name:@"notifyForUnreadMenu" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyForLast) name:@"notifyForLast24" object:nil];
@@ -206,7 +214,9 @@
         
     }
 
-
+    //Set Default segment selection as "None"
+    [self.segmentControl setSelectedSegmentIndex:2];
+    actionArticleIdList = [[NSMutableArray alloc]init];
 }
 
 - (void)handlePanGestureStart {
@@ -224,6 +234,105 @@
 
 -(void)changeAlpha{
     self.view.alpha = 1;
+}
+- (void)popoverControllerDidDismissPopover:(FPPopoverController *)popoverController {
+   // self.superview.alpha = 1;
+    
+}
+-(void)notifyForAddToFolder {
+    //Add to folder functionality
+    NSLog(@"Add To Folder --->%@ and %@",articleIdToBePassed,unreadArticleIdArray);
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderClick"];
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
+        SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+        //self.superview.alpha = 0.4;
+        popOverView.selectedArticleId = @"";
+        popOverView.selectedArticleIdArray = [[NSMutableArray alloc]initWithArray:unreadArticleIdArray];
+        popover = [[FPPopoverController alloc] initWithViewController:popOverView];
+        popover.border = NO;
+        popover.delegate = self;
+        
+        //[popover setShadowsHidden:YES];
+        popover.tint = FPPopoverWhiteTint;
+        popover.contentSize = CGSizeMake(300, 260);
+        popover.arrowDirection = FPPopoverArrowDirectionAny;
+        [popover presentPopoverFromView:self.view];
+    }
+    else{
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
+        SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+        popOverView.selectedArticleId = @"";
+        popOverView.selectedArticleIdArray = [[NSMutableArray alloc]initWithArray:unreadArticleIdArray];
+        self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+        self.popOver.popoverContentSize=CGSizeMake(350, 267);
+        //self.popOver.delegate = self;
+        [self.popOver presentPopoverFromRect:CGRectMake(self.actionButton.frame.origin.x, self.actionButton.frame.origin.y, self.actionButton.frame.size.width, 100) inView:self.articlesTableView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
+}
+
+-(void)notifyForMarkAsRead {
+    //Mark as read functionality
+    NSLog(@"Mark As Read --->%@ and %@",articleIdToBePassed,unreadArticleIdArray);
+    NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+    NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+    [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [resultDic setObject:unreadArticleIdArray forKey:@"selectedArticleIds"];
+    [resultDic setObject:@"1" forKey:@"status"];
+    [resultDic setObject:@"true" forKey:@"isSelected"];
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+    // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+    }
+    for(NSString *articleId in unreadArticleIdArray) {
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",articleId];
+        [fetchRequest setPredicate:predicate];
+        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        //NSLog(@"new person array count:%d",newPerson.count);
+        if(newPerson.count != 0) {
+            //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+            for(NSManagedObject *curatedNews in newPerson) {
+                NSLog(@"for loop update");
+                [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"readStatus"];
+                [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"isFilter"];
+                
+                if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                    // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+                } else {
+                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+                }
+                
+                NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
+                NSNumber *saveForLaterStatus = [curatedNews valueForKey:@"saveForLater"];
+                
+                if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]] && [saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"all"}];
+                } else if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    // NSLog(@"both type is working");
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothMarkImp"}];
+                }else if([saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothSavedForLater"}];
+                }else {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
+                }
+                
+            }
+        }
+        [managedObjectContext save:nil];
+    }
+    
+    
+    
+   
+    
+    
+    
+    [self.articlesTableView reloadData];
 }
 
 -(void)notifyForUnread{
@@ -847,6 +956,16 @@
         
     articleIdToBePassed = [self.devices valueForKey:@"articleId"];
     NSLog(@"articleIdToBePassed = %@",articleIdToBePassed);
+    
+    unreadArticleIdArray = [[NSMutableArray alloc]init];
+    for(NSManagedObject *curatedNews in self.devices) {
+        if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            
+        } else {
+            [unreadArticleIdArray addObject:[curatedNews valueForKey:@"articleId"]];
+        }
+    }
+    NSLog(@"Err-->%@ and %@",[self.devices valueForKey:@"readStatus"],self.devices);
     
 
     
@@ -2009,6 +2128,27 @@
             cell.bookmarkView.layer.borderWidth=0.0f;
         }
         
+        
+        //Handle checkbox based on segement selected control
+        if(self.segmentControl.selectedSegmentIndex == 0) {
+            [cell.checkMarkButton setSelected:YES];
+        } else if(self.segmentControl.selectedSegmentIndex == 1) {
+            if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                [cell.checkMarkButton setSelected:NO];
+            } else {
+                [cell.checkMarkButton setSelected:YES];
+            }
+        } else if(self.segmentControl.selectedSegmentIndex == 2) {
+            [cell.checkMarkButton setSelected:NO];
+        }
+        
+        if(cell.checkMarkButton.isSelected) {
+            [actionArticleIdList addObject:[curatedNews valueForKey:@"articleId"]];
+        } else {
+            
+        }
+        
+        
         tableCell = cell;
     } else {
         
@@ -2794,19 +2934,32 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
     MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
     popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    popOverView.dropDownValue = 1; //filter view
+    popOverView.xPosition = self.filterButton.frame.origin.x+self.filterButton.frame.size.width;
+    popOverView.yPosition = self.filterButton.frame.origin.y;
     self.view.alpha = 0.89;
     [self presentViewController:popOverView animated:NO completion:nil];
 }
 
 - (IBAction)actionsButtonClick:(id)sender {
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
+    MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
+    popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    popOverView.dropDownValue = 2; //actions view
+    popOverView.xPosition = self.actionButton.frame.origin.x+self.actionButton.frame.size.width;
+    popOverView.yPosition = self.actionButton.frame.origin.y+80;
+    self.view.alpha = 0.89;
+    [self presentViewController:popOverView animated:NO completion:nil];
 }
 - (IBAction)segmentControlAction:(id)sender {
+    [unreadArticleIdArray removeAllObjects];
     if (self.segmentControl.selectedSegmentIndex == 0) {
-        
+        NSLog(@"All Selected");
     } else if(self.segmentControl.selectedSegmentIndex == 1) {
-        
+        NSLog(@"Unread Selected");
     } else if(self.segmentControl.selectedSegmentIndex == 2) {
-        
+        NSLog(@"None Selected");
     }
+    [self.articlesTableView reloadData];
 }
 @end

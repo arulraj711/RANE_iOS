@@ -239,18 +239,31 @@
     [self.view addSubview:activityIndicator];
     [activityIndicator startAnimating];
     self.view.userInteractionEnabled = NO;
-    NSMutableArray *folderArray = [[NSMutableArray alloc]init];
-    if(selectedArray.count != 0) {
-    for(int i=0;i<selectedArray.count;i++) {
-        NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
-        [folderdetails setObject:[selectedArray objectAtIndex:i] forKey:@"id"];
-        [folderArray addObject:folderdetails];
+    if(self.selectedArticleId.length == 0){
+        //Multiple article + Multiple folder
+        [self addMultipleArticleToMultipleFolder];
+    } else {
+        //Single article + Multiple folder
+        [self addSingleArticleToMultipleFolder];
     }
     
-    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderArray options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+    
+    //[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)addSingleArticleToMultipleFolder {
+    NSMutableArray *folderArray = [[NSMutableArray alloc]init];
+    if(selectedArray.count != 0) {
+        for(int i=0;i<selectedArray.count;i++) {
+            NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
+            [folderdetails setObject:[selectedArray objectAtIndex:i] forKey:@"id"];
+            [folderArray addObject:folderdetails];
+        }
+        
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:folderArray options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         NSLog(@"save article request:%@",resultStr);
-    [[FISharedResources sharedResourceManager]saveArticleToFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withArticleId:self.selectedArticleId];
+        [[FISharedResources sharedResourceManager]saveArticleToFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withArticleId:self.selectedArticleId];
     }
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         if(unselectedArray.count != 0) {
@@ -260,8 +273,6 @@
                 NSMutableDictionary *unselectedFolderDetails = [[NSMutableDictionary alloc] init];
                 [unselectedFolderDetails setObject:[unselectedArray objectAtIndex:i] forKey:@"id"];
                 [unselectedFolderArray addObject:unselectedFolderDetails];
-//                NSNumber *folderId = [NSNumber numberWithInt:[[unselectedArray objectAtIndex:i] integerValue]];
-//                [[FISharedResources sharedResourceManager]updateFolderId:@"CuratedNews" withFolderId:folderId];
             }
             
             NSData *unselectedJsonData = [NSJSONSerialization dataWithJSONObject:unselectedFolderArray options:NSJSONWritingPrettyPrinted error:nil];
@@ -270,7 +281,31 @@
             [[FISharedResources sharedResourceManager]removeArticleToFolderWithDetails:unselectedResultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withArticleId:self.selectedArticleId];
         }
     });
-    
-    //[self dismissViewControllerAnimated:YES completion:nil];
 }
+
+-(void)addMultipleArticleToMultipleFolder {
+    
+    NSMutableDictionary *saveToFolderInputDic = [[NSMutableDictionary alloc]init];
+    [saveToFolderInputDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"security_token"];
+    NSMutableArray *folderArray = [[NSMutableArray alloc]init];
+    if(selectedArray.count != 0) {
+        for(int i=0;i<selectedArray.count;i++) {
+            NSMutableDictionary *folderdetails = [[NSMutableDictionary alloc] init];
+            [folderdetails setObject:[selectedArray objectAtIndex:i] forKey:@"id"];
+            [folderArray addObject:folderdetails];
+        }
+        
+        [saveToFolderInputDic setObject:folderArray forKey:@"folders"];
+        [saveToFolderInputDic setObject:self.selectedArticleIdArray forKey:@"selectedArticleIds"];
+        
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:saveToFolderInputDic options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        NSLog(@"save article request:%@",resultStr);
+        [[FISharedResources sharedResourceManager]addMultipleArticleToMultipleFolderWithDetails:resultStr withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+        [self dismissViewControllerAnimated:YES completion:nil];
+       
+    }
+}
+
+
 @end

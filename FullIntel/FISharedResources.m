@@ -2236,6 +2236,43 @@
     }
 }
 
+-(void)addMultipleArticleToMultipleFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken {
+    if([self serviceIsReachable]) {
+        [FIWebService addMultipleArticlesToMultipleFolderWithDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            [window makeToast:@"Saved to folder successfully." duration:2 position:CSToastPositionCenter];
+            // [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
+            [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:NO];
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //[FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            if(errorJson == nil){
+                [FIUtils showErrorToast];
+            } else {
+                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                    [self hideProgressView];
+                    [self showLoginView:[NSNumber numberWithInt:0]];
+                } else {
+                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                }
+            }
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 2) {
+            [self showBannerView];
+        }
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
+    }
+}
+
+
 -(void)removeArticleToFolderWithDetails:(NSString *)details withAccessToken:(NSString *)accessToken withArticleId:(NSString *)articleId {
     if([self serviceIsReachable]) {
         [FIWebService removeArticlesFromFolderWithDetails:details withSecurityToken:accessToken withArticleId:articleId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
