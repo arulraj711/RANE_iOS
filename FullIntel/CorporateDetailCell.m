@@ -938,7 +938,7 @@
         NSLog(@"%@",self.webViewHeightConstraint);
         CGFloat pointOfWebview = newBounds.size.height;
 
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+950+self.bioLabel.frame.size.height);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+750+self.bioLabel.frame.size.height);
         
     }
     else{
@@ -1680,8 +1680,6 @@
             self.bioDivider.hidden = NO;
             self.bioLabel.hidden = NO;
             self.bioLabel.text = bioString;
-          
-
         } else {
             self.bioTitleLabel.hidden = YES;
             self.bioDivider.hidden = YES;
