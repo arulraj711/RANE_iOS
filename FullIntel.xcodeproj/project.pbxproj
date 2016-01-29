@@ -177,6 +177,7 @@
 		A0EF01911BDE379600B0191B /* NewsLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF01901BDE379600B0191B /* NewsLetterViewController.m */; };
 		A0EF01931BDE37AB00B0191B /* NewsLetterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF01921BDE37AB00B0191B /* NewsLetterView.storyboard */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
+		A0F1DBA61C5B473F00F39EE9 /* MoreSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F1DBA51C5B473F00F39EE9 /* MoreSettingsView.m */; };
 		BA4FB3351C0FFFD800D96DDA /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4FB3341C0FFFD800D96DDA /* Images-2.xcassets */; };
 		BA51CC661C58A3BF00327578 /* issue_list.json in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC471C58A3BF00327578 /* issue_list.json */; };
 		BA51CC671C58A3BF00327578 /* chart_story.json in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC481C58A3BF00327578 /* chart_story.json */; };
@@ -218,7 +219,6 @@
 		BA6347911BFE02A300DCF13F /* BGTableViewRowActionWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */; };
 		BAB29F0E1C3D275A0008ED71 /* MoreSettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB29F0C1C3D275A0008ED71 /* MoreSettingsView.storyboard */; };
 		BAB29F0F1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */; };
-		BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB29F101C3D27700008ED71 /* MoreSettingsView.m */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
@@ -575,6 +575,8 @@
 		A0F118B21AE7E0420047FE13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0F118B31AE7E0420047FE13 /* FullIntelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullIntelTests.m; sourceTree = "<group>"; };
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		A0F1DBA41C5B473F00F39EE9 /* MoreSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreSettingsView.h; sourceTree = "<group>"; };
+		A0F1DBA51C5B473F00F39EE9 /* MoreSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSettingsView.m; sourceTree = "<group>"; };
 		A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 3.xcdatamodel"; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
 		BA4FB3341C0FFFD800D96DDA /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-2.xcassets"; sourceTree = "<group>"; };
@@ -631,10 +633,8 @@
 		BA51CC9F1C58A47300327578 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		BA63478F1BFE02A200DCF13F /* BGTableViewRowActionWithImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGTableViewRowActionWithImage.h; sourceTree = "<group>"; };
 		BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGTableViewRowActionWithImage.m; sourceTree = "<group>"; };
-		BAB29F0B1C3D273F0008ED71 /* MoreSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreSettingsView.h; sourceTree = "<group>"; };
 		BAB29F0C1C3D275A0008ED71 /* MoreSettingsView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MoreSettingsView.storyboard; sourceTree = "<group>"; };
 		BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MoreSettingsViewPhone.storyboard; sourceTree = "<group>"; };
-		BAB29F101C3D27700008ED71 /* MoreSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSettingsView.m; sourceTree = "<group>"; };
 		BAEE93501C0F235600CD4F88 /* FullIntel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 5.xcdatamodel"; sourceTree = "<group>"; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -911,8 +911,8 @@
 			children = (
 				A07C1EBB1C2A64B900447D33 /* MoreSettingsCell.h */,
 				A07C1EBC1C2A64B900447D33 /* MoreSettingsCell.m */,
-				BAB29F0B1C3D273F0008ED71 /* MoreSettingsView.h */,
-				BAB29F101C3D27700008ED71 /* MoreSettingsView.m */,
+				A0F1DBA41C5B473F00F39EE9 /* MoreSettingsView.h */,
+				A0F1DBA51C5B473F00F39EE9 /* MoreSettingsView.m */,
 				BAB29F0C1C3D275A0008ED71 /* MoreSettingsView.storyboard */,
 				BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */,
 			);
@@ -2118,6 +2118,7 @@
 				A0E4B1171B4BB76B0029D389 /* FolderViewController.m in Sources */,
 				BA51CC681C58A3BF00327578 /* IssueTweetCell.m in Sources */,
 				F554DFD61BB026980062EAC7 /* NewsLetterCell.m in Sources */,
+				A0F1DBA61C5B473F00F39EE9 /* MoreSettingsView.m in Sources */,
 				A0CF5C6A1B1DD98B00DED2D9 /* NumberOfPatternsCell.m in Sources */,
 				A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */,
 				A0CF5C641B1DD98B00DED2D9 /* StockViewController.m in Sources */,
@@ -2144,7 +2145,6 @@
 				F7DB32611AA56F50002724D6 /* FIMenu.m in Sources */,
 				A0CF5C5A1B1DD98B00DED2D9 /* ExecutiveMovesController.m in Sources */,
 				A0CF5C691B1DD98B00DED2D9 /* IpAndLegalCell.m in Sources */,
-				BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */,
 				A0CF5C711B1DD98B00DED2D9 /* TopStoriesCell.m in Sources */,
 				F7CE36E01A95E9490005AA0A /* RATreeNode.m in Sources */,
 				F7E354E31A947A19009677D2 /* LeftViewController.m in Sources */,

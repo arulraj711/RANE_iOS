@@ -63,48 +63,57 @@
     //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView)];
     //    tap.delegate = self;
     //    [self.bgView addGestureRecognizer:tap];
-    
-    
-    UIBezierPath* trianglePath = [UIBezierPath bezierPath];
-    NSLog(@"screen width%f",self.xPosition);
-    //    [trianglePath moveToPoint:CGPointMake(SCREEN_WIDTH-24, 55)];
-    //    [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-34, self.moreTableView.frame.origin.y)];
-    //    [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-14, self.moreTableView.frame.origin.y)];
-    //    NSLog(@"first:(%f,%d) second:(%f,%f) three:(%f,%f)",self.xPosition-24,55,self.xPosition-34,self.yPosition,self.xPosition-14,self.yPosition);
-    //    [trianglePath moveToPoint:CGPointMake(self.xPosition-24, 55)];
-    //    [trianglePath addLineToPoint:CGPointMake(self.xPosition-34, self.yPosition)];
-    //    [trianglePath addLineToPoint:CGPointMake(self.xPosition-14, self.yPosition)];
-    
-    
-    [trianglePath closePath];
-    
-    CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
-    [triangleMaskLayer setPath:trianglePath.CGPath];
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height)];
-    
-    view.backgroundColor = [UIColor whiteColor];
-    view.layer.mask = triangleMaskLayer;
-    [self.view addSubview:view];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    if(self.dropDownValue == 1) {
-        //filter view
-        self.tableViewXConstraint.constant = SCREEN_WIDTH-self.xPosition;
-        self.tableViewYConstraint.constant = self.yPosition;
-        [_moreInforArray addObject:@"All articles"];
-        [_moreInforArray addObject:@"Unread"];
-        [_moreInforArray addObject:@"Last 24 Hours"];
-    } else if(self.dropDownValue == 2) {
-        //actions view
-        self.tableViewXConstraint.constant = SCREEN_WIDTH-self.xPosition;
-        self.tableViewYConstraint.constant = self.yPosition;
-        [_moreInforArray addObject:@"ADD TO FOLDER"];
-        [_moreInforArray addObject:@"MARK AS READ"];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        
+        UIBezierPath* trianglePath = [UIBezierPath bezierPath];
+        NSLog(@"%f",SCREEN_WIDTH-125);
+        [trianglePath moveToPoint:CGPointMake(SCREEN_WIDTH-24, 55)];
+        [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-34, self.moreTableView.frame.origin.y)];
+        [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-14, self.moreTableView.frame.origin.y)];
+        [trianglePath closePath];
+        
+        CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
+        [triangleMaskLayer setPath:trianglePath.CGPath];
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height)];
+        
+        view.backgroundColor = [UIColor whiteColor];
+        view.layer.mask = triangleMaskLayer;
+        [self.view addSubview:view];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+            [_moreInforArray addObject:@"All articles"];
+            [_moreInforArray addObject:@"Unread"];
+            [_moreInforArray addObject:@"Last 24 Hours"];
+        
     }
+    else{
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+        if(self.dropDownValue == 1) {
+            //filter view
+            self.tableViewXConstraint.constant = SCREEN_WIDTH-self.xPosition;
+            self.tableViewYConstraint.constant = self.yPosition;
+            [_moreInforArray addObject:@"All articles"];
+            [_moreInforArray addObject:@"Unread"];
+            [_moreInforArray addObject:@"Last 24 Hours"];
+        } else if(self.dropDownValue == 2) {
+            //actions view
+            self.tableViewXConstraint.constant = SCREEN_WIDTH-self.xPosition;
+            self.tableViewYConstraint.constant = self.yPosition;
+            [_moreInforArray addObject:@"ADD TO FOLDER"];
+            [_moreInforArray addObject:@"MARK AS READ"];
+        }
     
+
+        
+    }
     self.moreTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.moreTableView reloadData];
+    
+
+    
+    
 }
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     CATransition* transition = [CATransition animation];
@@ -175,26 +184,32 @@
     NSLog(@"%ld",(long)selectedIndexPath);
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
     
-    //    NSInteger selectionValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectionValue"];
-    //    if (selectionValue  == indexPath.row) {
-    //        if (cell.name.textColor == SelectedCellBGColor) {
-    //        cell.name.textColor = [UIColor lightGrayColor];
-    //        }
-    //    else {
-    //        cell.name.textColor = SelectedCellBGColor;
-    //         }
-    //    }
-    if(indexPath.row == 0){
-        cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
-    }
-    else if(indexPath.row == 1) {
-        cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
-    }
-    else if(indexPath.row == 2){
-        cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
-    }
+    NSInteger selectionValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectionValue"];
+    NSLog(@"%ld",(long)selectionValue);
+    NSLog(@"%ld",indexPath.row);
     
     
+    if (selectionValue  == indexPath.row) {
+        if (cell.name.textColor == SelectedCellBGColor) {
+            cell.name.textColor = [UIColor lightGrayColor];
+        }
+        else {
+            cell.name.textColor = SelectedCellBGColor;
+        }
+        }
+    
+    
+        if(indexPath.row == 0){
+            cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
+        }
+        else if(indexPath.row == 1) {
+            cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
+        }
+        else if(indexPath.row == 2){
+            cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
+        }
+        
+
     return cell;
 }
 
@@ -221,15 +236,8 @@
         
         
     }
-    if(self.dropDownValue == 2) {
-        if(indexPath.row == 0) {
-            //trigger Add to folder
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAddToFolder" object:nil];
-        } else if(indexPath.row == 1) {
-            //Trigger Mark as Read
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForMarkAsRead" object:nil];
-        }
-    } else {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        NSLog(@"tableview%@",indexPath);
         if(indexPath.row == 0){
             NSLog(@"tableview,indexPath 1");
             [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAll" object:nil];
@@ -252,7 +260,42 @@
             NSLog(@"tableview%@",indexPath);
             
         }
-        
+    }
+    else{
+        if(self.dropDownValue == 2) {
+            if(indexPath.row == 0) {
+                //trigger Add to folder
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAddToFolder" object:nil];
+            } else if(indexPath.row == 1) {
+                //Trigger Mark as Read
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForMarkAsRead" object:nil];
+            }
+        } else {
+            if(indexPath.row == 0){
+                NSLog(@"tableview,indexPath 1");
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAll" object:nil];
+                [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+                NSLog(@"tableview%@",indexPath);
+                
+            }
+            
+            else if(indexPath.row == 1) {
+                NSLog(@"tableview,indexPath 1");
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForUnreadMenu" object:nil];
+                [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+                NSLog(@"tableview%@",indexPath);
+                
+            }
+            else if(indexPath.row == 2){
+                NSLog(@"tableview,indexPath0");
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
+                [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+                NSLog(@"tableview%@",indexPath);
+                
+            }
+            
+        }
+
     }
 }
 

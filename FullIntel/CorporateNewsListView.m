@@ -52,7 +52,10 @@
     [super viewDidLoad];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"selectionValue"];
     firstTimeFlags = -1;
+    
     selectedCells = [[NSMutableArray alloc]init];
+    articleIdArray = [[NSMutableArray alloc]init];
+    
     //toolbar additions---------------------------------------------------
     CGRect frame, remain;
     CGRectDivide(self.view.bounds, &frame, &remain, 44, CGRectMaxYEdge);
@@ -991,13 +994,13 @@
     //   [self.revealController showViewController:self.revealController.leftViewController];
     
 }
--(void)settingsButtonFilter{ 
-    
+-(void)settingsButtonFilter{
 
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
     MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
     popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     self.view.alpha = 0.65;
+    popOverView.dropDownValue = 1;
     [self presentViewController:popOverView animated:NO completion:nil];
 
 }
@@ -1016,7 +1019,6 @@
         [searchBar setPlaceholder:@"Search article or topic"];
         [self.navigationController.navigationBar addSubview:searchBar];
         [searchBar becomeFirstResponder];
-
     }
     else{
         self.navigationItem.rightBarButtonItems = nil;
@@ -1030,9 +1032,7 @@
         [searchBar setPlaceholder:@"Search article or topic"];
         [self.navigationController.navigationBar addSubview:searchBar];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(didClickCancelButton)];
-
     }
-
 }
 -(void)didClickCancelButton{
     isSearching =0;
@@ -2313,6 +2313,10 @@
     if (longPressActive) { //Perform action desired when cell is long pressed
         NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
         [selectedCells removeObject:[NSNumber numberWithInteger:indexPath.row]];
+        
+        NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+        [articleIdArray removeObject:[curatedNews valueForKey:@"articleId"]];
+
         [self.articlesTableView reloadData];
     }
     
@@ -2329,10 +2333,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(longPressActive ? @"yes" : @"No");
     NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
-    NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
     
-    NSSet *authorSet = [curatedNews valueForKey:@"articleId"];
-    NSMutableArray *authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
+    NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+    NSLog(@"%@",articleIdArray);
+
+
     if (longPressActive) { //Perform action desired when cell is long pressed
         NSLog(@"%@",[selectedCells lastObject]);
         NSNumber *rowNsNum = [NSNumber numberWithInteger:indexPath.row];
@@ -2340,12 +2345,16 @@
         {
             
             [selectedCells removeObject:[NSNumber numberWithInteger:indexPath.row]];
+            [articleIdArray removeObject:[curatedNews valueForKey:@"articleId"]];
+
             [self.articlesTableView reloadData];
 
         }
         else
         {
             [selectedCells addObject:[NSNumber numberWithInteger:indexPath.row]];
+            [articleIdArray addObject:[curatedNews valueForKey:@"articleId"]];
+
             [self.articlesTableView reloadData];
 
         }
@@ -2541,6 +2550,10 @@
             NSLog(@"long press on table view at row %ld", (long)indexPath.row);
             longPressActive = YES;
             [selectedCells addObject:[NSNumber numberWithInteger:indexPath.row]];
+            
+            NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+            [articleIdArray addObject:[curatedNews valueForKey:@"articleId"]];
+
             [self.articlesTableView reloadData];
             [self.articlesTableView selectRowAtIndexPath:indexPath
                                        animated:NO

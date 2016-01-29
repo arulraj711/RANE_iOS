@@ -45,6 +45,7 @@
     BOOL isSearching;
     UISearchBar *searchBar;
     NSMutableArray *articleIdToBePassed;
+    NSMutableArray *articleIdArray;
 }
 -(void)showLoginPage;
 -(void)loadCuratedNews;

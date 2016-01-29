@@ -52,6 +52,8 @@
     [super viewDidLoad];
     self.treeView.allowsMultipleSelectionDuringEditing = NO;
     self.treeView.allowsMultipleSelection = NO;
+
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenus) name:@"MenuList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnreadCount) name:@"UnreadMenuAPI" object:nil];
     
@@ -1576,6 +1578,9 @@
                 //                }
                 //
                 //            } else {
+                
+                
+                
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
                 //55555
                 if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
@@ -1609,7 +1614,7 @@
         NSLog(@"finally!");
 
     }
-
+    
     
 }
 

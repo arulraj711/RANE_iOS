@@ -335,8 +335,20 @@
 }
 -(void)presentPopoverFromView:(UIView*)fromView
 {
-    NSLog(@"%@",fromView);
+    if ([fromView isEqual:@"UIToolbar"]) {
+        NSLog(@"this is for toolbar123");
+    } else {
+        NSLog(@"this is for the other one");
+
+    }
+    
     _alphawhsk = fromView.frame.origin.x + fromView.frame.size.width/2.0;
+    NSLog(@"%f",_alphawhsk);
+    NSLog(@"%f",fromView.frame.origin.x);
+    NSLog(@"%f",fromView.frame.size.width);
+    NSLog(@"%@",fromView.class);
+    NSLog(@"%@",fromView.class);
+
     _alphaalphawhsk = fromView.frame.origin.y;
     SAFE_ARC_RELEASE(_fromView);
     _fromView = SAFE_ARC_RETAIN(fromView);
@@ -352,7 +364,7 @@
     }
      _window=nil;
      _parentView=nil;
-    
+  
 }
 -(void)dismissPopoverAnimated:(BOOL)animated {
     NSLog(@"its its its%f, %f",_alphawhsk,_alphaalphawhsk);
