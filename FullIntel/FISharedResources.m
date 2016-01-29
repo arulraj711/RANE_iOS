@@ -382,16 +382,20 @@
 }
 
 -(void)showLoginView:(NSNumber *)authFlag {
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
     @try {
-        [logoutDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+        [logoutDic setObject:securityToken forKey:@"securityToken"];
     } @catch(NSException *e) {
         NSLog(@"error msg:%@",e);
     }
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
     
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    [self logoutUserWithDetails:resultStr withFlag:authFlag];
+    if(securityToken.length != 0){
+        [self logoutUserWithDetails:resultStr withFlag:authFlag];
+    }
+    
     [FIUtils deleteExistingData];
     
     [self.menuList removeAllObjects];

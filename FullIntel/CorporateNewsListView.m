@@ -46,7 +46,7 @@
 @implementation CorporateNewsListView
 
 - (void)viewDidLoad {
-    NSLog(@"view did load");
+    NSLog(@"view did load title:%@",self.titleName);
     
     [super viewDidLoad];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"selectionValue"];

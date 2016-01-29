@@ -41,22 +41,26 @@
 //    [Localytics autoIntegrate:@"f557a1d4226be8756ebd8dd-287a063c-5e18-11e5-7205-00736b041834" launchOptions:launchOptions];
     
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
-
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.mycompany.myqueue", 0);
     
-    // Initialize Reachability
-    Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
+    dispatch_async(backgroundQueue, ^{
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
+    });
     
-//    reachability.reachableBlock = ^(Reachability *reachability) {
-//        NSLog(@"Network is reachable.");
-//    };
 //    
-//    reachability.unreachableBlock = ^(Reachability *reachability) {
-//        NSLog(@"Network is unreachable.");
-//    };
-    
-    // Start Monitoring
-    [reachability startNotifier];
+//    // Initialize Reachability
+//    Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
+//    
+////    reachability.reachableBlock = ^(Reachability *reachability) {
+////        NSLog(@"Network is reachable.");
+////    };
+////    
+////    reachability.unreachableBlock = ^(Reachability *reachability) {
+////        NSLog(@"Network is unreachable.");
+////    };
+//    
+//    // Start Monitoring
+//    [reachability startNotifier];
     
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
