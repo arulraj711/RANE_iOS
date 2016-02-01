@@ -885,7 +885,7 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.navigationItem.rightBarButtonItems = nil;
         self.navigationItem.leftBarButtonItem = nil;
-        self.navigationItem.title = nil;
+        self.navigationItem.titleView = nil;
 
         searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-18, 44)];
         searchBar.showsCancelButton = YES;

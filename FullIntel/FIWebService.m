@@ -42,6 +42,8 @@ NSString *url = @"http://stage.fullintel.com/1.2.0";
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     //NSLog(@"start time in ms------>%f",startTimeInMiliseconds);
     NSLog(@"%@",postDetails);
+    NSLog(@"%@",urlPath);
+
     NSString *postURL;
 
     if ([urlPath isEqualToString:@"useractivitiesonarticles"]||[urlPath isEqualToString:@"updateappviewtype"]) {

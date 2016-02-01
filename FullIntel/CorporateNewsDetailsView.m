@@ -676,7 +676,6 @@
                 [self configureCell:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self configureCellOutletDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self configureCellAuthorDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
-                
                 [self updateCellMarkedImportantStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self updateCellSavedForLaterStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self updateCellCommentCount:cell forCuratedNews:curatedNewsDetail atIndexPath:indexPath];

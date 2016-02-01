@@ -17,7 +17,7 @@
 #import <Fabric/Fabric.h>
 #import "FISharedResources.h"
 #import "FIUtils.h"
-
+#import <pop/POP.h>
 #define valFor5 295
 #define valFor6 350
 #define valFor6p 389
@@ -58,6 +58,20 @@
     _moreInforArray = [[NSMutableArray alloc]init];
     self.moreTableView.layer.cornerRadius = 5;
     self.moreTableView.layer.masksToBounds = YES;
+    
+//    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerBounds];
+//    anim.fromValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 0, 0)];
+//    anim.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 155, 120)];
+//    [self.moreTableView pop_addAnimation:anim forKey:@"size"];
+    
+//    POPBasicAnimation *anim = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
+//    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    anim.fromValue = @(0.4);
+//    anim.toValue = @(1.0);
+//    [self.moreTableView pop_addAnimation:anim forKey:@"fade"];
+
+
+
    
     
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView)];
@@ -80,7 +94,22 @@
     view.backgroundColor = [UIColor whiteColor];
     view.layer.mask = triangleMaskLayer;
     [self.view addSubview:view];
+    
+    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(310, 0)];
+    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(1, 1)];
+    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(1, 1)];
+    sprintAnimation.springBounciness = 5.f;
+    [self.moreTableView pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+    [self.view pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
 
+//    POPSpringAnimation *ssprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+//    ssprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1, 0.1)];
+//    ssprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(1, 1)];
+//    ssprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(1, 1)];
+//    ssprintAnimation.springBounciness = 5.f;
+//    [view pop_addAnimation:ssprintAnimation forKey:@"springAnimation"];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
