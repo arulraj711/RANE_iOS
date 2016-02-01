@@ -41,8 +41,11 @@
 //    [Localytics autoIntegrate:@"f557a1d4226be8756ebd8dd-287a063c-5e18-11e5-7205-00736b041834" launchOptions:launchOptions];
     
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
-
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
+    
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Add code here to do background processing
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];        
+           });
     
     // Initialize Reachability
     Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
