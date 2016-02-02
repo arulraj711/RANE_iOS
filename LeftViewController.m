@@ -1110,7 +1110,6 @@
 
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
-    [self.treeView deselectRowForItem:item animated:NO];
 
     @try {
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFolderClick"];

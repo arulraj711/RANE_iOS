@@ -589,7 +589,9 @@
             [curatedNews setValue:[articleTypeIdArray objectAtIndex:0] forKey:@"articleTypeId"];
             [curatedNews setValue:[dic objectForKey:@"articleType"] forKey:@"articleType"];
             [curatedNews setValue:[dic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
-            
+            [curatedNews setValue:[dic objectForKey:@"commentCount"] forKey:@"totalComments"];
+            [curatedNews setValue:[dic objectForKey:@"unReadCommentCount"] forKey:@"unreadComments"];
+
             
             NSNumber *markImp = [dic valueForKey:@"markAsImportant"];
             if([markImp isEqualToNumber:[NSNumber numberWithInt:1]]){

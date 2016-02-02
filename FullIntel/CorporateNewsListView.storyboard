@@ -168,9 +168,9 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVI-Qx-ovZ">
-                                                    <rect key="frame" x="530" y="63" width="239" height="18"/>
+                                                    <rect key="frame" x="530" y="63" width="0.0" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="239" id="DWN-rh-S8Z"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="239" id="DWN-rh-S8Z"/>
                                                         <constraint firstAttribute="height" constant="18" id="MV8-Aq-7HL"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
@@ -178,11 +178,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_read" translatesAutoresizingMaskIntoConstraints="NO" id="Vhf-Sg-a2E">
-                                                    <rect key="frame" x="777" y="66" width="12" height="12"/>
+                                                    <rect key="frame" x="538" y="66" width="12" height="12"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 Comments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAf-Xf-VbN">
-                                                    <rect key="frame" x="791" y="63" width="85" height="18"/>
+                                                    <rect key="frame" x="552" y="63" width="85" height="18"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
