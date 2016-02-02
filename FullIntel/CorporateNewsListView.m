@@ -254,12 +254,13 @@
 - (void)callSearchAPIWithStringForUnread:(NSString *)searchString withFilterString:(NSString *)filterString {
     //TODO: refresh your data
     //if(self.devices.count == 0){
+    NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
     // NSInteger category = categoryStr.integerValue;
     NSLog(@"folder id:%@ and categoryid:%@",folderId,category);
     NSString *queryString;
-    if([folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    if([folderId isEqualToNumber:[NSNumber numberWithInt:0]] && [newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
         // NSInteger category = categoryStr.integerValue;
         NSString *inputJson;
         if([category isEqualToNumber:[NSNumber numberWithInt:-2]]) {
@@ -287,8 +288,10 @@
         [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:queryString withCategoryId:category withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@"" withActivityTypeId:[NSNumber numberWithInt:2]];
         
         // }
-    } else {
+    } else if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]]){
         [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:folderId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:YES withQuery:searchString withFilterBy:filterString];
+    } else if(![newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:newsLetterId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO withQuery:searchString withFilterBy:filterString];
     }
     [refreshControl endRefreshing];
     //    [self.influencerTableView reloadData];
@@ -595,7 +598,7 @@
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length == 0) {
         // NSLog(@"corporate if part");
-        [self showLoginPage];
+        //[self showLoginPage];
     } else {
         //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
         //        if(isFirst) {
@@ -649,7 +652,7 @@
         UIStoryboard *loginStoryBoard;
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
             loginStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
-            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewPhone"];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
             [self presentViewController:loginView animated:YES completion:nil];
             //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
             //        [window addSubview:loginView.view];
@@ -666,7 +669,7 @@
         UIStoryboard *loginStoryBoard;
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
             loginStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
-            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewPhone"];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
             [self presentViewController:loginView animated:YES completion:nil];
             //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
             //        [window addSubview:loginView.view];

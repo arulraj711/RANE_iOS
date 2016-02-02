@@ -151,20 +151,25 @@
     [self test:self.menus];
     [treeView reloadData];
     
-    
-    if(self.data.count > 2) {
+    NSLog(@"left data count:%d",self.data.count);
         NSLog(@"come selectrow method");
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-            [self.treeView selectRowForItem:[self.data objectAtIndex:0] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+            if(self.data.count > 5) {
+                [self.treeView selectRowForItem:[self.data objectAtIndex:0] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
+            }
+            
 
         }
         else{
-            [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+            if(self.data.count > 3) {
+                [self.treeView selectRowForItem:[self.data objectAtIndex:2] animated:YES scrollPosition:RATreeViewScrollPositionTop];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
+            }
+            
 
         }
         //[self treeView:self.treeView didSelectRowForItem:[self.data objectAtIndex:2]];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
-    }
     NSNumber *badgeNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"badgeNumber"];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber.integerValue];
    // NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
@@ -1259,6 +1264,7 @@
                 CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
                 CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
                 [self.revealController setFrontViewController:navCtlr];
+                [self.revealController showViewController:self.revealController.frontViewController];
 
             }
         }else if([data.nodeId integerValue] == 8 && !data.isFolder) {
@@ -1281,6 +1287,7 @@
                 CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
                 CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
                 [self.revealController setFrontViewController:navCtlr];
+                [self.revealController showViewController:self.revealController.frontViewController];
             }
                    }else if([data.nodeId integerValue] == 2 && !data.isFolder) {
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
@@ -1300,6 +1307,7 @@
                 CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
                 CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
                 [self.revealController setFrontViewController:navCtlr];
+                [self.revealController showViewController:self.revealController.frontViewController];
             }
            
         }
@@ -1324,6 +1332,7 @@
                 CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
                 CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
                 [self.revealController setFrontViewController:navCtlr];
+                [self.revealController showViewController:self.revealController.frontViewController];
             }
             
             
@@ -1346,6 +1355,7 @@
                 CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
                 CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
                 [self.revealController setFrontViewController:navCtlr];
+                [self.revealController showViewController:self.revealController.frontViewController];
             }
             
         } else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
@@ -1355,6 +1365,36 @@
             if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
                 //handle null securtiy token
             } else {
+                [FIUtils deleteExistingData];
+                // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+                [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
+                [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
+                [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyLogo"];
+                [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyName"];
+                
+                // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+                // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
+                
+                UIStoryboard *centerStoryBoard;
+                UIViewController *viewCtlr;
+                
+                if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+                {
+                    centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+                    viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+                    
+                    
+                } else {
+                    centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+                    
+                    
+                }
+                
+                
+                [self.revealController setFrontViewController:viewCtlr];
+                [self.revealController showViewController:self.revealController.frontViewController];
                 NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
                 NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
                 [logoutDic setObject:securityToken forKey:@"securityToken"];
@@ -1377,6 +1417,7 @@
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
             NSLog(@"two");
             //Newsletter navigation
+            [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:1] forKey:@"newsletterId"];
             UIStoryboard *storyboard;
             UINavigationController *navCtlr;
@@ -1522,6 +1563,7 @@
                     CommonViewController *CommonViewControllerObj=(CommonViewController *)[[navCtlr viewControllers]objectAtIndex:0];
                     CommonViewControllerObj.ModuleId= [data.nodeId integerValue];
                     [self.revealController setFrontViewController:navCtlr];
+                    [self.revealController showViewController:self.revealController.frontViewController];
                 }
                 
                 
@@ -1784,26 +1826,28 @@
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyLogo"];
     [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"companyName"];
-    UIStoryboard *centerStoryBoard;
-    UINavigationController *navCtlr;
+    
     // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
     // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
     
+    UIStoryboard *centerStoryBoard;
+    UIViewController *viewCtlr;
+    
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
-        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
-        navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateViewPhone"];
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+        viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
         
         
     } else {
-        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
         
         
     }
     
     
-    [self.revealController setFrontViewController:navCtlr];
+    [self.revealController setFrontViewController:viewCtlr];
     [self.revealController showViewController:self.revealController.frontViewController];
 }
 

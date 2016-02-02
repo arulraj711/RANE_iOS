@@ -29,6 +29,7 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    NSLog(@"login view didload");
     i = 0;
 
     self.isAnimated = YES;
@@ -80,7 +81,60 @@
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
+    [self handleLoginProcess];
 }
+
+-(void)handleLoginProcess {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length == 0) {
+        UIStoryboard *centerStoryBoard;
+        UIViewController *viewCtlr;
+        
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            
+            
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            
+            
+        }
+        
+        
+        [self.revealController setFrontViewController:viewCtlr];
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
+        //        if(isFirst) {
+        //[self loadCuratedNews];
+        //        }
+        //        [[FISharedResources sharedResourceManager]tagScreenInLocalytics:self.titleName];
+        //        [self loadCuratedNews];
+        
+        
+        UIStoryboard *centerStoryBoard;
+        UINavigationController *navCtlr;
+        
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateViewPhone"];
+            
+            
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+            
+            
+        }
+        [self.revealController setFrontViewController:navCtlr];
+    }
+}
+
+
 
 -(void)viewDidAppear:(BOOL)animated {
     self.isAnimated = YES;
@@ -327,12 +381,12 @@
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     
     
-    dispatch_queue_t globalConcurrentQueue =
-    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-    dispatch_async(globalConcurrentQueue, ^{
+//    dispatch_queue_t globalConcurrentQueue =
+//    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+//    dispatch_async(globalConcurrentQueue, ^{
         // NSLog(@"A - 1");
         [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
-    });
+ //   });
     if(accessToken.length > 0) {
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
@@ -370,8 +424,27 @@
         
     }
     
+        UIStoryboard *centerStoryBoard;
+        UINavigationController *navCtlr;
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateViewPhone"];
+    
+    
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+    
+            
+        }
+    [self.revealController setFrontViewController:navCtlr];
+//    self.revealController = [PKRevealController revealControllerWithFrontViewController:navCtlr
+//                                                                     leftViewController:self.revealController.leftViewController
+//                                                                    rightViewController:nil];
+    
+  //  [self dismissViewControllerAnimated:YES completion:nil];
     
     //    } else {
     //        [self.view makeToast:[notification.object objectForKey:@"message"] duration:1 position:CSToastPositionCenter];

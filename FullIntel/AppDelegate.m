@@ -67,29 +67,49 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
    
+//    UIStoryboard *centerStoryBoard;
+//    UINavigationController *navCtlr;
+//
+//    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+//    {
+//        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+//        navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateViewPhone"];
+//
+//        
+//    } else {
+//        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+//        navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+//
+//        
+//    }
+//    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    
+    
+    
     UIStoryboard *centerStoryBoard;
-    UINavigationController *navCtlr;
-
+    UIViewController *viewCtlr;
+    
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
-        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
-        navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateViewPhone"];
-
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+        viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+        
         
     } else {
-        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
-
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+        
         
     }
-//    UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+    
+    
     
     NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
     NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [[UINavigationBar appearance] setBarTintColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
     //[[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:97/255.0 green:98/255.0 blue:100/255.0 alpha:1.0]];
-    navCtlr.navigationBar.tintColor = [UIColor whiteColor];
-    navCtlr.navigationBar.barStyle = UIBarStyleBlack;
+//    navCtlr.navigationBar.tintColor = [UIColor whiteColor];
+//    navCtlr.navigationBar.barStyle = UIBarStyleBlack;
     UIStoryboard *leftStoryBoard;
     LeftViewController *leftViewController;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -101,7 +121,7 @@
         leftViewController = [leftStoryBoard instantiateViewControllerWithIdentifier:@"LeftView"];
     }
     
-    self.revealController = [PKRevealController revealControllerWithFrontViewController:navCtlr
+    self.revealController = [PKRevealController revealControllerWithFrontViewController:viewCtlr
                                                                      leftViewController:leftViewController
                                                                     rightViewController:nil];
     // Step 3: Configure.

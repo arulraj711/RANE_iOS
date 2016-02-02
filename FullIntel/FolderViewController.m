@@ -49,7 +49,7 @@
     if(accessToken.length == 0) {
         // NSLog(@"corporate if part");
         
-        [self showLoginPage];
+      //  [self showLoginPage];
     }
 }
 
@@ -60,7 +60,7 @@
         UIStoryboard *loginStoryBoard;
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
             loginStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
-            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewPhone"];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
             [self presentViewController:loginView animated:YES completion:nil];
             //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
             //        [window addSubview:loginView.view];
@@ -77,7 +77,7 @@
         UIStoryboard *loginStoryBoard;
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
             loginStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
-            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewPhone"];
+            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
             [self presentViewController:loginView animated:YES completion:nil];
             //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
             //        [window addSubview:loginView.view];
