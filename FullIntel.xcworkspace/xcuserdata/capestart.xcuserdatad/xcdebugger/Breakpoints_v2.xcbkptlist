@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "475751424.427138"
+            timestampString = "476081449.512598"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2550"
-            endingLineNumber = "2550"
+            startingLineNumber = "2569"
+            endingLineNumber = "2569"
             landmarkName = "-savedAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "475751424.427138"
+            timestampString = "476081449.512598"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2538"
-            endingLineNumber = "2538"
+            startingLineNumber = "2557"
+            endingLineNumber = "2557"
             landmarkName = "-savedAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "475743341.812125"
+            timestampString = "476081449.512598"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "997"
-            endingLineNumber = "997"
+            startingLineNumber = "1016"
+            endingLineNumber = "1016"
             landmarkName = "@implementation CorporateNewsListView"
             landmarkType = "3">
          </BreakpointContent>
@@ -266,12 +266,12 @@
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/capestart/Documents/FullIntel_iOS/FullIntel/CorporateNewsDetailsView.m"
-                  timestampString = "476024369.063946"
+                  timestampString = "476081452.37873"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "675"
                   endingLineNumber = "675"
-                  offsetFromSymbolStart = "1352">
+                  offsetFromSymbolStart = "1302">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -281,12 +281,12 @@
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/capestart/Documents/FullIntel_iOS/FullIntel/CorporateNewsDetailsView.m"
-                  timestampString = "476024369.064366"
+                  timestampString = "476081452.378924"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "675"
                   endingLineNumber = "675"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "15">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -416,6 +416,38 @@
             startingLineNumber = "2252"
             endingLineNumber = "2252"
             landmarkName = "-moreButtonClick:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/ViewController.m"
+            timestampString = "476080944.674574"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
+            landmarkName = "-afterLogin:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/ViewController.m"
+            timestampString = "476081081.991128"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "-callSignInFunction"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
