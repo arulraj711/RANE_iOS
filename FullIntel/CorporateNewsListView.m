@@ -595,26 +595,26 @@
 }
 -(void)viewDidAppear:(BOOL)animated {
     
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    if(accessToken.length == 0) {
-        // NSLog(@"corporate if part");
-        //[self showLoginPage];
-    } else {
-        //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
-        //        if(isFirst) {
-        //[self loadCuratedNews];
-        //        }
-        [[FISharedResources sharedResourceManager]tagScreenInLocalytics:self.titleName];
-        [self loadCuratedNews];
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-            
-            BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
-            if (coachMarksShown == NO) {
-                [self.revealController showViewController:self.revealController.leftViewController];
-            }
-
-        }
-    }
+//    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+//    if(accessToken.length == 0) {
+//        // NSLog(@"corporate if part");
+//        //[self showLoginPage];
+//    } else {
+//        //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
+//        //        if(isFirst) {
+//        //[self loadCuratedNews];
+//        //        }
+//        [[FISharedResources sharedResourceManager]tagScreenInLocalytics:self.titleName];
+//        [self loadCuratedNews];
+//        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//            
+//            BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
+//            if (coachMarksShown == NO) {
+//                [self.revealController showViewController:self.revealController.leftViewController];
+//            }
+//
+//        }
+//    }
 }
 
 //-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
@@ -766,13 +766,21 @@
         [Btnns setBackgroundImage:[UIImage imageNamed:@""]  forState:UIControlStateNormal];
         UIBarButtonItem *addButtonsBtnns = [[UIBarButtonItem alloc] initWithCustomView:Btnns];
 
+       
         
         searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
         [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
         [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
         [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
-        NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsBtnns,addButtonsRight, nil];
+        
+        
+        UIButton *Btnnss =[UIButton buttonWithType:UIButtonTypeCustom];
+        [Btnnss setFrame:CGRectMake(0.0f,0.0f,16.0f,16.0f)];
+        [Btnnss setBackgroundImage:[UIImage imageNamed:@""]  forState:UIControlStateNormal];
+        UIBarButtonItem *finalButtons = [[UIBarButtonItem alloc] initWithCustomView:Btnnss];
+        
+        NSArray *buttonsArr = [NSArray arrayWithObjects:finalButtons,addButtons,addButtonsBtnns,addButtonsRight, nil];
         [self.navigationItem setRightBarButtonItems:buttonsArr];
 
         
@@ -896,11 +904,13 @@
 }
 -(void)settingsButtonFilter{ 
     
-
+    NSLog(@"%f",Btns.frame.origin.x);
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
     MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
     popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     self.view.alpha = 0.65;
+    popOverView.xPositions = Btns.frame.origin.x;
+    popOverView.yPositions =Btns.frame.origin.y;
     [self presentViewController:popOverView animated:NO completion:nil];
 
 }

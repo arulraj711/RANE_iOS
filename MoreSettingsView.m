@@ -84,7 +84,7 @@
 //        scaleAnimation.springSpeed=20;
 //        [self.moreTableView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
    
-    
+   // 24 34 14
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView)];
 //    tap.delegate = self;
 //    [self.bgView addGestureRecognizer:tap];
@@ -92,9 +92,9 @@
     
     UIBezierPath* trianglePath = [UIBezierPath bezierPath];
     NSLog(@"%f",SCREEN_WIDTH-125);
-    [trianglePath moveToPoint:CGPointMake(SCREEN_WIDTH-24, 55)];
-    [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-34, self.moreTableView.frame.origin.y)];
-    [trianglePath addLineToPoint:CGPointMake(SCREEN_WIDTH-14, self.moreTableView.frame.origin.y)];
+    [trianglePath moveToPoint:CGPointMake(_xPositions+10, _yPositions+40)];
+    [trianglePath addLineToPoint:CGPointMake(_xPositions+25, self.moreTableView.frame.origin.y)];
+    [trianglePath addLineToPoint:CGPointMake(_xPositions-5, self.moreTableView.frame.origin.y)];
     [trianglePath closePath];
     
     CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
