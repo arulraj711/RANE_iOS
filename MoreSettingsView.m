@@ -43,6 +43,7 @@
     NSInteger selectedIndexPath;
     UIColor *SelectedCellBGColor;
     UIColor *NotSelectedCellBGColor;
+    int i;
 }
 @end
 
@@ -51,6 +52,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    i=0;
     SelectedCellBGColor = [FIUtils colorWithHexString:@"F55567"];
     NotSelectedCellBGColor = [UIColor clearColor];
 
@@ -119,13 +121,11 @@
         [_moreInforArray addObject:@"All articles"];
         [_moreInforArray addObject:@"Unread"];
         [_moreInforArray addObject:@"Last 24 Hours"];
-
     }
     else{
         [_moreInforArray addObject:@"All articles"];
         [_moreInforArray addObject:@"Unread"];
         [_moreInforArray addObject:@"Last 24 Hours"];
-
     }    
     self.moreTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.moreTableView reloadData];
@@ -181,34 +181,51 @@
 
     
 }
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [[event allTouches] anyObject];
-//    CGPoint touchLocation = [touch locationInView:touch.view];
-//    CGPoint point = [touch locationInView:self.moreTableView.superview];
-    CGPoint location = [touch locationInView:self.moreTableView];
-    NSIndexPath *path = [self.moreTableView indexPathForRowAtPoint:location];
 
-    if(path){
-        [self tableView:self.moreTableView didSelectRowAtIndexPath:path];
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"ended");
+    if (i==1) {
+            i=0;
+    } else {
+            UITouch *touch = [[event allTouches] anyObject];
+        //  CGPoint touchLocation = [touch locationInView:touch.view];
+        //  CGPoint point = [touch locationInView:self.moreTableView.superview];
+            CGPoint location = [touch locationInView:self.moreTableView];
+            NSIndexPath *path = [self.moreTableView indexPathForRowAtPoint:location];
+        
+            if(path){
+                [self tableView:self.moreTableView didSelectRowAtIndexPath:path];
+        
+            }
+            else
+            {
+                CATransition* transition = [CATransition animation];
+        
+                transition.duration = 0.3;
+                transition.type = kCATransitionFade;
+        
+                [self.view.layer addAnimation:transition forKey:kCATransition];
+                [self dismissViewControllerAnimated:NO completion:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"changeAlphaVal" object:nil];
+        
+                    // handle tap on empty space below existing rows however you want
+            }
+        
 
     }
-    else
-    {
-        CATransition* transition = [CATransition animation];
-        
-        transition.duration = 0.3;
-        transition.type = kCATransitionFade;
-        
-        [self.view.layer addAnimation:transition forKey:kCATransition];
-        [self dismissViewControllerAnimated:NO completion:nil];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"changeAlphaVal" object:nil];
-
-            // handle tap on empty space below existing rows however you want
-    }
-
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    NSLog(@"began");
+}
 
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"moved");
+    i=1;
+
+}
 -(void)didTapOnTableView
 {
     
@@ -262,6 +279,7 @@
         }
         else if(indexPath.row == 2){
             cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
+            cell.lastLineImage.hidden = YES;
         }
 
     }
@@ -274,6 +292,8 @@
         }
         else if(indexPath.row == 2){
             cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
+            cell.lastLineImage.hidden = YES;
+
         }
         
     }

@@ -44,7 +44,7 @@
                                                     <rect key="frame" x="20" y="3" width="15" height="15"/>
                                                 </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kgF-5k-vdJ">
-                                                    <rect key="frame" x="22" y="39" width="243" height="1"/>
+                                                    <rect key="frame" x="22" y="40" width="243" height="1"/>
                                                     <color key="backgroundColor" red="0.86274509799999999" green="0.87450980389999999" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 </imageView>
                                             </subviews>

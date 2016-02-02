@@ -11,6 +11,7 @@
 @interface MoreSettingsCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (nonatomic,strong) IBOutlet UIImageView *iconImage;
+@property (strong, nonatomic) IBOutlet UIImageView *lastLineImage;
 
 
 
