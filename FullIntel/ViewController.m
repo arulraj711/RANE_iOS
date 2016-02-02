@@ -81,6 +81,7 @@
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
+    
     [self handleLoginProcess];
 }
 
@@ -439,6 +440,8 @@
     
             
         }
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FromLogin"];
+    NSLog(@"from login");
     [self.revealController setFrontViewController:navCtlr];
 //    self.revealController = [PKRevealController revealControllerWithFrontViewController:navCtlr
 //                                                                     leftViewController:self.revealController.leftViewController

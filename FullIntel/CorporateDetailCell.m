@@ -104,7 +104,7 @@
     // [progressView removeFromSuperview];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsDetails:) name:@"CuratedNewsDetails" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails:) name:@"CuratedNewsAuthorDetails" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCuratedNewsAuthorDetails:) name:@"CuratedNewsAuthorDetails" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeWebView:) name:@"removeWebView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterSwipeDownTutorial) name:@"SwipeRightLeftTutorialTrigger" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(drillDownButtonClick:) name:@"DrillDownToolBoxTutorialNavigation" object:nil];
@@ -1526,7 +1526,8 @@
         }
         [self.socialcollectionView reloadData];
         [self.socialLinkCollectionView reloadData];
-
+        [self.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
+        [self.authorImageView setContentMode:UIViewContentModeScaleAspectFill];
         [self.aboutAuthorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
         [self.aboutAuthorImageView setContentMode:UIViewContentModeScaleAspectFill];
         self.authorNameStr = [author valueForKey:@"firstName"];

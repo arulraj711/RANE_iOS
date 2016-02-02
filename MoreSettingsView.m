@@ -93,8 +93,8 @@
     UIBezierPath* trianglePath = [UIBezierPath bezierPath];
     NSLog(@"%f",SCREEN_WIDTH-125);
     [trianglePath moveToPoint:CGPointMake(_xPositions+10, _yPositions+40)];
-    [trianglePath addLineToPoint:CGPointMake(_xPositions+25, self.moreTableView.frame.origin.y)];
-    [trianglePath addLineToPoint:CGPointMake(_xPositions-5, self.moreTableView.frame.origin.y)];
+    [trianglePath addLineToPoint:CGPointMake(_xPositions+20 , self.moreTableView.frame.origin.y)];
+    [trianglePath addLineToPoint:CGPointMake(_xPositions, self.moreTableView.frame.origin.y)];
     [trianglePath closePath];
     
     CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
