@@ -665,8 +665,8 @@
             //Set CuratedNewsDetails
             curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:context];
             [curatedNewsDrillIn setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
-            [curatedNewsDrillIn setValue:[dic objectForKey:@"totalComments"] forKey:@"totalComments"];
-            [curatedNewsDrillIn setValue:[dic objectForKey:@"unReadComment"] forKey:@"unReadComment"];
+            [curatedNewsDrillIn setValue:[dic objectForKey:@"commentCount"] forKey:@"totalComments"];
+            [curatedNewsDrillIn setValue:[dic objectForKey:@"unReadCommentCount"] forKey:@"unReadComment"];
             [curatedNewsDrillIn setValue:[dic objectForKey:@"articleDetailedDescription"] forKey:@"article"];
             //Set Related Post
 //            NSArray *relatedPostArray = [dic objectForKey:@"articleRelatedPosts"];
@@ -1076,7 +1076,7 @@
                 }
                 //  NSLog(@"curated result:%@",[curatedNews valueForKey:@"details"]);
                 [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"id"]) forKey:@"articleId"];
-                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"totalComments"]) forKey:@"totalComments"];
+                [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"commentCount"]) forKey:@"totalComments"];
                 [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"unReadComment"]) forKey:@"unReadComment"];
                 [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"articleImageURL"]) forKey:@"articleImageURL"];
                 [curatedNewsDrillIn setValue:NULL_TO_NIL([dic objectForKey:@"articleDetailedDescription"]) forKey:@"article"];

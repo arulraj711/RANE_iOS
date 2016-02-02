@@ -14,7 +14,6 @@
 		A003B1A71B1873D900857F35 /* VideoWidgetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A003B1A51B1873D900857F35 /* VideoWidgetCell.m */; };
 		A003B1A81B1873D900857F35 /* VideoWidgetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A61B1873D900857F35 /* VideoWidgetCell.xib */; };
 		A003B1AA1B1874A200857F35 /* Apple_Car.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A91B1874A200857F35 /* Apple_Car.jpg */; };
-		A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */; };
 		A010928D1B15AB25003C9F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A010928C1B15AB25003C9F3A /* Foundation.framework */; };
 		A010C1C11B1F32AF00BF053D /* john_maddox.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A010C1C01B1F32AF00BF053D /* john_maddox.jpg */; };
 		A02C54C61AEF5E0000E65011 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02C54C51AEF5E0000E65011 /* Social.framework */; };
@@ -165,6 +164,8 @@
 		A0DB6FC41B0B2BB400F6E2F4 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB6FC31B0B2BB400F6E2F4 /* CommentCell.m */; };
 		A0DEC3DE1AE8E31D0046E8BB /* SocialLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEC3DD1AE8E31D0046E8BB /* SocialLinkCell.m */; };
 		A0DEC3E41AE94FF10046E8BB /* SocialWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEC3E31AE94FF10046E8BB /* SocialWebView.m */; };
+		A0E06BF81C5A12E300C2AE17 /* CorporateDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E06BF71C5A12E300C2AE17 /* CorporateDetailCell.m */; };
+		A0E06BFA1C5A12F300C2AE17 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E06BF91C5A12F300C2AE17 /* CorporateNewsDetailsView.m */; };
 		A0E223531A91C2F00073814A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E223521A91C2F00073814A /* main.m */; };
 		A0E223561A91C2F00073814A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E223551A91C2F00073814A /* AppDelegate.m */; };
 		A0E223591A91C2F00073814A /* FullIntel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0E223571A91C2F00073814A /* FullIntel.xcdatamodeld */; };
@@ -220,7 +221,6 @@
 		BAB29F0F1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */; };
 		BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB29F101C3D27700008ED71 /* MoreSettingsView.m */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
-		F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */; };
 		F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
 		F554DFD31BB016180062EAC7 /* FINewsLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFD21BB016180062EAC7 /* FINewsLetter.m */; };
@@ -356,9 +356,7 @@
 		A003B1A61B1873D900857F35 /* VideoWidgetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoWidgetCell.xib; sourceTree = "<group>"; };
 		A003B1A91B1874A200857F35 /* Apple_Car.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Apple_Car.jpg; sourceTree = "<group>"; };
 		A0066EEA1B03082D008B4623 /* CorporateNewsDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorporateNewsDetailsView.h; sourceTree = "<group>"; };
-		A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateNewsDetailsView.m; sourceTree = "<group>"; };
 		A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorporateDetailCell.h; sourceTree = "<group>"; };
-		A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateDetailCell.m; sourceTree = "<group>"; };
 		A010928C1B15AB25003C9F3A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A010C1C01B1F32AF00BF053D /* john_maddox.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john_maddox.jpg; sourceTree = "<group>"; };
 		A01499CE1B9DBBC5000D77D2 /* FullIntel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 4.xcdatamodel"; sourceTree = "<group>"; };
@@ -552,6 +550,8 @@
 		A0DEC3DD1AE8E31D0046E8BB /* SocialLinkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLinkCell.m; sourceTree = "<group>"; };
 		A0DEC3E21AE94FF10046E8BB /* SocialWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialWebView.h; sourceTree = "<group>"; };
 		A0DEC3E31AE94FF10046E8BB /* SocialWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialWebView.m; sourceTree = "<group>"; };
+		A0E06BF71C5A12E300C2AE17 /* CorporateDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateDetailCell.m; sourceTree = "<group>"; };
+		A0E06BF91C5A12F300C2AE17 /* CorporateNewsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateNewsDetailsView.m; sourceTree = "<group>"; };
 		A0E2234D1A91C2F00073814A /* FullIntel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FullIntel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E223511A91C2F00073814A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E223521A91C2F00073814A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -883,7 +883,7 @@
 				BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */,
 				F5F727261B6F809400DE7980 /* SocialLinkCell.xib */,
 				A0066EEE1B030B41008B4623 /* CorporateDetailCell.h */,
-				A0066EEF1B030B41008B4623 /* CorporateDetailCell.m */,
+				A0E06BF71C5A12E300C2AE17 /* CorporateDetailCell.m */,
 				A033EC5F1BC4CF72003AAE4F /* SocialLinkCellPhone.xib */,
 				A033EC601BC4CF72003AAE4F /* TweetsCellPhone.xib */,
 				F5DAAA531B7080E80059425C /* TweetsCell.xib */,
@@ -1428,7 +1428,7 @@
 				A0CAB6021BBCE51F00B485B9 /* CorporateNewsListViewPhone.storyboard */,
 				A0DEC3E31AE94FF10046E8BB /* SocialWebView.m */,
 				A0066EEA1B03082D008B4623 /* CorporateNewsDetailsView.h */,
-				A0066EEB1B03082D008B4623 /* CorporateNewsDetailsView.m */,
+				A0E06BF91C5A12F300C2AE17 /* CorporateNewsDetailsView.m */,
 				A0406B9F1B05CE5F00985CF8 /* TweetsCell.h */,
 				A0406BA01B05CE5F00985CF8 /* TweetsCell.m */,
 				F78F4E591AA872690013C09A /* Fonts */,
@@ -2096,7 +2096,6 @@
 				F554DFD31BB016180062EAC7 /* FINewsLetter.m in Sources */,
 				F7E3688E1ABC1D060083F38E /* ResearchRequestPopoverView.m in Sources */,
 				F773CFE71ADE4370002FC7CF /* JSCustomBadge.m in Sources */,
-				F54A7C421B68CDA600A4B784 /* CorporateNewsDetailsView.m in Sources */,
 				F7CE36E51A95E9490005AA0A /* RATreeView+Enums.m in Sources */,
 				A0E223591A91C2F00073814A /* FullIntel.xcdatamodeld in Sources */,
 				A08145A81BD0B5A700AA5EE2 /* FPPopoverView.m in Sources */,
@@ -2114,6 +2113,7 @@
 				A0CF5C701B1DD98B00DED2D9 /* Stories.m in Sources */,
 				F7E85EA31A9F28970022B4D5 /* FIWebService.m in Sources */,
 				F7CE36F01A95E99D0005AA0A /* RADataObject.m in Sources */,
+				A0E06BFA1C5A12F300C2AE17 /* CorporateNewsDetailsView.m in Sources */,
 				F7E85EA61A9F28B60022B4D5 /* FISharedResources.m in Sources */,
 				A0E4B1171B4BB76B0029D389 /* FolderViewController.m in Sources */,
 				BA51CC681C58A3BF00327578 /* IssueTweetCell.m in Sources */,
@@ -2180,7 +2180,6 @@
 				BA51CC711C58A3BF00327578 /* IssueListCell.m in Sources */,
 				F583CD0A1BA30FE90080C384 /* TutorialPopViewController.m in Sources */,
 				A0CF5C6E1B1DD98B00DED2D9 /* StockCell.m in Sources */,
-				A0066EF11B030B41008B4623 /* CorporateDetailCell.m in Sources */,
 				A08860801B427B9500939D51 /* FIFolder.m in Sources */,
 				F732C7D11AC930680071A4D8 /* InfluencerDetailsView.m in Sources */,
 				F7C1AB611ABFF41C00D8588A /* MoreViewCell.m in Sources */,
@@ -2189,6 +2188,7 @@
 				A003B1A71B1873D900857F35 /* VideoWidgetCell.m in Sources */,
 				A0CF5C661B1DD98B00DED2D9 /* CompanyCell.m in Sources */,
 				F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */,
+				A0E06BF81C5A12E300C2AE17 /* CorporateDetailCell.m in Sources */,
 				A0CF5C6B1B1DD98B00DED2D9 /* PersonalityExecutiveCell.m in Sources */,
 				F583CD161BA310590080C384 /* MainListTutorialViewController.m in Sources */,
 				A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */,

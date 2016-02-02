@@ -17,7 +17,7 @@
 #import <Fabric/Fabric.h>
 #import "FISharedResources.h"
 #import "FIUtils.h"
-
+#import <pop/POP.h>
 #define valFor5 295
 #define valFor6 350
 #define valFor6p 389
@@ -58,6 +58,29 @@
     _moreInforArray = [[NSMutableArray alloc]init];
     self.moreTableView.layer.cornerRadius = 5;
     self.moreTableView.layer.masksToBounds = YES;
+    
+//    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerBounds];
+//    anim.fromValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 0, 0)];
+//    anim.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 155, 120)];
+//    [self.moreTableView pop_addAnimation:anim forKey:@"size"];
+    
+//    POPBasicAnimation *anim = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
+//    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    anim.fromValue = @(0.4);
+//    anim.toValue = @(1.0);
+//    [self.moreTableView pop_addAnimation:anim forKey:@"fade"];
+
+//    POPSpringAnimation *scale =[POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+//    scale.toValue = [NSValue valueWithCGPoint:CGPointMake(1.5, 1.5)];
+//    scale.springBounciness = 15;
+//    scale.springSpeed = 5.0f;
+//    [self.moreTableView pop_addAnimation:scale forKey:@"scale"];
+    
+//        POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+//        scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0, 0)];
+//        scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+//        scaleAnimation.springSpeed=20;
+//        [self.moreTableView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
    
     
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView)];
@@ -80,7 +103,16 @@
     view.backgroundColor = [UIColor whiteColor];
     view.layer.mask = triangleMaskLayer;
     [self.view addSubview:view];
+    
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.9, 0.9)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+    scaleAnimation.springBounciness = 100.f;
+    scaleAnimation.springSpeed=20;
+    [self.moreTableView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+    [view.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
 
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -98,6 +130,45 @@
     self.moreTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.moreTableView reloadData];
 }
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
+{
+    UIView *fromView = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view;
+    fromView.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+    fromView.userInteractionEnabled = NO;
+    
+    UIView *dimmingView = [[UIView alloc] initWithFrame:fromView.bounds];
+    dimmingView.backgroundColor = [UIColor redColor];
+    dimmingView.layer.opacity = 0.0;
+    
+    UIView *toView = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view;
+    toView.frame = CGRectMake(0,
+                              0,
+                              CGRectGetWidth(transitionContext.containerView.bounds) - 104.f,
+                              CGRectGetHeight(transitionContext.containerView.bounds) - 288.f);
+    toView.center = CGPointMake(transitionContext.containerView.center.x, -transitionContext.containerView.center.y);
+    
+    [transitionContext.containerView addSubview:dimmingView];
+    [transitionContext.containerView addSubview:toView];
+    
+    POPSpringAnimation *positionAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    positionAnimation.toValue = @(transitionContext.containerView.center.y);
+    positionAnimation.springBounciness = 10;
+    [positionAnimation setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+        [transitionContext completeTransition:YES];
+    }];
+    
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.springBounciness = 20;
+    scaleAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.2, 1.4)];
+    
+    POPBasicAnimation *opacityAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
+    opacityAnimation.toValue = @(0.2);
+    
+    [toView.layer pop_addAnimation:positionAnimation forKey:@"positionAnimation"];
+    [toView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnimation"];
+    [dimmingView.layer pop_addAnimation:opacityAnimation forKey:@"opacityAnimation"];
+}
+
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     CATransition* transition = [CATransition animation];
     

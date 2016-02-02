@@ -230,7 +230,7 @@
 //    [animation setDuration:0.5];
 //    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
 //    [[animateView layer] addAnimation:animation forKey:kCATransition];
-//    animateView.hidden = !animateView.hidden;
+//    animateView.hidden = !animateView.hidden;3.73
 //}
 
 - (void)animateImages

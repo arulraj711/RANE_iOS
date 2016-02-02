@@ -46,7 +46,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endOfTutorial) name:@"EndOfDrillDownTutorial" object:nil];
     
-    
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(widgetWebViewTrigger:) name:@"widgetWebViewCalled" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopLoadingForAlert) name:@"stopLoadingForAlert" object:nil];
@@ -676,15 +676,14 @@
                 [self configureCell:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self configureCellOutletDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self configureCellAuthorDetails:cell forCuratedNews:curatedNews atIndexPath:indexPath];
-                
                 [self updateCellMarkedImportantStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self updateCellSavedForLaterStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 [self updateCellCommentCount:cell forCuratedNews:curatedNewsDetail atIndexPath:indexPath];
                 [self updateCellReadStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 //cell.webViewHeightConstraint.constant = 200;
                 
-                [self configureAuthorDetails:cell forCuratedNewsAuthor:author];
-                cell.relatedPostArray = postArray;
+//                [self configureAuthorDetails:cell forCuratedNewsAuthor:author];
+                //cell.relatedPostArray = postArray;
                 
                 
                 
