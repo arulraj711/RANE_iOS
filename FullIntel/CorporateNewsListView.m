@@ -501,15 +501,15 @@
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     
     //Obtaining the current device orientation
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    
-    //Ignoring specific orientations
-    if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown || orientation == UIDeviceOrientationUnknown) {
-        return;
-    }
-    
-    // We need to allow a slight pause before running handler to make sure rotation has been processed by the view hierarchy
-    [self performSelectorOnMainThread:@selector(handleDeviceOrientationChange:) withObject:coachMarksView waitUntilDone:NO];
+//    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+//    
+//    //Ignoring specific orientations
+//    if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown || orientation == UIDeviceOrientationUnknown) {
+//        return;
+//    }
+//    
+//    // We need to allow a slight pause before running handler to make sure rotation has been processed by the view hierarchy
+//    [self performSelectorOnMainThread:@selector(handleDeviceOrientationChange:) withObject:coachMarksView waitUntilDone:NO];
 }
 
 - (void)handleDeviceOrientationChange:(WSCoachMarksView*)coachMarksView {
@@ -761,12 +761,18 @@
         UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
         // [self.navigationItem setRightBarButtonItem:addButtons];
         
+        UIButton *Btnns =[UIButton buttonWithType:UIButtonTypeCustom];
+        [Btnns setFrame:CGRectMake(0.0f,0.0f,40.0f,40.0f)];
+        [Btnns setBackgroundImage:[UIImage imageNamed:@""]  forState:UIControlStateNormal];
+        UIBarButtonItem *addButtonsBtnns = [[UIBarButtonItem alloc] initWithCustomView:Btnns];
+
+        
         searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
         [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
         [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
         [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
-        NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsRight, nil];
+        NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsBtnns,addButtonsRight, nil];
         [self.navigationItem setRightBarButtonItems:buttonsArr];
 
         
@@ -1806,7 +1812,9 @@
                     cell.messageCountText.text = [NSString stringWithFormat:@"%@ Comments",totalMsgCount];
                 }
                 
-                cell.messageCountText.textColor = [UIColor blackColor];
+//                cell.messageCountText.textColor = [FIUtils colorWithHexString:@"666E73"];
+                cell.messageCountText.textColor =UIColorFromRGB(0x666E73);
+
                 cell.messageIcon.image = [UIImage imageNamed:@"chat_read"];
             } else {
                 //handle read message count
@@ -1928,37 +1936,43 @@
         }
         cell.outlet.text = [curatedNews valueForKey:@"outlet"];
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-            UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-            if(orientation == 0){
-                //Default orientation
-                //UI is in Default (Portrait) -- this is really a just a failsafe.
-            }else if(orientation == UIInterfaceOrientationPortrait) {
-                //Do something if the orientation is in Portrait
-                NSString *authorName = cell.authorName.text;
-                NSString *outletName = cell.outlet.text;
-                if(outletName.length > 15 && authorName.length > 15) {
-                    cell.outlet.text = [NSString stringWithFormat:@"%@...",[outletName substringToIndex:15]];
-                    cell.authorName.text = [NSString stringWithFormat:@"%@...",[authorName substringToIndex:15]];
-                    cell.messageIcon.hidden = YES;
-                    cell.messageCountText.hidden = YES;
-                } else if(outletName.length > 15) {
-                    cell.outlet.text = [NSString stringWithFormat:@"%@...",[outletName substringToIndex:15]];
-                    cell.messageIcon.hidden = YES;
-                    cell.messageCountText.hidden = YES;
-                } else if(authorName.length > 15) {
-                    cell.authorName.text = [NSString stringWithFormat:@"%@...",[authorName substringToIndex:15]];
-                    cell.messageIcon.hidden = YES;
-                    cell.messageCountText.hidden = YES;
-                }
-                else if (authorName.length == 0){
-                    cell.iconForAuthor.hidden = YES;
+                if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+                {
+                    // code for landscape orientation
                     
                 }
-                else {
-                    cell.messageIcon.hidden = NO;
-                    cell.messageCountText.hidden = NO;
+                if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+                {
+                    // code for Portrait orientation
+                    NSString *authorName = cell.authorName.text;
+                    NSString *outletName = cell.outlet.text;
+                    if(outletName.length > 15 && authorName.length > 15) {
+                        cell.outlet.text = [NSString stringWithFormat:@"%@...",[outletName substringToIndex:15]];
+                        cell.authorName.text = [NSString stringWithFormat:@"%@...",[authorName substringToIndex:15]];
+                        cell.messageIcon.hidden = YES;
+                        cell.messageCountText.hidden = YES;
+                    } else if(outletName.length > 15) {
+                        cell.outlet.text = [NSString stringWithFormat:@"%@...",[outletName substringToIndex:15]];
+                        cell.messageIcon.hidden = YES;
+                        cell.messageCountText.hidden = YES;
+                    } else if(authorName.length > 15) {
+                        cell.authorName.text = [NSString stringWithFormat:@"%@...",[authorName substringToIndex:15]];
+                        cell.messageIcon.hidden = YES;
+                        cell.messageCountText.hidden = YES;
+                    }
+                    else if (authorName.length == 0){
+                        cell.iconForAuthor.hidden = YES;
+                        
+                    }
+                    else {
+                        cell.messageIcon.hidden = NO;
+                        cell.messageCountText.hidden = NO;
+                    }
                 }
-            }
+                
+                
+
+            
         }
         CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
         CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.title.font constrainedToSize:maximumLabelSize lineBreakMode:cell.title.lineBreakMode];
