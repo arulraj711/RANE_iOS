@@ -18,5 +18,6 @@
 @property (nonatomic,strong) NSString *articleId;
 @property (nonatomic,strong) UIButton *buttonName;
 @property (strong, nonatomic) IBOutlet UIView *bgView;
+
 @property (strong)  NSIndexPath* lastIndexPath;
 @end

@@ -603,6 +603,14 @@
         //        }
         [[FISharedResources sharedResourceManager]tagScreenInLocalytics:self.titleName];
         [self loadCuratedNews];
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            
+            BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialBoxShown"];
+            if (coachMarksShown == NO) {
+                [self.revealController showViewController:self.revealController.leftViewController];
+            }
+
+        }
     }
 }
 
@@ -725,12 +733,17 @@
         UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
         // [self.navigationItem setRightBarButtonItem:addButtons];
         
+       UIButton *Btnns =[UIButton buttonWithType:UIButtonTypeCustom];
+        [Btnns setFrame:CGRectMake(0.0f,0.0f,10.0f,10.0f)];
+        [Btnns setBackgroundImage:[UIImage imageNamed:@""]  forState:UIControlStateNormal];
+        UIBarButtonItem *addButtonsBtnns = [[UIBarButtonItem alloc] initWithCustomView:Btnns];
+
         searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
         [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
         [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
         [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
-        NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsRight, nil];
+        NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsBtnns,addButtonsRight, nil];
         [self.navigationItem setRightBarButtonItems:buttonsArr];
 
         

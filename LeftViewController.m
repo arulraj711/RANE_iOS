@@ -50,8 +50,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.treeView.allowsMultipleSelectionDuringEditing = NO;
     self.treeView.allowsMultipleSelection = NO;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenus) name:@"MenuList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnreadCount) name:@"UnreadMenuAPI" object:nil];
     
@@ -1092,17 +1094,19 @@
     
 }
 -(void)treeView:(RATreeView *)treeView didDeselectRowForItem:(id)item {
-    //    RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
-    //    cell.customTitleLabel.highlightedTextColor = UIColorFromRGB(0x666E73);
-    //    cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    //
-    //    cell.iconImage.tintColor = UIColorFromRGB(0x666E73);
+//        RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
+//        cell.customTitleLabel.highlightedTextColor = UIColorFromRGB(0x666E73);
+//        cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    
+//        cell.iconImage.tintColor = UIColorFromRGB(0x666E73);
 }
 
 
 
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
+    [self.treeView deselectRowForItem:item animated:NO];
+
     @try {
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFolderClick"];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isExpandButtonClick"];
@@ -1131,6 +1135,8 @@
         NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
         
         cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
+        
+        
        // NSLog(@"after this");
         if([data.nodeId integerValue] == 9 && !data.isFolder) {
             //1111
