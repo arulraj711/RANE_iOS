@@ -1555,9 +1555,9 @@
     
     
     NSNumber *number = [curatedNews valueForKey:@"saveForLater"];
-    // NSLog(@"marked imp read status:%@",number);
+    NSLog(@"marked imp read status:%@",number);
     if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        if(number == [NSNumber numberWithInt:1]) {
+        if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-3",@"isSelected":[NSNumber numberWithBool:NO]}];
             //[curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
         } else {
@@ -1696,10 +1696,10 @@
                 //                [managedObjectContext save:nil];
                 if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
                     if(number == [NSNumber numberWithInt:1]) {
-                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
                         //[curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
                     } else {
-                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
                        // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
                     }
                 }
@@ -2559,7 +2559,7 @@
     NSNumber *number = [curatedNews valueForKey:@"saveForLater"];
     // NSLog(@"marked imp read status:%@",number);
     if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        if(number == [NSNumber numberWithInt:1]) {
+        if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-3",@"isSelected":[NSNumber numberWithBool:NO]}];
             [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
         } else {
