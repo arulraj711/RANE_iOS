@@ -146,7 +146,7 @@
                                     <constraint firstItem="uKX-Eh-g8P" firstAttribute="bottom" secondItem="Szh-bE-irc" secondAttribute="bottom" id="zpp-gi-hHa"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2015 Fullintel LLC., all rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKh-WS-Kgy">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2016 Fullintel LLC., all rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKh-WS-Kgy">
                                 <rect key="frame" x="121" y="551" width="359" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="359" id="NmH-LY-EWs"/>

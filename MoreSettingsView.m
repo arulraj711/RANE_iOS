@@ -306,23 +306,23 @@
     NSLog(@"%ld",(long)indexPath.row);
     NSLog(@"%@",cells);
 
-    for (int i = 0; i < [tableView numberOfRowsInSection:indexPath.section]; i++) {
-        if (i != indexPath.row) {
-            MoreSettingsCell* cellse = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
-            cellse.name.textColor = [UIColor lightGrayColor];
-            [tableView reloadData];
-        }
-    }
-    if (cells.isSelected == YES)
-    {
-        if (cells.name.textColor ==SelectedCellBGColor) {
-        } else {
-            cells.name.textColor = SelectedCellBGColor;
-        }
-        
-
-        
-    }
+//    for ( i = 0; i < [tableView numberOfRowsInSection:indexPath.section]; i++) {
+//        if (i != indexPath.row) {
+//            MoreSettingsCell* cellse = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
+//            cellse.name.textColor = [UIColor lightGrayColor];
+//            [tableView reloadData];
+//        }
+//    }
+//    if (cells.isSelected == YES)
+//    {
+//        if (cells.name.textColor ==SelectedCellBGColor) {
+//        } else {
+//            cells.name.textColor = SelectedCellBGColor;
+//        }
+//        
+//
+//        
+//    }
     NSLog(@"tableview%@",indexPath);
     if(indexPath.row == 0){
         NSLog(@"tableview,indexPath 1");

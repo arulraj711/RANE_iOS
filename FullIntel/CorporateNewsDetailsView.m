@@ -682,8 +682,8 @@
                 [self updateCellReadStatus:cell forCuratedNews:curatedNews atIndexPath:indexPath];
                 //cell.webViewHeightConstraint.constant = 200;
                 
-//                [self configureAuthorDetails:cell forCuratedNewsAuthor:author];
-                //cell.relatedPostArray = postArray;
+                [self configureAuthorDetails:cell forCuratedNewsAuthor:author];
+                cell.relatedPostArray = postArray;
                 
                 
                 
@@ -1108,10 +1108,29 @@
     if(authorArray.count != 0) {
         authors = [authorArray objectAtIndex:0];
     }
+    NSLog(@"%@",authors);
     cell.aboutAuthorName.text = [authors valueForKey:@"name"];
     cell.authorName.text = [authors valueForKey:@"name"];
-    cell.authorWorkTitle.text = [authors valueForKey:@"title"];
-    [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[authors valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
+    
+    
+    NSSet *authorSets = [curatedNews valueForKey:@"authorDetails"];
+    NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSets allObjects]];
+    NSManagedObject *author;
+    if(legendsArray.count != 0) {
+        author  = [legendsArray objectAtIndex:0];
+    }
+    NSLog(@"Author Info ---->%@",author);
+    NSSet *workTitleSet = [author valueForKey:@"authorWorkTitle"];
+    NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
+    NSLog(@"Author Info ---->%@",workTitleArray);
+
+    if (workTitleArray.count !=0) {
+        NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
+        cell.authorWorkTitle.text = [workTitle valueForKey:@"title"];
+
+    }
+
+    [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
     [cell.authorImageView setContentMode:UIViewContentModeScaleAspectFill];
 }
 
@@ -1444,8 +1463,8 @@
             NSPredicate *predicate;
             if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
                 BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
-                if([category isEqualToNumber:[NSNumber numberWithInt:-3]] && !savedForLaterIsNew) {
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES],category];
+                if([category isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@",[NSNumber numberWithBool:YES],category];
                 } else {
                     if(self.isSearching) {
                         predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isSearch == %@",category,parentId,[NSNumber numberWithBool:self.isSearching]];

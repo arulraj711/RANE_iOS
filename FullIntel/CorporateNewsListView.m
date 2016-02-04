@@ -49,7 +49,6 @@
     NSLog(@"view did load title:%@",self.titleName);
     
     [super viewDidLoad];
-    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"selectionValue"];
 
     //toolbar additions---------------------------------------------------
     CGRect frame, remain;
@@ -589,7 +588,7 @@
     }
     [searchBar resignFirstResponder];
     searchBar.hidden = YES;
-    [[NSUserDefaults standardUserDefaults] setInteger:5 forKey:@"selectionValue"];
+//    [[NSUserDefaults standardUserDefaults] setInteger:5 forKey:@"selectionValue"];
 
 
 }
@@ -798,8 +797,8 @@
     
     if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
         BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
-        if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]] && !savedForLaterIsNew) {
-            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES],categoryId];
+        if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@",[NSNumber numberWithBool:YES],categoryId];
         } else {
             if(isSearching) {
                 predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isSearch == %@",categoryId,contentTypeId,[NSNumber numberWithBool:isSearching]];
@@ -907,6 +906,7 @@
 
 }
 -(void)searchButtonFilter{
+    
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.navigationItem.rightBarButtonItems = nil;
         self.navigationItem.leftBarButtonItem = nil;
@@ -2667,8 +2667,8 @@
             
             if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
                 BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
-                if([category isEqualToNumber:[NSNumber numberWithInt:-3]] && !savedForLaterIsNew) {
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@",[NSNumber numberWithBool:YES],category];
+                if([category isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@",[NSNumber numberWithBool:YES],category];
                 } else {
                     if(isSearching) {
                         predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isSearch == %@",category,parentId,[NSNumber numberWithBool:isSearching]];

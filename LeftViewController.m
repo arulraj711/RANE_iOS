@@ -1112,6 +1112,8 @@
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
     NSLog(@"from Menu");
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FromLogin"];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"selectionValue"];
+
 //    [self.treeView deselectRowForItem:item animated:NO];
     @try {
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFolderClick"];

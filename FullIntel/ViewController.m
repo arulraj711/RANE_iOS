@@ -31,6 +31,8 @@
 - (void)viewDidLoad {
     NSLog(@"login view didload");
     i = 0;
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"selectionValue"];
 
     self.isAnimated = YES;
     [super viewDidLoad];

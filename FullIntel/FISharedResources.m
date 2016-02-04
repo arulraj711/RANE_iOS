@@ -543,7 +543,7 @@
                 predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@ AND isFilter == %@",[dic objectForKey:@"id"],contentTypeId,categoryId,[NSNumber numberWithInt:1]];
             } else if([filterBy isEqualToNumber:[NSNumber numberWithInt:2]]) {
                 //recent records
-                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@ AND isFilter == %@",[dic objectForKey:@"id"],contentTypeId,categoryId,[NSNumber numberWithInt:1]];
+                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@ AND isFilter == %@",[dic objectForKey:@"id"],contentTypeId,categoryId,[NSNumber numberWithInt:2]];
             } else {
                 predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND contentTypeId == %@ AND categoryId == %@",[dic objectForKey:@"id"],contentTypeId,categoryId];
             }
@@ -591,13 +591,16 @@
             [curatedNews setValue:[dic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
             [curatedNews setValue:[dic objectForKey:@"commentCount"] forKey:@"totalComments"];
             [curatedNews setValue:[dic objectForKey:@"unReadCommentCount"] forKey:@"unreadComments"];
-
-            
             NSNumber *markImp = [dic valueForKey:@"markAsImportant"];
+            NSLog(@"%@",[dic objectForKey:@"markAsImportantUserDetail"]);
+
             if([markImp isEqualToNumber:[NSNumber numberWithInt:1]]){
                 NSDictionary *markedImpDictionary = [dic objectForKey:@"markAsImportantUserDetail"];
-                [curatedNews setValue:[markedImpDictionary objectForKey:@"name"] forKey:@"markAsImportantUserName"];
-                [curatedNews setValue:[markedImpDictionary objectForKey:@"userId"] forKey:@"markAsImportantUserId"];
+                NSLog(@"%@",markedImpDictionary);
+                NSLog(@"%@",[markedImpDictionary objectForKey:@"name"]);
+
+                [curatedNews setValue:NULL_TO_NIL([markedImpDictionary objectForKey:@"name"]) forKey:@"markAsImportantUserName"];
+                [curatedNews setValue:NULL_TO_NIL([markedImpDictionary objectForKey:@"userId"]) forKey:@"markAsImportantUserId"];
             }
             [curatedNews setValue:[dic objectForKey:@"saveForLater"] forKey:@"saveForLater"];
             

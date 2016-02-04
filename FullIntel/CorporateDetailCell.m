@@ -797,36 +797,36 @@
         
     }else {
         NSLog(@"else part");
-        //        [socialcollectionView registerClass:[SocialLinkCell class]
-        //                 forCellWithReuseIdentifier:@"Cell"];
-        //        [socialcollectionView registerNib:[UINib nibWithNibName:@"SocialLinkCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
-        //        NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
-        //
-        //        SocialLinkCell *socialCell =(SocialLinkCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-        //        if([[socialLink valueForKey:@"mediatype"] isEqualToString:@"Twitter"]) {
-        //            socialCell.iconImage.image = [UIImage imageNamed:@"Twitter-1"];
-        //        } else {
-        //            socialCell.iconImage.image = [UIImage imageNamed:[socialLink valueForKey:@"mediatype"]];
-        //        }
-        //
-        //        if([[socialLink valueForKey:@"isactive"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        //            socialCell.blueCircleView.hidden = NO;
-        //        } else {
-        //            socialCell.blueCircleView.hidden = YES;
-        //        }
-        //        socialCell.cellOuterView.layer.borderWidth = 1.0f;
-        //        socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
-        //        socialCell.cellOuterView.layer.masksToBounds = YES;
-        //        socialCell.cellOuterView.layer.cornerRadius = 20.0f;
-        //        socialCell.blueCircleView.layer.masksToBounds = YES;
-        //        socialCell.blueCircleView.layer.cornerRadius = 5.0f;
-        //
-        //
-        //        //        UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];
-        //        //        socialCell.tag = indexPath.row;
-        //        //        socialCell.iconImage.userInteractionEnabled = YES;
-        //        //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
-        //        collectionCell = socialCell;
+                [_socialcollectionView registerClass:[SocialLinkCell class]
+                         forCellWithReuseIdentifier:@"Cell"];
+                [_socialcollectionView registerNib:[UINib nibWithNibName:@"SocialLinkCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
+                NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
+        
+                SocialLinkCell *socialCell =(SocialLinkCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+                if([[socialLink valueForKey:@"mediatype"] isEqualToString:@"Twitter"]) {
+                    socialCell.iconImage.image = [UIImage imageNamed:@"Twitter-1"];
+                } else {
+                    socialCell.iconImage.image = [UIImage imageNamed:[socialLink valueForKey:@"mediatype"]];
+                }
+        
+                if([[socialLink valueForKey:@"isactive"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    socialCell.blueCircleView.hidden = NO;
+                } else {
+                    socialCell.blueCircleView.hidden = YES;
+                }
+                socialCell.cellOuterView.layer.borderWidth = 1.0f;
+                socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
+                socialCell.cellOuterView.layer.masksToBounds = YES;
+                socialCell.cellOuterView.layer.cornerRadius = 20.0f;
+                socialCell.blueCircleView.layer.masksToBounds = YES;
+                socialCell.blueCircleView.layer.cornerRadius = 5.0f;
+        
+        
+                //        UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];
+                //        socialCell.tag = indexPath.row;
+                //        socialCell.iconImage.userInteractionEnabled = YES;
+                //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
+                collectionCell = socialCell;
     }
     return collectionCell;
 }
@@ -939,7 +939,7 @@
         CGFloat pointOfWebview = newBounds.size.height;
 
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+750+self.bioLabel.frame.size.height);
-        
+        //123thisiswhere
     }
     else{
 
