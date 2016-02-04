@@ -499,6 +499,7 @@
     
             }
             else {
+                [self.relatedPostArray removeAllObjects];
                 lbl.hidden = NO;
                 [self.activityIndicator removeFromSuperview];
                 [self.activityIndicator stopAnimating];
@@ -602,11 +603,12 @@
     if(view == self.socialcollectionView){
         NSLog(@"social collectionview loading");
         itemCount = self.socialLinksArray.count;
-    }else if(view == self.tweetsLocalCollectionView) {
-        itemCount = followersArray.count;
     }else {
-        itemCount = 4;
+        itemCount = followersArray.count;
     }
+//    else {
+//        itemCount = 4;
+//    }
     NSLog(@"number of items :%d",itemCount);
     return itemCount;
 }
@@ -704,7 +706,7 @@
             
         }
         
-    } else if(cv == self.tweetsLocalCollectionView) {
+    } else  {
         NSLog(@"come inside tweets collecionview");
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
             [self.tweetsLocalCollectionView registerClass:[TweetsCellPhone class]
@@ -795,40 +797,8 @@
             collectionCell = tweetCell;
         }
         
-    }else {
-        NSLog(@"else part");
-                [_socialcollectionView registerClass:[SocialLinkCell class]
-                         forCellWithReuseIdentifier:@"Cell"];
-                [_socialcollectionView registerNib:[UINib nibWithNibName:@"SocialLinkCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"Cell"];
-                NSManagedObject *socialLink = [self.socialLinksArray objectAtIndex:indexPath.row];
-        
-                SocialLinkCell *socialCell =(SocialLinkCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-                if([[socialLink valueForKey:@"mediatype"] isEqualToString:@"Twitter"]) {
-                    socialCell.iconImage.image = [UIImage imageNamed:@"Twitter-1"];
-                } else {
-                    socialCell.iconImage.image = [UIImage imageNamed:[socialLink valueForKey:@"mediatype"]];
-                }
-        
-                if([[socialLink valueForKey:@"isactive"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                    socialCell.blueCircleView.hidden = NO;
-                } else {
-                    socialCell.blueCircleView.hidden = YES;
-                }
-                socialCell.cellOuterView.layer.borderWidth = 1.0f;
-                socialCell.cellOuterView.layer.borderColor = [[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1] CGColor];
-                socialCell.cellOuterView.layer.masksToBounds = YES;
-                socialCell.cellOuterView.layer.cornerRadius = 20.0f;
-                socialCell.blueCircleView.layer.masksToBounds = YES;
-                socialCell.blueCircleView.layer.cornerRadius = 5.0f;
-        
-        
-                //        UITapGestureRecognizer *socialCellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(socialTap:)];
-                //        socialCell.tag = indexPath.row;
-                //        socialCell.iconImage.userInteractionEnabled = YES;
-                //        [socialCell.iconImage addGestureRecognizer:socialCellTap];
-                collectionCell = socialCell;
     }
-    return collectionCell;
+        return collectionCell;
 }
 
 -(void)socialTap:(UITapGestureRecognizer *)tapGesture {
@@ -1520,9 +1490,19 @@
             //cell.socialLinkDivider.hidden = YES;
             //cell.socialLinkCollectionView.hidden = YES;
         } else {
+            
             self.socialLinksArray = self.socialLinksArray;
             self.socialLinkLabel.hidden = NO;
             self.socialLinkDivider.hidden = NO;
+            if(self.socialLinksArray.count == 0){
+                self.socialLinkLabel.hidden =YES;
+                self.socialLinkDivider.hidden= YES;
+                self.socialcollectionView.hidden= YES;
+            } else {
+                self.socialLinkLabel.hidden =NO;
+                self.socialLinkDivider.hidden= NO;
+                self.socialcollectionView.hidden = NO;
+            }
         }
         [self.socialcollectionView reloadData];
         [self.socialLinkCollectionView reloadData];
@@ -2166,7 +2146,10 @@
             
         } else {
             if(!self.isTwitterAPICalled) {
+                self.socialLinkLabel.hidden =YES;
+                self.socialLinkDivider.hidden= YES;
                 self.tweetsLocalCollectionView.hidden = YES;
+                self.socialcollectionView.hidden = YES;
                 lbl.hidden = YES;
             }
             
