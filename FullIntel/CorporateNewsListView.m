@@ -843,9 +843,12 @@
     }
     [fetchRequest setPredicate:predicate];
     
+    NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"modifiedDate" ascending:NO];
     
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
+   
     NSLog(@"curated news list count:%lu",(unsigned long)newPerson.count);
     
     if(newPerson.count != 0) {

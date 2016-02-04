@@ -143,6 +143,7 @@
 - (IBAction)savedListButtonClick:(UIButton *)sender;
 - (IBAction)moreButtonClick:(UIButton *)sender;
 -(void)loadTweetsFromPost;
+-(void)loadCuratedNewsDetails;
 - (IBAction)infoButtonClick:(UIButton *)sender;
 @property (weak,nonatomic) IBOutlet UIButton *commentBtn;
 @property (weak,nonatomic) IBOutlet UIButton *folderBtn;

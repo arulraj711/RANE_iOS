@@ -581,7 +581,7 @@
             [curatedNews setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
             [curatedNews setValue:[dic objectForKey:@"heading"] forKey:@"title"];
             [curatedNews setValue:[dic objectForKey:@"articleDescription"] forKey:@"desc"];
-            [curatedNews setValue:[dic objectForKey:@"modifiedDate"] forKey:@"date"];
+            [curatedNews setValue:[dic objectForKey:@"modifiedDate"] forKey:@"modifiedDate"];
             [curatedNews setValue:[dic objectForKey:@"publishedDate"] forKey:@"publishedDate"];
             [curatedNews setValue:[dic objectForKey:@"articleImage"] forKey:@"image"];
             [curatedNews setValue:[dic objectForKey:@"articleURL"] forKey:@"articleUrl"];
@@ -1626,7 +1626,7 @@
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"id"]) forKey:@"articleId"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"heading"]) forKey:@"title"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleDescription"]) forKey:@"desc"];
-                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"modifiedDate"]) forKey:@"date"];
+                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"modifiedDate"]) forKey:@"modifiedDate"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"publishedDate"]) forKey:@"publishedDate"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleImage"]) forKey:@"image"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleURL"]) forKey:@"articleUrl"];
@@ -1930,7 +1930,7 @@
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"id"]) forKey:@"articleId"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"heading"]) forKey:@"title"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleDescription"]) forKey:@"desc"];
-                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"modifiedDate"]) forKey:@"date"];
+                    [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"modifiedDate"]) forKey:@"modifiedDate"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"publishedDate"]) forKey:@"publishedDate"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleImage"]) forKey:@"image"];
                     [curatedNews setValue:NULL_TO_NIL([articleDic objectForKey:@"articleURL"]) forKey:@"articleUrl"];

@@ -907,8 +907,8 @@
         NSLog(@"%f",self.webViewHeightConstraint.constant);
         NSLog(@"%@",self.webViewHeightConstraint);
         CGFloat pointOfWebview = newBounds.size.height;
-
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+750+self.bioLabel.frame.size.height);
+        NSLog(@"webview height-->%f",self.webViewHeightConstraint.constant);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,pointOfWebview+750+self.bioLabel.frame.size.height);
         //123thisiswhere
     }
     else{
@@ -1654,21 +1654,50 @@
         }
         
         NSString *bioString = [author valueForKey:@"bibliography"];
-        
         if(bioString.length != 0) {
             
             self.bioTitleLabel.hidden = NO;
             self.bioDivider.hidden = NO;
             self.bioLabel.hidden = NO;
             self.bioLabel.text = bioString;
+            NSLog(@"bio label frame height:%f",self.bioLabel.frame.size.height);
         } else {
             self.bioTitleLabel.hidden = YES;
             self.bioDivider.hidden = YES;
             self.bioLabel.hidden = YES;
         }
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            CGRect newBounds = self.articleWebview.bounds;
+            NSLog(@"%@",NSStringFromCGRect(newBounds));
+            
+            newBounds.size.height =  self.articleWebview.scrollView.contentSize.height;
+            NSLog(@"%@",NSStringFromCGRect(newBounds));
+            NSLog(@"%@",NSStringFromCGSize(newBounds.size));
+            
+            NSLog(@"%f",self.webViewHeightConstraint.constant);
+            NSLog(@"%@",self.webViewHeightConstraint);
+            CGFloat pointOfWebview = newBounds.size.height;
+            
+            
+            
+            
+            NSLog(@"%@",NSStringFromCGSize([self sizeForLabel:self.bioLabel]));
+            CGSize bioLabelSize =[self sizeForLabel:self.bioLabel];
+            NSLog(@"%f",bioLabelSize.height);
+            
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, pointOfWebview+750+bioLabelSize.height);
+        }
 
     }
     [self LoadTweetsFinally];//99999999
+}
+
+- (CGSize)sizeForLabel:(UILabel *)label {
+    CGSize constrain = CGSizeMake(label.bounds.size.width, FLT_MAX);
+    CGSize size = [label.text sizeWithFont:label.font constrainedToSize:constrain lineBreakMode:UILineBreakModeWordWrap];
+    
+    return size;
 }
 //-(void)configureAuthorDetails:(CorporateDetailCell *)cell forCuratedNewsAuthor:(NSManagedObject *)curatedNewsAuthor {
 //    self.socialLinksArray = [[NSMutableArray alloc]init];

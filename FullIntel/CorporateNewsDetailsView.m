@@ -403,7 +403,7 @@
         [fetchRequest setPredicate:predicate];
         [fetchRequest setEntity:entity];
         
-        NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+        NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"modifiedDate" ascending:NO];
         
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
         [fetchRequest setSortDescriptors:sortDescriptors];
