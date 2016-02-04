@@ -645,42 +645,49 @@
 
 }
 -(void)showLoginPage {
+    [self.revealController showViewController:self.revealController.frontViewController];
     NSArray *navArray = self.navigationController.viewControllers;
     if(navArray.count > 1) {
         [self.navigationController popToRootViewControllerAnimated:YES];
-        UIStoryboard *loginStoryBoard;
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-            loginStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
-            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-            [self presentViewController:loginView animated:YES completion:nil];
-            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-            //        [window addSubview:loginView.view];
-
-        } else {
-            loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-            [self presentViewController:loginView animated:YES completion:nil];
-            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-            //        [window addSubview:loginView.view];
-        }
+        UIStoryboard *centerStoryBoard;
+        UIViewController *viewCtlr;
         
-    } else {
-        UIStoryboard *loginStoryBoard;
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-            loginStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
-            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-            [self presentViewController:loginView animated:YES completion:nil];
-            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-            //        [window addSubview:loginView.view];
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            
             
         } else {
-            loginStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ViewController *loginView = [loginStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-            [self presentViewController:loginView animated:YES completion:nil];
-            //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-            //        [window addSubview:loginView.view];
-        }   //        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-            //        [window addSubview:loginView.view];
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            
+            
+        }
+        
+        
+        [self.revealController setFrontViewController:viewCtlr];
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        UIStoryboard *centerStoryBoard;
+        UIViewController *viewCtlr;
+        
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            
+            
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            
+            
+        }
+        
+        
+        [self.revealController setFrontViewController:viewCtlr];
+        [self.revealController showViewController:self.revealController.frontViewController];
     }
     
     

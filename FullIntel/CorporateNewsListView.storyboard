@@ -844,10 +844,6 @@
                                                                                     </connections>
                                                                                 </collectionViewCell>
                                                                             </cells>
-                                                                            <connections>
-                                                                                <outlet property="dataSource" destination="1bm-hV-Nnm" id="P9C-cb-EKg"/>
-                                                                                <outlet property="delegate" destination="1bm-hV-Nnm" id="ZLh-FB-EFc"/>
-                                                                            </connections>
                                                                         </collectionView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJ2-MA-M3J">
                                                                             <rect key="frame" x="34" y="2565" width="512" height="41"/>

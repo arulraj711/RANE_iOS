@@ -1418,6 +1418,7 @@
 }
 -(void)stopLoadingForAlert{
     [self.activityIndicator stopAnimating];
+    self.collectionView.scrollEnabled = YES;
  
 }
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
