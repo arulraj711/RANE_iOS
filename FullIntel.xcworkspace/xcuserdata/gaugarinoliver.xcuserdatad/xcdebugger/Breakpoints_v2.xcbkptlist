@@ -58,7 +58,7 @@
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/FullIntel/CorporateNewsListView.m"
-                  timestampString = "476280334.428793"
+                  timestampString = "476283477.376342"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "830"
@@ -73,7 +73,7 @@
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/FullIntel/CorporateNewsListView.m"
-                  timestampString = "476280334.429231"
+                  timestampString = "476283477.376833"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "830"
@@ -96,6 +96,38 @@
             startingLineNumber = "347"
             endingLineNumber = "347"
             landmarkName = "-getArticleIdListFromDB"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/CorporateNewsListView.m"
+            timestampString = "476283477.207198"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1663"
+            endingLineNumber = "1663"
+            landmarkName = "-markedImpActions:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/CorporateNewsListView.m"
+            timestampString = "476284213.531654"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1697"
+            endingLineNumber = "1697"
+            landmarkName = "-markedImpActions:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

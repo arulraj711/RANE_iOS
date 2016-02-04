@@ -379,4 +379,8 @@ NHAlignmentFlowLayout *layout;
     [btn setSelected:YES];
     [FIUtils callRequestionUpdateWithModuleId:2 withFeatureId:11];
 }
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.revealController showViewController:self.revealController.frontViewController];
+}
 @end

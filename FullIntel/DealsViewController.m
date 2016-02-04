@@ -429,4 +429,8 @@
     [btn setSelected:YES];
    [FIUtils callRequestionUpdateWithModuleId:8 withFeatureId:12];
 }
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.revealController showViewController:self.revealController.frontViewController];
+}
+
 @end

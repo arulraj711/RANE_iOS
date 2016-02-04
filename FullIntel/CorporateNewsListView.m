@@ -1559,10 +1559,10 @@
     if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
         if(number == [NSNumber numberWithInt:1]) {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-3",@"isSelected":[NSNumber numberWithBool:NO]}];
-            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+            //[curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
         } else {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-3",@"isSelected":[NSNumber numberWithBool:YES]}];
-            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
+           // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
         }
     }
     
@@ -1697,10 +1697,10 @@
                 if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
                     if(number == [NSNumber numberWithInt:1]) {
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
-                        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                        //[curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
                     } else {
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
-                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+                       // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
                     }
                 }
                 
@@ -1750,10 +1750,10 @@
             if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
                 if(number == [NSNumber numberWithInt:1]) {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
-                    [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                    //[curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
                 } else {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
-                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+                   // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
                 }
             }
             
