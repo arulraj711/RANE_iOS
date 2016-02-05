@@ -14,7 +14,7 @@
 #define LIVE_URL @"http://fullintel.com/services/mv01/sv00/appuser"
 #define STAGE_URL @"http://104.236.78.199/services/mv01/sv00/appuser"
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
-NSString *url = @"http://fullintel.com/1.2.0";
+NSString *url = @"http://stage.fullintel.com/1.2.0";
 #define FUNCTION_URL @"api/v1"
 @implementation FIWebService
 
@@ -524,6 +524,17 @@ NSString *url = @"http://fullintel.com/1.2.0";
     
     NSString *functionName = [NSString stringWithFormat:@"articles/%@/folders?security_token=%@",articleId,securityToken];
     [self postQueryResultsForFunctionName:functionName withPostDetails:details withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
+
++(void)addMultipleArticlesToMultipleFolderWithDetails:(NSString*)details withSecurityToken:(NSString *)securityToken onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    //NSString *functionName = [NSString stringWithFormat:@"save/folders",articleId,securityToken];
+    [self postQueryResultsForFunctionName:@"save/folders" withPostDetails:details withSecurityToken:securityToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -12,8 +12,8 @@
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
 #import "PKRevealController.h"
-
-@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate, UISearchBarDelegate, UISearchControllerDelegate,UISearchDisplayDelegate,PanDelegate> {
+#import "FPPopoverController.h"
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate, UISearchBarDelegate, UISearchControllerDelegate,UISearchDisplayDelegate,PanDelegate,FPPopoverControllerDelegate> {
     WSCoachMarksView *coachMarksView;
     NSMutableArray *legendsList;
     NSManagedObject *author;
@@ -24,7 +24,7 @@
     NSString *messageString;
     MFMailComposeViewController *mailComposer;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
-    
+    FPPopoverController *popover;
     UIButton *Btns;
     UIButton *navBtn;
     UIButton *searchButtons;
@@ -48,6 +48,7 @@
 @property BOOL isNewsLetterNav;
 @property BOOL isStarting;
 @property NSString *selectedNewsLetterArticleId;
+@property (nonatomic,strong) UIPopoverController *popOver;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *corporateListWidthConstraint;
 - (IBAction)filterButtonClick:(id)sender;
@@ -62,4 +63,7 @@
 @property (strong) NSMutableArray *devices;
 @property BOOL isLeftClick;
 @property (nonatomic,strong) NSString *titleName;
+@property (nonatomic,strong) IBOutlet UIButton *actionButton;
+@property (nonatomic,strong) IBOutlet UIButton *filterButton;
+@property NSMutableArray *filterArray;
 @end

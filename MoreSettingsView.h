@@ -18,7 +18,12 @@
 @property (nonatomic,strong) NSString *articleId;
 @property (nonatomic,strong) UIButton *buttonName;
 @property (strong, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableXConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableYConstraint;
 @property CGFloat xPositions;
 @property CGFloat yPositions;
+@property CGFloat buttonWidth;
+@property CGFloat buttonHeight;
 @property (strong)  NSIndexPath* lastIndexPath;
+@property NSInteger dropDownValue;
 @end

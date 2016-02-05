@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "476287411.327963"
+            timestampString = "476365746.475757"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1663"
-            endingLineNumber = "1663"
+            startingLineNumber = "1768"
+            endingLineNumber = "1768"
             landmarkName = "-markedImpActions:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "476287411.327963"
+            timestampString = "476365746.475757"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1697"
-            endingLineNumber = "1697"
+            startingLineNumber = "1802"
+            endingLineNumber = "1802"
             landmarkName = "-markedImpActions:"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "476287411.327963"
+            timestampString = "476365746.475757"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1602"
-            endingLineNumber = "1602"
+            startingLineNumber = "1707"
+            endingLineNumber = "1707"
             landmarkName = "-savedActions:"
             landmarkType = "5">
             <Locations>
@@ -106,12 +106,12 @@
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/FullIntel/CorporateNewsListView.m"
-                  timestampString = "476288230.654435"
+                  timestampString = "476350216.658625"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1603"
-                  endingLineNumber = "1603"
-                  offsetFromSymbolStart = "3928">
+                  startingLineNumber = "1619"
+                  endingLineNumber = "1619"
+                  offsetFromSymbolStart = "4774">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -121,12 +121,12 @@
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/FullIntel/CorporateNewsListView.m"
-                  timestampString = "476288230.654953"
+                  timestampString = "476350216.659174"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1608"
-                  endingLineNumber = "1608"
-                  offsetFromSymbolStart = "12">
+                  startingLineNumber = "1624"
+                  endingLineNumber = "1624"
+                  offsetFromSymbolStart = "6">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "476287726.069319"
+            timestampString = "476365746.475757"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1557"
-            endingLineNumber = "1557"
+            startingLineNumber = "1662"
+            endingLineNumber = "1662"
             landmarkName = "-savedActions:"
             landmarkType = "5">
          </BreakpointContent>
