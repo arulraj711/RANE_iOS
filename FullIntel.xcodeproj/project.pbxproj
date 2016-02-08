@@ -60,6 +60,8 @@
 		A08145AE1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = A08145AD1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m */; };
 		A08145B01BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A08145AF1BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard */; };
 		A08145B41BD0DC5E00AA5EE2 /* 150.png in Resources */ = {isa = PBXBuildFile; fileRef = A08145B31BD0DC5E00AA5EE2 /* 150.png */; };
+		A086E6381C64AC5200F5B376 /* SearchWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A086E6361C64AC5100F5B376 /* SearchWebView.m */; };
+		A086E6391C64AC5200F5B376 /* UIWebViewSearch.js in Resources */ = {isa = PBXBuildFile; fileRef = A086E6371C64AC5200F5B376 /* UIWebViewSearch.js */; };
 		A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A087980C1ADFE47D00D93114 /* FirstLevelCell.m */; };
 		A08860801B427B9500939D51 /* FIFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = A088607F1B427B9500939D51 /* FIFolder.m */; };
 		A08860821B42910D00939D51 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A08860811B42910D00939D51 /* FBSDKShareKit.framework */; };
@@ -178,7 +180,6 @@
 		A0EF01911BDE379600B0191B /* NewsLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF01901BDE379600B0191B /* NewsLetterViewController.m */; };
 		A0EF01931BDE37AB00B0191B /* NewsLetterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF01921BDE37AB00B0191B /* NewsLetterView.storyboard */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
-		BA4FB3351C0FFFD800D96DDA /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4FB3341C0FFFD800D96DDA /* Images-2.xcassets */; };
 		BA51CC661C58A3BF00327578 /* issue_list.json in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC471C58A3BF00327578 /* issue_list.json */; };
 		BA51CC671C58A3BF00327578 /* chart_story.json in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC481C58A3BF00327578 /* chart_story.json */; };
 		BA51CC681C58A3BF00327578 /* IssueTweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA51CC4B1C58A3BF00327578 /* IssueTweetCell.m */; };
@@ -420,6 +421,9 @@
 		A08145AD1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverKeyboardResponsiveController.m; sourceTree = "<group>"; };
 		A08145AF1BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MorePopoverViewPhone.storyboard; sourceTree = "<group>"; };
 		A08145B31BD0DC5E00AA5EE2 /* 150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 150.png; sourceTree = "<group>"; };
+		A086E6351C64AC5100F5B376 /* SearchWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWebView.h; sourceTree = "<group>"; };
+		A086E6361C64AC5100F5B376 /* SearchWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWebView.m; sourceTree = "<group>"; };
+		A086E6371C64AC5200F5B376 /* UIWebViewSearch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UIWebViewSearch.js; sourceTree = "<group>"; };
 		A087980B1ADFE47D00D93114 /* FirstLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLevelCell.h; sourceTree = "<group>"; };
 		A087980C1ADFE47D00D93114 /* FirstLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLevelCell.m; sourceTree = "<group>"; };
 		A088607E1B427B9500939D51 /* FIFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIFolder.h; sourceTree = "<group>"; };
@@ -577,7 +581,6 @@
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 3.xcdatamodel"; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
-		BA4FB3341C0FFFD800D96DDA /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-2.xcassets"; sourceTree = "<group>"; };
 		BA51CC471C58A3BF00327578 /* issue_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = issue_list.json; sourceTree = "<group>"; };
 		BA51CC481C58A3BF00327578 /* chart_story.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chart_story.json; sourceTree = "<group>"; };
 		BA51CC491C58A3BF00327578 /* CommunicationIssuesPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationIssuesPage.h; sourceTree = "<group>"; };
@@ -936,6 +939,16 @@
 			name = FPPopover;
 			sourceTree = "<group>";
 		};
+		A086E63A1C64AC5A00F5B376 /* WebViewHighlight */ = {
+			isa = PBXGroup;
+			children = (
+				A086E6351C64AC5100F5B376 /* SearchWebView.h */,
+				A086E6361C64AC5100F5B376 /* SearchWebView.m */,
+				A086E6371C64AC5200F5B376 /* UIWebViewSearch.js */,
+			);
+			name = WebViewHighlight;
+			sourceTree = "<group>";
+		};
 		A08E6E271C07016D003DB4B2 /* Time formatter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1120,6 +1133,7 @@
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
+				A086E63A1C64AC5A00F5B376 /* WebViewHighlight */,
 				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
 				A0AAF0081BFCA7E20006A48C /* SecondTools */,
 				A0AAEFF71BFCA6CD0006A48C /* Toolbar */,
@@ -1166,7 +1180,6 @@
 				F7E354DC1A947994009677D2 /* LeftViewController */,
 				A0E223601A91C2F00073814A /* Images.xcassets */,
 				A0E223571A91C2F00073814A /* FullIntel.xcdatamodeld */,
-				BA4FB3341C0FFFD800D96DDA /* Images-2.xcassets */,
 				A0E223501A91C2F00073814A /* Supporting Files */,
 			);
 			path = FullIntel;
@@ -1892,8 +1905,8 @@
 				A0BE80A01B206F450055177E /* ResearchRequest.storyboard in Resources */,
 				F7E81FBF1A97057100F9A8D4 /* samsung_topic.jpg in Resources */,
 				A0CF5C611B1DD98B00DED2D9 /* PersonalityExecutiveCell.xib in Resources */,
-				BA4FB3351C0FFFD800D96DDA /* Images-2.xcassets in Resources */,
 				BA51CC661C58A3BF00327578 /* issue_list.json in Resources */,
+				A086E6391C64AC5200F5B376 /* UIWebViewSearch.js in Resources */,
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,
 				A0CF5C621B1DD98B00DED2D9 /* RecentPaternsCell.xib in Resources */,
 				A0AAF0201BFCB12B0006A48C /* conf-30.png in Resources */,
@@ -2121,6 +2134,7 @@
 				F554DFD61BB026980062EAC7 /* NewsLetterCell.m in Sources */,
 				A0CF5C6A1B1DD98B00DED2D9 /* NumberOfPatternsCell.m in Sources */,
 				A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */,
+				A086E6381C64AC5200F5B376 /* SearchWebView.m in Sources */,
 				A0CF5C641B1DD98B00DED2D9 /* StockViewController.m in Sources */,
 				BA51CC761C58A3BF00327578 /* StoryTableViewCell.m in Sources */,
 				A07C1EC11C2A64B900447D33 /* MoreSettingsCell.m in Sources */,
@@ -2234,8 +2248,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2255,7 +2269,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -2278,8 +2292,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2292,7 +2306,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;

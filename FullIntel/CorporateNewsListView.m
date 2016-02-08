@@ -1920,13 +1920,18 @@
                 cell.authorName.text = [authorObject valueForKey:@"name"];
             }
         }
-        
+        if (isSearching) {
+            [self highlight:cell.authorName withString:searchBar.text];
+        }
         
         // NSLog(@"multiple author array:%@",multipleAuthorArray);
         // cell.authorTitle.text = [author valueForKey:@"title"];
         // [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         
         cell.title.text = [curatedNews valueForKey:@"title"];
+        if (isSearching) {
+            [self highlight:cell.title withString:searchBar.text];
+        }
         NSRange r;
         NSString *s = [curatedNews valueForKey:@"desc"];
         while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
@@ -2083,6 +2088,26 @@
    // tableCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return tableCell;
 }
+- (void)highlight:(UILabel *)isLabel withString:(NSString *)searchString{
+    NSError *error;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: searchString options:NSRegularExpressionCaseInsensitive error:&error];
+    
+    if (!error)
+    {
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:isLabel.text];
+        NSArray *allMatches = [regex matchesInString:isLabel.text options:0 range:NSMakeRange(0, [isLabel.text length])];
+        for (NSTextCheckingResult *aMatch in allMatches)
+        {
+            NSRange matchRange = [aMatch range];
+            [attributedString setAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} range: matchRange];
+        }
+        [isLabel setAttributedText:attributedString];
+
+    }
+
+    
+}
+
 //- (NSString *)relativeDateStringForDate:(NSDate *)date
 //{
 //    NSCalendarUnit units = NSCalendarUnitDay | NSCalendarUnitWeekOfYear |

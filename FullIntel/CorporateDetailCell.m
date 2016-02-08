@@ -117,6 +117,7 @@
     self.detailsWebview.userInteractionEnabled = YES;
     [self.detailsWebview addGestureRecognizer:tapEvent];
     
+    
 }
 -(void)performAnimationForiPhoneButton:(NSTimer *)timer {
     NSString *indexString=timer.userInfo;

@@ -21,6 +21,7 @@
 #import "SavedListPopoverView.h"
 #import "UIView+Toast.h"
 #import "pop.h"
+#import "SearchWebView.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface CorporateNewsDetailsView ()
@@ -32,7 +33,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+   
     
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
     
@@ -671,7 +674,46 @@
             NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
             NSLog(@"%@",postArray);
             
+            NSLog(@"%@",htmlString);
             [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+
+            if (self.isSearching) {
+
+                
+//
+//                NSString *repString = [NSString stringWithFormat:@"<font color='red'>%@</font>",self.searchText];
+//                // Then you need to replace a string (say 'stringA') with new string (say 'stringB')
+//                // htmlString = [htmlString stringByReplacingOccurrencesOfString:@"Apple" withString:repString];
+//                
+//                htmlString =[htmlString stringByReplacingOccurrencesOfString:self.searchText withString:repString options:NSCaseInsensitiveSearch range: NSMakeRange(0, [htmlString length])];
+//                [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+
+                
+                
+                NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:self.searchText
+                                                                                    options:NSRegularExpressionCaseInsensitive
+                                                                                      error:NULL];
+                NSString *output = [re stringByReplacingMatchesInString:htmlString
+                                                                options:0
+                                                                  range:NSMakeRange(0, htmlString.length)
+                                                           withTemplate:@"<font color='red'>$0</font>"];
+                [cell.articleWebview loadHTMLString:output baseURL:nil];
+
+                
+            } else {
+                [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+
+            }
+
+
+            
+            
+            
+            
+            
+            
+            
+
             [self updateCellViewType:cell forCuratedNews:curatedNews atIndexPath:indexPath];
             NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
             NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
@@ -702,6 +744,19 @@
     
 }
 
+-(void) highlightsSearchTerm:(NSString *)searchTerm withinString:(NSString *)inTerm forWebView:(UIWebView *)inWebView
+{
+    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"Obama"
+                                                                        options:NSRegularExpressionCaseInsensitive
+                                                                          error:NULL];
+    NSString *output = [re stringByReplacingMatchesInString:inTerm
+                                                    options:0
+                                                      range:NSMakeRange(0, inTerm.length)
+                                               withTemplate:@"<span class='highlight'>$0</span>"];
+    [inWebView loadHTMLString:output baseURL:nil];
+
+    
+}
 
 -(void)configureAuthorDetails:(CorporateDetailCell *)cell forCuratedNewsAuthor:(NSManagedObject *)curatedNewsAuthor {
     self.socialLinksArray = [[NSMutableArray alloc]init];
@@ -755,6 +810,9 @@
         
         NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
         cell.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
+        if (self.isSearching) {
+            [self highlight:cell.authorWorkTitleLabel withString:self.searchText];
+        }
     } else {
         cell.workTitleIcon.hidden = YES;
         cell.workTitleIconHeightConstraint.constant = 0;
@@ -787,6 +845,9 @@
         }
         NSManagedObject *outlet = [outletArray objectAtIndex:0];
         cell.authorOutletName.text = [outlet valueForKey:@"outletname"];
+        if (self.isSearching) {
+            [self highlight:cell.authorOutletName withString:self.searchText];
+        }
     }else {
         cell.outletIcon.hidden = YES;
         cell.outletIconHeightConstraint.constant = 0;
@@ -828,6 +889,9 @@
         }
         
         cell.authorLocationLabel.text = authorPlace;
+        if (self.isSearching) {
+            [self highlight:cell.authorLocationLabel withString:self.searchText];
+        }
     } else {
         cell.locationIcon.hidden = YES;
         cell.locationIconHeightConstraint.constant = 0;
@@ -859,6 +923,9 @@
 
         }
         cell.authorTagLabel.text = beatString;
+        if (self.isSearching) {
+            [self highlight:cell.authorTagLabel withString:self.searchText];
+        }
     } else {
         cell.beatsIcon.hidden = YES;
         cell.beatsIconHeightConstraint.constant = 0;
@@ -875,11 +942,15 @@
         cell.bioDivider.hidden = NO;
         cell.bioLabel.hidden = NO;
         cell.bioLabel.text = bioString;
+        if (self.isSearching) {
+            [self highlight:cell.bioLabel withString:self.searchText];
+        }
     } else {
         cell.bioTitleLabel.hidden = YES;
         cell.bioDivider.hidden = YES;
         cell.bioLabel.hidden = YES;
     }
+    
 }
 
 -(void)updateCellMarkedImportantStatus:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
@@ -1007,7 +1078,9 @@
     } else {
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
     }
-    
+    if (self.isSearching) {
+        [self highlight:cell.articleTitle withString:self.searchText];
+    }
     NSString *articleImageStr = [curatedNews valueForKey:@"image"];
     [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"bannerImage"]];
     [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -1023,6 +1096,9 @@
     [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
     [cell.overlayArticleImageView setContentMode:UIViewContentModeScaleAspectFill];
     cell.overlayArticleTitle.text = [curatedNews valueForKey:@"title"];
+    if (self.isSearching) {
+        [self highlight:cell.overlayArticleTitle withString:self.searchText];
+    }
     cell.markedImpUserId = [[curatedNews valueForKey:@"markAsImportantUserId"] stringValue];
     cell.markedImpUserName = [curatedNews valueForKey:@"markAsImportantUserName"];
     
@@ -1057,6 +1133,7 @@
 
     }
     cell.overlayArticleOutlet.text = [curatedNews valueForKey:@"outlet"];
+    
 }
 
 -(void)configureCellAuthorDetails:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
@@ -1080,16 +1157,16 @@
                 cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
                 cell.articleAuthor.text = overallAuthorDetailOne;
                 cell.overlayArticleAuthor.text = overallAuthorDetailOne;
-
+            
             }
             else
             {
 
                 cell.articleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
                 cell.overlayArticleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
-
                 
             }
+           
         } else {
             NSManagedObject *authorObject = [authorArray objectAtIndex:0];
             cell.overlayArticleAuthor.text = [authorObject valueForKey:@"name"];
@@ -1112,6 +1189,12 @@
             
         }
     }
+    if (self.isSearching) {
+        [self highlight:cell.articleOutlet withString:self.searchText];
+        [self highlight:cell.articleAuthor withString:self.searchText];
+        [self highlight:cell.overlayArticleAuthor withString:self.searchText];
+        
+    }
     NSManagedObject *authors;
     if(authorArray.count != 0) {
         authors = [authorArray objectAtIndex:0];
@@ -1119,7 +1202,11 @@
     NSLog(@"%@",authors);
     cell.aboutAuthorName.text = [authors valueForKey:@"name"];
     cell.authorName.text = [authors valueForKey:@"name"];
-    
+    if (self.isSearching) {
+        [self highlight:cell.aboutAuthorName withString:self.searchText];
+
+    }
+
     
     NSSet *authorSets = [curatedNews valueForKey:@"authorDetails"];
     NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSets allObjects]];
@@ -1135,11 +1222,12 @@
     if (workTitleArray.count !=0) {
         NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
         cell.authorWorkTitle.text = [workTitle valueForKey:@"title"];
-
     }
 
     [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
     [cell.authorImageView setContentMode:UIViewContentModeScaleAspectFill];
+  
+    
 }
 
 -(void)removeOverlay:(UITapGestureRecognizer *)gesture {
@@ -1625,6 +1713,55 @@
         }
     }
 }
+- (void)highlight:(UILabel *)isLabel withString:(NSString *)searchString{
+    NSError *error;
+//    NSLog(@"%@",isLabel.text);
+
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: searchString options:NSRegularExpressionCaseInsensitive error:&error];
+    
+    if (!error)
+    {
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:isLabel.text];
+        NSArray *allMatches = [regex matchesInString:isLabel.text options:0 range:NSMakeRange(0, [isLabel.text length])];
+        for (NSTextCheckingResult *aMatch in allMatches)
+        {
+            NSRange matchRange = [aMatch range];
+            [attributedString setAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} range: matchRange];
+        }
+//        NSLog(@"%@",attributedString);
+
+        [isLabel setAttributedText:attributedString];
+        
+    }
+    
+    
+}
+//- (void)highlightHTMLContent:(NSString *)isString withString:(NSString *)searchString forWebView:(UIWebView *)WebView{
+//    NSError *error;
+//    NSLog(@"%@",isString);
+//
+//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: searchString options:NSRegularExpressionCaseInsensitive error:&error];
+//    
+//    if (!error)
+//    {
+//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:isString];
+//        NSArray *allMatches = [regex matchesInString:isString options:0 range:NSMakeRange(0, [isString length])];
+//        for (NSTextCheckingResult *aMatch in allMatches)
+//        {
+//            NSRange matchRange = [aMatch range];
+//            [attributedString setAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} range: matchRange];
+//        }
+//        NSString *htStrin = [attributedString string];
+//        NSLog(@"%@",htStrin);
+//
+//        [WebView loadHTMLString:[attributedString string] baseURL:nil];
+//        
+//        NSLog(@"%@",[attributedString string]);
+////        [WebView reload];
+//    }
+//    
+//    
+//}
 
 -(void)closeWebView {
     [UIView animateWithDuration:0.2
