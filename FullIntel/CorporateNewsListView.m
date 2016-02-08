@@ -50,7 +50,8 @@
     NSLog(@"view did load title:%@",self.titleName);
     
     [super viewDidLoad];
-
+    selectedCells = [[NSMutableArray alloc]init];
+    articleIdArray = [[NSMutableArray alloc]init];
     //toolbar additions---------------------------------------------------
     CGRect frame, remain;
     CGRectDivide(self.view.bounds, &frame, &remain, 44, CGRectMaxYEdge);
@@ -324,20 +325,14 @@
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderClick"];
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
         SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
-        //self.superview.alpha = 0.4;
         popOverView.selectedArticleId = @"";
         popOverView.selectedArticleIdArray = [[NSMutableArray alloc]initWithArray:self.filterArray];
-        popover = [[FPPopoverController alloc] initWithViewController:popOverView];
-        popover.border = NO;
-        popover.delegate = self;
-        
-        //[popover setShadowsHidden:YES];
-        popover.tint = FPPopoverWhiteTint;
-        popover.contentSize = CGSizeMake(300, 260);
-        popover.arrowDirection = FPPopoverArrowDirectionAny;
-        [popover presentPopoverFromView:self.view];
+        self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+        self.popOver.popoverContentSize=CGSizeMake(350, 267);
+        //self.popOver.delegate = self;
+        [self.popOver presentPopoverFromRect:CGRectMake(self.actionButton.frame.origin.x, self.actionButton.frame.origin.y, self.actionButton.frame.size.width, 100) inView:self.articlesTableView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
     else{
         UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
@@ -1893,11 +1888,47 @@
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
         
-        if([[tableView indexPathsForSelectedRows] containsObject:indexPath]) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
+        if (longPressActive) { //Perform action desired when cell is long pressed
+            NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
+
+            accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+            NSNumber *rowNsNum = [NSNumber numberWithInteger:indexPath.row];
+            if ( [selectedCells containsObject:rowNsNum]  )
+            {
+                accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
+                //                    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+                //                    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
+                //                    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+                //                    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+                //                    sprintAnimation.springBounciness = 20.f;
+                //                    [accessoryViewImage pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+            }
+            else{
+                accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle"]];
+                //                    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+                //                    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
+                //                    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+                //                    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+                //                    sprintAnimation.springBounciness = 20.f;
+                //                    [accessoryViewImage pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+            }
+            
+            accessoryViewImage.center = CGPointMake(12, 25);
+            [accessoryView addSubview:accessoryViewImage];
+            [cell setAccessoryView:accessoryView];
+            [self addToolbarAndChangeNavBar];
         }
+        else{
+            [cell.accessoryView removeFromSuperview];
+            cell.accessoryView = nil;
+        }
+        
+        
+//        if([[tableView indexPathsForSelectedRows] containsObject:indexPath]) {
+//            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        } else {
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//        }
 
         if(cell.isEditing == YES) {
             NSLog(@"cell editing yes ------------");
@@ -2226,7 +2257,7 @@
         for (NSTextCheckingResult *aMatch in allMatches)
         {
             NSRange matchRange = [aMatch range];
-            [attributedString setAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} range: matchRange];
+            [attributedString setAttributes:@{NSForegroundColorAttributeName:[FIUtils colorWithHexString:@"F55567"]} range: matchRange];
         }
         [isLabel setAttributedText:attributedString];
 
@@ -2345,33 +2376,86 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.0;
 }
-//-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-//    
-//    UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
-//    UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle"]];
-//    accessoryViewImage.center = CGPointMake(12, 25);
-//    [accessoryView addSubview:accessoryViewImage];
-//    [cell setAccessoryView:accessoryView];
-//    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-//}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSLog(longPressActive ? @"yes" : @"No");
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (longPressActive) { //Perform action desired when cell is long pressed
+        NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
+        NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+        NSLog(@"checked news:%@",curatedNews);
+        NSString *articleId = [curatedNews valueForKey:@"articleId"];
 
-//    if (longPressActive) { //Perform action desired when cell is long pressed
-//        
-//        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-//        
-//        UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
-//        UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
-//        accessoryViewImage.center = CGPointMake(12, 25);
-//        [accessoryView addSubview:accessoryViewImage];
-//        [cell setAccessoryView:accessoryView];
-//        [self addToolbarAndChangeNavBar];
-//        
-//      
-//
-//    }else { //Perform action desired when cell is selected normally
+        [selectedCells removeObject:[NSNumber numberWithInteger:indexPath.row]];
+        [articleIdArray removeObject:articleId];
+
+        
+        [self.articlesTableView reloadData];
+    }
+    
+}
+- (void)popoverControllerDidDismissPopover:(FPPopoverController *)popoverController {
+    self.view.alpha = 1;
+    
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSLog(longPressActive ? @"yes" : @"No");
+    NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
+    
+    
+    
+    if (longPressActive) { //Perform action desired when cell is long pressed
+        NSLog(@"%@",[selectedCells lastObject]);
+        NSNumber *rowNsNum = [NSNumber numberWithInteger:indexPath.row];
+        NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+        NSLog(@"checked news:%@",curatedNews);
+        NSString *articleId = [curatedNews valueForKey:@"articleId"];
+
+        if ([selectedCells containsObject:rowNsNum])
+
+        {
+            
+            [selectedCells removeObject:[NSNumber numberWithInteger:indexPath.row]];
+            [articleIdArray removeObject:articleId];
+
+            [self.articlesTableView reloadData];
+            
+            
+        }
+        else
+        {
+            
+            [selectedCells addObject:[NSNumber numberWithInteger:indexPath.row]];
+            [articleIdArray addObject:articleId];
+
+            
+            [self.articlesTableView reloadData];
+            
+        }
+        
+        
+        //        if ([cell isSelected]) {
+        //            UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+        //            UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
+        //            accessoryViewImage.center = CGPointMake(12, 25);
+        //            [accessoryView addSubview:accessoryViewImage];
+        //            [cell setAccessoryView:accessoryView];
+        //            [self addToolbarAndChangeNavBar];
+        //
+        //        } else {
+        ////            UIView* accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+        ////            UIImageView* accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle"]];
+        ////            accessoryViewImage.center = CGPointMake(12, 25);
+        ////            [accessoryView addSubview:accessoryViewImage];
+        ////            [cell setAccessoryView:accessoryView];
+        ////            [self addToolbarAndChangeNavBar];
+        //
+        //        }
+        //        
+        //        selectedCells = [tableView indexPathsForSelectedRows];
+        
+    }else { //Perform action desired when cell is selected normally
     
         UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
         
@@ -2417,8 +2501,9 @@
             testView.articleIdFromSearchLst =articleIdToBePassed;
             [self.navigationController pushViewController:testView animated:YES];
         }
-//    }
+    }
 }
+
 -(void)addToolbarAndChangeNavBar{
         self.navigationItem.rightBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem = nil;
@@ -2456,16 +2541,104 @@
 //    self.navigationItem.rightBarButtonItem = selectAll;
 }
 -(void)markAsRead{
+    if (articleIdArray != nil || [articleIdArray count] != 0) {
+      
+        NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
+        NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+        [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+        [resultDic setObject:articleIdArray forKey:@"selectedArticleIds"];
+        [resultDic setObject:@"1" forKey:@"status"];
+        [resultDic setObject:@"true" forKey:@"isSelected"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+        }
+        for(NSString *articleId in articleIdArray) {
+            NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",articleId];
+            [fetchRequest setPredicate:predicate];
+            NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+            //NSLog(@"new person array count:%d",newPerson.count);
+            if(newPerson.count != 0) {
+                //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
+                for(NSManagedObject *curatedNews in newPerson) {
+                    NSLog(@"for loop update");
+                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"readStatus"];
+                    [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"isFilter"];
+                    
+                    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                        // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+                    } else {
+                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+                    }
+                    
+                    NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
+                    NSNumber *saveForLaterStatus = [curatedNews valueForKey:@"saveForLater"];
+                    
+                    if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]] && [saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"all"}];
+                    } else if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                        // NSLog(@"both type is working");
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothMarkImp"}];
+                    }else if([saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothSavedForLater"}];
+                    }else {
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
+                    }
+                    
+                }
+            }
+            [managedObjectContext save:nil];
+        }
+        [self.articlesTableView reloadData];
+        
+        
+        
+
+    }
+    
     
 }
 -(void)addTOFolder{
+    if (articleIdArray != nil || [articleIdArray count] != 0) {
+
+    NSLog(@"%@",selectedCells);
+    NSLog(@"%@",articleIdArray);
+
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderClick"];
+
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
+    SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+    popOverView.selectedArticleId = @"";
+    popOverView.selectedArticleIdArray = [[NSMutableArray alloc]initWithArray:articleIdArray];
+
+    self.view.alpha = 0.4;
+    //    popOverView.selectedArticleId = self.selectedArticleId;
+    popover = [[FPPopoverController alloc] initWithViewController:popOverView];
+    popover.border = NO;
+    popover.delegate = self;
+    //[popover setShadowsHidden:YES];
+    popover.tint = FPPopoverWhiteTint;
+    popover.contentSize = CGSizeMake(300, 260);
+    popover.arrowDirection = FPPopoverArrowDirectionAny;
+    [popover presentPopoverFromView:toolbar];
     
+    }
 }
 -(void)cancelButtonEvent{
+    
       self.navigationItem.rightBarButtonItem = nil;
       self.navigationItem.leftBarButtonItem = nil;
       [self addButtonsOnNavigationBar];
 //      longPressActive = NO;
+    [selectedCells removeAllObjects];
+    [articleIdArray removeAllObjects];
+    longPressActive = NO;
+
+
     [self.articlesTableView reloadData];
 
 //    [searchButtons setHidden:NO];
@@ -2479,20 +2652,36 @@
 //    [self.view :toolbar];
 
     toolbar.hidden = YES;
+
 }
 -(void)selectAllButtonEvent{
+    
+    
+    
+    //Fetch all articles
+    for(NSManagedObject *curatedNews in self.devices) {
+        
+        [articleIdArray addObject:[curatedNews valueForKey:@"articleId"]];
+        
+    }
+
+    
     
         NSUInteger numberOfrows = [self.articlesTableView numberOfRowsInSection:0];
         NSLog(@"%lu",(unsigned long)numberOfrows);
         for (NSUInteger s = 0; s < numberOfrows; ++s) {
-            NSUInteger numberOfRowsInSection = [self.articlesTableView numberOfRowsInSection:s];
+//            NSUInteger numberOfRowsInSection = [self.articlesTableView numberOfRowsInSection:s];
 //           NSIndexPath *idxPath = [NSIndexPath indexPathForRow:r inSection:s];
 //          [self.selectedCells addObject:idxPath];
 //          [self.selecedStates addObject:self.states[idxPath.row]];
 //            longPressActive = YES;
-            [self.articlesTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-            [self tableView:self.articlesTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0]];
             
+//            [self.articlesTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+//            [self tableView:self.articlesTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:s inSection:0]];
+            
+            [selectedCells addObject:[NSNumber numberWithInteger:s]];
+            [self.articlesTableView reloadData];
+
         }
 //        [self.articlesTableView reloadData];
 }
@@ -2508,20 +2697,28 @@
     {
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
         {
-            NSLog(@"long press on table view at row %ld", (long)indexPath.row);
             
-            [gestureRecognizer cancelsTouchesInView];
-            //longPressActive = YES;
-            //[self.articlesTableView selectRowAtIndexPath:indexPath
-            //                           animated:NO
-            //                      scrollPosition:UITableViewScrollPositionNone];
+            NSLog(@"long press on table view at row %ld", (long)indexPath.row);
+            longPressActive = YES;
+            [selectedCells addObject:[NSNumber numberWithInteger:indexPath.row]];
+            
+            NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+            NSLog(@"checked news:%@",curatedNews);
+            NSString *articleId = [curatedNews valueForKey:@"articleId"];
+
+            [articleIdArray addObject:articleId];
+
+            
+            [self.articlesTableView reloadData];
+            [self.articlesTableView selectRowAtIndexPath:indexPath
+                                                animated:NO
+                                          scrollPosition:UITableViewScrollPositionNone];
             //[self tableView:self.articlesTableView didSelectRowAtIndexPath:indexPath];
         }
-//        }else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
-//                  gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
-//            longPressActive = NO;
-//            
-//        }
+        else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
+                 gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
+            
+        }
     }
 }
 
@@ -2544,10 +2741,10 @@
         } else {
             [self.filterArray addObject:articleId];
         }
-
+        
         [checkMarkBtn setSelected:YES];
     }
-    NSLog(@"after selection filter array%d",self.filterArray.count);
+    NSLog(@"after selection filter array%lu",(unsigned long)self.filterArray.count);
 }
 
 //- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{

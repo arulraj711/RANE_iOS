@@ -60,8 +60,6 @@
 		A08145AE1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = A08145AD1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m */; };
 		A08145B01BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A08145AF1BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard */; };
 		A08145B41BD0DC5E00AA5EE2 /* 150.png in Resources */ = {isa = PBXBuildFile; fileRef = A08145B31BD0DC5E00AA5EE2 /* 150.png */; };
-		A086E6381C64AC5200F5B376 /* SearchWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A086E6361C64AC5100F5B376 /* SearchWebView.m */; };
-		A086E6391C64AC5200F5B376 /* UIWebViewSearch.js in Resources */ = {isa = PBXBuildFile; fileRef = A086E6371C64AC5200F5B376 /* UIWebViewSearch.js */; };
 		A087980D1ADFE47D00D93114 /* FirstLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A087980C1ADFE47D00D93114 /* FirstLevelCell.m */; };
 		A08860801B427B9500939D51 /* FIFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = A088607F1B427B9500939D51 /* FIFolder.m */; };
 		A08860821B42910D00939D51 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A08860811B42910D00939D51 /* FBSDKShareKit.framework */; };
@@ -421,9 +419,6 @@
 		A08145AD1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverKeyboardResponsiveController.m; sourceTree = "<group>"; };
 		A08145AF1BD0CB8C00AA5EE2 /* MorePopoverViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MorePopoverViewPhone.storyboard; sourceTree = "<group>"; };
 		A08145B31BD0DC5E00AA5EE2 /* 150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 150.png; sourceTree = "<group>"; };
-		A086E6351C64AC5100F5B376 /* SearchWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWebView.h; sourceTree = "<group>"; };
-		A086E6361C64AC5100F5B376 /* SearchWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWebView.m; sourceTree = "<group>"; };
-		A086E6371C64AC5200F5B376 /* UIWebViewSearch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UIWebViewSearch.js; sourceTree = "<group>"; };
 		A087980B1ADFE47D00D93114 /* FirstLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLevelCell.h; sourceTree = "<group>"; };
 		A087980C1ADFE47D00D93114 /* FirstLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLevelCell.m; sourceTree = "<group>"; };
 		A088607E1B427B9500939D51 /* FIFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIFolder.h; sourceTree = "<group>"; };
@@ -939,16 +934,6 @@
 			name = FPPopover;
 			sourceTree = "<group>";
 		};
-		A086E63A1C64AC5A00F5B376 /* WebViewHighlight */ = {
-			isa = PBXGroup;
-			children = (
-				A086E6351C64AC5100F5B376 /* SearchWebView.h */,
-				A086E6361C64AC5100F5B376 /* SearchWebView.m */,
-				A086E6371C64AC5200F5B376 /* UIWebViewSearch.js */,
-			);
-			name = WebViewHighlight;
-			sourceTree = "<group>";
-		};
 		A08E6E271C07016D003DB4B2 /* Time formatter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1133,7 +1118,6 @@
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
-				A086E63A1C64AC5A00F5B376 /* WebViewHighlight */,
 				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
 				A0AAF0081BFCA7E20006A48C /* SecondTools */,
 				A0AAEFF71BFCA6CD0006A48C /* Toolbar */,
@@ -1906,7 +1890,6 @@
 				F7E81FBF1A97057100F9A8D4 /* samsung_topic.jpg in Resources */,
 				A0CF5C611B1DD98B00DED2D9 /* PersonalityExecutiveCell.xib in Resources */,
 				BA51CC661C58A3BF00327578 /* issue_list.json in Resources */,
-				A086E6391C64AC5200F5B376 /* UIWebViewSearch.js in Resources */,
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,
 				A0CF5C621B1DD98B00DED2D9 /* RecentPaternsCell.xib in Resources */,
 				A0AAF0201BFCB12B0006A48C /* conf-30.png in Resources */,
@@ -2134,7 +2117,6 @@
 				F554DFD61BB026980062EAC7 /* NewsLetterCell.m in Sources */,
 				A0CF5C6A1B1DD98B00DED2D9 /* NumberOfPatternsCell.m in Sources */,
 				A0ECBDEF1AEA499700B140C8 /* RFQuiltLayout.m in Sources */,
-				A086E6381C64AC5200F5B376 /* SearchWebView.m in Sources */,
 				A0CF5C641B1DD98B00DED2D9 /* StockViewController.m in Sources */,
 				BA51CC761C58A3BF00327578 /* StoryTableViewCell.m in Sources */,
 				A07C1EC11C2A64B900447D33 /* MoreSettingsCell.m in Sources */,

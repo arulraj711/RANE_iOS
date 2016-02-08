@@ -21,7 +21,6 @@
 #import "SavedListPopoverView.h"
 #import "UIView+Toast.h"
 #import "pop.h"
-#import "SearchWebView.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface CorporateNewsDetailsView ()
@@ -696,7 +695,7 @@
                 NSString *output = [re stringByReplacingMatchesInString:htmlString
                                                                 options:0
                                                                   range:NSMakeRange(0, htmlString.length)
-                                                           withTemplate:@"<font color='red'>$0</font>"];
+                                                           withTemplate:@"<font color='#F55567'>$0</font>"];
                 [cell.articleWebview loadHTMLString:output baseURL:nil];
 
                 
@@ -744,19 +743,19 @@
     
 }
 
--(void) highlightsSearchTerm:(NSString *)searchTerm withinString:(NSString *)inTerm forWebView:(UIWebView *)inWebView
-{
-    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"Obama"
-                                                                        options:NSRegularExpressionCaseInsensitive
-                                                                          error:NULL];
-    NSString *output = [re stringByReplacingMatchesInString:inTerm
-                                                    options:0
-                                                      range:NSMakeRange(0, inTerm.length)
-                                               withTemplate:@"<span class='highlight'>$0</span>"];
-    [inWebView loadHTMLString:output baseURL:nil];
-
-    
-}
+//-(void) highlightsSearchTerm:(NSString *)searchTerm withinString:(NSString *)inTerm forWebView:(UIWebView *)inWebView
+//{
+//    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"Obama"
+//                                                                        options:NSRegularExpressionCaseInsensitive
+//                                                                          error:NULL];
+//    NSString *output = [re stringByReplacingMatchesInString:inTerm
+//                                                    options:0
+//                                                      range:NSMakeRange(0, inTerm.length)
+//                                               withTemplate:@"<span class='highlight'>$0</span>"];
+//    [inWebView loadHTMLString:output baseURL:nil];
+//
+//    
+//}
 
 -(void)configureAuthorDetails:(CorporateDetailCell *)cell forCuratedNewsAuthor:(NSManagedObject *)curatedNewsAuthor {
     self.socialLinksArray = [[NSMutableArray alloc]init];
@@ -1726,7 +1725,7 @@
         for (NSTextCheckingResult *aMatch in allMatches)
         {
             NSRange matchRange = [aMatch range];
-            [attributedString setAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} range: matchRange];
+            [attributedString setAttributes:@{NSForegroundColorAttributeName:[FIUtils colorWithHexString:@"F55567"]} range: matchRange];
         }
 //        NSLog(@"%@",attributedString);
 
@@ -1736,32 +1735,6 @@
     
     
 }
-//- (void)highlightHTMLContent:(NSString *)isString withString:(NSString *)searchString forWebView:(UIWebView *)WebView{
-//    NSError *error;
-//    NSLog(@"%@",isString);
-//
-//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: searchString options:NSRegularExpressionCaseInsensitive error:&error];
-//    
-//    if (!error)
-//    {
-//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:isString];
-//        NSArray *allMatches = [regex matchesInString:isString options:0 range:NSMakeRange(0, [isString length])];
-//        for (NSTextCheckingResult *aMatch in allMatches)
-//        {
-//            NSRange matchRange = [aMatch range];
-//            [attributedString setAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} range: matchRange];
-//        }
-//        NSString *htStrin = [attributedString string];
-//        NSLog(@"%@",htStrin);
-//
-//        [WebView loadHTMLString:[attributedString string] baseURL:nil];
-//        
-//        NSLog(@"%@",[attributedString string]);
-////        [WebView reload];
-//    }
-//    
-//    
-//}
 
 -(void)closeWebView {
     [UIView animateWithDuration:0.2

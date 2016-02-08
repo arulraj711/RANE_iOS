@@ -42,6 +42,13 @@
     BOOL isSearching;
     UISearchBar *searchBar;
     NSMutableArray *articleIdToBePassed;
+    
+    UIView* accessoryView;
+    UIImageView* accessoryViewImage;
+
+    NSMutableArray *selectedCells;
+    NSMutableArray *articleIdArray;
+
 }
 -(void)showLoginPage;
 -(void)loadCuratedNews;
