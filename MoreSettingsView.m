@@ -61,71 +61,88 @@
     self.moreTableView.layer.cornerRadius = 5;
     self.moreTableView.layer.masksToBounds = YES;
     
-//    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerBounds];
-//    anim.fromValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 0, 0)];
-//    anim.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 155, 120)];
-//    [self.moreTableView pop_addAnimation:anim forKey:@"size"];
-    
-//    POPBasicAnimation *anim = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
-//    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    anim.fromValue = @(0.4);
-//    anim.toValue = @(1.0);
-//    [self.moreTableView pop_addAnimation:anim forKey:@"fade"];
 
-//    POPSpringAnimation *scale =[POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-//    scale.toValue = [NSValue valueWithCGPoint:CGPointMake(1.5, 1.5)];
-//    scale.springBounciness = 15;
-//    scale.springSpeed = 5.0f;
-//    [self.moreTableView pop_addAnimation:scale forKey:@"scale"];
+
     
-//        POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-//        scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0, 0)];
-//        scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
-//        scaleAnimation.springSpeed=20;
-//        [self.moreTableView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
    
-   // 24 34 14
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView)];
-//    tap.delegate = self;
-//    [self.bgView addGestureRecognizer:tap];
 
     
-    UIBezierPath* trianglePath = [UIBezierPath bezierPath];
-    NSLog(@"%f",SCREEN_WIDTH-125);
-    [trianglePath moveToPoint:CGPointMake(_xPositions+10, _yPositions+40)];
-    [trianglePath addLineToPoint:CGPointMake(_xPositions+20 , self.moreTableView.frame.origin.y)];
-    [trianglePath addLineToPoint:CGPointMake(_xPositions, self.moreTableView.frame.origin.y)];
-    [trianglePath closePath];
-    
-    CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
-    [triangleMaskLayer setPath:trianglePath.CGPath];
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height)];
-    
-    view.backgroundColor = [UIColor whiteColor];
-    view.layer.mask = triangleMaskLayer;
-    [self.view addSubview:view];
-    
-    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.9, 0.9)];
-    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
-    scaleAnimation.springBounciness = 100.f;
-    scaleAnimation.springSpeed=20;
-    [self.moreTableView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
-    [view.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
-
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+//    self.moreTableView.frame = CGRectMake(self.xPositions, self.yPositions, self.moreTableView.frame.size.width, self.moreTableView.frame.size.height);
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        
+        UIBezierPath* trianglePath = [UIBezierPath bezierPath];
+        NSLog(@"%f",SCREEN_WIDTH-125);
+        [trianglePath moveToPoint:CGPointMake(_xPositions+10, _yPositions+40)];
+        [trianglePath addLineToPoint:CGPointMake(_xPositions+20 , self.moreTableView.frame.origin.y)];
+        [trianglePath addLineToPoint:CGPointMake(_xPositions, self.moreTableView.frame.origin.y)];
+        [trianglePath closePath];
+        
+        CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
+        [triangleMaskLayer setPath:trianglePath.CGPath];
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height)];
+        
+        view.backgroundColor = [UIColor whiteColor];
+        view.layer.mask = triangleMaskLayer;
+        [self.view addSubview:view];
+        
+        POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+        scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.9, 0.9)];
+        scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+        scaleAnimation.springBounciness = 100.f;
+        scaleAnimation.springSpeed=20;
+        [self.moreTableView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+        [view.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+        
+        
         [_moreInforArray addObject:@"All articles"];
         [_moreInforArray addObject:@"Unread"];
         [_moreInforArray addObject:@"Last 24 Hours"];
     }
     else{
-        [_moreInforArray addObject:@"All articles"];
-        [_moreInforArray addObject:@"Unread"];
-        [_moreInforArray addObject:@"Last 24 Hours"];
+        CGFloat frameX = self.view.frame.size.width - self.xPositions;
+        NSLog(@"button width:%f",self.buttonWidth);
+        self.tableXConstraint.constant = frameX-self.buttonWidth;
+        self.tableYConstraint.constant = self.buttonHeight+70;
+        NSLog(@"ipad xposition:%f and yposition:%f and yconstraint:%f",self.xPositions,self.yPositions,self.tableYConstraint.constant);
+        
+        UIBezierPath* trianglePath = [UIBezierPath bezierPath];
+        NSLog(@"%f",SCREEN_WIDTH-125);
+        [trianglePath moveToPoint:CGPointMake(_xPositions+75, _yPositions+90)];
+        [trianglePath addLineToPoint:CGPointMake(_xPositions+75+10 , self.tableYConstraint.constant+20)];
+        [trianglePath addLineToPoint:CGPointMake(_xPositions+75-10, self.tableYConstraint.constant+20)];
+        [trianglePath closePath];
+        
+        CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
+        [triangleMaskLayer setPath:trianglePath.CGPath];
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height)];
+        
+        view.backgroundColor = [UIColor whiteColor];
+        view.layer.mask = triangleMaskLayer;
+        [self.view addSubview:view];
+        
+        POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+        scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.9, 0.9)];
+        scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
+        scaleAnimation.springBounciness = 100.f;
+        scaleAnimation.springSpeed=20;
+        [self.moreTableView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+        [view.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+        
+        if(self.dropDownValue == 1) {
+            //filter
+            [_moreInforArray addObject:@"All articles"];
+            [_moreInforArray addObject:@"Unread"];
+            [_moreInforArray addObject:@"Last 24 Hours"];
+        } else if(self.dropDownValue == 2) {
+            //actions
+            [_moreInforArray addObject:@"ADD TO FOLDER"];
+            [_moreInforArray addObject:@"MARK AS READ"];
+        }
+        
     }    
     self.moreTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.moreTableView reloadData];
@@ -255,47 +272,48 @@
     NSLog(@"%ld",(long)selectedIndexPath);
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
     
-    NSInteger selectionValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectionValue"];
-    NSLog(@"%ld",(long)selectionValue);
-    NSLog(@"%ld",indexPath.row);
-
-    
-    if (selectionValue  == indexPath.row) {
-        if (cell.name.textColor == SelectedCellBGColor) {
-        cell.name.textColor = [UIColor lightGrayColor];
-        }
-    else {
-        cell.name.textColor = SelectedCellBGColor;
-         }
-    }
     
     
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        if(indexPath.row == 0){
-            cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
-        }
-        else if(indexPath.row == 1) {
-            cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
-        }
-        else if(indexPath.row == 2){
-            cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
-            cell.lastLineImage.hidden = YES;
-        }
-
-    }
-    else{
-        if(indexPath.row == 0){
-            cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
-        }
-        else if(indexPath.row == 1) {
-            cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
-        }
-        else if(indexPath.row == 2){
-            cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
-            cell.lastLineImage.hidden = YES;
-
-        }
+    if(self.dropDownValue == 1){
+        NSInteger selectionValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectionValue"];
         
+        if (selectionValue  == indexPath.row) {
+            if (cell.name.textColor == SelectedCellBGColor) {
+                cell.name.textColor = [UIColor lightGrayColor];
+            }
+            else {
+                cell.name.textColor = SelectedCellBGColor;
+            }
+        }
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            if(indexPath.row == 0){
+                cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
+            }
+            else if(indexPath.row == 1) {
+                cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
+            }
+            else if(indexPath.row == 2){
+                cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
+                cell.lastLineImage.hidden = YES;
+            }
+            
+        }
+        else{
+            if(indexPath.row == 0){
+                cell.iconImage.image = [UIImage imageNamed:@"NoArticles"];
+            }
+            else if(indexPath.row == 1) {
+                cell.iconImage.image = [UIImage imageNamed:@"mailICons"];
+            }
+            else if(indexPath.row == 2){
+                cell.iconImage.image = [UIImage imageNamed:@"clockIcon"];
+                cell.lastLineImage.hidden = YES;
+                
+            }
+            
+        }
+    } else {
+        cell.iconImage.hidden = YES;
     }
     return cell;
 }
@@ -303,49 +321,39 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self didTapOnTableView];
     MoreSettingsCell *cells = [tableView cellForRowAtIndexPath:indexPath];
-    NSLog(@"%ld",(long)indexPath.row);
-    NSLog(@"%@",cells);
-
-//    for ( i = 0; i < [tableView numberOfRowsInSection:indexPath.section]; i++) {
-//        if (i != indexPath.row) {
-//            MoreSettingsCell* cellse = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
-//            cellse.name.textColor = [UIColor lightGrayColor];
-//            [tableView reloadData];
-//        }
-//    }
-//    if (cells.isSelected == YES)
-//    {
-//        if (cells.name.textColor ==SelectedCellBGColor) {
-//        } else {
-//            cells.name.textColor = SelectedCellBGColor;
-//        }
-//        
-//
-//        
-//    }
-    NSLog(@"tableview%@",indexPath);
-    if(indexPath.row == 0){
-        NSLog(@"tableview,indexPath 1");
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAll" object:nil];
-        [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
-        NSLog(@"tableview%@",indexPath);
-
+    if(self.dropDownValue == 1) {
+        if(indexPath.row == 0){
+            NSLog(@"tableview,indexPath 1");
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAll" object:nil];
+            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            NSLog(@"tableview%@",indexPath);
+            
+        }
+        
+        else if(indexPath.row == 1) {
+            NSLog(@"tableview,indexPath 1");
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForUnreadMenu" object:nil];
+            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            NSLog(@"tableview%@",indexPath);
+            
+        }
+        else if(indexPath.row == 2){
+            NSLog(@"tableview,indexPath0");
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
+            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            NSLog(@"tableview%@",indexPath);
+            
+        }
+    } else {
+        if(indexPath.row == 0) {
+            //trigger Add to folder
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAddToFolder" object:nil];
+        } else if(indexPath.row == 1) {
+            //Trigger Mark as Read
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForMarkAsRead" object:nil];
+        }
     }
     
-    else if(indexPath.row == 1) {
-        NSLog(@"tableview,indexPath 1");
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForUnreadMenu" object:nil];
-        [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
-        NSLog(@"tableview%@",indexPath);
-
-    }
-    else if(indexPath.row == 2){
-        NSLog(@"tableview,indexPath0");
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
-        [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
-        NSLog(@"tableview%@",indexPath);
-
-    }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
