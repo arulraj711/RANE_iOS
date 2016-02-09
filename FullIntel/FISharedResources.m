@@ -2252,6 +2252,7 @@
             [window makeToast:@"Saved to folder successfully." duration:2 position:CSToastPositionCenter];
             // [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
+            
             [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:NO];
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             //[FIUtils showErrorToast];
@@ -2413,6 +2414,9 @@
     if([self serviceIsReachable]) {
     [FIWebService userActivitiesOnArticlesWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
        if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+           UIWindow *window = [[UIApplication sharedApplication]windows][0];
+           [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+
        } else {
            [self hideProgressView];
            [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];

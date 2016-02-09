@@ -340,7 +340,7 @@
         else if(indexPath.row == 2){
             NSLog(@"tableview,indexPath0");
             [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
-            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"ter"];
             NSLog(@"tableview%@",indexPath);
             
         }

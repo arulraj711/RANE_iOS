@@ -127,7 +127,8 @@
     //Receive AddToFolder and MarkAsRead Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyForAddToFolder) name:@"notifyForAddToFolder" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyForMarkAsRead) name:@"notifyForMarkAsRead" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SaveToFolders) name:@"SaveToFolder" object:nil];
+
     
     // NSLog(@"list did load");notifyForLast24
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyForUnread) name:@"notifyForUnreadMenu" object:nil];
@@ -1006,6 +1007,9 @@
     _spinner.hidden = YES;
     
     [_spinner stopAnimating];
+    if (longPressActive) {
+//        [self cancelButtonEvent];
+    }
     
     [self.articlesTableView reloadData];
     
@@ -2394,7 +2398,13 @@
 }
 - (void)popoverControllerDidDismissPopover:(FPPopoverController *)popoverController {
     self.view.alpha = 1;
-    
+    if (longPressActive) {
+        [selectedCells removeAllObjects];
+        [articleIdArray removeAllObjects];
+    }
+    [self loadCuratedNews];
+    [self.articlesTableView reloadData];
+
     
 }
 
@@ -2513,7 +2523,11 @@
     [searchButtons setHidden:YES];
     [Btns setHidden:YES];
     [navBtn setHidden:YES];
-    
+    if (isSearching || searchBar.isFirstResponder) {
+        [searchBar resignFirstResponder];
+        searchBar.hidden = YES;
+
+    }
     //navigation additions---------------------------------------------------
 
     CancelButton =[UIButton buttonWithType:UIButtonTypeCustom];
@@ -2541,8 +2555,13 @@
 //    self.navigationItem.rightBarButtonItem = selectAll;
 }
 -(void)markAsRead{
-    if (articleIdArray != nil || [articleIdArray count] != 0) {
-      
+    NSLog(@"%@",articleIdArray);
+
+    if (articleIdArray == nil || [articleIdArray count] == 0) {
+        [self.view makeToast:@"Please select an unread article." duration:2.0 position:CSToastPositionCenter];
+
+    }else{
+    
         NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
         NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
         [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -2593,8 +2612,12 @@
             }
             [managedObjectContext save:nil];
         }
+        if (longPressActive) {
+            [selectedCells removeAllObjects];
+            [articleIdArray removeAllObjects];
+        }
+        [self loadCuratedNews];
         [self.articlesTableView reloadData];
-        
         
         
 
@@ -2602,9 +2625,19 @@
     
     
 }
--(void)addTOFolder{
-    if (articleIdArray != nil || [articleIdArray count] != 0) {
+-(void)SaveToFolders{
 
+
+
+}
+-(void)addTOFolder{
+    NSLog(@"%@",articleIdArray);
+    
+    if (articleIdArray == nil || [articleIdArray count] == 0) {
+        [self.view makeToast:@"Please select an artice." duration:2.0 position:CSToastPositionCenter];
+
+    }else{
+        
     NSLog(@"%@",selectedCells);
     NSLog(@"%@",articleIdArray);
 
@@ -2628,30 +2661,92 @@
     
     }
 }
--(void)cancelButtonEvent{
+
+-(void)isSearchingAndHasFilter{
     
-      self.navigationItem.rightBarButtonItem = nil;
-      self.navigationItem.leftBarButtonItem = nil;
-      [self addButtonsOnNavigationBar];
-//      longPressActive = NO;
+    searchBar.hidden = NO;
+    self.navigationItem.titleView = nil;
+    self.navigationItem.rightBarButtonItem = nil;
+    self.navigationItem.leftBarButtonItem = nil;
+    
+    
     [selectedCells removeAllObjects];
     [articleIdArray removeAllObjects];
     longPressActive = NO;
-
-
-    [self.articlesTableView reloadData];
-
-//    [searchButtons setHidden:NO];
-//    [Btns setHidden:NO];
-//    [navBtn setHidden:NO];
-
-//    self.navigationItem.rightBarButtonItem = nil;
-//    self.navigationItem.leftBarButtonItem = nil;
-    [self.navigationController setToolbarHidden:YES animated:YES];
-//    [toolbar removeFromSuperview];
-//    [self.view :toolbar];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"LongPressActive"];
+    
 
     toolbar.hidden = YES;
+    [self.articlesTableView reloadData];
+}
+-(void)forOtherMethods{
+    
+    self.navigationItem.rightBarButtonItem = nil;
+    self.navigationItem.leftBarButtonItem = nil;
+    [self addButtonsOnNavigationBar];
+
+    [selectedCells removeAllObjects];
+    [articleIdArray removeAllObjects];
+    longPressActive = NO;
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"LongPressActive"];
+    
+
+    toolbar.hidden = YES;
+    [self.articlesTableView reloadData];
+    
+
+}
+-(void)cancelButtonEvent{
+    NSLog(@"%@",[NSNumber numberWithBool:isSearching]);
+    if (switchForFilter==0){
+        if (isSearching ) {
+            [self isSearchingAndHasFilter];
+        }
+        else{
+            [self notifyForAll];
+            [self forOtherMethods];
+
+        }
+    }
+    else if (switchForFilter==1){
+        if (isSearching) {
+            [self isSearchingAndHasFilter];
+        }
+        else{
+            [self notifyForUnread];
+            [self forOtherMethods];
+
+        }
+    }
+    else if (switchForFilter==2){
+        if (isSearching) {
+            [self isSearchingAndHasFilter];
+        }
+        else{
+            [self notifyForLast];
+            [self forOtherMethods];
+
+        }
+    }
+    else if (isSearching) {
+        [self isSearchingAndHasFilter];
+    }
+    else{
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = nil;
+        [self addButtonsOnNavigationBar];
+//        [self.navigationController setToolbarHidden:YES animated:YES];
+//        toolbar.hidden = YES;
+        
+        //    [self.articlesTableView reloadData];
+        //    [searchButtons setHidden:NO];
+        //    [Btns setHidden:NO];
+        //    [navBtn setHidden:NO];
+        //    self.navigationItem.rightBarButtonItem = nil;
+        //    self.navigationItem.leftBarButtonItem = nil;
+        //    [toolbar removeFromSuperview];
+        //    [self.view :toolbar];
+    }
 
 }
 -(void)selectAllButtonEvent{
@@ -2700,6 +2795,8 @@
             
             NSLog(@"long press on table view at row %ld", (long)indexPath.row);
             longPressActive = YES;
+            [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"LongPressActive"];
+
             [selectedCells addObject:[NSNumber numberWithInteger:indexPath.row]];
             
             NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];

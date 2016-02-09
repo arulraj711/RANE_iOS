@@ -14,9 +14,9 @@
 #define LIVE_URL @"http://fullintel.com/services/mv01/sv00/appuser"
 #define STAGE_URL @"http://104.236.78.199/services/mv01/sv00/appuser"
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
-//NSString *url = @"http://stage.fullintel.com/1.2.0";
+NSString *url = @"http://stage.fullintel.com/1.2.0";
 
-NSString *url = @"http://fullintel.com/1.2.0";
+//NSString *url = @"http://fullintel.com/1.2.0";
 
 
 #define FUNCTION_URL @"api/v1"
@@ -30,7 +30,6 @@ NSString *url = @"http://fullintel.com/1.2.0";
     url = urls;
 }
 
-
 +(void)getResponseTimeFromTimeStamp:(double)timeStamp {
     float milliseconds = timeStamp*1000;
     float seconds = milliseconds / 1000.0;
@@ -39,7 +38,7 @@ NSString *url = @"http://fullintel.com/1.2.0";
     NSLog(@"Response seconds:%f and minutes:%f and hours:%f",seconds,minutes,hours);
 }
 
-+ (void)getResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
++(void)getResultsForFunctionName:(NSString *)urlPath withPostDetails:(NSString*)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     //NSLog(@"get ress for function ");
     //NSLog(@"start  time--->%f",CFAbsoluteTimeGetCurrent());
