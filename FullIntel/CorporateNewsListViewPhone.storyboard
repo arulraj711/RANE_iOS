@@ -396,7 +396,7 @@
                                                                                 </constraint>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="700" text="After setting iPhone record,what does Apple do next? sfsdfs gfgdfg gdfgdf gdfgdg ggfdgd hfgresdgsg gdgg" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uga-wb-A2o">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" tag="111" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="700" text="After setting iPhone record,what does Apple do next? sfsdfs gfgdfg gdfgdf gdfgdg ggfdgd hfgresdgsg gdgg" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uga-wb-A2o">
                                                                             <rect key="frame" x="15" y="22" width="571" height="153"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                             <constraints>
@@ -409,7 +409,7 @@
                                                                                 <rect key="frame" x="15" y="95" width="291" height="84"/>
                                                                             </variation>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Insider" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPY-jL-Ky5">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" tag="112" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Insider" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPY-jL-Ky5">
                                                                             <rect key="frame" x="18" y="176" width="200" height="20"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="200" id="Hxq-5j-pCh"/>
