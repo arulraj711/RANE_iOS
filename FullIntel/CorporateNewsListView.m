@@ -272,46 +272,80 @@
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
     // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
-    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-    }
+    
+    __block BOOL isRead = NO;
     for(NSString *articleId in self.filterArray) {
         NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",articleId];
         [fetchRequest setPredicate:predicate];
-        NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        NSArray *existingArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
         //NSLog(@"new person array count:%d",newPerson.count);
-        if(newPerson.count != 0) {
+        if(existingArray.count != 0) {
             //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-            for(NSManagedObject *curatedNews in newPerson) {
-                NSLog(@"for loop update");
-                [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"readStatus"];
-                [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"isFilter"];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    for(NSManagedObject *curatedNews in existingArray) {
+                        if([[curatedNews valueForKey:@"readStatus"]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+                            //handle read article
+                            
+                        } else {
+                            //handle unread article
+                            isRead = YES;
+                            break;
+                            
+                        }
+                    }
+
+                });
                 
-                if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-                    // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
-                } else {
-                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
-                }
+            });
+            
+            for(NSManagedObject *curatedNews in existingArray) {
                 
-                NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
-                NSNumber *saveForLaterStatus = [curatedNews valueForKey:@"saveForLater"];
                 
-                if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]] && [saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"all"}];
-                } else if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                    // NSLog(@"both type is working");
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothMarkImp"}];
-                }else if([saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothSavedForLater"}];
-                }else {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
-                }
+                
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    NSLog(@"for loop update");
+                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"readStatus"];
+                    [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"isFilter"];
+                    
+                    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                        // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+                    } else {
+                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
+                    }
+                    
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
+                        NSNumber *saveForLaterStatus = [curatedNews valueForKey:@"saveForLater"];
+                        
+                        if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]] && [saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"all"}];
+                        } else if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                            // NSLog(@"both type is working");
+                            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothMarkImp"}];
+                        }else if([saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothSavedForLater"}];
+                        }else {
+                            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
+                        }
+                    });
+                });
+                
+                
                 
             }
         }
         [managedObjectContext save:nil];
+    }
+    if([[FISharedResources sharedResourceManager]serviceIsReachable] && isRead) {
+        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+    } else {
+        NSLog(@"all are read articles");
+        [self.view makeToast:@"Please select unread article" duration:1.0 position:CSToastPositionCenter];
     }
     [self.articlesTableView reloadData];
 }
