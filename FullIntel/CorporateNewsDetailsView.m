@@ -695,7 +695,7 @@
                 NSString *output = [re stringByReplacingMatchesInString:htmlString
                                                                 options:0
                                                                   range:NSMakeRange(0, htmlString.length)
-                                                           withTemplate:@"<font color='#F55567'>$0</font>"];
+                                                           withTemplate:@"<span style='background-color:#FFFF00'>$0</span>"];
                 [cell.articleWebview loadHTMLString:output baseURL:nil];
 
                 
@@ -809,9 +809,9 @@
         
         NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
         cell.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
-        if (self.isSearching) {
-            [self highlight:cell.authorWorkTitleLabel withString:self.searchText];
-        }
+//        if (self.isSearching) {
+//            [self highlight:cell.authorWorkTitleLabel withString:self.searchText];
+//        }
     } else {
         cell.workTitleIcon.hidden = YES;
         cell.workTitleIconHeightConstraint.constant = 0;
@@ -844,9 +844,9 @@
         }
         NSManagedObject *outlet = [outletArray objectAtIndex:0];
         cell.authorOutletName.text = [outlet valueForKey:@"outletname"];
-        if (self.isSearching) {
-            [self highlight:cell.authorOutletName withString:self.searchText];
-        }
+//        if (self.isSearching) {
+//            [self highlight:cell.authorOutletName withString:self.searchText];
+//        }
     }else {
         cell.outletIcon.hidden = YES;
         cell.outletIconHeightConstraint.constant = 0;
@@ -888,9 +888,9 @@
         }
         
         cell.authorLocationLabel.text = authorPlace;
-        if (self.isSearching) {
-            [self highlight:cell.authorLocationLabel withString:self.searchText];
-        }
+//        if (self.isSearching) {
+//            [self highlight:cell.authorLocationLabel withString:self.searchText];
+//        }
     } else {
         cell.locationIcon.hidden = YES;
         cell.locationIconHeightConstraint.constant = 0;
@@ -922,9 +922,9 @@
 
         }
         cell.authorTagLabel.text = beatString;
-        if (self.isSearching) {
-            [self highlight:cell.authorTagLabel withString:self.searchText];
-        }
+//        if (self.isSearching) {
+//            [self highlight:cell.authorTagLabel withString:self.searchText];
+//        }
     } else {
         cell.beatsIcon.hidden = YES;
         cell.beatsIconHeightConstraint.constant = 0;
@@ -941,9 +941,9 @@
         cell.bioDivider.hidden = NO;
         cell.bioLabel.hidden = NO;
         cell.bioLabel.text = bioString;
-        if (self.isSearching) {
-            [self highlight:cell.bioLabel withString:self.searchText];
-        }
+//        if (self.isSearching) {
+//            [self highlight:cell.bioLabel withString:self.searchText];
+//        }
     } else {
         cell.bioTitleLabel.hidden = YES;
         cell.bioDivider.hidden = YES;
@@ -1712,9 +1712,10 @@
         }
     }
 }
+//search highlight method
 - (void)highlight:(UILabel *)isLabel withString:(NSString *)searchString{
     NSError *error;
-//    NSLog(@"%@",isLabel.text);
+    NSLog(@"%ld",(long)isLabel.tag);
 
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: searchString options:NSRegularExpressionCaseInsensitive error:&error];
     
@@ -1724,8 +1725,18 @@
         NSArray *allMatches = [regex matchesInString:isLabel.text options:0 range:NSMakeRange(0, [isLabel.text length])];
         for (NSTextCheckingResult *aMatch in allMatches)
         {
+            UIColor *bgColors;
+            
+            if (isLabel.tag == 111 || isLabel.tag == 112) {
+                bgColors = [FIUtils colorWithHexString:@"368DD7"];
+
+            } else {
+                bgColors = [FIUtils colorWithHexString:@"FFFF00"];
+
+            }
+            
             NSRange matchRange = [aMatch range];
-            [attributedString setAttributes:@{NSForegroundColorAttributeName:[FIUtils colorWithHexString:@"F55567"]} range: matchRange];
+            [attributedString setAttributes:@{NSBackgroundColorAttributeName:bgColors} range: matchRange];
         }
 //        NSLog(@"%@",attributedString);
 

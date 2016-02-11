@@ -261,6 +261,9 @@
 
 
 -(void)notifyForMarkAsRead {
+    
+    
+    
     //Mark as read functionality
     //NSLog(@"Mark As Read --->%@ and %@",articleIdToBePassed,unreadArticleIdArray);
     NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
@@ -355,21 +358,35 @@
 -(void)notifyForAddToFolder {
     //Add to folder functionality
     //NSLog(@"Add To Folder --->%@ and %@",articleIdToBePassed,unreadArticleIdArray);
-    [self.articlesTableView setContentOffset:CGPointZero animated:YES];
 
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderClick"];
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
+        NSLog(@"%@",selectedCells);
+        NSLog(@"%@",articleIdArray);
+        
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
         SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
         popOverView.selectedArticleId = @"";
-        popOverView.selectedArticleIdArray = [[NSMutableArray alloc]initWithArray:self.filterArray];
-        self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
-        self.popOver.popoverContentSize=CGSizeMake(350, 267);
-        //self.popOver.delegate = self;
-        [self.popOver presentPopoverFromRect:CGRectMake(self.actionButton.frame.origin.x, self.actionButton.frame.origin.y, self.actionButton.frame.size.width, 100) inView:self.articlesTableView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+        popOverView.selectedArticleIdArray = [[NSMutableArray alloc]initWithArray:articleIdArray];
+        CGPoint point = CGPointMake(SCREEN_WIDTH-50, SCREEN_HEIGHT-50);
+//        CGFloat wid = SCREEN_WIDTH-150;
+//        CGPoint topLeft = CGPointMake(toolbar.bounds.origin.x+wid, toolbar.bounds.origin.y);
+
+        self.view.alpha = 0.4;
+        //    popOverView.selectedArticleId = self.selectedArticleId;
+        popover = [[FPPopoverController alloc] initWithViewController:popOverView];
+        popover.border = NO;
+        popover.delegate = self;
+        //[popover setShadowsHidden:YES];
+        popover.tint = FPPopoverWhiteTint;
+        popover.contentSize = CGSizeMake(300, 260);
+        popover.arrowDirection = FPPopoverArrowDirectionDown;
+        [popover presentPopoverFromPoint:point];
     }
     else{
+        [self.articlesTableView setContentOffset:CGPointZero animated:YES];
+
         UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverView" bundle:nil];
         SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
         popOverView.selectedArticleId = @"";
@@ -2284,6 +2301,7 @@
    // tableCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return tableCell;
 }
+//search highlight method
 - (void)highlight:(UILabel *)isLabel withString:(NSString *)searchString{
     NSError *error;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: searchString options:NSRegularExpressionCaseInsensitive error:&error];
@@ -2295,7 +2313,7 @@
         for (NSTextCheckingResult *aMatch in allMatches)
         {
             NSRange matchRange = [aMatch range];
-            [attributedString setAttributes:@{NSForegroundColorAttributeName:[FIUtils colorWithHexString:@"F55567"]} range: matchRange];
+            [attributedString setAttributes:@{NSBackgroundColorAttributeName:[FIUtils colorWithHexString:@"FFFF00"]} range: matchRange];
         }
         [isLabel setAttributedText:attributedString];
 
@@ -2592,68 +2610,12 @@
     NSLog(@"%@",articleIdArray);
 
     if (articleIdArray == nil || [articleIdArray count] == 0) {
-        [self.view makeToast:@"Please select an unread article." duration:2.0 position:CSToastPositionCenter];
+        [self.view makeToast:@"Please select an unread article." duration:0.5 position:CSToastPositionCenter];
 
     }else{
-    
-        NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
-        NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
-        [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-        [resultDic setObject:articleIdArray forKey:@"selectedArticleIds"];
-        [resultDic setObject:@"1" forKey:@"status"];
-        [resultDic setObject:@"true" forKey:@"isSelected"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
-        if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-        }
-        for(NSString *articleId in articleIdArray) {
-            NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@ ",articleId];
-            [fetchRequest setPredicate:predicate];
-            NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-            //NSLog(@"new person array count:%d",newPerson.count);
-            if(newPerson.count != 0) {
-                //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-                for(NSManagedObject *curatedNews in newPerson) {
-                    NSLog(@"for loop update");
-                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"readStatus"];
-                    [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"isFilter"];
-                    
-                    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-                        // [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
-                    } else {
-                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isReadStatusSync"];
-                    }
-                    
-                    NSNumber *markImpStatus = [curatedNews valueForKey:@"markAsImportant"];
-                    NSNumber *saveForLaterStatus = [curatedNews valueForKey:@"saveForLater"];
-                    
-                    if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]] && [saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"all"}];
-                    } else if([markImpStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                        // NSLog(@"both type is working");
-                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothMarkImp"}];
-                    }else if([saveForLaterStatus isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"bothSavedForLater"}];
-                    }else {
-                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":categoryStr}];
-                    }
-                    
-                }
-            }
-            [managedObjectContext save:nil];
-        }
-        if (longPressActive) {
-            [selectedCells removeAllObjects];
-            [articleIdArray removeAllObjects];
-        }
+        [self notifyForMarkAsRead];
         [self loadCuratedNews];
         [self.articlesTableView reloadData];
-        
-        
 
     }
     
@@ -2668,31 +2630,11 @@
     NSLog(@"%@",articleIdArray);
     
     if (articleIdArray == nil || [articleIdArray count] == 0) {
-        [self.view makeToast:@"Please select an artice." duration:2.0 position:CSToastPositionCenter];
+        [self.view makeToast:@"Please select an artice." duration:0.5 position:CSToastPositionCenter];
 
     }else{
         
-    NSLog(@"%@",selectedCells);
-    NSLog(@"%@",articleIdArray);
-
-    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderClick"];
-
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
-    SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
-    popOverView.selectedArticleId = @"";
-    popOverView.selectedArticleIdArray = [[NSMutableArray alloc]initWithArray:articleIdArray];
-
-    self.view.alpha = 0.4;
-    //    popOverView.selectedArticleId = self.selectedArticleId;
-    popover = [[FPPopoverController alloc] initWithViewController:popOverView];
-    popover.border = NO;
-    popover.delegate = self;
-    //[popover setShadowsHidden:YES];
-    popover.tint = FPPopoverWhiteTint;
-    popover.contentSize = CGSizeMake(300, 260);
-    popover.arrowDirection = FPPopoverArrowDirectionAny;
-    [popover presentPopoverFromView:toolbar];
-    
+        [self notifyForAddToFolder];
     }
 }
 
