@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "476873489.631143"
+            timestampString = "476876931.763602"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1553"
-            endingLineNumber = "1553"
+            startingLineNumber = "1558"
+            endingLineNumber = "1558"
             landmarkName = "-readStatusUpdate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "476873489.631143"
+            timestampString = "476876931.763602"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2376"
-            endingLineNumber = "2376"
+            startingLineNumber = "2381"
+            endingLineNumber = "2381"
             landmarkName = "-updateReadUnReadStatusForRow:"
             landmarkType = "5">
          </BreakpointContent>

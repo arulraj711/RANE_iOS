@@ -1546,6 +1546,7 @@
             
             NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
             self.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
+            self.authorWorkTitle.text = [workTitle valueForKey:@"title"];
         }
         else {
             self.workTitleIcon.hidden = YES;

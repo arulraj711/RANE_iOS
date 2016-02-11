@@ -79,7 +79,12 @@
     toolbar.hidden = YES;
     
     
+    self.actionButton.layer.masksToBounds = YES;
+    self.actionButton.layer.cornerRadius = 5.0f;
     
+    
+    self.filterButton.layer.masksToBounds = YES;
+    self.filterButton.layer.cornerRadius = 5.0f;
     
     //toolbar additions---------------------------------------------------
     

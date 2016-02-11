@@ -2679,7 +2679,7 @@
                                             <constraint firstAttribute="height" constant="21" id="Ydk-1L-Ig1"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.41960784313725491" green="0.42352941176470588" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZUf-qI-sh3">
@@ -2694,41 +2694,41 @@
                                             <segment title="UNREAD"/>
                                             <segment title="NONE"/>
                                         </segments>
-                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.41960784313725491" green="0.42352941176470588" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="segmentControlAction:" destination="fWs-zM-deH" eventType="valueChanged" id="DYw-Rx-sUW"/>
                                         </connections>
                                     </segmentedControl>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5V-J9-UnM">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5V-J9-UnM">
                                         <rect key="frame" x="295" y="10" width="150" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="TMi-Xs-MFW"/>
                                             <constraint firstAttribute="width" constant="150" id="eSd-7u-G6F"/>
                                         </constraints>
-                                        <state key="normal" title="Actions">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="   ACTIONS" backgroundImage="actions">
+                                            <color key="titleColor" red="0.41960784313725491" green="0.42352941176470588" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="actionsButtonClick:" destination="fWs-zM-deH" eventType="touchUpInside" id="BxK-Hv-QVI"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2O-V4-Le2">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2O-V4-Le2">
                                         <rect key="frame" x="864" y="10" width="150" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="0qq-Jo-mNL"/>
                                             <constraint firstAttribute="height" constant="30" id="Fqp-qX-vbG"/>
                                         </constraints>
-                                        <state key="normal" title="Show">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="   SHOW" backgroundImage="filter">
+                                            <color key="titleColor" red="0.41960784313725491" green="0.42352941176470588" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="filterButtonClick:" destination="fWs-zM-deH" eventType="touchUpInside" id="gvJ-4Y-mGf"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.93333333333333335" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.92941176470588238" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="grl-Ed-niv" firstAttribute="leading" secondItem="v83-Ot-PT3" secondAttribute="leading" constant="20" id="0Rq-wX-eVQ"/>
                                     <constraint firstAttribute="trailing" secondItem="I2O-V4-Le2" secondAttribute="trailing" constant="20" id="I9s-IA-sVT"/>
@@ -3004,6 +3004,7 @@
     </scenes>
     <resources>
         <image name="Influencer_icon" width="32" height="42"/>
+        <image name="actions" width="150" height="30"/>
         <image name="bookmark" width="30" height="30"/>
         <image name="bookmark-empty" width="20" height="20"/>
         <image name="bookmark_empty1" width="30" height="30"/>
@@ -3016,6 +3017,7 @@
         <image name="close" width="32" height="32"/>
         <image name="close_gray" width="28" height="28"/>
         <image name="email" width="30" height="30"/>
+        <image name="filter" width="150" height="30"/>
         <image name="folder" width="30" height="30"/>
         <image name="globe" width="12" height="12"/>
         <image name="gradiant" width="608" height="200"/>
