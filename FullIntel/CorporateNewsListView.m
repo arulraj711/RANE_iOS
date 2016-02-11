@@ -1845,7 +1845,7 @@
                 //                }
                 //                [managedObjectContext save:nil];
                 if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                    if(number == [NSNumber numberWithInt:1]) {
+                    if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:YES]}];
                         //[curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
                     } else {
@@ -1898,7 +1898,7 @@
             //            [managedObjectContext save:nil];
             
             if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                if(number == [NSNumber numberWithInt:1]) {
+                if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
                     //[curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
                 } else {
@@ -2196,7 +2196,7 @@
         cell.titleHeightConstraint.constant = expectedLabelSize.height;
         NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
         //NSLog(@"marked important staus:%@",number);
-        if(number == [NSNumber numberWithInt:1]) {
+        if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
             
             [cell.markedImpButton setSelected:YES];
         } else {
@@ -2377,7 +2377,7 @@
     NSNumber *number = [curatedNews valueForKey:@"readStatus"];
     CorporateNewsCell *cell = (CorporateNewsCell *)[self.articlesTableView cellForRowAtIndexPath:indexPath];
     // BOOL isRead = [NSNumber numberWithBool:[curatedNews valueForKey:@"readStatus"]];
-    if(number == [NSNumber numberWithInt:1]) {
+    if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
         // cell.title.alpha = 0.7f;
         cell.readStatusImageView.hidden = NO;
         cell.contentView.alpha = 1.0;
@@ -2393,7 +2393,7 @@
     NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
     CorporateNewsCell *cell = (CorporateNewsCell *)[self.articlesTableView cellForRowAtIndexPath:indexPath];
     NSNumber *number = [curatedNews valueForKey:@"markAsImportant"];
-    if(number == [NSNumber numberWithInt:1]) {
+    if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
         
         [cell.markedImpButton setSelected:YES];
     } else {
@@ -2406,7 +2406,7 @@
     NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
     CorporateNewsCell *cell = (CorporateNewsCell *)[self.articlesTableView cellForRowAtIndexPath:indexPath];
     NSNumber *number = [curatedNews valueForKey:@"saveForLater"];
-    if(number == [NSNumber numberWithInt:1]) {
+    if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
         [cell.savedForLaterButton setSelected:YES];
     } else {
         [cell.savedForLaterButton setSelected:NO];
@@ -2871,7 +2871,7 @@
                 //                [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
                 
                 if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                    if(number == [NSNumber numberWithInt:1]) {
+                    if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
                         // [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
                     } else {
@@ -2903,7 +2903,7 @@
             //            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
             [curatedNews setValue:[NSNumber numberWithInt:[loginUserIdString intValue]] forKey:@"markAsImportantUserId"];
             if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                if(number == [NSNumber numberWithInt:1]) {
+                if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"updateMenuCount" object:nil userInfo:@{@"type":@"-2",@"isSelected":[NSNumber numberWithBool:NO]}];
                     //  [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
                 } else {
