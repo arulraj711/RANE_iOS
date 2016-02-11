@@ -57,6 +57,7 @@
     CGRectDivide(self.view.bounds, &frame, &remain, 44, CGRectMaxYEdge);
     toolbar = [[UIToolbar alloc] initWithFrame:frame];
     markAsReadButton = [[UIBarButtonItem alloc] initWithTitle:@"Mark as read" style:UIBarButtonItemStyleDone target:self action:@selector(markAsRead) ];
+    markAsReadButton.image = [UIImage imageNamed:@""];
     [markAsReadButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]
                                     forState:UIControlStateNormal];
     
@@ -2631,7 +2632,27 @@
 
     }else{
         
-        [self notifyForAddToFolder];
+        NSLog(@"%@",selectedCells);
+        NSLog(@"%@",articleIdArray);
+        
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
+        SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+        popOverView.selectedArticleId = @"";
+        popOverView.selectedArticleIdArray = [[NSMutableArray alloc]initWithArray:articleIdArray];
+        CGPoint point = CGPointMake(SCREEN_WIDTH-50, SCREEN_HEIGHT-50);
+        //        CGFloat wid = SCREEN_WIDTH-150;
+        //        CGPoint topLeft = CGPointMake(toolbar.bounds.origin.x+wid, toolbar.bounds.origin.y);
+        
+        self.view.alpha = 0.4;
+        //    popOverView.selectedArticleId = self.selectedArticleId;
+        popover = [[FPPopoverController alloc] initWithViewController:popOverView];
+        popover.border = NO;
+        popover.delegate = self;
+        //[popover setShadowsHidden:YES];
+        popover.tint = FPPopoverWhiteTint;
+        popover.contentSize = CGSizeMake(300, 260);
+        popover.arrowDirection = FPPopoverArrowDirectionDown;
+        [popover presentPopoverFromPoint:point];
     }
 }
 
