@@ -57,7 +57,6 @@
     CGRectDivide(self.view.bounds, &frame, &remain, 44, CGRectMaxYEdge);
     toolbar = [[UIToolbar alloc] initWithFrame:frame];
     markAsReadButton = [[UIBarButtonItem alloc] initWithTitle:@"Mark as read" style:UIBarButtonItemStyleDone target:self action:@selector(markAsRead) ];
-    markAsReadButton.image = [UIImage imageNamed:@""];
     [markAsReadButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]
                                     forState:UIControlStateNormal];
     
@@ -390,7 +389,7 @@
             self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
             self.popOver.popoverContentSize=CGSizeMake(350, 267);
             //self.popOver.delegate = self;
-            [self.popOver presentPopoverFromRect:CGRectMake(self.actionButton.frame.origin.x, self.actionButton.frame.origin.y, self.actionButton.frame.size.width, 100) inView:self.articlesTableView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+            [self.popOver presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2-100,SCREEN_HEIGHT/2-110, self.actionButton.frame.size.width, 100) inView:self.articlesTableView permittedArrowDirections:0 animated:YES];
         }
     } else {
         [self.view makeToast:@"Please select an artice." duration:0.5 position:CSToastPositionCenter];
@@ -642,13 +641,14 @@
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     
     NSLog(@"scrollViewWillBeginDecelerating");
-    
     [self closeMenu];
     
 }
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     
+    
+    [self.popOver dismissPopoverAnimated:YES];
     //Obtaining the current device orientation
     //    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     //
