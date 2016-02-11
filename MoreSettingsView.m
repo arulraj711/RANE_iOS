@@ -96,6 +96,7 @@
         [self.moreTableView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
         [view.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
         
+        self.tableHeightConstraint.constant = 120;
         
         [_moreInforArray addObject:@"All articles"];
         [_moreInforArray addObject:@"Unread"];
@@ -134,11 +135,13 @@
         
         if(self.dropDownValue == 1) {
             //filter
+            self.tableHeightConstraint.constant = 120;
             [_moreInforArray addObject:@"All articles"];
             [_moreInforArray addObject:@"Unread"];
             [_moreInforArray addObject:@"Last 24 Hours"];
         } else if(self.dropDownValue == 2) {
             //actions
+            self.tableHeightConstraint.constant = 80;
             [_moreInforArray addObject:@"ADD TO FOLDER"];
             [_moreInforArray addObject:@"MARK AS READ"];
         }
@@ -276,7 +279,7 @@
     
     if(self.dropDownValue == 1){
         NSInteger selectionValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectionValue"];
-        
+        cell.iconWidthConstraint.constant = 15;
         if (selectionValue  == indexPath.row) {
             if (cell.name.textColor == SelectedCellBGColor) {
                 cell.name.textColor = [UIColor lightGrayColor];
@@ -313,6 +316,7 @@
             
         }
     } else {
+        cell.iconWidthConstraint.constant = 0;
         cell.iconImage.hidden = YES;
     }
     return cell;

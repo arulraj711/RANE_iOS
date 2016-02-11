@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Regular.ttf">
@@ -38,23 +39,44 @@
                                             <rect key="frame" x="0.0" y="0.0" width="155" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Facebook" translatesAutoresizingMaskIntoConstraints="NO" id="bCl-dQ-g8x">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Facebook" translatesAutoresizingMaskIntoConstraints="NO" id="bCl-dQ-g8x">
                                                     <rect key="frame" x="10" y="13" width="15" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="15" id="E4r-9H-ZRI"/>
+                                                        <constraint firstAttribute="height" constant="15" id="O3V-zf-gSW"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSd-XD-YqS">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSd-XD-YqS">
                                                     <rect key="frame" x="33" y="10" width="112" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="4Cw-9a-wdi"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                     <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vK6-vo-uZS">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vK6-vo-uZS">
                                                     <rect key="frame" x="10" y="40" width="134" height="1"/>
                                                     <color key="backgroundColor" red="0.86274509799999999" green="0.87450980389999999" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="juj-I4-mbn"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lSd-XD-YqS" firstAttribute="leading" secondItem="bCl-dQ-g8x" secondAttribute="trailing" constant="8" id="5zV-OP-SsT"/>
+                                                <constraint firstItem="lSd-XD-YqS" firstAttribute="top" secondItem="jyD-vz-dKj" secondAttribute="topMargin" constant="2" id="NNQ-dJ-kie"/>
+                                                <constraint firstItem="bCl-dQ-g8x" firstAttribute="top" secondItem="jyD-vz-dKj" secondAttribute="topMargin" constant="5" id="UJA-zH-uVU"/>
+                                                <constraint firstItem="vK6-vo-uZS" firstAttribute="leading" secondItem="jyD-vz-dKj" secondAttribute="leadingMargin" constant="2" id="WUb-0S-yYD"/>
+                                                <constraint firstItem="vK6-vo-uZS" firstAttribute="top" secondItem="lSd-XD-YqS" secondAttribute="bottom" constant="9" id="hcV-el-yCP"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="vK6-vo-uZS" secondAttribute="trailing" constant="3" id="r5D-MJ-lhc"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="lSd-XD-YqS" secondAttribute="trailing" constant="2" id="rfS-dh-ebX"/>
+                                                <constraint firstItem="bCl-dQ-g8x" firstAttribute="leading" secondItem="jyD-vz-dKj" secondAttribute="leadingMargin" constant="2" id="weI-JB-El9"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="iconImage" destination="bCl-dQ-g8x" id="Y2A-aK-59o"/>
+                                            <outlet property="iconWidthConstraint" destination="E4r-9H-ZRI" id="89d-bE-q7C"/>
                                             <outlet property="lastLineImage" destination="vK6-vo-uZS" id="NeU-Qd-LxS"/>
                                             <outlet property="name" destination="lSd-XD-YqS" id="Yad-TB-Wm1"/>
                                         </connections>
@@ -75,6 +97,7 @@
                     <connections>
                         <outlet property="bgView" destination="Afb-OX-RZc" id="J4X-zp-B6N"/>
                         <outlet property="moreTableView" destination="57d-kT-Nrs" id="oy7-Px-WY4"/>
+                        <outlet property="tableHeightConstraint" destination="eap-ao-Ntz" id="ZpM-il-w09"/>
                         <outlet property="tableXConstraint" destination="DZ5-Ls-Otw" id="FBE-a5-tvA"/>
                         <outlet property="tableYConstraint" destination="CBW-S2-sJg" id="S3k-gB-R9z"/>
                     </connections>

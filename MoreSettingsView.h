@@ -22,8 +22,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableYConstraint;
 @property CGFloat xPositions;
 @property CGFloat yPositions;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
 @property CGFloat buttonWidth;
 @property CGFloat buttonHeight;
 @property (strong)  NSIndexPath* lastIndexPath;
+
 @property NSInteger dropDownValue;
 @end

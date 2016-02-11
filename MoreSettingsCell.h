@@ -12,7 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (nonatomic,strong) IBOutlet UIImageView *iconImage;
 @property (strong, nonatomic) IBOutlet UIImageView *lastLineImage;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconWidthConstraint;
 
 
 

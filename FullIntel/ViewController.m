@@ -58,6 +58,9 @@
 //        
 //        [_infoButtonPressed setFrame:CGRectMake(logoPosition-66, _infoButtonPressed.frame.origin.y, _infoButtonPressed.frame.size.width, _infoButtonPressed.frame.size.height)];
 //    }
+    
+    self.revealController.recognizesPanningOnFrontView = NO;
+    
     originalOuterViewy =_outerView.frame.origin.y;
     [self animateImages];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
@@ -141,7 +144,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     self.isAnimated = YES;
-    
+    self.revealController.recognizesPanningOnFrontView = NO;
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.usernameTextField.leftView = paddingView;
     self.usernameTextField.leftViewMode = UITextFieldViewModeAlways;

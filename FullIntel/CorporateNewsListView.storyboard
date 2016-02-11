@@ -2684,7 +2684,7 @@
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZUf-qI-sh3">
                                         <rect key="frame" x="76" y="11" width="203" height="29"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.90588235294117647" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="WuI-51-uEL"/>
                                             <constraint firstAttribute="width" constant="203" id="r2w-0k-yu6"/>
@@ -2728,7 +2728,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.93333333333333335" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="grl-Ed-niv" firstAttribute="leading" secondItem="v83-Ot-PT3" secondAttribute="leading" constant="20" id="0Rq-wX-eVQ"/>
                                     <constraint firstAttribute="trailing" secondItem="I2O-V4-Le2" secondAttribute="trailing" constant="20" id="I9s-IA-sVT"/>
