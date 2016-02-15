@@ -243,6 +243,7 @@
 }
 
 -(void)notifyForUnread{
+    [self.filterButton setTitle: @"   Unread" forState: UIControlStateNormal];
     _spinner.hidden=NO;
     switchForFilter = 1;
     [self callSearchAPIWithStringForUnread:@"" withFilterString:@"UNREAD"];
@@ -251,6 +252,7 @@
     
 }
 -(void)notifyForAll{
+    [self.filterButton setTitle: @"   All articles" forState: UIControlStateNormal];
     _spinner.hidden=NO;
     switchForFilter = 0;
     [self clearFilteredDataFromTable:@"CuratedNews"];
@@ -259,6 +261,7 @@
     
 }
 -(void)notifyForLast{
+    [self.filterButton setTitle: @"   Last 24 Hours" forState: UIControlStateNormal];
     _spinner.hidden=NO;
     switchForFilter = 2;
     [self callSearchAPIWithStringForUnread:@"" withFilterString:@"RECENT"];
@@ -3324,6 +3327,8 @@
 
 - (IBAction)filterButtonClick:(id)sender {
     UIButton *filterBtn = (UIButton *)sender;
+    [filterBtn setTitle: @"   All articles" forState: UIControlStateNormal];
+    //filterBtn.titleLabel.text = @"Clicked";
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
     MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
     popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
