@@ -2124,21 +2124,17 @@
         // cell.authorTitle.text = [author valueForKey:@"title"];
         // [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         
+        cell.descTextView.text =[curatedNews valueForKey:@"desc"];
+        NSString *tcxtVw = [curatedNews valueForKey:@"desc"];
         cell.title.text = [curatedNews valueForKey:@"title"];
         if (isSearching) {
             [self highlight:cell.title withString:searchBar.text];
+            
+            
+            [self highlightTxt:cell.descTextView withString:searchBar.text];
+            
         }
-        NSRange r;
-        NSString *s = [curatedNews valueForKey:@"desc"];
-        while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
-            s = [s stringByReplacingCharactersInRange:r withString:@""];
-        s= [s stringByReplacingOccurrencesOfString:@"&#39;" withString:@"'"];
         
-        UIFont *font = [UIFont fontWithName:@"OpenSans" size:14];
-        UIColor *textColor = [UIColor colorWithRed:(102/255.0) green:(110/255.0) blue:(115/255.0) alpha:1];
-        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc]init];
-        style.lineSpacing = 2;
-        cell.descTextView.attributedText = [[NSAttributedString alloc]initWithString:s attributes:@{NSParagraphStyleAttributeName:style,NSFontAttributeName:font,NSForegroundColorAttributeName:textColor}];
         CGFloat width =  [[curatedNews valueForKey:@"outlet"] sizeWithFont:[UIFont fontWithName:@"OpenSans" size:15 ]].width;
         if(width == 0) {
             cell.outletWidthConstraint.constant = 0;
@@ -2318,6 +2314,34 @@
         {
             NSRange matchRange = [aMatch range];
             [attributedString setAttributes:@{NSBackgroundColorAttributeName:[FIUtils colorWithHexString:@"FFFF00"]} range: matchRange];
+        }
+        [isLabel setAttributedText:attributedString];
+        
+    }
+    
+    
+}
+
+
+- (void)highlightTxt:(UITextView *)isLabel withString:(NSString *)searchString{
+    NSError *error;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: searchString options:NSRegularExpressionCaseInsensitive error:&error];
+    
+    if (!error)
+    {
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:isLabel.text];
+        UIFont *font = [UIFont fontWithName:@"OpenSans" size:14];
+        UIColor *textColor = [UIColor colorWithRed:(102/255.0) green:(110/255.0) blue:(115/255.0) alpha:1];
+        
+        [attributedString setAttributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:textColor} range:NSMakeRange(0, [attributedString length])];
+        NSArray *allMatches = [regex matchesInString:isLabel.text options:0 range:NSMakeRange(0, [isLabel.text length])];
+        for (NSTextCheckingResult *aMatch in allMatches)
+        {
+            NSRange matchRange = [aMatch range];
+            //                        cell.descTextView.attributedText = [[NSAttributedString alloc]initWithString:s attributes:@{NSParagraphStyleAttributeName:style,NSFontAttributeName:font,NSForegroundColorAttributeName:textColor}];
+            
+            
+            [attributedString setAttributes:@{NSBackgroundColorAttributeName:[FIUtils colorWithHexString:@"FFFF00"], NSFontAttributeName:font} range: matchRange];
         }
         [isLabel setAttributedText:attributedString];
         
@@ -2613,16 +2637,18 @@
 -(void)markAsRead{
     NSLog(@"%@",articleIdArray);
     
-    if (articleIdArray == nil || [articleIdArray count] == 0) {
-
-        [self.view makeToast:@"Please select an unread article." duration:0.5 position:CSToastPositionCenter];
-
-    }else{
+//    if (articleIdArray == nil || [articleIdArray count] == 0) {
+//
+//        [self.view makeToast:@"Please select an unread article." duration:0.5 position:CSToastPositionCenter];
+//
+//    }else{
+    [self.filterArray removeAllObjects];
+    self.filterArray = [[NSMutableArray alloc]initWithArray:articleIdArray];
         [self notifyForMarkAsRead];
         [self loadCuratedNews];
         [self.articlesTableView reloadData];
 
-    }
+   // }
     
     
 }
