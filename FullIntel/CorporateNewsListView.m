@@ -272,7 +272,7 @@
     
     
     //Mark as read functionality
-    //NSLog(@"Mark As Read --->%@ and %@",articleIdToBePassed,unreadArticleIdArray);
+    NSLog(@"Mark As Read --->%@ ",self.filterArray);
     NSString *categoryStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"]];
     NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
     [resultDic setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
@@ -367,6 +367,8 @@
 -(void)notifyForAddToFolder {
     //Add to folder functionality
     //NSLog(@"Add To Folder --->%@ and %@",articleIdToBePassed,unreadArticleIdArray);
+    NSLog(@"Mark As Read --->%@ ",self.filterArray);
+
     [self.articlesTableView setContentOffset:CGPointZero animated:YES];
     if(self.filterArray.count != 0) {
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderClick"];
@@ -1946,12 +1948,42 @@
         
         if (longPressActive) { //Perform action desired when cell is long pressed
             NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
+
             
-            accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+            [UIView animateWithDuration:0.4
+                             animations:^{
+                                 cell.articleImageLeadConstraint.constant = 50;
+                                 cell.readStatusLeadConstraint.constant = 50;
+                                 [self.view layoutIfNeeded];
+                             }];
+            
+//            cell.imageTickIcon.hidden = NO;
+            [UIView animateWithDuration:0.4
+                             animations:^{
+                                 cell.tickIconLeadConstraint.constant = 12;
+                                 [self.view layoutIfNeeded];
+                             }];            
+//            [UIView transitionWithView:cell.imageTickIcon
+//                              duration:0.1
+//                               options:UIViewAnimationOptionTransitionCrossDissolve
+//                            animations:NULL
+//                            completion:NULL];-30
+            
+//
+//            cell.imageTickIcon.hidden = NO;
+//            cell.imageTickIcon.frame =  CGRectMake(-12, cell.imageTickIcon.frame.origin.y, cell.imageTickIcon.frame.size.width, cell.imageTickIcon.frame.size.height);
+//            [UIView animateWithDuration:0.4 animations:^{
+//                cell.imageTickIcon.frame =  CGRectMake(12, cell.imageTickIcon.frame.origin.y, cell.imageTickIcon.frame.size.width, cell.imageTickIcon.frame.size.height);
+//            }];
+            
+
+            
+//          accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
+            
             NSNumber *rowNsNum = [NSNumber numberWithInteger:indexPath.row];
             if ( [selectedCells containsObject:rowNsNum]  )
             {
-                accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle_checked"]];
+                cell.imageTickIcon.image =[UIImage imageNamed:@"bluecircle_checked"];
                 //                    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
                 //                    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
                 //                    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
@@ -1960,7 +1992,7 @@
                 //                    [accessoryViewImage pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
             }
             else{
-                accessoryViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluecircle"]];
+                cell.imageTickIcon.image =[UIImage imageNamed:@"bluecircle"];
                 //                    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
                 //                    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
                 //                    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
@@ -1969,14 +2001,35 @@
                 //                    [accessoryViewImage pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
             }
             
-            accessoryViewImage.center = CGPointMake(12, 25);
-            [accessoryView addSubview:accessoryViewImage];
-            [cell setAccessoryView:accessoryView];
+//            accessoryViewImage.center = CGPointMake(12, 25);
+//            [accessoryView addSubview:accessoryViewImage];
+//            [cell setAccessoryView:accessoryView];
             [self addToolbarAndChangeNavBar];
         }
         else{
-            [cell.accessoryView removeFromSuperview];
-            cell.accessoryView = nil;
+            
+            [UIView animateWithDuration:0.4
+                             animations:^{
+                                 cell.articleImageLeadConstraint.constant = 2;
+                                 cell.readStatusLeadConstraint.constant = 2;
+                                 [self.view layoutIfNeeded];
+                             }];
+            
+            
+            [UIView animateWithDuration:0.4
+                             animations:^{
+                                 cell.tickIconLeadConstraint.constant = -30;
+                                 [self.view layoutIfNeeded];
+                             }];
+
+//            cell.imageTickIcon.hidden = YES;
+
+            
+
+            
+
+//            [cell.accessoryView removeFromSuperview];
+//            cell.accessoryView = nil;
         }
         
         
@@ -2444,7 +2497,6 @@
         [selectedCells removeObject:[NSNumber numberWithInteger:indexPath.row]];
         [articleIdArray removeObject:articleId];
         
-        
         [self.articlesTableView reloadData];
     }
     
@@ -2452,8 +2504,8 @@
 - (void)popoverControllerDidDismissPopover:(FPPopoverController *)popoverController {
     self.view.alpha = 1;
     if (longPressActive) {
-        [selectedCells removeAllObjects];
-        [articleIdArray removeAllObjects];
+//        [selectedCells removeAllObjects];
+//        [articleIdArray removeAllObjects];
     }
     [self loadCuratedNews];
     [self.articlesTableView reloadData];
@@ -2696,6 +2748,7 @@
     
 }
 -(void)cancelButtonEvent{
+    
     NSLog(@"%@",[NSNumber numberWithBool:isSearching]);
     if (switchForFilter==0){
         if (isSearching ) {

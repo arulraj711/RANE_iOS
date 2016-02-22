@@ -113,14 +113,23 @@
                                                     <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LiI-5N-MY5">
+                                                    <rect key="frame" x="-30" y="31" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="3Xe-po-5xq"/>
+                                                        <constraint firstAttribute="height" constant="30" id="txL-AC-Xeh"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="LiI-5N-MY5" firstAttribute="top" secondItem="rFw-gw-R62" secondAttribute="top" constant="31" id="0ru-xq-8sc"/>
                                                 <constraint firstItem="HqS-Nk-1h1" firstAttribute="leading" secondItem="rFw-gw-R62" secondAttribute="leadingMargin" constant="2" id="FbU-Hs-qbO"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="k3x-zF-8Mt" secondAttribute="trailing" constant="5" id="Lb2-qZ-l3C"/>
                                                 <constraint firstItem="E7M-5b-22s" firstAttribute="top" secondItem="rFw-gw-R62" secondAttribute="topMargin" constant="-7" id="MXj-D7-ea4"/>
                                                 <constraint firstItem="hVI-Qx-ovZ" firstAttribute="leading" secondItem="HqS-Nk-1h1" secondAttribute="trailing" constant="10" id="N8Z-Zf-Zca"/>
                                                 <constraint firstItem="E7M-5b-22s" firstAttribute="leading" secondItem="HqS-Nk-1h1" secondAttribute="trailing" constant="10" id="WPR-P5-cok"/>
                                                 <constraint firstItem="k3x-zF-8Mt" firstAttribute="top" secondItem="E7M-5b-22s" secondAttribute="bottom" constant="-1" id="Wel-rD-LFT"/>
+                                                <constraint firstItem="LiI-5N-MY5" firstAttribute="leading" secondItem="rFw-gw-R62" secondAttribute="leading" constant="-30" id="ZdB-he-Qop"/>
                                                 <constraint firstItem="rd4-Dg-erx" firstAttribute="top" secondItem="rFw-gw-R62" secondAttribute="topMargin" constant="29" id="ZgK-Wo-eWh"/>
                                                 <constraint firstItem="hVI-Qx-ovZ" firstAttribute="top" secondItem="E7M-5b-22s" secondAttribute="bottom" constant="-1" id="bru-V9-ZKP"/>
                                                 <constraint firstItem="rd4-Dg-erx" firstAttribute="leading" secondItem="rFw-gw-R62" secondAttribute="leadingMargin" constant="2" id="iXs-qS-YZ6"/>
@@ -130,9 +139,13 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="articleDate" destination="k3x-zF-8Mt" id="Qy7-G5-dCh"/>
+                                            <outlet property="articleImageLeadConstraint" destination="FbU-Hs-qbO" id="xQn-VP-ake"/>
                                             <outlet property="articleImageView" destination="HqS-Nk-1h1" id="Ma4-0X-5LA"/>
                                             <outlet property="authorName" destination="hVI-Qx-ovZ" id="hZe-Qe-j6I"/>
+                                            <outlet property="imageTickIcon" destination="LiI-5N-MY5" id="s1Z-oC-m3P"/>
                                             <outlet property="readStatusImageView" destination="rd4-Dg-erx" id="nwJ-Yv-mpW"/>
+                                            <outlet property="readStatusLeadConstraint" destination="iXs-qS-YZ6" id="uA9-gk-a9j"/>
+                                            <outlet property="tickIconLeadConstraint" destination="ZdB-he-Qop" id="idy-Hb-qcP"/>
                                             <outlet property="title" destination="E7M-5b-22s" id="UR0-92-Ubr"/>
                                         </connections>
                                     </tableViewCell>

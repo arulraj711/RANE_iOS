@@ -43,5 +43,9 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *iconForAuthor;
 @property (strong, nonatomic) IBOutlet UIView *cpAlertView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *articleImageLeadConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *readStatusLeadConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *tickIconLeadConstraint;
 
+@property (strong, nonatomic) IBOutlet UIImageView *imageTickIcon;
 @end
