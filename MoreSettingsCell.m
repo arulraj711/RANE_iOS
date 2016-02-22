@@ -18,6 +18,12 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    
+    [NSTimer scheduledTimerWithTimeInterval:2.0
+                                     target:self
+                                   selector:@selector(targetMethod:)
+                                   userInfo:nil
+                                    repeats:NO];
 }
 
 
