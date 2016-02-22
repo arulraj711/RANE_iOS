@@ -48,7 +48,8 @@
 
     NSMutableArray *selectedCells;
     NSMutableArray *articleIdArray;
-
+    CGFloat yPostionOfTOolbar;
+    int flagForToolbar;
 }
 -(void)showLoginPage;
 -(void)loadCuratedNews;

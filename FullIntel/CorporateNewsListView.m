@@ -50,6 +50,7 @@
     NSLog(@"view did load title:%@",self.titleName);
     
     [super viewDidLoad];
+    flagForToolbar = 0;
     selectedCells = [[NSMutableArray alloc]init];
     articleIdArray = [[NSMutableArray alloc]init];
     //toolbar additions---------------------------------------------------
@@ -76,6 +77,8 @@
     [toolbar setBackgroundColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
     [toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
     [self.view addSubview:toolbar];
+    yPostionOfTOolbar =toolbar.frame.origin.y;
+    NSLog(@"%f",toolbar.frame.size.height);
     toolbar.hidden = YES;
     
     
@@ -1963,7 +1966,7 @@
 //            cell.imageTickIcon.hidden = NO;
             [UIView animateWithDuration:0.4
                              animations:^{
-                                 cell.tickIconLeadConstraint.constant = 12;
+                                 cell.tickIconLeadConstraint.constant = 16;
                                  [self.view layoutIfNeeded];
                              }];            
 //            [UIView transitionWithView:cell.imageTickIcon
@@ -2007,7 +2010,10 @@
 //            accessoryViewImage.center = CGPointMake(12, 25);
 //            [accessoryView addSubview:accessoryViewImage];
 //            [cell setAccessoryView:accessoryView];
-            [self addToolbarAndChangeNavBar];
+            if (flagForToolbar) {
+                [self addToolbarAndChangeNavBar];
+                flagForToolbar = 0;
+            }
         }
         else{
             
@@ -2647,11 +2653,20 @@
 }
 
 -(void)addToolbarAndChangeNavBar{
-    self.navigationItem.rightBarButtonItem = nil;
-    self.navigationItem.leftBarButtonItem = nil;
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         self.navigationItem.rightBarButtonItem = nil;
+                         self.navigationItem.leftBarButtonItem = nil;
+                     }];
+
     
     toolbar.hidden = NO;
-    
+
+                toolbar.frame =  CGRectMake(toolbar.frame.origin.x, SCREEN_HEIGHT+20, toolbar.frame.size.width, toolbar.frame.size.height);
+                [UIView animateWithDuration:0.4 animations:^{
+                    toolbar.frame =  CGRectMake(toolbar.frame.origin.x, yPostionOfTOolbar, toolbar.frame.size.width, toolbar.frame.size.height);
+                }];
+
     [searchButtons setHidden:YES];
     [Btns setHidden:YES];
     [navBtn setHidden:YES];
@@ -2668,16 +2683,17 @@
     [CancelButton addTarget:self action:@selector(cancelButtonEvent) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:CancelButton];
     
-    [self.navigationItem setLeftBarButtonItem:addButton];
     
+//    [self.navigationItem setLeftBarButtonItem:addButton];
+    [self.navigationItem setLeftBarButtonItem:addButton animated:YES];
     
     selectAll =[UIButton buttonWithType:UIButtonTypeCustom];
     [selectAll setFrame:CGRectMake(0.0f,0.0f,86.0f,36.0f)];
     [selectAll setTitle:@"Select all" forState:UIControlStateNormal];
     [selectAll addTarget:self action:@selector(selectAllButtonEvent) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:selectAll];
-    
-    [self.navigationItem setRightBarButtonItem:addButtons];
+    [self.navigationItem setRightBarButtonItem:addButtons animated:YES];
+//    [self.navigationItem setRightBarButtonItem:addButtons];
     
     //    UIBarButtonItem *CancelButton =
     //    [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonEvent)];
@@ -2756,8 +2772,19 @@
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"LongPressActive"];
     
     
-    toolbar.hidden = YES;
+    
+    toolbar.frame =  CGRectMake(toolbar.frame.origin.x, yPostionOfTOolbar, toolbar.frame.size.width, toolbar.frame.size.height);
+    [UIView animateWithDuration:0.4 animations:^{
+        toolbar.frame =  CGRectMake(toolbar.frame.origin.x, SCREEN_HEIGHT+20, toolbar.frame.size.width, toolbar.frame.size.height);
+    }];
+    [self performSelector:@selector(hideToolbarAfterDelay) withObject:nil afterDelay:0.9];
+
+
     [self.articlesTableView reloadData];
+}
+-(void)hideToolbarAfterDelay{
+    toolbar.hidden = YES;
+
 }
 -(void)forOtherMethods{
     
@@ -2771,7 +2798,13 @@
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"LongPressActive"];
     
     
-    toolbar.hidden = YES;
+    
+    toolbar.frame =  CGRectMake(toolbar.frame.origin.x, yPostionOfTOolbar, toolbar.frame.size.width, toolbar.frame.size.height);
+    [UIView animateWithDuration:0.4 animations:^{
+        toolbar.frame =  CGRectMake(toolbar.frame.origin.x, SCREEN_HEIGHT+20, toolbar.frame.size.width, toolbar.frame.size.height);
+    }];
+    [self performSelector:@selector(hideToolbarAfterDelay) withObject:nil afterDelay:0.9];
+
     [self.articlesTableView reloadData];
     
     
@@ -2876,6 +2909,7 @@
             
             NSLog(@"long press on table view at row %ld", (long)indexPath.row);
             longPressActive = YES;
+            flagForToolbar = 1;
             [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"LongPressActive"];
             
             [selectedCells addObject:[NSNumber numberWithInteger:indexPath.row]];
