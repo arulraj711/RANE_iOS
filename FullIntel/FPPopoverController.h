@@ -79,6 +79,7 @@ typedef void (^FPPopoverCompletion)();
 
 /** @brief Refresh popover **/
 -(void)setupView;
-
+/** myCustomVal **/
+@property (nonatomic, assign)int idValues;
 
 @end

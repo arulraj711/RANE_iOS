@@ -2741,7 +2741,7 @@
         SavedListPopoverView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
         popOverView.selectedArticleId = @"";
         popOverView.selectedArticleIdArray = [[NSMutableArray alloc]initWithArray:articleIdArray];
-        CGPoint point = CGPointMake(SCREEN_WIDTH-50, SCREEN_HEIGHT-50);
+        CGPoint point = CGPointMake(SCREEN_WIDTH-20, SCREEN_HEIGHT-40);
         //        CGFloat wid = SCREEN_WIDTH-150;
         //        CGPoint topLeft = CGPointMake(toolbar.bounds.origin.x+wid, toolbar.bounds.origin.y);
         
@@ -2750,6 +2750,7 @@
         popover = [[FPPopoverController alloc] initWithViewController:popOverView];
         popover.border = NO;
         popover.delegate = self;
+        popover.idValues = 1;
         //[popover setShadowsHidden:YES];
         popover.tint = FPPopoverWhiteTint;
         popover.contentSize = CGSizeMake(300, 260);
@@ -2759,6 +2760,7 @@
 }
 
 -(void)isSearchingAndHasFilter{
+    
     
     searchBar.hidden = NO;
     self.navigationItem.titleView = nil;

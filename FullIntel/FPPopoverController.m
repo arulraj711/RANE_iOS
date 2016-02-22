@@ -225,8 +225,14 @@
 -(void)presentPopoverFromPoint:(CGPoint)fromPoint
 {
     self.origin = fromPoint;
-    
+    NSLog(@"%@",NSStringFromCGPoint(fromPoint));
     //NO BORDER
+    if (self.idValues == 1) {
+        _alphawhsk = fromPoint.x;
+        _alphaalphawhsk = fromPoint.y;
+
+    }
+
     if(self.border == NO)
     {
         _viewController.title = nil;
