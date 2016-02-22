@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2885"
             endingLineNumber = "2885"
-            landmarkName = "-checkMark:"
+            landmarkName = "-handleLongPress:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2750"
             endingLineNumber = "2750"
-            landmarkName = "-cancelButtonEvent"
+            landmarkName = "-isSearchingAndHasFilter"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "849"
             endingLineNumber = "849"
-            landmarkName = "-stopLoading"
+            landmarkName = "-showLoginPage"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "856"
             endingLineNumber = "856"
-            landmarkName = "-stopLoadingForAlert"
+            landmarkName = "-stopLoading"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "270"
             endingLineNumber = "270"
-            landmarkName = "-notifyForMarkAsRead"
+            landmarkName = "-notifyForLast"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

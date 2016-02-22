@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "476876931.763602"
+            timestampString = "477215276.857691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1558"
-            endingLineNumber = "1558"
+            startingLineNumber = "1561"
+            endingLineNumber = "1561"
             landmarkName = "-readStatusUpdate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,12 +26,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "476876931.763602"
+            timestampString = "477576161.723371"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2381"
-            endingLineNumber = "2381"
-            landmarkName = "-updateReadUnReadStatusForRow:"
+            startingLineNumber = "2424"
+            endingLineNumber = "2424"
+            landmarkName = "-updateMarkedImportantStatusForRow:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/CorporateNewsListView.m"
+            timestampString = "477566153.690742"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "-notifyForMarkAsRead"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/CorporateNewsListView.m"
+            timestampString = "477566166.999079"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
+            landmarkName = "-notifyForMarkAsRead"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
