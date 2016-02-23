@@ -74,4 +74,5 @@
 @property (nonatomic,strong) IBOutlet UIButton *actionButton;
 @property (nonatomic,strong) IBOutlet UIButton *filterButton;
 @property NSMutableArray *filterArray;
+@property (weak, nonatomic) IBOutlet UIView *topView;
 @end

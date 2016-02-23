@@ -2440,7 +2440,7 @@
                                             <segment title="UNREAD"/>
                                             <segment title="NONE"/>
                                         </segments>
-                                        <color key="tintColor" red="0.41960784313725491" green="0.42352941176470588" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="0.41960784313725491" green="0.42352941176470588" blue="0.41960784313725491" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="segmentControlAction:" destination="fWs-zM-deH" eventType="valueChanged" id="DYw-Rx-sUW"/>
                                         </connections>
@@ -2743,6 +2743,7 @@
                         <outlet property="articlesTableView" destination="m8m-4s-aeV" id="Nds-uO-vKM"/>
                         <outlet property="filterButton" destination="I2O-V4-Le2" id="k8p-ga-TbH"/>
                         <outlet property="segmentControl" destination="ZUf-qI-sh3" id="PG6-8M-f3j"/>
+                        <outlet property="topView" destination="v83-Ot-PT3" id="6gD-rF-hok"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E1Q-FD-bkt" userLabel="First Responder" sceneMemberID="firstResponder"/>

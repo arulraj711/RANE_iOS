@@ -98,6 +98,7 @@
                         <outlet property="bgView" destination="Afb-OX-RZc" id="J4X-zp-B6N"/>
                         <outlet property="moreTableView" destination="57d-kT-Nrs" id="oy7-Px-WY4"/>
                         <outlet property="tableHeightConstraint" destination="eap-ao-Ntz" id="ZpM-il-w09"/>
+                        <outlet property="tableWidthConstraint" destination="NBB-kS-F7Z" id="aY6-yr-2za"/>
                         <outlet property="tableXConstraint" destination="DZ5-Ls-Otw" id="FBE-a5-tvA"/>
                         <outlet property="tableYConstraint" destination="CBW-S2-sJg" id="S3k-gB-R9z"/>
                     </connections>

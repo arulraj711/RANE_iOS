@@ -23,9 +23,11 @@
 @property CGFloat xPositions;
 @property CGFloat yPositions;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableWidthConstraint;
 @property CGFloat buttonWidth;
 @property CGFloat buttonHeight;
 @property (strong)  NSIndexPath* lastIndexPath;
+@property (strong, nonatomic) IBOutlet UIView *droperView;
 
 @property NSInteger dropDownValue;
 @end

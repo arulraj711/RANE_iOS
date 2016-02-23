@@ -1028,7 +1028,7 @@
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
             if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-                [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
             }
             
             

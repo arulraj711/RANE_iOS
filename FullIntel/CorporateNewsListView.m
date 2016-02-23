@@ -289,7 +289,40 @@
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
     // [self.curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
     
-    __block BOOL isRead = NO;
+    BOOL isUnRead = NO;
+    
+    if(switchForFilter == 1){
+        //Api Call
+        if(self.segmentControl.selectedSegmentIndex == 2){
+            isUnRead = NO;
+        } else {
+            isUnRead = YES;
+        }
+        
+    } else {
+        if(self.segmentControl.selectedSegmentIndex == 1) {
+            //Api call
+            isUnRead = YES;
+        } else if(self.segmentControl.selectedSegmentIndex == 2){
+            //No need to handle none articles
+            isUnRead = NO;
+        } else {
+            NSArray *unreadArticleArray = [self getUnreadArticlesCount];
+            if(unreadArticleArray.count != 0){
+                isUnRead = YES;
+            } else {
+                isUnRead = NO;
+            }
+        }
+    }
+    
+    if([[FISharedResources sharedResourceManager]serviceIsReachable] && isUnRead) {
+        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:YES];
+    } else {
+        NSLog(@"all are read articles");
+        [self.view makeToast:@"Please select unread article" duration:0.5 position:CSToastPositionCenter];
+    }
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for(NSString *articleId in self.filterArray) {
             NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
@@ -301,30 +334,8 @@
             if(existingArray.count != 0) {
                 //NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
                 
-                //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    for(NSManagedObject *curatedNews in existingArray) {
-                        if([[curatedNews valueForKey:@"readStatus"]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-                            //handle read article
-                            
-                        } else {
-                            //handle unread article
-                            isRead = YES;
-                            break;
-                            
-                        }
-                    }
-                    
-                });
-                
-                //});
-                
                 for(NSManagedObject *curatedNews in existingArray) {
-                    
-                    
-                    
-                    
-                    NSLog(@"for loop update");
+                    //NSLog(@"for loop update");
                     [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"readStatus"];
                     [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"isFilter"];
                     
@@ -359,13 +370,9 @@
             
         }
     });
-    if([[FISharedResources sharedResourceManager]serviceIsReachable] && isRead) {
-        [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
-    } else {
-        NSLog(@"all are read articles");
-        [self.view makeToast:@"Please select unread article" duration:0.5 position:CSToastPositionCenter];
-    }
+    
     [self.articlesTableView reloadData];
+
 }
 
 
@@ -405,7 +412,69 @@
     
 }
 
-
+-(NSArray *)getUnreadArticlesCount {
+    NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
+    NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
+    NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+    NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+    NSLog(@"load curated news categoryId:%@ and folderid:%@ and contentTypeId:%@ and newsletterid:%@",categoryId,folderId,contentTypeId,newsLetterId);
+    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+    NSPredicate *predicate;
+    
+    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+            if(isSearching) {
+                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isSearch == %@ AND readStatus==%@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithBool:isSearching],[NSNumber numberWithBool:NO]];
+            } else if(switchForFilter == 1) {
+                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isFilter == %@ AND readStatus==%@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+            } else if(switchForFilter == 2) {
+                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isFilter == %@ AND readStatus==%@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+            } else {
+                predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND readStatus==%@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithBool:NO]];
+            }
+            
+        } else {
+            if(isSearching) {
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isSearch == %@ AND readStatus==%@",categoryId,contentTypeId,[NSNumber numberWithBool:isSearching],[NSNumber numberWithBool:NO]];
+            } else if(switchForFilter == 1) {
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isFilter == %@ AND readStatus==%@",categoryId,contentTypeId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+            } else if(switchForFilter == 2) {
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isFilter == %@ AND readStatus==%@",categoryId,contentTypeId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+            } else {
+                predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND readStatus==%@",categoryId,contentTypeId,[NSNumber numberWithBool:NO]];
+            }
+            
+        }
+    } else if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        if(isSearching) {
+            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isSearch == %@ AND readStatus==%@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithBool:isSearching],[NSNumber numberWithBool:NO]];
+        } else if(switchForFilter == 1) {
+            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isFilter == %@ AND readStatus==%@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+        } else if(switchForFilter == 2) {
+            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isFilter == %@ AND readStatus==%@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+        } else {
+            predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND readStatus==%@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithBool:NO]];
+        }
+    } else if(![newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        [self.revealController showViewController:self.revealController.frontViewController];
+        if(isSearching) {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isSearch == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithBool:isSearching],[NSNumber numberWithBool:NO]];
+        } else if(switchForFilter == 1) {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+        } else if(switchForFilter == 2) {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+        } else {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithBool:NO]];
+        }
+        
+    }
+    [fetchRequest setPredicate:predicate];
+    NSArray *unreadArticle =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+    NSLog(@"curated news list count:%lu",(unsigned long)unreadArticle.count);
+    return unreadArticle;
+}
 
 - (void)callSearchAPIWithStringForUnread:(NSString *)searchString withFilterString:(NSString *)filterString {
     //TODO: refresh your data
@@ -1687,10 +1756,18 @@
 - (void)willTransitionToState:(UITableViewCellStateMask)state{
     
 }
+
+//To enable or disable row swipe in UITableview
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
-        return YES;
+        if (longPressActive) {
+            return NO;
+
+        } else {
+            return YES;
+
+        }
     }
     else{
         return NO;
@@ -1742,7 +1819,7 @@
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
             [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Remove Save Later" attributes:dictionary];
@@ -1779,7 +1856,7 @@
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
             [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
             NSLog(@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"]);
             NSLog(@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"]);
@@ -1873,7 +1950,7 @@
                 
                 NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
                 NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-                [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
                 [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
                 NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
                 [Localytics tagEvent:@"Remove Marked Important" attributes:dictionary];
@@ -1924,7 +2001,7 @@
             
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
             [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Marked Important" attributes:dictionary];
@@ -1951,102 +2028,76 @@
         
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        
-        if (longPressActive) { //Perform action desired when cell is long pressed
-            NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
-
-            
-            [UIView animateWithDuration:0.4
-                             animations:^{
-                                 cell.articleImageLeadConstraint.constant = 50;
-                                 cell.readStatusLeadConstraint.constant = 50;
-                                 [self.view layoutIfNeeded];
-                             }];
-            
-//            cell.imageTickIcon.hidden = NO;
-            [UIView animateWithDuration:0.4
-                             animations:^{
-                                 cell.tickIconLeadConstraint.constant = 16;
-                                 [self.view layoutIfNeeded];
-                             }];            
-//            [UIView transitionWithView:cell.imageTickIcon
-//                              duration:0.1
-//                               options:UIViewAnimationOptionTransitionCrossDissolve
-//                            animations:NULL
-//                            completion:NULL];-30
-            
-//
-//            cell.imageTickIcon.hidden = NO;
-//            cell.imageTickIcon.frame =  CGRectMake(-12, cell.imageTickIcon.frame.origin.y, cell.imageTickIcon.frame.size.width, cell.imageTickIcon.frame.size.height);
-//            [UIView animateWithDuration:0.4 animations:^{
-//                cell.imageTickIcon.frame =  CGRectMake(12, cell.imageTickIcon.frame.origin.y, cell.imageTickIcon.frame.size.width, cell.imageTickIcon.frame.size.height);
-//            }];
-            
-
-            
-//          accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 50)];
-            
-            NSNumber *rowNsNum = [NSNumber numberWithInteger:indexPath.row];
-            if ( [selectedCells containsObject:rowNsNum]  )
-            {
-                cell.imageTickIcon.image =[UIImage imageNamed:@"bluecircle_checked"];
-                //                    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-                //                    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
-                //                    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
-                //                    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
-                //                    sprintAnimation.springBounciness = 20.f;
-                //                    [accessoryViewImage pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            if (longPressActive) { //Perform action desired when cell is long pressed
+                NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
+                
+                
+                [UIView animateWithDuration:0.4
+                                 animations:^{
+                                     cell.articleImageLeadConstraint.constant = 50;
+                                     cell.readStatusLeadConstraint.constant = 50;
+                                     [self.view layoutIfNeeded];
+                                 }];
+                
+                [UIView animateWithDuration:0.4
+                                 animations:^{
+                                     cell.tickIconLeadConstraint.constant = 16;
+                                     [self.view layoutIfNeeded];
+                                 }];
+                
+                
+                NSNumber *rowNsNum = [NSNumber numberWithInteger:indexPath.row];
+                if ( [selectedCells containsObject:rowNsNum]  )
+                {
+                    cell.imageTickIcon.image =[UIImage imageNamed:@"bluecircle_checked"];
+                    //                    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+                    //                    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
+                    //                    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+                    //                    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+                    //                    sprintAnimation.springBounciness = 20.f;
+                    //                    [accessoryViewImage pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+                }
+                else{
+                    cell.imageTickIcon.image =[UIImage imageNamed:@"bluecircle"];
+                    //                    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+                    //                    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
+                    //                    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+                    //                    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+                    //                    sprintAnimation.springBounciness = 20.f;
+                    //                    [accessoryViewImage pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+                }
+                
+                
+                if (flagForToolbar) {
+                    [self addToolbarAndChangeNavBar];
+                    flagForToolbar = 0;
+                }
             }
             else{
-                cell.imageTickIcon.image =[UIImage imageNamed:@"bluecircle"];
-                //                    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-                //                    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
-                //                    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
-                //                    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
-                //                    sprintAnimation.springBounciness = 20.f;
-                //                    [accessoryViewImage pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+                
+                [UIView animateWithDuration:0.4
+                                 animations:^{
+                                     cell.articleImageLeadConstraint.constant = 2;
+                                     cell.readStatusLeadConstraint.constant = 2;
+                                     [self.view layoutIfNeeded];
+                                 }];
+                
+                
+                [UIView animateWithDuration:0.4
+                                 animations:^{
+                                     cell.tickIconLeadConstraint.constant = -30;
+                                     [self.view layoutIfNeeded];
+                                 }];
             }
             
-//            accessoryViewImage.center = CGPointMake(12, 25);
-//            [accessoryView addSubview:accessoryViewImage];
-//            [cell setAccessoryView:accessoryView];
-            if (flagForToolbar) {
-                [self addToolbarAndChangeNavBar];
-                flagForToolbar = 0;
-            }
+            
         }
         else{
             
-            [UIView animateWithDuration:0.4
-                             animations:^{
-                                 cell.articleImageLeadConstraint.constant = 2;
-                                 cell.readStatusLeadConstraint.constant = 2;
-                                 [self.view layoutIfNeeded];
-                             }];
-            
-            
-            [UIView animateWithDuration:0.4
-                             animations:^{
-                                 cell.tickIconLeadConstraint.constant = -30;
-                                 [self.view layoutIfNeeded];
-                             }];
-
-//            cell.imageTickIcon.hidden = YES;
-
-            
-
-            
-
-//            [cell.accessoryView removeFromSuperview];
-//            cell.accessoryView = nil;
         }
-        
-        
-        //        if([[tableView indexPathsForSelectedRows] containsObject:indexPath]) {
-        //            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        //        } else {
-        //            cell.accessoryType = UITableViewCellAccessoryNone;
-        //        }
+       
         
         if(cell.isEditing == YES) {
             NSLog(@"cell editing yes ------------");
@@ -2189,8 +2240,12 @@
         if (isSearching) {
             [self highlight:cell.title withString:searchBar.text];
             
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+            {
+                [self highlightTxt:cell.descTextView withString:searchBar.text];
+
+            }
             
-            [self highlightTxt:cell.descTextView withString:searchBar.text];
             
         }
         
@@ -2385,7 +2440,7 @@
 - (void)highlightTxt:(UITextView *)isLabel withString:(NSString *)searchString{
     NSError *error;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: searchString options:NSRegularExpressionCaseInsensitive error:&error];
-    
+    NSLog(@"%@",error);
     if (!error)
     {
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:isLabel.text];
@@ -2405,6 +2460,7 @@
         [isLabel setAttributedText:attributedString];
         
     }
+    
     
     
 }
@@ -3029,7 +3085,7 @@
                 
                 NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
                 NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-                [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+                [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
                 [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
                 NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
                 [Localytics tagEvent:@"Remove Marked Important" attributes:dictionary];
@@ -3059,7 +3115,7 @@
             
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
             [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Marked Important" attributes:dictionary];
@@ -3111,7 +3167,7 @@
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
             [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Remove Save Later" attributes:dictionary];
@@ -3149,7 +3205,7 @@
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+            [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
             [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Save Later" attributes:dictionary];
@@ -3441,33 +3497,29 @@
 }
 
 - (IBAction)filterButtonClick:(id)sender {
+    
     UIButton *filterBtn = (UIButton *)sender;
     [filterBtn setTitle: @"   All articles" forState: UIControlStateNormal];
     //filterBtn.titleLabel.text = @"Clicked";
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPadFilterSettingsView" bundle:nil];
     MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
     popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    self.view.alpha = 0.65;
+    //    self.view.alpha = 0.65;
     popOverView.dropDownValue = 1;
-    popOverView.xPositions = filterBtn.frame.origin.x;
-    popOverView.yPositions =filterBtn.frame.origin.y;
-    popOverView.buttonWidth = filterBtn.frame.size.width;
-    popOverView.buttonHeight = filterBtn.frame.size.height;
-    [self presentViewController:popOverView animated:NO completion:nil];
+    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+    [self.popOver presentPopoverFromRect:filterBtn.frame inView:self.topView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+
+    
 }
 
-- (IBAction)actionsButtonClick:(id)sender {
-    UIButton *actionsBtn = (UIButton *)sender;
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MoreSettingsViewPhone" bundle:nil];
+- (IBAction)actionsButtonClick:(UIButton *)sender {
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPadActionSettingsView" bundle:nil];
     MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
     popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    self.view.alpha = 0.65;
+    //    self.view.alpha = 0.65;
     popOverView.dropDownValue = 2;
-    popOverView.xPositions = actionsBtn.frame.origin.x;
-    popOverView.yPositions =actionsBtn.frame.origin.y;
-    popOverView.buttonWidth = actionsBtn.frame.size.width;
-    popOverView.buttonHeight = actionsBtn.frame.size.height;
-    [self presentViewController:popOverView animated:NO completion:nil];
+    self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+    [self.popOver presentPopoverFromRect:sender.frame inView:self.topView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 - (IBAction)segmentControlAction:(id)sender {
     // [unreadArticleIdArray removeAllObjects];

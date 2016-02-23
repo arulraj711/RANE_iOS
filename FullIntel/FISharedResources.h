@@ -41,7 +41,7 @@
 -(void)checkLoginUserWithDetails:(NSString *)details;
 -(void)logoutUserWithDetails:(NSString *)details withFlag:(NSNumber*)authenticationFlag;
 -(void)validateUserOnResumeWithDetails:(NSString *)details;
--(void)setUserActivitiesOnArticlesWithDetails:(NSString *)details;
+-(void)setUserActivitiesOnArticlesWithDetails:(NSString *)details withFlag :(BOOL)boolValue;
 -(void)manageContentCategoryWithDetails:(NSString *)details withFlag:(NSInteger)flag;
 -(void)sendResearchRequestWithDetails:(NSString *)details;
 -(void)getCommentsWithDetails:(NSString *)details withArticleId:(NSString *)articleId;

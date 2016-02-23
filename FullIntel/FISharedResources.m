@@ -378,7 +378,7 @@
     [resultDic setObject:[NSNumber numberWithBool:selectedStatus] forKey:@"isSelected"];
     NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
     NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr];
+    [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
 }
 
 -(void)showLoginView:(NSNumber *)authFlag {
@@ -2410,12 +2410,14 @@
 }
 
 
--(void)setUserActivitiesOnArticlesWithDetails:(NSString *)details {
+-(void)setUserActivitiesOnArticlesWithDetails:(NSString *)details withFlag :(BOOL)boolValue{
     if([self serviceIsReachable]) {
     [FIWebService userActivitiesOnArticlesWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
        if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
-           UIWindow *window = [[UIApplication sharedApplication]windows][0];
-           [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+           if (boolValue) {
+               UIWindow *window = [[UIApplication sharedApplication]windows][0];
+               [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+           }
 
        } else {
            [self hideProgressView];

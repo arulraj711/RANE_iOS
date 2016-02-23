@@ -63,8 +63,6 @@
     
 
 
-    
-   
 
     
 //    self.moreTableView.frame = CGRectMake(self.xPositions, self.yPositions, self.moreTableView.frame.size.width, self.moreTableView.frame.size.height);
@@ -88,51 +86,44 @@
         view.layer.mask = triangleMaskLayer;
         [self.view addSubview:view];
         
-        POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-        scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.9, 0.9)];
-        scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
-        scaleAnimation.springBounciness = 100.f;
-        scaleAnimation.springSpeed=20;
-        [self.moreTableView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
-        [view.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+        CGFloat xPosOfMoreTblVw = self.view.frame.origin.x;
+        CGFloat yPosOfMoreTblVw = self.view.frame.origin.y;
+        CGFloat wPosOfMoreTblVw = self.view.frame.size.width;
+        CGFloat hPosOfMoreTblVw = self.view.frame.size.height;
         
-        self.tableHeightConstraint.constant = 120;
+        NSLog(@"_______%f, %f, %f,%f_______",xPosOfMoreTblVw,yPosOfMoreTblVw,wPosOfMoreTblVw,hPosOfMoreTblVw);
+        self.tableHeightConstraint.constant = 0;
+        self.tableWidthConstraint.constant = 0;
+
+        POPSpringAnimation *layoutAnimations = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
+        layoutAnimations.springSpeed = 10.0f;
+        layoutAnimations.springBounciness = 5.0f;
+        layoutAnimations.toValue = @(155);
+        [self.tableWidthConstraint pop_addAnimation:layoutAnimations forKey:@"detailsContainerWidthAnimates"];
+        
+        POPSpringAnimation *layoutAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
+        layoutAnimation.springSpeed = 10.0f;
+        layoutAnimation.springBounciness = 5.0f;
+        layoutAnimation.toValue = @(120);
+        [self.tableHeightConstraint pop_addAnimation:layoutAnimation forKey:@"detailsContainerWidthAnimate"];
+        
+        
+        
+        
+        //this will work if everything else fails
+        //        POPBasicAnimation *anim = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
+        //        anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        //        anim.fromValue = @(0.0);
+        //        anim.toValue = @(1.0);
+        //        [self.view pop_addAnimation:anim forKey:@"fade"];
+        
         
         [_moreInforArray addObject:@"All articles"];
         [_moreInforArray addObject:@"Unread"];
         [_moreInforArray addObject:@"Last 24 Hours"];
     }
     else{
-        CGFloat frameX = self.view.frame.size.width - self.xPositions;
-        NSLog(@"button width:%f",self.buttonWidth);
-        self.tableXConstraint.constant = frameX-self.buttonWidth;
-        self.tableYConstraint.constant = self.buttonHeight+70;
-        NSLog(@"ipad xposition:%f and yposition:%f and yconstraint:%f",self.xPositions,self.yPositions,self.tableYConstraint.constant);
-        
-        UIBezierPath* trianglePath = [UIBezierPath bezierPath];
-        NSLog(@"%f",SCREEN_WIDTH-125);
-        [trianglePath moveToPoint:CGPointMake(_xPositions+75, _yPositions+90)];
-        [trianglePath addLineToPoint:CGPointMake(_xPositions+75+10 , self.tableYConstraint.constant+20)];
-        [trianglePath addLineToPoint:CGPointMake(_xPositions+75-10, self.tableYConstraint.constant+20)];
-        [trianglePath closePath];
-        
-        CAShapeLayer *triangleMaskLayer = [CAShapeLayer layer];
-        [triangleMaskLayer setPath:trianglePath.CGPath];
-        
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height)];
-        
-        view.backgroundColor = [UIColor whiteColor];
-        view.layer.mask = triangleMaskLayer;
-        [self.view addSubview:view];
-        
-        POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-        scaleAnimation.fromValue=[NSValue valueWithCGSize:CGSizeMake(0.9, 0.9)];
-        scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1,1)];
-        scaleAnimation.springBounciness = 100.f;
-        scaleAnimation.springSpeed=20;
-        [self.moreTableView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
-        [view.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
-        
+                
         if(self.dropDownValue == 1) {
             //filter
             self.tableHeightConstraint.constant = 120;
