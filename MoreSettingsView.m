@@ -117,10 +117,8 @@
         //        anim.toValue = @(1.0);
         //        [self.view pop_addAnimation:anim forKey:@"fade"];
         
-        
-        [_moreInforArray addObject:@"All articles"];
-        [_moreInforArray addObject:@"Unread"];
-        [_moreInforArray addObject:@"Last 24 Hours"];
+        [self performSelector:@selector(assignValueWithDelay) withObject:nil afterDelay:0.2];
+
     }
     else{
                 
@@ -137,9 +135,18 @@
             [_moreInforArray addObject:@"MARK AS READ"];
         }
         
-    }    
+    }
+
     self.moreTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.moreTableView reloadData];
+}
+-(void)assignValueWithDelay{
+    
+    [_moreInforArray addObject:@"All articles"];
+    [_moreInforArray addObject:@"Unread"];
+    [_moreInforArray addObject:@"Last 24 Hours"];
+    [self.moreTableView reloadData];
+
 }
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
 {
@@ -264,6 +271,7 @@
     MoreSettingsCell *cell = (MoreSettingsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
     NSLog(@"%@",indexPath);
     NSLog(@"%ld",(long)selectedIndexPath);
+    
     cell.name.text = [_moreInforArray objectAtIndex:indexPath.row];
     
     
@@ -271,6 +279,7 @@
     if(self.dropDownValue == 1){
         NSInteger selectionValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectionValue"];
         cell.iconWidthConstraint.constant = 15;
+        
         if (selectionValue  == indexPath.row) {
             if (cell.name.textColor == SelectedCellBGColor) {
                 cell.name.textColor = [UIColor lightGrayColor];
