@@ -35,6 +35,7 @@
 #import "UIView+Toast.h"
 #import "CommonViewController.h"
 #import "CommunicationIssuesPage.h"
+#import "ChartViewController.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -694,6 +695,14 @@
     newsLetterObj.nodeId = [NSNumber numberWithInt:-200];
     newsLetterObj.children = nil;
     [self.data addObject:newsLetterObj];
+    
+    //Media Analysis menu
+    RADataObject *mediaAnalysis = [[RADataObject alloc]init];
+    mediaAnalysis.name = @"MEDIA ANALYSIS";
+    mediaAnalysis.nodeId = [NSNumber numberWithInt:-500];
+    mediaAnalysis.children = nil;
+    [self.data addObject:mediaAnalysis];
+    
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
@@ -1479,6 +1488,23 @@
             
             [self presentViewController:popOverView animated:NO completion:nil];
             
+            
+            
+            //research
+        }else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-500]]) {
+            
+            UIStoryboard *storyboard;
+            UINavigationController *navCtlr;
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPhone" bundle:nil];
+                navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"ChartListViewControllerNav"];
+            } else {
+                storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPad" bundle:nil];
+                navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"ChartListViewControllerNav"];
+            }
+            
+            
+            [self.revealController setFrontViewController:navCtlr];
             
             
             //research

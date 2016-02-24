@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <scenes>
+        <!--Chart List View Controller-->
+        <scene sceneID="g1e-mE-49H">
+            <objects>
+                <viewController storyboardIdentifier="ChartListViewController" id="ydV-8b-TRx" customClass="ChartListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lic-Dh-0eo"/>
+                        <viewControllerLayoutGuide type="bottom" id="HtE-rX-ofH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fnv-34-lOo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wEU-ap-mj3">
+                                <rect key="frame" x="240" y="274" width="120" height="51"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="LGA-Mt-EJn"/>
+                                    <constraint firstAttribute="width" constant="120" id="g1A-Y1-bS5"/>
+                                </constraints>
+                                <state key="normal" title="Show Chart">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="navigateToChartView:" destination="ydV-8b-TRx" eventType="touchUpInside" id="Aa0-cY-5H8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wEU-ap-mj3" firstAttribute="top" secondItem="lic-Dh-0eo" secondAttribute="bottom" constant="210" id="mbS-n0-NIY"/>
+                            <constraint firstItem="wEU-ap-mj3" firstAttribute="leading" secondItem="fnv-34-lOo" secondAttribute="leading" constant="240" id="tF0-TY-IQe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="OcB-aK-ek4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CSV-PX-Nr0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1161" y="342"/>
+        </scene>
+        <!--Chart View Controller-->
+        <scene sceneID="tR4-sf-ZqG">
+            <objects>
+                <viewController storyboardIdentifier="ChartViewController" id="XIW-1y-rFh" customClass="ChartViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="h5J-d2-rMz"/>
+                        <viewControllerLayoutGuide type="bottom" id="XKm-TH-nEc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="W0x-A3-qcN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HWV-1u-B4X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1823" y="342"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JQo-eb-0bQ">
+            <objects>
+                <navigationController storyboardIdentifier="ChartListViewControllerNav" automaticallyAdjustsScrollViewInsets="NO" id="e2F-r3-DN7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KfM-sB-DBw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ydV-8b-TRx" kind="relationship" relationship="rootViewController" id="JDx-0Y-V5v"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Zv-KF-MHP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="349" y="342"/>
+        </scene>
+    </scenes>
+</document>
