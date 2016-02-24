@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BA3145765EFD5E9465E072A /* libPods-FullIntel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39AF10A475C726FDFCE5E99E /* libPods-FullIntel.a */; };
+		8EBA95D887239CF6A1D023E8 /* Pods_FullIntel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0F31A39A4389F1264B49B3B /* Pods_FullIntel.framework */; };
 		A003B19F1B1841FF00857F35 /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = A003B19E1B1841FF00857F35 /* CMPopTipView.m */; };
 		A003B1A11B186D1200857F35 /* a123-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A01B186D1200857F35 /* a123-logo.jpg */; };
 		A003B1A31B18710400857F35 /* large_apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A003B1A21B18710400857F35 /* large_apple.jpg */; };
@@ -47,6 +47,7 @@
 		A059B6BF1BF5F1200060683F /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A059B6BD1BF5F1200060683F /* CommonViewController.m */; };
 		A059B6C31BF5F43E0060683F /* CommonViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */; };
 		A05DA9C11C466422009ACB48 /* CorporateNewsListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */; };
+		A0697B931C7DC2B20010B945 /* SwiftBridgeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */; };
 		A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B41AF74CE60016AD46 /* FIContentCategory.m */; };
 		A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B71AF769040016AD46 /* AddContentSecondLevelView.m */; };
 		A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BA1AF769DE0016AD46 /* SecondLevelCell.m */; };
@@ -345,7 +346,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		39AF10A475C726FDFCE5E99E /* libPods-FullIntel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FullIntel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90EF9BD902798B39A9DB8F3B /* Pods-FullIntel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.debug.xcconfig"; sourceTree = "<group>"; };
 		A003B19D1B1841FF00857F35 /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
 		A003B19E1B1841FF00857F35 /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
@@ -396,6 +396,8 @@
 		A059B6BD1BF5F1200060683F /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
 		A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommonViewController.storyboard; sourceTree = "<group>"; };
 		A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CorporateNewsListView.storyboard; sourceTree = "<group>"; };
+		A0697B911C7DC2B00010B945 /* FullIntel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FullIntel-Bridging-Header.h"; sourceTree = "<group>"; };
+		A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftBridgeFile.swift; sourceTree = "<group>"; };
 		A07A05B31AF74CE60016AD46 /* FIContentCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIContentCategory.h; sourceTree = "<group>"; };
 		A07A05B41AF74CE60016AD46 /* FIContentCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIContentCategory.m; sourceTree = "<group>"; };
 		A07A05B61AF769040016AD46 /* AddContentSecondLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentSecondLevelView.h; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 		BAB29F101C3D27700008ED71 /* MoreSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSettingsView.m; sourceTree = "<group>"; };
 		BAC6E9F31C633E8500446F99 /* FullIntel 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 6.xcdatamodel"; sourceTree = "<group>"; };
 		BAEE93501C0F235600CD4F88 /* FullIntel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 5.xcdatamodel"; sourceTree = "<group>"; };
+		C0F31A39A4389F1264B49B3B /* Pods_FullIntel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FullIntel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81B1B6615410003B7C1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -835,7 +838,7 @@
 				A098EA171B4E6AF8003FC501 /* DigitsKit.framework in Frameworks */,
 				F552A81D1B6615410003B7C1 /* FBSDKCoreKit.framework in Frameworks */,
 				F75295741A933E9A00CD9087 /* UIKit.framework in Frameworks */,
-				3BA3145765EFD5E9465E072A /* libPods-FullIntel.a in Frameworks */,
+				8EBA95D887239CF6A1D023E8 /* Pods_FullIntel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,7 +866,7 @@
 				F75295771A933F2100CD9087 /* CoreImage.framework */,
 				F75295751A933EB700CD9087 /* CoreGraphics.framework */,
 				F75295731A933E9A00CD9087 /* UIKit.framework */,
-				39AF10A475C726FDFCE5E99E /* libPods-FullIntel.a */,
+				C0F31A39A4389F1264B49B3B /* Pods_FullIntel.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1121,6 +1124,7 @@
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
+				A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */,
 				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
 				A0AAF0081BFCA7E20006A48C /* SecondTools */,
 				A0AAEFF71BFCA6CD0006A48C /* Toolbar */,
@@ -1130,6 +1134,7 @@
 				A0E2234E1A91C2F00073814A /* Products */,
 				F31E3F70BB42037A5A25B2A7 /* Pods */,
 				40CF193F5A4A47D98E563735 /* Frameworks */,
+				A0697B911C7DC2B00010B945 /* FullIntel-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1789,6 +1794,7 @@
 				A0E2234B1A91C2F00073814A /* Resources */,
 				DC2A263F479918F594F3222B /* Copy Pods Resources */,
 				A0D956781B0C4B5C00DB013F /* ShellScript */,
+				F85D3B42AFE274E70E3D5725 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1805,6 +1811,7 @@
 		A0E223451A91C2F00073814A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = CapeStart;
 				TargetAttributes = {
@@ -2087,6 +2094,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F85D3B42AFE274E70E3D5725 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2184,6 +2206,7 @@
 				A08860801B427B9500939D51 /* FIFolder.m in Sources */,
 				F732C7D11AC930680071A4D8 /* InfluencerDetailsView.m in Sources */,
 				F7C1AB611ABFF41C00D8588A /* MoreViewCell.m in Sources */,
+				A0697B931C7DC2B20010B945 /* SwiftBridgeFile.swift in Sources */,
 				A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */,
 				A0DB6FC41B0B2BB400F6E2F4 /* CommentCell.m in Sources */,
 				A003B1A71B1873D900857F35 /* VideoWidgetCell.m in Sources */,
@@ -2252,7 +2275,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
@@ -2290,7 +2313,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "dde9c5e1-8a20-48d3-a777-f19e2bf77270";
 				SDKROOT = iphoneos;
@@ -2305,6 +2328,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				ENABLE_BITCODE = NO;
@@ -2314,11 +2338,13 @@
 					/Users/capestart/Documents/FacebookSDK,
 				);
 				INFOPLIST_FILE = FullIntel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capestart.fistage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				SWIFT_OBJC_BRIDGING_HEADER = "FullIntel-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2329,6 +2355,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				ENABLE_BITCODE = NO;
@@ -2338,11 +2365,12 @@
 					/Users/capestart/Documents/FacebookSDK,
 				);
 				INFOPLIST_FILE = FullIntel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capestart.fistage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
+				SWIFT_OBJC_BRIDGING_HEADER = "FullIntel-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
