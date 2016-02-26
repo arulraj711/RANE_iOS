@@ -111,26 +111,26 @@
                                     <outlet property="delegate" destination="Gjl-Sv-a0a" id="0T9-j8-Fo0"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvu-Ql-uAA">
-                                <rect key="frame" x="253" y="-1" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvu-Ql-uAA">
+                                <rect key="frame" x="240" y="-1" width="59" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="pJA-eg-hPm"/>
+                                    <constraint firstAttribute="width" constant="59" id="pJA-eg-hPm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Done">
+                                <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="doneButton:" destination="Gjl-Sv-a0a" eventType="touchUpInside" id="HLa-ZM-Dkn"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEM-Iu-vtz">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEM-Iu-vtz">
                                 <rect key="frame" x="66" y="4" width="160" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwS-pq-8Nx">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwS-pq-8Nx">
                                 <rect key="frame" x="253" y="407" width="46" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Post">
@@ -140,7 +140,7 @@
                                     <action selector="postButton:" destination="Gjl-Sv-a0a" eventType="touchUpInside" id="LIV-69-BWQ"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Start typing" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PDX-Jw-xhb">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Start typing" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PDX-Jw-xhb">
                                 <rect key="frame" x="3" y="406" width="249" height="30"/>
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -170,8 +170,8 @@
                             <constraint firstItem="Zjt-lA-j21" firstAttribute="leading" secondItem="4FS-a8-KWj" secondAttribute="leading" id="CXy-8R-5vz"/>
                             <constraint firstItem="rwS-pq-8Nx" firstAttribute="top" secondItem="4FS-a8-KWj" secondAttribute="bottom" constant="3" id="FnQ-yQ-dGl"/>
                             <constraint firstItem="rwS-pq-8Nx" firstAttribute="trailing" secondItem="Xvu-Ql-uAA" secondAttribute="trailing" id="HfI-hB-0eL"/>
-                            <constraint firstItem="Xvu-Ql-uAA" firstAttribute="leading" secondItem="JEM-Iu-vtz" secondAttribute="trailing" constant="27" id="KSU-rp-c7c"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Xvu-Ql-uAA" secondAttribute="trailing" constant="-5" id="LPr-L6-8Gs"/>
+                            <constraint firstItem="Xvu-Ql-uAA" firstAttribute="leading" secondItem="JEM-Iu-vtz" secondAttribute="trailing" constant="14" id="KSU-rp-c7c"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Xvu-Ql-uAA" secondAttribute="trailing" constant="-9" id="LPr-L6-8Gs"/>
                             <constraint firstItem="Z1I-a3-5w1" firstAttribute="top" secondItem="Xvu-Ql-uAA" secondAttribute="bottom" constant="1" id="R1O-xh-38p"/>
                             <constraint firstAttribute="trailing" secondItem="Z1I-a3-5w1" secondAttribute="trailing" id="RpP-69-YHv"/>
                             <constraint firstItem="rwS-pq-8Nx" firstAttribute="leading" secondItem="PDX-Jw-xhb" secondAttribute="trailing" constant="1" id="VIA-Sh-c1D"/>
@@ -181,7 +181,7 @@
                             <constraint firstItem="JEM-Iu-vtz" firstAttribute="top" secondItem="Vxu-4O-VOP" secondAttribute="bottom" constant="4" id="dQi-OO-L46"/>
                             <constraint firstItem="961-4j-HHT" firstAttribute="leading" secondItem="Z1I-a3-5w1" secondAttribute="leading" id="dkS-An-Rry"/>
                             <constraint firstItem="JEM-Iu-vtz" firstAttribute="leading" secondItem="2Jk-LR-Lbb" secondAttribute="leadingMargin" constant="50" id="ewJ-j1-dzl"/>
-                            <constraint firstItem="Xvu-Ql-uAA" firstAttribute="leading" secondItem="rwS-pq-8Nx" secondAttribute="leading" id="fgH-R8-Y5d"/>
+                            <constraint firstItem="Xvu-Ql-uAA" firstAttribute="leading" secondItem="rwS-pq-8Nx" secondAttribute="leading" constant="-13" id="fgH-R8-Y5d"/>
                             <constraint firstItem="4FS-a8-KWj" firstAttribute="trailing" secondItem="961-4j-HHT" secondAttribute="trailing" id="gov-ug-zxU"/>
                             <constraint firstItem="Zjt-lA-j21" firstAttribute="leading" secondItem="Z1I-a3-5w1" secondAttribute="leading" id="hrH-jP-J5r"/>
                             <constraint firstItem="Zjt-lA-j21" firstAttribute="top" secondItem="Z1I-a3-5w1" secondAttribute="bottom" constant="3" id="lcN-3W-zbv"/>

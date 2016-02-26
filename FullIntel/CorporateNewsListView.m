@@ -246,7 +246,10 @@
 }
 
 -(void)notifyForUnread{
-    [self.filterButton setTitle: @"   Unread" forState: UIControlStateNormal];
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+        [self.filterButton setTitle: @"   Unread" forState: UIControlStateNormal];
+    }
+    
     _spinner.hidden=NO;
     switchForFilter = 1;
     [self callSearchAPIWithStringForUnread:@"" withFilterString:@"UNREAD"];
@@ -264,7 +267,9 @@
     
 }
 -(void)notifyForLast{
-    [self.filterButton setTitle: @"   Last 24 Hours" forState: UIControlStateNormal];
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+        [self.filterButton setTitle: @"   Last 24 Hours" forState: UIControlStateNormal];
+    }
     _spinner.hidden=NO;
     switchForFilter = 2;
     [self callSearchAPIWithStringForUnread:@"" withFilterString:@"RECENT"];
@@ -1003,7 +1008,9 @@
 
 -(void)loadCuratedNews {
     // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:100];
-    
+    if(longPressActive) {
+        toolbar.hidden = NO;
+    }
     self.articlesTableView.dataSource = self;
     self.articlesTableView.delegate = self;
     NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
@@ -1373,6 +1380,7 @@
 -(void)failToLoad {
     self.spinner.hidden = YES;
     [self.spinner stopAnimating];
+    [[FISharedResources sharedResourceManager]showBannerView];
 }
 
 
@@ -2352,10 +2360,15 @@
         UITapGestureRecognizer *savedLaterTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(savedAction:)];
         cell.savedForLaterButton.tag = indexPath.row;
         [cell.savedForLaterButton addGestureRecognizer:savedLaterTap];
-        
+        //cell.checkMarkButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
         UITapGestureRecognizer *checkMarkTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(checkMark:)];
         cell.checkMarkButton.tag = indexPath.row;
         [cell.checkMarkButton addGestureRecognizer:checkMarkTap];
+        
+        UITapGestureRecognizer *checkMarkOverlayTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(checkMarkOverlayTap:)];
+        cell.checkMarkOverlayButton.tag = indexPath.row;
+        [cell.checkMarkOverlayButton addGestureRecognizer:checkMarkOverlayTap];
+        
         
         
         
@@ -2390,7 +2403,15 @@
                 [cell.checkMarkButton setSelected:YES];
             }
         } else if(self.segmentControl.selectedSegmentIndex == 2) {
-            [cell.checkMarkButton setSelected:NO];
+            NSLog(@"come inside none selection");
+            NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+            NSLog(@"checked news:%@",curatedNews);
+            NSString *articleId = [curatedNews valueForKey:@"articleId"];
+            if([self.filterArray containsObject:articleId]) {
+                [cell.checkMarkButton setSelected:YES];
+            } else {
+                [cell.checkMarkButton setSelected:NO];
+            }
         }
         
         if(cell.checkMarkButton.isSelected) {
@@ -2992,6 +3013,21 @@
     }
 }
 
+
+
+-(void)checkMarkOverlayTap:(UITapGestureRecognizer *)tapGesture {
+    NSInteger selectedTag = [tapGesture view].tag;
+    NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
+    NSLog(@"checked news:%@",curatedNews);
+    NSString *articleId = [curatedNews valueForKey:@"articleId"];
+    if([self.filterArray containsObject:articleId]) {
+        [self.filterArray removeObject:articleId];
+    } else {
+        [self.filterArray addObject:articleId];
+    }
+    [self.articlesTableView reloadData];
+}
+
 -(void)checkMark:(UITapGestureRecognizer *)tapGesture {
     NSInteger selectedTag = [tapGesture view].tag;
     NSManagedObject *curatedNews = [self.devices objectAtIndex:selectedTag];
@@ -3242,6 +3278,9 @@
         float reload_distance = 50;
         if(y > h + reload_distance) {
             // NSLog(@"load more data");
+            if(longPressActive) {
+                toolbar.hidden = YES;
+            }
             
             _spinner = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             _spinner.frame=CGRectMake(0, 0, 310, 44);
@@ -3499,7 +3538,7 @@
 - (IBAction)filterButtonClick:(id)sender {
     
     UIButton *filterBtn = (UIButton *)sender;
-    [filterBtn setTitle: @"   All articles" forState: UIControlStateNormal];
+   // [filterBtn setTitle: @"   All articles" forState: UIControlStateNormal];
     //filterBtn.titleLabel.text = @"Clicked";
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPadFilterSettingsView" bundle:nil];
     MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
@@ -3513,6 +3552,7 @@
 }
 
 - (IBAction)actionsButtonClick:(UIButton *)sender {
+    
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPadActionSettingsView" bundle:nil];
     MoreSettingsView *popOverView = [storyBoard instantiateViewControllerWithIdentifier:@"MoreSettingsView"];
     popOverView.modalPresentationStyle = UIModalPresentationOverCurrentContext;

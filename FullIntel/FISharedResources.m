@@ -825,12 +825,12 @@
     } else {
         //[FIUtils showNoNetworkToast];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsFail" object:nil];
-        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        NSArray *subViewArray = [window subviews];
-     //   NSLog(@"subview array count:%d",subViewArray.count);
-        if(subViewArray.count == 1) {
-            [self showBannerView];
-        }
+//        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+//        NSArray *subViewArray = [window subviews];
+//        NSLog(@"subview array count:%d",subViewArray.count);
+//        if(subViewArray.count == 1) {
+//            [self showBannerView];
+//        }
     }
 }
 
@@ -1303,6 +1303,9 @@
                 [self showLoginView:[responseObject objectForKey:@"success"]];
             }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error menu unread JSON:%@",errorJson);
             [FIUtils showErrorToast];
         }];
     } else {

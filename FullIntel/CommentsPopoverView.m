@@ -254,13 +254,13 @@
     
     return YES;
 }
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    
-    if (range.location == 0 && [string isEqualToString:@" "]) {
-        return NO;
-    }
-    return YES;
-}
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+//    
+//    if (range.location == 0 && [string isEqualToString:@" "]) {
+//        return NO;
+//    }
+//    return YES;
+//}
 -(void)postCommentCommonMethod :(UITextField *)textField
 {
 

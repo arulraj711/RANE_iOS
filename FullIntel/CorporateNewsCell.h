@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *savedForLaterButton;
 @property (weak, nonatomic) IBOutlet UIButton *checkMarkButton;
+@property (weak, nonatomic) IBOutlet UIButton *checkMarkOverlayButton;
 @property (weak, nonatomic) IBOutlet UIView *markedImpView;
 @property (weak, nonatomic) IBOutlet UILabel *authorTitle;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *outletWidthConstraint;

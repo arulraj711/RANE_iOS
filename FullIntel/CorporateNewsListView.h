@@ -55,6 +55,7 @@
 -(void)loadCuratedNews;
 @property BOOL isNewsLetterNav;
 @property BOOL isStarting;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *articleTableViewHeightConstraint;
 @property NSString *selectedNewsLetterArticleId;
 @property (nonatomic,strong) UIPopoverController *popOver;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;

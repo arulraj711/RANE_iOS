@@ -1434,7 +1434,7 @@
                                                                                fontWithName:@"Open Sans" size:18], NSFontAttributeName,
                                     [UIColor whiteColor], NSForegroundColorAttributeName, nil];
         mailComposer.navigationBar.titleTextAttributes = attributes;
-        // [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
+        [mailComposer.navigationBar setTintColor:[UIColor whiteColor]];
         [mailComposer setMessageBody:mailBody isHTML:NO];
         [self presentViewController:mailComposer animated:YES completion:nil];
     }else{

@@ -16,8 +16,9 @@
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
 //NSString *url = @"http://stage.fullintel.com/1.2.0";
 
-NSString *url = @"http://fullintel.com/1.2.0";
-
+NSString *url = @"http://fullintel.com";
+//Add version number
+NSString *version = @"1.3.0";
 
 #define FUNCTION_URL @"api/v1"
 @implementation FIWebService
@@ -50,34 +51,34 @@ NSString *url = @"http://fullintel.com/1.2.0";
     NSString *postURL;
 
     if ([urlPath isEqualToString:@"useractivitiesonarticles"]||[urlPath isEqualToString:@"updateappviewtype"]) {
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/services/mv01/sv00/appuser/%@",url,version,urlPath];
     }
     else if ([urlPath isEqualToString:@"managecontentcategories"]){
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/services/mv01/sv00/appuser/%@",url,version,urlPath];
 
     } else if([urlPath isEqualToString:@"validateuseronresume"]) {
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/services/mv01/sv00/appuser/%@",url,version,urlPath];
     }else if([urlPath isEqualToString:@"applogout"]){
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/services/mv01/sv00/appuser/%@",url,version,urlPath];
     }
     else if([urlPath isEqualToString:@"retrievepassword"]){
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/services/mv01/sv00/appuser/%@",url,version,urlPath];
     }
     else if([urlPath isEqualToString:@"useractivity/article/getcomment"]) {
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/services/mv01/sv00/appuser/%@",url,version,urlPath];
     }
     else if([urlPath isEqualToString:@"useractivity/article/addcomment"]) {
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/services/mv01/sv00/appuser/%@",url,version,urlPath];
     }
     else if([urlPath isEqualToString:@"useractivity/comment/markasRead"]) {
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/services/mv01/sv00/appuser/%@",url,version,urlPath];
     }
     else if([urlPath isEqualToString:@"useractivity/article/researchrequest"]) {
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/services/mv01/sv00/appuser/%@",url,version,urlPath];
     } else if([urlPath isEqualToString:@"featureaccessrequest"]) {
-        postURL = [NSString stringWithFormat:@"%@/services/mv01/sv00/appuser/%@",url,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/services/mv01/sv00/appuser/%@",url,version,urlPath];
     } else{
-        postURL = [NSString stringWithFormat:@"%@/%@/%@",url,FUNCTION_URL,urlPath];
+        postURL = [NSString stringWithFormat:@"%@/%@/%@/%@",url,version,FUNCTION_URL,urlPath];
     }
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
@@ -119,7 +120,7 @@ NSString *url = @"http://fullintel.com/1.2.0";
 {
     //NSLog(@"get ress for function ");
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
+    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@/%@",url,version,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"POST"];
@@ -162,7 +163,7 @@ NSString *url = @"http://fullintel.com/1.2.0";
 + (void)getQueryResultsForFunctionName:(NSString *)functionName onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSLog(@"get function name:%@",functionName);
-    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",[functionName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@/%@",url,version,@"api/v1",[functionName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"post url:%@",postURL);
     NSURL *url = [NSURL URLWithString:postURL];
     NSLog(@"url string:%@",url);
@@ -207,7 +208,7 @@ NSString *url = @"http://fullintel.com/1.2.0";
 + (void)deleteQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken withDetails:(NSString *)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSLog(@"inside remove articles");
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
+    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@/%@",url,version,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"DELETE"];
@@ -249,7 +250,7 @@ NSString *url = @"http://fullintel.com/1.2.0";
 
 + (void)putQueryResultsForFunctionName:(NSString *)urlPath withSecurityToken:(NSString*)securityToken withDetails:(NSString *)postDetails onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",urlPath];
+    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@/%@",url,version,@"api/v1",urlPath];
     NSURL *url = [NSURL URLWithString:postURL];
     NSMutableURLRequest * requestURL = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:15];
     [requestURL setHTTPMethod:@"PUT"];

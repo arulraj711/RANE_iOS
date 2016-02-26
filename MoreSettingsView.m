@@ -329,7 +329,10 @@
         if(indexPath.row == 0){
             NSLog(@"tableview,indexPath 1");
             [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForAll" object:nil];
-            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            }
+            
             NSLog(@"tableview%@",indexPath);
             
         }
@@ -337,14 +340,20 @@
         else if(indexPath.row == 1) {
             NSLog(@"tableview,indexPath 1");
             [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForUnreadMenu" object:nil];
-            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            }
+            
             NSLog(@"tableview%@",indexPath);
             
         }
         else if(indexPath.row == 2){
             NSLog(@"tableview,indexPath0");
             [[NSNotificationCenter defaultCenter]postNotificationName:@"notifyForLast24" object:nil];
-            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+                [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectionValue"];
+            }
+            
             NSLog(@"tableview%@",indexPath);
             
         }
