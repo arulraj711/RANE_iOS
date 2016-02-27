@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "477921736.68886"
+            filePath = "MoreSettingsView.m"
+            timestampString = "477983764.021268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1761"
-            endingLineNumber = "1761"
-            landmarkName = "-tableView:canEditRowAtIndexPath:"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "-touchesEnded:withEvent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MoreSettingsView.m"
-            timestampString = "477983764.021268"
+            filePath = "FullIntel/CorporateNewsListView.m"
+            timestampString = "478096897.03423"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
-            landmarkName = "-touchesEnded:withEvent:"
+            startingLineNumber = "1680"
+            endingLineNumber = "1680"
+            landmarkName = "-backBtnPress"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

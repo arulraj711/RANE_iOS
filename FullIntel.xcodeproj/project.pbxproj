@@ -52,6 +52,10 @@
 		A0697BA01C7DCC580010B945 /* ChartListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0697B9D1C7DCC580010B945 /* ChartListViewController.m */; };
 		A0697BA11C7DCC580010B945 /* ChartViewControlleriPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0697B9E1C7DCC580010B945 /* ChartViewControlleriPad.storyboard */; };
 		A0697BA21C7DCC580010B945 /* ChartViewControlleriPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0697B9F1C7DCC580010B945 /* ChartViewControlleriPhone.storyboard */; };
+		A0697BA81C7DDB260010B945 /* ZRScrollableTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A0697BA51C7DDB260010B945 /* ZRScrollableTabBar.m */; };
+		A0697BA91C7DDB260010B945 /* arrrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = A0697BA61C7DDB260010B945 /* arrrow_left.png */; };
+		A0697BAA1C7DDB260010B945 /* arrrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = A0697BA71C7DDB260010B945 /* arrrow_right.png */; };
+		A0697BAE1C7DE0580010B945 /* ChartBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0697BAD1C7DE0580010B945 /* ChartBaseViewController.m */; };
 		A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B41AF74CE60016AD46 /* FIContentCategory.m */; };
 		A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B71AF769040016AD46 /* AddContentSecondLevelView.m */; };
 		A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BA1AF769DE0016AD46 /* SecondLevelCell.m */; };
@@ -408,6 +412,12 @@
 		A0697B9D1C7DCC580010B945 /* ChartListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartListViewController.m; sourceTree = "<group>"; };
 		A0697B9E1C7DCC580010B945 /* ChartViewControlleriPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChartViewControlleriPad.storyboard; sourceTree = "<group>"; };
 		A0697B9F1C7DCC580010B945 /* ChartViewControlleriPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChartViewControlleriPhone.storyboard; sourceTree = "<group>"; };
+		A0697BA41C7DDB260010B945 /* ZRScrollableTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZRScrollableTabBar.h; sourceTree = "<group>"; };
+		A0697BA51C7DDB260010B945 /* ZRScrollableTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZRScrollableTabBar.m; sourceTree = "<group>"; };
+		A0697BA61C7DDB260010B945 /* arrrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrrow_left.png; sourceTree = "<group>"; };
+		A0697BA71C7DDB260010B945 /* arrrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrrow_right.png; sourceTree = "<group>"; };
+		A0697BAC1C7DE0580010B945 /* ChartBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartBaseViewController.h; sourceTree = "<group>"; };
+		A0697BAD1C7DE0580010B945 /* ChartBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartBaseViewController.m; sourceTree = "<group>"; };
 		A07A05B31AF74CE60016AD46 /* FIContentCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIContentCategory.h; sourceTree = "<group>"; };
 		A07A05B41AF74CE60016AD46 /* FIContentCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIContentCategory.m; sourceTree = "<group>"; };
 		A07A05B61AF769040016AD46 /* AddContentSecondLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentSecondLevelView.h; sourceTree = "<group>"; };
@@ -933,6 +943,19 @@
 			name = Charts;
 			sourceTree = "<group>";
 		};
+		A0697BAB1C7DDB3C0010B945 /* ScrollBarExtension */ = {
+			isa = PBXGroup;
+			children = (
+				A0697BA41C7DDB260010B945 /* ZRScrollableTabBar.h */,
+				A0697BA51C7DDB260010B945 /* ZRScrollableTabBar.m */,
+				A0697BA61C7DDB260010B945 /* arrrow_left.png */,
+				A0697BA71C7DDB260010B945 /* arrrow_right.png */,
+				A0697BAC1C7DE0580010B945 /* ChartBaseViewController.h */,
+				A0697BAD1C7DE0580010B945 /* ChartBaseViewController.m */,
+			);
+			name = ScrollBarExtension;
+			sourceTree = "<group>";
+		};
 		A07C1EC51C2A64C300447D33 /* More_Settings_Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1147,6 +1170,7 @@
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
+				A0697BAB1C7DDB3C0010B945 /* ScrollBarExtension */,
 				A0697BA31C7DCC6B0010B945 /* Charts */,
 				A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */,
 				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
@@ -1926,6 +1950,7 @@
 				A0CF5C611B1DD98B00DED2D9 /* PersonalityExecutiveCell.xib in Resources */,
 				BA51CC661C58A3BF00327578 /* issue_list.json in Resources */,
 				F7E81FB81A97057100F9A8D4 /* Nilay.jpeg in Resources */,
+				A0697BAA1C7DDB260010B945 /* arrrow_right.png in Resources */,
 				A0CF5C621B1DD98B00DED2D9 /* RecentPaternsCell.xib in Resources */,
 				A0AAF0201BFCB12B0006A48C /* conf-30.png in Resources */,
 				A0AAEFF41BFCA6C20006A48C /* conf-60.png in Resources */,
@@ -2033,6 +2058,7 @@
 				A0E223611A91C2F00073814A /* Images.xcassets in Resources */,
 				F7E81FC61A97057100F9A8D4 /* stat1.png in Resources */,
 				F78B43011ABA92AC00AB7FFB /* corporate_news_list.json in Resources */,
+				A0697BA91C7DDB260010B945 /* arrrow_left.png in Resources */,
 				A003B1A81B1873D900857F35 /* VideoWidgetCell.xib in Resources */,
 				F717CC941AB1B2E400F66B53 /* OpenSans-Light.ttf in Resources */,
 				A0697BA11C7DCC580010B945 /* ChartViewControlleriPad.storyboard in Resources */,
@@ -2239,12 +2265,14 @@
 				A003B1A71B1873D900857F35 /* VideoWidgetCell.m in Sources */,
 				A0CF5C661B1DD98B00DED2D9 /* CompanyCell.m in Sources */,
 				F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */,
+				A0697BA81C7DDB260010B945 /* ZRScrollableTabBar.m in Sources */,
 				A0E06BF81C5A12E300C2AE17 /* CorporateDetailCell.m in Sources */,
 				A0CF5C6B1B1DD98B00DED2D9 /* PersonalityExecutiveCell.m in Sources */,
 				F583CD161BA310590080C384 /* MainListTutorialViewController.m in Sources */,
 				A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */,
 				BA51CC6C1C58A3BF00327578 /* IssuesResultListPage.m in Sources */,
 				A0697B971C7DC9250010B945 /* ChartViewController.m in Sources */,
+				A0697BAE1C7DE0580010B945 /* ChartBaseViewController.m in Sources */,
 				A0DEC3DE1AE8E31D0046E8BB /* SocialLinkCell.m in Sources */,
 				F78B42FE1ABA8F4800AB7FFB /* CorporateNewsCell.m in Sources */,
 				BA51CC6D1C58A3BF00327578 /* IssueOverViewPage.m in Sources */,

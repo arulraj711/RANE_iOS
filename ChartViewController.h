@@ -7,7 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FullIntel-Bridging-Header.h"
+#import "ChartBaseViewController.h"
 
-@interface ChartViewController : UIViewController
+@interface ChartViewController : UIViewController<ChartViewDelegate>{
+    NSArray *monthArray;
+    NSArray *ValueArray;
+    int typeOfChart;
+    CGFloat widthOfChartViewOutline;
+    CGFloat heightOfChartViewOutline;
+
+}
+
+@property (strong, nonatomic) IBOutlet UIView *chartViewOutline;
+
+
 
 @end
+

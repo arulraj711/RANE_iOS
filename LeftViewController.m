@@ -157,7 +157,7 @@
     NSLog(@"left data count:%d",self.data.count);
         NSLog(@"come selectrow method");
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-            if(self.data.count > 5) {
+            if(self.data.count > 6) {
                 [self.treeView selectRowForItem:[self.data objectAtIndex:0] animated:YES scrollPosition:RATreeViewScrollPositionTop];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"directLoad" object:nil];
             }
