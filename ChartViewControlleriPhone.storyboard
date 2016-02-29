@@ -49,20 +49,84 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C8E-L4-whG">
-                                <rect key="frame" x="0.0" y="28" width="600" height="519"/>
+                                <rect key="frame" x="0.0" y="50" width="600" height="462"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pev-Qm-vce">
+                                <rect key="frame" x="0.0" y="520" width="600" height="80"/>
+                                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="pQt-8y-qIC"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Sco-4t-dG4">
+                                    <size key="itemSize" width="62" height="70"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="uo6-Ay-j1R" customClass="ChartIconCell">
+                                        <rect key="frame" x="0.0" y="5" width="62" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="62" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="13" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8zd-bb-fMz">
+                                                    <rect key="frame" x="0.0" y="38" width="68" height="33"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhI-IE-wlh">
+                                                    <rect key="frame" x="54" y="7" width="8" height="30"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" tag="31" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aRr-Sa-K1V">
+                                                    <rect key="frame" x="16" y="7" width="30" height="30"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="chartIconImage" destination="aRr-Sa-K1V" id="Jy2-Ki-tQf"/>
+                                            <outlet property="chartNameLabel" destination="8zd-bb-fMz" id="Va4-Vk-o5q"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="XIW-1y-rFh" id="Owq-N5-xan"/>
+                                    <outlet property="delegate" destination="XIW-1y-rFh" id="GNw-m9-2zx"/>
+                                </connections>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17J-iS-n8R">
+                                <rect key="frame" x="92" y="20" width="410" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CbA-LC-TKe">
+                                <rect key="frame" x="534" y="15" width="30" height="30"/>
+                                <state key="normal" backgroundImage="savecharttodevice"/>
+                                <connections>
+                                    <action selector="saveChartButton:" destination="XIW-1y-rFh" eventType="touchUpInside" id="y9b-le-mX7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="C8E-L4-whG" firstAttribute="leading" secondItem="W0x-A3-qcN" secondAttribute="leading" id="6Xx-4i-Phk"/>
-                            <constraint firstItem="XKm-TH-nEc" firstAttribute="top" secondItem="C8E-L4-whG" secondAttribute="bottom" constant="53" id="R1x-6l-rMD"/>
+                            <constraint firstItem="XKm-TH-nEc" firstAttribute="top" secondItem="C8E-L4-whG" secondAttribute="bottom" constant="88" id="R1x-6l-rMD"/>
+                            <constraint firstItem="XKm-TH-nEc" firstAttribute="top" secondItem="pev-Qm-vce" secondAttribute="bottom" id="TOY-9y-iRc"/>
                             <constraint firstAttribute="trailing" secondItem="C8E-L4-whG" secondAttribute="trailing" id="U55-7u-t3H"/>
-                            <constraint firstItem="C8E-L4-whG" firstAttribute="top" secondItem="h5J-d2-rMz" secondAttribute="bottom" constant="8" id="nge-h1-mRk"/>
+                            <constraint firstItem="pev-Qm-vce" firstAttribute="leading" secondItem="W0x-A3-qcN" secondAttribute="leading" id="Ue0-nV-kaK"/>
+                            <constraint firstAttribute="trailing" secondItem="pev-Qm-vce" secondAttribute="trailing" id="fGt-XN-w8b"/>
+                            <constraint firstItem="C8E-L4-whG" firstAttribute="top" secondItem="h5J-d2-rMz" secondAttribute="bottom" constant="30" id="nge-h1-mRk"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="chartViewOutline" destination="C8E-L4-whG" id="c7Q-7d-1Pb"/>
+                        <outlet property="titleLabel" destination="17J-iS-n8R" id="pbd-Gt-84O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HWV-1u-B4X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -89,4 +153,7 @@
             <point key="canvasLocation" x="349" y="342"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="savecharttodevice" width="20" height="20"/>
+    </resources>
 </document>

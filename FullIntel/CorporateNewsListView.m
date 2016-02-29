@@ -2031,6 +2031,8 @@
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
             if (longPressActive) { //Perform action desired when cell is long pressed
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
                 NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
                 
                 
@@ -2076,7 +2078,11 @@
                 }
             }
             else{
-                
+              
+                    NSLog(@"cell editing no ---------");
+                    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+
+
                 [UIView animateWithDuration:0.4
                                  animations:^{
                                      cell.articleImageLeadConstraint.constant = 2;
@@ -2099,12 +2105,6 @@
         }
        
         
-        if(cell.isEditing == YES) {
-            NSLog(@"cell editing yes ------------");
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        } else {
-            NSLog(@"cell editing no ---------");
-        }
         // Configure the cell...
         
         NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];

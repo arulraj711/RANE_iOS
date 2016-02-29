@@ -7,7 +7,6 @@
 //
 
 #import "ChartViewController.h"
-#import "ZRScrollableTabBar.h"
 #import "ChartBaseViewController.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
@@ -19,6 +18,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIButton *Btns =[UIButton buttonWithType:UIButtonTypeCustom];
+    [Btns setFrame:CGRectMake(0.0f,0.0f,115,20.0f)];
+    [Btns setTitle:@"Top Stories" forState:UIControlStateNormal];
+    [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
+    [self.navigationItem setRightBarButtonItem:addButtons];
+
+    
+    chartIcon = [[NSMutableArray alloc]init];
+    [chartIcon addObject:@"issue_chart3"];
+    [chartIcon addObject:@"issue_chart2"];
+    [chartIcon addObject:@"issue_chart4"];
+    [chartIcon addObject:@"issue_chart1"];
+    [chartIcon addObject:@"issue_chart1"];
+    [chartIcon addObject:@"issue_chart1"];
+    [chartIcon addObject:@"issue_chart1"];
+    
+    chartName = [[NSMutableArray alloc]init];
+    [chartName addObject:@"Trend of Coverage"];
+    [chartName addObject:@"Key Topics"];
+    [chartName addObject:@"Media Types"];
+    [chartName addObject:@"Sentiment and Volume over Time"];
+    [chartName addObject:@"Change over Last Quarter"];
+    [chartName addObject:@"Top Sources"];
+    [chartName addObject:@"Top Journalists"];
+    
+
+    
+    
     typeOfChart = 0;
     monthArray = [NSArray arrayWithObjects:@"Jan",@"Feb",@"Mar",@"Apr",@"May",@"Jun", nil];
     ValueArray = [NSArray arrayWithObjects:@"12",@"13",@"14",@"15",@"16",@"17", nil];
@@ -26,9 +55,54 @@
     heightOfChartViewOutline = self.chartViewOutline.frame.size.height;
 
     // to add scrollable tab bar
-    [self initScrollableTabbar];
+   // [self initScrollableTabbar];
 
     // Do any additional setup after loading the view.
+}
+-(void)settingsButtonFilter{
+    
+}
+
+
+#pragma mark - UICollectionView Datasource
+
+
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return chartIcon.count;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    // NSLog(@"collectionview cell for item");
+    ChartIconCell *cell = (ChartIconCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.chartNameLabel.text = [chartName objectAtIndex:indexPath.row];
+    cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:indexPath.row]];
+    [cell setBackgroundColor:[UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0]];
+
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    typeOfChart = (int) indexPath.row;
+
+    if(indexPath.row == 0) {
+        [self plotLineChart:7 range:6];
+    } else if(indexPath.row == 1) {
+        [self plotPieChart:6 range:6];
+    } else if (indexPath.row == 2) {
+        [self plotPieChart:6 range:6];
+    } else if (indexPath.row == 3) {
+        [self plotBarChart:6 range:6];
+    } else{
+        [self plotLineChart:7 range:6];
+
+    }
+    
+    
 }
 
 - (void)plotPieChart:(int)count range:(double)range
@@ -36,15 +110,13 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
 
     NSLog(@"%f,%f",widthOfChartViewOutline,heightOfChartViewOutline);
-    PieChartView *pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
+    pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
     pieViews.backgroundColor = [UIColor whiteColor];
     [_chartViewOutline addSubview:pieViews];
     [pieViews animateWithXAxisDuration:1.4 easingOption:ChartEasingOptionEaseOutBack];
 
+    
     pieViews.delegate = self;
-    pieViews.descriptionText = @"Pie-Chart";
-    pieViews.descriptionTextColor = [UIColor blackColor];
-    pieViews.noDataText = @"Provide some data";
 
     double mult = range;
     
@@ -90,11 +162,13 @@
     [data setValueTextColor:UIColor.whiteColor];
     
     pieViews.data = data;
-    if (typeOfChart == 4) {
+    if (typeOfChart == 1) {
+        [pieViews setDrawHoleEnabled:NO];
+        _titleLabel.text =[chartName objectAtIndex:1];
 
     }
     else{
-        [pieViews setDrawHoleEnabled:NO];
+        _titleLabel.text =[chartName objectAtIndex:2];
 
     }
     [pieViews highlightValues:nil];
@@ -105,9 +179,9 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
 
-    BarChartView *barViews = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
+    barViews = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
     barViews.backgroundColor = [UIColor whiteColor];
-    barViews.descriptionText = @"Bar-Chart";
+    _titleLabel.text =[chartName objectAtIndex:3];
     
     barViews.drawBordersEnabled = NO;
     
@@ -124,6 +198,7 @@
     [barViews setScaleEnabled:YES];
     barViews.pinchZoomEnabled = YES;
     [_chartViewOutline addSubview:barViews];
+
     [barViews animateWithYAxisDuration:3.0];
 
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
@@ -155,11 +230,10 @@
 - (void)plotLineChart:(int)count range:(double)range
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-    LineChartView *lineChartView = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
+    lineChartView = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
     lineChartView.delegate = self;
     lineChartView.backgroundColor = [UIColor whiteColor];
-    lineChartView.descriptionText = @"Trend of Coverage";
-    lineChartView.noDataTextDescription = @"You need to provide data for the chart.";
+    _titleLabel.text =[chartName objectAtIndex:0];
     
     lineChartView.drawBordersEnabled = YES;
     
@@ -178,6 +252,7 @@
     
     lineChartView.legend.position = ChartLegendPositionRightOfChart;
     [_chartViewOutline addSubview:lineChartView];
+
     [lineChartView animateWithXAxisDuration:3.0];
 
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
@@ -218,59 +293,7 @@
     [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:7.f]];
     lineChartView.data = data;
 }
-#pragma mark - Scrollable Tab bar code
 
--(void)initScrollableTabbar
-{
-    // Tab bar
-    UITabBarItem *item1 = [[UITabBarItem alloc] initWithTitle:@"Trend of coverage" image:[UIImage imageNamed:@"test1"] tag:1];
-    UITabBarItem *item2 = [[UITabBarItem alloc] initWithTitle:@"Key" image:[UIImage imageNamed:@"test2"] tag:2];
-    UITabBarItem *item3 = [[UITabBarItem alloc] initWithTitle:@"Media" image:[UIImage imageNamed:@"test3"] tag:3];
-    UITabBarItem *item4 = [[UITabBarItem alloc] initWithTitle:@"Sentiment" image:[UIImage imageNamed:@"test4"] tag:4];
-    UITabBarItem *item5 = [[UITabBarItem alloc] initWithTitle:@"Change" image:[UIImage imageNamed:@"test1"] tag:5];
-    UITabBarItem *item6 = [[UITabBarItem alloc] initWithTitle:@"Sources" image:[UIImage imageNamed:@"test1"] tag:6];
-    UITabBarItem *item7 = [[UITabBarItem alloc] initWithTitle:@"Journalists" image:[UIImage imageNamed:@"test1"] tag:7];
-  
-    
-    ZRScrollableTabBar *tabBar = [[ZRScrollableTabBar alloc] initWithItems:[NSArray arrayWithObjects: item1, item2, item3, item4, item5, item6, item7, nil]];
-    tabBar.scrollableTabBarDelegate = self;
-    
-    [self.view addSubview:tabBar];
-}
-
-- (void)scrollableTabBar:(ZRScrollableTabBar *)tabBar didSelectItemWithTag:(int)tag
-{
-    typeOfChart = tag;
-    if (tag == 1) {
-        [self plotPieChart:6 range:6];
-    }
-    else if (tag == 2){
-        [self plotLineChart:7 range:6];
-    }
-    else if (tag == 3){
-        [self plotBarChart:6 range:6];
-
-    }
-    else if (tag == 4){
-        [self plotPieChart:6 range:6];
-
-    }
-    else if (tag == 5){
-    }
-    else if (tag == 6){
-    }
-    else if (tag == 7){
-    }
-    else if (tag == 8){
-    }
-    else if (tag == 9){
-    }
-
-    else {
-        
-    }
-    
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -287,4 +310,20 @@
 }
 */
 
+
+- (IBAction)saveChartButton:(id)sender {
+    if (typeOfChart == 0) {
+        [lineChartView saveToCameraRoll];
+    }else if (typeOfChart ==1){
+        [pieViews saveToCameraRoll];
+    }else if (typeOfChart ==2){
+        [pieViews saveToCameraRoll];
+    }else if (typeOfChart ==3){
+        [barViews saveToCameraRoll];
+    }else if (typeOfChart ==4){
+        [lineChartView saveToCameraRoll];
+    }else if (typeOfChart ==5){
+        [lineChartView saveToCameraRoll];
+    }
+}
 @end
