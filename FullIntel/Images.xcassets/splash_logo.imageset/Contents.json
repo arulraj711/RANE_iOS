@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "fi_logo.png"
+      "filename" : "fi_logo.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "2x-logo.png"
+      "filename" : "2x-logo.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "3x-logo.png"
+      "filename" : "3x-logo.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
