@@ -485,7 +485,9 @@ NSString *version = @"1.3.0";
 
 +(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal withQuery:(NSString*)query withFilterBy:(NSString *)filterBy onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName;
-    if(query.length != 0) {
+    if(query.length !=0 && filterBy.length != 0){
+        functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@&query=%@&filterby=%@",folderId,securityToken,pageNo,sizeVal,query,filterBy];
+    } else if(query.length != 0) {
         functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@&query=%@",folderId,securityToken,pageNo,sizeVal,query];
     } else if(filterBy.length != 0) {
         functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@&filterby=%@",folderId,securityToken,pageNo,sizeVal,filterBy];
@@ -504,7 +506,9 @@ NSString *version = @"1.3.0";
 
 +(void)fetchArticlesFromNewsLetterWithSecurityToken:(NSString *)securityToken withNewsLetterId:(NSNumber *)newsletterId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal withQuery:(NSString *)query withFilterBy:(NSString *)filterBy onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName;
-    if(query.length != 0) {
+    if(query.length !=0 && filterBy.length != 0){
+        functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&page=%@&size=%@&query=%@&filterby=%@",newsletterId,securityToken,pageNo,sizeVal,query,filterBy];
+    } else if(query.length != 0) {
         functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&page=%@&size=%@&query=%@",newsletterId,securityToken,pageNo,sizeVal,query];
     } else if(filterBy.length != 0) {
         functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&page=%@&size=%@&filterby=%@",newsletterId,securityToken,pageNo,sizeVal,filterBy];

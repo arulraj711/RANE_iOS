@@ -1553,6 +1553,7 @@
         } else {
             filterdValue = [NSNumber numberWithInt:0];
         }
+        NSLog(@"filter by value:%@",filterBy);
         [FIWebService fetchArticlesFromFolderWithSecurityToken:accessToken withFolderId:[folderId stringValue] withPageNo:pageNo withSize:size  withQuery:query withFilterBy:filterBy onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([responseObject isKindOfClass:[NSArray class]]){
                 NSArray *curatedNewsArray = responseObject;
