@@ -49,8 +49,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topStoriesButtonLabelWidthConstraint;
 @property (weak, nonatomic) IBOutlet UICollectionView *chartIconCollectionView;
 @property (weak, nonatomic) IBOutlet UIView *tableOuterView;
-@property (weak, nonatomic) IBOutlet UIView *chartView;
-@property (weak, nonatomic) IBOutlet UILabel *chartName;
+@property (weak, nonatomic) IBOutlet UILabel *chartNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *topStoriesButton;
 @property (weak, nonatomic) IBOutlet UITableView *storyTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topStoriesViewLeadingConstraint;

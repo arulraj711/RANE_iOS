@@ -18,12 +18,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *Btns =[UIButton buttonWithType:UIButtonTypeCustom];
-    [Btns setFrame:CGRectMake(0.0f,0.0f,115,20.0f)];
-    [Btns setTitle:@"Top Stories" forState:UIControlStateNormal];
-    [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
-    [self.navigationItem setRightBarButtonItem:addButtons];
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
+        UIButton *Btns =[UIButton buttonWithType:UIButtonTypeCustom];
+        [Btns setFrame:CGRectMake(0.0f,0.0f,115,20.0f)];
+        [Btns setTitle:@"Top Stories" forState:UIControlStateNormal];
+        [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
+        [self.navigationItem setRightBarButtonItem:addButtons];
+
+    }
 
     
     chartIcon = [[NSMutableArray alloc]init];
@@ -68,7 +71,7 @@
         selectedChartIndex = 0;
         
         self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width-70;
-        self.chartName.text =[chartName objectAtIndex:0];
+        self.chartNameLabel.text =[chartName objectAtIndex:0];
 
     }else{
         _titleLabel.text =[chartName objectAtIndex:0];
@@ -153,7 +156,7 @@
 
     typeOfChart = (int) indexPath.row;
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        self.chartName.text =[chartName objectAtIndex:indexPath.row];
+        self.chartNameLabel.text =[chartName objectAtIndex:indexPath.row];
 
     }
     else{

@@ -336,7 +336,7 @@
                     <size key="freeformSize" width="1024" height="600"/>
                     <connections>
                         <outlet property="chartIconCollectionView" destination="s2d-ks-LCf" id="8mz-3e-c6y"/>
-                        <outlet property="chartName" destination="lkd-VZ-SZ1" id="aQp-Jw-xmA"/>
+                        <outlet property="chartNameLabel" destination="lkd-VZ-SZ1" id="Fhy-Bo-kJn"/>
                         <outlet property="chartViewOutline" destination="CHN-5B-o6Y" id="Sk6-Qs-9Og"/>
                         <outlet property="storyTableView" destination="lNc-WN-mch" id="E0B-eq-R78"/>
                         <outlet property="tableOuterView" destination="UL0-a6-hmh" id="fem-nc-soW"/>
