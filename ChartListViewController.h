@@ -13,5 +13,4 @@
     
 }
 - (IBAction)navigateToChartView:(id)sender;
-
 @end

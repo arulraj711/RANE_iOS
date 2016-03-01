@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "FullIntel-Bridging-Header.h"
-#import "ChartBaseViewController.h"
 #import "ChartIconCell.h"
-@interface ChartViewController : UIViewController<ChartViewDelegate>{
+#import "pop.h"
+#import "TopStoriesViewController.h"
+#import "CMPopTipView.h"
+@interface ChartViewController : UIViewController<ChartViewDelegate,CMPopTipViewDelegate,UITableViewDelegate,UITableViewDataSource>{
     NSArray *monthArray;
     NSArray *ValueArray;
     int typeOfChart;
@@ -19,18 +21,39 @@
     
     NSMutableArray *chartIcon;
     NSMutableArray *chartName;
-
     
     PieChartView *pieViews;
     BarChartView *barViews;
     LineChartView *lineChartView;
+    
+    CMPopTipView *popTipView;
+    
+    
+    //for iPad
+    NSArray *chartStoryList;
+    BOOL isTopStoriesOpen;
+    int selectedChartIndex;
+
 }
 
 @property (strong, nonatomic) IBOutlet UIView *chartViewOutline;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
+//common methods
+- (IBAction)savecharttodevice:(id)sender;
+- (IBAction)infoButtonClick:(id)sender;
 
-- (IBAction)saveChartButton:(id)sender;
+//iPad methods
+- (IBAction)topStoriesButtonClick:(id)sender;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topStoriesWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topStoriesButtonLabelWidthConstraint;
+@property (weak, nonatomic) IBOutlet UICollectionView *chartIconCollectionView;
+@property (weak, nonatomic) IBOutlet UIView *tableOuterView;
+@property (weak, nonatomic) IBOutlet UIView *chartView;
+@property (weak, nonatomic) IBOutlet UILabel *chartName;
+@property (weak, nonatomic) IBOutlet UIButton *topStoriesButton;
+@property (weak, nonatomic) IBOutlet UITableView *storyTableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topStoriesViewLeadingConstraint;
 
 @end
 

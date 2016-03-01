@@ -50,9 +50,9 @@
 		A0697B931C7DC2B20010B945 /* SwiftBridgeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */; };
 		A0697B971C7DC9250010B945 /* ChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0697B961C7DC9250010B945 /* ChartViewController.m */; };
 		A0697BA01C7DCC580010B945 /* ChartListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0697B9D1C7DCC580010B945 /* ChartListViewController.m */; };
-		A0697BA11C7DCC580010B945 /* ChartViewControlleriPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0697B9E1C7DCC580010B945 /* ChartViewControlleriPad.storyboard */; };
 		A0697BA21C7DCC580010B945 /* ChartViewControlleriPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0697B9F1C7DCC580010B945 /* ChartViewControlleriPhone.storyboard */; };
-		A0697BAE1C7DE0580010B945 /* ChartBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0697BAD1C7DE0580010B945 /* ChartBaseViewController.m */; };
+		A077DB781C857286008288D5 /* TopStoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A077DB771C857286008288D5 /* TopStoriesViewController.m */; };
+		A077DB7A1C859C9B008288D5 /* ChartViewControlleriPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A077DB791C859C9B008288D5 /* ChartViewControlleriPad.storyboard */; };
 		A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B41AF74CE60016AD46 /* FIContentCategory.m */; };
 		A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B71AF769040016AD46 /* AddContentSecondLevelView.m */; };
 		A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BA1AF769DE0016AD46 /* SecondLevelCell.m */; };
@@ -408,10 +408,10 @@
 		A0697B961C7DC9250010B945 /* ChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartViewController.m; sourceTree = "<group>"; };
 		A0697B9C1C7DCC580010B945 /* ChartListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartListViewController.h; sourceTree = "<group>"; };
 		A0697B9D1C7DCC580010B945 /* ChartListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartListViewController.m; sourceTree = "<group>"; };
-		A0697B9E1C7DCC580010B945 /* ChartViewControlleriPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChartViewControlleriPad.storyboard; sourceTree = "<group>"; };
 		A0697B9F1C7DCC580010B945 /* ChartViewControlleriPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChartViewControlleriPhone.storyboard; sourceTree = "<group>"; };
-		A0697BAC1C7DE0580010B945 /* ChartBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartBaseViewController.h; sourceTree = "<group>"; };
-		A0697BAD1C7DE0580010B945 /* ChartBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartBaseViewController.m; sourceTree = "<group>"; };
+		A077DB761C857286008288D5 /* TopStoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopStoriesViewController.h; sourceTree = "<group>"; };
+		A077DB771C857286008288D5 /* TopStoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopStoriesViewController.m; sourceTree = "<group>"; };
+		A077DB791C859C9B008288D5 /* ChartViewControlleriPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChartViewControlleriPad.storyboard; sourceTree = "<group>"; };
 		A07A05B31AF74CE60016AD46 /* FIContentCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIContentCategory.h; sourceTree = "<group>"; };
 		A07A05B41AF74CE60016AD46 /* FIContentCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIContentCategory.m; sourceTree = "<group>"; };
 		A07A05B61AF769040016AD46 /* AddContentSecondLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentSecondLevelView.h; sourceTree = "<group>"; };
@@ -929,25 +929,18 @@
 		A0697BA31C7DCC6B0010B945 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
+				A077DB761C857286008288D5 /* TopStoriesViewController.h */,
+				A077DB771C857286008288D5 /* TopStoriesViewController.m */,
 				A0AF667D1C84720200789CDD /* ChartIconCell.h */,
 				A0AF667E1C84720200789CDD /* ChartIconCell.m */,
 				A0697B951C7DC9250010B945 /* ChartViewController.h */,
 				A0697B961C7DC9250010B945 /* ChartViewController.m */,
 				A0697B9C1C7DCC580010B945 /* ChartListViewController.h */,
 				A0697B9D1C7DCC580010B945 /* ChartListViewController.m */,
-				A0697B9E1C7DCC580010B945 /* ChartViewControlleriPad.storyboard */,
+				A077DB791C859C9B008288D5 /* ChartViewControlleriPad.storyboard */,
 				A0697B9F1C7DCC580010B945 /* ChartViewControlleriPhone.storyboard */,
 			);
 			name = Charts;
-			sourceTree = "<group>";
-		};
-		A0697BAB1C7DDB3C0010B945 /* ScrollBarExtension */ = {
-			isa = PBXGroup;
-			children = (
-				A0697BAC1C7DE0580010B945 /* ChartBaseViewController.h */,
-				A0697BAD1C7DE0580010B945 /* ChartBaseViewController.m */,
-			);
-			name = ScrollBarExtension;
 			sourceTree = "<group>";
 		};
 		A07C1EC51C2A64C300447D33 /* More_Settings_Filter */ = {
@@ -1164,7 +1157,6 @@
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
-				A0697BAB1C7DDB3C0010B945 /* ScrollBarExtension */,
 				A0697BA31C7DCC6B0010B945 /* Charts */,
 				A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */,
 				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
@@ -2034,6 +2026,7 @@
 				BAB29F0F1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard in Resources */,
 				A033EC5D1BC37B9B003AAE4F /* Icon-Small@2x.png in Resources */,
 				F7E81FA01A97057100F9A8D4 /* Ed.jpeg in Resources */,
+				A077DB7A1C859C9B008288D5 /* ChartViewControlleriPad.storyboard in Resources */,
 				A0AFB6D31C03102B003F5E4D /* TutorialiPhone.storyboard in Resources */,
 				A0AAF0261BFCB12B0006A48C /* star-30.png in Resources */,
 				A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */,
@@ -2053,7 +2046,6 @@
 				F78B43011ABA92AC00AB7FFB /* corporate_news_list.json in Resources */,
 				A003B1A81B1873D900857F35 /* VideoWidgetCell.xib in Resources */,
 				F717CC941AB1B2E400F66B53 /* OpenSans-Light.ttf in Resources */,
-				A0697BA11C7DCC580010B945 /* ChartViewControlleriPad.storyboard in Resources */,
 				A0CF5C541B1DD98B00DED2D9 /* CompanyCell.xib in Resources */,
 				A0C326261B182E2B00FEB164 /* StockResponse.json in Resources */,
 				F7E81FBB1A97057100F9A8D4 /* obama.jpg in Resources */,
@@ -2166,6 +2158,7 @@
 				F7E3688E1ABC1D060083F38E /* ResearchRequestPopoverView.m in Sources */,
 				F773CFE71ADE4370002FC7CF /* JSCustomBadge.m in Sources */,
 				F7CE36E51A95E9490005AA0A /* RATreeView+Enums.m in Sources */,
+				A077DB781C857286008288D5 /* TopStoriesViewController.m in Sources */,
 				A0E223591A91C2F00073814A /* FullIntel.xcdatamodeld in Sources */,
 				A08145A81BD0B5A700AA5EE2 /* FPPopoverView.m in Sources */,
 				F7CE36E81A95E9490005AA0A /* RATreeView+TableViewDataSource.m in Sources */,
@@ -2264,7 +2257,6 @@
 				A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */,
 				BA51CC6C1C58A3BF00327578 /* IssuesResultListPage.m in Sources */,
 				A0697B971C7DC9250010B945 /* ChartViewController.m in Sources */,
-				A0697BAE1C7DE0580010B945 /* ChartBaseViewController.m in Sources */,
 				A0DEC3DE1AE8E31D0046E8BB /* SocialLinkCell.m in Sources */,
 				F78B42FE1ABA8F4800AB7FFB /* CorporateNewsCell.m in Sources */,
 				BA51CC6D1C58A3BF00327578 /* IssueOverViewPage.m in Sources */,
