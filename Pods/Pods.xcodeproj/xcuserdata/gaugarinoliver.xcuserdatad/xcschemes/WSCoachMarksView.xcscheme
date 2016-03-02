@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "001FC476163CD6494A39E4DA06A192F1"
-               BuildableName = "libWSCoachMarksView.a"
+               BlueprintIdentifier = "D827D28F2E5A265C323E390BC1464B14"
+               BuildableName = "WSCoachMarksView.framework"
                BlueprintName = "WSCoachMarksView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "001FC476163CD6494A39E4DA06A192F1"
-            BuildableName = "libWSCoachMarksView.a"
+            BlueprintIdentifier = "D827D28F2E5A265C323E390BC1464B14"
+            BuildableName = "WSCoachMarksView.framework"
             BlueprintName = "WSCoachMarksView"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "001FC476163CD6494A39E4DA06A192F1"
-            BuildableName = "libWSCoachMarksView.a"
+            BlueprintIdentifier = "D827D28F2E5A265C323E390BC1464B14"
+            BuildableName = "WSCoachMarksView.framework"
             BlueprintName = "WSCoachMarksView"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

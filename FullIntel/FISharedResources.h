@@ -68,4 +68,10 @@
 
 -(void)saveDetailsInLocalyticsWithName:(NSString *)name;
 - (void)tagScreenInLocalytics:(NSString *)name;
+
+//Chart API
+-(void)getReportList;//Get total report list
+-(void)getSingleReportDetailsForReportId:(NSNumber *)reportId;
+-(void)getTrendOfCoverageChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
+
 @end

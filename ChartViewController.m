@@ -7,6 +7,8 @@
 //
 
 #import "ChartViewController.h"
+#import "FISharedResources.h"
+#import "ReportTypeObject.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 @interface ChartViewController ()
@@ -49,8 +51,7 @@
     
     
     typeOfChart = 0;
-    monthArray = [NSArray arrayWithObjects:@"Jan",@"Feb",@"Mar",@"Apr",@"May",@"Jun", nil];
-    ValueArray = [NSArray arrayWithObjects:@"12",@"13",@"14",@"15",@"16",@"17", nil];
+    
     
     
     
@@ -70,7 +71,7 @@
         self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
         self.chartNameLabel.text =[chartName objectAtIndex:0];
         
-        [self plotLineChart:7 range:7];
+        //[self plotLineChart:6 range:6];
 
 
     }else{
@@ -93,9 +94,47 @@
 
     }
 
-    [self selectItemAtIndexPath:0 animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+ //   [self selectItemAtIndexPath:0 animated:YES scrollPosition:UICollectionViewScrollPositionNone];
 
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(afterFetchingReportObject:)
+                                                 name:@"FetchedReportObject"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(afterFetchingTrendOfCoverageInfo:)
+                                                 name:@"FetchedTrendOfCoverageInfo"
+                                               object:nil];
+
+    
+    [[FISharedResources sharedResourceManager]getSingleReportDetailsForReportId:self.reportId];
    // Do any additional setup after loading the view.
+}
+
+
+-(void)afterFetchingReportObject:(id)sender {
+    NSNotification *notification = sender;
+    reportObject = [[notification userInfo] objectForKey:@"reportObject"];
+    NSLog(@"Report Object:%@",reportObject);
+    [self.chartIconCollectionView reloadData];
+}
+
+-(void)afterFetchingTrendOfCoverageInfo:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *trendOfCoverageDic = [[notification userInfo] objectForKey:@"TrendOfCoverageInfo"];
+    NSLog(@"INfo --->%@",trendOfCoverageDic);
+    
+    NSDictionary *articleCirculationMap = [trendOfCoverageDic objectForKey:@"articleCirculationMap"];
+    NSDictionary *articleCountMap = [trendOfCoverageDic objectForKey:@"articleCountMap"];
+    
+    monthArray = [articleCirculationMap allKeys];
+    
+    ValueArray = [articleCirculationMap allValues];
+    
+    ValueArrayTwo = [articleCountMap allValues];
+    
+    [self plotLineChart:monthArray.count range:6];
+    
 }
 
 //for iPhone
@@ -150,14 +189,15 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return chartIcon.count;
+    return reportObject.reportTypeArray.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"collectionview cell for item");
     ChartIconCell *cell = (ChartIconCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.chartNameLabel.text = [chartName objectAtIndex:indexPath.row];
-    cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:indexPath.row]];
+    ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:indexPath.row];
+    cell.chartNameLabel.text = reportType.reportName;
+   // cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:indexPath.row]];
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
         [cell setBackgroundColor:[UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0]];
 
@@ -174,7 +214,8 @@
 
     ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:indexPath.row]];
-
+    [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+    
     typeOfChart = (int) indexPath.row;
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
@@ -184,17 +225,17 @@
         _titleLabel.text =[chartName objectAtIndex:indexPath.row];
     }
     
-    if(indexPath.row == 0) {
-        [self plotLineChart:7 range:6];
-    } else if(indexPath.row == 1) {
-        [self plotPieChart:6 range:6];
-    } else if (indexPath.row == 2) {
-        [self plotPieChart:6 range:6];
-    } else if (indexPath.row == 3) {
-        [self plotBarChart:6 range:6];
-    } else{
-        [self plotLineChart:7 range:6];
-    }
+//    if(indexPath.row == 0) {
+//        [self plotLineChart:6 range:6];
+//    } else if(indexPath.row == 1) {
+//        [self plotPieChart:6 range:6];
+//    } else if (indexPath.row == 2) {
+//        [self plotPieChart:6 range:6];
+//    } else if (indexPath.row == 3) {
+//        [self plotBarChart:6 range:6];
+//    } else{
+//        [self plotLineChart:6 range:6];
+//    }
     
     
 }
@@ -203,7 +244,7 @@
                scrollPosition:(UICollectionViewScrollPosition)scrollPosition{
 
     if(indexPath.row == 0) {
-        [self plotLineChart:7 range:6];
+        [self plotLineChart:6 range:6];
     } else if(indexPath.row == 1) {
         [self plotPieChart:6 range:6];
     } else if (indexPath.row == 2) {
@@ -211,7 +252,7 @@
     } else if (indexPath.row == 3) {
         [self plotBarChart:6 range:6];
     } else{
-        [self plotLineChart:7 range:6];
+        [self plotLineChart:6 range:6];
     }
 
     
@@ -225,14 +266,14 @@
 - (void)plotPieChart:(int)count range:(double)range
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-
+    
     NSLog(@"%f,%f",widthOfChartViewOutline,heightOfChartViewOutline);
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
-
+        
     }
     else{
-    pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
+        pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
     }
     pieViews.backgroundColor = [UIColor whiteColor];
     [_chartViewOutline addSubview:pieViews];
@@ -240,16 +281,17 @@
     pieViews.descriptionText =@"";
     pieViews.legend.position = ChartLegendPositionBelowChartCenter;
     pieViews.delegate = self;
-
-    double mult = range;
     
-    NSMutableArray *yVals1 = [[NSMutableArray alloc] init];
     
-    // IMPORTANT: In a PieChart, no values (Entry) should have the same xIndex (even if from different DataSets), since no values can be drawn above each other.
-    for (int i = 0; i < count; i++)
-    {
-        [yVals1 addObject:[[BarChartDataEntry alloc] initWithValue:(arc4random_uniform(mult) + mult / 5) xIndex:i]];
+    NSMutableArray *yVals = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < count; i++){
+        [yVals addObject:[[BarChartDataEntry alloc] initWithValue:[[ValueArray objectAtIndex:i] doubleValue] xIndex:i]];
+        
     }
+    
+    
+    NSLog(@"%@",yVals);
     
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
     
@@ -258,7 +300,7 @@
         [xVals addObject:monthArray[i % monthArray.count]];
     }
     
-    PieChartDataSet *dataSet = [[PieChartDataSet alloc] initWithYVals:yVals1 label:@"Outlet reach"];
+    PieChartDataSet *dataSet = [[PieChartDataSet alloc] initWithYVals:yVals label:@"Outlet reach"];
     dataSet.sliceSpace = 0;
     
     // add a lot of colors
@@ -287,14 +329,13 @@
     pieViews.data = data;
     if (typeOfChart == 1) {
         [pieViews setDrawHoleEnabled:NO];
-
+        
     }
     else{
-
+        
     }
     [pieViews highlightValues:nil];
 }
-
 - (void)plotBarChart:(int)count range:(double)range
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
@@ -304,7 +345,7 @@
         
     }
     else{
-    barViews = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
     }
     barViews.backgroundColor = [UIColor whiteColor];
     
@@ -320,29 +361,36 @@
     barViews.dragEnabled = YES;
     barViews.rightAxis.drawLabelsEnabled = NO;
     barViews.descriptionText =@"";
-barViews.legend.position = ChartLegendPositionBelowChartCenter;
+    barViews.legend.position = ChartLegendPositionBelowChartCenter;
     [barViews setScaleEnabled:YES];
     barViews.pinchZoomEnabled = YES;
+    barViews.xAxis.labelPosition = XAxisLabelPositionBottom;
+    
     [_chartViewOutline addSubview:barViews];
-
+    
     [barViews animateWithYAxisDuration:3.0];
-
+    
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < count; i++)
-    {
-        double mult = (range + 1);
-        double val = (double) (arc4random_uniform(mult)) + mult / 3.0;
-        [yVals addObject:[[BarChartDataEntry alloc] initWithValue:val xIndex:i]];
+    for (int i = 0; i < count; i++){
+        [yVals addObject:[[BarChartDataEntry alloc] initWithValue:[[ValueArray objectAtIndex:i] doubleValue] xIndex:i]];
     }
+    
     
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    
     for (int i = 0; i < count; i++)
     {
-        [xVals addObject:[@((int)((BarChartDataEntry *)yVals[i]).value) stringValue]];
+        [xVals addObject:monthArray[i % monthArray.count]];
     }
     
-    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"Articles"];
+    //    NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    //    for (int i = 0; i < count; i++)
+    //    {
+    //        [xVals addObject:[@((int)((BarChartDataEntry *)yVals[i]).value) stringValue]];
+    //    }
+    
+    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"Brands"];
     set1.colors = ChartColorTemplates.vordiplom;
     set1.drawValuesEnabled = NO;
     
@@ -360,77 +408,137 @@ barViews.legend.position = ChartLegendPositionBelowChartCenter;
         lineChartView = [[LineChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
     }
     else{
-    lineChartView = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
+        lineChartView = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
     }
     lineChartView.delegate = self;
     lineChartView.backgroundColor = [UIColor whiteColor];
     
+    //set properties--------------------------------------------------------------------
+    
     lineChartView.drawBordersEnabled = YES;
     lineChartView.descriptionText =@"";
-
-    lineChartView.rightAxis.enabled = false;
+    
+    lineChartView.rightAxis.enabled = true;
     lineChartView.leftAxis.drawGridLinesEnabled = NO;
     lineChartView.rightAxis.drawGridLinesEnabled = NO;
-
+    
     
     lineChartView.leftAxis.drawAxisLineEnabled = NO;
-    lineChartView.rightAxis.drawAxisLineEnabled = NO;
+    //    lineChartView.rightAxis.drawAxisLineEnabled = NO;
     lineChartView.xAxis.drawAxisLineEnabled = NO;
     lineChartView.xAxis.drawGridLinesEnabled = NO;
-    lineChartView.rightAxis.drawLabelsEnabled = NO;
+    //    lineChartView.rightAxis.drawLabelsEnabled = NO;
     lineChartView.drawGridBackgroundEnabled = NO;
-    lineChartView.dragEnabled = YES;
-    [lineChartView setScaleEnabled:YES];
-    lineChartView.pinchZoomEnabled = YES;
+    
+    //set limit for left axis **************************************************
+    //
+    
+    lineChartView.rightAxis.customAxisMax = [[[self sortArrayWithArray:ValueArrayTwo] lastObject] doubleValue];
+    lineChartView.rightAxis.customAxisMin = [[[self sortArrayWithArray:ValueArrayTwo] firstObject] doubleValue];
+    
+    
+    lineChartView.leftAxis.customAxisMax = [[[self sortArrayWithArray:ValueArray] lastObject] doubleValue];
+    lineChartView.leftAxis.customAxisMin = [[[self sortArrayWithArray:ValueArray] firstObject] doubleValue];
+    
+//    lineChartView.rightAxis.customAxisMax = 10;
+//    lineChartView.rightAxis.customAxisMin = 0;
+    
+    
+    lineChartView.xAxis.spaceBetweenLabels =0;
+    
+    lineChartView.xAxis.labelRotationAngle =45;
+    
+    //set limit for left axis **************************************************
+    
+    //    lineChartView.dragEnabled = YES;
+    //    [lineChartView setScaleEnabled:YES];
+    //    lineChartView.pinchZoomEnabled = YES;
     
     lineChartView.legend.position = ChartLegendPositionBelowChartCenter;
+    lineChartView.xAxis.labelPosition = XAxisLabelPositionBottom;
+    
+    //set properties--------------------------------------------------------------------
+    
     [_chartViewOutline addSubview:lineChartView];
-
+    
+    //animations------------------------------------------------------------------------
+    
     [lineChartView animateWithXAxisDuration:3.0];
-
+    
+    //animations------------------------------------------------------------------------
+    
+    
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    
     for (int i = 0; i < count; i++)
     {
-        [xVals addObject:[@(i) stringValue]];
+        [xVals addObject:monthArray[i % monthArray.count]];
     }
-    NSMutableArray *colors = [[NSMutableArray alloc] init];
-    [colors addObject:[UIColor colorWithRed:49/255.f green:119/255.f blue:183/255.f alpha:1.f]];
-    [colors addObject:[UIColor colorWithRed:117/255.f green:119/255.f blue:234/255.f alpha:1.f]];
-    [colors addObject:[UIColor colorWithRed:247/255.f green:127/255.f blue:0/255.f alpha:1.f]];
-
-//    NSArray *colors = @[ChartColorTemplates.vordiplom[0], ChartColorTemplates.vordiplom[1], ChartColorTemplates.vordiplom[2]];
+    
+    
     
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     
-    for (int z = 0; z < 2; z++)
+    NSMutableArray *values = [[NSMutableArray alloc] init];
+    for (int i = 0; i < count; i++)
     {
-        NSMutableArray *values = [[NSMutableArray alloc] init];
-        
-        for (int i = 0; i < count; i++)
-        {
-            double val = (double) (arc4random_uniform(range) + 3);
-            [values addObject:[[ChartDataEntry alloc] initWithValue:val xIndex:i]];
-        }
-        
-        LineChartDataSet *d = [[LineChartDataSet alloc] initWithYVals:values label:[NSString stringWithFormat:@"Articles %d", z + 1]];
-        d.lineWidth = 5.0;
-        d.circleRadius = 4.0;
-        
-        UIColor *color = colors[z % colors.count];
-        [d setColor:color];
-        [d setCircleColor:color];
-        [dataSets addObject:d];
+        [values addObject:[[ChartDataEntry alloc] initWithValue:[[ValueArray objectAtIndex:i] doubleValue] xIndex:i]];
     }
     
-//    ((LineChartDataSet *)dataSets[0]).lineDashLengths = @[@5.f, @5.f];
-    ((LineChartDataSet *)dataSets[0]).colors = ChartColorTemplates.vordiplom;
-    ((LineChartDataSet *)dataSets[0]).circleColors = ChartColorTemplates.vordiplom;
+    
+    
+    NSMutableArray *valuesTwo = [[NSMutableArray alloc] init];
+    for (int i = 0; i < count; i++)
+    {
+        [valuesTwo addObject:[[ChartDataEntry alloc] initWithValue:[[ValueArrayTwo objectAtIndex:i] doubleValue] xIndex:i]];
+    }
+    
+    
+    
+    
+    LineChartDataSet *d = [[LineChartDataSet alloc] initWithYVals:values label:[NSString stringWithFormat:@"Articles"]];
+    d.lineWidth = 5.0;
+    d.circleRadius = 4.0;
+    
+    [d setColor:[UIColor colorWithRed:189/255.f green:74/255.f blue:71/255.f alpha:1.f]];
+    [d setCircleColor:[UIColor blackColor]];
+    [dataSets addObject:d];
+    
+    //
+            LineChartDataSet *ds = [[LineChartDataSet alloc] initWithYVals:valuesTwo label:[NSString stringWithFormat:@"Circulation"]];
+            ds.axisDependency = AxisDependencyRight;
+            ds.lineWidth = 5.0;
+            ds.circleRadius = 4.0;
+    
+            [ds setColor:[UIColor colorWithRed:74/255.f green:126/255.f blue:187/255.f alpha:1.f]];
+            [ds setCircleColor:[UIColor blackColor]];
+            [dataSets addObject:ds];
+            NSLog(@"%lu",(unsigned long)[dataSets count]);
     
     LineChartData *data = [[LineChartData alloc] initWithXVals:xVals dataSets:dataSets];
     [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:7.f]];
     lineChartView.data = data;
+    
+    
 }
 
+-(NSArray *)sortArrayWithArray:(NSArray *)incomingArray {
+    NSArray *sortedArray = [incomingArray sortedArrayUsingDescriptors:
+                        @[[NSSortDescriptor sortDescriptorWithKey:@"doubleValue"
+                                                        ascending:YES]]];
+
+    return sortedArray;
+}
+
+
+-(void)chartValueSelected:(ChartViewBase *)chartView entry:(ChartDataEntry *)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight *)highlight{
+    
+    NSLog(@"%@ %@ %ld %@",chartView,entry,(long)dataSetIndex,highlight);
+    
+    NSLog(@"%f",entry.value);
+    
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -529,7 +637,7 @@ barViews.legend.position = ChartLegendPositionBelowChartCenter;
                              [self.view layoutIfNeeded];
                              
                              if(typeOfChart == 0) {
-                                 [self plotLineChart:7 range:6];
+                                 [self plotLineChart:6 range:6];
                              } else if(typeOfChart == 1) {
                                  [self plotPieChart:6 range:6];
                              } else if (typeOfChart == 2) {
@@ -537,7 +645,7 @@ barViews.legend.position = ChartLegendPositionBelowChartCenter;
                              } else if (typeOfChart == 3) {
                                  [self plotBarChart:6 range:6];
                              } else{
-                                 [self plotLineChart:7 range:6];
+                                 [self plotLineChart:6 range:6];
                              }
                              
                              
@@ -553,7 +661,7 @@ barViews.legend.position = ChartLegendPositionBelowChartCenter;
                              self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
                              [self.view layoutIfNeeded];
                              if(typeOfChart == 0) {
-                                 [self plotLineChart:7 range:6];
+                                 [self plotLineChart:6 range:6];
                              } else if(typeOfChart == 1) {
                                  [self plotPieChart:6 range:6];
                              } else if (typeOfChart == 2) {
@@ -561,7 +669,7 @@ barViews.legend.position = ChartLegendPositionBelowChartCenter;
                              } else if (typeOfChart == 3) {
                                  [self plotBarChart:6 range:6];
                              } else{
-                                 [self plotLineChart:7 range:6];
+                                 [self plotLineChart:6 range:6];
                              }
                              
                          }];

@@ -16,7 +16,7 @@
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
 //NSString *url = @"http://stage.fullintel.com/1.2.0";
 
-NSString *url = @"http://fullintel.com/1.2.0";
+NSString *url = @"http://stage.fullintel.com/1.3.0";
 
 
 #define FUNCTION_URL @"api/v1"
@@ -770,6 +770,44 @@ NSString *url = @"http://fullintel.com/1.2.0";
     return dic ;
 }
 
+//Service for getting report list
++(void)getReportListonSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    
+    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/reports?security_token=%@",companyId,securityToken];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+}
 
++(void)getSingleReportDetailsForReportId:(NSNumber*)reportId
+                               onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                               onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
+    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/reports/%@",companyId,reportId];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+}
+
++(void)getTrendOfCoverageInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/articlecirculation?fromDate=%@&toDate=%@&xKey=publishedDate&yKey=outlet.id&security_token=%@",companyId,fromDate,toDate,securityToken];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+}
 
 @end

@@ -19,6 +19,8 @@
 #import "FIFolder.h"
 #import "FIUnreadMenu.h"
 #import "FINewsLetter.h"
+#import "ReportListObject.h"
+#import "ReportObject.h"
 #define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
 
 @implementation FISharedResources
@@ -2721,5 +2723,52 @@
     [Localytics tagScreen:name];
 }
 
+// Chart API Integration
+-(void)getReportList {
+    [FIWebService getReportListonSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+       // responseDic = responseObject;
+        NSMutableArray *reportListArray = [[NSMutableArray alloc]init];
+        NSMutableArray *reponseArray = responseObject;
+        for(NSDictionary *reportListDic in reponseArray) {
+            ReportListObject *reportListObj = [[ReportListObject alloc]init];
+            [reportListObj setReportListObjectFromDictionary:reportListDic];
+            [reportListArray addObject:reportListObj];
+        }
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:reportListArray,@"reportListArray", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedReportList"
+                                                            object:self
+                                                          userInfo:theInfo];
+        
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+       // [FIUtils showErrorToast];
+    }];
+}
+
+-(void)getSingleReportDetailsForReportId:(NSNumber *)reportId {
+    [FIWebService getSingleReportDetailsForReportId:reportId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        ReportObject *reportObject = [[ReportObject alloc]init];
+        [reportObject setReportObjectFromDictionary:responseObject];
+        // responseDic = responseObject;
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:reportObject,@"reportObject", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedReportObject"
+                                                            object:self
+                                                          userInfo:theInfo];
+        
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // [FIUtils showErrorToast];
+    }];
+}
+
+-(void)getTrendOfCoverageChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
+    [FIWebService getTrendOfCoverageInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TrendOfCoverageInfo", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTrendOfCoverageInfo"
+                                                            object:self
+                                                          userInfo:theInfo];
+        
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // [FIUtils showErrorToast];
+    }];
+}
 
 @end

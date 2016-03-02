@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "52702C95E7DAC93CF9439941A7D5238F"
-               BuildableName = "libMZAppearance.a"
+               BlueprintIdentifier = "FFABAFE9408FF95CFC8B3C3770D56837"
+               BuildableName = "MZAppearance.framework"
                BlueprintName = "MZAppearance"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "52702C95E7DAC93CF9439941A7D5238F"
-            BuildableName = "libMZAppearance.a"
+            BlueprintIdentifier = "FFABAFE9408FF95CFC8B3C3770D56837"
+            BuildableName = "MZAppearance.framework"
             BlueprintName = "MZAppearance"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "52702C95E7DAC93CF9439941A7D5238F"
-            BuildableName = "libMZAppearance.a"
+            BlueprintIdentifier = "FFABAFE9408FF95CFC8B3C3770D56837"
+            BuildableName = "MZAppearance.framework"
             BlueprintName = "MZAppearance"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

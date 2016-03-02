@@ -13,14 +13,14 @@
 #import "TopStoriesViewController.h"
 #import "CMPopTipView.h"
 #import "UIView+Toast.h"
-
+#import "ReportObject.h"
 @interface ChartViewController : UIViewController<ChartViewDelegate,CMPopTipViewDelegate,UITableViewDelegate,UITableViewDataSource>{
     NSArray *monthArray;
     NSArray *ValueArray;
     int typeOfChart;
     CGFloat widthOfChartViewOutline;
     CGFloat heightOfChartViewOutline;
-    
+    NSArray *ValueArrayTwo;
     NSMutableArray *chartIcon,*selectedChatIcon;
     NSMutableArray *chartName;
     
@@ -29,7 +29,7 @@
     LineChartView *lineChartView;
     
     CMPopTipView *popTipView;
-    
+    ReportObject *reportObject;
     
     //for iPad
     NSArray *chartStoryList;
@@ -55,6 +55,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *topStoriesButton;
 @property (weak, nonatomic) IBOutlet UITableView *storyTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topStoriesViewLeadingConstraint;
+
+@property (nonatomic,strong) NSNumber *reportId;
 
 @end
 

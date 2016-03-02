@@ -10,7 +10,8 @@
 
 @interface ChartListViewController : UIViewController
 {
-    
+    NSMutableArray  *reportListArray;
 }
+@property (weak, nonatomic) IBOutlet UITableView *reportListTableView;
 - (IBAction)navigateToChartView:(id)sender;
 @end

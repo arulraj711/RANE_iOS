@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D090986337B32B8E2778B4BB004772AF"
-               BuildableName = "libATAppUpdater.a"
+               BlueprintIdentifier = "54BD77D977637709731355F9CE8B6332"
+               BuildableName = "ATAppUpdater.framework"
                BlueprintName = "ATAppUpdater"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D090986337B32B8E2778B4BB004772AF"
-            BuildableName = "libATAppUpdater.a"
+            BlueprintIdentifier = "54BD77D977637709731355F9CE8B6332"
+            BuildableName = "ATAppUpdater.framework"
             BlueprintName = "ATAppUpdater"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D090986337B32B8E2778B4BB004772AF"
-            BuildableName = "libATAppUpdater.a"
+            BlueprintIdentifier = "54BD77D977637709731355F9CE8B6332"
+            BuildableName = "ATAppUpdater.framework"
             BlueprintName = "ATAppUpdater"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

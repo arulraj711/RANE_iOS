@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E68134E6B16EE30EAA68BB893A311986"
-               BuildableName = "libUIImageView-Letters.a"
+               BlueprintIdentifier = "4C1CF48AC06A8EAF88792C44299A66A4"
+               BuildableName = "UIImageView_Letters.framework"
                BlueprintName = "UIImageView-Letters"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E68134E6B16EE30EAA68BB893A311986"
-            BuildableName = "libUIImageView-Letters.a"
+            BlueprintIdentifier = "4C1CF48AC06A8EAF88792C44299A66A4"
+            BuildableName = "UIImageView_Letters.framework"
             BlueprintName = "UIImageView-Letters"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E68134E6B16EE30EAA68BB893A311986"
-            BuildableName = "libUIImageView-Letters.a"
+            BlueprintIdentifier = "4C1CF48AC06A8EAF88792C44299A66A4"
+            BuildableName = "UIImageView_Letters.framework"
             BlueprintName = "UIImageView-Letters"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

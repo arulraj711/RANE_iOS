@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ABD065C2489A63B493C3CC03C9E1B859"
-               BuildableName = "libUICollectionViewRightAlignedLayout.a"
+               BlueprintIdentifier = "D69B0BD6182A1FCD9C0FC722190372CF"
+               BuildableName = "UICollectionViewRightAlignedLayout.framework"
                BlueprintName = "UICollectionViewRightAlignedLayout"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ABD065C2489A63B493C3CC03C9E1B859"
-            BuildableName = "libUICollectionViewRightAlignedLayout.a"
+            BlueprintIdentifier = "D69B0BD6182A1FCD9C0FC722190372CF"
+            BuildableName = "UICollectionViewRightAlignedLayout.framework"
             BlueprintName = "UICollectionViewRightAlignedLayout"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ABD065C2489A63B493C3CC03C9E1B859"
-            BuildableName = "libUICollectionViewRightAlignedLayout.a"
+            BlueprintIdentifier = "D69B0BD6182A1FCD9C0FC722190372CF"
+            BuildableName = "UICollectionViewRightAlignedLayout.framework"
             BlueprintName = "UICollectionViewRightAlignedLayout"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

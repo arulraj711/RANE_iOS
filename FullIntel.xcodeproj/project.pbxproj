@@ -225,6 +225,11 @@
 		BA51CCA11C58A47300327578 /* font-awesome.min.css in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC9E1C58A47300327578 /* font-awesome.min.css */; };
 		BA51CCA21C58A47300327578 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC9F1C58A47300327578 /* style.css */; };
 		BA6347911BFE02A300DCF13F /* BGTableViewRowActionWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */; };
+		BAA6A5801C86E61E00B78883 /* ReportListObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A57F1C86E61E00B78883 /* ReportListObject.m */; };
+		BAA6A5831C86ED9A00B78883 /* ReportListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A5821C86ED9A00B78883 /* ReportListCell.m */; };
+		BAA6A5871C86F30F00B78883 /* ReportObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A5861C86F30F00B78883 /* ReportObject.m */; };
+		BAA6A58A1C86F39800B78883 /* ReportTypeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A5891C86F39800B78883 /* ReportTypeObject.m */; };
+		BAA6A58D1C86F43500B78883 /* ChartTypeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A58C1C86F43500B78883 /* ChartTypeObject.m */; };
 		BAB29F0F1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */; };
 		BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB29F101C3D27700008ED71 /* MoreSettingsView.m */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
@@ -650,6 +655,16 @@
 		BA51CC9F1C58A47300327578 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		BA63478F1BFE02A200DCF13F /* BGTableViewRowActionWithImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGTableViewRowActionWithImage.h; sourceTree = "<group>"; };
 		BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGTableViewRowActionWithImage.m; sourceTree = "<group>"; };
+		BAA6A57E1C86E61E00B78883 /* ReportListObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportListObject.h; sourceTree = "<group>"; };
+		BAA6A57F1C86E61E00B78883 /* ReportListObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportListObject.m; sourceTree = "<group>"; };
+		BAA6A5811C86ED9A00B78883 /* ReportListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportListCell.h; sourceTree = "<group>"; };
+		BAA6A5821C86ED9A00B78883 /* ReportListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportListCell.m; sourceTree = "<group>"; };
+		BAA6A5851C86F30F00B78883 /* ReportObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportObject.h; sourceTree = "<group>"; };
+		BAA6A5861C86F30F00B78883 /* ReportObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportObject.m; sourceTree = "<group>"; };
+		BAA6A5881C86F39800B78883 /* ReportTypeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportTypeObject.h; sourceTree = "<group>"; };
+		BAA6A5891C86F39800B78883 /* ReportTypeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportTypeObject.m; sourceTree = "<group>"; };
+		BAA6A58B1C86F43500B78883 /* ChartTypeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartTypeObject.h; sourceTree = "<group>"; };
+		BAA6A58C1C86F43500B78883 /* ChartTypeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartTypeObject.m; sourceTree = "<group>"; };
 		BAB29F0B1C3D273F0008ED71 /* MoreSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreSettingsView.h; sourceTree = "<group>"; };
 		BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MoreSettingsViewPhone.storyboard; sourceTree = "<group>"; };
 		BAB29F101C3D27700008ED71 /* MoreSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSettingsView.m; sourceTree = "<group>"; };
@@ -929,6 +944,7 @@
 		A0697BA31C7DCC6B0010B945 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
+				BAA6A5841C86F2C500B78883 /* Report_Modal */,
 				A077DB761C857286008288D5 /* TopStoriesViewController.h */,
 				A077DB771C857286008288D5 /* TopStoriesViewController.m */,
 				A0AF667D1C84720200789CDD /* ChartIconCell.h */,
@@ -939,6 +955,8 @@
 				A0697B9D1C7DCC580010B945 /* ChartListViewController.m */,
 				A05C1A7C1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard */,
 				A0697B9F1C7DCC580010B945 /* ChartViewControlleriPhone.storyboard */,
+				BAA6A5811C86ED9A00B78883 /* ReportListCell.h */,
+				BAA6A5821C86ED9A00B78883 /* ReportListCell.m */,
 			);
 			name = Charts;
 			sourceTree = "<group>";
@@ -1366,6 +1384,21 @@
 				BA51CC9F1C58A47300327578 /* style.css */,
 			);
 			name = css;
+			sourceTree = "<group>";
+		};
+		BAA6A5841C86F2C500B78883 /* Report_Modal */ = {
+			isa = PBXGroup;
+			children = (
+				BAA6A57E1C86E61E00B78883 /* ReportListObject.h */,
+				BAA6A57F1C86E61E00B78883 /* ReportListObject.m */,
+				BAA6A5851C86F30F00B78883 /* ReportObject.h */,
+				BAA6A5861C86F30F00B78883 /* ReportObject.m */,
+				BAA6A5881C86F39800B78883 /* ReportTypeObject.h */,
+				BAA6A5891C86F39800B78883 /* ReportTypeObject.m */,
+				BAA6A58B1C86F43500B78883 /* ChartTypeObject.h */,
+				BAA6A58C1C86F43500B78883 /* ChartTypeObject.m */,
+			);
+			name = Report_Modal;
 			sourceTree = "<group>";
 		};
 		F31E3F70BB42037A5A25B2A7 /* Pods */ = {
@@ -2158,8 +2191,10 @@
 				F7E3688E1ABC1D060083F38E /* ResearchRequestPopoverView.m in Sources */,
 				F773CFE71ADE4370002FC7CF /* JSCustomBadge.m in Sources */,
 				F7CE36E51A95E9490005AA0A /* RATreeView+Enums.m in Sources */,
+				BAA6A58D1C86F43500B78883 /* ChartTypeObject.m in Sources */,
 				A077DB781C857286008288D5 /* TopStoriesViewController.m in Sources */,
 				A0E223591A91C2F00073814A /* FullIntel.xcdatamodeld in Sources */,
+				BAA6A5801C86E61E00B78883 /* ReportListObject.m in Sources */,
 				A08145A81BD0B5A700AA5EE2 /* FPPopoverView.m in Sources */,
 				F7CE36E81A95E9490005AA0A /* RATreeView+TableViewDataSource.m in Sources */,
 				BA51CC731C58A3BF00327578 /* IssueMonitoringInfluencerCell.m in Sources */,
@@ -2226,6 +2261,7 @@
 				F7ECACCB1AB0730000B57AB6 /* StockWidgetCell.m in Sources */,
 				A08145AB1BD0B5BE00AA5EE2 /* FPTouchView.m in Sources */,
 				F7EC59171AA7084B00CED53F /* NHAlignmentFlowLayout.m in Sources */,
+				BAA6A5831C86ED9A00B78883 /* ReportListCell.m in Sources */,
 				F7E0049B1AB152C500390D51 /* ProductWidgetCell.m in Sources */,
 				A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */,
 				A0DEC3E41AE94FF10046E8BB /* SocialWebView.m in Sources */,
@@ -2242,6 +2278,7 @@
 				BA51CC711C58A3BF00327578 /* IssueListCell.m in Sources */,
 				F583CD0A1BA30FE90080C384 /* TutorialPopViewController.m in Sources */,
 				A0CF5C6E1B1DD98B00DED2D9 /* StockCell.m in Sources */,
+				BAA6A58A1C86F39800B78883 /* ReportTypeObject.m in Sources */,
 				A08860801B427B9500939D51 /* FIFolder.m in Sources */,
 				F732C7D11AC930680071A4D8 /* InfluencerDetailsView.m in Sources */,
 				F7C1AB611ABFF41C00D8588A /* MoreViewCell.m in Sources */,
@@ -2268,6 +2305,7 @@
 				A041F0011B2ADA9E00B5600C /* LegendCollectionViewCell.m in Sources */,
 				F7AE10821AC01E350091E1C7 /* InfluencerListView.m in Sources */,
 				BA51CC701C58A3BF00327578 /* IssueListObject.m in Sources */,
+				BAA6A5871C86F30F00B78883 /* ReportObject.m in Sources */,
 				BA6347911BFE02A300DCF13F /* BGTableViewRowActionWithImage.m in Sources */,
 				BA51CC6F1C58A3BF00327578 /* IssueMonitoringCell.m in Sources */,
 				A033EC681BC4D49D003AAE4F /* TweetsCellPhone.m in Sources */,

@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04E470D0A0A3FFE38146D809B93B6FC7"
-               BuildableName = "libMZFormSheetController.a"
+               BlueprintIdentifier = "71FA28F61B18B124B10ADFB504654560"
+               BuildableName = "MZFormSheetController.framework"
                BlueprintName = "MZFormSheetController"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04E470D0A0A3FFE38146D809B93B6FC7"
-            BuildableName = "libMZFormSheetController.a"
+            BlueprintIdentifier = "71FA28F61B18B124B10ADFB504654560"
+            BuildableName = "MZFormSheetController.framework"
             BlueprintName = "MZFormSheetController"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04E470D0A0A3FFE38146D809B93B6FC7"
-            BuildableName = "libMZFormSheetController.a"
+            BlueprintIdentifier = "71FA28F61B18B124B10ADFB504654560"
+            BuildableName = "MZFormSheetController.framework"
             BlueprintName = "MZFormSheetController"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

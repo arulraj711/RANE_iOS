@@ -117,4 +117,14 @@ onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 +(void)commentMarkAsReadWithDetails:(NSString*)details
                              onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                              onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+//Chart API
++(void)getReportListonSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
++(void)getSingleReportDetailsForReportId:(NSNumber*)reportId
+             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//Get trend of coverage chat info
++(void)getTrendOfCoverageInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end
