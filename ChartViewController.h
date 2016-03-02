@@ -12,6 +12,8 @@
 #import "pop.h"
 #import "TopStoriesViewController.h"
 #import "CMPopTipView.h"
+#import "UIView+Toast.h"
+
 @interface ChartViewController : UIViewController<ChartViewDelegate,CMPopTipViewDelegate,UITableViewDelegate,UITableViewDataSource>{
     NSArray *monthArray;
     NSArray *ValueArray;
@@ -19,7 +21,7 @@
     CGFloat widthOfChartViewOutline;
     CGFloat heightOfChartViewOutline;
     
-    NSMutableArray *chartIcon;
+    NSMutableArray *chartIcon,*selectedChatIcon;
     NSMutableArray *chartName;
     
     PieChartView *pieViews;

@@ -46,13 +46,13 @@
 		A05878AF1BD4A10200DCE62B /* AddContentPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05878AE1BD4A10200DCE62B /* AddContentPhone.storyboard */; };
 		A059B6BF1BF5F1200060683F /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A059B6BD1BF5F1200060683F /* CommonViewController.m */; };
 		A059B6C31BF5F43E0060683F /* CommonViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */; };
+		A05C1A7D1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05C1A7C1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard */; };
 		A05DA9C11C466422009ACB48 /* CorporateNewsListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */; };
 		A0697B931C7DC2B20010B945 /* SwiftBridgeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */; };
 		A0697B971C7DC9250010B945 /* ChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0697B961C7DC9250010B945 /* ChartViewController.m */; };
 		A0697BA01C7DCC580010B945 /* ChartListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0697B9D1C7DCC580010B945 /* ChartListViewController.m */; };
 		A0697BA21C7DCC580010B945 /* ChartViewControlleriPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0697B9F1C7DCC580010B945 /* ChartViewControlleriPhone.storyboard */; };
 		A077DB781C857286008288D5 /* TopStoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A077DB771C857286008288D5 /* TopStoriesViewController.m */; };
-		A077DB7A1C859C9B008288D5 /* ChartViewControlleriPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A077DB791C859C9B008288D5 /* ChartViewControlleriPad.storyboard */; };
 		A07A05B51AF74CE60016AD46 /* FIContentCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B41AF74CE60016AD46 /* FIContentCategory.m */; };
 		A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05B71AF769040016AD46 /* AddContentSecondLevelView.m */; };
 		A07A05BB1AF769DE0016AD46 /* SecondLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07A05BA1AF769DE0016AD46 /* SecondLevelCell.m */; };
@@ -401,6 +401,7 @@
 		A059B6BC1BF5F1200060683F /* CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
 		A059B6BD1BF5F1200060683F /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
 		A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommonViewController.storyboard; sourceTree = "<group>"; };
+		A05C1A7C1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChartViewControlleriPad.storyboard; sourceTree = "<group>"; };
 		A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CorporateNewsListView.storyboard; sourceTree = "<group>"; };
 		A0697B911C7DC2B00010B945 /* FullIntel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FullIntel-Bridging-Header.h"; sourceTree = "<group>"; };
 		A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftBridgeFile.swift; sourceTree = "<group>"; };
@@ -411,7 +412,6 @@
 		A0697B9F1C7DCC580010B945 /* ChartViewControlleriPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChartViewControlleriPhone.storyboard; sourceTree = "<group>"; };
 		A077DB761C857286008288D5 /* TopStoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopStoriesViewController.h; sourceTree = "<group>"; };
 		A077DB771C857286008288D5 /* TopStoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopStoriesViewController.m; sourceTree = "<group>"; };
-		A077DB791C859C9B008288D5 /* ChartViewControlleriPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChartViewControlleriPad.storyboard; sourceTree = "<group>"; };
 		A07A05B31AF74CE60016AD46 /* FIContentCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIContentCategory.h; sourceTree = "<group>"; };
 		A07A05B41AF74CE60016AD46 /* FIContentCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIContentCategory.m; sourceTree = "<group>"; };
 		A07A05B61AF769040016AD46 /* AddContentSecondLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentSecondLevelView.h; sourceTree = "<group>"; };
@@ -937,7 +937,7 @@
 				A0697B961C7DC9250010B945 /* ChartViewController.m */,
 				A0697B9C1C7DCC580010B945 /* ChartListViewController.h */,
 				A0697B9D1C7DCC580010B945 /* ChartListViewController.m */,
-				A077DB791C859C9B008288D5 /* ChartViewControlleriPad.storyboard */,
+				A05C1A7C1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard */,
 				A0697B9F1C7DCC580010B945 /* ChartViewControlleriPhone.storyboard */,
 			);
 			name = Charts;
@@ -2026,7 +2026,7 @@
 				BAB29F0F1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard in Resources */,
 				A033EC5D1BC37B9B003AAE4F /* Icon-Small@2x.png in Resources */,
 				F7E81FA01A97057100F9A8D4 /* Ed.jpeg in Resources */,
-				A077DB7A1C859C9B008288D5 /* ChartViewControlleriPad.storyboard in Resources */,
+				A05C1A7D1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard in Resources */,
 				A0AFB6D31C03102B003F5E4D /* TutorialiPhone.storyboard in Resources */,
 				A0AAF0261BFCB12B0006A48C /* star-30.png in Resources */,
 				A0DB6FC11B0AF40C00F6E2F4 /* Comments.storyboard in Resources */,

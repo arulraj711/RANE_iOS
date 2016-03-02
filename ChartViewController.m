@@ -18,16 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
-        UIButton *Btns =[UIButton buttonWithType:UIButtonTypeCustom];
-        [Btns setFrame:CGRectMake(0.0f,0.0f,115,20.0f)];
-        [Btns setTitle:@"Top Stories" forState:UIControlStateNormal];
-        [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
-        [self.navigationItem setRightBarButtonItem:addButtons];
-
-    }
-
+ 
     
     chartIcon = [[NSMutableArray alloc]init];
     [chartIcon addObject:@"issue_chart3"];
@@ -47,14 +38,20 @@
     [chartName addObject:@"Top Sources"];
     [chartName addObject:@"Top Journalists"];
     
-
+    selectedChatIcon = [[NSMutableArray alloc]init];
+    [selectedChatIcon addObject:@"selected_issue_chart3"];
+    [selectedChatIcon addObject:@"selected_issue_chart2"];
+    [selectedChatIcon addObject:@"selected_issue_chart4"];
+    [selectedChatIcon addObject:@"selected_issue_chart1"];
+    [selectedChatIcon addObject:@"selected_issue_chart1"];
+    [selectedChatIcon addObject:@"selected_issue_chart1"];
+    [selectedChatIcon addObject:@"selected_issue_chart1"];
     
     
     typeOfChart = 0;
     monthArray = [NSArray arrayWithObjects:@"Jan",@"Feb",@"Mar",@"Apr",@"May",@"Jun", nil];
     ValueArray = [NSArray arrayWithObjects:@"12",@"13",@"14",@"15",@"16",@"17", nil];
-    widthOfChartViewOutline = self.chartViewOutline.frame.size.width;
-    heightOfChartViewOutline = self.chartViewOutline.frame.size.height;
+    
     
     
 
@@ -70,19 +67,35 @@
         isTopStoriesOpen = NO;
         selectedChartIndex = 0;
         
-        self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width-70;
+        self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
         self.chartNameLabel.text =[chartName objectAtIndex:0];
+        
+        [self plotLineChart:7 range:7];
+
 
     }else{
+        
+        widthOfChartViewOutline = self.chartViewOutline.frame.size.width;
+        heightOfChartViewOutline = self.chartViewOutline.frame.size.height;
+
+        
+        //for navigation bar button
+        UIButton *Btns =[UIButton buttonWithType:UIButtonTypeCustom];
+        [Btns setFrame:CGRectMake(0.0f,0.0f,115,20.0f)];
+        [Btns setTitle:@"Top Stories" forState:UIControlStateNormal];
+        [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
+        [self.navigationItem setRightBarButtonItem:addButtons];
+
+        
         _titleLabel.text =[chartName objectAtIndex:0];
+        
 
     }
 
-    
-    [self plotLineChart:5 range:5];
+    [self selectItemAtIndexPath:0 animated:YES scrollPosition:UICollectionViewScrollPositionNone];
 
-
-    // Do any additional setup after loading the view.
+   // Do any additional setup after loading the view.
 }
 
 //for iPhone
@@ -95,6 +108,8 @@
         storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPhone" bundle:nil];
         chartView = [storyboard instantiateViewControllerWithIdentifier:@"TopStoriesViewController"];
     } else {
+        
+        
     }
     
     
@@ -147,25 +162,28 @@
         [cell setBackgroundColor:[UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0]];
 
     }
-
+    
     return cell;
 }
 
+
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"%ld",(long)indexPath.row);
+    NSLog(@"%ld",(long)indexPath.item);
+
+    ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:indexPath.row]];
 
     typeOfChart = (int) indexPath.row;
+    
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         self.chartNameLabel.text =[chartName objectAtIndex:indexPath.row];
-
     }
     else{
-        ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
         _titleLabel.text =[chartName objectAtIndex:indexPath.row];
-        [cell setBackgroundColor:[UIColor redColor]];
-
     }
-
+    
     if(indexPath.row == 0) {
         [self plotLineChart:7 range:6];
     } else if(indexPath.row == 1) {
@@ -180,13 +198,29 @@
     
     
 }
+- (void)selectItemAtIndexPath:(NSIndexPath *)indexPath
+                     animated:(BOOL)animated
+               scrollPosition:(UICollectionViewScrollPosition)scrollPosition{
+
+    if(indexPath.row == 0) {
+        [self plotLineChart:7 range:6];
+    } else if(indexPath.row == 1) {
+        [self plotPieChart:6 range:6];
+    } else if (indexPath.row == 2) {
+        [self plotPieChart:6 range:6];
+    } else if (indexPath.row == 3) {
+        [self plotBarChart:6 range:6];
+    } else{
+        [self plotLineChart:7 range:6];
+    }
+
+    
+}
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-    {
-        ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
-        cell.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
-    }
+    ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:indexPath.row]];
+
 }
 - (void)plotPieChart:(int)count range:(double)range
 {
@@ -194,7 +228,7 @@
 
     NSLog(@"%f,%f",widthOfChartViewOutline,heightOfChartViewOutline);
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant,  self.view.frame.size.height-260)];
+        pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
 
     }
     else{
@@ -204,7 +238,7 @@
     [_chartViewOutline addSubview:pieViews];
     [pieViews animateWithXAxisDuration:1.4 easingOption:ChartEasingOptionEaseOutBack];
     pieViews.descriptionText =@"";
-    
+    pieViews.legend.position = ChartLegendPositionBelowChartCenter;
     pieViews.delegate = self;
 
     double mult = range;
@@ -224,7 +258,7 @@
         [xVals addObject:monthArray[i % monthArray.count]];
     }
     
-    PieChartDataSet *dataSet = [[PieChartDataSet alloc] initWithYVals:yVals1 label:@"Election Results"];
+    PieChartDataSet *dataSet = [[PieChartDataSet alloc] initWithYVals:yVals1 label:@"Outlet reach"];
     dataSet.sliceSpace = 0;
     
     // add a lot of colors
@@ -266,7 +300,7 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant,  self.view.frame.size.height-260)];
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
         
     }
     else{
@@ -286,7 +320,7 @@
     barViews.dragEnabled = YES;
     barViews.rightAxis.drawLabelsEnabled = NO;
     barViews.descriptionText =@"";
-
+barViews.legend.position = ChartLegendPositionBelowChartCenter;
     [barViews setScaleEnabled:YES];
     barViews.pinchZoomEnabled = YES;
     [_chartViewOutline addSubview:barViews];
@@ -308,7 +342,7 @@
         [xVals addObject:[@((int)((BarChartDataEntry *)yVals[i]).value) stringValue]];
     }
     
-    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"DataSet"];
+    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"Articles"];
     set1.colors = ChartColorTemplates.vordiplom;
     set1.drawValuesEnabled = NO;
     
@@ -323,8 +357,7 @@
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        lineChartView = [[LineChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant,  self.view.frame.size.height-260)];
-        
+        lineChartView = [[LineChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
     }
     else{
     lineChartView = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
@@ -350,7 +383,7 @@
     [lineChartView setScaleEnabled:YES];
     lineChartView.pinchZoomEnabled = YES;
     
-    lineChartView.legend.position = ChartLegendPositionRightOfChart;
+    lineChartView.legend.position = ChartLegendPositionBelowChartCenter;
     [_chartViewOutline addSubview:lineChartView];
 
     [lineChartView animateWithXAxisDuration:3.0];
@@ -416,12 +449,15 @@
 
 
 -(void)AnimateButtonOnClick :(id)sender{
-    POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-    sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
-    sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
-    sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
-    sprintAnimation.springBounciness = 20.f;
-    [sender pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
+        POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+        sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.9, 1.9)];
+        sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+        sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+        sprintAnimation.springBounciness = 15.f;
+        [sender pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+    }
+    
 }
 
 
@@ -442,6 +478,8 @@
     }else if (typeOfChart ==5){
         [lineChartView saveToCameraRoll];
     }
+    [self.view makeToast:@"Chart saved successfully" duration:1.0 position:CSToastPositionCenter];
+
 }
 - (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipViews
 {
@@ -487,7 +525,7 @@
                              self.tableOuterView.layer.borderWidth = 0.0f;
                              self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
                              isTopStoriesOpen = YES;
-                             self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width-380;
+                             self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width-320;
                              [self.view layoutIfNeeded];
                              
                              if(typeOfChart == 0) {
@@ -512,7 +550,7 @@
                              self.tableOuterView.layer.borderWidth = 0.0f;
                              self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
                              isTopStoriesOpen = NO;
-                             self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width-70;
+                             self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
                              [self.view layoutIfNeeded];
                              if(typeOfChart == 0) {
                                  [self plotLineChart:7 range:6];

@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Top Stories";
     NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     NSError *error;
