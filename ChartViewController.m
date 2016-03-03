@@ -9,8 +9,10 @@
 #import "ChartViewController.h"
 #import "FISharedResources.h"
 #import "ReportTypeObject.h"
+#import "ChartTypeObject.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define kWeekWithFormatSpecifier @"week%@"
 @interface ChartViewController ()
 
 @end
@@ -128,16 +130,64 @@
     NSDictionary *articleCountMap = [trendOfCoverageDic objectForKey:@"articleCountMap"];
     
     monthArray = [articleCirculationMap allKeys];
-    
     ValueArray = [articleCirculationMap allValues];
-    
     ValueArrayTwo = [articleCountMap allValues];
     
-    [self plotLineChart:monthArray.count range:6];
+
+
+    NSLog(@"%@",articleCirculationMap);
+    NSLog(@"%@",[articleCirculationMap allKeys]);
+    NSLog(@"%@",[articleCirculationMap allValues]);
+
+    NSSortDescriptor *descriptor=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
+    NSArray *descriptors=[NSArray arrayWithObject: descriptor];
+    NSArray *reverseOrder=[monthArray sortedArrayUsingDescriptors:descriptors];
+    NSLog(@"%@",reverseOrder);
     
+    NSMutableArray *reverseOrders = [[NSMutableArray alloc] init];
+    for (int i=0; i<reverseOrder.count; i++)
+    {
+        NSLog(@"%@",[reverseOrder objectAtIndex:i]);
+        NSString *inpT = [reverseOrder objectAtIndex:i];
+                NSString *value = [articleCirculationMap objectForKey:inpT];
+                [reverseOrders addObject:value];
+    }
+    NSLog(@"%@",reverseOrders);
+
+
+    
+    
+    NSArray *xValueArray = [self FindWeekNumberOfDate:monthArray];
+    NSLog(@"%@",xValueArray);
+    
+    NSArray *xAxisFinalArray = [self createXaxisArray:xValueArray];
+    NSLog(@"%@",xAxisFinalArray);
+    
+    monthArray = [NSArray arrayWithArray:xAxisFinalArray];
+    ValueArray = [NSArray arrayWithArray:reverseOrders];
+    
+    NSLog(@"%@",monthArray);
+    NSLog(@"%@",ValueArray);
+    int countVal = (int)monthArray.count;
+    NSLog(@"%d",countVal);
+
+    [self plotLineChart:countVal range:6];
 }
 
 //for iPhone
+
+//    for (int i=0; i<=monthArray.count; i++) {
+//        NSDate *dateInput = [monthArray objectAtIndex:0];
+//        NSLog(@"dates --->%@",dateInput);
+//
+//        NSCalendar *calendar = [NSCalendar currentCalendar];
+//        NSDateComponents *dateComponent = [calendar components:(NSWeekOfYearCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:[NSDate date]];
+//        NSLog(@"%@",dateComponent);
+//        NSLog(@"%ld",(long)dateComponent.weekOfMonth);
+//
+//    }
+//
+
 -(void)settingsButtonFilter{
     
 
@@ -150,7 +200,6 @@
         
         
     }
-    
     
     [self.navigationController pushViewController:chartView animated:YES];
 
@@ -192,12 +241,52 @@
     return reportObject.reportTypeArray.count;
 }
 
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"collectionview cell for item");
     ChartIconCell *cell = (ChartIconCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:indexPath.row];
     cell.chartNameLabel.text = reportType.reportName;
-   // cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:indexPath.row]];
+     ChartTypeObject *chartType = reportType.chartTypeObject;
+    if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:1]];
+
+    }
+    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]){
+        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
+
+    }
+    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:3]]){
+        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+
+    }
+    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:4]]){
+        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+
+    }
+    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:5]]){
+        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
+
+    }
+    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:6]]){
+        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
+
+    }
+    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:7]]){
+        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+
+    }
+    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:8]]){
+        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+
+    }
+    
+    else {
+        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+    }
+
+//    cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:indexPath.row]];
+    
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone){
         [cell setBackgroundColor:[UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0]];
 
@@ -205,7 +294,6 @@
     
     return cell;
 }
-
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -239,6 +327,7 @@
     
     
 }
+
 - (void)selectItemAtIndexPath:(NSIndexPath *)indexPath
                      animated:(BOOL)animated
                scrollPosition:(UICollectionViewScrollPosition)scrollPosition{
@@ -263,6 +352,11 @@
     cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:indexPath.row]];
 
 }
+
+
+#pragma mark - Plot Chart
+
+
 - (void)plotPieChart:(int)count range:(double)range
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
@@ -446,7 +540,7 @@
     
     lineChartView.xAxis.spaceBetweenLabels =0;
     
-    lineChartView.xAxis.labelRotationAngle =45;
+//    lineChartView.xAxis.labelRotationAngle =45;
     
     //set limit for left axis **************************************************
     
@@ -522,13 +616,8 @@
     
 }
 
--(NSArray *)sortArrayWithArray:(NSArray *)incomingArray {
-    NSArray *sortedArray = [incomingArray sortedArrayUsingDescriptors:
-                        @[[NSSortDescriptor sortDescriptorWithKey:@"doubleValue"
-                                                        ascending:YES]]];
 
-    return sortedArray;
-}
+
 
 
 -(void)chartValueSelected:(ChartViewBase *)chartView entry:(ChartDataEntry *)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight *)highlight{
@@ -539,6 +628,55 @@
     
     
 }
+#pragma mark - Rest of the Code
+-(NSMutableArray *)createXaxisArray : (NSArray *)inputArray{
+    NSMutableArray *weekAxisArray = [[ NSMutableArray alloc]init];
+    for (int i = 0; i<inputArray.count; i++) {
+        NSString *weekNam = [NSString stringWithFormat:@"Week %@",[inputArray objectAtIndex:i]];
+        [weekAxisArray addObject:weekNam];
+    }
+    return weekAxisArray;
+}
+-(NSMutableArray *)FindWeekNumberOfDate :(NSArray *)inputDateArray{
+    
+    NSMutableArray *weekValueOfDateArray = [[ NSMutableArray alloc]init];
+    
+    for (int i =0;i<inputDateArray.count;i++) {
+        NSString *dateInput = [monthArray objectAtIndex:i];
+        NSLog(@"%@",dateInput);
+        
+        dateInput = [dateInput stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+        dateInput = [dateInput stringByReplacingOccurrencesOfString:@".000Z" withString:@""];
+        NSLog(@"%@",dateInput);
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        NSDate *inpuDateFormat = [dateFormatter dateFromString:dateInput];
+        NSLog(@"%@",inpuDateFormat);
+        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *comps = [calendar components:NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear fromDate:inpuDateFormat];
+        NSLog(@"%ld",(long)comps.weekOfMonth);
+        NSInteger weekComp = comps.weekOfMonth;
+
+        [weekValueOfDateArray addObject:[NSNumber numberWithInteger:weekComp]];
+
+    }
+    
+
+    return weekValueOfDateArray;
+}
+
+-(NSArray *)sortArrayWithArray:(NSArray *)incomingArray {
+    NSArray *sortedArray = [incomingArray sortedArrayUsingDescriptors:
+                            @[[NSSortDescriptor sortDescriptorWithKey:@"doubleValue"
+                                                            ascending:YES]]];
+    
+    return sortedArray;
+}
+
+#pragma mark - Custom Methods
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -554,6 +692,8 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Button Methods
 
 
 -(void)AnimateButtonOnClick :(id)sender{

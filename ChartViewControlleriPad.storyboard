@@ -24,45 +24,6 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="Ehp-Rj-VtV">
-            <objects>
-                <viewController id="NOU-3z-l3y" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="GtX-gC-6zb"/>
-                        <viewControllerLayoutGuide type="bottom" id="BXC-qR-yMh"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="h4t-gG-2MZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lir-M3-aaf">
-                                <rect key="frame" x="229" y="275" width="142" height="49"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="142" id="gwc-m5-xiE"/>
-                                    <constraint firstAttribute="height" constant="49" id="i8f-z8-Vs9"/>
-                                </constraints>
-                                <state key="normal" title="Show Chart">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="rZH-Io-Brb" kind="push" id="8lR-8i-mnU"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Lir-M3-aaf" firstAttribute="leading" secondItem="h4t-gG-2MZ" secondAttribute="leading" constant="229" id="X3J-eR-N01"/>
-                            <constraint firstItem="Lir-M3-aaf" firstAttribute="top" secondItem="GtX-gC-6zb" secondAttribute="bottom" constant="211" id="xBZ-nA-4No"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="36B-ju-Pe0"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jrV-Oy-7P4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1149" y="356"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="P0l-Gw-xaG">
             <objects>
