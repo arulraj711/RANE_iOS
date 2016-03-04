@@ -356,7 +356,7 @@
 
 #pragma mark - Plot Chart
 
-
+ter
 - (void)plotPieChart:(int)count range:(double)range
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
