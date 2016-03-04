@@ -30,6 +30,8 @@
     
     CMPopTipView *popTipView;
     ReportObject *reportObject;
+    NSArray *xInputForMonths;
+    int oh;
     
     //for iPad
     NSArray *chartStoryList;
