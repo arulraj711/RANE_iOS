@@ -73,5 +73,6 @@
 -(void)getReportList;//Get total report list
 -(void)getSingleReportDetailsForReportId:(NSNumber *)reportId;
 -(void)getTrendOfCoverageChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
-
+-(void)getKeyTopicsChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
+-(void)getMediaTypeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 @end

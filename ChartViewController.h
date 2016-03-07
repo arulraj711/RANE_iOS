@@ -17,7 +17,7 @@
 @interface ChartViewController : UIViewController<ChartViewDelegate,CMPopTipViewDelegate,UITableViewDelegate,UITableViewDataSource>{
     NSArray *monthArray;
     NSArray *ValueArray;
-    int typeOfChart;
+    //int typeOfChart;
     CGFloat widthOfChartViewOutline;
     CGFloat heightOfChartViewOutline;
     NSArray *ValueArrayTwo;

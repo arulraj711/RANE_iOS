@@ -12,6 +12,7 @@
 #import "ChartTypeObject.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
 #define kWeekWithFormatSpecifier @"week%@"
 @interface ChartViewController ()
 
@@ -52,7 +53,7 @@
     [selectedChatIcon addObject:@"selected_issue_chart1"];
     
     
-    typeOfChart = 0;
+  //  typeOfChart = 0;
     
     
     
@@ -107,8 +108,16 @@
                                              selector:@selector(afterFetchingTrendOfCoverageInfo:)
                                                  name:@"FetchedTrendOfCoverageInfo"
                                                object:nil];
-
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(afterFetchingKeyTopicsInfo:)
+                                                 name:@"FetchedKeyTopicsInfo"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(afterFetchingMediaTypeInfo:)
+                                                 name:@"FetchedMediaTypeInfo"
+                                               object:nil];
     [[FISharedResources sharedResourceManager]getSingleReportDetailsForReportId:self.reportId];
    // Do any additional setup after loading the view.
 }
@@ -205,6 +214,32 @@
 //    }
 //
 
+
+//Updating Key Topics Chart Details
+-(void)afterFetchingKeyTopicsInfo:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *keyTopicsInfoDic = [[notification userInfo] objectForKey:@"KeyTopicsInfo"];
+    NSLog(@"Key Topics Info --->%@",keyTopicsInfoDic);
+    NSDictionary *keyTopicsDic = [keyTopicsInfoDic objectForKey:@"categoryCountMap"];
+    monthArray = [keyTopicsDic allKeys];
+    ValueArray = [keyTopicsDic allValues];
+    [self plotPieChart:monthArray.count range:7 withType:1];//type 1 for pie chart
+}
+
+//Updating Media Type Chart Details
+-(void)afterFetchingMediaTypeInfo:(id)sender {
+    NSNotification *notification = sender;
+    NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"MediaTypeInfo"];
+    NSLog(@"MediaType Info --->%@",mediaTypeInfoDic);
+    NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"mediaCountMap"]);
+    if(keyTopicsDic.count != 0) {
+        monthArray = [keyTopicsDic allKeys];
+        ValueArray = [keyTopicsDic allValues];
+        [self plotPieChart:monthArray.count range:7 withType:0];//type 0 for donut chart
+    }
+    
+}
+
 -(void)settingsButtonFilter{
     
 
@@ -265,27 +300,33 @@
     ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:indexPath.row];
     cell.chartNameLabel.text = reportType.reportName;
      ChartTypeObject *chartType = reportType.chartTypeObject;
+    
     if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        //Pie Chart - Key Topics
             cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:1]];
-
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]){
+        //Bar Chart - Sentiment and Volume Over Time
         cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:3]]){
+        //Line Chart - Trend of Coverage
         cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:4]]){
-        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+        //Donut Chart - Media Types
+        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:2]];
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:5]]){
+        //MutliBar Chart - Change Over Last Quarter
         cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:6]]){
+        //Horizontal Bar Chart - Top Sources
         cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
 
     }
@@ -316,12 +357,14 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%ld",(long)indexPath.row);
     NSLog(@"%ld",(long)indexPath.item);
-
+    ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:indexPath.row];
+    ChartTypeObject *chartType = reportType.chartTypeObject;
+    
     ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:indexPath.row]];
-    [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     
-    typeOfChart = (int) indexPath.row;
+    
+  //  typeOfChart = (int) indexPath.row;
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         self.chartNameLabel.text =[chartName objectAtIndex:indexPath.row];
@@ -330,6 +373,22 @@
         _titleLabel.text =[chartName objectAtIndex:indexPath.row];
     }
     
+    if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        // Select Key Types Chart
+        [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+    } else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:3]]){
+        // Select Trend of Coverage Chart
+        [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+    } else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:4]]){
+        [[FISharedResources sharedResourceManager]getMediaTypeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+    }
+    
+}
+
+- (void)selectItemAtIndexPath:(NSIndexPath *)indexPath
+                     animated:(BOOL)animated
+               scrollPosition:(UICollectionViewScrollPosition)scrollPosition{
+
 //    if(indexPath.row == 0) {
 //        [self plotLineChart:6 range:6];
 //    } else if(indexPath.row == 1) {
@@ -341,25 +400,6 @@
 //    } else{
 //        [self plotLineChart:6 range:6];
 //    }
-    
-    
-}
-
-- (void)selectItemAtIndexPath:(NSIndexPath *)indexPath
-                     animated:(BOOL)animated
-               scrollPosition:(UICollectionViewScrollPosition)scrollPosition{
-
-    if(indexPath.row == 0) {
-        [self plotLineChart:6 range:6];
-    } else if(indexPath.row == 1) {
-        [self plotPieChart:6 range:6];
-    } else if (indexPath.row == 2) {
-        [self plotPieChart:6 range:6];
-    } else if (indexPath.row == 3) {
-        [self plotBarChart:6 range:6];
-    } else{
-        [self plotLineChart:6 range:6];
-    }
 
     
 }
@@ -370,10 +410,20 @@
 
 }
 
+- (UIColor *)randomColor
+{
+    CGFloat red = arc4random() % 255 / 255.0;
+    CGFloat green = arc4random() % 255 / 255.0;
+    CGFloat blue = arc4random() % 255 / 255.0;
+    UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+    NSLog(@"Color:%@", color);
+    return color;
+}
+
 
 #pragma mark - Plot Chart
 
-- (void)plotPieChart:(int)count range:(double)range
+- (void)plotPieChart:(int)count range:(double)range withType:(int)typeOfChart
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
@@ -410,18 +460,22 @@
         [xVals addObject:monthArray[i % monthArray.count]];
     }
     
-    PieChartDataSet *dataSet = [[PieChartDataSet alloc] initWithYVals:yVals label:@"Outlet reach"];
+    PieChartDataSet *dataSet = [[PieChartDataSet alloc] initWithYVals:yVals label:@""];
     dataSet.sliceSpace = 0;
     
     // add a lot of colors
     
     NSMutableArray *colors = [[NSMutableArray alloc] init];
-    [colors addObject:[UIColor colorWithRed:49/255.f green:119/255.f blue:183/255.f alpha:1.f]];
-    [colors addObject:[UIColor colorWithRed:117/255.f green:119/255.f blue:234/255.f alpha:1.f]];
-    [colors addObject:[UIColor colorWithRed:247/255.f green:127/255.f blue:0/255.f alpha:1.f]];
-    [colors addObject:[UIColor colorWithRed:250/255.f green:187/255.f blue:113/255.f alpha:1.f]];
-    [colors addObject:[UIColor colorWithRed:66/255.f green:187/255.f blue:113/255.f alpha:1.f]];
-    [colors addObject:[UIColor colorWithRed:201/255.f green:218/255.f blue:248/255.f alpha:1.f]];
+//    [colors addObject:[UIColor colorWithRed:49/255.f green:119/255.f blue:183/255.f alpha:1.f]];
+//    [colors addObject:[UIColor colorWithRed:117/255.f green:119/255.f blue:234/255.f alpha:1.f]];
+//    [colors addObject:[UIColor colorWithRed:247/255.f green:127/255.f blue:0/255.f alpha:1.f]];
+//    [colors addObject:[UIColor colorWithRed:250/255.f green:187/255.f blue:113/255.f alpha:1.f]];
+//    [colors addObject:[UIColor colorWithRed:66/255.f green:187/255.f blue:113/255.f alpha:1.f]];
+//    [colors addObject:[UIColor colorWithRed:201/255.f green:218/255.f blue:248/255.f alpha:1.f]];
+//    [colors addObject:[UIColor colorWithRed:247/255.f green:127/255.f blue:0/255.f alpha:1.f]];
+    for(int i=0;i<count;i++) {
+        [colors addObject:[self randomColor]];
+    }
     
     dataSet.colors = colors;
     
@@ -442,7 +496,7 @@
         
     }
     else{
-        
+        [pieViews setDrawHoleEnabled:YES];
     }
     [pieViews highlightValues:nil];
 }
@@ -801,19 +855,19 @@
     
     [self AnimateButtonOnClick:sender];
     
-    if (typeOfChart == 0) {
-        [lineChartView saveToCameraRoll];
-    }else if (typeOfChart ==1){
-        [pieViews saveToCameraRoll];
-    }else if (typeOfChart ==2){
-        [pieViews saveToCameraRoll];
-    }else if (typeOfChart ==3){
-        [barViews saveToCameraRoll];
-    }else if (typeOfChart ==4){
-        [lineChartView saveToCameraRoll];
-    }else if (typeOfChart ==5){
-        [lineChartView saveToCameraRoll];
-    }
+//    if (typeOfChart == 0) {
+//        [lineChartView saveToCameraRoll];
+//    }else if (typeOfChart ==1){
+//        [pieViews saveToCameraRoll];
+//    }else if (typeOfChart ==2){
+//        [pieViews saveToCameraRoll];
+//    }else if (typeOfChart ==3){
+//        [barViews saveToCameraRoll];
+//    }else if (typeOfChart ==4){
+//        [lineChartView saveToCameraRoll];
+//    }else if (typeOfChart ==5){
+//        [lineChartView saveToCameraRoll];
+//    }
     [self.view makeToast:@"Chart saved successfully" duration:1.0 position:CSToastPositionCenter];
 
 }
@@ -864,17 +918,17 @@
                              self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width-320;
                              [self.view layoutIfNeeded];
                              
-                             if(typeOfChart == 0) {
-                                 [self plotLineChart:6 range:6];
-                             } else if(typeOfChart == 1) {
-                                 [self plotPieChart:6 range:6];
-                             } else if (typeOfChart == 2) {
-                                 [self plotPieChart:6 range:6];
-                             } else if (typeOfChart == 3) {
-                                 [self plotBarChart:6 range:6];
-                             } else{
-                                 [self plotLineChart:6 range:6];
-                             }
+//                             if(typeOfChart == 0) {
+//                                 [self plotLineChart:6 range:6];
+//                             } else if(typeOfChart == 1) {
+//                                 [self plotPieChart:6 range:6];
+//                             } else if (typeOfChart == 2) {
+//                                 [self plotPieChart:6 range:6];
+//                             } else if (typeOfChart == 3) {
+//                                 [self plotBarChart:6 range:6];
+//                             } else{
+//                                 [self plotLineChart:6 range:6];
+//                             }
                              
                              
                          }];
@@ -888,17 +942,17 @@
                              isTopStoriesOpen = NO;
                              self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
                              [self.view layoutIfNeeded];
-                             if(typeOfChart == 0) {
-                                 [self plotLineChart:6 range:6];
-                             } else if(typeOfChart == 1) {
-                                 [self plotPieChart:6 range:6];
-                             } else if (typeOfChart == 2) {
-                                 [self plotPieChart:6 range:6];
-                             } else if (typeOfChart == 3) {
-                                 [self plotBarChart:6 range:6];
-                             } else{
-                                 [self plotLineChart:6 range:6];
-                             }
+//                             if(typeOfChart == 0) {
+//                                 [self plotLineChart:6 range:6];
+//                             } else if(typeOfChart == 1) {
+//                                 [self plotPieChart:6 range:6];
+//                             } else if (typeOfChart == 2) {
+//                                 [self plotPieChart:6 range:6];
+//                             } else if (typeOfChart == 3) {
+//                                 [self plotBarChart:6 range:6];
+//                             } else{
+//                                 [self plotLineChart:6 range:6];
+//                             }
                              
                          }];
     }
