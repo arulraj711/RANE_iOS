@@ -17,10 +17,22 @@
 @interface ChartViewController : UIViewController<ChartViewDelegate,CMPopTipViewDelegate,UITableViewDelegate,UITableViewDataSource>{
     NSArray *monthArray;
     NSArray *ValueArray;
+    NSArray *ValueArrayTwo;
+
+    NSArray *scaledXvalue;
+    NSArray *scaledYvalue;
+    NSArray *scaledYvalueTwo;
+    
+    NSDictionary *articleCirculationMap;
+    NSDictionary *articleCountMap;
+
+    NSArray *unScaledXvalue;
+    NSArray *unScaledYvalue;
+    NSArray *unscaledYvalueTwo;
+
     int typeOfChart;
     CGFloat widthOfChartViewOutline;
     CGFloat heightOfChartViewOutline;
-    NSArray *ValueArrayTwo;
     NSMutableArray *chartIcon,*selectedChatIcon;
     NSMutableArray *chartName;
     
