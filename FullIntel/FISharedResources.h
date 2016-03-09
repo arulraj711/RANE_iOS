@@ -75,4 +75,6 @@
 -(void)getTrendOfCoverageChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 -(void)getKeyTopicsChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 -(void)getMediaTypeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
+-(void)getSentimentAndVolumeOverTimeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
+
 @end

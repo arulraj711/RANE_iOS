@@ -133,4 +133,7 @@ onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 //Get Media Type Chart Info
 +(void)getMediaTypeInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//Get getSentimentAndVolumeOverTime Chart Info
++(void)getSentimentAndVolumeOverTimeInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

@@ -31,6 +31,8 @@
     NSArray *unScaledYvalue;
     NSArray *unscaledYvalueTwo;
 
+    int onlyMonth;
+    
     CGFloat widthOfChartViewOutline;
     CGFloat heightOfChartViewOutline;
     NSMutableArray *chartIcon,*selectedChatIcon;

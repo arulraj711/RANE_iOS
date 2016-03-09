@@ -48,7 +48,6 @@
         [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
         [self.revealController showViewController:self.revealController.leftViewController];
     }
-    
 }
 
 -(void)afterFetchingReportList:(id)sender {

@@ -451,9 +451,9 @@
                             <constraint firstItem="90V-fL-jvi" firstAttribute="top" secondItem="ivQ-hL-I50" secondAttribute="top" constant="64" id="6uI-XI-lvD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="90V-fL-jvi" secondAttribute="trailing" constant="-20" id="Clo-4c-rYz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xUX-id-SCP" secondAttribute="trailing" constant="-16" id="OvX-ej-Bi5"/>
+                            <constraint firstItem="lxZ-84-GbP" firstAttribute="top" secondItem="xUX-id-SCP" secondAttribute="bottom" id="XkZ-RC-XOh"/>
                             <constraint firstItem="xUX-id-SCP" firstAttribute="top" secondItem="90V-fL-jvi" secondAttribute="bottom" id="h7d-mF-daX"/>
                             <constraint firstItem="90V-fL-jvi" firstAttribute="leading" secondItem="ivQ-hL-I50" secondAttribute="leadingMargin" constant="-20" id="ooq-lx-nsk"/>
-                            <constraint firstItem="lxZ-84-GbP" firstAttribute="top" secondItem="xUX-id-SCP" secondAttribute="bottom" id="si2-89-jnz"/>
                             <constraint firstItem="xUX-id-SCP" firstAttribute="leading" secondItem="ivQ-hL-I50" secondAttribute="leadingMargin" constant="-16" id="zZ3-8X-s0c"/>
                         </constraints>
                     </view>

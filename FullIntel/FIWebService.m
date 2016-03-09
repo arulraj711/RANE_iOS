@@ -836,4 +836,18 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
         failure(operation, error);
     }];
 }
+
+//Media Type Chart Info
++(void)getSentimentAndVolumeOverTimeInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/articles/tonalities?fromDate=%@&toDate=%@&xKey=tonality.name&yKey=fields.id",companyId,fromDate,toDate];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+}
+
 @end

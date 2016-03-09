@@ -2761,6 +2761,8 @@
 
 -(void)getTrendOfCoverageChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
     [FIWebService getTrendOfCoverageInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",responseObject);
+
         NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TrendOfCoverageInfo", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTrendOfCoverageInfo"
                                                             object:self
@@ -2795,4 +2797,15 @@
     }];
 }
 
+-(void)getSentimentAndVolumeOverTimeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
+    [FIWebService getSentimentAndVolumeOverTimeInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"SentimentAndVolumeOverTimeInfo", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedSentimentAndVolumeOverTimeInfo"
+                                                            object:self
+                                                          userInfo:theInfo];
+        
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // [FIUtils showErrorToast];
+    }];
+}
 @end
