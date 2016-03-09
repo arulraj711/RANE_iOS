@@ -286,84 +286,78 @@
     NSArray *finalFormattedMonthNam = [twoMemberArray objectAtIndex:1];
     
     
+    
+    //sorting the array of values based on keys------------------------------------------------------------
+    
+    NSMutableArray *reverseOrders = [[NSMutableArray alloc] init];                //contains the values of date in sorted form
+    for (int i=0; i<reverseOrder.count; i++)
+    {
+        NSString *inpT = [reverseOrder objectAtIndex:i];
+        NSString *value = [keyTopicsDic objectForKey:inpT];
+        [reverseOrders addObject:value];
+    }
+    NSLog(@"%@",reverseOrder);
+
+    NSLog(@"%@",reverseOrders);                                                  //the array with brand and its values
+    
+    //for pan gesture, getting weeknumber and monthnumber--------------------------------------------------------------------------------
+
+    
+    
+    
     //month name based array----------------------------------------------------------------
     NSArray *keyMonthArray = [self GetMonthNameFromNumber:finalFormattedMonthNam];
     NSLog(@"%@",keyMonthArray);
     
    //to get x value-------------------------------------------------------------------------
-    NSDictionary *dataDictionary = [[keyTopicsDic allValues] objectAtIndex:0];
-    NSLog(@"%@",dataDictionary);
-
-    NSMutableArray *furtherParsd = [dataDictionary objectForKey:@"HTC"];
-    NSLog(@"%@",furtherParsd);
-
-    NSDictionary *valueArrayDict = [[dataDictionary allValues] objectAtIndex:0];
-    NSLog(@"%@",valueArrayDict);
     
-    NSArray *valueArrayFrmDict = [valueArrayDict allKeys];
-    valueArrayFrmDict = [valueArrayFrmDict sortedArrayUsingComparator:^(id a, id b) {
-        return [a compare:b options:NSNumericSearch];
-    }];
     
-    NSLog(@"%@",valueArrayFrmDict);//only names of brands
 
 
     
+
+    NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
+    NSMutableArray *YValueForBrands = [[NSMutableArray alloc]init];    //the final array with brand's values
+
+//loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
     
-    NSArray *keyArrayTone = [dataDictionary allKeys];
-    NSLog(@">%@",keyArrayTone);
-    
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (int m = 0; m<reverseOrders.count; m++) {
+        
+        NSDictionary *dataDictionary = [reverseOrders objectAtIndex:m];
 
-    for (int j =0 ; j<valueArrayFrmDict.count; j++) {
-        NSString *someString = [valueArrayFrmDict objectAtIndex:j];
-        [dict setObject:[NSMutableArray array] forKey:someString];
+        NSArray *initXValueWithBrands = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:0];
+        NSArray *initYValueForBrands = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:1];
+        
+        if (m>0) {
+            [XValueWithBrands addObject:@" "];
+            NSArray *array1 = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],nil];
 
-    }
-    NSLog(@">%@",dict);
-
-    
-
-    NSMutableArray *outerArray = [[NSMutableArray alloc]init];
-    for (int k = 0; k<valueArrayFrmDict.count; k++) {
-        NSMutableArray *innerArray = [[NSMutableArray alloc]init];
-        NSString *dotValue = [valueArrayFrmDict objectAtIndex:k];
-
-        for (int i = 0; i<keyArrayTone.count; i++) {
-            NSString *inputStr = [NSString stringWithFormat:@"%@.%@",[keyArrayTone objectAtIndex:i],dotValue];
-            NSLog(@">%@",inputStr);
-            [innerArray addObject:[dataDictionary valueForKeyPath:inputStr]];
-            
-            NSLog(@">%@",innerArray);
+            [YValueForBrands addObject:array1];
         }
-        [outerArray addObject:innerArray];
+        
+        [XValueWithBrands addObjectsFromArray:initXValueWithBrands];
+        [YValueForBrands addObjectsFromArray:initYValueForBrands];
 
     }
-    
-    
-    NSLog(@"key--->%@",outerArray);
 
-//    NSDictionary *finalContentDictionary = [NSDictionary dictionaryWithObjects:outerArray forKeys:valueArrayFrmDict];
-//    NSLog(@"%@",finalContentDictionary);
+    NSLog(@"%@",XValueWithBrands);
+    NSLog(@"%@",YValueForBrands);
 
-    
-    //        NSArray *HTC = [nsa][dataDictionary valueForKeyPath:inputStr];
+//loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
 
-    if(keyTopicsDic.count != 0) {
-        monthArray = [NSArray arrayWithArray:valueArrayFrmDict];
-        ValueArray = [NSArray arrayWithArray:outerArray];
+
+    if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
+        monthArray = [NSArray arrayWithArray:XValueWithBrands];
+        ValueArray = [NSArray arrayWithArray:YValueForBrands];
         int countVal = (int)monthArray.count;
 
-        [self plotStackedBarChart:countVal range:7];//type 0 for donut chart
+        [self plotStackedBarChart:countVal range:countVal];
     }
     
 
     
-    
-    
-    
 }
+
 
 -(void)settingsButtonFilter{
     
@@ -716,11 +710,11 @@
     
     barViews.drawBordersEnabled = NO;
     
-    barViews.leftAxis.drawAxisLineEnabled = NO;
+//    barViews.leftAxis.drawAxisLineEnabled = NO;
     barViews.leftAxis.drawGridLinesEnabled = NO;
     barViews.rightAxis.drawAxisLineEnabled = NO;
     barViews.rightAxis.drawGridLinesEnabled = NO;
-    barViews.xAxis.drawAxisLineEnabled = NO;
+//    barViews.xAxis.drawAxisLineEnabled = NO;
     barViews.xAxis.drawGridLinesEnabled = NO;
     barViews.drawGridBackgroundEnabled = NO;
     barViews.dragEnabled = YES;
@@ -742,14 +736,7 @@
         
         NSArray *oneValArray = [ValueArray objectAtIndex:i];
         NSLog(@"%@",oneValArray);
-//        double val1 = [(double) oneValArray objectAtIndex:0];
-//        double val2 = (double) (arc4random_uniform(mult) + mult / 3);
-//        double val3 = (double) (arc4random_uniform(mult) + mult / 3);
-        
         [yVals addObject:[[BarChartDataEntry alloc] initWithValues:oneValArray xIndex:i]];
-//        NSArray *objectArray =[ValueArray objectAtIndex:i];
-        
-//        [yVals addObject:[[BarChartDataEntry alloc] initWithValue:[[ValueArray objectAtIndex:i] doubleValue] xIndex:i]];
     }
     
     
@@ -767,15 +754,21 @@
     //    }
     
     BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"-Tonality"];
-    set1.colors = ChartColorTemplates.vordiplom;
     set1.drawValuesEnabled = NO;
     set1.stackLabels = @[@"Positive", @"Neutral", @"Negative"];
 
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     [dataSets addObject:set1];
     
-    BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
+    NSMutableArray *colors = [[NSMutableArray alloc] init];
+  
+        [colors addObject:[UIColor colorWithRed:64/255.f green:211/255.f blue:133/255.f alpha:1.f]];
+        [colors addObject:[UIColor colorWithRed:216/255.f green:216/255.f blue:216/255.f alpha:1.f]];
+        [colors addObject:[UIColor colorWithRed:255/255.f green:64/255.f blue:64/255.f alpha:1.f]];
+
+    set1.colors = colors;
     
+    BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
     barViews.data = data;
 }
 
@@ -1064,6 +1057,60 @@
     return weekValueOfDateArray;
 }
 
+-(NSArray *)GetXvalueAndYvalueForStackedBarChart :(NSDictionary *)inputDictionary{
+    // Parsing from the dictionary
+    
+    NSDictionary *valueArrayDict = [[inputDictionary allValues] objectAtIndex:0];
+    NSLog(@"%@",valueArrayDict);
+    
+    NSArray *valueArrayFrmDict = [valueArrayDict allKeys];
+    valueArrayFrmDict = [valueArrayFrmDict sortedArrayUsingComparator:^(id a, id b) {
+        return [a compare:b options:NSNumericSearch];
+    }];
+    
+    NSLog(@"%@",valueArrayFrmDict);//only names of brands
+    
+    
+    
+    
+    NSArray *keyArrayTone = [inputDictionary allKeys];
+    NSLog(@">%@",keyArrayTone);
+    
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (int j =0 ; j<valueArrayFrmDict.count; j++) {
+        NSString *someString = [valueArrayFrmDict objectAtIndex:j];
+        [dict setObject:[NSMutableArray array] forKey:someString];
+        
+    }
+    NSLog(@">%@",dict);
+    
+    
+    
+    NSMutableArray *outerArray = [[NSMutableArray alloc]init];
+    for (int k = 0; k<valueArrayFrmDict.count; k++) {
+        NSMutableArray *innerArray = [[NSMutableArray alloc]init];
+        NSString *dotValue = [valueArrayFrmDict objectAtIndex:k];
+        
+        for (int i = 0; i<keyArrayTone.count; i++) {
+            NSString *inputStr = [NSString stringWithFormat:@"%@.%@",[keyArrayTone objectAtIndex:i],dotValue];
+            NSLog(@">%@",inputStr);
+            [innerArray addObject:[inputDictionary valueForKeyPath:inputStr]];
+            
+            NSLog(@">%@",innerArray);
+        }
+        [outerArray addObject:innerArray];
+        
+    }
+    
+    
+    NSLog(@"key--->%@",outerArray); // only values for brands
+    
+    NSMutableArray *outputArray=[[NSMutableArray alloc] initWithArray:@[valueArrayFrmDict,outerArray]];
+    
+    return outputArray; //array returned with x and y values
+    
+}
 
 
 #pragma mark - Custom Methods
