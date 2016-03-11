@@ -2808,4 +2808,26 @@
         // [FIUtils showErrorToast];
     }];
 }
+-(void)getChangeOverLastQuarterChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
+    [FIWebService getChangeOverLastQuarterInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"ChangeOverLastQuarterInfo", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedChangeOverLastQuarterInfo"
+                                                            object:self
+                                                          userInfo:theInfo];
+        
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // [FIUtils showErrorToast];
+    }];
+}
+-(void)getTopSourcesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
+    [FIWebService getTopSourcesInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopSourcesInfo", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopSourcesInfo"
+                                                            object:self
+                                                          userInfo:theInfo];
+        
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // [FIUtils showErrorToast];
+    }];
+}
 @end

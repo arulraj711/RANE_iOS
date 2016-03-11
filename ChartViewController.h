@@ -42,6 +42,7 @@
     BarChartView *barViews;
     LineChartView *lineChartView;
     
+    
     CMPopTipView *popTipView;
     ReportObject *reportObject;
     NSArray *xInputForMonths;

@@ -125,6 +125,14 @@
                                              selector:@selector(afterFetchingSentimentAndVolumeOverTimeInfo:)
                                                  name:@"FetchedSentimentAndVolumeOverTimeInfo"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(afterFetchingChangeOverLastQuarterInfo:)
+                                                 name:@"FetchedChangeOverLastQuarterInfo"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(afterFetchingTopSourcesInfo:)
+                                                 name:@"FetchedTopSourcesInfo"
+                                               object:nil];
     [[FISharedResources sharedResourceManager]getSingleReportDetailsForReportId:self.reportId];
    // Do any additional setup after loading the view.
 }
@@ -326,7 +334,7 @@
         NSDictionary *dataDictionary = [reverseOrders objectAtIndex:m];
 
         NSArray *initXValueWithBrands = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:0];
-        NSArray *initYValueForBrands = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:1];
+        NSArray *initYValueForBrands  = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:1];
         
         if (m>0) {
             [XValueWithBrands addObject:@" "];
@@ -358,7 +366,191 @@
     
 }
 
+-(void)afterFetchingChangeOverLastQuarterInfo:(id)sender
+{
+    NSNotification *notification = sender;
+    NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"ChangeOverLastQuarterInfo"];
+    NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"tagTonality"]);
+    
+    
+    NSArray *reverseOrder=[self sortKeysInOrder:keyTopicsDic];   //contains the keys in sorted form
+    NSLog(@"%@",reverseOrder);
+    
+    //----------------------------------------------------------------to get the brand names in firstkey
 
+    NSString *firstKey = [NSString stringWithFormat:@"%@",[reverseOrder objectAtIndex:0]];    //contains the first key
+
+    NSMutableDictionary *dictWithDate = [keyTopicsDic objectForKey:firstKey];                 //gets the dict value of the first key
+    
+    NSArray *firstArrayOfDates=[self sortKeysInOrder:dictWithDate];   //contains the dates of first key
+    NSLog(@"%@",firstArrayOfDates);
+
+    NSArray *twoMemberArray = [self FindWeekNumberOfDate:firstArrayOfDates];                        //to get the array of month number
+    
+    NSArray *finalFormattedMonthNam = [twoMemberArray objectAtIndex:1];                             //Contains the array of month number
+    
+    //month name based array----------------------------------------------------------------
+    
+    NSArray *keyMonthArray = [self GetMonthNameFromNumber:finalFormattedMonthNam];                  //Contains the array of month name
+
+    NSArray *reverseOrders = [self sortValuesOfKeysInOrder:keyTopicsDic withArray:reverseOrder];
+    NSLog(@"%@",reverseOrders);                                                  //the array with brand and its values
+
+    NSMutableArray *trialArrayTwo = [[NSMutableArray alloc] init];                //contains the values of keys in sorted form
+
+    for (int i =0;i<firstArrayOfDates.count;i++) {
+    NSString *firstgey = [NSString stringWithFormat:@"%@",[firstArrayOfDates objectAtIndex:i]];
+    NSMutableArray *arrayCodigos = [NSMutableArray arrayWithArray:[reverseOrders valueForKey:firstgey]];
+    NSLog(@"arrayCodigos %@", arrayCodigos);
+    [trialArrayTwo addObject:arrayCodigos];
+    }
+    
+    NSLog(@"%@",trialArrayTwo);                                                  //the array with brand and its values
+    NSLog(@"%@",keyTopicsDic);                                                  //the array with brand and its values
+
+    if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
+        monthArray = [NSArray arrayWithArray:keyMonthArray];
+        ValueArray = [NSArray arrayWithArray:trialArrayTwo];
+        int countVal = (int)monthArray.count;
+        
+        [self plotMultipleBarChart:countVal range:8];
+    }
+
+    
+    
+//    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+//    for (NSDate *key in firstDictOfKey.allKeys) {
+//        NSString *month = [dateFormatter stringFromDate:key];
+//        if (result[month] == nil) {
+//            result[month] = arrayOne[key];
+//        } else {
+//            NSInteger value = [result[month] integerValue];
+//            result[month] = @(value + [arrayOne[key] integerValue]);
+//        }
+//    }
+//    NSLog(@"%@", result);
+
+    
+    
+//    for (NSArray *oneByOneProduct in keyTopicsDic) {
+//        oneByOneProduct = [
+//    }
+    
+//    //sorting the array of values based on keys------------------------------------------------------------
+//    
+//
+//    for (int i=0; i<reverseOrder.count; i++)
+//    {
+//        NSString *inpT = [reverseOrder objectAtIndex:i];
+//        NSString *value = [keyTopicsDic objectForKey:inpT];
+//        [reverseOrders addObject:value];
+//    }
+//    NSLog(@"%@",reverseOrder);
+//    
+//    NSLog(@"%@",reverseOrders);                                                  //the array with brand and its values
+//    NSArray *twoMemberArray = [self FindWeekNumberOfDate:reverseOrder];
+//    NSLog(@"%@",twoMemberArray);
+//    
+//    NSArray *finalFormattedMonthNam = [twoMemberArray objectAtIndex:1];
+//    NSLog(@"%@",finalFormattedMonthNam);
+//
+//    //for pan gesture, getting weeknumber and monthnumber--------------------------------------------------------------------------------
+//    
+//    
+//    
+//    
+//    //month name based array----------------------------------------------------------------
+//    NSArray *keyMonthArray = [self GetMonthNameFromNumber:finalFormattedMonthNam];
+//    NSLog(@"%@",keyMonthArray);
+//    
+//    //to get x value-------------------------------------------------------------------------
+//    
+//    
+//    
+//    
+//    
+//    
+//    NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
+//    NSMutableArray *YValueForBrands = [[NSMutableArray alloc]init];    //the final array with brand's values
+//    
+//    //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
+//    
+//    for (int m = 0; m<reverseOrders.count; m++) {
+//        
+//        NSDictionary *dataDictionary = [reverseOrders objectAtIndex:m];
+//        
+//        NSArray *initXValueWithBrands = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:0];
+//        NSArray *initYValueForBrands = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:1];
+//        
+//        if (m>0) {
+//            [XValueWithBrands addObject:@" "];
+//            NSArray *array1 = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],nil];
+//            
+//            [YValueForBrands addObject:array1];
+//        }
+//        
+//        [XValueWithBrands addObjectsFromArray:initXValueWithBrands];
+//        [YValueForBrands addObjectsFromArray:initYValueForBrands];
+//        
+//    }
+//    
+//    NSLog(@"%@",XValueWithBrands);
+//    NSLog(@"%@",YValueForBrands);
+//    
+//    //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
+//    
+//    
+//    if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
+//        monthArray = [NSArray arrayWithArray:XValueWithBrands];
+//        ValueArray = [NSArray arrayWithArray:YValueForBrands];
+//        int countVal = (int)monthArray.count;
+//        
+//        [self plotStackedHorizontalBarChart:countVal range:countVal];
+//    }
+//    
+    
+}
+-(NSArray *)sortKeysInOrder :(NSDictionary *)inputDictionary{
+    NSSortDescriptor *descriptories=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
+    NSArray *descriptoriess=[NSArray arrayWithObject: descriptories];
+    NSArray *resultantArray=[[inputDictionary  allKeys] sortedArrayUsingDescriptors:descriptoriess];
+    NSLog(@"%@",resultantArray);
+
+    return resultantArray;
+    
+}
+-(NSArray *)sortValuesOfKeysInOrder :(NSDictionary *)inputDictionary withArray:(NSArray *)inputArray{
+    NSMutableArray *valueOfDicts = [[NSMutableArray alloc] init];
+    for (int i=0; i<inputArray.count; i++)
+    {
+        NSString *inpT = [inputArray objectAtIndex:i];
+        NSString *value = [inputDictionary objectForKey:inpT];
+        [valueOfDicts addObject:value];
+    }
+    
+    NSLog(@"%@",valueOfDicts);
+    return valueOfDicts;
+}
+
+-(void)afterFetchingTopSourcesInfo:(id)sender{
+    
+    NSNotification *notification = sender;
+    NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"TopSourcesInfo"];
+    NSLog(@"%@",mediaTypeInfoDic);
+    NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"outletMapTonality"]);
+    
+    NSArray *valueArrayFrmDict = [keyTopicsDic allKeys];
+    valueArrayFrmDict = [valueArrayFrmDict sortedArrayUsingComparator:^(id a, id b) {
+        return [a compare:b options:NSNumericSearch];
+    }];
+    
+    NSLog(@"%@",valueArrayFrmDict);//only names of brands
+
+    
+    
+    
+
+}
 -(void)settingsButtonFilter{
     
 
@@ -507,6 +699,12 @@
     }else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]){
         // Select Sentiment and Volume Over Time chart
         [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+    }else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:5]]){
+        // Select change over last quarter chart
+        [[FISharedResources sharedResourceManager]getChangeOverLastQuarterChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+    }else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:6]]){
+        // Select change over last quarter chart
+        [[FISharedResources sharedResourceManager]getTopSourcesChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     }
     
 }
@@ -691,6 +889,83 @@
     
     barViews.data = data;
 }
+- (void)plotMultipleBarChart:(int)count range:(double)range
+{
+    [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+    
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
+        
+    }
+    else{
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
+    }
+    barViews.backgroundColor = [UIColor whiteColor];
+    
+    barViews.drawBordersEnabled = NO;
+    
+    barViews.leftAxis.drawAxisLineEnabled = NO;
+    barViews.leftAxis.drawGridLinesEnabled = NO;
+    barViews.rightAxis.drawAxisLineEnabled = NO;
+    barViews.rightAxis.drawGridLinesEnabled = NO;
+    barViews.xAxis.drawAxisLineEnabled = NO;
+    barViews.xAxis.drawGridLinesEnabled = NO;
+    barViews.drawGridBackgroundEnabled = NO;
+    barViews.dragEnabled = YES;
+    barViews.rightAxis.drawLabelsEnabled = NO;
+    barViews.descriptionText =@"";
+    barViews.legend.position = ChartLegendPositionBelowChartCenter;
+    [barViews setScaleEnabled:YES];
+    barViews.pinchZoomEnabled = YES;
+    barViews.xAxis.labelPosition = XAxisLabelPositionBottom;
+    
+    [_chartViewOutline addSubview:barViews];
+    
+    [barViews animateWithYAxisDuration:3.0];
+    
+    
+    NSLog(@"%@",ValueArray);
+    NSLog(@"%@",monthArray);
+    
+    
+    
+    NSMutableArray *yVals = [[NSMutableArray alloc] init];
+    
+
+    
+    for (int i = 0; i < count; i++){
+        
+        NSArray *oneValArray = [ValueArray objectAtIndex:i];
+        NSLog(@"%@",oneValArray);
+        [yVals addObject:[[BarChartDataEntry alloc] initWithValues:oneValArray xIndex:i]];
+    }
+
+    
+    NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < count; i++)
+    {
+        [xVals addObject:monthArray[i % monthArray.count]];
+    }
+    
+    //    NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    //    for (int i = 0; i < count; i++)
+    //    {
+    //        [xVals addObject:[@((int)((BarChartDataEntry *)yVals[i]).value) stringValue]];
+    //    }
+    
+    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"Brands"];
+    set1.colors = ChartColorTemplates.vordiplom;
+    set1.drawValuesEnabled = NO;
+    
+    NSMutableArray *dataSets = [[NSMutableArray alloc] init];
+    [dataSets addObject:set1];
+    
+    BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
+    
+    barViews.data = data;
+}
+
 
 
 - (void)plotStackedBarChart:(int)count range:(double)range
@@ -769,6 +1044,86 @@
     set1.colors = colors;
     
     BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
+    barViews.data = data;
+}
+
+
+- (void)plotStackedHorizontalBarChart:(int)count range:(double)range
+{
+    
+    
+    [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+    
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
+        
+    }
+    else{
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
+    }
+    barViews.backgroundColor = [UIColor whiteColor];
+    
+    barViews.drawBordersEnabled = NO;
+    
+    //    barViews.leftAxis.drawAxisLineEnabled = NO;
+    barViews.leftAxis.drawGridLinesEnabled = NO;
+    barViews.rightAxis.drawAxisLineEnabled = NO;
+    barViews.rightAxis.drawGridLinesEnabled = NO;
+    //    barViews.xAxis.drawAxisLineEnabled = NO;
+    barViews.xAxis.drawGridLinesEnabled = NO;
+    barViews.drawGridBackgroundEnabled = NO;
+    barViews.dragEnabled = YES;
+    barViews.rightAxis.drawLabelsEnabled = NO;
+    barViews.descriptionText =@"";
+    barViews.legend.position = ChartLegendPositionBelowChartCenter;
+    [barViews setScaleEnabled:YES];
+    barViews.pinchZoomEnabled = YES;
+    barViews.xAxis.labelPosition = XAxisLabelPositionBottom;
+    barViews.xAxis.labelRotationAngle =90;
+    
+    [_chartViewOutline addSubview:barViews];
+    
+    [barViews animateWithYAxisDuration:3.0];
+    
+    NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < count; i++){
+        
+        NSArray *oneValArray = [ValueArray objectAtIndex:i];
+        NSLog(@"%@",oneValArray);
+        [xVals addObject:[[BarChartDataEntry alloc] initWithValues:oneValArray xIndex:i]];
+    }
+    
+    
+    NSMutableArray *yVals = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < count; i++)
+    {
+        [yVals addObject:monthArray[i % monthArray.count]];
+    }
+    
+    //    NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    //    for (int i = 0; i < count; i++)
+    //    {
+    //        [xVals addObject:[@((int)((BarChartDataEntry *)yVals[i]).value) stringValue]];
+    //    }
+    
+    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:xVals label:@"-Tonality"];
+    set1.drawValuesEnabled = NO;
+    set1.stackLabels = @[@"Positive", @"Neutral", @"Negative"];
+    
+    NSMutableArray *dataSets = [[NSMutableArray alloc] init];
+    [dataSets addObject:set1];
+    
+    NSMutableArray *colors = [[NSMutableArray alloc] init];
+    
+    [colors addObject:[UIColor colorWithRed:64/255.f green:211/255.f blue:133/255.f alpha:1.f]];
+    [colors addObject:[UIColor colorWithRed:216/255.f green:216/255.f blue:216/255.f alpha:1.f]];
+    [colors addObject:[UIColor colorWithRed:255/255.f green:64/255.f blue:64/255.f alpha:1.f]];
+    
+    set1.colors = colors;
+    
+    BarChartData *data = [[BarChartData alloc] initWithXVals:yVals dataSets:dataSets];
     barViews.data = data;
 }
 
@@ -952,21 +1307,21 @@
 
     for (int i =0;i<inputDateArray.count;i++) {
         NSString *dateInput = [inputDateArray objectAtIndex:i];
-        NSLog(@"%@",dateInput);
+        //NSLog(@"%@",dateInput);
         
         dateInput = [dateInput stringByReplacingOccurrencesOfString:@"T" withString:@" "];
         dateInput = [dateInput stringByReplacingOccurrencesOfString:@".000Z" withString:@""];
-        NSLog(@"%@",dateInput);
+        //NSLog(@"%@",dateInput);
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
         NSDate *inpuDateFormat = [dateFormatter dateFromString:dateInput];
-        NSLog(@"%@",inpuDateFormat);
+        //NSLog(@"%@",inpuDateFormat);
         
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps = [calendar components:NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth fromDate:inpuDateFormat];
-        NSLog(@"%ld",(long)comps.weekOfMonth);
+       // NSLog(@"%ld",(long)comps.weekOfMonth);
         NSInteger weekComp = comps.weekOfMonth;
         NSInteger monthComp = comps.month;
 
@@ -979,7 +1334,7 @@
 }
 
 -(NSArray *)GetMonthNameFromNumber :(NSArray *)inputArray{
-    NSLog(@"%@",inputArray);
+    //NSLog(@"%@",inputArray);
 
     NSMutableArray *outPutMonthArray = [[ NSMutableArray alloc]init];
     for (int i =0;i<inputArray.count;i++) {
@@ -1012,7 +1367,7 @@
     
     NSDictionary *arrayOne = [[NSDictionary alloc]initWithObjects:valuesArray forKeys:dateArray]; //creating this dict with input formatted date and values contains reverseorders.
     
-    NSLog(@"%@",arrayOne);
+    //NSLog(@"%@",arrayOne);
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"MMMM";
@@ -1027,9 +1382,9 @@
             result[month] = @(value + [arrayOne[key] integerValue]);
         }
     }
-    NSLog(@"%@", result);                                                       //resultant dict with month and sum of values corresponding.
-    NSLog(@"%@", [result allKeys]);
-    NSLog(@"%@", [result allValues]);
+    //NSLog(@"%@", result);                                                       //resultant dict with month and sum of values corresponding.
+    //NSLog(@"%@", [result allKeys]);
+    //NSLog(@"%@", [result allValues]);
     
     return result;
 }
@@ -1039,17 +1394,17 @@
     
     for (int i =0;i<inputDateArray.count;i++) {
         NSString *dateInput = [inputDateArray objectAtIndex:i];
-        NSLog(@"%@",dateInput);
+        // NSLog(@"%@",dateInput);
         
         dateInput = [dateInput stringByReplacingOccurrencesOfString:@"T" withString:@" "];
         dateInput = [dateInput stringByReplacingOccurrencesOfString:@".000Z" withString:@""];
-        NSLog(@"%@",dateInput);
+        //NSLog(@"%@",dateInput);
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
         NSDate *inpuDateFormat = [dateFormatter dateFromString:dateInput];
-        NSLog(@"%@",inpuDateFormat);
+        //NSLog(@"%@",inpuDateFormat);
         
         [weekValueOfDateArray addObject:inpuDateFormat];
     }
@@ -1059,22 +1414,23 @@
 
 -(NSArray *)GetXvalueAndYvalueForStackedBarChart :(NSDictionary *)inputDictionary{
     // Parsing from the dictionary
-    
+    //NSLog(@"%@",inputDictionary);
+
     NSDictionary *valueArrayDict = [[inputDictionary allValues] objectAtIndex:0];
-    NSLog(@"%@",valueArrayDict);
+   // NSLog(@"%@",valueArrayDict);
     
     NSArray *valueArrayFrmDict = [valueArrayDict allKeys];
     valueArrayFrmDict = [valueArrayFrmDict sortedArrayUsingComparator:^(id a, id b) {
         return [a compare:b options:NSNumericSearch];
     }];
     
-    NSLog(@"%@",valueArrayFrmDict);//only names of brands
+   // NSLog(@"%@",valueArrayFrmDict);//only names of brands
     
     
     
     
     NSArray *keyArrayTone = [inputDictionary allKeys];
-    NSLog(@">%@",keyArrayTone);
+    //NSLog(@">%@",keyArrayTone);
     
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -1083,7 +1439,7 @@
         [dict setObject:[NSMutableArray array] forKey:someString];
         
     }
-    NSLog(@">%@",dict);
+   // NSLog(@">%@",dict);
     
     
     
@@ -1094,17 +1450,17 @@
         
         for (int i = 0; i<keyArrayTone.count; i++) {
             NSString *inputStr = [NSString stringWithFormat:@"%@.%@",[keyArrayTone objectAtIndex:i],dotValue];
-            NSLog(@">%@",inputStr);
+           // NSLog(@">%@",inputStr);
             [innerArray addObject:[inputDictionary valueForKeyPath:inputStr]];
             
-            NSLog(@">%@",innerArray);
+//            NSLog(@">%@",innerArray);
         }
         [outerArray addObject:innerArray];
         
     }
     
     
-    NSLog(@"key--->%@",outerArray); // only values for brands
+//    NSLog(@"key--->%@",outerArray); // only values for brands
     
     NSMutableArray *outputArray=[[NSMutableArray alloc] initWithArray:@[valueArrayFrmDict,outerArray]];
     
@@ -1185,7 +1541,9 @@
         popTipView.delegate = self;
         popTipView.backgroundColor = [UIColor whiteColor];
         popTipView.textColor = [UIColor darkTextColor];
+        popTipView.textFont = [UIFont boldSystemFontOfSize:18.0];
         popTipView.dismissTapAnywhere = YES;
+        popTipView.animation = CMPopTipAnimationPop;
         UIButton *button = (UIButton *)sender;
         
         [popTipView presentPointingAtView:button inView:_chartViewOutline animated:YES];

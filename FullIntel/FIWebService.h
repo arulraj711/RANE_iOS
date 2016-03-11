@@ -136,4 +136,9 @@ onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 //Get getSentimentAndVolumeOverTime Chart Info
 +(void)getSentimentAndVolumeOverTimeInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//Get ChangeOverLastQuarter Chart Info
++(void)getChangeOverLastQuarterInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)getTopSourcesInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 @end

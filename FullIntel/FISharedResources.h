@@ -76,5 +76,6 @@
 -(void)getKeyTopicsChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 -(void)getMediaTypeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 -(void)getSentimentAndVolumeOverTimeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
-
+-(void)getChangeOverLastQuarterChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
+-(void)getTopSourcesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 @end
