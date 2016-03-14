@@ -376,6 +376,7 @@
     NSArray *reverseOrder=[self sortKeysInOrder:keyTopicsDic];   //contains the keys in sorted form
     NSLog(@"%@",reverseOrder);
     
+
     //----------------------------------------------------------------to get the brand names in firstkey
 
     NSString *firstKey = [NSString stringWithFormat:@"%@",[reverseOrder objectAtIndex:0]];    //contains the first key
@@ -405,6 +406,8 @@
     [trialArrayTwo addObject:arrayCodigos];
     }
     
+    
+    
     NSLog(@"%@",trialArrayTwo);                                                  //the array with brand and its values
     NSLog(@"%@",keyTopicsDic);                                                  //the array with brand and its values
 
@@ -412,45 +415,44 @@
     
     
     
-//    
-//        NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
-//        NSMutableArray *YValueForBrands = [[NSMutableArray alloc]init];    //the final array with brand's values
-//    
-//        //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
-//    
-//        for (int m = 0; m<reverseOrders.count; m++) {
-//    
-//    
-//            NSArray *initXValueWithBrands = [NSArray arrayWithArray:keyMonthArray];
-//            NSArray *initYValueForBrands = [NSArray arrayWithArray:trialArrayTwo];
-//    
-//            if (m>0) {
-//                [XValueWithBrands addObject:@" "];
-//                NSArray *array1 = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],nil];
-//    
-//                [YValueForBrands addObject:array1];
-//            }
-//    
-//            [XValueWithBrands addObjectsFromArray:initXValueWithBrands];
-//            [YValueForBrands addObjectsFromArray:initYValueForBrands];
-//    
-//        }
-//        
-//        NSLog(@"%@",XValueWithBrands);
-//        NSLog(@"%@",YValueForBrands);
-//
-//    
-//    
-//    
     
+        NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
+    
+        //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
+    
+        for (int m = 0; m<finalFormattedMonthNam.count; m++) {
+        
+            NSArray *initXValueWithBrands = [NSArray arrayWithArray:reverseOrder];
+            [XValueWithBrands addObjectsFromArray:initXValueWithBrands];
+    
+        }
+        
+        NSLog(@"%@",XValueWithBrands);
+
+    NSMutableArray *finalValueArray = [[NSMutableArray alloc]init];
+    for (NSDictionary *interMed in reverseOrders) {
+        NSLog(@"%@",interMed);
+        NSArray *firstArray=[self sortKeysInOrder:interMed];   //contains the keys in sorted form
+        NSLog(@"%@",firstArray);
+
+        NSArray *secArray = [self sortValuesOfKeysInOrder:interMed withArray:firstArray];
+        NSLog(@"%@",secArray);                                                  //the array with brand and its values
+//        [finalValueArray addObjectsFromArray:secArray];
+        [finalValueArray addObject:secArray];
+        
+    }
+    NSLog(@"%@",finalValueArray);                                                  //the array with brand and its values
+
+
+
     
     
     if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
         monthArray = [NSArray arrayWithArray:keyMonthArray];
-        ValueArray = [NSArray arrayWithArray:trialArrayTwo];
+        ValueArray = [NSArray arrayWithArray:finalValueArray];
         int countVal = (int)monthArray.count;
         
-        [self plotMultipleBarChart:countVal range:8];
+        [self plotMultipleBarChart:countVal range:8 withBrands:reverseOrder];
     }
 
     
@@ -486,15 +488,41 @@
     NSLog(@"%@",mediaTypeInfoDic);
     NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"outletMapTonality"]);
     
-    NSArray *valueArrayFrmDict = [keyTopicsDic allKeys];
-    valueArrayFrmDict = [valueArrayFrmDict sortedArrayUsingComparator:^(id a, id b) {
-        return [a compare:b options:NSNumericSearch];
-    }];
+    NSArray *firstArray=[self sortKeysInOrder:keyTopicsDic];   //contains the keys in sorted form
+    NSLog(@"%@",firstArray);
     
-    NSLog(@"%@",valueArrayFrmDict);//only names of brands
+    NSArray *secArray = [self sortValuesOfKeysInOrder:keyTopicsDic withArray:firstArray];
+    NSLog(@"%@",secArray);                                                  //the array with its values
 
+    NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
+    NSMutableArray *YValueForBrands = [[NSMutableArray alloc]init];    //the final array with brand's values
+
+    //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
     
+    for (int m = 0; m<secArray.count; m++) {
+        
+        NSDictionary *dataDictionary = [secArray objectAtIndex:m];
+        
+        NSArray *initXValueWithBrands = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:0];
+        NSArray *initYValueForBrands  = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:1];
+        
+        if (m>0) {
+            [XValueWithBrands addObject:@" "];
+            NSArray *array1 = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],nil];
+            
+            [YValueForBrands addObject:array1];
+        }
+        
+        [XValueWithBrands addObjectsFromArray:initXValueWithBrands];
+        [YValueForBrands addObjectsFromArray:initYValueForBrands];
+        
+    }
     
+    NSLog(@"%@",XValueWithBrands);
+    NSLog(@"%@",YValueForBrands);
+    
+    //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
+
     
 
 }
@@ -836,7 +864,7 @@
     
     barViews.data = data;
 }
-- (void)plotMultipleBarChart:(int)count range:(double)range
+- (void)plotMultipleBarChart:(int)count range:(double)range withBrands:(NSArray *)inputArray
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
@@ -865,7 +893,8 @@
     [barViews setScaleEnabled:YES];
     barViews.pinchZoomEnabled = YES;
     barViews.xAxis.labelPosition = XAxisLabelPositionBottom;
-    
+    barViews.xAxis.labelRotationAngle =90;
+
     [_chartViewOutline addSubview:barViews];
     
     [barViews animateWithYAxisDuration:3.0];
@@ -875,44 +904,122 @@
     NSLog(@"%@",monthArray);
     
     
-    
-    
-    NSMutableArray *yVals1 = [[NSMutableArray alloc] init];
-    
-    
-
-    NSArray *oneValArray = [ValueArray objectAtIndex:0];
-    for (int i = 0; i < oneValArray.count; i++)
-    {
-        double secYVal = [[oneValArray objectAtIndex:i] doubleValue];
-        [yVals1 addObject:[[BarChartDataEntry alloc] initWithValue:secYVal xIndex:i]];
-
-    }
-    
-
-    
-    NSLog(@"%@",yVals1);
-
-    
-    
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < count; i++)
     {
         [xVals addObject:monthArray[i % monthArray.count]];
     }
+    
+    NSLog(@"%@",xVals);
 
     
-    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals1 label:@"Company A"];
-    [set1 setColor:[UIColor colorWithRed:104/255.f green:241/255.f blue:175/255.f alpha:1.f]];
-   
+        NSMutableArray *yVals1 = [[NSMutableArray alloc] init];
+        NSArray *oneValArray = [ValueArray objectAtIndex:0];
+        for (int i = 0; i < oneValArray.count; i++)
+        {
+            double secYVal = [[oneValArray objectAtIndex:i] doubleValue];
+            [yVals1 addObject:[[BarChartDataEntry alloc] initWithValue:secYVal xIndex:i]];
+
+        }
+
+        NSMutableArray *yVals2 = [[NSMutableArray alloc] init];
+        NSArray *oneValArray2 = [ValueArray objectAtIndex:1];
+        for (int i = 0; i < oneValArray2.count; i++)
+        {
+            double secYVal = [[oneValArray2 objectAtIndex:i] doubleValue];
+            [yVals2 addObject:[[BarChartDataEntry alloc] initWithValue:secYVal xIndex:i]];
+        
+        }
+
+        NSMutableArray *yVals3 = [[NSMutableArray alloc] init];
+        NSArray *oneValArray3 = [ValueArray objectAtIndex:2];
+        for (int i = 0; i < oneValArray3.count; i++)
+        {
+            double secYVal = [[oneValArray3 objectAtIndex:i] doubleValue];
+            [yVals3 addObject:[[BarChartDataEntry alloc] initWithValue:secYVal xIndex:i]];
+        
+        }
+    
+        NSMutableArray *yVals4 = [[NSMutableArray alloc] init];
+        NSArray *oneValArray4 = [ValueArray objectAtIndex:3];
+        for (int i = 0; i < oneValArray4.count; i++)
+        {
+            double secYVal = [[oneValArray4 objectAtIndex:i] doubleValue];
+            [yVals4 addObject:[[BarChartDataEntry alloc] initWithValue:secYVal xIndex:i]];
+        
+        }
+    
+        NSMutableArray *yVals5 = [[NSMutableArray alloc] init];
+        NSArray *oneValArray5 = [ValueArray objectAtIndex:4];
+        for (int i = 0; i < oneValArray5.count; i++)
+        {
+            double secYVal = [[oneValArray5 objectAtIndex:i] doubleValue];
+            [yVals5 addObject:[[BarChartDataEntry alloc] initWithValue:secYVal xIndex:i]];
+            
+        }
+    
+    NSMutableArray *yVals6 = [[NSMutableArray alloc] init];
+    NSArray *oneValArray6 = [ValueArray objectAtIndex:5];
+    for (int i = 0; i < oneValArray6.count; i++)
+    {
+        double secYVal = [[oneValArray6 objectAtIndex:i] doubleValue];
+        [yVals6 addObject:[[BarChartDataEntry alloc] initWithValue:secYVal xIndex:i]];
+        
+    }
+    
+    NSMutableArray *yVals7 = [[NSMutableArray alloc] init];
+    NSArray *oneValArray7 = [ValueArray objectAtIndex:6];
+    for (int i = 0; i < oneValArray7.count; i++)
+    {
+        double secYVal = [[oneValArray7 objectAtIndex:i] doubleValue];
+        [yVals7 addObject:[[BarChartDataEntry alloc] initWithValue:secYVal xIndex:i]];
+        
+    }
+    
+    NSLog(@"%@",yVals1);
+    NSLog(@"%@",yVals2);
+    NSLog(@"%@",yVals3);
+    NSLog(@"%@",yVals4);
+    NSLog(@"%@",yVals5);
+    NSLog(@"%@",yVals6);
+    NSLog(@"%@",yVals7);
+
+
+
+    
+    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals1 label:[inputArray objectAtIndex:0]];
+    [set1 setColor:[UIColor colorWithRed:98/255.f green:163/255.f blue:206/255.f alpha:1.f]];
+    
+    BarChartDataSet *set2 = [[BarChartDataSet alloc] initWithYVals:yVals2 label:[inputArray objectAtIndex:1]];
+    [set2 setColor:[UIColor colorWithRed:201/255.f green:218/255.f blue:240/255.f alpha:1.f]];
+    
+    BarChartDataSet *set3 = [[BarChartDataSet alloc] initWithYVals:yVals3 label:[inputArray objectAtIndex:2]];
+    [set3 setColor:[UIColor colorWithRed:255/255.f green:169/255.f blue:84/255.f alpha:1.f]];
+    
+    BarChartDataSet *set4 = [[BarChartDataSet alloc] initWithYVals:yVals4 label:[inputArray objectAtIndex:3]];
+    [set4 setColor:[UIColor colorWithRed:255/255.f green:210/255.f blue:164/255.f alpha:1.f]];
+    
+    BarChartDataSet *set5 = [[BarChartDataSet alloc] initWithYVals:yVals5 label:[inputArray objectAtIndex:4]];
+    [set5 setColor:[UIColor colorWithRed:108/255.f green:192/255.f blue:108/255.f alpha:1.f]];
+
+    BarChartDataSet *set6 = [[BarChartDataSet alloc] initWithYVals:yVals6 label:[inputArray objectAtIndex:5]];
+    [set6 setColor:[UIColor colorWithRed:186/255.f green:234/255.f blue:176/255.f alpha:1.f]];
+    
+    BarChartDataSet *set7 = [[BarChartDataSet alloc] initWithYVals:yVals7 label:[inputArray objectAtIndex:6]];
+    [set7 setColor:[UIColor colorWithRed:228/255.f green:104/255.f blue:105/255.f alpha:1.f]];
+
     
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     [dataSets addObject:set1];
-    
+    [dataSets addObject:set2];
+    [dataSets addObject:set3];
+    [dataSets addObject:set4];
+    [dataSets addObject:set5];
+    [dataSets addObject:set6];
+    [dataSets addObject:set7];
 
-    BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
-    
+    BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];    
     barViews.data = data;
 }
 
@@ -1364,7 +1471,7 @@
 
 -(NSArray *)GetXvalueAndYvalueForStackedBarChart :(NSDictionary *)inputDictionary{
     // Parsing from the dictionary
-    //NSLog(@"%@",inputDictionary);
+    NSLog(@"%@",inputDictionary);
 
     NSDictionary *valueArrayDict = [[inputDictionary allValues] objectAtIndex:0];
    // NSLog(@"%@",valueArrayDict);
