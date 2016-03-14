@@ -408,6 +408,43 @@
     NSLog(@"%@",trialArrayTwo);                                                  //the array with brand and its values
     NSLog(@"%@",keyTopicsDic);                                                  //the array with brand and its values
 
+    
+    
+    
+    
+//    
+//        NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
+//        NSMutableArray *YValueForBrands = [[NSMutableArray alloc]init];    //the final array with brand's values
+//    
+//        //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
+//    
+//        for (int m = 0; m<reverseOrders.count; m++) {
+//    
+//    
+//            NSArray *initXValueWithBrands = [NSArray arrayWithArray:keyMonthArray];
+//            NSArray *initYValueForBrands = [NSArray arrayWithArray:trialArrayTwo];
+//    
+//            if (m>0) {
+//                [XValueWithBrands addObject:@" "];
+//                NSArray *array1 = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],nil];
+//    
+//                [YValueForBrands addObject:array1];
+//            }
+//    
+//            [XValueWithBrands addObjectsFromArray:initXValueWithBrands];
+//            [YValueForBrands addObjectsFromArray:initYValueForBrands];
+//    
+//        }
+//        
+//        NSLog(@"%@",XValueWithBrands);
+//        NSLog(@"%@",YValueForBrands);
+//
+//    
+//    
+//    
+    
+    
+    
     if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
         monthArray = [NSArray arrayWithArray:keyMonthArray];
         ValueArray = [NSArray arrayWithArray:trialArrayTwo];
@@ -418,96 +455,6 @@
 
     
     
-//    NSMutableDictionary *result = [NSMutableDictionary dictionary];
-//    for (NSDate *key in firstDictOfKey.allKeys) {
-//        NSString *month = [dateFormatter stringFromDate:key];
-//        if (result[month] == nil) {
-//            result[month] = arrayOne[key];
-//        } else {
-//            NSInteger value = [result[month] integerValue];
-//            result[month] = @(value + [arrayOne[key] integerValue]);
-//        }
-//    }
-//    NSLog(@"%@", result);
-
-    
-    
-//    for (NSArray *oneByOneProduct in keyTopicsDic) {
-//        oneByOneProduct = [
-//    }
-    
-//    //sorting the array of values based on keys------------------------------------------------------------
-//    
-//
-//    for (int i=0; i<reverseOrder.count; i++)
-//    {
-//        NSString *inpT = [reverseOrder objectAtIndex:i];
-//        NSString *value = [keyTopicsDic objectForKey:inpT];
-//        [reverseOrders addObject:value];
-//    }
-//    NSLog(@"%@",reverseOrder);
-//    
-//    NSLog(@"%@",reverseOrders);                                                  //the array with brand and its values
-//    NSArray *twoMemberArray = [self FindWeekNumberOfDate:reverseOrder];
-//    NSLog(@"%@",twoMemberArray);
-//    
-//    NSArray *finalFormattedMonthNam = [twoMemberArray objectAtIndex:1];
-//    NSLog(@"%@",finalFormattedMonthNam);
-//
-//    //for pan gesture, getting weeknumber and monthnumber--------------------------------------------------------------------------------
-//    
-//    
-//    
-//    
-//    //month name based array----------------------------------------------------------------
-//    NSArray *keyMonthArray = [self GetMonthNameFromNumber:finalFormattedMonthNam];
-//    NSLog(@"%@",keyMonthArray);
-//    
-//    //to get x value-------------------------------------------------------------------------
-//    
-//    
-//    
-//    
-//    
-//    
-//    NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
-//    NSMutableArray *YValueForBrands = [[NSMutableArray alloc]init];    //the final array with brand's values
-//    
-//    //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
-//    
-//    for (int m = 0; m<reverseOrders.count; m++) {
-//        
-//        NSDictionary *dataDictionary = [reverseOrders objectAtIndex:m];
-//        
-//        NSArray *initXValueWithBrands = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:0];
-//        NSArray *initYValueForBrands = [[self GetXvalueAndYvalueForStackedBarChart:dataDictionary] objectAtIndex:1];
-//        
-//        if (m>0) {
-//            [XValueWithBrands addObject:@" "];
-//            NSArray *array1 = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],nil];
-//            
-//            [YValueForBrands addObject:array1];
-//        }
-//        
-//        [XValueWithBrands addObjectsFromArray:initXValueWithBrands];
-//        [YValueForBrands addObjectsFromArray:initYValueForBrands];
-//        
-//    }
-//    
-//    NSLog(@"%@",XValueWithBrands);
-//    NSLog(@"%@",YValueForBrands);
-//    
-//    //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
-//    
-//    
-//    if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
-//        monthArray = [NSArray arrayWithArray:XValueWithBrands];
-//        ValueArray = [NSArray arrayWithArray:YValueForBrands];
-//        int countVal = (int)monthArray.count;
-//        
-//        [self plotStackedHorizontalBarChart:countVal range:countVal];
-//    }
-//    
     
 }
 -(NSArray *)sortKeysInOrder :(NSDictionary *)inputDictionary{
@@ -929,17 +876,24 @@
     
     
     
-    NSMutableArray *yVals = [[NSMutableArray alloc] init];
+    
+    NSMutableArray *yVals1 = [[NSMutableArray alloc] init];
+    
     
 
-    
-    for (int i = 0; i < count; i++){
-        
-        NSArray *oneValArray = [ValueArray objectAtIndex:i];
-        NSLog(@"%@",oneValArray);
-        [yVals addObject:[[BarChartDataEntry alloc] initWithValues:oneValArray xIndex:i]];
+    NSArray *oneValArray = [ValueArray objectAtIndex:0];
+    for (int i = 0; i < oneValArray.count; i++)
+    {
+        double secYVal = [[oneValArray objectAtIndex:i] doubleValue];
+        [yVals1 addObject:[[BarChartDataEntry alloc] initWithValue:secYVal xIndex:i]];
+
     }
+    
 
+    
+    NSLog(@"%@",yVals1);
+
+    
     
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
     
@@ -947,20 +901,16 @@
     {
         [xVals addObject:monthArray[i % monthArray.count]];
     }
+
     
-    //    NSMutableArray *xVals = [[NSMutableArray alloc] init];
-    //    for (int i = 0; i < count; i++)
-    //    {
-    //        [xVals addObject:[@((int)((BarChartDataEntry *)yVals[i]).value) stringValue]];
-    //    }
-    
-    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"Brands"];
-    set1.colors = ChartColorTemplates.vordiplom;
-    set1.drawValuesEnabled = NO;
+    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals1 label:@"Company A"];
+    [set1 setColor:[UIColor colorWithRed:104/255.f green:241/255.f blue:175/255.f alpha:1.f]];
+   
     
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     [dataSets addObject:set1];
     
+
     BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
     
     barViews.data = data;
