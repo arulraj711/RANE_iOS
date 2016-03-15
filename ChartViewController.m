@@ -146,6 +146,9 @@
     
     [[FISharedResources sharedResourceManager]getSingleReportDetailsForReportId:self.reportId];
    // Do any additional setup after loading the view.
+    
+    [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+
 }
 
 
@@ -271,23 +274,86 @@
     NSDictionary *keyTopicsInfoDic = [[notification userInfo] objectForKey:@"KeyTopicsInfo"];
     NSLog(@"Key Topics Info --->%@",keyTopicsInfoDic);
     NSDictionary *keyTopicsDic = [keyTopicsInfoDic objectForKey:@"categoryCountMap"];
-    monthArray = [keyTopicsDic allKeys];
-    ValueArray = [keyTopicsDic allValues];
-    [self plotPieChart:monthArray.count range:7 withType:1];//type 1 for pie chart
-}
+    
+    
+    
+    NSArray *getKeysAndValues = [self getDictionaryAndGiveOutKeysAndPercentagesArray:keyTopicsDic];
 
+
+    if(keyTopicsDic.count != 0) {
+        
+        monthArray = [getKeysAndValues objectAtIndex:0];
+        ValueArray = [getKeysAndValues objectAtIndex:1];
+
+        
+        int countVal = (int)monthArray.count;
+        
+        [self plotPieChart:countVal range:7 withType:1];//type 1 for pie chart
+
+    }
+}
+-(NSMutableArray *)getDictionaryAndGiveOutKeysAndPercentagesArray :(NSDictionary *)inputDictionary{
+    
+    NSSortDescriptor *descriptories=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:NO];
+    NSArray *descriptoriess=[NSArray arrayWithObject: descriptories];
+    NSArray *sortedValues=[[inputDictionary  allValues] sortedArrayUsingDescriptors:descriptoriess];
+    NSLog(@"%@",sortedValues);
+    
+    NSArray *sortedKeys = [inputDictionary  keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [(NSNumber*)obj2 compare:(NSNumber*)obj1];
+    }];
+    
+    NSLog(@"%@",sortedKeys);
+    
+    
+    // to get the percentage of the array***************************************************
+    
+    NSInteger totalOfArray = 0;                 //sum of array
+    for (NSNumber *num in sortedValues)
+    {
+        totalOfArray += [num intValue];
+    }
+    
+    NSMutableArray *percentValueArray = [[NSMutableArray alloc]init];
+    for (int o= 0; o<sortedValues.count; o++) {
+        int outOfValue = (int)totalOfArray;
+        int oneByOne =  [(NSNumber *)[sortedValues objectAtIndex:o] intValue];
+        int getNumerator = (100 * oneByOne);
+        float secondDivide = (float)getNumerator/(float)outOfValue;
+        int rounded = (secondDivide + 0.5);
+        
+        [percentValueArray addObject:[NSNumber numberWithInt:rounded]];
+    }
+    
+    NSLog(@"%@",percentValueArray);
+    
+    
+    
+    // to get the percentage of the array***************************************************
+    NSMutableArray *outputArray=[[NSMutableArray alloc] initWithArray:@[sortedKeys,percentValueArray]];
+    
+    return outputArray; //array returned with x and y values
+}
 //Updating Media Type Chart Details
 -(void)afterFetchingMediaTypeInfo:(id)sender {
     NSNotification *notification = sender;
     NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"MediaTypeInfo"];
     NSLog(@"MediaType Info --->%@",mediaTypeInfoDic);
     NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"mediaCountMap"]);
-    if(keyTopicsDic.count != 0) {
-        monthArray = [keyTopicsDic allKeys];
-        ValueArray = [keyTopicsDic allValues];
-        [self plotPieChart:monthArray.count range:7 withType:0];//type 0 for donut chart
-    }
+    NSArray *getKeysAndValues = [self getDictionaryAndGiveOutKeysAndPercentagesArray:keyTopicsDic];
     
+    
+    if(keyTopicsDic.count != 0) {
+        
+        monthArray = [getKeysAndValues objectAtIndex:0];
+        ValueArray = [getKeysAndValues objectAtIndex:1];
+        
+        
+        int countVal = (int)monthArray.count;
+        
+        [self plotPieChart:countVal range:7 withType:2];//type 1 for pie chart
+        
+    }
 }
 //Updating Media Type Chart Details
 -(void)afterFetchingSentimentAndVolumeOverTimeInfo:(id)sender {
@@ -736,15 +802,15 @@
     }
     
     if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        // Select Trend of Coverage Chart
+        [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+    }else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]){
         // Select Key Types Chart
         [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     } else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:3]]){
-        // Select Trend of Coverage Chart
-        [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
-    } else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:4]]){
         // Select Media Types chart
         [[FISharedResources sharedResourceManager]getMediaTypeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
-    }else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]){
+    } else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:4]]){
         // Select Sentiment and Volume Over Time chart
         [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     }else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:5]]){
@@ -794,8 +860,11 @@
     CGFloat green = arc4random() % 255 / 255.0;
     CGFloat blue = arc4random() % 255 / 255.0;
     UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+    UIColor *lightColor = [self darkerColorForColor:color];
+    UIColor *darkerColor = [self lighterColorForColor:lightColor];
+
     NSLog(@"Color:%@", color);
-    return color;
+    return darkerColor;
 }
 
 
@@ -853,6 +922,7 @@
 //    [colors addObject:[UIColor colorWithRed:247/255.f green:127/255.f blue:0/255.f alpha:1.f]];
     for(int i=0;i<count;i++) {
         [colors addObject:[self randomColor]];
+        
     }
     
     dataSet.colors = colors;
@@ -910,7 +980,7 @@
     
     [_chartViewOutline addSubview:barViews];
     
-    [barViews animateWithYAxisDuration:3.0];
+    [barViews animateWithYAxisDuration:1.0];
     
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
@@ -976,7 +1046,7 @@
 
     [_chartViewOutline addSubview:barViews];
     
-    [barViews animateWithYAxisDuration:3.0];
+    [barViews animateWithYAxisDuration:1.0];
     
     
     NSLog(@"%@",ValueArray);
@@ -1139,7 +1209,7 @@
 
     [_chartViewOutline addSubview:barViews];
     
-    [barViews animateWithYAxisDuration:3.0];
+    [barViews animateWithYAxisDuration:1.0];
     
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
@@ -1213,11 +1283,12 @@
     horizontalBarViews.descriptionText =@"";
     [horizontalBarViews setScaleEnabled:YES];
     horizontalBarViews.pinchZoomEnabled = YES;
-    horizontalBarViews.xAxis.labelPosition = XAxisLabelPositionBottom;
-    
+    horizontalBarViews.xAxis.wordWrapEnabled = YES;
+
+    horizontalBarViews.xAxis.labelPosition = XAxisLabelPositionBottomInside;
     [_chartViewOutline addSubview:horizontalBarViews];
     
-    [horizontalBarViews animateWithYAxisDuration:3.0];
+    [horizontalBarViews animateWithYAxisDuration:1.0];
     NSLog(@"value array:%@",ValueArray);
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
@@ -1229,12 +1300,17 @@
         NSLog(@"reversed order:%@",reversed);
         [yVals addObject:[[BarChartDataEntry alloc] initWithValues:reversed xIndex:i]];
     }
-    
+    NSLog(@"value array:%@",monthArray);
+    NSArray *alignXaxis  = [self returnSpacedXaxisValue:monthArray];
+    NSLog(@"%@",alignXaxis);
+
     for (int i = 0; i < count; i++)
     {
+        NSLog(@"%@",monthArray[i % monthArray.count]);
+
         [xVals addObject:monthArray[i % monthArray.count]];
     }
-    
+
     BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"-Tonality"];
     set1.drawValuesEnabled = NO;
     set1.stackLabels = @[@"Positive", @"Neutral", @"Negative"];
@@ -1255,7 +1331,18 @@
 }
 
 
-
+-(NSArray *)returnSpacedXaxisValue :(NSArray *)inputArray{
+    NSMutableArray *outputArray = [[NSMutableArray alloc]init];
+    
+    for (NSString __strong *inputString in inputArray) {
+        
+        inputString = [inputString stringByReplacingOccurrencesOfString:@" " withString:@"\n"];
+        NSLog(@"%@",inputString);
+        [outputArray addObject:inputString];
+    }
+    NSLog(@"%@",outputArray);
+    return outputArray;
+}
 
 
 - (void)plotLineChart:(int)count range:(double)range
@@ -1484,7 +1571,27 @@
     }
     return outPutMonthArray;
 }
+- (UIColor *)lighterColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MIN(r + 0.2, 1.0)
+                               green:MIN(g + 0.2, 1.0)
+                                blue:MIN(b + 0.2, 1.0)
+                               alpha:a];
+    return nil;
+}
 
+- (UIColor *)darkerColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MAX(r - 0.2, 0.0)
+                               green:MAX(g - 0.2, 0.0)
+                                blue:MAX(b - 0.2, 0.0)
+                               alpha:a];
+    return nil;
+}
 -(NSArray *)sortArrayWithArray:(NSArray *)incomingArray {
     NSArray *sortedArray = [incomingArray sortedArrayUsingDescriptors:
                             @[[NSSortDescriptor sortDescriptorWithKey:@"doubleValue"
