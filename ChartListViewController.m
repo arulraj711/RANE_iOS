@@ -31,8 +31,28 @@
                                              selector:@selector(afterFetchingReportList:)
                                                  name:@"FetchedReportList"
                                                object:nil];
-    
-    [[FISharedResources sharedResourceManager]getReportList];
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length != 0) {
+        [[FISharedResources sharedResourceManager]getReportList];
+    } else {
+        UIStoryboard *centerStoryBoard;
+        UIViewController *viewCtlr;
+        
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            
+            
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+            
+            
+        }
+        [self.revealController setFrontViewController:viewCtlr];
+        [self.revealController showViewController:self.revealController.frontViewController];
+    }
     // Do any additional setup after loading the view.
 }
 -(void)backBtnPress {

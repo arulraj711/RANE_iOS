@@ -25,5 +25,8 @@
     [chartTypeObj setChartTypeFromDictionary:chartInfoDic];
     self.chartTypeObject = chartTypeObj;
     
+    //set report chart type
+    NSDictionary *reportChartInfoDic = NULL_TO_NIL([dic objectForKey:@"reportType"]);
+    self.reportChartTyepId = NULL_TO_NIL([reportChartInfoDic objectForKey:@"id"]);
 }
 @end

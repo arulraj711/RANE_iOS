@@ -139,6 +139,13 @@ onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 //Get ChangeOverLastQuarter Chart Info
 +(void)getChangeOverLastQuarterInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//Get TopSources Chart Info
 +(void)getTopSourcesInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+//Get TopJournalist Chart Info
++(void)getTopJournalistInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//Get TopInfluencer Chart Info
++(void)getTopInfluencerInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

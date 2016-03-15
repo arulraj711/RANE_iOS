@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "479038004.242757"
+            timestampString = "479710656.493141"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "871"
-            endingLineNumber = "871"
-            landmarkName = "-sortArrayWithArray:"
+            startingLineNumber = "973"
+            endingLineNumber = "973"
+            landmarkName = "-plotMultipleBarChart:range:withBrands:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

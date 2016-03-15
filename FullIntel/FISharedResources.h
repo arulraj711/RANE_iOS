@@ -78,4 +78,6 @@
 -(void)getSentimentAndVolumeOverTimeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 -(void)getChangeOverLastQuarterChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 -(void)getTopSourcesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
+-(void)getTopJournalistChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
+-(void)getTopInfluencerChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 @end

@@ -871,4 +871,34 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
         failure(operation, error);
     }];
 }
+
+
+//Top Journalist Info
++(void)getTopJournalistInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    
+    
+    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/topcontacts?fromDate=%@&toDate=%@&xKey=contact.name.sort&yKey=tonality.name&security_token=%@",companyId,fromDate,toDate,securityToken];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+}
+
+
+//Top Influencer
++(void)getTopInfluencerInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    
+    
+    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/topinfluencers?fromDate=%@&toDate=%@&security_token=%@",companyId,fromDate,toDate,securityToken];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+}
 @end

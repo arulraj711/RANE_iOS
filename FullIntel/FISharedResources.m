@@ -582,7 +582,7 @@
             [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [curatedNews setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
             [curatedNews setValue:[dic objectForKey:@"heading"] forKey:@"title"];
-            [curatedNews setValue:[dic objectForKey:@"articleDescription"] forKey:@"desc"];
+            [curatedNews setValue:NULL_TO_NIL([dic objectForKey:@"articleDescription"]) forKey:@"desc"];
             [curatedNews setValue:[dic objectForKey:@"modifiedDate"] forKey:@"modifiedDate"];
             [curatedNews setValue:[dic objectForKey:@"publishedDate"] forKey:@"publishedDate"];
             [curatedNews setValue:[dic objectForKey:@"articleImage"] forKey:@"image"];
@@ -2823,6 +2823,30 @@
     [FIWebService getTopSourcesInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopSourcesInfo", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopSourcesInfo"
+                                                            object:self
+                                                          userInfo:theInfo];
+        
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // [FIUtils showErrorToast];
+    }];
+}
+
+-(void)getTopJournalistChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
+    [FIWebService getTopJournalistInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopJournalistInfo", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopJournalistInfo"
+                                                            object:self
+                                                          userInfo:theInfo];
+        
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // [FIUtils showErrorToast];
+    }];
+}
+
+-(void)getTopInfluencerChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
+    [FIWebService getTopInfluencerInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopInfluencerInfo", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopInfluencerInfo"
                                                             object:self
                                                           userInfo:theInfo];
         

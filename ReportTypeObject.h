@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSNumber *modifiedBy;
 @property (nonatomic,strong) NSNumber *modifiedAt;
 @property (nonatomic,strong) NSNumber *isdeleted;
+@property (nonatomic,strong) NSNumber *reportChartTyepId;
 @property (nonatomic,strong) ChartTypeObject *chartTypeObject;
 -(void)setReportTypeFromDictionary:(NSDictionary *)dic;
 @end

@@ -41,7 +41,7 @@
     PieChartView *pieViews;
     BarChartView *barViews;
     LineChartView *lineChartView;
-    
+    HorizontalBarChartView *horizontalBarViews;
     
     CMPopTipView *popTipView;
     ReportObject *reportObject;
