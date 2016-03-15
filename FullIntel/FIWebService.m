@@ -901,4 +901,19 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
         failure(operation, error);
     }];
 }
+
++(void)getTopStoriesInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withPageNumber:(NSNumber *)pageNo withSize:(NSNumber *)size onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+//    Eg:http://stage.fullintel.com/1.3.0/api/v1/articles/2?fromDate=1451624400000&page=0&security_token=346650015f5cb4dbe98fdd327e8f3e2da7cc50e8&size=10&toDate=1456808399000
+    
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    NSString *functionName = [NSString stringWithFormat:@"articles/2?fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@",fromDate,pageNo,securityToken,size,toDate];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+}
+
+
 @end

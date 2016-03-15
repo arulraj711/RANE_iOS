@@ -2854,4 +2854,19 @@
         // [FIUtils showErrorToast];
     }];
 }
+
+-(void)getTopStoriesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size {
+    [FIWebService getTopStoriesInfoFromDate:fromDate toDate:toDate withPageNumber:pageNo withSize:size onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopStoriesInfo", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopStoriesInfo"
+                                                            object:self
+                                                          userInfo:theInfo];
+        
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // [FIUtils showErrorToast];
+    }];
+
+}
+
+
 @end

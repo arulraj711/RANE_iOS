@@ -52,6 +52,7 @@
     NSArray *chartStoryList;
     BOOL isTopStoriesOpen;
     int selectedChartIndex;
+    NSNumber *localReportTypeId;
 
 }
 
@@ -74,6 +75,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topStoriesViewLeadingConstraint;
 
 @property (nonatomic,strong) NSNumber *reportId;
+@property (nonatomic,strong) NSNumber *reportFromDate;
+@property (nonatomic,strong) NSNumber *reportToDate;
 
 @end
 

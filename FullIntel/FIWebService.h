@@ -148,4 +148,9 @@ onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 //Get TopInfluencer Chart Info
 +(void)getTopInfluencerInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//Get TopStories Info
++(void)getTopStoriesInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withPageNumber:(NSNumber *)pageNo withSize:(NSNumber *)size onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
 @end

@@ -118,6 +118,8 @@
     }
     ReportListObject *reportListObj = [reportListArray objectAtIndex:indexPath.row];
     chartView.reportId = reportListObj.reportId;
+    chartView.reportFromDate = reportListObj.reportFromDate;
+    chartView.reportToDate = reportListObj.reportToDate;
     [self.navigationController pushViewController:chartView animated:YES];
 }
 
