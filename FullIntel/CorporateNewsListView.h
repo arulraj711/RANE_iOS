@@ -35,7 +35,7 @@
     UIToolbar *toolbar;
     BOOL longPressActive;
     BOOL tickImageStatus;
-
+    BOOL isFromChart;
     int switchForFilter;
     int isSearchingInteger;
     

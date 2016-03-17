@@ -152,5 +152,6 @@ onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 //Get TopStories Info
 +(void)getTopStoriesInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withPageNumber:(NSNumber *)pageNo withSize:(NSNumber *)size onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
-
+//Get articles list from Trend of coverage chart selection
++(void)fetchTrendOfCoverageArticleListWithClickedDate:(NSString*)clickedDate EndDateIn:(NSString *)endDateIn fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

@@ -65,6 +65,7 @@
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isFilter" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="isFolder" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isFromChart" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isMarkedImpStatusSync" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isReadStatusSync" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isSearch" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -85,6 +86,9 @@
         <relationship name="comments" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserComments" syncable="YES"/>
         <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuratedNewsDetail" syncable="YES"/>
         <relationship name="legends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CuratedLegends" syncable="YES"/>
+        <fetchedProperty name="fetchedProperty" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="CuratedNews"/>
+        </fetchedProperty>
     </entity>
     <entity name="CuratedNewsDetail" syncable="YES">
         <attribute name="article" optional="YES" attributeType="String" syncable="YES"/>
@@ -300,7 +304,7 @@
         <element name="Company_Widget" positionX="-171" positionY="9" width="128" height="120"/>
         <element name="CuratedAuthor" positionX="-846" positionY="-1404" width="128" height="163"/>
         <element name="CuratedLegends" positionX="-153" positionY="-306" width="128" height="88"/>
-        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="525"/>
+        <element name="CuratedNews" positionX="-657" positionY="-1485" width="128" height="569"/>
         <element name="CuratedNewsDetail" positionX="-713" positionY="-504" width="128" height="270"/>
         <element name="CuratedNewsDetailAuthor" positionX="-2423" positionY="-1269" width="128" height="238"/>
         <element name="Influ_Drillin" positionX="-479" positionY="-18" width="128" height="268"/>

@@ -10,6 +10,7 @@
 #import "FISharedResources.h"
 #import "ReportTypeObject.h"
 #import "ChartTypeObject.h"
+#import "CorporateNewsListView.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 #define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
@@ -1476,6 +1477,19 @@
    
     NSLog(@"%@ %@ %ld %@",chartView,entry,(long)dataSetIndex,highlight);
     NSLog(@"%f",entry.value);
+    
+    //call article api list
+    [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:@"01/12/2015" endDateIn:@"MONTH" fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+    UIStoryboard *centerStoryBoard;
+    CorporateNewsListView *listView;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+    } else {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+    }
+    [self.navigationController pushViewController:listView animated:YES];
     
 }
 #pragma mark - Rest of the Code

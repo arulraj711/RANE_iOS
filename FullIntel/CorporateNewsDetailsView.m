@@ -370,53 +370,58 @@
             NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
             NSPredicate *predicate;
             NSLog(@"newsletter id:%@",newsLetterId);
-            if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
-                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-                    if(self.isSearching) {
-                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isSearch == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithBool:self.isSearching]];
-                    } else if(self.switchForFilter == 1) {
-                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isFilter == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithInt:self.switchForFilter]];
-                    } else if(self.switchForFilter == 2) {
-                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isFilter == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithInt:self.switchForFilter]];
+            if(self.isFromChart) {
+                predicate = [NSPredicate predicateWithFormat:@"isFromChart == %@",[NSNumber numberWithBool:YES]];
+            } else {
+                if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                    BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+                    if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                        if(self.isSearching) {
+                            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isSearch == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithBool:self.isSearching]];
+                        } else if(self.switchForFilter == 1) {
+                            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isFilter == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithInt:self.switchForFilter]];
+                        } else if(self.switchForFilter == 2) {
+                            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isFilter == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithInt:self.switchForFilter]];
+                        } else {
+                            predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@",[NSNumber numberWithBool:YES],categoryId];
+                        }
                     } else {
-                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@",[NSNumber numberWithBool:YES],categoryId];
+                        if(self.isSearching) {
+                            predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isSearch == %@",categoryId,contentTypeId,[NSNumber numberWithBool:self.isSearching]];
+                        } else if(self.switchForFilter == 1) {
+                            predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isFilter == %@",categoryId,contentTypeId,[NSNumber numberWithInt:self.switchForFilter]];
+                        } else if(self.switchForFilter == 2) {
+                            predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isFilter == %@",categoryId,contentTypeId,[NSNumber numberWithInt:self.switchForFilter]];
+                        } else {
+                            predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
+                        }
+                        
                     }
-                } else {
+                } else if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
                     if(self.isSearching) {
-                        predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isSearch == %@",categoryId,contentTypeId,[NSNumber numberWithBool:self.isSearching]];
+                        predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isSearch == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithBool:self.isSearching]];
                     } else if(self.switchForFilter == 1) {
-                        predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isFilter == %@",categoryId,contentTypeId,[NSNumber numberWithInt:self.switchForFilter]];
+                        predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isFilter == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithInt:self.switchForFilter]];
                     } else if(self.switchForFilter == 2) {
-                        predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isFilter == %@",categoryId,contentTypeId,[NSNumber numberWithInt:self.switchForFilter]];
+                        predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isFilter == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithInt:self.switchForFilter]];
                     } else {
-                        predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
+                        predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
+                    }
+                } else if(![newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                    [self.revealController showViewController:self.revealController.frontViewController];
+                    if(self.isSearching) {
+                        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isSearch == %@",newsLetterId,[NSNumber numberWithBool:self.isSearching]];
+                    } else if(self.switchForFilter == 1) {
+                        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
+                    } else if(self.switchForFilter == 2) {
+                        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
+                    } else {
+                        predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
                     }
                     
                 }
-            } else if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                if(self.isSearching) {
-                    predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isSearch == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithBool:self.isSearching]];
-                } else if(self.switchForFilter == 1) {
-                    predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isFilter == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithInt:self.switchForFilter]];
-                } else if(self.switchForFilter == 2) {
-                    predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isFilter == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithInt:self.switchForFilter]];
-                } else {
-                    predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
-                }
-            } else if(![newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                [self.revealController showViewController:self.revealController.frontViewController];
-                if(self.isSearching) {
-                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isSearch == %@",newsLetterId,[NSNumber numberWithBool:self.isSearching]];
-                } else if(self.switchForFilter == 1) {
-                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
-                } else if(self.switchForFilter == 2) {
-                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
-                } else {
-                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
-                }
-                
             }
+            
             [fetchRequest setPredicate:predicate];
             [fetchRequest setEntity:entity];
             
