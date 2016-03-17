@@ -11,13 +11,12 @@
 #import "ReportObject.h"
 #import "FISharedResources.h"
 #import "CorporateNewsDetailsView.h"
+#define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
+
 @interface TopStoriesViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
-    NSDictionary *reportObject;
     NSArray *headingArray;
-    NSArray *nameArray;
-    NSArray *outletArray;
-    NSArray *articleIdArray;
+    NSString *articleIdArray;
     
 
 }

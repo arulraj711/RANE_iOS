@@ -2855,16 +2855,30 @@
     }];
 }
 
--(void)getTopStoriesForTable:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
-    [FIWebService getTopStoriesInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopStories", nil];
+//-(void)getTopStoriesForTable:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
+//    [FIWebService getTopStoriesInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopStories", nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopStoriesInfo"
+//                                                            object:self
+//                                                          userInfo:theInfo];
+//    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        // [FIUtils showErrorToast];
+//    }];
+//    
+//}
+
+-(void)getTopStoriesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size {
+    [FIWebService getTopStoriesInfoFromDate:fromDate toDate:toDate withPageNumber:pageNo withSize:size onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopStoriesInfo", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopStoriesInfo"
                                                             object:self
                                                           userInfo:theInfo];
+        
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // [FIUtils showErrorToast];
     }];
-    
+
 }
+
 
 @end

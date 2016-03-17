@@ -2701,6 +2701,7 @@
             testView.articleTitle = _titleName;
             testView.currentIndex = indexPath.row;
             testView.selectedIndexPath = indexPath;
+            testView.forTopStories = [NSNumber numberWithInt:0];
             testView.isSearching = isSearching;
             testView.articleIdFromSearchLst =articleIdToBePassed;
             [self.navigationController pushViewController:testView animated:YES];

@@ -28,7 +28,7 @@
 @end
 
 @implementation CorporateNewsDetailsView
-
+@synthesize forTopStories;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -347,12 +347,11 @@
 }
 
 -(void)getArticleIdListFromDB {
-    if (_forTopStories == 1) {
+    if ([forTopStories isEqualToNumber:[NSNumber numberWithInt:1]]) {
         self.articleIdArray =  [NSMutableArray arrayWithArray:_articleIdFromSearchLst];
         NSLog(@"selected article id:%@",self.articleIdArray);
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-        _forTopStories = 0;
     }
     else{
         BOOL testFlag = [[NSUserDefaults standardUserDefaults]boolForKey:@"Test"];
@@ -1630,6 +1629,8 @@
             }
             NSLog(@"PageNo --->%ld",(long)pageNo);
             NSLog(@"folderId --->%@",folderId);
+            if ([forTopStories isEqualToNumber:[NSNumber numberWithInt:0]]) {
+
                 self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
                 [self.view addSubview:self.activityIndicator];
                 self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
@@ -1715,6 +1716,7 @@
                     }
                     
                 }
+            }
             //[self getArticleIdListFromDB];
             
            //  [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];

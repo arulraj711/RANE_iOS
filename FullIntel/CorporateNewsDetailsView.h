@@ -40,8 +40,7 @@
 @property (nonatomic) int isSearching;
 @property (nonatomic) int switchForFilter;
 @property (nonatomic) NSString * searchText;
-@property (nonatomic) int forTopStories;
-
+@property (strong, nonatomic) NSNumber *forTopStories;
 
 @property (nonatomic, strong) NSMutableArray *articleIdFromSearchLst;
 

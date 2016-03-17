@@ -16,50 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(afterFetchingTopStories:)
-                                                 name:@"FetchedTopStoriesInfo"
-                                               object:nil];
-    
+    articleIdArray =[_devices valueForKeyPath:@"id"];
+    NSLog(@"%@",articleIdArray);
     self.title = @"Top Stories";
     // Do any additional setup after loading the view.
 }
--(void)afterFetchingTopStories:(id)sender {
-    
-    NSNotification *notification = sender;
-    reportObject = [[notification userInfo] objectForKey:@"TopStories"];
-    
-    headingArray = [reportObject valueForKey:@"heading"];
-    
-    NSArray *inameArrays = [reportObject valueForKeyPath:@"contact.name"];
-    NSLog(@"%@",inameArrays);
-    NSArray *flatArray = [inameArrays valueForKeyPath: @"@unionOfArrays.self"];
-    NSLog(@"%@",flatArray);
-    
-    nameArray = [NSArray arrayWithArray:flatArray];
-    
-    
-    NSArray *iOutArrays = [reportObject valueForKeyPath:@"outlet.name"];
-    NSLog(@"%@",iOutArrays);
-    NSArray *iflatArray = [iOutArrays valueForKeyPath: @"@unionOfArrays.self"];
-    NSLog(@"%@",iflatArray);
-    
-
-
-    outletArray = [NSArray arrayWithArray:iflatArray];
-    
-    articleIdArray =[reportObject valueForKeyPath:@"id"];
-
-    
-    
-    NSLog(@"%@",nameArray);
-    NSLog(@"%@",outletArray);
-    NSLog(@"%@",headingArray);
-
-    NSLog(@"%@",articleIdArray);
-
-    [self.storyTableView reloadData];
-
+-(void)viewDidDisappear:(BOOL)animated{
 
 }
 
@@ -67,7 +29,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return [headingArray count];
+    return [_devices count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -77,9 +39,32 @@
     cell.numberLabel.text = [NSString stringWithFormat:@"%d",cnt];
     NSDictionary *dic;
     
-    cell.titleLabel.text = [headingArray objectAtIndex:indexPath.row];
-    NSString *outletAndName = [NSString stringWithFormat:@"%@,%@",[nameArray objectAtIndex:indexPath.row],[outletArray objectAtIndex:indexPath.row]];
-    cell.outletLabel.text = outletAndName;
+    dic = [_devices objectAtIndex:indexPath.row];
+    cell.titleLabel.text = NULL_TO_NIL([dic objectForKey:@"heading"]);
+    headingArray = NULL_TO_NIL([dic objectForKey:@"heading"]);
+    //Fetching contact details
+    NSString *contactName;
+    NSArray *contactArray = NULL_TO_NIL([dic objectForKey:@"contact"]);
+    if(contactArray.count != 0){
+        NSDictionary *contactDic = [contactArray objectAtIndex:0];
+        contactName = [NSString stringWithFormat:@"%@,",NULL_TO_NIL([contactDic objectForKey:@"name"])];
+    } else {
+        contactName = @"";
+    }
+    
+    //Fetching outlet details
+    NSString *outletName;
+    NSArray *outletArray = NULL_TO_NIL([dic objectForKey:@"outlet"]);
+    if(outletArray.count != 0){
+        NSDictionary *outletDic = [outletArray objectAtIndex:0];
+        outletName = [NSString stringWithFormat:@"%@",NULL_TO_NIL([outletDic objectForKey:@"name"])];
+    } else {
+        outletName = @"";
+    }
+    
+    NSString *contactOutletString = [NSString stringWithFormat:@"%@%@",contactName,outletName];
+
+    cell.outletLabel.text = contactOutletString;
     return cell;
 }
 
@@ -98,8 +83,8 @@
     CorporateNewsDetailsView *testView;
 
     testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
-    testView.forTopStories = 1;
-    testView.articleTitle = [headingArray objectAtIndex:indexPath.row];
+    testView.forTopStories = [NSNumber numberWithInt:1];
+    testView.articleTitle = headingArray;
     testView.currentIndex = indexPath.row;
     testView.selectedIndexPath = indexPath;
     testView.articleIdFromSearchLst =[NSMutableArray arrayWithArray:articleIdArray];

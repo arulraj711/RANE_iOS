@@ -80,7 +80,5 @@
 -(void)getTopSourcesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 -(void)getTopJournalistChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
 -(void)getTopInfluencerChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
-
-
--(void)getTopStoriesForTable:(NSNumber *)fromDate toDate:(NSNumber *)toDate;
+-(void)getTopStoriesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size;
 @end

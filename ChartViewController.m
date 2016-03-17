@@ -66,11 +66,11 @@
     //ipad methods for table
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
-        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-        NSError *error;
-        chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-        [self.storyTableView reloadData];
+//        NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
+//        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+//        NSError *error;
+//        chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+       // [self.storyTableView reloadData];
         isTopStoriesOpen = NO;
         selectedChartIndex = 0;
         
@@ -143,11 +143,18 @@
                                              selector:@selector(afterFetchingTopInfluencerInfo:)
                                                  name:@"FetchedTopInfluencerInfo"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(afterFetchingTopStoriesInfo:)
+                                                 name:@"FetchedTopStoriesInfo"
+                                               object:nil];
+    
     
 
 
     
     [[FISharedResources sharedResourceManager]getSingleReportDetailsForReportId:self.reportId];
+    
+    [[FISharedResources sharedResourceManager]getTopStoriesChartInfoFromDate:self.reportFromDate toDate:self.reportToDate withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10]];
    // Do any additional setup after loading the view.
 
 }
@@ -604,8 +611,17 @@
     }}
 
 
+-(void)afterFetchingTopStoriesInfo:(id)sender{
+    NSNotification *notification = sender;
+    NSArray *topStoriesInfoArray = [[notification userInfo] objectForKey:@"TopStoriesInfo"];
+    NSLog(@"afterFetchingTopStoriesInfo %@",topStoriesInfoArray);
+    chartStoryList = [[NSMutableArray alloc]initWithArray:topStoriesInfoArray];
+    [self.storyTableView reloadData];
+}
+
+
+
 -(void)settingsButtonFilter{
-    [[FISharedResources sharedResourceManager]getTopStoriesForTable:reportObject.reportFromDate toDate:reportObject.reportToDate];
 
 
     UIStoryboard *storyboard;
@@ -613,6 +629,7 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPhone" bundle:nil];
         chartView = [storyboard instantiateViewControllerWithIdentifier:@"TopStoriesViewController"];
+        chartView.devices = [NSMutableArray arrayWithArray:chartStoryList];
     } else {
         
         
@@ -637,8 +654,31 @@
     NSDictionary *dic;
     
     dic = [chartStoryList objectAtIndex:indexPath.row];
-    cell.titleLabel.text = [dic objectForKey:@"title"];
-    cell.outletLabel.text = [dic objectForKey:@"outlet"];
+    cell.titleLabel.text = NULL_TO_NIL([dic objectForKey:@"heading"]);
+    
+    //Fetching contact details
+    NSString *contactName;
+    NSArray *contactArray = NULL_TO_NIL([dic objectForKey:@"contact"]);
+    if(contactArray.count != 0){
+        NSDictionary *contactDic = [contactArray objectAtIndex:0];
+        contactName = [NSString stringWithFormat:@"%@,",NULL_TO_NIL([contactDic objectForKey:@"name"])];
+    } else {
+        contactName = @"";
+    }
+    
+    //Fetching outlet details
+    NSString *outletName;
+    NSArray *outletArray = NULL_TO_NIL([dic objectForKey:@"outlet"]);
+    if(outletArray.count != 0){
+        NSDictionary *outletDic = [outletArray objectAtIndex:0];
+        outletName = [NSString stringWithFormat:@"%@",NULL_TO_NIL([outletDic objectForKey:@"name"])];
+    } else {
+        outletName = @"";
+    }
+    
+    NSString *contactOutletString = [NSString stringWithFormat:@"%@%@",contactName,outletName];
+    
+    cell.outletLabel.text = contactOutletString;
     return cell;
 }
 
@@ -748,7 +788,7 @@
     NSLog(@"report type:%@",reportType.reportTyepId);
     NSLog(@"report chart type:%@",reportType.reportChartTyepId);
     NSLog(@"%@",chartType.chartTyepId);
-
+    localReportTypeId = reportType.reportChartTyepId;
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         self.chartNameLabel.text =[chartName objectAtIndex:indexPath.row];
     }
@@ -756,32 +796,39 @@
         _titleLabel.text =[chartName objectAtIndex:indexPath.row];
     }
     
-    if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+
+    [self loadChartValuesWithReportType:reportType.reportChartTyepId];
+    
+}
+
+-(void)loadChartValuesWithReportType:(NSNumber*)reportType {
+    if ([reportType isEqualToNumber:[NSNumber numberWithInt:1]]) {
         // Select Trend of Coverage Chart
         [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
-    }else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]){
+        
+    } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:2]]){
         // Select Key Types Chart
         [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
-    } else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:3]]){
+       
+    } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:3]]){
         // Select Media Types chart
         [[FISharedResources sharedResourceManager]getMediaTypeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
-    } else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:4]]){
+    } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:4]]){
         // Select Sentiment and Volume Over Time chart
         [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
-    }else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:5]]){
+    }else if ([reportType isEqualToNumber:[NSNumber numberWithInt:5]]){
         // Select change over last quarter chart
         [[FISharedResources sharedResourceManager]getChangeOverLastQuarterChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
-    }else if ([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:6]]){
+    }else if ([reportType isEqualToNumber:[NSNumber numberWithInt:6]]){
         // Select top sources
         [[FISharedResources sharedResourceManager]getTopSourcesChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
-    } else if([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:7]]) {
+    } else if([reportType isEqualToNumber:[NSNumber numberWithInt:7]]) {
         //select top journalist
         [[FISharedResources sharedResourceManager]getTopJournalistChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
-    } else if([reportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+    } else if([reportType isEqualToNumber:[NSNumber numberWithInt:8]]) {
         //select top influencers
         [[FISharedResources sharedResourceManager]getTopInfluencerChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     }
-    
 }
 
 - (void)selectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -812,7 +859,7 @@
 
 #pragma mark - Plot Chart
 
-- (void)plotPieChart:(int)count range:(double)range withType:(int)typeOfChart
+- (void)plotPieChart:(int)count range:(double)range withType:(int)typeOfPieChart
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
@@ -881,7 +928,7 @@
     [data setValueTextColor:UIColor.whiteColor];
     
     pieViews.data = data;
-    if (typeOfChart == 1) {
+    if (typeOfPieChart == 1) {
         [pieViews setDrawHoleEnabled:NO];
         
     }
@@ -1886,17 +1933,7 @@
                              self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width-320;
                              [self.view layoutIfNeeded];
                              
-//                             if(typeOfChart == 0) {
-//                                 [self plotLineChart:6 range:6];
-//                             } else if(typeOfChart == 1) {
-//                                 [self plotPieChart:6 range:6];
-//                             } else if (typeOfChart == 2) {
-//                                 [self plotPieChart:6 range:6];
-//                             } else if (typeOfChart == 3) {
-//                                 [self plotBarChart:6 range:6];
-//                             } else{
-//                                 [self plotLineChart:6 range:6];
-//                             }
+                             [self loadChartValuesWithReportType:localReportTypeId];
                              
                              
                          }];
@@ -1910,17 +1947,7 @@
                              isTopStoriesOpen = NO;
                              self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
                              [self.view layoutIfNeeded];
-//                             if(typeOfChart == 0) {
-//                                 [self plotLineChart:6 range:6];
-//                             } else if(typeOfChart == 1) {
-//                                 [self plotPieChart:6 range:6];
-//                             } else if (typeOfChart == 2) {
-//                                 [self plotPieChart:6 range:6];
-//                             } else if (typeOfChart == 3) {
-//                                 [self plotBarChart:6 range:6];
-//                             } else{
-//                                 [self plotLineChart:6 range:6];
-//                             }
+                             [self loadChartValuesWithReportType:localReportTypeId];
                              
                          }];
     }
