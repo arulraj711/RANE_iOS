@@ -84,4 +84,11 @@
 
 -(void)getTrendOfCoverageArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
 
+-(BOOL)clearChartRelatedArticles:(NSString *)entity;//clear local chart article data
+
+
+-(void)getKeyTopicsArticleListFromField1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+
+-(void)getMediaTypesArticleListFromMediaTypeField:(NSString *)mediaTypeId mediaTypeValue:(NSString *)mediaTypeValue fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+
 @end

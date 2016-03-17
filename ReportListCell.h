@@ -11,5 +11,6 @@
 @interface ReportListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *serialNumber;
 @property (weak, nonatomic) IBOutlet UILabel *reportTitle;
+@property (strong, nonatomic) IBOutlet UILabel *dateCell;
 
 @end

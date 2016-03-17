@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FIUtils.h"
 @interface ChartListViewController : UIViewController
 {
     NSMutableArray  *reportListArray;

@@ -930,4 +930,28 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
     }];
 }
 
+//Key topics article list API
++(void)fetchKeyTopicsArticleListWithField1:(NSString*)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    ///1.4.0/api/v1/articles?contentCategoryId=&field_1=fields.name&fromDate=1446354000000&page=0&security_token=1c4f4e2586d4a2eaef161b000df2215f76016271&size=10&toDate=1454302799000&value_1=Samsungu
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    NSString *functionName = [NSString stringWithFormat:@"articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+}
+
+//Media Types article list API
++(void)fetchMediaTypeArticleListWithMediaTypeField:(NSString*)mediaType_field mediaTypeValue:(NSString *)mediaType_value fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    ///1.4.0/api/v1/articles?fromDate=1446354000000&mediaType_field=mediaTypeId&mediaType_value=Online+Pub&page=0&security_token=1c4f4e2586d4a2eaef161b000df2215f76016271&size=10&toDate=1454302799000
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    NSString *functionName = [NSString stringWithFormat:@"articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+}
+
 @end

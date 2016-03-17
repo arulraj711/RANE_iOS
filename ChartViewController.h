@@ -22,7 +22,9 @@
     NSArray *scaledXvalue;
     NSArray *scaledYvalue;
     NSArray *scaledYvalueTwo;
-    
+    NSMutableArray *dateArrayToGet;
+    NSMutableArray *monthNameArrayToGet;
+
     NSDictionary *articleCirculationMap;
     NSDictionary *articleCountMap;
 

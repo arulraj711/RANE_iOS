@@ -41,7 +41,7 @@
 @property (nonatomic) int switchForFilter;
 @property (nonatomic) NSString * searchText;
 @property (strong, nonatomic) NSNumber *forTopStories;
-@property BOOL isFromChart;
+@property (nonatomic,strong) NSNumber *isFromChart;
 @property (nonatomic, strong) NSMutableArray *articleIdFromSearchLst;
 
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;

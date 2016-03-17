@@ -199,7 +199,7 @@
     
     NSLog(@"%@",reverseOrder);
 
-    
+    dateArrayToGet =[NSMutableArray arrayWithArray:reverseOrder];
     //sorting the array of values based on keys------------------------------------------------------------
     
     NSMutableArray *reverseOrders = [[NSMutableArray alloc] init];                //contains the values of date in sorted form
@@ -1473,25 +1473,152 @@
     
 }
 
+
+-(NSString *)getFinalDateValueForWebService :(NSString *)inputDate{
+    NSLog(@"%@",inputDate);
+    
+    inputDate = [inputDate stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    inputDate = [inputDate stringByReplacingOccurrencesOfString:@".000Z" withString:@""];
+    //NSLog(@"%@",dateInput);
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSDate *inpuDateFormat = [dateFormatter dateFromString:inputDate];
+    
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    
+    NSString *outputDateFormat = [dateFormatter stringFromDate:inpuDateFormat];
+    NSLog(@"%@",outputDateFormat);
+    
+    return outputDateFormat;
+}
+
 -(void)chartValueSelected:(ChartViewBase *)chartView entry:(ChartDataEntry *)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight *)highlight{
    
+    [[FISharedResources sharedResourceManager]clearChartRelatedArticles:@"CuratedNews"];//
+    
     NSLog(@"%@ %@ %ld %@",chartView,entry,(long)dataSetIndex,highlight);
     NSLog(@"%f",entry.value);
-    
-    //call article api list
-    [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:@"01/12/2015" endDateIn:@"MONTH" fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
-    UIStoryboard *centerStoryBoard;
-    CorporateNewsListView *listView;
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
-        listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
-    } else {
-        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+    NSLog(@"%@",monthArray); //months
+    NSLog(@"%@",ValueArray); //sum value
+    NSLog(@"%@",ValueArrayTwo); //values in general
+    int resultPoint = (int)entry.value;
+    NSLog(@"%d",resultPoint);
+    NSLog(@"%@",[NSNumber numberWithInt:resultPoint]);
+    if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        NSString *resultantDate;
+        //Trend of coverage chart selection
+        //for Line chart----------------------------------------------------------------------
+        
+        NSLog(@"%@",[NSNumber numberWithInt:resultPoint]);
+        NSString *firstObj = [monthArray objectAtIndex:0];
+        if (firstObj.length > 3) {//for Line chart if its for month----------------------------------------------------------------------
+            
+            if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
+                NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
+                NSString *intFinals = [monthArray objectAtIndex:indexA];
+                
+                if ([xInputForMonths containsObject:intFinals]) {
+                    NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
+                    
+                    NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
+                    resultantDate = [self getFinalDateValueForWebService:dateFinals];
+                    NSLog(@"%@",resultantDate);
+                }
+                
+            } else if ([ValueArrayTwo containsObject:[NSNumber numberWithInt:resultPoint]])
+            {
+                NSUInteger indexA = [ValueArrayTwo indexOfObject:[NSNumber numberWithInt:resultPoint]];
+                NSString *intFinals = [monthArray objectAtIndex:indexA];
+                
+                if ([xInputForMonths containsObject:intFinals]) {
+                    NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
+                    
+                    NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
+                    resultantDate = [self getFinalDateValueForWebService:dateFinals];
+                    NSLog(@"%@",resultantDate);
+                }
+                
+            }
+            
+        }
+        else{                       //for Line chart if its for week----------------------------------------------------------------------
+            if ([ValueArrayTwo containsObject:[NSNumber numberWithInt:resultPoint]]) {
+                NSUInteger indexA = [ValueArrayTwo indexOfObject:[NSNumber numberWithInt:resultPoint]];
+                
+                NSString *dateFinals = [dateArrayToGet objectAtIndex:indexA];
+                resultantDate = [self getFinalDateValueForWebService:dateFinals];
+                NSLog(@"%@",resultantDate);
+            }
+            
+        }
+        
+        //call article api list
+        [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:resultantDate endDateIn:@"MONTH" fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        UIStoryboard *centerStoryBoard;
+        CorporateNewsListView *listView;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+        }
+        [self.navigationController pushViewController:listView animated:YES];
+        
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+        //Key topics chart selection
+        NSString *brandName;
+        if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
+            NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
+            brandName = [monthArray objectAtIndex:indexA];
+            NSLog(@"%@",brandName);
+        }
+        [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        UIStoryboard *centerStoryBoard;
+        CorporateNewsListView *listView;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+        }
+        [self.navigationController pushViewController:listView animated:YES];
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:3]]) {
+        //Media types chart selection
+        NSString *brandName;
+        if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
+            NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
+            brandName = [monthArray objectAtIndex:indexA];
+            NSLog(@"%@",brandName);
+        }
+        [[FISharedResources sharedResourceManager]getMediaTypesArticleListFromMediaTypeField:@"mediaTypeId" mediaTypeValue:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        UIStoryboard *centerStoryBoard;
+        CorporateNewsListView *listView;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+        }
+        [self.navigationController pushViewController:listView animated:YES];
     }
-    [self.navigationController pushViewController:listView animated:YES];
     
+
+
+//  id member = [ValueArray indexOfObject:vals];
 }
+
+//NSLog(@"%lu",(unsigned long)[ValueArray indexOfObject:[NSNumber numberWithDouble:entry.value]]);
+//NSString *vals = [NSString stringWithFormat:@"%f",entry.value];
+//NSUInteger anIndex=[ValueArray indexOfObject:vals];
+//NSLog(@"%@",dateArrayToGet);
+//int vali= (int)anIndex;
+//NSLog(@"%@",[dateArrayToGet objectAtIndex:vali]);
 #pragma mark - Rest of the Code
 
 
@@ -1499,15 +1626,15 @@
 
 - (UIColor *)randomColor
 {
+    
     CGFloat red = arc4random() % 255 / 255.0;
     CGFloat green = arc4random() % 255 / 255.0;
     CGFloat blue = arc4random() % 255 / 255.0;
     UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
     UIColor *lightColor = [self darkerColorForColor:color];
-    UIColor *darkerColor = [self lighterColorForColor:lightColor];
     
     NSLog(@"Color:%@", color);
-    return darkerColor;
+    return lightColor;
 }
 
 -(NSMutableArray *)createXaxisArray : (NSArray *)inputArray{
@@ -1597,6 +1724,8 @@
                                alpha:a];
     return nil;
 }
+
+
 -(NSArray *)sortArrayWithArray:(NSArray *)incomingArray {
     NSArray *sortedArray = [incomingArray sortedArrayUsingDescriptors:
                             @[[NSSortDescriptor sortDescriptorWithKey:@"doubleValue"

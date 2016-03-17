@@ -154,4 +154,11 @@ onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 //Get articles list from Trend of coverage chart selection
 +(void)fetchTrendOfCoverageArticleListWithClickedDate:(NSString*)clickedDate EndDateIn:(NSString *)endDateIn fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//Get articles list from key topics chart selection
++(void)fetchKeyTopicsArticleListWithField1:(NSString*)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//Get articles list from key topics chart selection
++(void)fetchMediaTypeArticleListWithMediaTypeField:(NSString*)mediaType_field mediaTypeValue:(NSString *)mediaType_value fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 @end

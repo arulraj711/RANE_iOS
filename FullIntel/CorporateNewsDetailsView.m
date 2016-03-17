@@ -369,8 +369,8 @@
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
             NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
             NSPredicate *predicate;
-            NSLog(@"newsletter id:%@",newsLetterId);
-            if(self.isFromChart) {
+            NSLog(@"newsletter id:%@ and %@",newsLetterId,self.isFromChart);
+            if([self.isFromChart isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 predicate = [NSPredicate predicateWithFormat:@"isFromChart == %@",[NSNumber numberWithBool:YES]];
             } else {
                 if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {

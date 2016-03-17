@@ -2699,7 +2699,7 @@
                 storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
                 
             }
-            NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"d"]];
+            //NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"d"]];
             CorporateNewsDetailsView *testView;
             //        if([userAccountTypeId isEqualToString:@"3"]) {
             //            testView = [storyBoard instantiateViewControllerWithIdentifier:@"NormalView"];
@@ -2709,9 +2709,10 @@
             NSLog(@"%@",indexPath);
             NSLog(@"%d",isSearching);
             NSLog(@"%@",articleIdToBePassed);
-            testView.isFromChart = isFromChart;
+            NSLog(@"chart selected value:%@",[NSNumber numberWithBool:isFromChart]);
             testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
             testView.searchText = searchBar.text;
+            testView.isFromChart = [NSNumber numberWithBool:isFromChart];
             testView.switchForFilter = switchForFilter;
             testView.articleTitle = _titleName;
             testView.currentIndex = indexPath.row;
