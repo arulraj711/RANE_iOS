@@ -12,6 +12,7 @@
 #import "FISharedResources.h"
 #import "ReportListCell.h"
 #import "ReportListObject.h"
+
 @interface ChartListViewController ()
 
 @end
@@ -99,9 +100,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ReportListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     ReportListObject *reportListObj = [reportListArray objectAtIndex:indexPath.row];
-    int serialNumber = indexPath.row+1;
-    cell.serialNumber.text = [NSString stringWithFormat:@"%d",serialNumber];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        int serialNumber = indexPath.row+1;
+        cell.serialNumber.text = [NSString stringWithFormat:@"%d",serialNumber];
+    }
     cell.reportTitle.text = reportListObj.reportTitle;
+    NSString *dateSTring = [FIUtils getDateFromTimeStamp:[reportListObj.reportFromDate doubleValue]];
+    NSLog(@"%@",dateSTring);
+    cell.dateCell.text = dateSTring;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

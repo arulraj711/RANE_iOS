@@ -198,7 +198,7 @@
     
     NSLog(@"%@",reverseOrder);
 
-    
+    dateArrayToGet =[NSMutableArray arrayWithArray:reverseOrder];
     //sorting the array of values based on keys------------------------------------------------------------
     
     NSMutableArray *reverseOrders = [[NSMutableArray alloc] init];                //contains the values of date in sorted form
@@ -1477,7 +1477,60 @@
     NSLog(@"%@ %@ %ld %@",chartView,entry,(long)dataSetIndex,highlight);
     NSLog(@"%f",entry.value);
     
+    NSLog(@"%@",monthArray); //months
+    NSLog(@"%@",ValueArray); //sum value
+    NSLog(@"%@",ValueArrayTwo); //values in general
+    int resultPoint = (int)entry.value;
+    NSLog(@"%d",resultPoint);
+    NSLog(@"%@",[NSNumber numberWithInt:resultPoint]);
+
+    if ([ValueArrayTwo containsObject:[NSNumber numberWithInt:resultPoint]]) {
+        NSUInteger indexA = [ValueArrayTwo indexOfObject:[NSNumber numberWithInt:resultPoint]];
+        NSLog(@"%ld",(long)indexA);
+        NSString *intFinals = [monthArray objectAtIndex:indexA];
+        NSLog(@"%@",intFinals);
+        
+        if ([xInputForMonths containsObject:intFinals]) {
+            
+            NSLog(@"%@",xInputForMonths);
+            NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
+            NSLog(@"%lu",(unsigned long)indexB);
+
+            NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
+            NSLog(@"%@",dateFinals);
+            
+            dateFinals = [dateFinals stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+            dateFinals = [dateFinals stringByReplacingOccurrencesOfString:@".000Z" withString:@""];
+            //NSLog(@"%@",dateInput);
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            
+            NSDate *inpuDateFormat = [dateFormatter dateFromString:dateFinals];
+            
+            dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+            
+            NSString *outputDateFormat = [dateFormatter stringFromDate:inpuDateFormat];
+            NSLog(@"%@",outputDateFormat);
+
+
+        }
+
+    }
+
+
+//  id member = [ValueArray indexOfObject:vals];
+
+
 }
+
+//NSLog(@"%lu",(unsigned long)[ValueArray indexOfObject:[NSNumber numberWithDouble:entry.value]]);
+//NSString *vals = [NSString stringWithFormat:@"%f",entry.value];
+//NSUInteger anIndex=[ValueArray indexOfObject:vals];
+//NSLog(@"%@",dateArrayToGet);
+//int vali= (int)anIndex;
+//NSLog(@"%@",[dateArrayToGet objectAtIndex:vali]);
 #pragma mark - Rest of the Code
 
 
@@ -1485,15 +1538,15 @@
 
 - (UIColor *)randomColor
 {
+    
     CGFloat red = arc4random() % 255 / 255.0;
     CGFloat green = arc4random() % 255 / 255.0;
     CGFloat blue = arc4random() % 255 / 255.0;
     UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
     UIColor *lightColor = [self darkerColorForColor:color];
-    UIColor *darkerColor = [self lighterColorForColor:lightColor];
     
     NSLog(@"Color:%@", color);
-    return darkerColor;
+    return lightColor;
 }
 
 -(NSMutableArray *)createXaxisArray : (NSArray *)inputArray{
@@ -1583,6 +1636,8 @@
                                alpha:a];
     return nil;
 }
+
+
 -(NSArray *)sortArrayWithArray:(NSArray *)incomingArray {
     NSArray *sortedArray = [incomingArray sortedArrayUsingDescriptors:
                             @[[NSSortDescriptor sortDescriptorWithKey:@"doubleValue"
