@@ -17,9 +17,8 @@
 @interface ChartViewController : UIViewController<ChartViewDelegate,CMPopTipViewDelegate,UITableViewDelegate,UITableViewDataSource>{
     NSArray *monthArray;
     NSArray *ValueArray;
-
+    NSAttributedString *descText;
     NSArray *ValueArrayTwo;
-
     NSArray *scaledXvalue;
     NSArray *scaledYvalue;
     NSArray *scaledYvalueTwo;

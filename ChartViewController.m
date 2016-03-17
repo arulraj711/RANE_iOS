@@ -144,19 +144,23 @@
                                                  name:@"FetchedTopInfluencerInfo"
                                                object:nil];
     
+
+
+    
     [[FISharedResources sharedResourceManager]getSingleReportDetailsForReportId:self.reportId];
    // Do any additional setup after loading the view.
-    
-    [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
 
 }
 
-
+#pragma mark - service response handling
 -(void)afterFetchingReportObject:(id)sender {
     NSNotification *notification = sender;
     reportObject = [[notification userInfo] objectForKey:@"reportObject"];
     NSLog(@"Report Object:%@",reportObject);
+    [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+
     [self.chartIconCollectionView reloadData];
+    
 }
 
 -(void)afterFetchingTrendOfCoverageInfo:(id)sender {
@@ -291,48 +295,6 @@
         [self plotPieChart:countVal range:7 withType:1];//type 1 for pie chart
 
     }
-}
--(NSMutableArray *)getDictionaryAndGiveOutKeysAndPercentagesArray :(NSDictionary *)inputDictionary{
-    
-    NSSortDescriptor *descriptories=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:NO];
-    NSArray *descriptoriess=[NSArray arrayWithObject: descriptories];
-    NSArray *sortedValues=[[inputDictionary  allValues] sortedArrayUsingDescriptors:descriptoriess];
-    NSLog(@"%@",sortedValues);
-    
-    NSArray *sortedKeys = [inputDictionary  keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [(NSNumber*)obj2 compare:(NSNumber*)obj1];
-    }];
-    
-    NSLog(@"%@",sortedKeys);
-    
-    
-    // to get the percentage of the array***************************************************
-    
-    NSInteger totalOfArray = 0;                 //sum of array
-    for (NSNumber *num in sortedValues)
-    {
-        totalOfArray += [num intValue];
-    }
-    
-    NSMutableArray *percentValueArray = [[NSMutableArray alloc]init];
-    for (int o= 0; o<sortedValues.count; o++) {
-        int outOfValue = (int)totalOfArray;
-        int oneByOne =  [(NSNumber *)[sortedValues objectAtIndex:o] intValue];
-        int getNumerator = (100 * oneByOne);
-        float secondDivide = (float)getNumerator/(float)outOfValue;
-        int rounded = (secondDivide + 0.5);
-        
-        [percentValueArray addObject:[NSNumber numberWithInt:rounded]];
-    }
-    
-    NSLog(@"%@",percentValueArray);
-    
-    
-    
-    // to get the percentage of the array***************************************************
-    NSMutableArray *outputArray=[[NSMutableArray alloc] initWithArray:@[sortedKeys,percentValueArray]];
-    
-    return outputArray; //array returned with x and y values
 }
 //Updating Media Type Chart Details
 -(void)afterFetchingMediaTypeInfo:(id)sender {
@@ -536,27 +498,6 @@
     
     
 }
--(NSArray *)sortKeysInOrder :(NSDictionary *)inputDictionary{
-    NSSortDescriptor *descriptories=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
-    NSArray *descriptoriess=[NSArray arrayWithObject: descriptories];
-    NSArray *resultantArray=[[inputDictionary  allKeys] sortedArrayUsingDescriptors:descriptoriess];
-   // NSLog(@"%@",resultantArray);
-
-    return resultantArray;
-    
-}
--(NSArray *)sortValuesOfKeysInOrder :(NSDictionary *)inputDictionary withArray:(NSArray *)inputArray{
-    NSMutableArray *valueOfDicts = [[NSMutableArray alloc] init];
-    for (int i=0; i<inputArray.count; i++)
-    {
-        NSString *inpT = [inputArray objectAtIndex:i];
-        NSString *value = [inputDictionary objectForKey:inpT];
-        [valueOfDicts addObject:value];
-    }
-    
-   // NSLog(@"%@",valueOfDicts);
-    return valueOfDicts;
-}
 
 -(void)afterFetchingTopSourcesInfo:(id)sender{
     
@@ -664,7 +605,8 @@
 
 
 -(void)settingsButtonFilter{
-    
+    [[FISharedResources sharedResourceManager]getTopStoriesForTable:reportObject.reportFromDate toDate:reportObject.reportToDate];
+
 
     UIStoryboard *storyboard;
     TopStoriesViewController *chartView;
@@ -722,8 +664,16 @@
     ChartIconCell *cell = (ChartIconCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:indexPath.row];
     cell.chartNameLabel.text = reportType.reportName;
-     ChartTypeObject *chartType = reportType.chartTypeObject;
+    ChartTypeObject *chartType = reportType.chartTypeObject;
     
+    
+    //for default description text
+    ReportTypeObject *reportTypeforFirstTime = [reportObject.reportTypeArray objectAtIndex:0];
+    NSString *descriptionText = [NSString stringWithFormat:@"%@",reportTypeforFirstTime.reportSummary];
+    descText = [[NSAttributedString alloc]initWithData:[descriptionText dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    
+  
+
     if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:1]]) {
         //Pie Chart - Key Topics
             cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:1]];
@@ -783,6 +733,11 @@
 
     ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:indexPath.row];
     ChartTypeObject *chartType = reportType.chartTypeObject;
+
+    NSString *descriptionText = [NSString stringWithFormat:@"%@",reportType.reportSummary];
+    descText = [[NSAttributedString alloc]initWithData:[descriptionText dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    NSLog(@"%@",descText);
+    NSLog(@"%@",[descText string]);
 
 
     ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
@@ -852,19 +807,6 @@
     ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:indexPath.row]];
 
-}
-
-- (UIColor *)randomColor
-{
-    CGFloat red = arc4random() % 255 / 255.0;
-    CGFloat green = arc4random() % 255 / 255.0;
-    CGFloat blue = arc4random() % 255 / 255.0;
-    UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
-    UIColor *lightColor = [self darkerColorForColor:color];
-    UIColor *darkerColor = [self lighterColorForColor:lightColor];
-
-    NSLog(@"Color:%@", color);
-    return darkerColor;
 }
 
 
@@ -1301,8 +1243,6 @@
         [yVals addObject:[[BarChartDataEntry alloc] initWithValues:reversed xIndex:i]];
     }
     NSLog(@"value array:%@",monthArray);
-    NSArray *alignXaxis  = [self returnSpacedXaxisValue:monthArray];
-    NSLog(@"%@",alignXaxis);
 
     for (int i = 0; i < count; i++)
     {
@@ -1331,18 +1271,6 @@
 }
 
 
--(NSArray *)returnSpacedXaxisValue :(NSArray *)inputArray{
-    NSMutableArray *outputArray = [[NSMutableArray alloc]init];
-    
-    for (NSString __strong *inputString in inputArray) {
-        
-        inputString = [inputString stringByReplacingOccurrencesOfString:@" " withString:@"\n"];
-        NSLog(@"%@",inputString);
-        [outputArray addObject:inputString];
-    }
-    NSLog(@"%@",outputArray);
-    return outputArray;
-}
 
 
 - (void)plotLineChart:(int)count range:(double)range
@@ -1410,7 +1338,7 @@
     
     //animations------------------------------------------------------------------------
     
-    [lineChartView animateWithXAxisDuration:3.0];
+    [lineChartView animateWithXAxisDuration:1.0];
     
     //animations------------------------------------------------------------------------
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
@@ -1504,6 +1432,22 @@
     
 }
 #pragma mark - Rest of the Code
+
+
+
+
+- (UIColor *)randomColor
+{
+    CGFloat red = arc4random() % 255 / 255.0;
+    CGFloat green = arc4random() % 255 / 255.0;
+    CGFloat blue = arc4random() % 255 / 255.0;
+    UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+    UIColor *lightColor = [self darkerColorForColor:color];
+    UIColor *darkerColor = [self lighterColorForColor:lightColor];
+    
+    NSLog(@"Color:%@", color);
+    return darkerColor;
+}
 
 -(NSMutableArray *)createXaxisArray : (NSArray *)inputArray{
     NSMutableArray *weekAxisArray = [[ NSMutableArray alloc]init];
@@ -1645,6 +1589,69 @@
     }
     
     return weekValueOfDateArray;
+}
+-(NSMutableArray *)getDictionaryAndGiveOutKeysAndPercentagesArray :(NSDictionary *)inputDictionary{
+    
+    NSSortDescriptor *descriptories=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:NO];
+    NSArray *descriptoriess=[NSArray arrayWithObject: descriptories];
+    NSArray *sortedValues=[[inputDictionary  allValues] sortedArrayUsingDescriptors:descriptoriess];
+    NSLog(@"%@",sortedValues);
+    
+    NSArray *sortedKeys = [inputDictionary  keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [(NSNumber*)obj2 compare:(NSNumber*)obj1];
+    }];
+    
+    NSLog(@"%@",sortedKeys);
+    
+    
+    // to get the percentage of the array***************************************************
+    
+    NSInteger totalOfArray = 0;                 //sum of array
+    for (NSNumber *num in sortedValues)
+    {
+        totalOfArray += [num intValue];
+    }
+    
+    NSMutableArray *percentValueArray = [[NSMutableArray alloc]init];
+    for (int o= 0; o<sortedValues.count; o++) {
+        int outOfValue = (int)totalOfArray;
+        int oneByOne =  [(NSNumber *)[sortedValues objectAtIndex:o] intValue];
+        int getNumerator = (100 * oneByOne);
+        float secondDivide = (float)getNumerator/(float)outOfValue;
+        int rounded = (secondDivide + 0.5);
+        
+        [percentValueArray addObject:[NSNumber numberWithInt:rounded]];
+    }
+    
+    NSLog(@"%@",percentValueArray);
+    
+    
+    
+    // to get the percentage of the array***************************************************
+    NSMutableArray *outputArray=[[NSMutableArray alloc] initWithArray:@[sortedKeys,percentValueArray]];
+    
+    return outputArray; //array returned with x and y values
+}
+-(NSArray *)sortKeysInOrder :(NSDictionary *)inputDictionary{
+    NSSortDescriptor *descriptories=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
+    NSArray *descriptoriess=[NSArray arrayWithObject: descriptories];
+    NSArray *resultantArray=[[inputDictionary  allKeys] sortedArrayUsingDescriptors:descriptoriess];
+    // NSLog(@"%@",resultantArray);
+    
+    return resultantArray;
+    
+}
+-(NSArray *)sortValuesOfKeysInOrder :(NSDictionary *)inputDictionary withArray:(NSArray *)inputArray{
+    NSMutableArray *valueOfDicts = [[NSMutableArray alloc] init];
+    for (int i=0; i<inputArray.count; i++)
+    {
+        NSString *inpT = [inputArray objectAtIndex:i];
+        NSString *value = [inputDictionary objectForKey:inpT];
+        [valueOfDicts addObject:value];
+    }
+    
+    // NSLog(@"%@",valueOfDicts);
+    return valueOfDicts;
 }
 
 -(NSArray *)GetXvalueAndYvalueForStackedBarChart :(NSDictionary *)inputDictionary{
@@ -1827,14 +1834,19 @@
 - (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipViews
 {
     //  [self.visiblePopTipViews removeObject:popTipView];
-    popTipViews = nil;
+    popTipView = nil;
 }
 
 - (IBAction)infoButtonClick:(id)sender {
     [self AnimateButtonOnClick:sender];
 
     NSString *contentMessage = nil;
-    contentMessage = @"\tA senior Apple executive said the company policy has been to produce information to the government when there is a lawful order to do so, but that in New York the judge never issued the order, and instead asked attorneys to file briefs addressing the constitutionality of the request for Apple to bypass its security protocols under the 1789 All Writs Act. The executive spoke on condition of anonymity to discuss a pending legal matter.";
+    if ([descText length]==0) {
+        contentMessage = @"Description not available.";
+    } else {
+        contentMessage = [descText string];
+
+    }
     
     
     
@@ -1845,7 +1857,7 @@
         popTipView.textColor = [UIColor darkTextColor];
         popTipView.textFont = [UIFont boldSystemFontOfSize:18.0];
         popTipView.dismissTapAnywhere = YES;
-        popTipView.animation = CMPopTipAnimationPop;
+//       popTipView.animation = CMPopTipAnimationPop;
         UIButton *button = (UIButton *)sender;
         
         [popTipView presentPointingAtView:button inView:_chartViewOutline animated:YES];
@@ -1861,6 +1873,7 @@
 
 //for iPad
 - (IBAction)topStoriesButtonClick:(id)sender {
+
     NSLog(@"constraint:%f",self.topStoriesViewLeadingConstraint.constant);
     if(!isTopStoriesOpen) {
         [UIView animateWithDuration:0.4

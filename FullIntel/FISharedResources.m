@@ -2854,4 +2854,17 @@
         // [FIUtils showErrorToast];
     }];
 }
+
+-(void)getTopStoriesForTable:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
+    [FIWebService getTopStoriesInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopStories", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopStoriesInfo"
+                                                            object:self
+                                                          userInfo:theInfo];
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // [FIUtils showErrorToast];
+    }];
+    
+}
+
 @end

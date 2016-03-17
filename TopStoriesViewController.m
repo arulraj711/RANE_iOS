@@ -16,20 +16,58 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(afterFetchingTopStories:)
+                                                 name:@"FetchedTopStoriesInfo"
+                                               object:nil];
     
     self.title = @"Top Stories";
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSError *error;
-    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    [self.storyTableView reloadData];
     // Do any additional setup after loading the view.
 }
+-(void)afterFetchingTopStories:(id)sender {
+    
+    NSNotification *notification = sender;
+    reportObject = [[notification userInfo] objectForKey:@"TopStories"];
+    
+    headingArray = [reportObject valueForKey:@"heading"];
+    
+    NSArray *inameArrays = [reportObject valueForKeyPath:@"contact.name"];
+    NSLog(@"%@",inameArrays);
+    NSArray *flatArray = [inameArrays valueForKeyPath: @"@unionOfArrays.self"];
+    NSLog(@"%@",flatArray);
+    
+    nameArray = [NSArray arrayWithArray:flatArray];
+    
+    
+    NSArray *iOutArrays = [reportObject valueForKeyPath:@"outlet.name"];
+    NSLog(@"%@",iOutArrays);
+    NSArray *iflatArray = [iOutArrays valueForKeyPath: @"@unionOfArrays.self"];
+    NSLog(@"%@",iflatArray);
+    
+
+
+    outletArray = [NSArray arrayWithArray:iflatArray];
+    
+    articleIdArray =[reportObject valueForKeyPath:@"id"];
+
+    
+    
+    NSLog(@"%@",nameArray);
+    NSLog(@"%@",outletArray);
+    NSLog(@"%@",headingArray);
+
+    NSLog(@"%@",articleIdArray);
+
+    [self.storyTableView reloadData];
+
+
+}
+
 #pragma mark - UITableview Datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return [chartStoryList count];
+    return [headingArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -39,15 +77,35 @@
     cell.numberLabel.text = [NSString stringWithFormat:@"%d",cnt];
     NSDictionary *dic;
     
-    dic = [chartStoryList objectAtIndex:indexPath.row];
-    cell.titleLabel.text = [dic objectForKey:@"title"];
-    cell.outletLabel.text = [dic objectForKey:@"outlet"];
+    cell.titleLabel.text = [headingArray objectAtIndex:indexPath.row];
+    NSString *outletAndName = [NSString stringWithFormat:@"%@,%@",[nameArray objectAtIndex:indexPath.row],[outletArray objectAtIndex:indexPath.row]];
+    cell.outletLabel.text = outletAndName;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIStoryboard *storyBoard;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
         
+    } else {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        
+    }
+    NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"d"]];
+    CorporateNewsDetailsView *testView;
+
+    testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
+    testView.forTopStories = 1;
+    testView.articleTitle = [headingArray objectAtIndex:indexPath.row];
+    testView.currentIndex = indexPath.row;
+    testView.selectedIndexPath = indexPath;
+    testView.articleIdFromSearchLst =[NSMutableArray arrayWithArray:articleIdArray];
+    [self.navigationController pushViewController:testView animated:YES];
+
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

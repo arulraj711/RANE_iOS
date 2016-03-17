@@ -347,107 +347,117 @@
 }
 
 -(void)getArticleIdListFromDB {
-    BOOL testFlag = [[NSUserDefaults standardUserDefaults]boolForKey:@"Test"];
-    if(testFlag) {
-        NSLog(@"test flag is TRUE");
-        
-        [self.activityIndicator stopAnimating];
-        [oneSecondTicker invalidate];
-        NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
-        NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
-        NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
-        NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
-        self.collectionView.scrollEnabled = YES;
-        NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
-        NSPredicate *predicate;
-        NSLog(@"newsletter id:%@",newsLetterId);
-        if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-            BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
-            if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
-                if(self.isSearching) {
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isSearch == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithBool:self.isSearching]];
-                } else if(self.switchForFilter == 1) {
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isFilter == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithInt:self.switchForFilter]];
-                } else if(self.switchForFilter == 2) {
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isFilter == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithInt:self.switchForFilter]];
+    if (_forTopStories == 1) {
+        self.articleIdArray =  [NSMutableArray arrayWithArray:_articleIdFromSearchLst];
+        NSLog(@"selected article id:%@",self.articleIdArray);
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+        _forTopStories = 0;
+    }
+    else{
+        BOOL testFlag = [[NSUserDefaults standardUserDefaults]boolForKey:@"Test"];
+        if(testFlag) {
+            NSLog(@"test flag is TRUE");
+            
+            [self.activityIndicator stopAnimating];
+            [oneSecondTicker invalidate];
+            NSNumber *categoryId = [[NSUserDefaults standardUserDefaults]objectForKey:@"categoryId"];
+            NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
+            NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
+            NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+            self.collectionView.scrollEnabled = YES;
+            NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
+            NSPredicate *predicate;
+            NSLog(@"newsletter id:%@",newsLetterId);
+            if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                BOOL savedForLaterIsNew =[[NSUserDefaults standardUserDefaults]boolForKey:@"SavedForLaterIsNew"];
+                if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
+                    if(self.isSearching) {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isSearch == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithBool:self.isSearching]];
+                    } else if(self.switchForFilter == 1) {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isFilter == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithInt:self.switchForFilter]];
+                    } else if(self.switchForFilter == 2) {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isFilter == %@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithInt:self.switchForFilter]];
+                    } else {
+                        predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@",[NSNumber numberWithBool:YES],categoryId];
+                    }
                 } else {
-                    predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@",[NSNumber numberWithBool:YES],categoryId];
+                    if(self.isSearching) {
+                        predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isSearch == %@",categoryId,contentTypeId,[NSNumber numberWithBool:self.isSearching]];
+                    } else if(self.switchForFilter == 1) {
+                        predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isFilter == %@",categoryId,contentTypeId,[NSNumber numberWithInt:self.switchForFilter]];
+                    } else if(self.switchForFilter == 2) {
+                        predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isFilter == %@",categoryId,contentTypeId,[NSNumber numberWithInt:self.switchForFilter]];
+                    } else {
+                        predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
+                    }
+                    
                 }
-            } else {
+            } else if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
                 if(self.isSearching) {
-                    predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isSearch == %@",categoryId,contentTypeId,[NSNumber numberWithBool:self.isSearching]];
+                    predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isSearch == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithBool:self.isSearching]];
                 } else if(self.switchForFilter == 1) {
-                    predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isFilter == %@",categoryId,contentTypeId,[NSNumber numberWithInt:self.switchForFilter]];
+                    predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isFilter == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithInt:self.switchForFilter]];
                 } else if(self.switchForFilter == 2) {
-                    predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@ AND isFilter == %@",categoryId,contentTypeId,[NSNumber numberWithInt:self.switchForFilter]];
+                    predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isFilter == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithInt:self.switchForFilter]];
                 } else {
-                    predicate  = [NSPredicate predicateWithFormat:@"categoryId==%@ AND contentTypeId==%@",categoryId,contentTypeId];
+                    predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
+                }
+            } else if(![newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                [self.revealController showViewController:self.revealController.frontViewController];
+                if(self.isSearching) {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isSearch == %@",newsLetterId,[NSNumber numberWithBool:self.isSearching]];
+                } else if(self.switchForFilter == 1) {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
+                } else if(self.switchForFilter == 2) {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
+                } else {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
                 }
                 
             }
-        } else if(![folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-            if(self.isSearching) {
-                predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isSearch == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithBool:self.isSearching]];
-            } else if(self.switchForFilter == 1) {
-                predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isFilter == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithInt:self.switchForFilter]];
-            } else if(self.switchForFilter == 2) {
-                predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@ AND isFilter == %@",[NSNumber numberWithBool:YES],folderId,[NSNumber numberWithInt:self.switchForFilter]];
-            } else {
-                predicate  = [NSPredicate predicateWithFormat:@"isFolder == %@ AND folderId == %@",[NSNumber numberWithBool:YES],folderId];
-            }
-        } else if(![newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
-            [self.revealController showViewController:self.revealController.frontViewController];
-            if(self.isSearching) {
-                predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isSearch == %@",newsLetterId,[NSNumber numberWithBool:self.isSearching]];
-            } else if(self.switchForFilter == 1) {
-                predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
-            } else if(self.switchForFilter == 2) {
-                predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
-            } else {
-                predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
+            [fetchRequest setPredicate:predicate];
+            [fetchRequest setEntity:entity];
+            
+            NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"modifiedDate" ascending:NO];
+            
+            NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
+            [fetchRequest setSortDescriptors:sortDescriptors];
+            
+            
+            NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
+            
+            NSMutableArray *elementsFromColumn = [[NSMutableArray alloc] init];
+            for (NSManagedObject *fetchedObject in fetchedObjects) {
+                [elementsFromColumn addObject:[fetchedObject valueForKey:@"articleId"]];
             }
             
-        }
-        [fetchRequest setPredicate:predicate];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"modifiedDate" ascending:NO];
-        
-        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
-        [fetchRequest setSortDescriptors:sortDescriptors];
-        
-        
-        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
-        
-        NSMutableArray *elementsFromColumn = [[NSMutableArray alloc] init];
-        for (NSManagedObject *fetchedObject in fetchedObjects) {
-            [elementsFromColumn addObject:[fetchedObject valueForKey:@"articleId"]];
-        }
-        
-        NSLog(@"elementsfrom column:%@",elementsFromColumn);
-        self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
-        NSLog(@"article id array:%@ and selected articleId:%@",self.articleIdArray,self.selectedNewsArticleId);
-        if(self.selectedNewsArticleId.length != 0) {
-            NSInteger atIndex = [self.articleIdArray indexOfObject:self.selectedNewsArticleId];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:atIndex inSection:0];
-            self.selectedIndexPath = indexPath;
-//            [self.view layoutIfNeeded];
-//            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-            NSLog(@"selected indexpath:%ld",(long)self.selectedIndexPath.row);
-            [self.collectionView reloadData];
-        } else {
-            if(self.articleIdArray.count != 0) {
+            NSLog(@"elementsfrom column:%@",elementsFromColumn);
+            self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
+            NSLog(@"article id array:%@ and selected articleId:%@",self.articleIdArray,self.selectedNewsArticleId);
+            if(self.selectedNewsArticleId.length != 0) {
+                NSInteger atIndex = [self.articleIdArray indexOfObject:self.selectedNewsArticleId];
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:atIndex inSection:0];
+                self.selectedIndexPath = indexPath;
+                //            [self.view layoutIfNeeded];
+                //            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+                NSLog(@"selected indexpath:%ld",(long)self.selectedIndexPath.row);
                 [self.collectionView reloadData];
+            } else {
+                if(self.articleIdArray.count != 0) {
+                    [self.collectionView reloadData];
+                }
             }
+        } else {
+            NSLog(@"test flag is FALSE");
         }
-    } else {
-        NSLog(@"test flag is FALSE");
+        NSLog(@"selected article id:%@",self.articleIdArray);
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+
     }
-    NSLog(@"selected article id:%@",self.articleIdArray);
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 

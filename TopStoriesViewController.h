@@ -8,10 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "StoryTableViewCell.h"
+#import "ReportObject.h"
+#import "FISharedResources.h"
+#import "CorporateNewsDetailsView.h"
 @interface TopStoriesViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
-    NSMutableArray *chartStoryList;
+    NSDictionary *reportObject;
+    NSArray *headingArray;
+    NSArray *nameArray;
+    NSArray *outletArray;
+    NSArray *articleIdArray;
+    
 
 }
 @property (strong, nonatomic) IBOutlet UITableView *storyTableView;
+@property (strong) NSMutableArray *devices;
+
 @end
