@@ -54,6 +54,9 @@
     BOOL isTopStoriesOpen;
     int selectedChartIndex;
     NSNumber *localReportTypeId;
+    
+    NSMutableArray *reverseOrderBkUp,*reverseOrdersBkUp;
+    NSMutableArray *weaveDateArray;
 
 }
 

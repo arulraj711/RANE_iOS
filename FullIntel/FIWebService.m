@@ -922,7 +922,17 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
   //  http://stage.fullintel.com/1.4.0/api/v1/articles?clickedDate=01/12/2015&endDateIn=MONTH&fromDate=1448946000000&page=0&security_token=1c4f4e2586d4a2eaef161b000df2215f76016271&size=10&toDate=1456722000000
     
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate];
+    NSString *functionName;
+    if(filterBy.length != 0 && query.length != 0) {
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@&query=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate,filterBy,query];
+    } else if(filterBy.length != 0) {
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate,filterBy];
+    } else if(query.length != 0) {
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&query=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate,query];
+    } else {
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate];
+    }
+    
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -953,5 +963,46 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
     }];
 }
+
++(void)fetchSentimentAndVolumeOverTimeArticleListWithClickedDate:(NSString*)clickedDate EndDateIn:(NSString *)endDateIn field1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+//    1.4.0/api/v1/articles?clickedDate=1%2F11%2F2015&contentCategoryId=&endDateIn=MONTH&field_1=tonality.name&field_2=fields.name&fromDate=1446354000000&page=0&security_token=1c4f4e2586d4a2eaef161b000df2215f76016271&size=10&toDate=1454216400000&value_1=Positive&value_2=Lenovaa
+    
+    
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    NSString *functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+}
+
++(void)fetchChangeOverLastQuarterArticleListWithClickedDate:(NSString*)clickedDate EndDateIn:(NSString *)endDateIn field1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+{
+    
+//    1.4.0/api/v1/articles?clickedDate=1%2F8%2F2015&contentCategoryId=&endDateIn=MONTH&field_1=fields.name&fromDate=1446354000000&page=0&security_token=1c4f4e2586d4a2eaef161b000df2215f76016271&size=10&toDate=1454216400000&value_1=Windowss
+    
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    NSString *functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+    
+}
+
++(void)fetchHorizontalLineBarChartArticleListWithField1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    
+//    1.4.0/api/v1/articles?contentCategoryId=&field_1=tonality.name&field_2=outlet.name.sort&fromDate=1446354000000&page=0&security_token=1c4f4e2586d4a2eaef161b000df2215f76016271&size=10&toDate=1454302799000&value_1=Positive&value_2=Engadget
+    
+    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    NSString *functionName = [NSString stringWithFormat:@"articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+}
+
 
 @end

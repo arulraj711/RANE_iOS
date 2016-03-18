@@ -75,4 +75,13 @@
 @property (nonatomic,strong) IBOutlet UIButton *filterButton;
 @property NSMutableArray *filterArray;
 @property (weak, nonatomic) IBOutlet UIView *topView;
+
+//get the report type from chart
+@property (nonatomic,strong) NSNumber *reportTypeId;
+
+//get the trend of coverage input from chart selection
+@property (nonatomic,strong) NSString *clickedDate;
+@property (nonatomic,strong) NSString *trendOfCoverageEndDateIn;
+@property (nonatomic,strong) NSNumber *reportFromDate;
+@property (nonatomic,strong) NSNumber *reportToDate;
 @end

@@ -2901,6 +2901,7 @@
     //Handle pull down to refresh
     if([updownFlag isEqualToString:@"up"]) {
         //pull down to refresh code here
+        [self clearChartRelatedArticles:@"CuratedNews"];
     }
     
     for(NSDictionary *dic in inputArray) {
@@ -3164,24 +3165,24 @@
             
             [self hideProgressView];//hide progress view
             
-            BOOL isSearch = NO;
-//            if([details containsString:@"query"]) {
-//                isSearch = YES;
-//            } else {
-//                isSearch = NO;
-//            }
-            NSNumber *filterBy = [NSNumber numberWithInt:0];
-//            if([details containsString:@"UNREAD"]) {
-//                filterBy = [NSNumber numberWithInt:1];
-//            } else if([details containsString:@"RECENT"]) {
-//                filterBy = [NSNumber numberWithInt:2];
-//            } else {
-//                filterBy = [NSNumber numberWithInt:0];
-//            }
+            BOOL isSearch;
+            if(query.length != 0) {
+                isSearch = YES;
+            } else {
+                isSearch = NO;
+            }
+            NSNumber *filterByNumber = [NSNumber numberWithInt:0];
+            if([filterBy containsString:@"UNREAD"]) {
+                filterByNumber = [NSNumber numberWithInt:1];
+            } else if([filterBy containsString:@"RECENT"]) {
+                filterByNumber = [NSNumber numberWithInt:2];
+            } else {
+                filterByNumber = [NSNumber numberWithInt:0];
+            }
 
             
             NSArray *articleListArray = responseObject;
-            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterBy withUpDownFlag:updownFlag];
+            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterByNumber withUpDownFlag:updownFlag];
             
             [self hideProgressView];
             // NSLog(@"reached end");
@@ -3319,5 +3320,169 @@
         
     }
 }
+
+
+-(void)getSentimentOverTimeArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn field1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
+    
+    if([self serviceIsReachable]) {
+        [FIWebService fetchSentimentAndVolumeOverTimeArticleListWithClickedDate:clickedDate EndDateIn:endDateIn field1:field_1 field2:field_2 value1:value_1 value2:value_2 fromDate:fromDate toDate:toDate withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            [self hideProgressView];//hide progress view
+            
+            BOOL isSearch = NO;
+            //            if([details containsString:@"query"]) {
+            //                isSearch = YES;
+            //            } else {
+            //                isSearch = NO;
+            //            }
+            NSNumber *filterBy = [NSNumber numberWithInt:0];
+            //            if([details containsString:@"UNREAD"]) {
+            //                filterBy = [NSNumber numberWithInt:1];
+            //            } else if([details containsString:@"RECENT"]) {
+            //                filterBy = [NSNumber numberWithInt:2];
+            //            } else {
+            //                filterBy = [NSNumber numberWithInt:0];
+            //            }
+            
+            
+            NSArray *articleListArray = responseObject;
+            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterBy withUpDownFlag:updownFlag];
+            
+            [self hideProgressView];
+            // NSLog(@"reached end");
+            if(articleListArray.count == 0) {
+                if(lastArticleId.length != 0){
+                    NSLog(@"inside stop loading");
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"stopLoadingForAlert" object:nil];
+                    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                    [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
+                } else {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
+                }
+            }
+            else{
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil userInfo:@{@"isFromChart":[NSNumber numberWithBool:YES]}];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetailsUpdate" object:nil];
+                
+            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        
+    }
+
+}
+
+-(void)getChangeOverLastQuarterArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn field1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+{
+    if([self serviceIsReachable]) {
+        [FIWebService fetchChangeOverLastQuarterArticleListWithClickedDate:clickedDate EndDateIn:endDateIn field1:field_1 value1:value_1 fromDate:fromDate toDate:toDate withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            [self hideProgressView];//hide progress view
+            
+            BOOL isSearch = NO;
+            //            if([details containsString:@"query"]) {
+            //                isSearch = YES;
+            //            } else {
+            //                isSearch = NO;
+            //            }
+            NSNumber *filterBy = [NSNumber numberWithInt:0];
+            //            if([details containsString:@"UNREAD"]) {
+            //                filterBy = [NSNumber numberWithInt:1];
+            //            } else if([details containsString:@"RECENT"]) {
+            //                filterBy = [NSNumber numberWithInt:2];
+            //            } else {
+            //                filterBy = [NSNumber numberWithInt:0];
+            //            }
+            
+            
+            NSArray *articleListArray = responseObject;
+            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterBy withUpDownFlag:updownFlag];
+            
+            [self hideProgressView];
+            // NSLog(@"reached end");
+            if(articleListArray.count == 0) {
+                if(lastArticleId.length != 0){
+                    NSLog(@"inside stop loading");
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"stopLoadingForAlert" object:nil];
+                    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                    [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
+                } else {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
+                }
+            }
+            else{
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil userInfo:@{@"isFromChart":[NSNumber numberWithBool:YES]}];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetailsUpdate" object:nil];
+                
+            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        
+    }
+
+}
+
+
+-(void)getHorizontalLineBarChartArticleListFromField1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
+    
+    if([self serviceIsReachable]) {
+        [FIWebService fetchHorizontalLineBarChartArticleListWithField1:field_1 field2:field_2 value1:value_1 value2:value_2 fromDate:fromDate toDate:toDate withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            [self hideProgressView];//hide progress view
+            
+            BOOL isSearch = NO;
+            //            if([details containsString:@"query"]) {
+            //                isSearch = YES;
+            //            } else {
+            //                isSearch = NO;
+            //            }
+            NSNumber *filterBy = [NSNumber numberWithInt:0];
+            //            if([details containsString:@"UNREAD"]) {
+            //                filterBy = [NSNumber numberWithInt:1];
+            //            } else if([details containsString:@"RECENT"]) {
+            //                filterBy = [NSNumber numberWithInt:2];
+            //            } else {
+            //                filterBy = [NSNumber numberWithInt:0];
+            //            }
+            
+            
+            NSArray *articleListArray = responseObject;
+            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterBy withUpDownFlag:updownFlag];
+            
+            [self hideProgressView];
+            // NSLog(@"reached end");
+            if(articleListArray.count == 0) {
+                if(lastArticleId.length != 0){
+                    NSLog(@"inside stop loading");
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"stopLoadingForAlert" object:nil];
+                    UIWindow *window = [[UIApplication sharedApplication]windows][0];
+                    [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
+                } else {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StopLoading" object:nil];
+                }
+            }
+            else{
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil userInfo:@{@"isFromChart":[NSNumber numberWithBool:YES]}];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetailsUpdate" object:nil];
+                
+            }
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        
+    }
+}
+
 
 @end

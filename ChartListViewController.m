@@ -122,6 +122,7 @@
         storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPad" bundle:nil];
         chartView = [storyboard instantiateViewControllerWithIdentifier:@"ChartViewController"];
     }
+    
     ReportListObject *reportListObj = [reportListArray objectAtIndex:indexPath.row];
     chartView.reportId = reportListObj.reportId;
     chartView.reportFromDate = reportListObj.reportFromDate;
