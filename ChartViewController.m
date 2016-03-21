@@ -1511,8 +1511,11 @@
     NSString *tonalityValue = [[NSString alloc]init];
     NSUInteger dataSetIndexes  = dataSetIndex;
     NSString *clickedDate;
+    NSString *nameOfIndexForSentimentChart;
     NSString *trendOfCoverageEndDateIn = @"MONTH";
     NSLog(@"%lu and %lu AND %lu",(unsigned long)indexEntry,(unsigned long)stackIndex,(unsigned long)dataSetIndexes);
+    NSString *brandName;
+    NSString *changeOverSelectedValue;
     
     if (stackIndex == 0) {
         tonalityValue = [NSString stringWithFormat:@"Positive"];
@@ -1561,12 +1564,8 @@
             
         }
         else{                       //for Line chart if its for week----------------------------------------------------------------------
-            if ([ValueArrayTwo containsObject:[NSNumber numberWithInt:resultPoint]]) {
-                NSUInteger indexA = [ValueArrayTwo indexOfObject:[NSNumber numberWithInt:resultPoint]];
-                
-                NSString *dateFinals = [dateArrayToGet objectAtIndex:indexA];
-                clickedDate = [self getFinalDateValueForWebService:dateFinals];
-            }
+            NSString *dateFinals = [dateArrayToGet objectAtIndex:indexEntry];
+            clickedDate = [self getFinalDateValueForWebService:dateFinals];
             
         }
         
@@ -1577,18 +1576,20 @@
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
         
         //Key topics chart selection
-        NSString *brandName;
-        if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
-            NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
-            brandName = [monthArray objectAtIndex:indexA];
-            NSLog(@"%@",brandName);
-        }
+        
+        //if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
+           // NSString *indexA = [ValueArray objectAtIndex:indexEntry];
+            brandName = [monthArray objectAtIndex:indexEntry];
+           
+      //  }
+    
+        NSLog(@"selected brand name:%@",brandName);
         [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
     
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:3]]) {
         
         //Media types chart selection
-        NSString *brandName;
+        
         if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
             NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
             brandName = [monthArray objectAtIndex:indexA];
@@ -1601,46 +1602,43 @@
         //Sentiment and volume over time chart
         NSString *arrayWithxIndex = [ValueArray objectAtIndex:indexEntry];
         NSLog(@"%@",arrayWithxIndex);
-        NSString *nameOfIndex = [monthArray objectAtIndex:indexEntry];           //contains name eg. iPhone
+        nameOfIndexForSentimentChart = [monthArray objectAtIndex:indexEntry];           //contains name eg. iPhone
         NSString *dateOFIndex = [weaveDateArray objectAtIndex:indexEntry];
         clickedDate = [self getFinalDateValueForWebService:dateOFIndex];
         
-        [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:tonalityValue value2:nameOfIndex fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:tonalityValue value2:nameOfIndexForSentimentChart fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:5]]) {
         
         //Change over last quarter chart info
         
-        NSString *valueAr = [reverseOrdersBkUp objectAtIndex:dataSetIndexes];
+        changeOverSelectedValue = [reverseOrdersBkUp objectAtIndex:dataSetIndexes];
         NSDictionary *valueArs = [reverseOrderBkUp objectAtIndex:dataSetIndexes];
         
         NSArray *firstArray=[self sortKeysInOrder:valueArs];
-        
-        NSArray *secArray = [self sortValuesOfKeysInOrder:valueArs withArray:firstArray];
-        
-        NSUInteger indexA = [secArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
-        
-        NSString *dateAris = [firstArray objectAtIndex:indexA];
+    
+        NSString *dateAris = [firstArray objectAtIndex:indexEntry];
         clickedDate = [self getFinalDateValueForWebService:dateAris];
         
-        [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:valueAr fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:changeOverSelectedValue fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
         
         //Top sources chart selection
-        NSString *brandName;
+        
             brandName = [monthArray objectAtIndex:indexEntry];
             NSLog(@"%@",brandName);
        // NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:@"-"];
         NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-"]];
         NSLog(@"first:%@",[brandArray objectAtIndex:0]);
-        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:tonalityValue value2:[brandArray objectAtIndex:0] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        brandName = [brandArray objectAtIndex:0];
+        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:tonalityValue value2:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:7]]) {
         
         //Top journalist chart selection
         
-        NSString *brandName;
+        
         //if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
             //NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
             brandName = [monthArray objectAtIndex:indexEntry];
@@ -1652,7 +1650,7 @@
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
         
         //Top influencer chart selection
-        NSString *brandName;
+        
        // if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
          //   NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
             brandName = [monthArray objectAtIndex:indexEntry];
@@ -1674,9 +1672,19 @@
     }
     listView.reportTypeId = localReportTypeId;
     listView.clickedDate = clickedDate;
-    listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
     listView.reportFromDate = reportObject.reportFromDate;
     listView.reportToDate = reportObject.reportToDate;
+    listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
+    listView.keyTopicsBrandName = brandName;
+    listView.mediaTypesBrandName = brandName;
+    
+    listView.sentimentChartTonalityValue = tonalityValue;
+    listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+    
+    listView.changeOverSelectedValue = changeOverSelectedValue;
+    
+    listView.horizontalBarChartTonalityValue = tonalityValue;
+    listView.horizontalBarChartSelectedValue = brandName;
     
     [self.navigationController pushViewController:listView animated:YES];
     

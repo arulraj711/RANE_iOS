@@ -84,4 +84,19 @@
 @property (nonatomic,strong) NSString *trendOfCoverageEndDateIn;
 @property (nonatomic,strong) NSNumber *reportFromDate;
 @property (nonatomic,strong) NSNumber *reportToDate;
+
+//get key topics input from chart selection
+@property (nonatomic,strong) NSString *keyTopicsBrandName;
+@property (nonatomic,strong) NSString *mediaTypesBrandName;
+
+//get sentiment and volume over time chart selection
+@property (nonatomic,strong) NSString *sentimentChartTonalityValue;
+@property (nonatomic,strong) NSString *sentimentChartSelectedName;
+
+//get change over last quarter chart selection info
+@property (nonatomic,strong) NSString *changeOverSelectedValue;
+
+//get horizontal chart selction info
+@property (nonatomic,strong) NSString *horizontalBarChartTonalityValue;
+@property (nonatomic,strong) NSString *horizontalBarChartSelectedValue;
 @end

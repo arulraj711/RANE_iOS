@@ -10,12 +10,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "479998126.806002"
+            timestampString = "480238320.025682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1501"
-            endingLineNumber = "1501"
+            startingLineNumber = "1576"
+            endingLineNumber = "1576"
             landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ChartViewController chartValueSelected:entry:dataSetIndex:highlight:]"
+                  moduleName = "FullIntel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/ChartViewController.m"
+                  timestampString = "480238321.287151"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1576"
+                  endingLineNumber = "1576"
+                  offsetFromSymbolStart = "3282">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ChartViewController chartValueSelected:entry:dataSetIndex:highlight:]"
+                  moduleName = "FullIntel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/ChartViewController.m"
+                  timestampString = "480238321.287836"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1576"
+                  endingLineNumber = "1576"
+                  offsetFromSymbolStart = "3286">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/CorporateNewsListView.m"
+            timestampString = "480236547.486962"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
+            landmarkName = "-callSearchAPIWithStringForUnread:withFilterString:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/FISharedResources.m"
+            timestampString = "480237194.124518"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3218"
+            endingLineNumber = "3218"
+            landmarkName = "-getKeyTopicsArticleListFromField1:value1:fromDate:toDate:withSize:withPageNo:withFilterBy:withQuery:withFlag:withLastArticleId:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

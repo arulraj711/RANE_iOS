@@ -945,7 +945,24 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
     
     ///1.4.0/api/v1/articles?contentCategoryId=&field_1=fields.name&fromDate=1446354000000&page=0&security_token=1c4f4e2586d4a2eaef161b000df2215f76016271&size=10&toDate=1454302799000&value_1=Samsungu
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1];
+    
+    NSString *functionName;
+    if(filterBy.length != 0 && query.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@&query=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy,query];
+    } else if(filterBy.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy];
+        
+    } else if(query.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&query=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1,query];
+        
+    } else {
+        functionName = [NSString stringWithFormat:@"articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1];
+    }
+    
+   
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -957,7 +974,28 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
 +(void)fetchMediaTypeArticleListWithMediaTypeField:(NSString*)mediaType_field mediaTypeValue:(NSString *)mediaType_value fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     ///1.4.0/api/v1/articles?fromDate=1446354000000&mediaType_field=mediaTypeId&mediaType_value=Online+Pub&page=0&security_token=1c4f4e2586d4a2eaef161b000df2215f76016271&size=10&toDate=1454302799000
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate];
+    
+    
+    NSString *functionName;
+    if(filterBy.length != 0 && query.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@&query=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate,filterBy,query];
+
+    } else if(filterBy.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate,filterBy];
+        
+    } else if(query.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@&query=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate,query];
+
+    } else {
+        functionName = [NSString stringWithFormat:@"articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate];
+    }
+    
+    
+    
+    
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -970,7 +1008,26 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
     
     
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2];
+    
+    NSString *functionName;
+    if(filterBy.length != 0 && query.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@&query=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy,query];
+        
+    } else if(filterBy.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy];
+        
+    } else if(query.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&query=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,query];
+        
+    } else {
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2];
+    }
+    
+    
+    
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -983,7 +1040,26 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
 //    1.4.0/api/v1/articles?clickedDate=1%2F8%2F2015&contentCategoryId=&endDateIn=MONTH&field_1=fields.name&fromDate=1446354000000&page=0&security_token=1c4f4e2586d4a2eaef161b000df2215f76016271&size=10&toDate=1454216400000&value_1=Windowss
     
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1];
+    
+    NSString *functionName;
+    if(filterBy.length != 0 && query.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@&query=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy,query];
+
+    } else if(filterBy.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy];
+        
+    } else if(query.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&query=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1,query];
+        
+    } else {
+        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1];
+    }
+    
+    
+    
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -997,7 +1073,25 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
 //    1.4.0/api/v1/articles?contentCategoryId=&field_1=tonality.name&field_2=outlet.name.sort&fromDate=1446354000000&page=0&security_token=1c4f4e2586d4a2eaef161b000df2215f76016271&size=10&toDate=1454302799000&value_1=Positive&value_2=Engadget
     
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2];
+    
+    NSString *functionName;
+    if(filterBy.length != 0 && query.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@&query=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy,query];
+
+    } else if(filterBy.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy];
+
+    } else if(query.length != 0) {
+        
+        functionName = [NSString stringWithFormat:@"articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&query=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,query];
+        
+    } else {
+        functionName = [NSString stringWithFormat:@"articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2];
+    }
+    
+    
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {

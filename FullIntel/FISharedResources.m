@@ -3222,24 +3222,24 @@
         
             [self hideProgressView];//hide progress view
             
-            BOOL isSearch = NO;
-            //            if([details containsString:@"query"]) {
-            //                isSearch = YES;
-            //            } else {
-            //                isSearch = NO;
-            //            }
-            NSNumber *filterBy = [NSNumber numberWithInt:0];
-            //            if([details containsString:@"UNREAD"]) {
-            //                filterBy = [NSNumber numberWithInt:1];
-            //            } else if([details containsString:@"RECENT"]) {
-            //                filterBy = [NSNumber numberWithInt:2];
-            //            } else {
-            //                filterBy = [NSNumber numberWithInt:0];
-            //            }
+            BOOL isSearch;
+            if(query.length != 0) {
+                isSearch = YES;
+            } else {
+                isSearch = NO;
+            }
+            NSNumber *filterByNumber = [NSNumber numberWithInt:0];
+            if([filterBy containsString:@"UNREAD"]) {
+                filterByNumber = [NSNumber numberWithInt:1];
+            } else if([filterBy containsString:@"RECENT"]) {
+                filterByNumber = [NSNumber numberWithInt:2];
+            } else {
+                filterByNumber = [NSNumber numberWithInt:0];
+            }
             
             
             NSArray *articleListArray = responseObject;
-            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterBy withUpDownFlag:updownFlag];
+            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterByNumber withUpDownFlag:updownFlag];
             
             [self hideProgressView];
             // NSLog(@"reached end");
@@ -3275,24 +3275,24 @@
             
             [self hideProgressView];//hide progress view
             
-            BOOL isSearch = NO;
-            //            if([details containsString:@"query"]) {
-            //                isSearch = YES;
-            //            } else {
-            //                isSearch = NO;
-            //            }
-            NSNumber *filterBy = [NSNumber numberWithInt:0];
-            //            if([details containsString:@"UNREAD"]) {
-            //                filterBy = [NSNumber numberWithInt:1];
-            //            } else if([details containsString:@"RECENT"]) {
-            //                filterBy = [NSNumber numberWithInt:2];
-            //            } else {
-            //                filterBy = [NSNumber numberWithInt:0];
-            //            }
+            BOOL isSearch;
+            if(query.length != 0) {
+                isSearch = YES;
+            } else {
+                isSearch = NO;
+            }
+            NSNumber *filterByNumber = [NSNumber numberWithInt:0];
+            if([filterBy containsString:@"UNREAD"]) {
+                filterByNumber = [NSNumber numberWithInt:1];
+            } else if([filterBy containsString:@"RECENT"]) {
+                filterByNumber = [NSNumber numberWithInt:2];
+            } else {
+                filterByNumber = [NSNumber numberWithInt:0];
+            }
             
             
             NSArray *articleListArray = responseObject;
-            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterBy withUpDownFlag:updownFlag];
+            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterByNumber withUpDownFlag:updownFlag];
             
             [self hideProgressView];
             // NSLog(@"reached end");
@@ -3329,24 +3329,24 @@
             
             [self hideProgressView];//hide progress view
             
-            BOOL isSearch = NO;
-            //            if([details containsString:@"query"]) {
-            //                isSearch = YES;
-            //            } else {
-            //                isSearch = NO;
-            //            }
-            NSNumber *filterBy = [NSNumber numberWithInt:0];
-            //            if([details containsString:@"UNREAD"]) {
-            //                filterBy = [NSNumber numberWithInt:1];
-            //            } else if([details containsString:@"RECENT"]) {
-            //                filterBy = [NSNumber numberWithInt:2];
-            //            } else {
-            //                filterBy = [NSNumber numberWithInt:0];
-            //            }
+            BOOL isSearch;
+            if(query.length != 0) {
+                isSearch = YES;
+            } else {
+                isSearch = NO;
+            }
+            NSNumber *filterByNumber = [NSNumber numberWithInt:0];
+            if([filterBy containsString:@"UNREAD"]) {
+                filterByNumber = [NSNumber numberWithInt:1];
+            } else if([filterBy containsString:@"RECENT"]) {
+                filterByNumber = [NSNumber numberWithInt:2];
+            } else {
+                filterByNumber = [NSNumber numberWithInt:0];
+            }
             
             
             NSArray *articleListArray = responseObject;
-            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterBy withUpDownFlag:updownFlag];
+            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterByNumber withUpDownFlag:updownFlag];
             
             [self hideProgressView];
             // NSLog(@"reached end");
@@ -3383,24 +3383,23 @@
             
             [self hideProgressView];//hide progress view
             
-            BOOL isSearch = NO;
-            //            if([details containsString:@"query"]) {
-            //                isSearch = YES;
-            //            } else {
-            //                isSearch = NO;
-            //            }
-            NSNumber *filterBy = [NSNumber numberWithInt:0];
-            //            if([details containsString:@"UNREAD"]) {
-            //                filterBy = [NSNumber numberWithInt:1];
-            //            } else if([details containsString:@"RECENT"]) {
-            //                filterBy = [NSNumber numberWithInt:2];
-            //            } else {
-            //                filterBy = [NSNumber numberWithInt:0];
-            //            }
-            
+            BOOL isSearch;
+            if(query.length != 0) {
+                isSearch = YES;
+            } else {
+                isSearch = NO;
+            }
+            NSNumber *filterByNumber = [NSNumber numberWithInt:0];
+            if([filterBy containsString:@"UNREAD"]) {
+                filterByNumber = [NSNumber numberWithInt:1];
+            } else if([filterBy containsString:@"RECENT"]) {
+                filterByNumber = [NSNumber numberWithInt:2];
+            } else {
+                filterByNumber = [NSNumber numberWithInt:0];
+            }
             
             NSArray *articleListArray = responseObject;
-            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterBy withUpDownFlag:updownFlag];
+            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterByNumber withUpDownFlag:updownFlag];
             
             [self hideProgressView];
             // NSLog(@"reached end");
@@ -3438,24 +3437,24 @@
             
             [self hideProgressView];//hide progress view
             
-            BOOL isSearch = NO;
-            //            if([details containsString:@"query"]) {
-            //                isSearch = YES;
-            //            } else {
-            //                isSearch = NO;
-            //            }
-            NSNumber *filterBy = [NSNumber numberWithInt:0];
-            //            if([details containsString:@"UNREAD"]) {
-            //                filterBy = [NSNumber numberWithInt:1];
-            //            } else if([details containsString:@"RECENT"]) {
-            //                filterBy = [NSNumber numberWithInt:2];
-            //            } else {
-            //                filterBy = [NSNumber numberWithInt:0];
-            //            }
+            BOOL isSearch;
+            if(query.length != 0) {
+                isSearch = YES;
+            } else {
+                isSearch = NO;
+            }
+            NSNumber *filterByNumber = [NSNumber numberWithInt:0];
+            if([filterBy containsString:@"UNREAD"]) {
+                filterByNumber = [NSNumber numberWithInt:1];
+            } else if([filterBy containsString:@"RECENT"]) {
+                filterByNumber = [NSNumber numberWithInt:2];
+            } else {
+                filterByNumber = [NSNumber numberWithInt:0];
+            }
             
             
             NSArray *articleListArray = responseObject;
-            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterBy withUpDownFlag:updownFlag];
+            [self commonFunctionForUpdatingChartArticleDataLocally:articleListArray withSearch:isSearch withFilterBy:filterByNumber withUpDownFlag:updownFlag];
             
             [self hideProgressView];
             // NSLog(@"reached end");

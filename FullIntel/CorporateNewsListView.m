@@ -492,13 +492,26 @@
             //Trend of coverage
             [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:self.clickedDate endDateIn:self.trendOfCoverageEndDateIn fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchString withFlag:@"" withLastArticleId:@""];
         } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-            
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+            //Key topics
+            [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:self.keyTopicsBrandName fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchString withFlag:@"" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:3]]) {
+            //Media types
+            [[FISharedResources sharedResourceManager]getMediaTypesArticleListFromMediaTypeField:@"mediaTypeId" mediaTypeValue:self.mediaTypesBrandName fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchString withFlag:@"" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:4]]) {
+            //sentiment and volume over time
+            [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:self.clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:self.sentimentChartTonalityValue value2:self.sentimentChartSelectedName fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchString withFlag:@"" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:5]]) {
+            //change over last quarter value
+            [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:self.clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:self.changeOverSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchString withFlag:@"" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+            //top sources
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:self.horizontalBarChartTonalityValue value2:self.horizontalBarChartSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchString withFlag:@"" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:7]]) {
+            //top journalist
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.name.sort" value1:self.horizontalBarChartTonalityValue value2:self.horizontalBarChartSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchString withFlag:@"" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+            //top influencers
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:self.horizontalBarChartTonalityValue value2:self.horizontalBarChartSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchString withFlag:@"" withLastArticleId:@""];
         }
     } else {
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]] && [newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
@@ -1428,26 +1441,41 @@
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
     NSString *queryString;
     if(isFromChart) {
+        
+        NSString *filterString;
+        if (switchForFilter == 1){
+            filterString = @"UNREAD";
+        } else if (switchForFilter == 2){
+            filterString = @"RECENT";
+        } else {
+            filterString = @"";
+        }
+        
         //refresh list view for media analysis data 1.Need to check the report type id
         if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
             //Trend of coverage
-            NSString *filterString;
-            if (switchForFilter == 1){
-                filterString = @"UNREAD";
-            } else if (switchForFilter == 2){
-                filterString = @"RECENT";
-            } else {
-                filterString = @"";
-            }
             [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:self.clickedDate endDateIn:self.trendOfCoverageEndDateIn fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchBar.text withFlag:@"up" withLastArticleId:@""];
         } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-            
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+            //Key topics
+            [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:self.keyTopicsBrandName fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchBar.text withFlag:@"up" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:3]]) {
+            //Media types
+            [[FISharedResources sharedResourceManager]getMediaTypesArticleListFromMediaTypeField:@"mediaTypeId" mediaTypeValue:self.mediaTypesBrandName fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchBar.text withFlag:@"up" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:4]]) {
+            //sentiment and volume over time
+            [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:self.clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:self.sentimentChartTonalityValue value2:self.sentimentChartSelectedName fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchBar.text withFlag:@"up" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:5]]) {
+            //change over last quarter value
+            [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:self.clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:self.changeOverSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchBar.text withFlag:@"up" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+            //top sources
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:self.horizontalBarChartTonalityValue value2:self.horizontalBarChartSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchBar.text withFlag:@"up" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:7]]) {
+            //top journalist
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.name.sort" value1:self.horizontalBarChartTonalityValue value2:self.horizontalBarChartSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchBar.text withFlag:@"up" withLastArticleId:@""];
+        } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+            //top influencers
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:self.horizontalBarChartTonalityValue value2:self.horizontalBarChartSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:filterString withQuery:searchBar.text withFlag:@"up" withLastArticleId:@""];
         }
     } else {
         if([folderId isEqualToNumber:[NSNumber numberWithInt:0]] && [newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
@@ -2773,6 +2801,19 @@
             testView.forTopStories = [NSNumber numberWithInt:0];
             testView.isSearching = isSearching;
             testView.articleIdFromSearchLst =articleIdToBePassed;
+            
+            testView.reportTypeId = self.reportTypeId;
+            testView.clickedDate = self.clickedDate;
+            testView.reportFromDate = self.reportFromDate;
+            testView.reportToDate = self.reportToDate;
+            testView.trendOfCoverageEndDateIn = self.trendOfCoverageEndDateIn;
+            testView.keyTopicsBrandName = self.keyTopicsBrandName;
+            testView.mediaTypesBrandName = self.mediaTypesBrandName;
+            testView.sentimentChartSelectedName = self.sentimentChartSelectedName;
+            testView.sentimentChartTonalityValue = self.sentimentChartTonalityValue;
+            testView.changeOverSelectedValue = self.changeOverSelectedValue;
+            testView.horizontalBarChartSelectedValue = self.horizontalBarChartSelectedValue;
+            testView.horizontalBarChartTonalityValue = self.horizontalBarChartTonalityValue;
             [self.navigationController pushViewController:testView animated:YES];
         }
     }
@@ -3426,26 +3467,39 @@
             //NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
             
             if(isFromChart) {
+                NSString *filterString;
+                if (switchForFilter == 1){
+                    filterString = @"UNREAD";
+                } else if (switchForFilter == 2){
+                    filterString = @"RECENT";
+                } else {
+                    filterString = @"";
+                }
                 //refresh list view for media analysis data 1.Need to check the report type id
                 if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
                     //Trend of coverage
-                    NSString *filterString;
-                    if (switchForFilter == 1){
-                        filterString = @"UNREAD";
-                    } else if (switchForFilter == 2){
-                        filterString = @"RECENT";
-                    } else {
-                        filterString = @"";
-                    }
-                    [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:self.clickedDate endDateIn:self.trendOfCoverageEndDateIn fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInteger:10] withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:searchBar.text withFlag:@"" withLastArticleId:@""];
+                    [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:self.clickedDate endDateIn:self.trendOfCoverageEndDateIn fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInteger:10] withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:searchBar.text withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
                 } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                    
-                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+                    //key topics
+                    [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:self.keyTopicsBrandName fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:searchBar.text withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:3]]) {
+                    //Media types
+                    [[FISharedResources sharedResourceManager]getMediaTypesArticleListFromMediaTypeField:@"mediaTypeId" mediaTypeValue:self.mediaTypesBrandName fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:searchBar.text withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:4]]) {
+                    //sentiment and volume over time
+                    [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:self.clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:self.sentimentChartTonalityValue value2:self.sentimentChartSelectedName fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:searchBar.text withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:5]]) {
+                    //change over last quarter value
+                    [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:self.clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:self.changeOverSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:searchBar.text withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+                    //top sources
+                    [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:self.horizontalBarChartTonalityValue value2:self.horizontalBarChartSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:searchBar.text withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:7]]) {
+                    //top journalist
+                    [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.name.sort" value1:self.horizontalBarChartTonalityValue value2:self.horizontalBarChartSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:searchBar.text withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
+                } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+                    //top influencers
+                    [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:self.horizontalBarChartTonalityValue value2:self.horizontalBarChartSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:searchBar.text withFlag:@"" withLastArticleId:[curatedNews valueForKey:@"articleId"]];
                 }
             } else {
                 if([folderId isEqualToNumber:[NSNumber numberWithInt:0]] && [newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
