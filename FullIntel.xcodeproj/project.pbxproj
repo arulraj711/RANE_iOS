@@ -187,6 +187,7 @@
 		A0EF01911BDE379600B0191B /* NewsLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF01901BDE379600B0191B /* NewsLetterViewController.m */; };
 		A0EF01931BDE37AB00B0191B /* NewsLetterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF01921BDE37AB00B0191B /* NewsLetterView.storyboard */; };
 		A0F19A911AE4C79F00EB9F04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */; };
+		BA025F161CA11FA900DB60DA /* ReportCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA025F151CA11FA900DB60DA /* ReportCollectionCell.m */; };
 		BA51CC661C58A3BF00327578 /* issue_list.json in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC471C58A3BF00327578 /* issue_list.json */; };
 		BA51CC671C58A3BF00327578 /* chart_story.json in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC481C58A3BF00327578 /* chart_story.json */; };
 		BA51CC681C58A3BF00327578 /* IssueTweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA51CC4B1C58A3BF00327578 /* IssueTweetCell.m */; };
@@ -602,6 +603,8 @@
 		A0F19A901AE4C79F00EB9F04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A0F2F3051B839545003F96EB /* FullIntel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 3.xcdatamodel"; sourceTree = "<group>"; };
 		A7D8AE5742F9A51556DCC9F4 /* Pods-FullIntel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullIntel.release.xcconfig"; path = "Pods/Target Support Files/Pods-FullIntel/Pods-FullIntel.release.xcconfig"; sourceTree = "<group>"; };
+		BA025F141CA11FA900DB60DA /* ReportCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportCollectionCell.h; sourceTree = "<group>"; };
+		BA025F151CA11FA900DB60DA /* ReportCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportCollectionCell.m; sourceTree = "<group>"; };
 		BA51CC471C58A3BF00327578 /* issue_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = issue_list.json; sourceTree = "<group>"; };
 		BA51CC481C58A3BF00327578 /* chart_story.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chart_story.json; sourceTree = "<group>"; };
 		BA51CC491C58A3BF00327578 /* CommunicationIssuesPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationIssuesPage.h; sourceTree = "<group>"; };
@@ -957,6 +960,8 @@
 				A0697B9F1C7DCC580010B945 /* ChartViewControlleriPhone.storyboard */,
 				BAA6A5811C86ED9A00B78883 /* ReportListCell.h */,
 				BAA6A5821C86ED9A00B78883 /* ReportListCell.m */,
+				BA025F141CA11FA900DB60DA /* ReportCollectionCell.h */,
+				BA025F151CA11FA900DB60DA /* ReportCollectionCell.m */,
 			);
 			name = Charts;
 			sourceTree = "<group>";
@@ -2242,6 +2247,7 @@
 				A0CF5C5A1B1DD98B00DED2D9 /* ExecutiveMovesController.m in Sources */,
 				A0CF5C691B1DD98B00DED2D9 /* IpAndLegalCell.m in Sources */,
 				BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */,
+				BA025F161CA11FA900DB60DA /* ReportCollectionCell.m in Sources */,
 				A0CF5C711B1DD98B00DED2D9 /* TopStoriesCell.m in Sources */,
 				F7CE36E01A95E9490005AA0A /* RATreeNode.m in Sources */,
 				F7E354E31A947A19009677D2 /* LeftViewController.m in Sources */,

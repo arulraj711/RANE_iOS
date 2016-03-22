@@ -14,4 +14,6 @@
 }
 @property (weak, nonatomic) IBOutlet UITableView *reportListTableView;
 - (IBAction)navigateToChartView:(id)sender;
+
+@property (nonatomic,strong) IBOutlet UICollectionView *reportCollectionView;
 @end

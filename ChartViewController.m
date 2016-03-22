@@ -620,6 +620,7 @@
     NSLog(@"afterFetchingTopStoriesInfo %@",topStoriesInfoArray);
     chartStoryList = [[NSMutableArray alloc]initWithArray:topStoriesInfoArray];
     [self.storyTableView reloadData];
+    [self collectionView:_chartIconCollectionView didSelectItemAtIndexPath:0];
 }
 
 
@@ -1405,7 +1406,7 @@
 
     for (int i = 0; i < count; i++)
     {
-        [values addObject:[[ChartDataEntry alloc] initWithValue:[[ValueArray objectAtIndex:i] doubleValue] xIndex:i]];
+        [values addObject:[[ChartDataEntry alloc] initWithValue:[[ValueArrayTwo objectAtIndex:i] doubleValue] xIndex:i]];
     }
     
     
@@ -1413,26 +1414,26 @@
     NSMutableArray *valuesTwo = [[NSMutableArray alloc] init];
     for (int i = 0; i < count; i++)
     {
-        [valuesTwo addObject:[[ChartDataEntry alloc] initWithValue:[[ValueArrayTwo objectAtIndex:i] doubleValue] xIndex:i]];
+        [valuesTwo addObject:[[ChartDataEntry alloc] initWithValue:[[ValueArray objectAtIndex:i] doubleValue] xIndex:i]];
     }
     
     
     
     
-    LineChartDataSet *d = [[LineChartDataSet alloc] initWithYVals:values label:[NSString stringWithFormat:@"Articles"]];
+    LineChartDataSet *d = [[LineChartDataSet alloc] initWithYVals:values label:[NSString stringWithFormat:@"Circulation"]];
     d.lineWidth = 5.0;
     d.circleRadius = 4.0;
     
-    [d setColor:[UIColor colorWithRed:189/255.f green:74/255.f blue:71/255.f alpha:1.f]];
+    [d setColor:[UIColor colorWithRed:74/255.f green:126/255.f blue:187/255.f alpha:1.f]];
     [d setCircleColor:[UIColor blackColor]];
     [dataSets addObject:d];
 
-            LineChartDataSet *ds = [[LineChartDataSet alloc] initWithYVals:valuesTwo label:[NSString stringWithFormat:@"Circulation"]];
+            LineChartDataSet *ds = [[LineChartDataSet alloc] initWithYVals:valuesTwo label:[NSString stringWithFormat:@"Articles"]];
             ds.axisDependency = AxisDependencyRight;
             ds.lineWidth = 5.0;
             ds.circleRadius = 4.0;
+            [ds setColor:[UIColor colorWithRed:189/255.f green:74/255.f blue:71/255.f alpha:1.f]];
     
-            [ds setColor:[UIColor colorWithRed:74/255.f green:126/255.f blue:187/255.f alpha:1.f]];
             [ds setCircleColor:[UIColor blackColor]];
             [dataSets addObject:ds];
             NSLog(@"%lu",(unsigned long)[dataSets count]);
@@ -1449,31 +1450,32 @@
 
 - (void)chartScaled:(ChartViewBase * __nonnull)chartView scaleX:(CGFloat)scaleX scaleY:(CGFloat)scaleY;
 {
-    if(lineChartView.isFullyZoomedOut)
-    {
-        monthArray = [NSArray arrayWithArray:unScaledXvalue];
-        ValueArray = [NSArray arrayWithArray:unScaledYvalue];
-        ValueArrayTwo = [NSArray arrayWithArray:unscaledYvalueTwo];
-
-        //Trying out month based grouping------------------------------------------------------------------------------
-        
-        
-        
-        int countVal = (int)monthArray.count;
-        [self plotLineChart:countVal range:6];
-
-        
+    if ([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        if(lineChartView.isFullyZoomedOut)
+        {
+            monthArray = [NSArray arrayWithArray:unScaledXvalue];
+            ValueArray = [NSArray arrayWithArray:unScaledYvalue];
+            ValueArrayTwo = [NSArray arrayWithArray:unscaledYvalueTwo];
+            
+            //Trying out month based grouping------------------------------------------------------------------------------
+            
+            
+            
+            int countVal = (int)monthArray.count;
+            [self plotLineChart:countVal range:6];
+            
+            
+        }
+        else{
+            monthArray = [NSArray arrayWithArray:scaledXvalue];
+            ValueArray = [NSArray arrayWithArray:scaledYvalue];
+            ValueArrayTwo = [NSArray arrayWithArray:scaledYvalueTwo];
+            
+            int countVal = (int)monthArray.count;
+            [self plotLineChart:countVal range:6];
+            
+        }
     }
-    else{
-        monthArray = [NSArray arrayWithArray:scaledXvalue];
-        ValueArray = [NSArray arrayWithArray:scaledYvalue];
-        ValueArrayTwo = [NSArray arrayWithArray:scaledYvalueTwo];
-
-        int countVal = (int)monthArray.count;
-        [self plotLineChart:countVal range:6];
-
-    }
-    
 }
 
 

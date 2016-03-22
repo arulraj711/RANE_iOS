@@ -171,4 +171,9 @@ onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 //Get articles list from horizontal line bar chart
 +(void)fetchHorizontalLineBarChartArticleListWithField1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size withFilterBy:(NSString *)filterBy withQuery:(NSString *)query onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+//Report download functionality
++(void)downloadReportForReportId:(NSNumber*)reportId
+                               onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                               onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 @end

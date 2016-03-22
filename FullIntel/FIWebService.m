@@ -16,7 +16,7 @@
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
 //NSString *url = @"http://stage.fullintel.com/1.2.0";
 
-NSString *url = @"http://stage.fullintel.com/1.3.0";
+NSString *url = @"http://fullintel.com/1.3.0";
 
 
 #define FUNCTION_URL @"api/v1"
@@ -1098,5 +1098,20 @@ NSString *url = @"http://stage.fullintel.com/1.3.0";
     }];
 }
 
+
++(void)downloadReportForReportId:(NSNumber*)reportId
+                       onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                       onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
+     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+   // companies/27/analysis/report/80/export/ppt?security_token=
+    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/%@/export/ppt?security_token=%@",companyId,reportId,securityToken];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+}
 
 @end

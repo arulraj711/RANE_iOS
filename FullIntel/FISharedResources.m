@@ -3484,4 +3484,13 @@
 }
 
 
+//report download
+-(void)downloadReportForReportId:(NSNumber *)reportId {
+    [FIWebService downloadReportForReportId:reportId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+               
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // [FIUtils showErrorToast];
+    }];
+}
+
 @end
