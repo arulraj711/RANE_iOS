@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "480335201.023742"
+            timestampString = "480344500.026097"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1578"
-            endingLineNumber = "1578"
+            startingLineNumber = "1611"
+            endingLineNumber = "1611"
             landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
             landmarkType = "5">
             <Locations>
@@ -26,12 +26,12 @@
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/ChartViewController.m"
-                  timestampString = "480238321.287151"
+                  timestampString = "480344501.344497"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1576"
-                  endingLineNumber = "1576"
-                  offsetFromSymbolStart = "3282">
+                  startingLineNumber = "1611"
+                  endingLineNumber = "1611"
+                  offsetFromSymbolStart = "3260">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -41,12 +41,12 @@
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/ChartViewController.m"
-                  timestampString = "480238321.287836"
+                  timestampString = "480344501.345188"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1576"
-                  endingLineNumber = "1576"
-                  offsetFromSymbolStart = "3286">
+                  startingLineNumber = "1611"
+                  endingLineNumber = "1611"
+                  offsetFromSymbolStart = "3264">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -80,6 +80,38 @@
             startingLineNumber = "3218"
             endingLineNumber = "3218"
             landmarkName = "-getKeyTopicsArticleListFromField1:value1:fromDate:toDate:withSize:withPageNo:withFilterBy:withQuery:withFlag:withLastArticleId:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/CorporateNewsDetailsView.m"
+            timestampString = "480343989.569487"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
+            landmarkName = "-getArticleIdListFromDB"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChartViewController.m"
+            timestampString = "480344415.947854"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "824"
+            endingLineNumber = "824"
+            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

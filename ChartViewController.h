@@ -57,6 +57,9 @@
     
     NSMutableArray *reverseOrderBkUp,*reverseOrdersBkUp;
     NSMutableArray *weaveDateArray;
+    
+    NSArray *headingArray;
+    NSString *articleIdArray;
 
 }
 

@@ -168,6 +168,7 @@
     [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
 
     [self.chartIconCollectionView reloadData];
+    [self collectionView:_chartIconCollectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
 }
 
@@ -619,8 +620,9 @@
     NSArray *topStoriesInfoArray = [[notification userInfo] objectForKey:@"TopStoriesInfo"];
     NSLog(@"afterFetchingTopStoriesInfo %@",topStoriesInfoArray);
     chartStoryList = [[NSMutableArray alloc]initWithArray:topStoriesInfoArray];
+    articleIdArray =[chartStoryList valueForKeyPath:@"id"];
     [self.storyTableView reloadData];
-    [self collectionView:_chartIconCollectionView didSelectItemAtIndexPath:0];
+    
 }
 
 
@@ -659,7 +661,7 @@
     
     dic = [chartStoryList objectAtIndex:indexPath.row];
     cell.titleLabel.text = NULL_TO_NIL([dic objectForKey:@"heading"]);
-    
+    headingArray = NULL_TO_NIL([dic objectForKey:@"heading"]);
     //Fetching contact details
     NSString *contactName;
     NSArray *contactArray = NULL_TO_NIL([dic objectForKey:@"contact"]);
@@ -688,7 +690,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIStoryboard *storyBoard;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        
+    } else {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        
+    }
+    NSString *userAccountTypeId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"d"]];
+    CorporateNewsDetailsView *testView;
     
+    testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
+    testView.forTopStories = [NSNumber numberWithInt:1];
+    testView.articleTitle = headingArray;
+    testView.currentIndex = indexPath.row;
+    testView.selectedIndexPath = indexPath;
+    testView.articleIdFromSearchLst =[NSMutableArray arrayWithArray:articleIdArray];
+    [self.navigationController pushViewController:testView animated:YES];
 }
 
 #pragma mark - UICollectionView Datasource
@@ -793,7 +813,7 @@
     NSLog(@"report type:%@",reportType.reportTyepId);
     NSLog(@"report chart type:%@",reportType.reportChartTyepId);
     NSLog(@"%@",chartType.chartTyepId);
-    localReportTypeId = reportType.reportChartTyepId;
+    
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         self.chartNameLabel.text =[chartName objectAtIndex:indexPath.row];
     }
@@ -801,8 +821,13 @@
         _titleLabel.text =[chartName objectAtIndex:indexPath.row];
     }
     
-
-    [self loadChartValuesWithReportType:reportType.reportChartTyepId];
+    if([localReportTypeId isEqualToNumber:reportType.reportChartTyepId]) {
+        
+    } else {
+        [self loadChartValuesWithReportType:reportType.reportChartTyepId];
+    }
+    
+    localReportTypeId = reportType.reportChartTyepId;
     
 }
 
@@ -813,25 +838,32 @@
         
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:2]]){
         // Select Key Types Chart
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
        
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:3]]){
         // Select Media Types chart
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getMediaTypeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:4]]){
         // Select Sentiment and Volume Over Time chart
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     }else if ([reportType isEqualToNumber:[NSNumber numberWithInt:5]]){
         // Select change over last quarter chart
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getChangeOverLastQuarterChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     }else if ([reportType isEqualToNumber:[NSNumber numberWithInt:6]]){
         // Select top sources
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getTopSourcesChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     } else if([reportType isEqualToNumber:[NSNumber numberWithInt:7]]) {
         //select top journalist
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getTopJournalistChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     } else if([reportType isEqualToNumber:[NSNumber numberWithInt:8]]) {
         //select top influencers
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getTopInfluencerChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
     }
 }
@@ -839,6 +871,7 @@
 - (void)selectItemAtIndexPath:(NSIndexPath *)indexPath
                      animated:(BOOL)animated
                scrollPosition:(UICollectionViewScrollPosition)scrollPosition{
+
 
 //    if(indexPath.row == 0) {
 //        [self plotLineChart:6 range:6];
@@ -870,7 +903,7 @@
     
     NSLog(@"%f,%f",widthOfChartViewOutline,heightOfChartViewOutline);
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
+        pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
         
     }
     else{
@@ -947,7 +980,7 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
         
     }
     else{
@@ -1012,7 +1045,7 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
         
     }
     else{
@@ -1175,7 +1208,7 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
         
     }
     else{
@@ -1257,7 +1290,7 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        horizontalBarViews = [[HorizontalBarChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
+        horizontalBarViews = [[HorizontalBarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
         
     }
     else{
@@ -1329,7 +1362,7 @@
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        lineChartView = [[LineChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
+        lineChartView = [[LineChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
     }
     else{
         lineChartView = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
@@ -2164,13 +2197,13 @@
                          animations:^{
                              [self.topStoriesButton setSelected:YES];
                              self.topStoriesButtonLabelWidthConstraint.constant = 0;
-                             self.tableOuterView.layer.borderWidth = 0.0f;
+                             self.tableOuterView.layer.borderWidth = 1.0f;
                              self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
                              isTopStoriesOpen = YES;
                              self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width-320;
                              [self.view layoutIfNeeded];
                              
-                             [self loadChartValuesWithReportType:localReportTypeId];
+                             //[self loadChartValuesWithReportType:localReportTypeId];
                              
                              
                          }];
@@ -2184,7 +2217,7 @@
                              isTopStoriesOpen = NO;
                              self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
                              [self.view layoutIfNeeded];
-                             [self loadChartValuesWithReportType:localReportTypeId];
+                           //  [self loadChartValuesWithReportType:localReportTypeId];
                              
                          }];
     }
