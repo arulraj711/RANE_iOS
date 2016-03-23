@@ -66,6 +66,16 @@
         [self.revealController showViewController:self.revealController.frontViewController];
     }
     // Do any additional setup after loading the view.
+    
+    
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.alpha = 1.0;
+    activityIndicator.center = self.view.center;
+    activityIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+    
+    
 }
 -(void)backBtnPress {
     NSLog(@"back button press");
@@ -83,6 +93,7 @@
 }
 
 -(void)afterFetchingReportList:(id)sender {
+    [activityIndicator stopAnimating];
     NSNotification *notification = sender;
     reportListArray = [[notification userInfo] objectForKey:@"reportListArray"];
     NSLog(@"report list array count:%d",reportListArray.count);

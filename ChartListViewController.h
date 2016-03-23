@@ -11,6 +11,7 @@
 @interface ChartListViewController : UIViewController
 {
     NSMutableArray  *reportListArray;
+    UIActivityIndicatorView *activityIndicator;
 }
 @property (weak, nonatomic) IBOutlet UITableView *reportListTableView;
 - (IBAction)navigateToChartView:(id)sender;

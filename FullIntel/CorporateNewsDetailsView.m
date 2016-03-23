@@ -350,6 +350,46 @@
     if ([forTopStories isEqualToNumber:[NSNumber numberWithInt:1]]) {
         self.articleIdArray =  [NSMutableArray arrayWithArray:_articleIdFromSearchLst];
         NSLog(@"selected article id:%@",self.articleIdArray);
+        
+        NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
+        NSPredicate *predicate;
+        predicate = [NSPredicate predicateWithFormat:@"isFromTopStories == %@",[NSNumber numberWithBool:YES]];
+        [fetchRequest setPredicate:predicate];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *date = [[NSSortDescriptor alloc] initWithKey:@"modifiedDate" ascending:NO];
+        
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:date, nil];
+        [fetchRequest setSortDescriptors:sortDescriptors];
+        
+        
+        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
+        
+        NSMutableArray *elementsFromColumn = [[NSMutableArray alloc] init];
+        for (NSManagedObject *fetchedObject in fetchedObjects) {
+            [elementsFromColumn addObject:[fetchedObject valueForKey:@"articleId"]];
+        }
+        
+        NSLog(@"elementsfrom column:%@",elementsFromColumn);
+        self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
+        NSLog(@"article id array:%@ and selected articleId:%@",self.articleIdArray,self.selectedNewsArticleId);
+        if(self.selectedNewsArticleId.length != 0) {
+            NSInteger atIndex = [self.articleIdArray indexOfObject:self.selectedNewsArticleId];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:atIndex inSection:0];
+            self.selectedIndexPath = indexPath;
+            //            [self.view layoutIfNeeded];
+            //            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+            NSLog(@"selected indexpath:%ld",(long)self.selectedIndexPath.row);
+            [self.collectionView reloadData];
+        } else {
+            if(self.articleIdArray.count != 0) {
+                [self.collectionView reloadData];
+            }
+        }
+        
+        
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     }

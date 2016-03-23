@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "480344500.026097"
+            timestampString = "480407819.438934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1611"
-            endingLineNumber = "1611"
+            startingLineNumber = "1616"
+            endingLineNumber = "1616"
             landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
             landmarkType = "5">
             <Locations>
@@ -26,11 +26,11 @@
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/ChartViewController.m"
-                  timestampString = "480344501.344497"
+                  timestampString = "480407820.757276"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1611"
-                  endingLineNumber = "1611"
+                  startingLineNumber = "1616"
+                  endingLineNumber = "1616"
                   offsetFromSymbolStart = "3260">
                </Location>
                <Location
@@ -41,11 +41,11 @@
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/ChartViewController.m"
-                  timestampString = "480344501.345188"
+                  timestampString = "480407820.759134"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1611"
-                  endingLineNumber = "1611"
+                  startingLineNumber = "1616"
+                  endingLineNumber = "1616"
                   offsetFromSymbolStart = "3264">
                </Location>
             </Locations>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FullIntel/FISharedResources.m"
-            timestampString = "480403570.872989"
+            timestampString = "480408832.34065"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3219"
-            endingLineNumber = "3219"
+            startingLineNumber = "3482"
+            endingLineNumber = "3482"
             landmarkName = "-getKeyTopicsArticleListFromField1:value1:fromDate:toDate:withSize:withPageNo:withFilterBy:withQuery:withFlag:withLastArticleId:"
             landmarkType = "5">
          </BreakpointContent>
@@ -105,13 +105,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChartViewController.m"
-            timestampString = "480344415.947854"
+            filePath = "FullIntel/CorporateNewsDetailsView.m"
+            timestampString = "480407861.6721"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "824"
-            endingLineNumber = "824"
-            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
+            startingLineNumber = "1051"
+            endingLineNumber = "1051"
+            landmarkName = "-updateCellViewType:forCuratedNews:atIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FullIntel/CorporateNewsDetailsView.m"
+            timestampString = "480408038.761715"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
+            landmarkName = "-getArticleIdListFromDB"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
