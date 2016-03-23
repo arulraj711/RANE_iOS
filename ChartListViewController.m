@@ -150,6 +150,7 @@
     chartView.reportId = reportListObj.reportId;
     chartView.reportFromDate = reportListObj.reportFromDate;
     chartView.reportToDate = reportListObj.reportToDate;
+    chartView.titleString = reportListObj.reportTitle;
     [self.navigationController pushViewController:chartView animated:YES];
 }
 
@@ -232,6 +233,7 @@
     chartView.reportId = reportListObj.reportId;
     chartView.reportFromDate = reportListObj.reportFromDate;
     chartView.reportToDate = reportListObj.reportToDate;
+    chartView.titleString = reportListObj.reportTitle;
     [self.navigationController pushViewController:chartView animated:YES];
 }
 

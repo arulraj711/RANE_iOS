@@ -18,7 +18,7 @@
     self.modifiedBy = NULL_TO_NIL([dic objectForKey:@"modifiedBy"]);
     self.modifiedAt = NULL_TO_NIL([dic objectForKey:@"modifiedAt"]);
     self.isdeleted = NULL_TO_NIL([dic objectForKey:@"deleted"]);
-    
+    self.apiLink = NULL_TO_NIL([dic objectForKey:@"apiLink"]);
     //set charttype info
     NSDictionary *chartInfoDic = NULL_TO_NIL([dic objectForKey:@"chartType"]);
     ChartTypeObject *chartTypeObj = [[ChartTypeObject alloc]init];

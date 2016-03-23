@@ -848,11 +848,20 @@
         
         
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSError* error1;
-//        NSLog(@"error JSON:%@",operation);
-//        NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
-//        NSLog(@"error JSON:%@",errorJson);
-//        
+        NSError* error1;
+        NSLog(@"error JSON:%@",operation);
+        NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+        NSLog(@"error JSON:%@",errorJson);
+        if(errorJson == nil){
+            [FIUtils showErrorToast];
+        } else {
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
+        }
 //        if(errorJson == nil){
 //            [FIUtils showErrorToast];
 //        } else {
@@ -1521,6 +1530,20 @@
         }
         [[NSNotificationCenter defaultCenter]postNotificationName:@"FetchNewsLetterList" object:nil];
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSError* error1;
+        NSLog(@"error JSON:%@",operation);
+        NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+        NSLog(@"error JSON:%@",errorJson);
+        if(errorJson == nil){
+            [FIUtils showErrorToast];
+        } else {
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
+        }
     }];
 }
 
@@ -2774,390 +2797,500 @@
 
 // Chart API Integration
 -(void)getReportList {
-    [FIWebService getReportListonSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-       // responseDic = responseObject;
-        NSMutableArray *reportListArray = [[NSMutableArray alloc]init];
-        NSMutableArray *reponseArray = responseObject;
-        for(NSDictionary *reportListDic in reponseArray) {
-            ReportListObject *reportListObj = [[ReportListObject alloc]init];
-            [reportListObj setReportListObjectFromDictionary:reportListDic];
-            [reportListArray addObject:reportListObj];
+    if([self serviceIsReachable]) {
+        [FIWebService getReportListonSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            // responseDic = responseObject;
+            NSMutableArray *reportListArray = [[NSMutableArray alloc]init];
+            NSMutableArray *reponseArray = responseObject;
+            for(NSDictionary *reportListDic in reponseArray) {
+                ReportListObject *reportListObj = [[ReportListObject alloc]init];
+                [reportListObj setReportListObjectFromDictionary:reportListDic];
+                [reportListArray addObject:reportListObj];
+            }
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:reportListArray,@"reportListArray", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedReportList"
+                                                                object:self
+                                                              userInfo:theInfo];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
         }
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:reportListArray,@"reportListArray", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedReportList"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-       // [FIUtils showErrorToast];
-    }];
+    }
+    
 }
 
 -(void)getSingleReportDetailsForReportId:(NSNumber *)reportId {
-    [FIWebService getSingleReportDetailsForReportId:reportId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        ReportObject *reportObject = [[ReportObject alloc]init];
-        [reportObject setReportObjectFromDictionary:responseObject];
-        // responseDic = responseObject;
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:reportObject,@"reportObject", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedReportObject"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
+    if([self serviceIsReachable]) {
+        [FIWebService getSingleReportDetailsForReportId:reportId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            ReportObject *reportObject = [[ReportObject alloc]init];
+            [reportObject setReportObjectFromDictionary:responseObject];
+            // responseDic = responseObject;
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:reportObject,@"reportObject", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedReportObject"
+                                                                object:self
+                                                              userInfo:theInfo];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+    
 }
 
--(void)getTrendOfCoverageChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
-    [FIWebService getTrendOfCoverageInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
+-(void)getTrendOfCoverageChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString *)apiLink {
+    if([self serviceIsReachable]) {
+        [FIWebService getTrendOfCoverageInfoFromDate:fromDate toDate:toDate withAPILink:apiLink onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%@",responseObject);
+            
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TrendOfCoverageInfo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTrendOfCoverageInfo"
+                                                                object:self
+                                                              userInfo:theInfo];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
 
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TrendOfCoverageInfo", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTrendOfCoverageInfo"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
-}
-
--(void)getKeyTopicsChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
-    [FIWebService getKeyTopicsInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"KeyTopicsInfo", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedKeyTopicsInfo"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
-}
-
--(void)getMediaTypeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
-    [FIWebService getMediaTypeInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"MediaTypeInfo", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedMediaTypeInfo"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
+    
 }
 
--(void)getSentimentAndVolumeOverTimeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
-    [FIWebService getSentimentAndVolumeOverTimeInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"SentimentAndVolumeOverTimeInfo", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedSentimentAndVolumeOverTimeInfo"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
-}
--(void)getChangeOverLastQuarterChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
-    [FIWebService getChangeOverLastQuarterInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"ChangeOverLastQuarterInfo", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedChangeOverLastQuarterInfo"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
-}
--(void)getTopSourcesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
-    [FIWebService getTopSourcesInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopSourcesInfo", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopSourcesInfo"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
+-(void)getKeyTopicsChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString *)apiLink {
+    if([self serviceIsReachable]) {
+        [FIWebService getKeyTopicsInfoFromDate:fromDate toDate:toDate withAPILink:apiLink onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"KeyTopicsInfo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedKeyTopicsInfo"
+                                                                object:self
+                                                              userInfo:theInfo];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+    
 }
 
--(void)getTopJournalistChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
-    [FIWebService getTopJournalistInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopJournalistInfo", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopJournalistInfo"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
+-(void)getMediaTypeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString *)apiLink {
+    if([self serviceIsReachable]) {
+        [FIWebService getMediaTypeInfoFromDate:fromDate toDate:toDate withAPILink:apiLink onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"MediaTypeInfo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedMediaTypeInfo"
+                                                                object:self
+                                                              userInfo:theInfo];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+    
 }
 
--(void)getTopInfluencerChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate {
-    [FIWebService getTopInfluencerInfoFromDate:fromDate toDate:toDate onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopInfluencerInfo", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopInfluencerInfo"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
+-(void)getSentimentAndVolumeOverTimeChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString *)apiLink {
+    if([self serviceIsReachable]) {
+        [FIWebService getSentimentAndVolumeOverTimeInfoFromDate:fromDate toDate:toDate withAPILink:apiLink onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"SentimentAndVolumeOverTimeInfo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedSentimentAndVolumeOverTimeInfo"
+                                                                object:self
+                                                              userInfo:theInfo];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+    
+}
+-(void)getChangeOverLastQuarterChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString *)apiLink {
+    if([self serviceIsReachable]) {
+        [FIWebService getChangeOverLastQuarterInfoFromDate:fromDate toDate:toDate withAPILink:apiLink onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"ChangeOverLastQuarterInfo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedChangeOverLastQuarterInfo"
+                                                                object:self
+                                                              userInfo:theInfo];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+    
+}
+-(void)getTopSourcesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString *)apiLink {
+    if([self serviceIsReachable]) {
+        [FIWebService getTopSourcesInfoFromDate:fromDate toDate:toDate withAPILink:apiLink onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopSourcesInfo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopSourcesInfo"
+                                                                object:self
+                                                              userInfo:theInfo];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+    
+}
+
+-(void)getTopJournalistChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString *)apiLink {
+    if([self serviceIsReachable]) {
+        [FIWebService getTopJournalistInfoFromDate:fromDate toDate:toDate withAPILink:apiLink onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopJournalistInfo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopJournalistInfo"
+                                                                object:self
+                                                              userInfo:theInfo];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+    
+}
+
+-(void)getTopInfluencerChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString *)apiLink {
+    if([self serviceIsReachable]) {
+        [FIWebService getTopInfluencerInfoFromDate:fromDate toDate:toDate withAPILink:apiLink onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopInfluencerInfo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopInfluencerInfo"
+                                                                object:self
+                                                              userInfo:theInfo];
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+    
 }
 
 
 
 -(void)getTopStoriesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size {
-    [self clearTopStoriesRelatedArticles:@"CuratedNews"];
-    [FIWebService getTopStoriesInfoFromDate:fromDate toDate:toDate withPageNumber:pageNo withSize:size onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        
-        
-        for(NSDictionary *dic in responseObject) {
-            
-            NSManagedObjectContext *context;
-            // Create a new managed object
-            NSManagedObject *curatedNews;
-            NSManagedObject *curatedNewsDrillIn;
-            context = [self managedObjectContext];
+    if([self serviceIsReachable]) {
+        [self clearTopStoriesRelatedArticles:@"CuratedNews"];
+        [FIWebService getTopStoriesInfoFromDate:fromDate toDate:toDate withPageNumber:pageNo withSize:size onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-            NSPredicate *predicate;
             
-            predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND isFromTopStories == %@",[dic objectForKey:@"id"],[NSNumber numberWithBool:YES]];
-            
-            [fetchRequest setPredicate:predicate];
-            NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
-            if(existingArray.count != 0) {
-                //Excisting Object
-                NSLog(@"existing object");
-                curatedNews = [existingArray objectAtIndex:0];
-            } else {
+            for(NSDictionary *dic in responseObject) {
                 
-                //Create new object
-                curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
-                
-                [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isFromTopStories"];
+                NSManagedObjectContext *context;
+                // Create a new managed object
+                NSManagedObject *curatedNews;
+                NSManagedObject *curatedNewsDrillIn;
+                context = [self managedObjectContext];
                 
                 
-                [curatedNews setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
-                [_articleIdArray addObject:[dic objectForKey:@"id"]];
-            }
-            //Set values in local db
-            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isFolder"];
-            [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
-            [curatedNews setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
-            [curatedNews setValue:[dic objectForKey:@"heading"] forKey:@"title"];
-            [curatedNews setValue:NULL_TO_NIL([dic objectForKey:@"articleDescription"]) forKey:@"desc"];
-            [curatedNews setValue:[dic objectForKey:@"modifiedDate"] forKey:@"modifiedDate"];
-            [curatedNews setValue:[dic objectForKey:@"publishedDate"] forKey:@"publishedDate"];
-            [curatedNews setValue:[dic objectForKey:@"articleImage"] forKey:@"image"];
-            [curatedNews setValue:[dic objectForKey:@"articleURL"] forKey:@"articleUrl"];
-            NSArray *articleTypeIdArray = [dic objectForKey:@"articleTypeId"];
-            [curatedNews setValue:[articleTypeIdArray objectAtIndex:0] forKey:@"articleTypeId"];
-            [curatedNews setValue:[dic objectForKey:@"articleType"] forKey:@"articleType"];
-            [curatedNews setValue:[dic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
-            [curatedNews setValue:[dic objectForKey:@"commentCount"] forKey:@"totalComments"];
-            [curatedNews setValue:[dic objectForKey:@"unReadCommentCount"] forKey:@"unreadComments"];
-            NSNumber *markImp = [dic valueForKey:@"markAsImportant"];
-            NSLog(@"%@",[dic objectForKey:@"markAsImportantUserDetail"]);
-            
-            if([markImp isEqualToNumber:[NSNumber numberWithInt:1]]){
-                NSDictionary *markedImpDictionary = [dic objectForKey:@"markAsImportantUserDetail"];
-                NSLog(@"%@",markedImpDictionary);
-                NSLog(@"%@",[markedImpDictionary objectForKey:@"name"]);
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+                NSPredicate *predicate;
                 
-                [curatedNews setValue:NULL_TO_NIL([markedImpDictionary objectForKey:@"name"]) forKey:@"markAsImportantUserName"];
-                [curatedNews setValue:NULL_TO_NIL([markedImpDictionary objectForKey:@"userId"]) forKey:@"markAsImportantUserId"];
-            }
-            [curatedNews setValue:[dic objectForKey:@"saveForLater"] forKey:@"saveForLater"];
-            
-            //Fetch saved for later data in background
-            NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
-            if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                NSString *str = [dic objectForKey:@"articleURL"];
-                if(str.length != 0) {
-                    //                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
-                    //                        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
-                    //                        [curatedNews setValue:string forKey:@"articleUrlData"];
-                    //                    });
+                predicate = [NSPredicate predicateWithFormat:@"articleId == %@ AND isFromTopStories == %@",[dic objectForKey:@"id"],[NSNumber numberWithBool:YES]];
+                
+                [fetchRequest setPredicate:predicate];
+                NSArray *existingArray = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                if(existingArray.count != 0) {
+                    //Excisting Object
+                    NSLog(@"existing object");
+                    curatedNews = [existingArray objectAtIndex:0];
+                } else {
+                    
+                    //Create new object
+                    curatedNews = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNews" inManagedObjectContext:context];
+                    
+                    [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isFromTopStories"];
+                    
+                    
+                    [curatedNews setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
+                    [_articleIdArray addObject:[dic objectForKey:@"id"]];
                 }
-            }
-            
-            //Set outlet info
-            NSArray *outletArray = [dic objectForKey:@"outlet"];
-            if(outletArray.count != 0){
-                NSDictionary *outletDic = [outletArray objectAtIndex:0];
-                [curatedNews setValue:[outletDic objectForKey:@"name"] forKey:@"outlet"];
-            }
-            
-            //            NSArray *authorArray = [dic objectForKey:@"contact"];
-            //            if(authorArray.count != 0) {
-            //                 NSDictionary *authorDic = [authorArray objectAtIndex:0];
-            //                [curatedNews setValue:[authorDic objectForKey:@"name"] forKey:@"authorName"];
-            //            }
-            
-            
-            
-            //            //Set author info
-            NSArray *authorArray = [dic objectForKey:@"contact"];
-            NSMutableArray *authorList = [[NSMutableArray alloc]init];
-            for(NSDictionary *dict in authorArray) {
-                NSManagedObject *author;
-                author = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedAuthor" inManagedObjectContext:context];
-                [author setValue:[dict objectForKey:@"name"] forKey:@"name"];
-                //                [author setValue:[dict objectForKey:@"title"] forKey:@"title"];
-                //                [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
-                [authorList addObject:author];
+                //Set values in local db
+                [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"isFolder"];
+                [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
+                [curatedNews setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
+                [curatedNews setValue:[dic objectForKey:@"heading"] forKey:@"title"];
+                [curatedNews setValue:NULL_TO_NIL([dic objectForKey:@"articleDescription"]) forKey:@"desc"];
+                [curatedNews setValue:[dic objectForKey:@"modifiedDate"] forKey:@"modifiedDate"];
+                [curatedNews setValue:[dic objectForKey:@"publishedDate"] forKey:@"publishedDate"];
+                [curatedNews setValue:[dic objectForKey:@"articleImage"] forKey:@"image"];
+                [curatedNews setValue:[dic objectForKey:@"articleURL"] forKey:@"articleUrl"];
+                NSArray *articleTypeIdArray = [dic objectForKey:@"articleTypeId"];
+                [curatedNews setValue:[articleTypeIdArray objectAtIndex:0] forKey:@"articleTypeId"];
+                [curatedNews setValue:[dic objectForKey:@"articleType"] forKey:@"articleType"];
+                [curatedNews setValue:[dic objectForKey:@"markAsImportant"] forKey:@"markAsImportant"];
+                [curatedNews setValue:[dic objectForKey:@"commentCount"] forKey:@"totalComments"];
+                [curatedNews setValue:[dic objectForKey:@"unReadCommentCount"] forKey:@"unreadComments"];
+                NSNumber *markImp = [dic valueForKey:@"markAsImportant"];
+                NSLog(@"%@",[dic objectForKey:@"markAsImportantUserDetail"]);
                 
-            }
-            NSOrderedSet *Obj = [[NSOrderedSet alloc]initWithArray:authorList];
-            [curatedNews setValue:Obj forKey:@"author"];
-            //Set legend list info
-            NSSet *legendsSet1 = [curatedNews valueForKey:@"legends"];
-            if(legendsSet1.count == 0) {
-                NSArray *legendsArray = [dic objectForKey:@"legendList"];
-                NSMutableArray *legendsList = [[NSMutableArray alloc]init];
-                //[self clearEntity:@"CuratedLegends"];
-                for(NSDictionary *dict in legendsArray) {
-                    NSManagedObject *legends;
-                    legends = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedLegends" inManagedObjectContext:context];
+                if([markImp isEqualToNumber:[NSNumber numberWithInt:1]]){
+                    NSDictionary *markedImpDictionary = [dic objectForKey:@"markAsImportantUserDetail"];
+                    NSLog(@"%@",markedImpDictionary);
+                    NSLog(@"%@",[markedImpDictionary objectForKey:@"name"]);
                     
-                    [legends setValue:[dict objectForKey:@"name"] forKey:@"name"];
-                    [legends setValue:[dict objectForKey:@"flag"] forKey:@"flag"];
-                    [legends setValue:[dict objectForKey:@"url"] forKey:@"url"];
-                    
-                    [legendsList addObject:legends];
+                    [curatedNews setValue:NULL_TO_NIL([markedImpDictionary objectForKey:@"name"]) forKey:@"markAsImportantUserName"];
+                    [curatedNews setValue:NULL_TO_NIL([markedImpDictionary objectForKey:@"userId"]) forKey:@"markAsImportantUserId"];
+                }
+                [curatedNews setValue:[dic objectForKey:@"saveForLater"] forKey:@"saveForLater"];
+                
+                //Fetch saved for later data in background
+                NSNumber *activityTypeId = [dic valueForKey:@"saveForLater"];
+                if([activityTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    NSString *str = [dic objectForKey:@"articleURL"];
+                    if(str.length != 0) {
+                        //                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+                        //                        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str] encoding:NSASCIIStringEncoding error:nil];
+                        //                        [curatedNews setValue:string forKey:@"articleUrlData"];
+                        //                    });
+                    }
+                }
+                
+                //Set outlet info
+                NSArray *outletArray = [dic objectForKey:@"outlet"];
+                if(outletArray.count != 0){
+                    NSDictionary *outletDic = [outletArray objectAtIndex:0];
+                    [curatedNews setValue:[outletDic objectForKey:@"name"] forKey:@"outlet"];
+                }
+                
+                //            NSArray *authorArray = [dic objectForKey:@"contact"];
+                //            if(authorArray.count != 0) {
+                //                 NSDictionary *authorDic = [authorArray objectAtIndex:0];
+                //                [curatedNews setValue:[authorDic objectForKey:@"name"] forKey:@"authorName"];
+                //            }
+                
+                
+                
+                //            //Set author info
+                NSArray *authorArray = [dic objectForKey:@"contact"];
+                NSMutableArray *authorList = [[NSMutableArray alloc]init];
+                for(NSDictionary *dict in authorArray) {
+                    NSManagedObject *author;
+                    author = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedAuthor" inManagedObjectContext:context];
+                    [author setValue:[dict objectForKey:@"name"] forKey:@"name"];
+                    //                [author setValue:[dict objectForKey:@"title"] forKey:@"title"];
+                    //                [author setValue:[dict objectForKey:@"image"] forKey:@"image"];
+                    [authorList addObject:author];
                     
                 }
-                NSSet *legendsSet = [NSSet setWithArray:legendsList];
-                [curatedNews setValue:legendsSet forKey:@"legends"];
+                NSOrderedSet *Obj = [[NSOrderedSet alloc]initWithArray:authorList];
+                [curatedNews setValue:Obj forKey:@"author"];
+                //Set legend list info
+                NSSet *legendsSet1 = [curatedNews valueForKey:@"legends"];
+                if(legendsSet1.count == 0) {
+                    NSArray *legendsArray = [dic objectForKey:@"legendList"];
+                    NSMutableArray *legendsList = [[NSMutableArray alloc]init];
+                    //[self clearEntity:@"CuratedLegends"];
+                    for(NSDictionary *dict in legendsArray) {
+                        NSManagedObject *legends;
+                        legends = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedLegends" inManagedObjectContext:context];
+                        
+                        [legends setValue:[dict objectForKey:@"name"] forKey:@"name"];
+                        [legends setValue:[dict objectForKey:@"flag"] forKey:@"flag"];
+                        [legends setValue:[dict objectForKey:@"url"] forKey:@"url"];
+                        
+                        [legendsList addObject:legends];
+                        
+                    }
+                    NSSet *legendsSet = [NSSet setWithArray:legendsList];
+                    [curatedNews setValue:legendsSet forKey:@"legends"];
+                }
+                
+                
+                //Set CuratedNewsDetails
+                curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:context];
+                [curatedNewsDrillIn setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
+                [curatedNewsDrillIn setValue:[dic objectForKey:@"commentCount"] forKey:@"totalComments"];
+                [curatedNewsDrillIn setValue:[dic objectForKey:@"unReadCommentCount"] forKey:@"unReadComment"];
+                [curatedNewsDrillIn setValue:[dic objectForKey:@"articleDetailedDescription"] forKey:@"article"];
+                //Set Related Post
+                //            NSArray *relatedPostArray = [dic objectForKey:@"articleRelatedPosts"];
+                //            NSMutableArray *postArray = [[NSMutableArray alloc]init];
+                //            for(NSDictionary *postDic in relatedPostArray) {
+                //                NSManagedObject *relatedPost = [NSEntityDescription insertNewObjectForEntityForName:@"RelatedPost" inManagedObjectContext:context];
+                //                [relatedPost setValue:[postDic valueForKey:@"postId"] forKey:@"postId"];
+                //                [relatedPost setValue:[postDic valueForKey:@"socialMediaUsername"] forKey:@"socialMediaUsername"];
+                //                [relatedPost setValue:[postDic valueForKey:@"tweetURL"] forKey:@"tweetURL"];
+                //                [postArray addObject:relatedPost];
+                //            }
+                //
+                //            NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:postArray];
+                //            [curatedNewsDrillIn setValue:outletObj forKey:@"relatedPost"];
+                [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
+                
+                
+                //Set CuratedNews Author Details
+                NSArray *authorDetailsArray = [dic objectForKey:@"articleContact"];
+                //NSLog(@"before author count:%lu",(unsigned long)authorDetailsArray.count);
+                NSMutableArray *authorDetailsList = [[NSMutableArray alloc]init];
+                for(NSDictionary *dic in authorDetailsArray) {
+                    NSManagedObject *authorDetails;
+                    authorDetails = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetailAuthor" inManagedObjectContext:context];
+                    [authorDetails setValue:[dic valueForKey:@"id"] forKey:@"id"];
+                    [authorDetails setValue:[dic valueForKey:@"firstName"] forKey:@"firstName"];
+                    [authorDetails setValue:[dic valueForKey:@"lastName"] forKey:@"lastName"];
+                    [authorDetails setValue:[dic valueForKey:@"city"] forKey:@"city"];
+                    [authorDetails setValue:[dic valueForKey:@"country"] forKey:@"country"];
+                    [authorDetails setValue:[dic valueForKey:@"imageURL"] forKey:@"imageURL"];
+                    [authorDetails setValue:[dic valueForKey:@"bibliography"] forKey:@"bibliography"];
+                    [authorDetails setValue:[dic valueForKey:@"isInfluencer"] forKey:@"isInfluencer"];
+                    [authorDetails setValue:[dic valueForKey:@"starRating"] forKey:@"starRating"];
+                    
+                    
+                    NSArray *authorOutletArray = [dic valueForKey:@"outlet"];
+                    NSMutableArray *outletArray = [[NSMutableArray alloc]init];
+                    for(NSDictionary *outletDic in authorOutletArray) {
+                        NSManagedObject *authorOutlet = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorOutlet" inManagedObjectContext:context];
+                        [authorOutlet setValue:[outletDic valueForKey:@"id"] forKey:@"id"];
+                        [authorOutlet setValue:[outletDic valueForKey:@"outletname"] forKey:@"outletname"];
+                        [outletArray addObject:authorOutlet];
+                    }
+                    NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:outletArray];
+                    [authorDetails setValue:outletObj forKey:@"authorOutlet"];
+                    
+                    NSArray *authorWorkTitleArray = [dic valueForKey:@"worktitle"];
+                    NSMutableArray *workTitleArray = [[NSMutableArray alloc]init];
+                    for(NSDictionary *workTitleDic in authorWorkTitleArray) {
+                        NSManagedObject *authorWorkTitle = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorWorkTitle" inManagedObjectContext:context];
+                        [authorWorkTitle setValue:[workTitleDic valueForKey:@"id"] forKey:@"id"];
+                        [authorWorkTitle setValue:[workTitleDic valueForKey:@"title"] forKey:@"title"];
+                        [workTitleArray addObject:authorWorkTitle];
+                    }
+                    NSOrderedSet *worktitleObj = [[NSOrderedSet alloc]initWithArray:workTitleArray];
+                    [authorDetails setValue:worktitleObj forKey:@"authorWorkTitle"];
+                    
+                    
+                    NSArray *authorBeatArray = [dic valueForKey:@"beats"];
+                    NSMutableArray *beatArray = [[NSMutableArray alloc]init];
+                    for(NSDictionary *beatDic in authorBeatArray) {
+                        NSManagedObject *authorBeat = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorBeat" inManagedObjectContext:context];
+                        [authorBeat setValue:[beatDic valueForKey:@"id"] forKey:@"id"];
+                        [authorBeat setValue:[beatDic valueForKey:@"name"] forKey:@"name"];
+                        [beatArray addObject:authorBeat];
+                    }
+                    NSOrderedSet *beatObj = [[NSOrderedSet alloc]initWithArray:beatArray];
+                    [authorDetails setValue:beatObj forKey:@"authorBeat"];
+                    
+                    NSArray *authorSocialMediaArray = [dic valueForKey:@"socialmedia"];
+                    NSMutableArray *socialMediaArray = [[NSMutableArray alloc]init];
+                    for(NSDictionary *socialMediaDic in authorSocialMediaArray) {
+                        NSManagedObject *authorSocialMedia = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorSocialMedia" inManagedObjectContext:context];
+                        // NSLog(@"social isactive:%@",[socialMediaDic valueForKey:@"isactive"]);
+                        [authorSocialMedia setValue:[socialMediaDic valueForKey:@"isactive"] forKey:@"isactive"];
+                        [authorSocialMedia setValue:[socialMediaDic valueForKey:@"mediatype"] forKey:@"mediatype"];
+                        [authorSocialMedia setValue:[socialMediaDic valueForKey:@"mediatypeId"] forKey:@"mediatypeId"];
+                        [authorSocialMedia setValue:[socialMediaDic valueForKey:@"url"] forKey:@"url"];
+                        [authorSocialMedia setValue:[socialMediaDic valueForKey:@"username"] forKey:@"username"];
+                        [socialMediaArray addObject:authorSocialMedia];
+                    }
+                    NSOrderedSet *socialMediaObj = [[NSOrderedSet alloc]initWithArray:socialMediaArray];
+                    [authorDetails setValue:socialMediaObj forKey:@"authorSocialMedia"];
+                    
+                    [authorDetailsList addObject:authorDetails];
+                }
+                
+                
+                //  [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
+                
+                
+                // NSLog(@"author list count:%lu",(unsigned long)authorDetailsList.count);
+                NSOrderedSet *authorObj = [[NSOrderedSet alloc]initWithArray:authorDetailsList];
+                [curatedNews setValue:authorObj forKey:@"authorDetails"];
+                
+                
+                NSError *error = nil;
+                // Save the object to persistent store
+                if (![context save:&error]) {
+                    // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+                    //NSLog(@"one");
+                }else {
+                    //  NSLog(@"else part:%@",error);
+                    NSLog(@"two");
+                }
+                
             }
             
             
-            //Set CuratedNewsDetails
-            curatedNewsDrillIn = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetail" inManagedObjectContext:context];
-            [curatedNewsDrillIn setValue:[dic objectForKey:@"id"] forKey:@"articleId"];
-            [curatedNewsDrillIn setValue:[dic objectForKey:@"commentCount"] forKey:@"totalComments"];
-            [curatedNewsDrillIn setValue:[dic objectForKey:@"unReadCommentCount"] forKey:@"unReadComment"];
-            [curatedNewsDrillIn setValue:[dic objectForKey:@"articleDetailedDescription"] forKey:@"article"];
-            //Set Related Post
-            //            NSArray *relatedPostArray = [dic objectForKey:@"articleRelatedPosts"];
-            //            NSMutableArray *postArray = [[NSMutableArray alloc]init];
-            //            for(NSDictionary *postDic in relatedPostArray) {
-            //                NSManagedObject *relatedPost = [NSEntityDescription insertNewObjectForEntityForName:@"RelatedPost" inManagedObjectContext:context];
-            //                [relatedPost setValue:[postDic valueForKey:@"postId"] forKey:@"postId"];
-            //                [relatedPost setValue:[postDic valueForKey:@"socialMediaUsername"] forKey:@"socialMediaUsername"];
-            //                [relatedPost setValue:[postDic valueForKey:@"tweetURL"] forKey:@"tweetURL"];
-            //                [postArray addObject:relatedPost];
-            //            }
-            //
-            //            NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:postArray];
-            //            [curatedNewsDrillIn setValue:outletObj forKey:@"relatedPost"];
-            [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
+            NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopStoriesInfo", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopStoriesInfo"
+                                                                object:self
+                                                              userInfo:theInfo];
             
-            
-            //Set CuratedNews Author Details
-            NSArray *authorDetailsArray = [dic objectForKey:@"articleContact"];
-            //NSLog(@"before author count:%lu",(unsigned long)authorDetailsArray.count);
-            NSMutableArray *authorDetailsList = [[NSMutableArray alloc]init];
-            for(NSDictionary *dic in authorDetailsArray) {
-                NSManagedObject *authorDetails;
-                authorDetails = [NSEntityDescription insertNewObjectForEntityForName:@"CuratedNewsDetailAuthor" inManagedObjectContext:context];
-                [authorDetails setValue:[dic valueForKey:@"id"] forKey:@"id"];
-                [authorDetails setValue:[dic valueForKey:@"firstName"] forKey:@"firstName"];
-                [authorDetails setValue:[dic valueForKey:@"lastName"] forKey:@"lastName"];
-                [authorDetails setValue:[dic valueForKey:@"city"] forKey:@"city"];
-                [authorDetails setValue:[dic valueForKey:@"country"] forKey:@"country"];
-                [authorDetails setValue:[dic valueForKey:@"imageURL"] forKey:@"imageURL"];
-                [authorDetails setValue:[dic valueForKey:@"bibliography"] forKey:@"bibliography"];
-                [authorDetails setValue:[dic valueForKey:@"isInfluencer"] forKey:@"isInfluencer"];
-                [authorDetails setValue:[dic valueForKey:@"starRating"] forKey:@"starRating"];
-                
-                
-                NSArray *authorOutletArray = [dic valueForKey:@"outlet"];
-                NSMutableArray *outletArray = [[NSMutableArray alloc]init];
-                for(NSDictionary *outletDic in authorOutletArray) {
-                    NSManagedObject *authorOutlet = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorOutlet" inManagedObjectContext:context];
-                    [authorOutlet setValue:[outletDic valueForKey:@"id"] forKey:@"id"];
-                    [authorOutlet setValue:[outletDic valueForKey:@"outletname"] forKey:@"outletname"];
-                    [outletArray addObject:authorOutlet];
-                }
-                NSOrderedSet *outletObj = [[NSOrderedSet alloc]initWithArray:outletArray];
-                [authorDetails setValue:outletObj forKey:@"authorOutlet"];
-                
-                NSArray *authorWorkTitleArray = [dic valueForKey:@"worktitle"];
-                NSMutableArray *workTitleArray = [[NSMutableArray alloc]init];
-                for(NSDictionary *workTitleDic in authorWorkTitleArray) {
-                    NSManagedObject *authorWorkTitle = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorWorkTitle" inManagedObjectContext:context];
-                    [authorWorkTitle setValue:[workTitleDic valueForKey:@"id"] forKey:@"id"];
-                    [authorWorkTitle setValue:[workTitleDic valueForKey:@"title"] forKey:@"title"];
-                    [workTitleArray addObject:authorWorkTitle];
-                }
-                NSOrderedSet *worktitleObj = [[NSOrderedSet alloc]initWithArray:workTitleArray];
-                [authorDetails setValue:worktitleObj forKey:@"authorWorkTitle"];
-                
-                
-                NSArray *authorBeatArray = [dic valueForKey:@"beats"];
-                NSMutableArray *beatArray = [[NSMutableArray alloc]init];
-                for(NSDictionary *beatDic in authorBeatArray) {
-                    NSManagedObject *authorBeat = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorBeat" inManagedObjectContext:context];
-                    [authorBeat setValue:[beatDic valueForKey:@"id"] forKey:@"id"];
-                    [authorBeat setValue:[beatDic valueForKey:@"name"] forKey:@"name"];
-                    [beatArray addObject:authorBeat];
-                }
-                NSOrderedSet *beatObj = [[NSOrderedSet alloc]initWithArray:beatArray];
-                [authorDetails setValue:beatObj forKey:@"authorBeat"];
-                
-                NSArray *authorSocialMediaArray = [dic valueForKey:@"socialmedia"];
-                NSMutableArray *socialMediaArray = [[NSMutableArray alloc]init];
-                for(NSDictionary *socialMediaDic in authorSocialMediaArray) {
-                    NSManagedObject *authorSocialMedia = [NSEntityDescription insertNewObjectForEntityForName:@"AuthorSocialMedia" inManagedObjectContext:context];
-                    // NSLog(@"social isactive:%@",[socialMediaDic valueForKey:@"isactive"]);
-                    [authorSocialMedia setValue:[socialMediaDic valueForKey:@"isactive"] forKey:@"isactive"];
-                    [authorSocialMedia setValue:[socialMediaDic valueForKey:@"mediatype"] forKey:@"mediatype"];
-                    [authorSocialMedia setValue:[socialMediaDic valueForKey:@"mediatypeId"] forKey:@"mediatypeId"];
-                    [authorSocialMedia setValue:[socialMediaDic valueForKey:@"url"] forKey:@"url"];
-                    [authorSocialMedia setValue:[socialMediaDic valueForKey:@"username"] forKey:@"username"];
-                    [socialMediaArray addObject:authorSocialMedia];
-                }
-                NSOrderedSet *socialMediaObj = [[NSOrderedSet alloc]initWithArray:socialMediaArray];
-                [authorDetails setValue:socialMediaObj forKey:@"authorSocialMedia"];
-                
-                [authorDetailsList addObject:authorDetails];
-            }
-            
-            
-            //  [curatedNews setValue:curatedNewsDrillIn forKey:@"details"];
-            
-            
-            // NSLog(@"author list count:%lu",(unsigned long)authorDetailsList.count);
-            NSOrderedSet *authorObj = [[NSOrderedSet alloc]initWithArray:authorDetailsList];
-            [curatedNews setValue:authorObj forKey:@"authorDetails"];
-            
-            
-            NSError *error = nil;
-            // Save the object to persistent store
-            if (![context save:&error]) {
-                // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-                //NSLog(@"one");
-            }else {
-                //  NSLog(@"else part:%@",error);
-                NSLog(@"two");
-            }
-            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
         }
-        
-        
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjectsAndKeys:responseObject,@"TopStoriesInfo", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FetchedTopStoriesInfo"
-                                                            object:self
-                                                          userInfo:theInfo];
-        
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
-
+    }
+    
 }
 
 
@@ -3473,7 +3606,12 @@
             // [FIUtils showErrorToast];
         }];
     } else {
-        
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
     
 }
@@ -3528,7 +3666,12 @@
             // [FIUtils showErrorToast];
         }];
     } else {
-        
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -3581,7 +3724,12 @@
             // [FIUtils showErrorToast];
         }];
     } else {
-        
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
@@ -3635,7 +3783,12 @@
             // [FIUtils showErrorToast];
         }];
     } else {
-        
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 
 }
@@ -3688,7 +3841,12 @@
             // [FIUtils showErrorToast];
         }];
     } else {
-        
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 
 }
@@ -3743,18 +3901,33 @@
             // [FIUtils showErrorToast];
         }];
     } else {
-        
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
     }
 }
 
 
 //report download
 -(void)downloadReportForReportId:(NSNumber *)reportId {
-    [FIWebService downloadReportForReportId:reportId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-               
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [FIUtils showErrorToast];
-    }];
+    if([self serviceIsReachable]) {
+        [FIWebService downloadReportForReportId:reportId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            // [FIUtils showErrorToast];
+        }];
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //   NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+    
 }
 
 @end

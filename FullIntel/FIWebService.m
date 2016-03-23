@@ -162,7 +162,7 @@ NSString *url = @"http://fullintel.com/1.4.0";
 + (void)getQueryResultsForFunctionName:(NSString *)functionName onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSLog(@"get function name:%@",functionName);
-    NSString *postURL = [NSString stringWithFormat:@"%@/%@/%@",url,@"api/v1",[functionName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *postURL = [NSString stringWithFormat:@"%@%@",url,[functionName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"post url:%@",postURL);
     NSURL *url = [NSURL URLWithString:postURL];
     NSLog(@"url string:%@",url);
@@ -366,7 +366,7 @@ NSString *url = @"http://fullintel.com/1.4.0";
 //    NSDictionary *JSON = [self dictionaryWithFileName:@"menu"];
 //    success(nil,JSON);
     
-    NSString *functionName = [NSString stringWithFormat:@"customer/menu?security_token=%@",accessToken];
+    NSString *functionName = [NSString stringWithFormat:@"/api/v1/customer/menu?security_token=%@",accessToken];
     NSLog(@"fetch folder function name:%@",functionName);
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
@@ -380,7 +380,7 @@ NSString *url = @"http://fullintel.com/1.4.0";
 +(void)fetchMenuUnreadCountWithAccessToken:(NSString*)accessToken
                                  onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                  onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *functionName = [NSString stringWithFormat:@"customer/menuunreadcount?security_token=%@",accessToken];
+    NSString *functionName = [NSString stringWithFormat:@"/api/v1/customer/menuunreadcount?security_token=%@",accessToken];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -393,7 +393,7 @@ NSString *url = @"http://fullintel.com/1.4.0";
 +(void)fetchFolderListWithAccessToken:(NSString*)accessToken
                           onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                           onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *functionName = [NSString stringWithFormat:@"folders?security_token=%@",accessToken];
+    NSString *functionName = [NSString stringWithFormat:@"/api/v1/folders?security_token=%@",accessToken];
     NSLog(@"fetch folder function name:%@",functionName);
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
@@ -407,7 +407,7 @@ NSString *url = @"http://fullintel.com/1.4.0";
 +(void)fetchNewsLetterListWithAccessToken:(NSString*)accessToken
                                 onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *functionName = [NSString stringWithFormat:@"client/newsletters?security_token=%@",accessToken];
+    NSString *functionName = [NSString stringWithFormat:@"/api/v1/client/newsletters?security_token=%@",accessToken];
    // NSLog(@"fetch folder function name:%@",functionName);
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
@@ -485,11 +485,11 @@ NSString *url = @"http://fullintel.com/1.4.0";
 +(void)fetchArticlesFromFolderWithSecurityToken:(NSString *)securityToken withFolderId:(NSString *)folderId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal withQuery:(NSString*)query withFilterBy:(NSString *)filterBy onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName;
     if(query.length != 0) {
-        functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@&query=%@",folderId,securityToken,pageNo,sizeVal,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/folders/%@/articles?security_token=%@&page=%@&size=%@&query=%@",folderId,securityToken,pageNo,sizeVal,query];
     } else if(filterBy.length != 0) {
-        functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@&filterby=%@",folderId,securityToken,pageNo,sizeVal,filterBy];
+        functionName = [NSString stringWithFormat:@"/api/v1/folders/%@/articles?security_token=%@&page=%@&size=%@&filterby=%@",folderId,securityToken,pageNo,sizeVal,filterBy];
     } else {
-        functionName = [NSString stringWithFormat:@"folders/%@/articles?security_token=%@&page=%@&size=%@",folderId,securityToken,pageNo,sizeVal];
+        functionName = [NSString stringWithFormat:@"/api/v1/folders/%@/articles?security_token=%@&page=%@&size=%@",folderId,securityToken,pageNo,sizeVal];
     }
     
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -504,11 +504,11 @@ NSString *url = @"http://fullintel.com/1.4.0";
 +(void)fetchArticlesFromNewsLetterWithSecurityToken:(NSString *)securityToken withNewsLetterId:(NSNumber *)newsletterId withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)sizeVal withQuery:(NSString *)query withFilterBy:(NSString *)filterBy onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *functionName;
     if(query.length != 0) {
-        functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&page=%@&size=%@&query=%@",newsletterId,securityToken,pageNo,sizeVal,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/client/newsletter/%@/articles?security_token=%@&page=%@&size=%@&query=%@",newsletterId,securityToken,pageNo,sizeVal,query];
     } else if(filterBy.length != 0) {
-        functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&page=%@&size=%@&filterby=%@",newsletterId,securityToken,pageNo,sizeVal,filterBy];
+        functionName = [NSString stringWithFormat:@"/api/v1/client/newsletter/%@/articles?security_token=%@&page=%@&size=%@&filterby=%@",newsletterId,securityToken,pageNo,sizeVal,filterBy];
     } else {
-        functionName = [NSString stringWithFormat:@"client/newsletter/%@/articles?security_token=%@&page=%@&size=%@",newsletterId,securityToken,pageNo,sizeVal];
+        functionName = [NSString stringWithFormat:@"/api/v1/client/newsletter/%@/articles?security_token=%@&page=%@&size=%@",newsletterId,securityToken,pageNo,sizeVal];
     }
     
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -776,7 +776,7 @@ NSString *url = @"http://fullintel.com/1.4.0";
     NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/reports?security_token=%@",companyId,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"/api/v1/companies/%@/analysis/reports?security_token=%@",companyId,securityToken];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -789,7 +789,7 @@ NSString *url = @"http://fullintel.com/1.4.0";
                                onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/reports/%@",companyId,reportId];
+    NSString *functionName = [NSString stringWithFormat:@"/api/v1/companies/%@/analysis/reports/%@",companyId,reportId];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -799,10 +799,10 @@ NSString *url = @"http://fullintel.com/1.4.0";
 }
 
 //Trend of Coverage chart info
-+(void)getTrendOfCoverageInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
++(void)getTrendOfCoverageInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString*)apiLink onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+  //  NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/articlecirculation?fromDate=%@&toDate=%@&xKey=publishedDate&yKey=outlet.id&security_token=%@",companyId,fromDate,toDate,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"%@&security_token=%@",apiLink,securityToken];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -812,10 +812,10 @@ NSString *url = @"http://fullintel.com/1.4.0";
 }
 
 //Key Topics Chart Info
-+(void)getKeyTopicsInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
++(void)getKeyTopicsInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString*)apiLink onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+   // NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/articles/fields/count?fromDate=%@&toDate=%@&xKey=fields.id&security_token=%@",companyId,fromDate,toDate,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"%@&security_token=%@",apiLink,securityToken];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -825,10 +825,10 @@ NSString *url = @"http://fullintel.com/1.4.0";
 }
 
 //Media Type Chart Info
-+(void)getMediaTypeInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
++(void)getMediaTypeInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString*)apiLink onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    //NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/outlets/fields/count?fromDate=%@&toDate=%@&xKey=mediaTypeId&yKey=id&security_token=%@",companyId,fromDate,toDate,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"%@&security_token=%@",apiLink,securityToken];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);
@@ -838,10 +838,10 @@ NSString *url = @"http://fullintel.com/1.4.0";
 }
 
 //entiment And Volume Over Time Info
-+(void)getSentimentAndVolumeOverTimeInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
-    NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/articles/tonalities?fromDate=%@&toDate=%@&xKey=tonality.name&yKey=fields.id",companyId,fromDate,toDate];
++(void)getSentimentAndVolumeOverTimeInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString*)apiLink onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    //NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
+ //   NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
+    NSString *functionName = [NSString stringWithFormat:@"%@",apiLink];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -850,10 +850,10 @@ NSString *url = @"http://fullintel.com/1.4.0";
 }
 
 //entiment And Volume Over Time Info
-+(void)getChangeOverLastQuarterInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
++(void)getChangeOverLastQuarterInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString*)apiLink onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+//    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/articles/tonalities?fromDate=%@&toDate=%@&&xKey=publishedDate&yKey=fields.id&security_token=%@",companyId,fromDate,toDate,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"%@&security_token=%@",apiLink,securityToken];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -861,10 +861,10 @@ NSString *url = @"http://fullintel.com/1.4.0";
     }];
 }
 //Top Sources Info
-+(void)getTopSourcesInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
++(void)getTopSourcesInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString*)apiLink onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+   // NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/topsources?fromDate=%@&toDate=%@&security_token=%@",companyId,fromDate,toDate,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"%@&security_token=%@",apiLink,securityToken];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -874,12 +874,12 @@ NSString *url = @"http://fullintel.com/1.4.0";
 
 
 //Top Journalist Info
-+(void)getTopJournalistInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
++(void)getTopJournalistInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString*)apiLink onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+   // NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     
     
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/topcontacts?fromDate=%@&toDate=%@&xKey=contact.name.sort&yKey=tonality.name&security_token=%@",companyId,fromDate,toDate,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"%@&security_token=%@",apiLink,securityToken];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -889,12 +889,12 @@ NSString *url = @"http://fullintel.com/1.4.0";
 
 
 //Top Influencer
-+(void)getTopInfluencerInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
++(void)getTopInfluencerInfoFromDate:(NSNumber*)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString*)apiLink onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     
     
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/topinfluencers?fromDate=%@&toDate=%@&security_token=%@",companyId,fromDate,toDate,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"%@&security_token=%@",apiLink,securityToken];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -907,7 +907,7 @@ NSString *url = @"http://fullintel.com/1.4.0";
 //    Eg:http://stage.fullintel.com/1.3.0/api/v1/articles/2?fromDate=1451624400000&page=0&security_token=346650015f5cb4dbe98fdd327e8f3e2da7cc50e8&size=10&toDate=1456808399000
     
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
-    NSString *functionName = [NSString stringWithFormat:@"articles/2?fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@",fromDate,pageNo,securityToken,size,toDate];
+    NSString *functionName = [NSString stringWithFormat:@"/api/v1/articles/2?fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@",fromDate,pageNo,securityToken,size,toDate];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -924,13 +924,13 @@ NSString *url = @"http://fullintel.com/1.4.0";
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     NSString *functionName;
     if(filterBy.length != 0 && query.length != 0) {
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@&query=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate,filterBy,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@&query=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate,filterBy,query];
     } else if(filterBy.length != 0) {
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate,filterBy];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate,filterBy];
     } else if(query.length != 0) {
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&query=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&query=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate,query];
     } else {
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@",clickedDate,endDateIn,fromDate,pageNo,securityToken,size,toDate];
     }
     
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -949,17 +949,17 @@ NSString *url = @"http://fullintel.com/1.4.0";
     NSString *functionName;
     if(filterBy.length != 0 && query.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@&query=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@&query=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy,query];
     } else if(filterBy.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy];
         
     } else if(query.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&query=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&query=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1,query];
         
     } else {
-        functionName = [NSString stringWithFormat:@"articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@",field_1,fromDate,pageNo,securityToken,size,toDate,value_1];
     }
     
    
@@ -979,18 +979,18 @@ NSString *url = @"http://fullintel.com/1.4.0";
     NSString *functionName;
     if(filterBy.length != 0 && query.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@&query=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate,filterBy,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@&query=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate,filterBy,query];
 
     } else if(filterBy.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate,filterBy];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@&filterby=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate,filterBy];
         
     } else if(query.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@&query=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@&query=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate,query];
 
     } else {
-        functionName = [NSString stringWithFormat:@"articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?fromDate=%@&mediaType_field=%@&mediaType_value=%@&page=%@&security_token=%@&size=%@&toDate=%@",fromDate,mediaType_field,mediaType_value,pageNo,securityToken,size,toDate];
     }
     
     
@@ -1012,18 +1012,18 @@ NSString *url = @"http://fullintel.com/1.4.0";
     NSString *functionName;
     if(filterBy.length != 0 && query.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@&query=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@&query=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy,query];
         
     } else if(filterBy.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy];
         
     } else if(query.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&query=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&query=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,query];
         
     } else {
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@",clickedDate,endDateIn,field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2];
     }
     
     
@@ -1044,18 +1044,18 @@ NSString *url = @"http://fullintel.com/1.4.0";
     NSString *functionName;
     if(filterBy.length != 0 && query.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@&query=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@&query=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy,query];
 
     } else if(filterBy.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&filterby=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1,filterBy];
         
     } else if(query.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&query=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@&query=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1,query];
         
     } else {
-        functionName = [NSString stringWithFormat:@"articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?clickedDate=%@&endDateIn=%@&field_1=%@&fromDate=%@&page=%@&security_token=%@&size=%@&toDate=%@&value_1=%@",clickedDate,endDateIn,field_1,fromDate,pageNo,securityToken,size,toDate,value_1];
     }
     
     
@@ -1077,18 +1077,18 @@ NSString *url = @"http://fullintel.com/1.4.0";
     NSString *functionName;
     if(filterBy.length != 0 && query.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@&query=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@&query=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy,query];
 
     } else if(filterBy.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&filterby=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,filterBy];
 
     } else if(query.length != 0) {
         
-        functionName = [NSString stringWithFormat:@"articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&query=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,query];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@&query=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2,query];
         
     } else {
-        functionName = [NSString stringWithFormat:@"articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2];
+        functionName = [NSString stringWithFormat:@"/api/v1/articles?field_1=%@&field_2=%@&fromDate=%@&page=%@&size=%@&security_token=%@&toDate=%@&value_1=%@&value_2=%@",field_1,field_2,fromDate,pageNo,size,securityToken,toDate,value_1,value_2];
     }
     
     
@@ -1105,7 +1105,7 @@ NSString *url = @"http://fullintel.com/1.4.0";
     NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
      NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
    // companies/27/analysis/report/80/export/ppt?security_token=
-    NSString *functionName = [NSString stringWithFormat:@"companies/%@/analysis/report/%@/export/ppt?security_token=%@",companyId,reportId,securityToken];
+    NSString *functionName = [NSString stringWithFormat:@"/api/v1/companies/%@/analysis/report/%@/export/ppt?security_token=%@",companyId,reportId,securityToken];
     [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"curated news response:%@",responseObject);
         success(operation,responseObject);

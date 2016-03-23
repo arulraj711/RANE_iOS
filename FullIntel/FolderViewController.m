@@ -49,57 +49,30 @@
     if(accessToken.length == 0) {
         // NSLog(@"corporate if part");
         
-      //  [self showLoginPage];
+        [self showLoginPage];
     }
 }
 
 -(void)showLoginPage {
-    [self.revealController showViewController:self.revealController.frontViewController];
-    NSArray *navArray = self.navigationController.viewControllers;
-    if(navArray.count > 1) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        UIStoryboard *centerStoryBoard;
-        UIViewController *viewCtlr;
-        
-        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-        {
-            centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
-            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-            
-            
-        } else {
-            centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-            
-            
-        }
+    UIStoryboard *centerStoryBoard;
+    UIViewController *viewCtlr;
+    
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+        viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
         
         
-        [self.revealController setFrontViewController:viewCtlr];
-        [self.revealController showViewController:self.revealController.frontViewController];
     } else {
-        UIStoryboard *centerStoryBoard;
-        UIViewController *viewCtlr;
-        
-        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-        {
-            centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
-            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-            
-            
-        } else {
-            centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-            
-            
-        }
+        centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
         
         
-        [self.revealController setFrontViewController:viewCtlr];
-        [self.revealController showViewController:self.revealController.frontViewController];
     }
     
     
+    [self.revealController setFrontViewController:viewCtlr];
+    [self.revealController showViewController:self.revealController.frontViewController];
     //        [self presentViewController:loginView animated:YES completion:nil];
 }
 - (void)didReceiveMemoryWarning {

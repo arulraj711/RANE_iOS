@@ -103,6 +103,16 @@
 
  //   [self selectItemAtIndexPath:0 animated:YES scrollPosition:UICollectionViewScrollPositionNone];
 
+    NSLog(@"title string:%@",self.titleString);
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =self.titleString;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(afterFetchingReportObject:)
@@ -165,8 +175,10 @@
     NSNotification *notification = sender;
     reportObject = [[notification userInfo] objectForKey:@"reportObject"];
     NSLog(@"Report Object:%@",reportObject);
-    [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+    ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:0];
 
+    [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:reportType.apiLink];
+    
     [self.chartIconCollectionView reloadData];
     [self collectionView:_chartIconCollectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
@@ -829,47 +841,47 @@
     if([localReportTypeId isEqualToNumber:reportType.reportChartTyepId]) {
         
     } else {
-        [self loadChartValuesWithReportType:reportType.reportChartTyepId];
+        [self loadChartValuesWithReportType:reportType.reportChartTyepId withAPILink:reportType.apiLink];
     }
     
     localReportTypeId = reportType.reportChartTyepId;
     
 }
 
--(void)loadChartValuesWithReportType:(NSNumber*)reportType {
+-(void)loadChartValuesWithReportType:(NSNumber*)reportType withAPILink:(NSString *)apiLink{
     if ([reportType isEqualToNumber:[NSNumber numberWithInt:1]]) {
         // Select Trend of Coverage Chart
-        [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+        [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
         
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:2]]){
         // Select Key Types Chart
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+        [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
        
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:3]]){
         // Select Media Types chart
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getMediaTypeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+        [[FISharedResources sharedResourceManager]getMediaTypeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:4]]){
         // Select Sentiment and Volume Over Time chart
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+        [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     }else if ([reportType isEqualToNumber:[NSNumber numberWithInt:5]]){
         // Select change over last quarter chart
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getChangeOverLastQuarterChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+        [[FISharedResources sharedResourceManager]getChangeOverLastQuarterChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     }else if ([reportType isEqualToNumber:[NSNumber numberWithInt:6]]){
         // Select top sources
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getTopSourcesChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+        [[FISharedResources sharedResourceManager]getTopSourcesChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     } else if([reportType isEqualToNumber:[NSNumber numberWithInt:7]]) {
         //select top journalist
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getTopJournalistChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+        [[FISharedResources sharedResourceManager]getTopJournalistChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     } else if([reportType isEqualToNumber:[NSNumber numberWithInt:8]]) {
         //select top influencers
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getTopInfluencerChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate];
+        [[FISharedResources sharedResourceManager]getTopInfluencerChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     }
 }
 
@@ -1059,7 +1071,8 @@
     barViews.backgroundColor = [UIColor whiteColor];
     
     barViews.drawBordersEnabled = NO;
-    
+    barViews.leftAxis.valueFormatter = [[NSNumberFormatter alloc]init];
+    barViews.leftAxis.valueFormatter.minimumFractionDigits = 0;
     barViews.leftAxis.drawAxisLineEnabled = NO;
     barViews.leftAxis.drawGridLinesEnabled = NO;
     barViews.rightAxis.drawAxisLineEnabled = NO;
@@ -1222,7 +1235,8 @@
     barViews.backgroundColor = [UIColor whiteColor];
     
     barViews.drawBordersEnabled = NO;
-    
+    barViews.leftAxis.valueFormatter = [[NSNumberFormatter alloc]init];
+    barViews.leftAxis.valueFormatter.minimumFractionDigits = 0;
 //    barViews.leftAxis.drawAxisLineEnabled = NO;
     barViews.leftAxis.drawGridLinesEnabled = NO;
     barViews.rightAxis.drawAxisLineEnabled = NO;
