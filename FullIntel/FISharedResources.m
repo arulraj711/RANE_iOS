@@ -193,6 +193,7 @@
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"companyLogoURL"]) forKey:@"companyLogo"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"companyname"]) forKey:@"companyName"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"id"]) forKey:@"customerId"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"analysisReportEnabled"]) forKey:@"CompanyAnalysisReportEnabled"];
                 
                 //User Info
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject objectForKey:@"securityToken"]) forKey:@"accesstoken"];
@@ -201,8 +202,8 @@
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"photoURL"]) forKey:@"photoUrl"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"userAccountTypeId"]) forKey:@"userAccountTypeId"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"email"]) forKey:@"customerEmail"];
+                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"analysisReportEnabled"]) forKey:@"UserAnalysisReportEnabled"];
                 NSString *appViewType = [NSString stringWithFormat:@"%@",NULL_TO_NIL([responseObject valueForKey:@"appViewTypeId"])];
-                
                 if([appViewType isEqualToString:@"1"]) {
                     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
                 } else if([appViewType isEqualToString:@"2"]) {

@@ -696,12 +696,17 @@
     newsLetterObj.children = nil;
     [self.data addObject:newsLetterObj];
     
-    //Media Analysis menu
-    RADataObject *mediaAnalysis = [[RADataObject alloc]init];
-    mediaAnalysis.name = @"MEDIA ANALYSIS";
-    mediaAnalysis.nodeId = [NSNumber numberWithInt:-500];
-    mediaAnalysis.children = nil;
-    [self.data addObject:mediaAnalysis];
+    NSNumber *userAnalysisReportEnabled = [[NSUserDefaults standardUserDefaults]valueForKey:@"UserAnalysisReportEnabled"];
+    NSNumber *companyAnalysisReportEnabled = [[NSUserDefaults standardUserDefaults]valueForKey:@"CompanyAnalysisReportEnabled"];
+    if([userAnalysisReportEnabled isEqualToNumber:[NSNumber numberWithInt:1]] && [companyAnalysisReportEnabled isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        //Media Analysis menu
+        RADataObject *mediaAnalysis = [[RADataObject alloc]init];
+        mediaAnalysis.name = @"MEDIA ANALYSIS";
+        mediaAnalysis.nodeId = [NSNumber numberWithInt:-500];
+        mediaAnalysis.children = nil;
+        [self.data addObject:mediaAnalysis];
+    }
+    
     
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
