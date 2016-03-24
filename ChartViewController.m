@@ -113,6 +113,7 @@
     label.textColor = [UIColor whiteColor]; // change this color
     self.navigationItem.titleView = label;
     
+    fullName = 0;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(afterFetchingReportObject:)
@@ -196,7 +197,7 @@
     
     //Assigning values initially for axis------------------------------------------------------------------
     NSLog(@"%@",articleCirculationMap);
-
+    
     NSArray *monthArrayS = [articleCirculationMap allKeys];
     NSArray *ValueArrayS = [articleCirculationMap allValues];
     NSArray *ValueArrayTwoS= [articleCountMap allValues];
@@ -211,7 +212,7 @@
     NSArray *reverseOrder=[monthArrayS sortedArrayUsingDescriptors:descriptors];   //contains the date in sorted form
     
     NSLog(@"%@",reverseOrder);
-
+    
     dateArrayToGet =[NSMutableArray arrayWithArray:reverseOrder];
     //sorting the array of values based on keys------------------------------------------------------------
     
@@ -219,8 +220,8 @@
     for (int i=0; i<reverseOrder.count; i++)
     {
         NSString *inpT = [reverseOrder objectAtIndex:i];
-                NSString *value = [articleCirculationMap objectForKey:inpT];
-                [reverseOrders addObject:value];
+        NSString *value = [articleCirculationMap objectForKey:inpT];
+        [reverseOrders addObject:value];
     }
     
     
@@ -231,68 +232,71 @@
         NSString *value = [articleCountMap objectForKey:inpT];
         [reverseOrdersTwo addObject:value];
     }
-
-
+    
+    NSArray *resultantArray = [self inputDateAndOutputXaxis:reverseOrder];
+    NSLog(@"%@",resultantArray);
     //for pan gesture, getting weeknumber and monthnumber--------------------------------------------------------------------------------
     
-    NSArray *coupledArray = [self FindWeekNumberOfDate:reverseOrder];
-    NSLog(@"%@",coupledArray);
-
-    NSArray *xValueArray = [coupledArray objectAtIndex:0];
-    NSLog(@"%@",xValueArray);
+    //    NSArray *coupledArray = [self FindWeekNumberOfDate:reverseOrder];
+    //    NSLog(@"%@",coupledArray);
     
-    NSArray *xvalueForMonth = [coupledArray objectAtIndex:1];
-    NSLog(@"%@",xvalueForMonth);
+    //    NSArray *xValueArray = [coupledArray objectAtIndex:0];
+    //    NSLog(@"%@",xValueArray);
+    //
+    //    NSArray *xvalueForMonth = [coupledArray objectAtIndex:1];
+    //    NSLog(@"%@",xvalueForMonth);
     
-
-    xInputForMonths = [self GetMonthNameFromNumber:xvalueForMonth];
-    NSLog(@"%@",xInputForMonths);
-
-
+    
+    //    xInputForMonths = [self GetMonthNameFromNumber:xvalueForMonth];
+    //    NSLog(@"%@",xInputForMonths);
+    
+    
     //Final array of values for x axis----------------------------------------------------------------------
     
-    NSArray *xAxisFinalArray = [self createXaxisArray:xValueArray];
-    NSLog(@"%@<--",xAxisFinalArray);
+    //    NSArray *xAxisFinalArray = [self createXaxisArray:coupledArray];
+    //    NSLog(@"%@<--",xAxisFinalArray);
     
     
     //Assigning x axis in montharray and y axis in valuearray-----------------------------------------------
     
-    scaledXvalue = [NSArray arrayWithArray:xAxisFinalArray];
+    scaledXvalue = [NSArray arrayWithArray:resultantArray];
     scaledYvalue = [NSArray arrayWithArray:reverseOrders];
     scaledYvalueTwo = [NSArray arrayWithArray:reverseOrdersTwo];
-
     
     
     
     
-    //Trying out month based grouping------------------------------------------------------------------------------
-
-    
-//    NSLog(@"%@",articleCirculationMap);
-//    
-//    NSArray *valueWithDates = [self FormatTheKeyValuesWith:reverseOrder];  //Calling this method to format the date in normal DF
-//    
-//    NSMutableDictionary *resultSetOne = [self GetResultantDictWithArray:reverseOrders andDateArray:valueWithDates];
-//    NSMutableDictionary *resultSetTwo = [self GetResultantDictWithArray:reverseOrdersTwo andDateArray:valueWithDates];
-//
-//    unScaledXvalue =[NSArray arrayWithArray:[resultSetOne allKeys]];
-//    unScaledYvalue = [NSArray arrayWithArray:[resultSetOne allValues]];
-//
-//    unscaledYvalueTwo = [NSArray arrayWithArray:[resultSetTwo allValues]];
-//
-//    
-//    monthArray = [NSArray arrayWithArray:unScaledXvalue];
-//    ValueArray = [NSArray arrayWithArray:unScaledYvalue];
-//    ValueArrayTwo = [NSArray arrayWithArray:unscaledYvalueTwo];
     
     //Trying out month based grouping------------------------------------------------------------------------------
+    
+    //
+    //    NSLog(@"%@",articleCirculationMap);
+    //
+    //    NSArray *valueWithDates = [self FormatTheKeyValuesWith:reverseOrder];  //Calling this method to format the date in normal DF
+    //
+    //    NSMutableDictionary *resultSetOne = [self GetResultantDictWithArray:reverseOrders andDateArray:valueWithDates];
+    //    NSMutableDictionary *resultSetTwo = [self GetResultantDictWithArray:reverseOrdersTwo andDateArray:valueWithDates];
+    //
+    //    unScaledXvalue =[NSArray arrayWithArray:[resultSetOne allKeys]];
+    //    unScaledYvalue = [NSArray arrayWithArray:[resultSetOne allValues]];
+    //
+    //    unscaledYvalueTwo = [NSArray arrayWithArray:[resultSetTwo allValues]];
+    //
+    //
+    //    monthArray = [NSArray arrayWithArray:unScaledXvalue];
+    //    ValueArray = [NSArray arrayWithArray:unScaledYvalue];
+    //    ValueArrayTwo = [NSArray arrayWithArray:unscaledYvalueTwo];
+    //
+    //Trying out month based grouping------------------------------------------------------------------------------
+    
+    
+    
     monthArray = [NSArray arrayWithArray:scaledXvalue];
     ValueArray = [NSArray arrayWithArray:scaledYvalue];
     ValueArrayTwo = [NSArray arrayWithArray:scaledYvalueTwo];
     
     int countVal = (int)monthArray.count;
     [self plotLineChart:countVal range:6];
-
 }
 
 //Updating Key Topics Chart Details
@@ -1383,7 +1387,7 @@
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        lineChartView = [[LineChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
+        lineChartView = [[LineChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
     }
     else{
         lineChartView = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
@@ -1407,26 +1411,28 @@
     lineChartView.xAxis.drawGridLinesEnabled = NO;
     //    lineChartView.rightAxis.drawLabelsEnabled = NO;
     lineChartView.drawGridBackgroundEnabled = NO;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        lineChartView.xAxis.labelRotationAngle =90;
+    }
     
     //set limit for left axis **************************************************
     //
     
     NSLog(@"%@",ValueArray);
     NSLog(@"%@",ValueArrayTwo);
-
-//    lineChartView.rightAxis.customAxisMax = [[ValueArrayTwo lastObject] doubleValue];
-//    lineChartView.rightAxis.customAxisMin = [[ValueArrayTwo firstObject] doubleValue];
-//    
-//    NSLog(@"left max:%f and min:%f",[[ValueArray lastObject] doubleValue],[[ValueArray firstObject] doubleValue]);
-//    lineChartView.leftAxis.customAxisMax = [[ValueArray lastObject] doubleValue];
-//    lineChartView.leftAxis.customAxisMin = [[ValueArray firstObject] doubleValue];
+    
+    //    lineChartView.rightAxis.customAxisMax = [[ValueArrayTwo lastObject] doubleValue];
+    //    lineChartView.rightAxis.customAxisMin = [[ValueArrayTwo firstObject] doubleValue];
+    //
+    //    NSLog(@"left max:%f and min:%f",[[ValueArray lastObject] doubleValue],[[ValueArray firstObject] doubleValue]);
+    //    lineChartView.leftAxis.customAxisMax = [[ValueArray lastObject] doubleValue];
+    //    lineChartView.leftAxis.customAxisMin = [[ValueArray firstObject] doubleValue];
     
     //    lineChartView.rightAxis.customAxisMax = 10;
     //    lineChartView.rightAxis.customAxisMin = 0;
     
     
     lineChartView.xAxis.spaceBetweenLabels =0;
-    lineChartView.xAxis.wordWrapEnabled = YES;
     //    lineChartView.xAxis.labelRotationAngle =45;
     
     //set limit for left axis **************************************************
@@ -1437,7 +1443,6 @@
     
     lineChartView.legend.position = ChartLegendPositionBelowChartCenter;
     lineChartView.xAxis.labelPosition = XAxisLabelPositionBottom;
-    
     //set properties--------------------------------------------------------------------
     
     [_chartViewOutline addSubview:lineChartView];
@@ -1453,16 +1458,19 @@
     {
         [xVals addObject:monthArray[i % monthArray.count]];
     }
-   
+    
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     
     NSMutableArray *values = [[NSMutableArray alloc] init];
-
+    ChartHighlight *chLightsOne;
     for (int i = 0; i < count; i++)
     {
         [values addObject:[[ChartDataEntry alloc] initWithValue:[[ValueArrayTwo objectAtIndex:i] doubleValue] xIndex:i]];
+        chLightsOne = [[ChartHighlight alloc] initWithXIndex:i dataSetIndex:i];
+        
     }
     
+    NSLog(@"%@",values);
     
     
     NSMutableArray *valuesTwo = [[NSMutableArray alloc] init];
@@ -1471,6 +1479,9 @@
         [valuesTwo addObject:[[ChartDataEntry alloc] initWithValue:[[ValueArray objectAtIndex:i] doubleValue] xIndex:i]];
     }
     
+    NSLog(@"%@",valuesTwo);
+    NSLog(@"%@",ValueArray);
+    NSLog(@"%@",ValueArrayTwo);
     
     
     
@@ -1481,21 +1492,27 @@
     [d setColor:[UIColor colorWithRed:74/255.f green:126/255.f blue:187/255.f alpha:1.f]];
     [d setCircleColor:[UIColor blackColor]];
     [dataSets addObject:d];
-
-            LineChartDataSet *ds = [[LineChartDataSet alloc] initWithYVals:valuesTwo label:[NSString stringWithFormat:@"Articles"]];
-            ds.axisDependency = AxisDependencyRight;
-            ds.lineWidth = 5.0;
-            ds.circleRadius = 4.0;
-            [ds setColor:[UIColor colorWithRed:189/255.f green:74/255.f blue:71/255.f alpha:1.f]];
     
-            [ds setCircleColor:[UIColor blackColor]];
-            [dataSets addObject:ds];
-            NSLog(@"%lu",(unsigned long)[dataSets count]);
+    LineChartDataSet *ds = [[LineChartDataSet alloc] initWithYVals:valuesTwo label:[NSString stringWithFormat:@"Articles"]];
+    ds.axisDependency = AxisDependencyRight;
+    ds.lineWidth = 5.0;
+    ds.circleRadius = 4.0;
+    [ds setColor:[UIColor colorWithRed:189/255.f green:74/255.f blue:71/255.f alpha:1.f]];
+    
+    [ds setCircleColor:[UIColor blackColor]];
+    [dataSets addObject:ds];
+    NSLog(@"%lu",(unsigned long)[dataSets count]);
     
     LineChartData *data = [[LineChartData alloc] initWithXVals:xVals dataSets:dataSets];
-  
+    
+    
     [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:7.f]];
     lineChartView.data = data;
+    //    ChartHighlight *chLightsOne = [[ChartHighlight alloc] initWithXIndex:0 dataSetIndex:0];
+    ChartHighlight *chLightsTwo = [[ChartHighlight alloc] initWithXIndex:0 dataSetIndex:1];
+    ChartHighlight *chLightsThree = [[ChartHighlight alloc] initWithXIndex:0 dataSetIndex:2];
+    
+    [lineChartView highlightValues:@[chLightsOne]];
     
     
 }
@@ -1816,25 +1833,116 @@
      return outputArray;
 }
 
+-(NSMutableArray *)inputDateAndOutputXaxis :(NSArray *)inputDateArray {
+    NSLog(@"%@",inputDateArray);
+    NSMutableArray *dayComponentArray = [[ NSMutableArray alloc]init];
+    NSMutableArray *monthComponentArray = [[ NSMutableArray alloc]init];
+    NSMutableArray *nextDayCompArray = [[ NSMutableArray alloc]init];
+    NSMutableArray *nextMonthCompArray = [[ NSMutableArray alloc]init];
+    
+    for (int i =0;i<inputDateArray.count;i++) {
+        NSString *dateInput = [inputDateArray objectAtIndex:i];
+        dateInput = [dateInput stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+        dateInput = [dateInput stringByReplacingOccurrencesOfString:@".000Z" withString:@""];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        NSDate *inpuDateFormat = [dateFormatter dateFromString:dateInput]; //original date
+        NSLog(@"%@",inpuDateFormat);
+        
+        
+        //for original date--------------------------------------------------------------------------------------------------------------------------------------
+        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        
+        NSDateComponents *comps = [calendar components:NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:inpuDateFormat];
+        NSInteger dayComps = comps.day;
+        NSInteger monthComps = comps.month;
+        [dayComponentArray addObject:[NSNumber numberWithInteger:dayComps]];
+        [monthComponentArray addObject:[NSNumber numberWithInteger:monthComps]];
+        //for original date--------------------------------------------------------------------------------------------------------------------------------------
+        
+        
+        //for added date------------------------------------------------------------------------------------------------------------------------------------------
+        NSDateComponents *dayAddComponent = [[NSDateComponents alloc] init];
+        dayAddComponent.day = 6;
+        
+        NSCalendar *calendars = [NSCalendar currentCalendar];
+        NSDate *nextDate = [calendars dateByAddingComponents:dayAddComponent toDate:inpuDateFormat options:0];  //added date
+        NSLog(@"nextDate: %@ ...", nextDate);
+        
+        
+        
+        NSDateComponents *compsTwo = [calendars components:NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:nextDate];
+        NSInteger daysCompS = compsTwo.day;
+        NSInteger monthsCompS = compsTwo.month;
+        NSLog(@"nextDate: %@ ...", [NSNumber numberWithInteger:daysCompS]);
+        
+        [nextDayCompArray addObject:[NSNumber numberWithInteger:daysCompS]];
+        [nextMonthCompArray addObject:[NSNumber numberWithInteger:monthsCompS]];
+        
+        //for added date------------------------------------------------------------------------------------------------------------------------------------------
+        
+        
+    }
+    NSMutableArray *outputsArray = [[ NSMutableArray alloc]init];
+    NSLog(@"%@",inputDateArray);
+    
+    NSLog(@"%@",nextDayCompArray);
+    NSLog(@"%@",nextMonthCompArray);
+    
+    NSLog(@"%@",dayComponentArray);
+    NSLog(@"%@",monthComponentArray);
+    
+    fullName = 1;
+    
+    NSArray  *actualMonthName = [self GetMonthNameFromNumber:monthComponentArray];
+    NSArray  *addedMonthName = [self GetMonthNameFromNumber:nextMonthCompArray];
+    
+    NSLog(@"%@",actualMonthName);
+    NSLog(@"%@",addedMonthName);
+    
+    for (int k=0; k<actualMonthName.count; k++) {
+        NSString *dt = [NSString stringWithFormat:@"%@ %@-%@ %@",[actualMonthName objectAtIndex:k],[dayComponentArray objectAtIndex:k],[addedMonthName objectAtIndex:k],[nextDayCompArray objectAtIndex:k]];
+        
+        [outputsArray addObject:dt];
+    }
+    
+    NSLog(@"%@",outputsArray);
+    
+    
+    fullName = 0;
+    
+    return outputsArray;
+}
+
 -(NSArray *)GetMonthNameFromNumber :(NSArray *)inputArray{
     //NSLog(@"%@",inputArray);
-
+    
     NSMutableArray *outPutMonthArray = [[ NSMutableArray alloc]init];
     for (int i =0;i<inputArray.count;i++) {
         
         NSNumber *isIt = [inputArray objectAtIndex:i];
-
+        
         NSString * dateString =[NSString stringWithFormat:@"%@", isIt];
-
+        
         NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM"];
         NSDate* myDate = [dateFormatter dateFromString:dateString];
-
+        
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMMM"];
+        if (fullName == 1) {
+            [formatter setDateFormat:@"MMM"];
+            
+        }
+        else{
+            [formatter setDateFormat:@"MMMM"];
+            
+        }
         NSString *stringFromDate = [formatter stringFromDate:myDate];
         
-
+        
         [outPutMonthArray addObject:stringFromDate];
     }
     return outPutMonthArray;

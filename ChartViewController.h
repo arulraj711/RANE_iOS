@@ -33,6 +33,7 @@
     NSArray *unscaledYvalueTwo;
 
     int onlyMonth;
+    int fullName;
     
     CGFloat widthOfChartViewOutline;
     CGFloat heightOfChartViewOutline;

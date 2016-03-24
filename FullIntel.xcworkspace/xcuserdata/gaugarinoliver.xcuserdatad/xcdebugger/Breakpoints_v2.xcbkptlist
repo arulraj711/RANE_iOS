@@ -9,46 +9,30 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FullIntel/FISharedResources.m"
-            timestampString = "480492484.536949"
+            filePath = "ChartViewController.m"
+            timestampString = "480506224.691686"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1555"
-            endingLineNumber = "1555"
-            landmarkName = "-getFolderListWithAccessToken:withFlag:withCreatedFlag:"
+            startingLineNumber = "1574"
+            endingLineNumber = "1574"
+            landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FISharedResources getFolderListWithAccessToken:withFlag:withCreatedFlag:]"
-                  moduleName = "FullIntel"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/FullIntel/FISharedResources.m"
-                  timestampString = "480492623.065181"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1555"
-                  endingLineNumber = "1555"
-                  offsetFromSymbolStart = "166">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__75-[FISharedResources getFolderListWithAccessToken:withFlag:withCreatedFlag:]_block_invoke"
-                  moduleName = "FullIntel"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/FullIntel/FISharedResources.m"
-                  timestampString = "480492623.066015"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1555"
-                  endingLineNumber = "1555"
-                  offsetFromSymbolStart = "94">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChartViewController.m"
+            timestampString = "480506224.691686"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1582"
+            endingLineNumber = "1582"
+            landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
