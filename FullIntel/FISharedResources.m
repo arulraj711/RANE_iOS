@@ -1578,20 +1578,20 @@
             }
             
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            //[FIUtils showErrorToast];
-//            NSError* error1;
-//            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
-//            NSLog(@"error JSON:%@",errorJson);
-//            if(errorJson == nil){
-//                [FIUtils showErrorToast];
-//            } else {
-//            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
-//                [self hideProgressView];
-//                [self showLoginView:[NSNumber numberWithInt:0]];
-//            } else {
-//                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
-//            }
-//            }
+            NSError* error1;
+            NSLog(@"error JSON:%@",operation);
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            if(errorJson == nil){
+                [FIUtils showErrorToast];
+            } else {
+                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                    [self hideProgressView];
+                    [self showLoginView:[NSNumber numberWithInt:0]];
+                } else {
+                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                }
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
         }];
     } else {

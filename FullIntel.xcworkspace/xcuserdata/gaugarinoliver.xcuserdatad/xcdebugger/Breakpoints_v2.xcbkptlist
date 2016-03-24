@@ -9,126 +9,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChartViewController.m"
-            timestampString = "480429950.676375"
+            filePath = "FullIntel/FISharedResources.m"
+            timestampString = "480492484.536949"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1630"
-            endingLineNumber = "1630"
-            landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
+            startingLineNumber = "1555"
+            endingLineNumber = "1555"
+            landmarkName = "-getFolderListWithAccessToken:withFlag:withCreatedFlag:"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[ChartViewController chartValueSelected:entry:dataSetIndex:highlight:]"
+                  symbolName = "-[FISharedResources getFolderListWithAccessToken:withFlag:withCreatedFlag:]"
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/ChartViewController.m"
-                  timestampString = "480407820.757276"
+                  urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/FullIntel/FISharedResources.m"
+                  timestampString = "480492623.065181"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1616"
-                  endingLineNumber = "1616"
-                  offsetFromSymbolStart = "3260">
+                  startingLineNumber = "1555"
+                  endingLineNumber = "1555"
+                  offsetFromSymbolStart = "166">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[ChartViewController chartValueSelected:entry:dataSetIndex:highlight:]"
+                  symbolName = "__75-[FISharedResources getFolderListWithAccessToken:withFlag:withCreatedFlag:]_block_invoke"
                   moduleName = "FullIntel"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/ChartViewController.m"
-                  timestampString = "480407820.759134"
+                  urlString = "file:///Users/gaugarinoliver/Documents/FullIntel_iOS/FullIntel/FISharedResources.m"
+                  timestampString = "480492623.066015"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1616"
-                  endingLineNumber = "1616"
-                  offsetFromSymbolStart = "3264">
+                  startingLineNumber = "1555"
+                  endingLineNumber = "1555"
+                  offsetFromSymbolStart = "94">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "480236547.486962"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "491"
-            endingLineNumber = "491"
-            landmarkName = "-callSearchAPIWithStringForUnread:withFilterString:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FullIntel/FISharedResources.m"
-            timestampString = "480429564.523923"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3620"
-            endingLineNumber = "3620"
-            landmarkName = "-getKeyTopicsArticleListFromField1:value1:fromDate:toDate:withSize:withPageNo:withFilterBy:withQuery:withFlag:withLastArticleId:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FullIntel/CorporateNewsDetailsView.m"
-            timestampString = "480343989.569487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "349"
-            endingLineNumber = "349"
-            landmarkName = "-getArticleIdListFromDB"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FullIntel/CorporateNewsDetailsView.m"
-            timestampString = "480407861.6721"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1051"
-            endingLineNumber = "1051"
-            landmarkName = "-updateCellViewType:forCuratedNews:atIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FullIntel/CorporateNewsDetailsView.m"
-            timestampString = "480408038.761715"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
-            landmarkName = "-getArticleIdListFromDB"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

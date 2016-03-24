@@ -268,29 +268,31 @@
     //Trying out month based grouping------------------------------------------------------------------------------
 
     
-    NSLog(@"%@",articleCirculationMap);
-    
-    NSArray *valueWithDates = [self FormatTheKeyValuesWith:reverseOrder];  //Calling this method to format the date in normal DF
-    
-    NSMutableDictionary *resultSetOne = [self GetResultantDictWithArray:reverseOrders andDateArray:valueWithDates];
-    NSMutableDictionary *resultSetTwo = [self GetResultantDictWithArray:reverseOrdersTwo andDateArray:valueWithDates];
-
-    unScaledXvalue =[NSArray arrayWithArray:[resultSetOne allKeys]];
-    unScaledYvalue = [NSArray arrayWithArray:[resultSetOne allValues]];
-
-    unscaledYvalueTwo = [NSArray arrayWithArray:[resultSetTwo allValues]];
-
-    
-    monthArray = [NSArray arrayWithArray:unScaledXvalue];
-    ValueArray = [NSArray arrayWithArray:unScaledYvalue];
-    ValueArrayTwo = [NSArray arrayWithArray:unscaledYvalueTwo];
+//    NSLog(@"%@",articleCirculationMap);
+//    
+//    NSArray *valueWithDates = [self FormatTheKeyValuesWith:reverseOrder];  //Calling this method to format the date in normal DF
+//    
+//    NSMutableDictionary *resultSetOne = [self GetResultantDictWithArray:reverseOrders andDateArray:valueWithDates];
+//    NSMutableDictionary *resultSetTwo = [self GetResultantDictWithArray:reverseOrdersTwo andDateArray:valueWithDates];
+//
+//    unScaledXvalue =[NSArray arrayWithArray:[resultSetOne allKeys]];
+//    unScaledYvalue = [NSArray arrayWithArray:[resultSetOne allValues]];
+//
+//    unscaledYvalueTwo = [NSArray arrayWithArray:[resultSetTwo allValues]];
+//
+//    
+//    monthArray = [NSArray arrayWithArray:unScaledXvalue];
+//    ValueArray = [NSArray arrayWithArray:unScaledYvalue];
+//    ValueArrayTwo = [NSArray arrayWithArray:unscaledYvalueTwo];
     
     //Trying out month based grouping------------------------------------------------------------------------------
-
-    
+    monthArray = [NSArray arrayWithArray:scaledXvalue];
+    ValueArray = [NSArray arrayWithArray:scaledYvalue];
+    ValueArrayTwo = [NSArray arrayWithArray:scaledYvalueTwo];
     
     int countVal = (int)monthArray.count;
     [self plotLineChart:countVal range:6];
+
 }
 
 //Updating Key Topics Chart Details
@@ -1503,30 +1505,30 @@
 - (void)chartScaled:(ChartViewBase * __nonnull)chartView scaleX:(CGFloat)scaleX scaleY:(CGFloat)scaleY;
 {
     if ([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        if(lineChartView.isFullyZoomedOut)
-        {
-            monthArray = [NSArray arrayWithArray:unScaledXvalue];
-            ValueArray = [NSArray arrayWithArray:unScaledYvalue];
-            ValueArrayTwo = [NSArray arrayWithArray:unscaledYvalueTwo];
-            
-            //Trying out month based grouping------------------------------------------------------------------------------
-            
-            
-            
-            int countVal = (int)monthArray.count;
-            [self plotLineChart:countVal range:6];
-            
-            
-        }
-        else{
-            monthArray = [NSArray arrayWithArray:scaledXvalue];
-            ValueArray = [NSArray arrayWithArray:scaledYvalue];
-            ValueArrayTwo = [NSArray arrayWithArray:scaledYvalueTwo];
-            
-            int countVal = (int)monthArray.count;
-            [self plotLineChart:countVal range:6];
-            
-        }
+//        if(lineChartView.isFullyZoomedOut)
+//        {
+//            monthArray = [NSArray arrayWithArray:unScaledXvalue];
+//            ValueArray = [NSArray arrayWithArray:unScaledYvalue];
+//            ValueArrayTwo = [NSArray arrayWithArray:unscaledYvalueTwo];
+//            
+//            //Trying out month based grouping------------------------------------------------------------------------------
+//            
+//            
+//            
+//            int countVal = (int)monthArray.count;
+//            [self plotLineChart:countVal range:6];
+//            
+//            
+//        }
+//        else{
+//            monthArray = [NSArray arrayWithArray:scaledXvalue];
+//            ValueArray = [NSArray arrayWithArray:scaledYvalue];
+//            ValueArrayTwo = [NSArray arrayWithArray:scaledYvalueTwo];
+//            
+//            int countVal = (int)monthArray.count;
+//            [self plotLineChart:countVal range:6];
+//            
+//        }
     }
 }
 
