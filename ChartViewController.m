@@ -1571,6 +1571,13 @@
     return outputDateFormat;
 }
 
+
+- (void)chartValueNothingSelected:(ChartViewBase * __nonnull)chartView
+{
+    NSLog(@"chartValueNothingSelected");
+}
+
+
 -(void)chartValueSelected:(ChartViewBase *)chartView entry:(ChartDataEntry *)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight *)highlight{
    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFolderClick"];//for showing back button
@@ -1607,40 +1614,40 @@
         //for Line chart----------------------------------------------------------------------
         
         NSLog(@"%@",[NSNumber numberWithInt:resultPoint]);
-        NSString *firstObj = [monthArray objectAtIndex:0];
-        if (firstObj.length > 3) {//for Line chart if its for month----------------------------------------------------------------------
-            
-            if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
-                NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
-                NSString *intFinals = [monthArray objectAtIndex:indexA];
-                
-                if ([xInputForMonths containsObject:intFinals]) {
-                    NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
-                    
-                    NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
-                    clickedDate = [self getFinalDateValueForWebService:dateFinals];
-                }
-                
-            } else if ([ValueArrayTwo containsObject:[NSNumber numberWithInt:resultPoint]])
-            {
-                NSUInteger indexA = [ValueArrayTwo indexOfObject:[NSNumber numberWithInt:resultPoint]];
-                NSString *intFinals = [monthArray objectAtIndex:indexA];
-                
-                if ([xInputForMonths containsObject:intFinals]) {
-                    NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
-                    
-                    NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
-                    clickedDate = [self getFinalDateValueForWebService:dateFinals];
-                }
-                
-            }
-            
-        }
-        else{                       //for Line chart if its for week----------------------------------------------------------------------
+//        NSString *firstObj = [monthArray objectAtIndex:0];
+//        if (firstObj.length > 3) {//for Line chart if its for month----------------------------------------------------------------------
+//            
+//            if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
+//                NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
+//                NSString *intFinals = [monthArray objectAtIndex:indexA];
+//                
+//                if ([xInputForMonths containsObject:intFinals]) {
+//                    NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
+//                    
+//                    NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
+//                    clickedDate = [self getFinalDateValueForWebService:dateFinals];
+//                }
+//                
+//            } else if ([ValueArrayTwo containsObject:[NSNumber numberWithInt:resultPoint]])
+//            {
+//                NSUInteger indexA = [ValueArrayTwo indexOfObject:[NSNumber numberWithInt:resultPoint]];
+//                NSString *intFinals = [monthArray objectAtIndex:indexA];
+//                
+//                if ([xInputForMonths containsObject:intFinals]) {
+//                    NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
+//                    
+//                    NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
+//                    clickedDate = [self getFinalDateValueForWebService:dateFinals];
+//                }
+//                
+//            }
+//            
+//        }
+//        else{                       //for Line chart if its for week----------------------------------------------------------------------
             NSString *dateFinals = [dateArrayToGet objectAtIndex:indexEntry];
             clickedDate = [self getFinalDateValueForWebService:dateFinals];
             
-        }
+        //}
         
         //call article api list
         [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:clickedDate endDateIn:trendOfCoverageEndDateIn fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
