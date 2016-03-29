@@ -1035,6 +1035,14 @@
         left = 40 + 11 + 20 * level;
         cell.iconImage.hidden = NO;
         cell.iconImage.image = [UIImage imageNamed:@"researchReq"];
+    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-500]]) {
+        //For Media Analysis
+        cell.iconWidthConstraint.constant =15;
+        cell.titleConstraint.constant = 9;
+        cell.titleWidthConstraint.constant = 160;
+        left = 40 + 11 + 20 * level;
+        cell.iconImage.hidden = NO;
+        cell.iconImage.image = [UIImage imageNamed:@"mediaanalysis_menu"];
     }
     
     

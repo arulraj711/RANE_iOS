@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.revealController showViewController:self.revealController.frontViewController];
     UIButton *navBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     [navBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
     [navBtn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
