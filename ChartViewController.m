@@ -31,9 +31,9 @@
     [chartIcon addObject:@"issue_chart4"];
     [chartIcon addObject:@"issue_chart1"];
     [chartIcon addObject:@"issue_chart1"];
-    [chartIcon addObject:@"issue_chart1"];
-    [chartIcon addObject:@"issue_chart1"];
-    [chartIcon addObject:@"issue_chart1"];
+    [chartIcon addObject:@"issue_chart6"];
+    [chartIcon addObject:@"issue_chart6"];
+    [chartIcon addObject:@"issue_chart6"];
 
     
     chartName = [[NSMutableArray alloc]init];
@@ -52,9 +52,9 @@
     [selectedChatIcon addObject:@"selected_issue_chart4"];
     [selectedChatIcon addObject:@"selected_issue_chart1"];
     [selectedChatIcon addObject:@"selected_issue_chart1"];
-    [selectedChatIcon addObject:@"selected_issue_chart1"];
-    [selectedChatIcon addObject:@"selected_issue_chart1"];
-    [selectedChatIcon addObject:@"selected_issue_chart1"];
+    [selectedChatIcon addObject:@"selected_issue_chart6"];
+    [selectedChatIcon addObject:@"selected_issue_chart6"];
+    [selectedChatIcon addObject:@"selected_issue_chart6"];
 
     
   //  typeOfChart = 0;
@@ -797,7 +797,7 @@
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:6]]){
         //Horizontal Bar Chart - Top Sources
-        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
+        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:5]];
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:7]]){
