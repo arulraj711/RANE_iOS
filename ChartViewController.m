@@ -1335,7 +1335,6 @@
     horizontalBarViews.drawBordersEnabled = NO;
     horizontalBarViews.rightAxis.valueFormatter = [[NSNumberFormatter alloc]init];
     horizontalBarViews.rightAxis.valueFormatter.minimumFractionDigits = 0;
-    horizontalBarViews.rightAxis.valueFormatter.d
     horizontalBarViews.leftAxis.drawGridLinesEnabled = NO;
     horizontalBarViews.leftAxis.drawAxisLineEnabled = NO;
     horizontalBarViews.rightAxis.drawAxisLineEnabled = YES;
