@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "480942800.372147"
+            timestampString = "480948091.947552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2210"
-            endingLineNumber = "2210"
+            startingLineNumber = "2246"
+            endingLineNumber = "2246"
             landmarkName = "-GetSortedXvalueAndYvalueForStackedBarChart:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "480942800.372147"
+            timestampString = "480948091.947552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2156"
-            endingLineNumber = "2156"
+            startingLineNumber = "2193"
+            endingLineNumber = "2193"
             landmarkName = "-GetSortedXvalueAndYvalueForStackedBarChart:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,12 +74,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "480942800.372147"
+            timestampString = "480948091.947552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2120"
-            endingLineNumber = "2120"
+            startingLineNumber = "2157"
+            endingLineNumber = "2157"
             landmarkName = "-GetSortedXvalueAndYvalueForStackedBarChart:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChartViewController.m"
+            timestampString = "480948091.947552"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1345"
+            endingLineNumber = "1345"
+            landmarkName = "-plotStackedHorizontalBarChart:range:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

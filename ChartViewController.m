@@ -949,7 +949,12 @@
     pieViews.legend.position = ChartLegendPositionBelowChartCenter;
     pieViews.delegate = self;
     
-    
+    if (ValueArray.count == 0) {
+        horizontalBarViews.noDataText = @"Chart Data not available";
+        
+    }
+    else{
+
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < count; i++){
@@ -1007,6 +1012,7 @@
         [pieViews setDrawHoleEnabled:YES];
     }
     [pieViews highlightValues:nil];
+    }
 }
 - (void)plotBarChart:(int)count range:(double)range
 {
@@ -1041,7 +1047,12 @@
     [_chartViewOutline addSubview:barViews];
     
     [barViews animateWithYAxisDuration:1.0];
-    
+    if (ValueArray.count == 0) {
+        horizontalBarViews.noDataText = @"Chart Data not available";
+        
+    }
+    else{
+
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < count; i++){
@@ -1072,6 +1083,7 @@
     BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
     
     barViews.data = data;
+    }
 }
 - (void)plotMultipleBarChart:(int)count range:(double)range withBrands:(NSArray *)inputArray
 {
@@ -1109,7 +1121,12 @@
     
     [barViews animateWithYAxisDuration:1.0];
     
-    
+    if (ValueArray.count == 0) {
+        horizontalBarViews.noDataText = @"Chart Data not available";
+        
+    }
+    else{
+
     NSLog(@"%@",ValueArray);
     NSLog(@"%@",monthArray);
     
@@ -1231,6 +1248,7 @@
 
     BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];    
     barViews.data = data;
+    }
 }
 
 
@@ -1272,7 +1290,12 @@
     [_chartViewOutline addSubview:barViews];
     
     [barViews animateWithYAxisDuration:1.0];
-    
+    if (ValueArray.count == 0) {
+        horizontalBarViews.noDataText = @"Chart Data not available";
+        
+    }
+    else{
+
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < count; i++){
@@ -1315,6 +1338,7 @@
     
     BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
     barViews.data = data;
+    }
 }
 
 
@@ -1350,10 +1374,16 @@
     horizontalBarViews.xAxis.wordWrapEnabled = YES;
     horizontalBarViews.delegate = self;
     horizontalBarViews.xAxis.labelPosition = XAxisLabelPositionBottomInside;
+   
     [_chartViewOutline addSubview:horizontalBarViews];
     
     [horizontalBarViews animateWithYAxisDuration:1.0];
     NSLog(@"value array:%@",ValueArray);
+    if (ValueArray.count == 0) {
+        horizontalBarViews.noDataText = @"Chart Data not available";
+        
+    }
+    else{
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     for (int i = 0; i < count; i++){
@@ -1390,6 +1420,7 @@
     
     BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
     horizontalBarViews.data = data;
+    }
 }
 
 
@@ -1464,6 +1495,12 @@
     [lineChartView animateWithXAxisDuration:1.0];
     
     //animations------------------------------------------------------------------------
+    if (ValueArray.count == 0) {
+        horizontalBarViews.noDataText = @"Chart Data not available";
+        
+    }
+    else{
+
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < count; i++)
@@ -1525,7 +1562,7 @@
     ChartHighlight *chLightsThree = [[ChartHighlight alloc] initWithXIndex:0 dataSetIndex:2];
     
     [lineChartView highlightValues:@[chLightsOne]];
-    
+    }
     
 }
 
@@ -2194,11 +2231,10 @@
     NSSortDescriptor *descriptories=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:NO];
     NSArray *descriptoriess=[NSArray arrayWithObject: descriptories];
     NSArray *sortedValues=[interMediateValueS sortedArrayUsingDescriptors:descriptoriess];
-     //-------------------------------------------------------------------------------------------sorted brand names according to sum of values
+    //-------------------------------------------------------------------------------------------sorted brand names according to sum of values
     NSArray *sortedKeys = [helperDictionary  keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [(NSNumber*)obj2 compare:(NSNumber*)obj1];
     }];
-    
     //-------------------------------------------------------------------------------------------sorted brand names according to sum of values
 
 
