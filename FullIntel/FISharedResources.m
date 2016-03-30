@@ -2780,6 +2780,13 @@
 //    
 //    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":userName,@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
 //    [Localytics tagEvent:name attributes:dictionary];
+    
+    
+    NSString *userName=[NSString stringWithFormat:@"%@ %@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],[[NSUserDefaults standardUserDefaults]objectForKey:@"lastName"]];
+    NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":userName,@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
+    [Localytics tagEvent:name attributes:dictionary];
+    
+    
 }
 
 

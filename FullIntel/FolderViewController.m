@@ -124,6 +124,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:101] forKey:@"newsletterId"];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Folder List"];
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFolderClick"];
     FIFolder *folder = [folderArray objectAtIndex:indexPath.row];
     [[NSUserDefaults standardUserDefaults]setObject:folder.folderId forKey:@"folderId"];

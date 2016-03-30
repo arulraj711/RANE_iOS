@@ -878,35 +878,43 @@
 -(void)loadChartValuesWithReportType:(NSNumber*)reportType withAPILink:(NSString *)apiLink{
     if ([reportType isEqualToNumber:[NSNumber numberWithInt:1]]) {
         // Select Trend of Coverage Chart
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Trend of Coverage"];
         [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
         
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:2]]){
         // Select Key Types Chart
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Key Topics"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
        
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:3]]){
         // Select Media Types chart
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Media Types"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getMediaTypeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:4]]){
         // Select Sentiment and Volume Over Time chart
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Sentiment and Volume Over Time"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     }else if ([reportType isEqualToNumber:[NSNumber numberWithInt:5]]){
         // Select change over last quarter chart
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Change Over Last Quarter"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getChangeOverLastQuarterChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     }else if ([reportType isEqualToNumber:[NSNumber numberWithInt:6]]){
         // Select top sources
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Top Sources"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getTopSourcesChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     } else if([reportType isEqualToNumber:[NSNumber numberWithInt:7]]) {
         //select top journalist
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Top Journalists"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getTopJournalistChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     } else if([reportType isEqualToNumber:[NSNumber numberWithInt:8]]) {
         //select top influencers
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Top Influencers"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [[FISharedResources sharedResourceManager]getTopInfluencerChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     }
@@ -1708,7 +1716,7 @@
             clickedDate = [self getFinalDateValueForWebService:dateFinals];
             
         //}
-        
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Trend of Coverage Article List"];
         //call article api list
         [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:clickedDate endDateIn:trendOfCoverageEndDateIn fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
@@ -1724,6 +1732,7 @@
       //  }
     
         NSLog(@"selected brand name:%@",brandName);
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Key Topics Article List"];
         [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
     
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:3]]) {
@@ -1735,6 +1744,7 @@
             brandName = [monthArray objectAtIndex:indexA];
             NSLog(@"%@",brandName);
         }
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Media Types Article List"];
         [[FISharedResources sharedResourceManager]getMediaTypesArticleListFromMediaTypeField:@"mediaTypeId" mediaTypeValue:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:4]]) {
@@ -1745,7 +1755,7 @@
         nameOfIndexForSentimentChart = [monthArray objectAtIndex:indexEntry];           //contains name eg. iPhone
         NSString *dateOFIndex = [weaveDateArray objectAtIndex:indexEntry];
         clickedDate = [self getFinalDateValueForWebService:dateOFIndex];
-        
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Sentiment and Volume Over Time Article List"];
         [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:tonalityValue value2:nameOfIndexForSentimentChart fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:5]]) {
@@ -1759,7 +1769,7 @@
     
         NSString *dateAris = [firstArray objectAtIndex:indexEntry];
         clickedDate = [self getFinalDateValueForWebService:dateAris];
-        
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Change Over Last Quarter Article List"];
         [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:changeOverSelectedValue fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
@@ -1772,6 +1782,7 @@
         NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-"]];
         NSLog(@"first:%@",[brandArray objectAtIndex:0]);
         brandName = [brandArray objectAtIndex:0];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Source Article List"];
         [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:tonalityValue value2:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:7]]) {
@@ -1785,6 +1796,8 @@
             NSLog(@"%@",brandName);
         //}
         
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Journalist Article List"];
+        
         [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.name.sort" value1:tonalityValue value2:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
@@ -1796,6 +1809,8 @@
             brandName = [monthArray objectAtIndex:indexEntry];
             NSLog(@"%@",brandName);
         //}
+        
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Influencer Article List"];
         
         [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:tonalityValue value2:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
