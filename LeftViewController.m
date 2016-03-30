@@ -1273,10 +1273,10 @@
             CorporateNewsListViewObj.titleName=data.name;
             [self.revealController setFrontViewController:navCtlr];
         } else if([data.nodeId integerValue] == 7 && !data.isFolder) {
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click InfluencerList"];
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
             {
             
-            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click InfluencerList"];
             UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"InfluencerListView" bundle:nil];
             UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"InfluencerView"];
             
@@ -1288,7 +1288,6 @@
             }
             else
             {
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click InfluencerList"];
                 UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
                 UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
                 
@@ -1299,9 +1298,10 @@
 
             }
         }else if([data.nodeId integerValue] == 8 && !data.isFolder) {
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Deals"];
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
             {
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Deals"];
+                
                 UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"Deals" bundle:nil];
                 UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"DealsViewController"];
                 
@@ -1311,7 +1311,7 @@
 
             }
             else{
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Deals"];
+                
                 UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
                 UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
                 
@@ -1320,10 +1320,11 @@
                 [self.revealController setFrontViewController:navCtlr];
                 [self.revealController showViewController:self.revealController.frontViewController];
             }
-                   }else if([data.nodeId integerValue] == 2 && !data.isFolder) {
+        }else if([data.nodeId integerValue] == 2 && !data.isFolder) {
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click StockWatch"];
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
             {
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click StockWatch"];
+                
                 UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"stock" bundle:nil];
                 UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"StockViewController"];
                 StockViewController *StockViewControllerObj=(StockViewController *)[[navCtlr viewControllers]objectAtIndex:0];
@@ -1331,7 +1332,7 @@
                 [self.revealController setFrontViewController:navCtlr];
             }
             else{
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click StockWatch"];
+                
                 UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
                 UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
                 
@@ -1343,9 +1344,10 @@
            
         }
         else if([data.nodeId integerValue] == 4 && !data.isFolder) {
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click IpAndLegal"];
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
             {
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click IpAndLegal"];
+                
                 UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"IpAndLegal" bundle:nil];
                 UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"IpAndLegalViewController"];
                 
@@ -1356,7 +1358,7 @@
 
             }
             else{
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click IpAndLegal"];
+                
                 UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
                 UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
                 
@@ -1368,9 +1370,10 @@
             
             
         } else if([data.nodeId integerValue] == 5 && !data.isFolder) {
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click ExecutiveMoves"];
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
             {
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click ExecutiveMoves"];
+                
                 UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"ExecutiveMoves" bundle:nil];
                 UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"ExecutiveMoves"];
                 
@@ -1379,7 +1382,7 @@
                 [self.revealController setFrontViewController:navCtlr];
             }
             else{
-                [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click ExecutiveMoves"];
+            
                 UIStoryboard *centerStoryBoard = [UIStoryboard storyboardWithName:@"CommonViewController" bundle:nil];
                 UINavigationController *navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"navCtrlrCommonView"];
                 
@@ -1448,6 +1451,7 @@
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
             NSLog(@"two");
             //Newsletter navigation
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Newsletter"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:1] forKey:@"newsletterId"];
             UIStoryboard *storyboard;
@@ -1486,6 +1490,7 @@
                                  
                              }];
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-400]]) {
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestButtonClick"];
             UIStoryboard *centerStoryBoard;
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
                 centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequestPhone" bundle:nil];
@@ -1505,7 +1510,7 @@
             
             //research
         }else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-500]]) {
-            
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Media Analysis"];
             UIStoryboard *storyboard;
             UINavigationController *navCtlr;
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -1529,6 +1534,7 @@
             
             if(data.nodeId != nil) {
                 if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]){
+                    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Folder"];
                     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
                     UIStoryboard *storyboard;
                     UINavigationController *navCtlr;

@@ -137,6 +137,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Report List"];
+    
     UIStoryboard *storyboard;
     ChartViewController *chartView;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {

@@ -165,6 +165,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   //  [self.revealController showViewController:self.revealController.frontViewController];
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Newsletter List"];
+    
     FINewsLetter *newsletter = [newsLetterArray objectAtIndex:indexPath.row];
     [[NSUserDefaults standardUserDefaults]setObject:newsletter.newsLetterId forKey:@"newsletterId"];
     [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:newsletter.newsLetterId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO withQuery:@"" withFilterBy:@""];
