@@ -14,9 +14,9 @@
 #define LIVE_URL @"http://fullintel.com/services/mv01/sv00/appuser"
 #define STAGE_URL @"http://104.236.78.199/services/mv01/sv00/appuser"
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
-//NSString *url = @"http://stage.fullintel.com/1.2.0";
+NSString *url = @"http://stage.fullintel.com/1.4.0";
 
-NSString *url = @"http://fullintel.com/1.4.0";
+//NSString *url = @"http://fullintel.com/1.4.0";
 
 
 #define FUNCTION_URL @"api/v1"

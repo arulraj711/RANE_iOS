@@ -469,7 +469,18 @@
 
     for (int i =0;i<firstArrayOfDates.count;i++) {
     NSString *firstgey = [NSString stringWithFormat:@"%@",[firstArrayOfDates objectAtIndex:i]];
-    NSMutableArray *arrayCodigos = [NSMutableArray arrayWithArray:[reverseOrders valueForKey:firstgey]];
+        NSMutableArray *arrayCodigos;
+        @try {
+            arrayCodigos = [NSMutableArray arrayWithArray:[reverseOrders valueForKey:firstgey]];
+
+        }
+        @catch (NSException *exception) {
+            NSLog(@"");
+        }
+        @finally {
+            NSLog(@"");
+
+        }
     NSLog(@"arrayCodigos %@", arrayCodigos);
     [trialArrayTwo addObject:arrayCodigos];
     }
@@ -2182,9 +2193,12 @@
         NSString *dotValue = [valueArrayFrmDict objectAtIndex:k];
         
         for (int i = 0; i<keyArrayTone.count; i++) {
-            NSString *inputStr = [NSString stringWithFormat:@"%@.%@",[keyArrayTone objectAtIndex:i],dotValue];
-            [innerArray addObject:[inputDictionary valueForKeyPath:inputStr]];
-            
+            NSString *inputStr = [NSString stringWithFormat:@"%@",[keyArrayTone objectAtIndex:i]];
+            NSString *inputStr2 = [NSString stringWithFormat:@"%@",dotValue];
+
+            [innerArray addObject:[[inputDictionary objectForKey:inputStr] objectForKey:inputStr2]];
+
+//            [innerArray addObject:[inputDictionary valueForKeyPath:inputStr]];
         }
         [nameArrayFrmDict addObject:innerArray];
         
@@ -2241,7 +2255,12 @@
     NSMutableArray *finalSortedArrayOfValues = [[NSMutableArray alloc] init];
     for (int j = 0 ; j<sortedKeys.count; j++) {
         NSString *inputVl = [sortedKeys objectAtIndex:j];
-        [finalSortedArrayOfValues addObject:[dictInNeed valueForKey:inputVl]];
+        NSLog(@"%@",inputVl);
+        NSLog(@"%@",sortedKeys);
+        NSLog(@"%@",dictInNeed);
+        NSLog(@"%@",[dictInNeed objectForKey:inputVl]);
+
+        [finalSortedArrayOfValues addObject:[dictInNeed objectForKey:inputVl]];
     }
     NSLog(@"%@",finalSortedArrayOfValues);
     NSLog(@"%@",sortedKeys);
@@ -2310,9 +2329,12 @@
         NSString *dotValue = [valueArrayFrmDict objectAtIndex:k];
         
         for (int i = 0; i<keyArrayTone.count; i++) {
-            NSString *inputStr = [NSString stringWithFormat:@"%@.%@",[keyArrayTone objectAtIndex:i],dotValue];
-            NSLog(@"inputStr >%@",inputStr);
-            [innerArray addObject:[inputDictionary valueForKeyPath:inputStr]];
+            
+            NSString *inputStr = [NSString stringWithFormat:@"%@",[keyArrayTone objectAtIndex:i]];
+            NSString *inputStr2 = [NSString stringWithFormat:@"%@",dotValue];
+            
+            [innerArray addObject:[[inputDictionary objectForKey:inputStr] objectForKey:inputStr2]];
+
             
             NSLog(@"innerArray >%@",innerArray);
         }
