@@ -61,6 +61,10 @@
     
     NSArray *headingArray;
     NSString *articleIdArray;
+    
+
+
+    NSDictionary *brandAndSerialNumber;
 
 }
 

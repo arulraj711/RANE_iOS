@@ -58,13 +58,9 @@
 
     
   //  typeOfChart = 0;
-    
-    
-    
-    
 
     
-    //ipad methods for table
+  //  ipad methods for table
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         
 //        NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
@@ -488,7 +484,7 @@
     
     
     NSLog(@"%@",trialArrayTwo);                                                  //the array with brand and its values
-    NSLog(@"%@",keyTopicsDic);                                                  //the array with brand and its values
+    NSLog(@"%@",keyTopicsDic);                                                   //the array with brand and its values
 
     
     
@@ -564,6 +560,7 @@
    // }
     
     NSLog(@"%@",XValueWithBrands);
+    NSLog(@"%@",initYValueForBrands);
 
 
     //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
@@ -1777,13 +1774,14 @@
         //Top sources chart selection
         
             brandName = [monthArray objectAtIndex:indexEntry];
+        NSLog(@"%@",[brandAndSerialNumber objectForKey:brandName]);
             NSLog(@"%@",brandName);
        // NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:@"-"];
         NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-"]];
         NSLog(@"first:%@",[brandArray objectAtIndex:0]);
         brandName = [brandArray objectAtIndex:0];
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Source Article List"];
-        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:tonalityValue value2:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:7]]) {
         
@@ -1798,7 +1796,7 @@
         
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Journalist Article List"];
         
-        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.name.sort" value1:tonalityValue value2:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.name.sort" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
         
@@ -1812,7 +1810,7 @@
         
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Influencer Article List"];
         
-        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:tonalityValue value2:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     }
 
@@ -2172,16 +2170,32 @@
 
 -(NSArray *)GetSortedXvalueAndYvalueForStackedBarChart :(NSDictionary *)inputDictionary{
     // Parsing from the dictionary
+    NSLog(@"%@",inputDictionary);
     NSArray *firstArray=[self sortKeysInOrder:inputDictionary];   //contains the keys in sorted form
-    
-    NSArray *secArray = [self sortValuesOfKeysInOrder:inputDictionary withArray:firstArray];
-    
-    NSDictionary *valueArrayDict = [secArray objectAtIndex:0];
-    
-    //only names of brands--------------------------------------------------------------------------------------------------------
-    NSArray *valueArrayFrmDict = [self sortKeysInOrder:valueArrayDict];//only names of brands
-    NSLog(@"%@",valueArrayFrmDict);
+    NSLog(@"%@",firstArray);
 
+    NSArray *secArray = [self sortValuesOfKeysInOrder:inputDictionary withArray:firstArray];
+    NSLog(@"%@",secArray);
+
+    NSDictionary *valueArrayDict = [secArray objectAtIndex:0];
+    NSLog(@"%@",valueArrayDict);
+
+    //only names of brands--------------------------------------------------------------------------------------------------------
+    NSArray *serialNumbers = [self sortKeysInOrder:valueArrayDict];//only names of brands
+    NSLog(@"%@",serialNumbers);
+    NSMutableArray *valueArrayFrmDict = [[NSMutableArray alloc]init];
+
+    for (int i = 0; i<serialNumbers.count; i++) {
+        NSString *inputStr = [NSString stringWithFormat:@"%@",[serialNumbers objectAtIndex:i]];
+        
+        [valueArrayFrmDict addObject:[[valueArrayDict objectForKey:inputStr] objectForKey:@"name"]];
+
+    }
+    
+//    NSArray *valueArrayFrmDict = [self sortKeysInOrder:valueArrayDict];//only names of brands
+    NSLog(@"%@",valueArrayFrmDict);
+    
+    brandAndSerialNumber = [NSDictionary dictionaryWithObjects:serialNumbers forKeys:valueArrayFrmDict];
     //----------------------------------------------------------------------------------------required for other method-----------
     
     weaveDateArray = [[NSMutableArray alloc]init];
@@ -2205,15 +2219,16 @@
     NSMutableArray *nameArrayFrmDict = [[NSMutableArray alloc]init];
     for (int k = 0; k<valueArrayFrmDict.count; k++) {
         NSMutableArray *innerArray = [[NSMutableArray alloc]init];
-        NSString *dotValue = [valueArrayFrmDict objectAtIndex:k];
+        NSString *dotValue = [serialNumbers objectAtIndex:k];
         
         for (int i = 0; i<keyArrayTone.count; i++) {
             NSString *inputStr = [NSString stringWithFormat:@"%@",[keyArrayTone objectAtIndex:i]];
             NSString *inputStr2 = [NSString stringWithFormat:@"%@",dotValue];
+            NSString *inputStr3 = [NSString stringWithFormat:@"count"];
 
-            [innerArray addObject:[[inputDictionary objectForKey:inputStr] objectForKey:inputStr2]];
+            [innerArray addObject:[[[inputDictionary objectForKey:inputStr] objectForKey:inputStr2] objectForKey:inputStr3 ]];
 
-//            [innerArray addObject:[inputDictionary valueForKeyPath:inputStr]];
+//          [innerArray addObject:[inputDictionary valueForKeyPath:inputStr]];
         }
         [nameArrayFrmDict addObject:innerArray];
         
