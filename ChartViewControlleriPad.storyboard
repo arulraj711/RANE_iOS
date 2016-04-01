@@ -71,24 +71,24 @@
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="150"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9TL-Rx-08d">
-                                            <size key="itemSize" width="120" height="70"/>
+                                            <size key="itemSize" width="120" height="80"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="62" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Bat-QK-mCd" customClass="ChartIconCell">
-                                                <rect key="frame" x="62" y="0.0" width="120" height="70"/>
+                                                <rect key="frame" x="62" y="35" width="120" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="70"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="80"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="issue_chart1" translatesAutoresizingMaskIntoConstraints="NO" id="jAQ-ZQ-JZz">
                                                             <rect key="frame" x="40" y="4" width="40" height="40"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sentiment and volume over time" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="232-vD-RQX">
-                                                            <rect key="frame" x="0.0" y="41" width="120" height="30"/>
+                                                            <rect key="frame" x="0.0" y="50" width="120" height="30"/>
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="11"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -102,7 +102,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="232-vD-RQX" secondAttribute="trailing" id="Vcu-7O-g1Z"/>
                                                     <constraint firstItem="jAQ-ZQ-JZz" firstAttribute="top" secondItem="Bat-QK-mCd" secondAttribute="topMargin" constant="-4" id="do3-0z-Tna"/>
                                                     <constraint firstItem="232-vD-RQX" firstAttribute="leading" secondItem="Bat-QK-mCd" secondAttribute="leading" id="wGM-co-C5y"/>
-                                                    <constraint firstItem="232-vD-RQX" firstAttribute="top" secondItem="Bat-QK-mCd" secondAttribute="topMargin" constant="33" id="ytl-Zh-Ebl"/>
+                                                    <constraint firstItem="232-vD-RQX" firstAttribute="top" secondItem="Bat-QK-mCd" secondAttribute="topMargin" constant="42" id="ytl-Zh-Ebl"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="chartIconImage" destination="jAQ-ZQ-JZz" id="j7z-se-Qfe"/>

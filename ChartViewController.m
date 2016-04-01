@@ -165,7 +165,28 @@
     [[FISharedResources sharedResourceManager]getTopStoriesChartInfoFromDate:self.reportFromDate toDate:self.reportToDate withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10]];
    // Do any additional setup after loading the view.
 
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTap)];
+//    [self.view addGestureRecognizer:tapGesture];
+    
+    
 }
+
+-(void)viewTap {
+    /* Tap to close the top stories view */
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         [self.topStoriesButton setSelected:NO];
+                         self.topStoriesButtonLabelWidthConstraint.constant = 9;
+                         self.tableOuterView.layer.borderWidth = 0.0f;
+                         self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+                         isTopStoriesOpen = NO;
+                         self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
+                         [self.view layoutIfNeeded];
+                         //  [self loadChartValuesWithReportType:localReportTypeId];
+                         
+                     }];
+}
+
 
 #pragma mark - service response handling
 -(void)afterFetchingReportObject:(id)sender {
@@ -1277,10 +1298,13 @@
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
-        
+        barViews.xAxis.labelRotationAngle =-50;
+        [barViews.xAxis setLabelsToSkip:0];
+
     }
     else{
         barViews = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
+        
     }
     barViews.backgroundColor = [UIColor whiteColor];
     
@@ -1301,7 +1325,6 @@
     [barViews setScaleEnabled:YES];
     barViews.pinchZoomEnabled = YES;
     barViews.xAxis.labelPosition = XAxisLabelPositionBottom;
-    barViews.xAxis.labelRotationAngle =90;
     barViews.delegate = self;
     [_chartViewOutline addSubview:barViews];
     
@@ -1463,7 +1486,10 @@
     lineChartView.leftAxis.drawGridLinesEnabled = NO;
     lineChartView.rightAxis.drawGridLinesEnabled = NO;
     
-    
+    NSNumberFormatter *pFormatter = [[NSNumberFormatter alloc] init];
+    [pFormatter setPositiveFormat:@"0K"];
+    [pFormatter setMultiplier:[NSNumber numberWithDouble:0.001]];
+    [lineChartView.rightAxis setValueFormatter:pFormatter];
     lineChartView.leftAxis.drawAxisLineEnabled = NO;
     //    lineChartView.rightAxis.drawAxisLineEnabled = NO;
     lineChartView.xAxis.drawAxisLineEnabled = NO;
@@ -1535,7 +1561,7 @@
         
     }
     
-    NSLog(@"%@",values);
+    NSLog(@"circulation values:%@",values);
     
     
     NSMutableArray *valuesTwo = [[NSMutableArray alloc] init];
@@ -1574,8 +1600,8 @@
     [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:7.f]];
     lineChartView.data = data;
     //    ChartHighlight *chLightsOne = [[ChartHighlight alloc] initWithXIndex:0 dataSetIndex:0];
-    ChartHighlight *chLightsTwo = [[ChartHighlight alloc] initWithXIndex:0 dataSetIndex:1];
-    ChartHighlight *chLightsThree = [[ChartHighlight alloc] initWithXIndex:0 dataSetIndex:2];
+    //ChartHighlight *chLightsTwo = [[ChartHighlight alloc] initWithXIndex:0 dataSetIndex:1];
+    //ChartHighlight *chLightsThree = [[ChartHighlight alloc] initWithXIndex:0 dataSetIndex:2];
     
     [lineChartView highlightValues:@[chLightsOne]];
     }
@@ -1645,6 +1671,21 @@
 
 -(void)chartValueSelected:(ChartViewBase *)chartView entry:(ChartDataEntry *)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight *)highlight{
    
+    /* This is for close the top stories view */
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         [self.topStoriesButton setSelected:NO];
+                         self.topStoriesButtonLabelWidthConstraint.constant = 9;
+                         self.tableOuterView.layer.borderWidth = 0.0f;
+                         self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+                         isTopStoriesOpen = NO;
+                         self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
+                         [self.view layoutIfNeeded];
+                         //  [self loadChartValuesWithReportType:localReportTypeId];
+                         
+                     }];
+    
+    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFolderClick"];//for showing back button
     
     [[FISharedResources sharedResourceManager]clearChartRelatedArticles:@"CuratedNews"];//
@@ -2281,6 +2322,8 @@
     }];
     //-------------------------------------------------------------------------------------------sorted brand names according to sum of values
 
+    
+    
 
     NSMutableArray *finalSortedArrayOfValues = [[NSMutableArray alloc] init];
     for (int j = 0 ; j<sortedKeys.count; j++) {
@@ -2295,7 +2338,22 @@
     NSLog(@"%@",finalSortedArrayOfValues);
     NSLog(@"%@",sortedKeys);
 
-    NSMutableArray *outputArray=[[NSMutableArray alloc] initWithArray:@[sortedKeys,finalSortedArrayOfValues]];
+    
+    //-------------------------------------------------------------------------------------------Adding values to the Brand names
+    
+    NSLog(@"%@",finalSortedArrayOfValues);
+    NSMutableArray *overallGroupedName = [[NSMutableArray alloc]init];
+    NSLog(@"%@",sortedKeys);
+    for (int i=0; i<sortedKeys.count; i++) {
+        NSArray *toGroupVals =[finalSortedArrayOfValues objectAtIndex:i];
+        NSString *groupingText = [NSString stringWithFormat:@"%@ (%@-%@-%@)",[sortedKeys objectAtIndex:i],[toGroupVals objectAtIndex:2],[toGroupVals objectAtIndex:1],[toGroupVals objectAtIndex:0]];
+        [overallGroupedName addObject:groupingText];
+    }
+    NSLog(@"%@",overallGroupedName);
+    
+    NSMutableArray *outputArray=[[NSMutableArray alloc] initWithArray:@[overallGroupedName,finalSortedArrayOfValues]];
+  
+   // NSMutableArray *outputArray=[[NSMutableArray alloc] initWithArray:@[sortedKeys,finalSortedArrayOfValues]];
     NSLog(@"%@",outputArray); //sorted values
 
     
