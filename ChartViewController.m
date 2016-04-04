@@ -169,7 +169,49 @@
 //    [self.view addGestureRecognizer:tapGesture];
     
     
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
 }
+
+
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    NSLog(@"device orientation changes");
+    //Obtaining the current device orientation
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    NSLog(@"%ld",(long)orientation);
+    //self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
+    [self viewTap];
+    [self redrawChartViewWhileRotate];
+//    if(orientation == UIDeviceOrientationPortrait) {
+//        NSLog(@"portrait mode");
+//    } else if(orientation == UIDeviceOrientationLandscapeLeft) {
+//        NSLog(@"landscape mode");
+//    } else if(orientation == UIDeviceOrientationLandscapeRight) {
+//        NSLog(@"landscape mode");
+//    }
+}
+
+-(void)redrawChartViewWhileRotate {
+    if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        [self plotLineChart:(int)monthArray.count range:6];
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+        [self plotPieChart:(int)monthArray.count range:7 withType:1];
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:3]]) {
+        [self plotPieChart:(int)monthArray.count range:7 withType:2];
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:4]]) {
+        [self plotStackedBarChart:(int)monthArray.count range:(int)monthArray.count];
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:5]]) {
+        [self plotMultipleBarChart:(int)monthArray.count range:8 withBrands:changeOverInputArray];
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+        [self plotStackedHorizontalBarChart:(int)monthArray.count range:(int)monthArray.count];
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:7]]) {
+        [self plotStackedHorizontalBarChart:(int)monthArray.count range:(int)monthArray.count];
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+        [self plotStackedHorizontalBarChart:(int)monthArray.count range:(int)monthArray.count];
+    }
+}
+
 
 -(void)viewTap {
     /* Tap to close the top stories view */
@@ -456,15 +498,15 @@
     NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"tagTonality"]);
     
     
-    NSArray *reverseOrder=[self sortKeysInOrder:keyTopicsDic];   //contains the keys in sorted form
-    NSLog(@"%@",reverseOrder);
+    changeOverInputArray=[self sortKeysInOrder:keyTopicsDic];   //contains the keys in sorted form
+    NSLog(@"%@",changeOverInputArray);
     
     
-    reverseOrdersBkUp = [NSMutableArray arrayWithArray:reverseOrder];
+    reverseOrdersBkUp = [NSMutableArray arrayWithArray:changeOverInputArray];
 
     //----------------------------------------------------------------to get the brand names in firstkey
 
-    NSString *firstKey = [NSString stringWithFormat:@"%@",[reverseOrder objectAtIndex:0]];    //contains the first key
+    NSString *firstKey = [NSString stringWithFormat:@"%@",[changeOverInputArray objectAtIndex:0]];    //contains the first key
 
     NSMutableDictionary *dictWithDate = [keyTopicsDic objectForKey:firstKey];                 //gets the dict value of the first key
     
@@ -479,7 +521,7 @@
     
     NSArray *keyMonthArray = [self GetMonthNameFromNumber:finalFormattedMonthNam];                  //Contains the array of month name
 
-    NSArray *reverseOrders = [self sortValuesOfKeysInOrder:keyTopicsDic withArray:reverseOrder];
+    NSArray *reverseOrders = [self sortValuesOfKeysInOrder:keyTopicsDic withArray:changeOverInputArray];
     NSLog(@"%@",reverseOrders);                                                  //the array with brand and its values
     reverseOrderBkUp = [NSMutableArray arrayWithArray:reverseOrders];
     NSMutableArray *trialArrayTwo = [[NSMutableArray alloc] init];                //contains the values of keys in sorted form
@@ -518,7 +560,7 @@
     
         for (int m = 0; m<finalFormattedMonthNam.count; m++) {
         
-            NSArray *initXValueWithBrands = [NSArray arrayWithArray:reverseOrder];
+            NSArray *initXValueWithBrands = [NSArray arrayWithArray:changeOverInputArray];
             [XValueWithBrands addObjectsFromArray:initXValueWithBrands];
     
         }
@@ -547,8 +589,8 @@
         monthArray = [NSArray arrayWithArray:keyMonthArray];
         ValueArray = [NSArray arrayWithArray:finalValueArray];
         int countVal = (int)monthArray.count;
-        
-        [self plotMultipleBarChart:countVal range:8 withBrands:reverseOrder];
+        NSLog(@"multiple chart reverse order:%@",changeOverInputArray);
+        [self plotMultipleBarChart:countVal range:8 withBrands:changeOverInputArray];
     }
 
     
@@ -1470,6 +1512,9 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         lineChartView = [[LineChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
+        
+        NSLog(@"line chart view width:%f and %f",self.topStoriesViewLeadingConstraint.constant,self.topStoriesViewLeadingConstraint.constant-30);
+        
     }
     else{
         lineChartView = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];

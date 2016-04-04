@@ -62,7 +62,7 @@
     NSArray *headingArray;
     NSString *articleIdArray;
     
-
+    NSArray *changeOverInputArray;
 
     NSDictionary *brandAndSerialNumber;
 
