@@ -183,13 +183,19 @@
     //self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
     [self viewTap];
     [self redrawChartViewWhileRotate];
-//    if(orientation == UIDeviceOrientationPortrait) {
-//        NSLog(@"portrait mode");
-//    } else if(orientation == UIDeviceOrientationLandscapeLeft) {
-//        NSLog(@"landscape mode");
-//    } else if(orientation == UIDeviceOrientationLandscapeRight) {
-//        NSLog(@"landscape mode");
-//    }
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        if(orientation == UIDeviceOrientationPortrait) {
+            NSLog(@"portrait mode");
+            self.chartNameLabel.hidden = YES;
+        } else if(orientation == UIDeviceOrientationLandscapeLeft) {
+            NSLog(@"landscape mode");
+            self.chartNameLabel.hidden = NO;
+        } else if(orientation == UIDeviceOrientationLandscapeRight) {
+            NSLog(@"landscape mode");
+            self.chartNameLabel.hidden = NO;
+        }
+    }
+    
 }
 
 -(void)redrawChartViewWhileRotate {
@@ -1479,32 +1485,25 @@
     
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
     
+        //-----------------------------------------------------------to substring the lengthy string values----------
+        NSMutableArray *monthArrayFinals = [[NSMutableArray alloc]init];
+        for (int i= 0; i<monthArray.count; i++) {
+            NSString *ordersFirstString = [monthArray objectAtIndex:i];
+            if (ordersFirstString.length > 20) {
+                ordersFirstString = [ordersFirstString substringToIndex:20];
+                ordersFirstString = [NSString stringWithFormat:@"%@..",ordersFirstString ];
+                [monthArrayFinals addObject:ordersFirstString];
+            }
+            else{
+                [monthArrayFinals addObject:ordersFirstString];
+            }
+        }
+        NSLog(@"%@",monthArrayFinals);
+        //-----------------------------------------------------------to substring the lengthy string values----------
+        
     for (int i = 0; i < count; i++)
     {
-        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-            [xVals addObject:monthArray[i % monthArray.count]];
-
-        }
-        else{
-            //-----------------------------------------------------------to substring the lengthy string values----------
-            NSMutableArray *monthArrayFinals = [[NSMutableArray alloc]init];
-            for (int i= 0; i<monthArray.count; i++) {
-                NSString *ordersFirstString = [monthArray objectAtIndex:i];
-                if (ordersFirstString.length > 20) {
-                    ordersFirstString = [ordersFirstString substringToIndex:20];
-                    ordersFirstString = [NSString stringWithFormat:@"%@..",ordersFirstString ];
-                    [monthArrayFinals addObject:ordersFirstString];
-                }
-                else{
-                    [monthArrayFinals addObject:ordersFirstString];
-                }
-            }
-            NSLog(@"%@",monthArrayFinals);
-            //-----------------------------------------------------------to substring the lengthy string values----------
-
             [xVals addObject:monthArrayFinals[i % monthArrayFinals.count]];
-
-        }
     }
     
     //    NSMutableArray *xVals = [[NSMutableArray alloc] init];
@@ -1645,6 +1644,7 @@
     NSNumberFormatter *pFormatter = [[NSNumberFormatter alloc] init];
     [pFormatter setPositiveFormat:@"0K"];
     [pFormatter setMultiplier:[NSNumber numberWithDouble:0.001]];
+    
     [lineChartView.rightAxis setValueFormatter:pFormatter];
     lineChartView.leftAxis.drawAxisLineEnabled = NO;
     //    lineChartView.rightAxis.drawAxisLineEnabled = NO;
@@ -1764,6 +1764,28 @@
     
 }
 
+
+//-(NSString*) suffixNumber:(NSNumber*)number
+//{
+//    if (!number)
+//        return @"";
+//    
+//    long long num = [number longLongValue];
+//    
+//    int s = ( (num < 0) ? -1 : (num > 0) ? 1 : 0 );
+//    NSString* sign = (s == -1 ? @"-" : @"" );
+//    
+//    num = llabs(num);
+//    
+//    if (num < 1000)
+//        return [NSString stringWithFormat:@"%@%lld",sign,num];
+//    
+//    int exp = (int) (log(num) / 3.f); //log(1000));
+//    
+//    NSArray* units = @[@"K",@"M",@"G",@"T",@"P",@"E"];
+//    
+//    return [NSString stringWithFormat:@"%@%.1f%@",sign, (num / pow(1000, exp)), [units objectAtIndex:(exp-1)]];
+//}
 
 
 - (void)chartScaled:(ChartViewBase * __nonnull)chartView scaleX:(CGFloat)scaleX scaleY:(CGFloat)scaleY;
