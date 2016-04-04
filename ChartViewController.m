@@ -1814,15 +1814,20 @@
         
         //Top sources chart selection
         
-            brandName = [monthArray objectAtIndex:indexEntry];
+        brandName = [monthArray objectAtIndex:indexEntry];
+        NSLog(@"serial:%@",brandAndSerialNumber);
         NSLog(@"%@",[brandAndSerialNumber objectForKey:brandName]);
             NSLog(@"%@",brandName);
-       // NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:@"-"];
+        
+        NSRange oneRang = [brandName rangeOfString:@" ("];
+        brandName = [brandName substringToIndex:oneRang.location];
+        NSLog(@"brand name:%@",brandName);
+        NSLog(@"values%@",[brandAndSerialNumber objectForKey:brandName]);
         NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-"]];
         NSLog(@"first:%@",[brandArray objectAtIndex:0]);
         brandName = [brandArray objectAtIndex:0];
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Source Article List"];
-        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:7]]) {
         
@@ -1835,9 +1840,13 @@
             NSLog(@"%@",brandName);
         //}
         
+        NSRange oneRang = [brandName rangeOfString:@" ("];
+        brandName = [brandName substringToIndex:oneRang.location];
+        NSLog(@"brand name:%@",brandName);
+        
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Journalist Article List"];
         
-        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.name.sort" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
         
@@ -1848,10 +1857,13 @@
             brandName = [monthArray objectAtIndex:indexEntry];
             NSLog(@"%@",brandName);
         //}
+        NSRange oneRang = [brandName rangeOfString:@" ("];
+        brandName = [brandName substringToIndex:oneRang.location];
+        NSLog(@"brand name:%@",brandName);
         
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Influencer Article List"];
         
-        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
     }
 
