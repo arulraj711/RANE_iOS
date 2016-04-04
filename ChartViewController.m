@@ -1093,7 +1093,6 @@
     [pieViews animateWithXAxisDuration:1.4 easingOption:ChartEasingOptionEaseOutBack];
     pieViews.descriptionText =@"";
     pieViews.legend.position = ChartLegendPositionBelowChartCenter;
-    pieViews.legendRenderer.
     pieViews.delegate = self;
     
     if (ValueArray.count == 0) {
