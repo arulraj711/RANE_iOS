@@ -71,6 +71,8 @@
 @property (strong, nonatomic) IBOutlet UIView *chartViewOutline;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (nonatomic,strong) NSString *titleString;
+@property (nonatomic,strong) NSIndexPath *selectedIndexPath;
+
 //common methods
 - (IBAction)savecharttodevice:(id)sender;
 - (IBAction)infoButtonClick:(id)sender;
