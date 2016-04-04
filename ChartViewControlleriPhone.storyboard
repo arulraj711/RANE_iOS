@@ -195,7 +195,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17J-iS-n8R">
-                                <rect key="frame" x="105" y="30" width="389" height="35"/>
+                                <rect key="frame" x="0.0" y="30" width="494" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="hA0-qh-Fco"/>
                                 </constraints>
@@ -230,7 +230,7 @@
                         <constraints>
                             <constraint firstItem="aDo-Tp-U7g" firstAttribute="height" secondItem="17J-iS-n8R" secondAttribute="height" id="0Yx-Da-Xwm"/>
                             <constraint firstItem="17J-iS-n8R" firstAttribute="top" secondItem="h5J-d2-rMz" secondAttribute="bottom" constant="10" id="3iE-bX-iHR"/>
-                            <constraint firstItem="17J-iS-n8R" firstAttribute="centerX" secondItem="W0x-A3-qcN" secondAttribute="centerX" constant="-0.5" id="5oq-EG-wLn"/>
+                            <constraint firstItem="17J-iS-n8R" firstAttribute="centerX" secondItem="W0x-A3-qcN" secondAttribute="centerX" constant="-53" id="5oq-EG-wLn"/>
                             <constraint firstItem="C8E-L4-whG" firstAttribute="leading" secondItem="W0x-A3-qcN" secondAttribute="leading" id="6Xx-4i-Phk"/>
                             <constraint firstItem="pHO-Nj-9wY" firstAttribute="leading" secondItem="aDo-Tp-U7g" secondAttribute="trailing" constant="12" id="Jto-0E-Z1F"/>
                             <constraint firstItem="XKm-TH-nEc" firstAttribute="top" secondItem="C8E-L4-whG" secondAttribute="bottom" constant="82" id="R1x-6l-rMD"/>
@@ -238,7 +238,7 @@
                             <constraint firstAttribute="trailing" secondItem="C8E-L4-whG" secondAttribute="trailing" id="U55-7u-t3H"/>
                             <constraint firstItem="pev-Qm-vce" firstAttribute="leading" secondItem="W0x-A3-qcN" secondAttribute="leading" id="Ue0-nV-kaK"/>
                             <constraint firstItem="aDo-Tp-U7g" firstAttribute="leading" secondItem="17J-iS-n8R" secondAttribute="trailing" constant="8" id="XBm-1E-HsJ"/>
-                            <constraint firstItem="17J-iS-n8R" firstAttribute="leading" secondItem="W0x-A3-qcN" secondAttribute="leadingMargin" constant="85" id="XKg-br-vGc"/>
+                            <constraint firstItem="17J-iS-n8R" firstAttribute="leading" secondItem="W0x-A3-qcN" secondAttribute="leadingMargin" constant="-20" id="XKg-br-vGc"/>
                             <constraint firstAttribute="trailing" secondItem="pev-Qm-vce" secondAttribute="trailing" id="fGt-XN-w8b"/>
                             <constraint firstItem="aDo-Tp-U7g" firstAttribute="top" secondItem="h5J-d2-rMz" secondAttribute="bottom" constant="10" id="jff-Ul-euN"/>
                             <constraint firstItem="pHO-Nj-9wY" firstAttribute="height" secondItem="aDo-Tp-U7g" secondAttribute="height" id="lpD-25-YZ7"/>

@@ -802,39 +802,104 @@
 
     if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:1]]) {
         //Pie Chart - Key Topics
+        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+        {
+            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+
+        }
+        else{
             cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:1]];
+
+        }
+    
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]){
         //Bar Chart - Sentiment and Volume Over Time
-        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
+        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+        {
+            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+
+        }
+        else{
+            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
+
+        }
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:3]]){
         //Line Chart - Trend of Coverage
-        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+        {
+            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+
+        }
+        else{
+            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+
+        }
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:4]]){
         //Donut Chart - Media Types
-        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:2]];
+        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+        {
+            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+
+        }
+        else{
+            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:2]];
+
+        }
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:5]]){
         //MutliBar Chart - Change Over Last Quarter
-        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
+        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+        {
+            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+
+        }
+        else{
+            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
+
+        }
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:6]]){
         //Horizontal Bar Chart - Top Sources
-        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:5]];
+        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+        {
+            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+
+        }
+        else{
+            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:5]];
+
+        }
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:7]]){
-        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+        {
+            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+
+        }
+        else{
+            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+
+        }
 
     }
     else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:8]]){
-        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+        {
+            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+
+        }
+        else{
+            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+
+        }
 
     }
     
@@ -860,6 +925,8 @@
     [reverseOrdersBkUp removeAllObjects];
     ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:indexPath.row];
     ChartTypeObject *chartType = reportType.chartTypeObject;
+    
+    self.selectedIndexPath = indexPath;
 
     NSString *descriptionText = [NSString stringWithFormat:@"%@",reportType.reportSummary];
     descText = [[NSAttributedString alloc]initWithData:[descriptionText dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
@@ -984,6 +1051,7 @@
     [pieViews animateWithXAxisDuration:1.4 easingOption:ChartEasingOptionEaseOutBack];
     pieViews.descriptionText =@"";
     pieViews.legend.position = ChartLegendPositionBelowChartCenter;
+    pieViews.legendRenderer.
     pieViews.delegate = self;
     
     if (ValueArray.count == 0) {
@@ -1081,6 +1149,8 @@
     barViews.pinchZoomEnabled = YES;
     barViews.xAxis.labelPosition = XAxisLabelPositionBottom;
     barViews.delegate = self;
+    barViews.xAxis.labelRotationAngle =-50;
+
     [_chartViewOutline addSubview:barViews];
     
     [barViews animateWithYAxisDuration:1.0];
@@ -1152,7 +1222,7 @@
     [barViews setScaleEnabled:YES];
     barViews.pinchZoomEnabled = YES;
     barViews.xAxis.labelPosition = XAxisLabelPositionBottom;
-    barViews.xAxis.labelRotationAngle =90;
+    barViews.xAxis.labelRotationAngle =-50;
     barViews.delegate = self;
     [_chartViewOutline addSubview:barViews];
     
@@ -1249,6 +1319,7 @@
     NSLog(@"%@",yVals6);
     NSLog(@"%@",yVals7);
 
+        
 
 
     
@@ -1273,7 +1344,21 @@
     BarChartDataSet *set7 = [[BarChartDataSet alloc] initWithYVals:yVals7 label:[inputArray objectAtIndex:6]];
     [set7 setColor:[UIColor colorWithRed:228/255.f green:104/255.f blue:105/255.f alpha:1.f]];
 
-    
+        set1.valueFormatter = [[NSNumberFormatter alloc]init];
+        set1.valueFormatter.minimumFractionDigits = 0;
+        set2.valueFormatter = [[NSNumberFormatter alloc]init];
+        set2.valueFormatter.minimumFractionDigits = 0;
+        set3.valueFormatter = [[NSNumberFormatter alloc]init];
+        set3.valueFormatter.minimumFractionDigits = 0;
+        set4.valueFormatter = [[NSNumberFormatter alloc]init];
+        set4.valueFormatter.minimumFractionDigits = 0;
+        set5.valueFormatter = [[NSNumberFormatter alloc]init];
+        set5.valueFormatter.minimumFractionDigits = 0;
+        set6.valueFormatter = [[NSNumberFormatter alloc]init];
+        set6.valueFormatter.minimumFractionDigits = 0;
+        set7.valueFormatter = [[NSNumberFormatter alloc]init];
+        set7.valueFormatter.minimumFractionDigits = 0;
+
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     [dataSets addObject:set1];
     [dataSets addObject:set2];
@@ -1304,7 +1389,8 @@
     }
     else{
         barViews = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
-        
+        barViews.xAxis.labelRotationAngle =-82;
+
     }
     barViews.backgroundColor = [UIColor whiteColor];
     
@@ -1329,6 +1415,9 @@
     [_chartViewOutline addSubview:barViews];
     
     [barViews animateWithYAxisDuration:1.0];
+    NSLog(@"%@",ValueArray);
+    NSLog(@"%@",monthArray);
+
     if (ValueArray.count == 0) {
         horizontalBarViews.noDataText = @"Chart Data not available";
         
@@ -1351,7 +1440,30 @@
     
     for (int i = 0; i < count; i++)
     {
-        [xVals addObject:monthArray[i % monthArray.count]];
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+            [xVals addObject:monthArray[i % monthArray.count]];
+
+        }
+        else{
+            //-----------------------------------------------------------to substring the lengthy string values----------
+            NSMutableArray *monthArrayFinals = [[NSMutableArray alloc]init];
+            for (int i= 0; i<monthArray.count; i++) {
+                NSString *ordersFirstString = [monthArray objectAtIndex:i];
+                if (ordersFirstString.length > 20) {
+                    ordersFirstString = [ordersFirstString substringToIndex:20];
+                    ordersFirstString = [NSString stringWithFormat:@"%@..",ordersFirstString ];
+                    [monthArrayFinals addObject:ordersFirstString];
+                }
+                else{
+                    [monthArrayFinals addObject:ordersFirstString];
+                }
+            }
+            NSLog(@"%@",monthArrayFinals);
+            //-----------------------------------------------------------to substring the lengthy string values----------
+
+            [xVals addObject:monthArrayFinals[i % monthArrayFinals.count]];
+
+        }
     }
     
     //    NSMutableArray *xVals = [[NSMutableArray alloc] init];
@@ -1497,7 +1609,7 @@
     //    lineChartView.rightAxis.drawLabelsEnabled = NO;
     lineChartView.drawGridBackgroundEnabled = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        lineChartView.xAxis.labelRotationAngle =90;
+        barViews.xAxis.labelRotationAngle =-50;
     }
     
     //set limit for left axis **************************************************
