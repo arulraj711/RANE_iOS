@@ -213,6 +213,10 @@
     NSString *reportCreatedDate = [FIUtils getDateFromTimeStamp:[reportListObj.createdDate doubleValue]];
     cell.reportCreatedDateLabel.text = reportCreatedDate;
     
+    
+    cell.articleCountLabel.text = [NSString stringWithFormat:@"%@ Articles",reportListObj.articleCount];
+    
+    
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(downloadButtonClick:)];
     cell.downloadButton.tag = indexPath.row;
     [cell.downloadButton addGestureRecognizer:tapEvent];

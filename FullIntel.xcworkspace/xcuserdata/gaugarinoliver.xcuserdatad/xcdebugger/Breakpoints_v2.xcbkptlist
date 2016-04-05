@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "481445576.074914"
+            timestampString = "481552163.017298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "-deviceOrientationDidChange:"
+            startingLineNumber = "1733"
+            endingLineNumber = "1733"
+            landmarkName = "-plotLineChart:range:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

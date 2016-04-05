@@ -20,6 +20,7 @@
 @property (nonatomic,strong) NSNumber *createdDate;
 @property (nonatomic,strong) NSNumber *modifiedBy;
 @property (nonatomic,strong) NSNumber *modifiedDate;
+@property (nonatomic,strong) NSNumber *articleCount;
 @property (nonatomic,strong) NSNumber *isdeleted;
 
 -(void)setReportListObjectFromDictionary:(NSDictionary *)dic;
