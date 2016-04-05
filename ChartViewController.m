@@ -11,6 +11,7 @@
 #import "ReportTypeObject.h"
 #import "ChartTypeObject.h"
 #import "CorporateNewsListView.h"
+#import "NumberFormatterExtn.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 #define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
@@ -1636,7 +1637,7 @@
     lineChartView.delegate = self;
     lineChartView.backgroundColor = [UIColor whiteColor];
     
-    //set properties--------------------------------------------------------------------
+    //--------------------------------------------------------------------set properties
     
     lineChartView.drawBordersEnabled = YES;
     lineChartView.descriptionText =@"";
@@ -1644,12 +1645,22 @@
     lineChartView.rightAxis.enabled = true;
     lineChartView.leftAxis.drawGridLinesEnabled = NO;
     lineChartView.rightAxis.drawGridLinesEnabled = NO;
+
+
+//    NSNumberFormatter *pFormatter = [[NSNumberFormatter alloc] init];
+//    [pFormatter setPositiveFormat:@"0K"];
+//    [pFormatter setMultiplier:[NSNumber numberWithDouble:0.001]];
     
-    NSNumberFormatter *pFormatter = [[NSNumberFormatter alloc] init];
-    [pFormatter setPositiveFormat:@"0K"];
-    [pFormatter setMultiplier:[NSNumber numberWithDouble:0.001]];
     
-    [lineChartView.rightAxis setValueFormatter:pFormatter];
+    //------------------------------Calling the nsnumberformatter's extended class (NumberFormatterExtn) to get the values formatted in k,m and b.
+    
+    NumberFormatterExtn *sizeFormatter = [[NumberFormatterExtn alloc]init];
+    [sizeFormatter setMaximumFractionDigits:2];
+    
+    //------------------------------Calling the nsnumberformatter's extended class (NumberFormatterExtn) to get the values formatted in k,m and b.
+
+    
+    [lineChartView.rightAxis setValueFormatter:sizeFormatter];
     lineChartView.leftAxis.drawAxisLineEnabled = NO;
     //    lineChartView.rightAxis.drawAxisLineEnabled = NO;
     lineChartView.xAxis.drawAxisLineEnabled = NO;
@@ -1657,7 +1668,7 @@
     //    lineChartView.rightAxis.drawLabelsEnabled = NO;
     lineChartView.drawGridBackgroundEnabled = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        barViews.xAxis.labelRotationAngle =-50;
+        lineChartView.xAxis.labelRotationAngle =-80;
     }
     
     //set limit for left axis **************************************************
