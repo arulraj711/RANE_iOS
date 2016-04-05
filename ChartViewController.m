@@ -1099,6 +1099,10 @@
     [pieViews animateWithXAxisDuration:1.4 easingOption:ChartEasingOptionEaseOutBack];
     pieViews.descriptionText =@"";
     pieViews.legend.position = ChartLegendPositionBelowChartCenter;
+    pieViews.legend.form = ChartLegendFormSquare;
+    pieViews.legend.formSize = 9.0;
+    pieViews.legend.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f];
+    pieViews.legend.xEntrySpace = 4.0;
     pieViews.delegate = self;
     
     if (ValueArray.count == 0) {

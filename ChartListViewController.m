@@ -98,7 +98,6 @@
     NSNotification *notification = sender;
     reportListArray = [[notification userInfo] objectForKey:@"reportListArray"];
     NSLog(@"report list array count:%d",reportListArray.count);
-    [self.reportListTableView reloadData];
     [self.reportCollectionView reloadData];
 }
 
@@ -117,45 +116,45 @@
 }
 */
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return reportListArray.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ReportListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    ReportListObject *reportListObj = [reportListArray objectAtIndex:indexPath.row];
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        int serialNumber = indexPath.row+1;
-        cell.serialNumber.text = [NSString stringWithFormat:@"%d",serialNumber];
-    }
-    cell.reportTitle.text = reportListObj.reportTitle;
-    NSString *dateSTring = [FIUtils getDateFromTimeStamp:[reportListObj.reportFromDate doubleValue]];
-    NSLog(@"%@",dateSTring);
-    cell.dateCell.text = dateSTring;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Report List"];
-    
-    UIStoryboard *storyboard;
-    ChartViewController *chartView;
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPhone" bundle:nil];
-        chartView = [storyboard instantiateViewControllerWithIdentifier:@"ChartViewController"];
-    } else {
-        storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPad" bundle:nil];
-        chartView = [storyboard instantiateViewControllerWithIdentifier:@"ChartViewController"];
-    }
-    
-    ReportListObject *reportListObj = [reportListArray objectAtIndex:indexPath.row];
-    chartView.reportId = reportListObj.reportId;
-    chartView.reportFromDate = reportListObj.reportFromDate;
-    chartView.reportToDate = reportListObj.reportToDate;
-    chartView.titleString = reportListObj.reportTitle;
-    [self.navigationController pushViewController:chartView animated:YES];
-}
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    return reportListArray.count;
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    ReportListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+//    ReportListObject *reportListObj = [reportListArray objectAtIndex:indexPath.row];
+//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+//        int serialNumber = indexPath.row+1;
+//        cell.serialNumber.text = [NSString stringWithFormat:@"%d",serialNumber];
+//    }
+//    cell.reportTitle.text = reportListObj.reportTitle;
+//    NSString *dateSTring = [FIUtils getDateFromTimeStamp:[reportListObj.reportFromDate doubleValue]];
+//    NSLog(@"%@",dateSTring);
+//    cell.dateCell.text = dateSTring;
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    return cell;
+//}
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Report List"];
+//    
+//    UIStoryboard *storyboard;
+//    ChartViewController *chartView;
+//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//        storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPhone" bundle:nil];
+//        chartView = [storyboard instantiateViewControllerWithIdentifier:@"ChartViewController"];
+//    } else {
+//        storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPad" bundle:nil];
+//        chartView = [storyboard instantiateViewControllerWithIdentifier:@"ChartViewController"];
+//    }
+//    
+//    ReportListObject *reportListObj = [reportListArray objectAtIndex:indexPath.row];
+//    chartView.reportId = reportListObj.reportId;
+//    chartView.reportFromDate = reportListObj.reportFromDate;
+//    chartView.reportToDate = reportListObj.reportToDate;
+//    chartView.titleString = reportListObj.reportTitle;
+//    [self.navigationController pushViewController:chartView animated:YES];
+//}
 
 - (IBAction)navigateToChartView:(id)sender {
     
@@ -199,7 +198,7 @@
     
     cell.layer.shadowColor = [UIColorFromRGB(0XD1D1D1) CGColor];
     cell.layer.shadowOffset = CGSizeMake(0, 0.0f);
-    cell.layer.shadowRadius = 1.0f;
+    cell.layer.shadowRadius = 3.0f;
     cell.layer.shadowOpacity = 0.5f;
     cell.layer.masksToBounds = NO;
     cell.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:cell.bounds cornerRadius:cell.contentView.layer.cornerRadius].CGPath;
@@ -217,6 +216,16 @@
     UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(downloadButtonClick:)];
     cell.downloadButton.tag = indexPath.row;
     [cell.downloadButton addGestureRecognizer:tapEvent];
+    
+//    cell.layer.masksToBounds = NO;
+//    cell.layer.borderColor = [UIColor whiteColor].CGColor;
+//    cell.layer.borderWidth = 7.0f;
+//    cell.layer.contentsScale = [UIScreen mainScreen].scale;
+//    cell.layer.shadowOpacity = 0.75f;
+//    cell.layer.shadowRadius = 5.0f;
+//    cell.layer.shadowOffset = CGSizeZero;
+//    cell.layer.shadowPath = [UIBezierPath bezierPathWithRect:cell.bounds].CGPath;
+//    cell.layer.shouldRasterize = YES;
     
     return cell;
 }
