@@ -73,14 +73,14 @@
                                                     <rect key="frame" x="41" y="86" width="239" height="70"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="January 7, 2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nw3-dk-cBw">
-                                                    <rect key="frame" x="76" y="69" width="170" height="15"/>
+                                                    <rect key="frame" x="76" y="69" width="170" height="18"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                     <color key="textColor" red="0.39607843139999999" green="0.42745098040000001" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 27, 2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vdC-Sa-EJ1">
-                                                    <rect key="frame" x="76" y="110" width="170" height="15"/>
+                                                    <rect key="frame" x="76" y="110" width="170" height="18"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                     <color key="textColor" red="0.39607843139999999" green="0.42745098040000001" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -149,7 +149,7 @@
                                             <constraint firstItem="AGK-xY-sUt" firstAttribute="leading" secondItem="J0f-UW-KHe" secondAttribute="trailing" constant="24" id="Sec-So-u91"/>
                                             <constraint firstItem="J0f-UW-KHe" firstAttribute="centerY" secondItem="If7-8Q-VGg" secondAttribute="centerY" constant="-2" id="U0B-eB-DwE"/>
                                             <constraint firstItem="JC6-ky-oSy" firstAttribute="top" secondItem="uOK-K8-lAK" secondAttribute="topMargin" constant="52" id="VHp-Da-XXX"/>
-                                            <constraint firstItem="AfT-Wl-ApH" firstAttribute="top" secondItem="nw3-dk-cBw" secondAttribute="bottom" constant="2" id="W0n-3a-1Oy"/>
+                                            <constraint firstItem="AfT-Wl-ApH" firstAttribute="top" secondItem="nw3-dk-cBw" secondAttribute="bottom" constant="-1" id="W0n-3a-1Oy"/>
                                             <constraint firstItem="AfT-Wl-ApH" firstAttribute="centerX" secondItem="bR8-ge-g07" secondAttribute="centerX" id="ZQD-NX-Zyf"/>
                                             <constraint firstItem="JC6-ky-oSy" firstAttribute="centerX" secondItem="oJZ-e2-njT" secondAttribute="centerX" id="eDN-qK-1Ks"/>
                                             <constraint firstItem="vdC-Sa-EJ1" firstAttribute="leading" secondItem="nw3-dk-cBw" secondAttribute="leading" id="fGx-lN-0nl"/>
@@ -160,7 +160,7 @@
                                             <constraint firstItem="vdC-Sa-EJ1" firstAttribute="trailing" secondItem="nw3-dk-cBw" secondAttribute="trailing" id="kml-if-M24"/>
                                             <constraint firstItem="If7-8Q-VGg" firstAttribute="top" secondItem="Dom-se-iox" secondAttribute="bottom" constant="16" id="mH3-un-eOy"/>
                                             <constraint firstItem="Dg8-o6-ez8" firstAttribute="centerY" secondItem="J0f-UW-KHe" secondAttribute="centerY" constant="2" id="n4U-ae-52L"/>
-                                            <constraint firstItem="Dom-se-iox" firstAttribute="top" secondItem="vdC-Sa-EJ1" secondAttribute="bottom" constant="35" id="pZD-yL-4Tt"/>
+                                            <constraint firstItem="Dom-se-iox" firstAttribute="top" secondItem="vdC-Sa-EJ1" secondAttribute="bottom" constant="32" id="pZD-yL-4Tt"/>
                                             <constraint firstItem="vdC-Sa-EJ1" firstAttribute="top" secondItem="AfT-Wl-ApH" secondAttribute="bottom" constant="3" id="q8l-j2-4RH"/>
                                             <constraint firstItem="bR8-ge-g07" firstAttribute="top" secondItem="oJZ-e2-njT" secondAttribute="bottom" constant="30" id="qAY-dT-1Tc"/>
                                             <constraint firstItem="nw3-dk-cBw" firstAttribute="centerX" secondItem="bR8-ge-g07" secondAttribute="centerX" id="sKY-6p-8qG"/>

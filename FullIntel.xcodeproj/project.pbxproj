@@ -46,6 +46,7 @@
 		A05878AF1BD4A10200DCE62B /* AddContentPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05878AE1BD4A10200DCE62B /* AddContentPhone.storyboard */; };
 		A059B6BF1BF5F1200060683F /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A059B6BD1BF5F1200060683F /* CommonViewController.m */; };
 		A059B6C31BF5F43E0060683F /* CommonViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */; };
+		A059FCAA1CB3CB0700858865 /* NumberFormatterExtn.m in Sources */ = {isa = PBXBuildFile; fileRef = A059FCA91CB3CB0700858865 /* NumberFormatterExtn.m */; };
 		A05C1A7D1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05C1A7C1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard */; };
 		A05DA9C11C466422009ACB48 /* CorporateNewsListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */; };
 		A0697B931C7DC2B20010B945 /* SwiftBridgeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */; };
@@ -408,6 +409,8 @@
 		A059B6BC1BF5F1200060683F /* CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
 		A059B6BD1BF5F1200060683F /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
 		A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommonViewController.storyboard; sourceTree = "<group>"; };
+		A059FCA81CB3CB0700858865 /* NumberFormatterExtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberFormatterExtn.h; sourceTree = "<group>"; };
+		A059FCA91CB3CB0700858865 /* NumberFormatterExtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberFormatterExtn.m; sourceTree = "<group>"; };
 		A05C1A7C1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChartViewControlleriPad.storyboard; sourceTree = "<group>"; };
 		A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CorporateNewsListView.storyboard; sourceTree = "<group>"; };
 		A0697B911C7DC2B00010B945 /* FullIntel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FullIntel-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -954,6 +957,8 @@
 				BAA6A5841C86F2C500B78883 /* Report_Modal */,
 				A077DB761C857286008288D5 /* TopStoriesViewController.h */,
 				A077DB771C857286008288D5 /* TopStoriesViewController.m */,
+				A059FCA81CB3CB0700858865 /* NumberFormatterExtn.h */,
+				A059FCA91CB3CB0700858865 /* NumberFormatterExtn.m */,
 				A0AF667D1C84720200789CDD /* ChartIconCell.h */,
 				A0AF667E1C84720200789CDD /* ChartIconCell.m */,
 				A0697B951C7DC9250010B945 /* ChartViewController.h */,
@@ -2204,6 +2209,7 @@
 				A077DB781C857286008288D5 /* TopStoriesViewController.m in Sources */,
 				A0E223591A91C2F00073814A /* FullIntel.xcdatamodeld in Sources */,
 				BAA6A5801C86E61E00B78883 /* ReportListObject.m in Sources */,
+				A059FCAA1CB3CB0700858865 /* NumberFormatterExtn.m in Sources */,
 				A08145A81BD0B5A700AA5EE2 /* FPPopoverView.m in Sources */,
 				F7CE36E81A95E9490005AA0A /* RATreeView+TableViewDataSource.m in Sources */,
 				BA51CC731C58A3BF00327578 /* IssueMonitoringInfluencerCell.m in Sources */,
