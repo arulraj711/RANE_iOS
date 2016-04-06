@@ -97,7 +97,7 @@
     isSearchingInteger = 0;
     switchForFilter = 0;
     [self addButtonsOnNavigationBar];
-    self.articlesTableView.allowsMultipleSelection = YES;
+    //self.articlesTableView.allowsMultipleSelection = YES;
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.recognizesPanningOnFrontView = NO;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -2503,8 +2503,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="1034" height="199"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sb0-QX-uPb">
-                                                            <rect key="frame" x="11" y="85" width="30" height="30"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sb0-QX-uPb">
+                                                            <rect key="frame" x="0.0" y="18" width="46" height="173"/>
                                                             <state key="normal" image="circle"/>
                                                             <state key="selected" image="circle_checked"/>
                                                             <state key="highlighted" image="circle_checked"/>
@@ -2662,7 +2662,6 @@
                                                         <constraint firstItem="Qon-yA-INe" firstAttribute="leading" secondItem="gmz-en-ern" secondAttribute="trailing" constant="2" id="JZA-39-Ucp"/>
                                                         <constraint firstItem="T3s-M4-akb" firstAttribute="leading" secondItem="rED-OQ-Kd1" secondAttribute="trailing" constant="-163" id="LIr-tb-Uby"/>
                                                         <constraint firstItem="xCi-O5-Uri" firstAttribute="top" secondItem="yeX-YH-2F7" secondAttribute="bottom" constant="14" id="LO9-QE-Kq7"/>
-                                                        <constraint firstItem="Sb0-QX-uPb" firstAttribute="top" secondItem="rED-OQ-Kd1" secondAttribute="top" id="Nby-qu-21B"/>
                                                         <constraint firstItem="yeX-YH-2F7" firstAttribute="top" secondItem="9V2-Jt-ayZ" secondAttribute="topMargin" constant="14" id="Nq9-ai-NXx"/>
                                                         <constraint firstItem="IDg-QR-Ifl" firstAttribute="top" secondItem="yeX-YH-2F7" secondAttribute="bottom" constant="14" id="OXL-kq-VDx"/>
                                                         <constraint firstItem="I0d-wa-U1M" firstAttribute="top" secondItem="yeX-YH-2F7" secondAttribute="bottom" constant="31" id="UzM-3M-MJf"/>
@@ -2673,7 +2672,6 @@
                                                         <constraint firstAttribute="trailingMargin" secondItem="yeX-YH-2F7" secondAttribute="trailing" constant="87" id="bn1-zm-8sA"/>
                                                         <constraint firstItem="T3s-M4-akb" firstAttribute="leading" secondItem="9V2-Jt-ayZ" secondAttribute="leadingMargin" constant="45" id="ehI-Ft-97b"/>
                                                         <constraint firstItem="y3u-SC-gHz" firstAttribute="leading" secondItem="yoX-XO-4iH" secondAttribute="trailing" constant="2" id="f9p-39-4OU"/>
-                                                        <constraint firstItem="rED-OQ-Kd1" firstAttribute="leading" secondItem="Sb0-QX-uPb" secondAttribute="trailing" constant="12" id="fHp-8A-D0a"/>
                                                         <constraint firstItem="gmz-en-ern" firstAttribute="leading" secondItem="812-Xd-hhG" secondAttribute="trailing" constant="8" id="fzO-6r-aZ5"/>
                                                         <constraint firstItem="I0d-wa-U1M" firstAttribute="leading" secondItem="T3s-M4-akb" secondAttribute="trailing" constant="15" id="gST-2C-r4o"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="Atj-jf-tnZ" secondAttribute="trailing" constant="38" id="glf-zd-v3z"/>
