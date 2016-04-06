@@ -97,7 +97,7 @@
     isSearchingInteger = 0;
     switchForFilter = 0;
     [self addButtonsOnNavigationBar];
-    self.articlesTableView.allowsMultipleSelection = YES;
+    //self.articlesTableView.allowsMultipleSelection = YES;
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.recognizesPanningOnFrontView = NO;
@@ -3672,6 +3672,9 @@
     //    self.view.alpha = 0.65;
     popOverView.dropDownValue = 1;
     self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+    
+    self.popOver.contentViewController.preferredContentSize = CGSizeMake(filterBtn.frame.size.width, 120);
+    
     [self.popOver presentPopoverFromRect:filterBtn.frame inView:self.topView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 
     
@@ -3684,6 +3687,7 @@
     //    self.view.alpha = 0.65;
     popOverView.dropDownValue = 2;
     self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
+    self.popOver.contentViewController.preferredContentSize = CGSizeMake(sender.frame.size.width, 80);
     [self.popOver presentPopoverFromRect:sender.frame inView:self.topView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 - (IBAction)segmentControlAction:(id)sender {
