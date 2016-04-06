@@ -1100,10 +1100,10 @@
     [pieViews animateWithXAxisDuration:1.4 easingOption:ChartEasingOptionEaseOutBack];
     pieViews.descriptionText =@"";
     pieViews.legend.position = ChartLegendPositionBelowChartCenter;
-    pieViews.legend.form = ChartLegendFormSquare;
-    pieViews.legend.formSize = 9.0;
+    pieViews.legend.wordWrapEnabled = YES;
+    pieViews.legend.formSize = 5.0;
     pieViews.legend.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f];
-    pieViews.legend.xEntrySpace = 4.0;
+    pieViews.legend.xEntrySpace = 1.0;
     pieViews.delegate = self;
     
     if (ValueArray.count == 0) {
@@ -1196,7 +1196,13 @@
     barViews.dragEnabled = YES;
     barViews.rightAxis.drawLabelsEnabled = NO;
     barViews.descriptionText =@"";
+    
     barViews.legend.position = ChartLegendPositionBelowChartCenter;
+    barViews.legend.wordWrapEnabled = YES;
+    barViews.legend.formSize = 5.0;
+    barViews.legend.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f];
+    barViews.legend.xEntrySpace = 1.0;
+    
     [barViews setScaleEnabled:YES];
     barViews.pinchZoomEnabled = YES;
     barViews.xAxis.labelPosition = XAxisLabelPositionBottom;
@@ -1270,7 +1276,13 @@
     barViews.dragEnabled = YES;
     barViews.rightAxis.drawLabelsEnabled = NO;
     barViews.descriptionText =@"";
+    
     barViews.legend.position = ChartLegendPositionBelowChartCenter;
+    barViews.legend.wordWrapEnabled = YES;
+    barViews.legend.formSize = 5.0;
+    barViews.legend.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f];
+    barViews.legend.xEntrySpace = 1.0;
+
     [barViews setScaleEnabled:YES];
     barViews.pinchZoomEnabled = YES;
     barViews.xAxis.labelPosition = XAxisLabelPositionBottom;
@@ -1459,7 +1471,9 @@
     barViews.dragEnabled = YES;
     barViews.rightAxis.drawLabelsEnabled = NO;
     barViews.descriptionText =@"";
+    
     barViews.legend.position = ChartLegendPositionBelowChartCenter;
+    
     [barViews setScaleEnabled:YES];
     barViews.pinchZoomEnabled = YES;
     barViews.xAxis.labelPosition = XAxisLabelPositionBottom;
@@ -2782,7 +2796,7 @@
         popTipView.delegate = self;
         popTipView.backgroundColor = [UIColor whiteColor];
         popTipView.textColor = [UIColor darkTextColor];
-        popTipView.textFont = [UIFont boldSystemFontOfSize:18.0];
+        popTipView.textFont = [UIFont systemFontOfSize:14.0];
         popTipView.dismissTapAnywhere = YES;
 //       popTipView.animation = CMPopTipAnimationPop;
         UIButton *button = (UIButton *)sender;
