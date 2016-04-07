@@ -616,6 +616,14 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
     
     @objc private func tapGestureRecognized(recognizer: UITapGestureRecognizer)
     {
+        //dance
+        print(_data)
+        print(self.isHighLightPerTapEnabled)
+        print(recognizer.locationOfTouch)
+        print(recognizer.locationOfTouch(0, inView: self))
+
+        
+    
         if _data === nil
         {
             return
@@ -623,18 +631,21 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
         
         if (recognizer.state == UIGestureRecognizerState.Ended)
         {
-            if !self.isHighLightPerTapEnabled { return }
+            if !self.isHighLightPerTapEnabled { return }//1
             
             let h = getHighlightByTouchPoint(recognizer.locationInView(self))
+            
+            
             
             if (h === nil || h!.isEqual(self.lastHighlighted))
             {
                 self.highlightValue(highlight: nil, callDelegate: true)
                 self.lastHighlighted = nil
+                
             }
             else
             {
-                self.lastHighlighted = h
+                self.lastHighlighted = h//2
                 self.highlightValue(highlight: h, callDelegate: true)
             }
         }

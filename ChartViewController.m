@@ -1870,14 +1870,66 @@
 }
 
 
-- (void)chartValueNothingSelected:(ChartViewBase * __nonnull)chartView
-{
-    NSLog(@"chartValueNothingSelected");
+-(void)chartValueNothingSelected:(ChartViewBase *)chartView{
+    NSArray *gestureRecognizers = chartView.gestureRecognizers;
+    int count = 0;
+    for(UIGestureRecognizer *gesture in chartView.gestureRecognizers){
+        if([gesture isKindOfClass:[UITapGestureRecognizer class]] && gesture.state == UIGestureRecognizerStateEnded){
+            NSLog(@"I am unselected");
+        }
+    }
 }
 
 
 -(void)chartValueSelected:(ChartViewBase *)chartView entry:(ChartDataEntry *)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight *)highlight{
-   
+
+    UIGestureRecognizer *recogGest = [chartView.gestureRecognizers objectAtIndex:0];
+    NSLog(@"%@",recogGest);
+    CGPoint poinOf =[recogGest locationInView:chartView];
+    NSLog(@"%@",NSStringFromCGPoint(poinOf));
+    
+    CGPoint poinOfMarker =[chartView getMarkerPositionWithEntry:entry highlight:highlight];
+    NSLog(@"%@",NSStringFromCGPoint(poinOfMarker));
+    NSMutableArray *containingXValue = [[NSMutableArray alloc]init];
+    NSMutableArray *containingYValue = [[NSMutableArray alloc]init];
+
+    //creating array of points
+    for (int i =0 ; i<40; i++) {
+        int roundedX = (poinOfMarker.x + 0.5);
+        int sumXValuesPositive = roundedX+i;
+        [containingXValue addObject:[NSNumber numberWithInt:sumXValuesPositive]];
+        
+        int sumXValuesNegative = roundedX-i;
+        [containingXValue addObject:[NSNumber numberWithInt:sumXValuesNegative]];
+
+        
+        int roundedY = (poinOfMarker.y + 0.5);
+        int sumYValuesPositive = roundedY+i;
+        [containingYValue addObject:[NSNumber numberWithInt:sumYValuesPositive]];
+
+        
+        int sumYValuesNegative = roundedY-i;
+        [containingYValue addObject:[NSNumber numberWithInt:sumYValuesNegative]];
+    }
+    NSLog(@"%@",containingYValue);
+    NSLog(@"%@",containingXValue);
+    
+    
+
+    CGPoint poinOfss = [barViews getPosition:entry axis:AxisDependencyLeft];
+    NSLog(@"%@",NSStringFromCGPoint(poinOfss));
+
+
+    int roundXPointTOuched = (poinOf.x + 0.5);
+    int roundYPointTOuched = (poinOf.y + 0.5);
+    NSLog(@"%d",roundXPointTOuched);
+    NSLog(@"%d",roundYPointTOuched);
+    NSLog(@"%@",[NSNumber numberWithInt:roundXPointTOuched]);
+    NSLog(@"%@",[NSNumber numberWithInt:roundYPointTOuched]);
+
+    if ([containingXValue containsObject:[NSNumber numberWithInt:roundXPointTOuched]] && [containingYValue containsObject:[NSNumber numberWithInt:roundYPointTOuched]])
+    {
+
     /* This is for close the top stories view */
     [UIView animateWithDuration:0.4
                      animations:^{
@@ -1896,8 +1948,8 @@
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFolderClick"];//for showing back button
     
     [[FISharedResources sharedResourceManager]clearChartRelatedArticles:@"CuratedNews"];//
-    
-    NSLog(@"%@ %@ %ld %@",chartView,entry,(long)dataSetIndex,highlight);
+
+
     int resultPoint = (int)entry.value;
     NSUInteger indexEntry  = entry.xIndex;
     NSUInteger stackIndex  = highlight.stackIndex;
@@ -2100,10 +2152,7 @@
     listView.horizontalBarChartSelectedValue = brandName;
     
     [self.navigationController pushViewController:listView animated:YES];
-    
-
-
-//  id member = [ValueArray indexOfObject:vals];
+}
 }
 
 //NSLog(@"%lu",(unsigned long)[ValueArray indexOfObject:[NSNumber numberWithDouble:entry.value]]);
