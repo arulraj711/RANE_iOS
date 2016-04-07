@@ -1957,7 +1957,7 @@
     NSUInteger dataSetIndexes  = dataSetIndex;
     NSString *clickedDate;
     NSString *nameOfIndexForSentimentChart;
-    NSString *trendOfCoverageEndDateIn = @"MONTH";
+    NSString *trendOfCoverageEndDateIn = @"WEEK";
     NSLog(@"%lu and %lu AND %lu",(unsigned long)indexEntry,(unsigned long)stackIndex,(unsigned long)dataSetIndexes);
     NSString *brandName;
     NSString *changeOverSelectedValue;
