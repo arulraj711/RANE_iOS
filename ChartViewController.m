@@ -183,8 +183,9 @@
     NSLog(@"%ld",(long)orientation);
     //self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
     [self viewTap];
-    [self redrawChartViewWhileRotate];
+    
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        [self redrawChartViewWhileRotate];
         if(orientation == UIDeviceOrientationPortrait) {
             NSLog(@"portrait mode");
             self.chartNameLabel.hidden = YES;
@@ -377,7 +378,7 @@
     NSArray *getKeysAndValues = [self getDictionaryAndGiveOutKeysAndPercentagesArray:keyTopicsDic];
 
 
-    if(keyTopicsDic.count != 0) {
+   // if(keyTopicsDic.count != 0) {
         
         monthArray = [getKeysAndValues objectAtIndex:0];
         ValueArray = [getKeysAndValues objectAtIndex:1];
@@ -387,7 +388,7 @@
         
         [self plotPieChart:countVal range:7 withType:1];//type 1 for pie chart
 
-    }
+   // }
 }
 //Updating Media Type Chart Details
 -(void)afterFetchingMediaTypeInfo:(id)sender {
@@ -398,7 +399,7 @@
     NSArray *getKeysAndValues = [self getDictionaryAndGiveOutKeysAndPercentagesArray:keyTopicsDic];
     
     
-    if(keyTopicsDic.count != 0) {
+    //if(keyTopicsDic.count != 0) {
         
         monthArray = [getKeysAndValues objectAtIndex:0];
         ValueArray = [getKeysAndValues objectAtIndex:1];
@@ -408,7 +409,7 @@
         
         [self plotPieChart:countVal range:7 withType:2];//type 1 for pie chart
         
-    }
+    //}
 }
 //Updating Media Type Chart Details
 -(void)afterFetchingSentimentAndVolumeOverTimeInfo:(id)sender {
@@ -486,13 +487,13 @@
 //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
 
 
-    if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
+    //if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
         monthArray = [NSArray arrayWithArray:XValueWithBrands];
         ValueArray = [NSArray arrayWithArray:YValueForBrands];
         int countVal = (int)monthArray.count;
 
         [self plotStackedBarChart:countVal range:countVal];
-    }
+    //}
     
 
     
@@ -592,13 +593,13 @@
 
     
     
-    if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
+    //if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
         monthArray = [NSArray arrayWithArray:keyMonthArray];
         ValueArray = [NSArray arrayWithArray:finalValueArray];
         int countVal = (int)monthArray.count;
         NSLog(@"multiple chart reverse order:%@",changeOverInputArray);
         [self plotMultipleBarChart:countVal range:8 withBrands:changeOverInputArray];
-    }
+    //}
 
     
     
@@ -634,13 +635,13 @@
 
 
     //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
-    if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
+   // if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
         monthArray = [NSArray arrayWithArray:XValueWithBrands];
         ValueArray = [NSArray arrayWithArray:YValueForBrands];
         int countVal = (int)monthArray.count;
         
         [self plotStackedHorizontalBarChart:countVal range:countVal];
-    }
+   /// }
 
     
 
@@ -673,13 +674,13 @@
     
     
     //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
-    if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
+  //  if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
         monthArray = [NSArray arrayWithArray:XValueWithBrands];
         ValueArray = [NSArray arrayWithArray:YValueForBrands];
         int countVal = (int)monthArray.count;
         
         [self plotStackedHorizontalBarChart:countVal range:countVal];
-    }
+  //  }
 
 }
 
@@ -711,13 +712,13 @@
     
     
     //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
-    if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
+  //  if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
         monthArray = [NSArray arrayWithArray:XValueWithBrands];
         ValueArray = [NSArray arrayWithArray:YValueForBrands];
         int countVal = (int)monthArray.count;
         
         [self plotStackedHorizontalBarChart:countVal range:countVal];
-    }
+  //  }
 }
 
 
@@ -1089,7 +1090,7 @@
     
     NSLog(@"%f,%f",widthOfChartViewOutline,heightOfChartViewOutline);
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
+        pieViews = [[PieChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-300)];
         
     }
     else{
@@ -1107,7 +1108,8 @@
     pieViews.delegate = self;
     
     if (ValueArray.count == 0) {
-        horizontalBarViews.noDataText = @"Chart Data not available";
+        pieViews.noDataText = @"Chart Data not available";
+        
         
     }
     else{
@@ -1176,7 +1178,7 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-300)];
         
     }
     else{
@@ -1213,7 +1215,7 @@
     
     [barViews animateWithYAxisDuration:1.0];
     if (ValueArray.count == 0) {
-        horizontalBarViews.noDataText = @"Chart Data not available";
+        barViews.noDataText = @"Chart Data not available";
         
     }
     else{
@@ -1255,7 +1257,7 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-300)];
         
     }
     else{
@@ -1293,7 +1295,7 @@
     [barViews animateWithYAxisDuration:1.0];
     
     if (ValueArray.count == 0) {
-        horizontalBarViews.noDataText = @"Chart Data not available";
+        barViews.noDataText = @"Chart Data not available";
         
     }
     else{
@@ -1362,7 +1364,7 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
+        barViews = [[BarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-300)];
         barViews.xAxis.labelRotationAngle =-50;
         [barViews.xAxis setLabelsToSkip:0];
 
@@ -1401,7 +1403,7 @@
     NSLog(@"%@",monthArray);
 
     if (ValueArray.count == 0) {
-        horizontalBarViews.noDataText = @"Chart Data not available";
+        barViews.noDataText = @"Chart Data not available";
         
     }
     else{
@@ -1475,7 +1477,7 @@
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        horizontalBarViews = [[HorizontalBarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-260)];
+        horizontalBarViews = [[HorizontalBarChartView alloc] initWithFrame:CGRectMake(30, 30, self.view.frame.size.width-30,  self.view.frame.size.height-300)];
         
     }
     else{
@@ -1556,10 +1558,10 @@
 {
     [_chartViewOutline.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        lineChartView = [[LineChartView alloc] initWithFrame:CGRectMake(30, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-260)];
+        lineChartView = [[LineChartView alloc] initWithFrame:CGRectMake(15, 30, self.topStoriesViewLeadingConstraint.constant-30,  self.view.frame.size.height-300)];
         
         NSLog(@"line chart view width:%f and %f",self.topStoriesViewLeadingConstraint.constant,self.topStoriesViewLeadingConstraint.constant-30);
-        
+        lineChartView.xAxis.labelRotationAngle =-80;
     }
     else{
         lineChartView = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, self.chartViewOutline.frame.size.width-10, self.chartViewOutline.frame.size.height-10)];
@@ -1639,7 +1641,7 @@
     
     //animations------------------------------------------------------------------------
     if (ValueArray.count == 0) {
-        horizontalBarViews.noDataText = @"Chart Data not available";
+        lineChartView.noDataText = @"Chart Data not available";
         
     }
     else{
