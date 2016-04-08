@@ -1882,14 +1882,37 @@
 
 
 -(void)chartValueSelected:(ChartViewBase *)chartView entry:(ChartDataEntry *)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight *)highlight{
+    
+
+    CGPoint poinOfMarker =[chartView getMarkerPositionWithEntry:entry highlight:highlight];
+    NSLog(@"%@",NSStringFromCGPoint(poinOfMarker));              //----------------------------marker's point on view
+    
 
     UIGestureRecognizer *recogGest = [chartView.gestureRecognizers objectAtIndex:0];
-    NSLog(@"%@",recogGest);
-    CGPoint poinOf =[recogGest locationInView:chartView];
-    NSLog(@"%@",NSStringFromCGPoint(poinOf));
+    CGPoint poinOf =[recogGest locationInView:chartView];        //----------------------------touch point on view
     
-    CGPoint poinOfMarker =[chartView getMarkerPositionWithEntry:entry highlight:highlight];
-    NSLog(@"%@",NSStringFromCGPoint(poinOfMarker));
+    NSLog(@"%@",NSStringFromCGPoint(poinOf));
+//    NSLog(@"%@",[barViews getDataSetByTouchPoint:poinOf]);
+    
+
+
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+
+    NSLog(@"%@",[barViews getHighlightByTouchPoint:poinOf]);
+
+    CGRect poi =[barViews getBarBounds:entry.data];
+    NSLog(@"%@",NSStringFromCGRect(poi));
+
+    
     NSMutableArray *containingXValue = [[NSMutableArray alloc]init];
     NSMutableArray *containingYValue = [[NSMutableArray alloc]init];
 
@@ -1927,8 +1950,7 @@
     NSLog(@"%@",[NSNumber numberWithInt:roundXPointTOuched]);
     NSLog(@"%@",[NSNumber numberWithInt:roundYPointTOuched]);
 
-    if ([containingXValue containsObject:[NSNumber numberWithInt:roundXPointTOuched]] && [containingYValue containsObject:[NSNumber numberWithInt:roundYPointTOuched]])
-    {
+   
 
     /* This is for close the top stories view */
     [UIView animateWithDuration:0.4
@@ -1976,47 +1998,79 @@
     if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
        
         //Trend of coverage chart selection
-        //for Line chart----------------------------------------------------------------------
         
-        NSLog(@"%@",[NSNumber numberWithInt:resultPoint]);
-//        NSString *firstObj = [monthArray objectAtIndex:0];
-//        if (firstObj.length > 3) {//for Line chart if its for month----------------------------------------------------------------------
-//            
-//            if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
-//                NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
-//                NSString *intFinals = [monthArray objectAtIndex:indexA];
-//                
-//                if ([xInputForMonths containsObject:intFinals]) {
-//                    NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
-//                    
-//                    NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
-//                    clickedDate = [self getFinalDateValueForWebService:dateFinals];
-//                }
-//                
-//            } else if ([ValueArrayTwo containsObject:[NSNumber numberWithInt:resultPoint]])
-//            {
-//                NSUInteger indexA = [ValueArrayTwo indexOfObject:[NSNumber numberWithInt:resultPoint]];
-//                NSString *intFinals = [monthArray objectAtIndex:indexA];
-//                
-//                if ([xInputForMonths containsObject:intFinals]) {
-//                    NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
-//                    
-//                    NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
-//                    clickedDate = [self getFinalDateValueForWebService:dateFinals];
-//                }
-//                
-//            }
-//            
-//        }
-//        else{                       //for Line chart if its for week----------------------------------------------------------------------
+        //}
+        if ([containingXValue containsObject:[NSNumber numberWithInt:roundXPointTOuched]] && [containingYValue containsObject:[NSNumber numberWithInt:roundYPointTOuched]])
+        {
+            //for Line chart----------------------------------------------------------------------
+            
+            NSLog(@"%@",[NSNumber numberWithInt:resultPoint]);
+            //        NSString *firstObj = [monthArray objectAtIndex:0];
+            //        if (firstObj.length > 3) {//for Line chart if its for month----------------------------------------------------------------------
+            //
+            //            if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
+            //                NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
+            //                NSString *intFinals = [monthArray objectAtIndex:indexA];
+            //
+            //                if ([xInputForMonths containsObject:intFinals]) {
+            //                    NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
+            //
+            //                    NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
+            //                    clickedDate = [self getFinalDateValueForWebService:dateFinals];
+            //                }
+            //
+            //            } else if ([ValueArrayTwo containsObject:[NSNumber numberWithInt:resultPoint]])
+            //            {
+            //                NSUInteger indexA = [ValueArrayTwo indexOfObject:[NSNumber numberWithInt:resultPoint]];
+            //                NSString *intFinals = [monthArray objectAtIndex:indexA];
+            //
+            //                if ([xInputForMonths containsObject:intFinals]) {
+            //                    NSUInteger indexB = [xInputForMonths indexOfObject:intFinals];
+            //
+            //                    NSString *dateFinals = [dateArrayToGet objectAtIndex:indexB];
+            //                    clickedDate = [self getFinalDateValueForWebService:dateFinals];
+            //                }
+            //
+            //            }
+            //            
+            //        }
+            //        else{                       //for Line chart if its for week----------------------------------------------------------------------
             NSString *dateFinals = [dateArrayToGet objectAtIndex:indexEntry];
             clickedDate = [self getFinalDateValueForWebService:dateFinals];
-            
-        //}
+
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Trend of Coverage Article List"];
         //call article api list
         [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:clickedDate endDateIn:trendOfCoverageEndDateIn fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
-        
+            
+            
+            UIStoryboard *centerStoryBoard;
+            CorporateNewsListView *listView;
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+            } else {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+            }
+            listView.reportTypeId = localReportTypeId;
+            listView.clickedDate = clickedDate;
+            listView.reportFromDate = reportObject.reportFromDate;
+            listView.reportToDate = reportObject.reportToDate;
+            listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
+            listView.keyTopicsBrandName = brandName;
+            listView.mediaTypesBrandName = brandName;
+            
+            listView.sentimentChartTonalityValue = tonalityValue;
+            listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+            
+            listView.changeOverSelectedValue = changeOverSelectedValue;
+            
+            listView.horizontalBarChartTonalityValue = tonalityValue;
+            listView.horizontalBarChartSelectedValue = brandName;
+            
+            [self.navigationController pushViewController:listView animated:YES];
+
+        }
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
         
@@ -2031,6 +2085,36 @@
         NSLog(@"selected brand name:%@",brandName);
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Key Topics Article List"];
         [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        
+        
+        
+        UIStoryboard *centerStoryBoard;
+        CorporateNewsListView *listView;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+        }
+        listView.reportTypeId = localReportTypeId;
+        listView.clickedDate = clickedDate;
+        listView.reportFromDate = reportObject.reportFromDate;
+        listView.reportToDate = reportObject.reportToDate;
+        listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
+        listView.keyTopicsBrandName = brandName;
+        listView.mediaTypesBrandName = brandName;
+        
+        listView.sentimentChartTonalityValue = tonalityValue;
+        listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+        
+        listView.changeOverSelectedValue = changeOverSelectedValue;
+        
+        listView.horizontalBarChartTonalityValue = tonalityValue;
+        listView.horizontalBarChartSelectedValue = brandName;
+        
+        [self.navigationController pushViewController:listView animated:YES];
+
     
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:3]]) {
         
@@ -2044,115 +2128,307 @@
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Media Types Article List"];
         [[FISharedResources sharedResourceManager]getMediaTypesArticleListFromMediaTypeField:@"mediaTypeId" mediaTypeValue:brandName fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
-    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:4]]) {
         
+        
+        UIStoryboard *centerStoryBoard;
+        CorporateNewsListView *listView;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+        }
+        listView.reportTypeId = localReportTypeId;
+        listView.clickedDate = clickedDate;
+        listView.reportFromDate = reportObject.reportFromDate;
+        listView.reportToDate = reportObject.reportToDate;
+        listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
+        listView.keyTopicsBrandName = brandName;
+        listView.mediaTypesBrandName = brandName;
+        
+        listView.sentimentChartTonalityValue = tonalityValue;
+        listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+        
+        listView.changeOverSelectedValue = changeOverSelectedValue;
+        
+        listView.horizontalBarChartTonalityValue = tonalityValue;
+        listView.horizontalBarChartSelectedValue = brandName;
+        
+        [self.navigationController pushViewController:listView animated:YES];
+
+        
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:4]]) {
         //Sentiment and volume over time chart
-        NSString *arrayWithxIndex = [ValueArray objectAtIndex:indexEntry];
-        NSLog(@"%@",arrayWithxIndex);
-        nameOfIndexForSentimentChart = [monthArray objectAtIndex:indexEntry];           //contains name eg. iPhone
-        NSString *dateOFIndex = [weaveDateArray objectAtIndex:indexEntry];
-        clickedDate = [self getFinalDateValueForWebService:dateOFIndex];
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Sentiment and Volume Over Time Article List"];
-        [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:tonalityValue value2:nameOfIndexForSentimentChart fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+
+        if (poinOf.y > poinOfMarker.y) {
+            NSLog(@"within bar");
+            NSString *arrayWithxIndex = [ValueArray objectAtIndex:indexEntry];
+            NSLog(@"%@",arrayWithxIndex);
+            nameOfIndexForSentimentChart = [monthArray objectAtIndex:indexEntry];           //contains name eg. iPhone
+            NSString *dateOFIndex = [weaveDateArray objectAtIndex:indexEntry];
+            clickedDate = [self getFinalDateValueForWebService:dateOFIndex];
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Sentiment and Volume Over Time Article List"];
+            [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:tonalityValue value2:nameOfIndexForSentimentChart fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            
+            
+            
+            UIStoryboard *centerStoryBoard;
+            CorporateNewsListView *listView;
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+            } else {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+            }
+            listView.reportTypeId = localReportTypeId;
+            listView.clickedDate = clickedDate;
+            listView.reportFromDate = reportObject.reportFromDate;
+            listView.reportToDate = reportObject.reportToDate;
+            listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
+            listView.keyTopicsBrandName = brandName;
+            listView.mediaTypesBrandName = brandName;
+            
+            listView.sentimentChartTonalityValue = tonalityValue;
+            listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+            
+            listView.changeOverSelectedValue = changeOverSelectedValue;
+            
+            listView.horizontalBarChartTonalityValue = tonalityValue;
+            listView.horizontalBarChartSelectedValue = brandName;
+            
+            [self.navigationController pushViewController:listView animated:YES];
+
+
+        }
+        else{
+            NSLog(@"outside bar");
+            
+        }
+
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:5]]) {
         
         //Change over last quarter chart info
-        
-        changeOverSelectedValue = [reverseOrdersBkUp objectAtIndex:dataSetIndexes];
-        NSDictionary *valueArs = [reverseOrderBkUp objectAtIndex:dataSetIndexes];
-        
-        NSArray *firstArray=[self sortKeysInOrder:valueArs];
-    
-        NSString *dateAris = [firstArray objectAtIndex:indexEntry];
-        clickedDate = [self getFinalDateValueForWebService:dateAris];
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Change Over Last Quarter Article List"];
-        [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:changeOverSelectedValue fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        if (poinOf.y > poinOfMarker.y) {
+            changeOverSelectedValue = [reverseOrdersBkUp objectAtIndex:dataSetIndexes];
+            NSDictionary *valueArs = [reverseOrderBkUp objectAtIndex:dataSetIndexes];
+            
+            NSArray *firstArray=[self sortKeysInOrder:valueArs];
+            
+            NSString *dateAris = [firstArray objectAtIndex:indexEntry];
+            clickedDate = [self getFinalDateValueForWebService:dateAris];
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Change Over Last Quarter Article List"];
+            [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:changeOverSelectedValue fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            
+            
+            
+            UIStoryboard *centerStoryBoard;
+            CorporateNewsListView *listView;
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+            } else {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+            }
+            listView.reportTypeId = localReportTypeId;
+            listView.clickedDate = clickedDate;
+            listView.reportFromDate = reportObject.reportFromDate;
+            listView.reportToDate = reportObject.reportToDate;
+            listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
+            listView.keyTopicsBrandName = brandName;
+            listView.mediaTypesBrandName = brandName;
+            
+            listView.sentimentChartTonalityValue = tonalityValue;
+            listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+            
+            listView.changeOverSelectedValue = changeOverSelectedValue;
+            
+            listView.horizontalBarChartTonalityValue = tonalityValue;
+            listView.horizontalBarChartSelectedValue = brandName;
+            
+            [self.navigationController pushViewController:listView animated:YES];
+
+
+            
+        }
+        else{
+            NSLog(@"outside bar");
+            
+        }
+
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
         
         //Top sources chart selection
-        
-        brandName = [monthArray objectAtIndex:indexEntry];
-        NSLog(@"serial:%@",brandAndSerialNumber);
-        NSLog(@"%@",[brandAndSerialNumber objectForKey:brandName]);
+        if (poinOf.x < poinOfMarker.x) {
+            NSLog(@"within bar");
+            brandName = [monthArray objectAtIndex:indexEntry];
+            NSLog(@"serial:%@",brandAndSerialNumber);
+            NSLog(@"%@",[brandAndSerialNumber objectForKey:brandName]);
             NSLog(@"%@",brandName);
-        
-        NSRange oneRang = [brandName rangeOfString:@" ("];
-        brandName = [brandName substringToIndex:oneRang.location];
-        NSLog(@"brand name:%@",brandName);
-        NSLog(@"values%@",[brandAndSerialNumber objectForKey:brandName]);
-        NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-"]];
-        NSLog(@"first:%@",[brandArray objectAtIndex:0]);
-        brandName = [brandArray objectAtIndex:0];
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Source Article List"];
-        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            
+            NSRange oneRang = [brandName rangeOfString:@" ("];
+            brandName = [brandName substringToIndex:oneRang.location];
+            NSLog(@"brand name:%@",brandName);
+            NSLog(@"values%@",[brandAndSerialNumber objectForKey:brandName]);
+            NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-"]];
+            NSLog(@"first:%@",[brandArray objectAtIndex:0]);
+            brandName = [brandArray objectAtIndex:0];
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Source Article List"];
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            
+            
+            
+            
+            UIStoryboard *centerStoryBoard;
+            CorporateNewsListView *listView;
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+            } else {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+            }
+            listView.reportTypeId = localReportTypeId;
+            listView.clickedDate = clickedDate;
+            listView.reportFromDate = reportObject.reportFromDate;
+            listView.reportToDate = reportObject.reportToDate;
+            listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
+            listView.keyTopicsBrandName = brandName;
+            listView.mediaTypesBrandName = brandName;
+            
+            listView.sentimentChartTonalityValue = tonalityValue;
+            listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+            
+            listView.changeOverSelectedValue = changeOverSelectedValue;
+            
+            listView.horizontalBarChartTonalityValue = tonalityValue;
+            listView.horizontalBarChartSelectedValue = brandName;
+            
+            [self.navigationController pushViewController:listView animated:YES];
+
+
+        }
+        else{
+            NSLog(@"outside bar");
+            
+        }
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:7]]) {
         
         //Top journalist chart selection
         
-        
-        //if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
+        if (poinOf.x < poinOfMarker.x) {
+            NSLog(@"within bar");
+            //if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
             //NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
             brandName = [monthArray objectAtIndex:indexEntry];
             NSLog(@"%@",brandName);
-        //}
-        
-        NSRange oneRang = [brandName rangeOfString:@" ("];
-        brandName = [brandName substringToIndex:oneRang.location];
-        NSLog(@"brand name:%@",brandName);
-        
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Journalist Article List"];
-        
-        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            //}
+            
+            NSRange oneRang = [brandName rangeOfString:@" ("];
+            brandName = [brandName substringToIndex:oneRang.location];
+            NSLog(@"brand name:%@",brandName);
+            
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Journalist Article List"];
+            
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            
+            
+            
+            UIStoryboard *centerStoryBoard;
+            CorporateNewsListView *listView;
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+            } else {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+            }
+            listView.reportTypeId = localReportTypeId;
+            listView.clickedDate = clickedDate;
+            listView.reportFromDate = reportObject.reportFromDate;
+            listView.reportToDate = reportObject.reportToDate;
+            listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
+            listView.keyTopicsBrandName = brandName;
+            listView.mediaTypesBrandName = brandName;
+            
+            listView.sentimentChartTonalityValue = tonalityValue;
+            listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+            
+            listView.changeOverSelectedValue = changeOverSelectedValue;
+            
+            listView.horizontalBarChartTonalityValue = tonalityValue;
+            listView.horizontalBarChartSelectedValue = brandName;
+            
+            [self.navigationController pushViewController:listView animated:YES];
+
+
+        }
+        else{
+            NSLog(@"outside bar");
+            
+        }
         
     } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
         
         //Top influencer chart selection
-        
-       // if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
-         //   NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
+        if (poinOf.x < poinOfMarker.x) {
+            NSLog(@"within bar");
+            // if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
+            //   NSUInteger indexA = [ValueArray indexOfObject:[NSNumber numberWithInt:resultPoint]];
             brandName = [monthArray objectAtIndex:indexEntry];
             NSLog(@"%@",brandName);
-        //}
-        NSRange oneRang = [brandName rangeOfString:@" ("];
-        brandName = [brandName substringToIndex:oneRang.location];
-        NSLog(@"brand name:%@",brandName);
-        
-        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Influencer Article List"];
-        
-        [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            //}
+            NSRange oneRang = [brandName rangeOfString:@" ("];
+            brandName = [brandName substringToIndex:oneRang.location];
+            NSLog(@"brand name:%@",brandName);
+            
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Influencer Article List"];
+            
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+
+            
+            
+            UIStoryboard *centerStoryBoard;
+            CorporateNewsListView *listView;
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+            } else {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+                listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+            }
+            listView.reportTypeId = localReportTypeId;
+            listView.clickedDate = clickedDate;
+            listView.reportFromDate = reportObject.reportFromDate;
+            listView.reportToDate = reportObject.reportToDate;
+            listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
+            listView.keyTopicsBrandName = brandName;
+            listView.mediaTypesBrandName = brandName;
+            
+            listView.sentimentChartTonalityValue = tonalityValue;
+            listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+            
+            listView.changeOverSelectedValue = changeOverSelectedValue;
+            
+            listView.horizontalBarChartTonalityValue = tonalityValue;
+            listView.horizontalBarChartSelectedValue = brandName;
+            
+            [self.navigationController pushViewController:listView animated:YES];
+
+        }
+        else{
+            NSLog(@"outside bar");
+            
+        }
         
     }
 
-    UIStoryboard *centerStoryBoard;
-    CorporateNewsListView *listView;
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
-        listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
-    } else {
-        centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
-    }
-    listView.reportTypeId = localReportTypeId;
-    listView.clickedDate = clickedDate;
-    listView.reportFromDate = reportObject.reportFromDate;
-    listView.reportToDate = reportObject.reportToDate;
-    listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
-    listView.keyTopicsBrandName = brandName;
-    listView.mediaTypesBrandName = brandName;
-    
-    listView.sentimentChartTonalityValue = tonalityValue;
-    listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
-    
-    listView.changeOverSelectedValue = changeOverSelectedValue;
-    
-    listView.horizontalBarChartTonalityValue = tonalityValue;
-    listView.horizontalBarChartSelectedValue = brandName;
-    
-    [self.navigationController pushViewController:listView animated:YES];
-}
+
 }
 
 //NSLog(@"%lu",(unsigned long)[ValueArray indexOfObject:[NSNumber numberWithDouble:entry.value]]);
@@ -2805,19 +3081,25 @@
     
     [self AnimateButtonOnClick:sender];
     
-//    if (typeOfChart == 0) {
-//        [lineChartView saveToCameraRoll];
-//    }else if (typeOfChart ==1){
-//        [pieViews saveToCameraRoll];
-//    }else if (typeOfChart ==2){
-//        [pieViews saveToCameraRoll];
-//    }else if (typeOfChart ==3){
-//        [barViews saveToCameraRoll];
-//    }else if (typeOfChart ==4){
-//        [lineChartView saveToCameraRoll];
-//    }else if (typeOfChart ==5){
-//        [lineChartView saveToCameraRoll];
-//    }
+    if ([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        [lineChartView saveToCameraRoll];
+    }else if ([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:2]]){
+        [pieViews saveToCameraRoll];
+    }else if ([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:3]]){
+        [pieViews saveToCameraRoll];
+    }else if ([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:4]]){
+        [barViews saveToCameraRoll];
+    }
+    else if ([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:5]]){
+        [barViews saveToCameraRoll];
+    }else if ([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:6]]){
+        [horizontalBarViews saveToCameraRoll];
+    }else if ([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:7]]){
+        [horizontalBarViews saveToCameraRoll];
+    }
+    else if ([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]){
+        [horizontalBarViews saveToCameraRoll];
+    }
     [self.view makeToast:@"Chart saved successfully" duration:1.0 position:CSToastPositionCenter];
 
 }
