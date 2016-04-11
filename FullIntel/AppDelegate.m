@@ -42,8 +42,12 @@
     
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
 
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.mycompany.myqueue", 0);
-    dispatch_async(backgroundQueue, ^{
+//    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.mycompany.myqueue", 0);
+//    dispatch_async(backgroundQueue, ^{
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
+//    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
     });
     

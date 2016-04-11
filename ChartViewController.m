@@ -2220,9 +2220,9 @@
             brandName = [brandName substringToIndex:oneRang.location];
             NSLog(@"brand name:%@",brandName);
             NSLog(@"values%@",[brandAndSerialNumber objectForKey:brandName]);
-            NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-"]];
-            NSLog(@"first:%@",[brandArray objectAtIndex:0]);
-            brandName = [brandArray objectAtIndex:0];
+//            NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-"]];
+//            NSLog(@"first:%@",[brandArray objectAtIndex:0]);
+//            brandName = [brandArray objectAtIndex:0];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Source Article List"];
             double toDate = [reportObject.reportToDate doubleValue]+86399000;
             [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
