@@ -756,43 +756,55 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if(chartStoryList.count == 0){
+        return 1;
+    }
     return [chartStoryList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StoryTableViewCell *cell = (StoryTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    int cnt = indexPath.row+1;
-    cell.numberLabel.text = [NSString stringWithFormat:@"%d",cnt];
-    NSDictionary *dic;
     
-    dic = [chartStoryList objectAtIndex:indexPath.row];
-    cell.titleLabel.text = NULL_TO_NIL([dic objectForKey:@"heading"]);
-    headingArray = NULL_TO_NIL([dic objectForKey:@"heading"]);
-    //Fetching contact details
-    NSString *contactName;
-    NSArray *contactArray = NULL_TO_NIL([dic objectForKey:@"contact"]);
-    if(contactArray.count != 0){
-        NSDictionary *contactDic = [contactArray objectAtIndex:0];
-        contactName = [NSString stringWithFormat:@"%@,",NULL_TO_NIL([contactDic objectForKey:@"name"])];
+    if ([chartStoryList count] == 0) {
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.textLabel.text = @"No top stories";
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        //whatever else to configure your one cell you're going to return
+        return cell;
     } else {
-        contactName = @"";
+        StoryTableViewCell *cell = (StoryTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        int cnt = indexPath.row+1;
+        cell.numberLabel.text = [NSString stringWithFormat:@"%d",cnt];
+        NSDictionary *dic;
+        
+        dic = [chartStoryList objectAtIndex:indexPath.row];
+        cell.titleLabel.text = NULL_TO_NIL([dic objectForKey:@"heading"]);
+        headingArray = NULL_TO_NIL([dic objectForKey:@"heading"]);
+        //Fetching contact details
+        NSString *contactName;
+        NSArray *contactArray = NULL_TO_NIL([dic objectForKey:@"contact"]);
+        if(contactArray.count != 0){
+            NSDictionary *contactDic = [contactArray objectAtIndex:0];
+            contactName = [NSString stringWithFormat:@"%@,",NULL_TO_NIL([contactDic objectForKey:@"name"])];
+        } else {
+            contactName = @"";
+        }
+        
+        //Fetching outlet details
+        NSString *outletName;
+        NSArray *outletArray = NULL_TO_NIL([dic objectForKey:@"outlet"]);
+        if(outletArray.count != 0){
+            NSDictionary *outletDic = [outletArray objectAtIndex:0];
+            outletName = [NSString stringWithFormat:@"%@",NULL_TO_NIL([outletDic objectForKey:@"name"])];
+        } else {
+            outletName = @"";
+        }
+        
+        NSString *contactOutletString = [NSString stringWithFormat:@"%@%@",contactName,outletName];
+        
+        cell.outletLabel.text = contactOutletString;
+        return cell;
     }
-    
-    //Fetching outlet details
-    NSString *outletName;
-    NSArray *outletArray = NULL_TO_NIL([dic objectForKey:@"outlet"]);
-    if(outletArray.count != 0){
-        NSDictionary *outletDic = [outletArray objectAtIndex:0];
-        outletName = [NSString stringWithFormat:@"%@",NULL_TO_NIL([outletDic objectForKey:@"name"])];
-    } else {
-        outletName = @"";
-    }
-    
-    NSString *contactOutletString = [NSString stringWithFormat:@"%@%@",contactName,outletName];
-    
-    cell.outletLabel.text = contactOutletString;
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1955,7 +1967,13 @@
             //        else{                       //for Line chart if its for week----------------------------------------------------------------------
             NSString *dateFinals = [dateArrayToGet objectAtIndex:indexEntry];
             clickedDate = [self getFinalDateValueForWebService:dateFinals];
-
+            
+            NSLog(@"date array:%@",dateArrayToGet);
+            NSLog(@"index entry:%lu",(unsigned long)indexEntry);
+            NSLog(@"date finals:%@",dateFinals);
+            NSLog(@"correct date range:%@",[chartView getXValue:indexEntry]);
+            
+            
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Trend of Coverage Article List"];
         //call article api list
         [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:clickedDate endDateIn:trendOfCoverageEndDateIn fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
@@ -1985,7 +2003,7 @@
             
             listView.horizontalBarChartTonalityValue = tonalityValue;
             listView.horizontalBarChartSelectedValue = brandName;
-            
+            listView.titleName = [chartView getXValue:indexEntry]; //chart title
             [self.navigationController pushViewController:listView animated:YES];
 
         }
@@ -2032,6 +2050,8 @@
         listView.horizontalBarChartTonalityValue = tonalityValue;
         listView.horizontalBarChartSelectedValue = brandName;
         
+        listView.titleName = brandName;//passing selected title
+        
         [self.navigationController pushViewController:listView animated:YES];
 
     
@@ -2075,6 +2095,8 @@
         listView.horizontalBarChartTonalityValue = tonalityValue;
         listView.horizontalBarChartSelectedValue = brandName;
         
+        listView.titleName = brandName;//passing selected title
+        
         [self.navigationController pushViewController:listView animated:YES];
 
         
@@ -2117,6 +2139,8 @@
             
             listView.horizontalBarChartTonalityValue = tonalityValue;
             listView.horizontalBarChartSelectedValue = brandName;
+            
+            listView.titleName = nameOfIndexForSentimentChart; //chart title
             
             [self.navigationController pushViewController:listView animated:YES];
 
@@ -2168,6 +2192,8 @@
             
             listView.horizontalBarChartTonalityValue = tonalityValue;
             listView.horizontalBarChartSelectedValue = brandName;
+            
+            listView.titleName = changeOverSelectedValue; //chart title
             
             [self.navigationController pushViewController:listView animated:YES];
 
@@ -2229,6 +2255,8 @@
             listView.horizontalBarChartTonalityValue = tonalityValue;
             listView.horizontalBarChartSelectedValue = brandName;
             
+            listView.titleName = brandName; //chart title
+            
             [self.navigationController pushViewController:listView animated:YES];
 
 
@@ -2285,6 +2313,8 @@
             listView.horizontalBarChartTonalityValue = tonalityValue;
             listView.horizontalBarChartSelectedValue = brandName;
             
+            listView.titleName = brandName; //chart title
+            
             [self.navigationController pushViewController:listView animated:YES];
 
 
@@ -2338,6 +2368,8 @@
             
             listView.horizontalBarChartTonalityValue = tonalityValue;
             listView.horizontalBarChartSelectedValue = brandName;
+            
+            listView.titleName = brandName; //chart title
             
             [self.navigationController pushViewController:listView animated:YES];
 
@@ -3031,6 +3063,7 @@
 }
 
 - (IBAction)infoButtonClick:(id)sender {
+    [self viewTap];
     [self AnimateButtonOnClick:sender];
 
     NSString *contentMessage = nil;
