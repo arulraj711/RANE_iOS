@@ -169,35 +169,29 @@
 //    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTap)];
 //    [self.view addGestureRecognizer:tapGesture];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkRotation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+
     
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
     
 }
 
 
-- (void)deviceOrientationDidChange:(NSNotification *)notification {
-    NSLog(@"device orientation changes");
-    //Obtaining the current device orientation
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    NSLog(@"%ld",(long)orientation);
-    //self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
-    [self viewTap];
-    
+-(void)checkRotation:(NSNotification*)notification
+{
+    [self viewTap];//close top stories view
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        [self redrawChartViewWhileRotate];
-        if(orientation == UIDeviceOrientationPortrait) {
-            NSLog(@"portrait mode");
+        [self redrawChartViewWhileRotate];//function to redraw chart
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
+        {
+            NSLog(@"landscape orientation");
+            self.chartNameLabel.hidden = NO;
+        } else if(orientation == UIInterfaceOrientationPortrait) {
+            NSLog(@"portrait orientation");
             self.chartNameLabel.hidden = YES;
-        } else if(orientation == UIDeviceOrientationLandscapeLeft) {
-            NSLog(@"landscape mode");
-            self.chartNameLabel.hidden = NO;
-        } else if(orientation == UIDeviceOrientationLandscapeRight) {
-            NSLog(@"landscape mode");
-            self.chartNameLabel.hidden = NO;
         }
     }
-    
 }
 
 -(void)redrawChartViewWhileRotate {
