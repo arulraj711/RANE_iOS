@@ -1395,7 +1395,7 @@
     barViews.dragEnabled = YES;
     barViews.rightAxis.drawLabelsEnabled = NO;
     barViews.descriptionText =@"";
-    
+    barViews.drawValueAboveBarEnabled = NO;
     barViews.legend.position = ChartLegendPositionBelowChartCenter;
     
     [barViews setScaleEnabled:YES];
@@ -1455,23 +1455,29 @@
     //        [xVals addObject:[@((int)((BarChartDataEntry *)yVals[i]).value) stringValue]];
     //    }
     
-    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"-Tonality"];
-    set1.drawValuesEnabled = NO;
-    set1.stackLabels = @[@"Positive", @"Neutral", @"Negative"];
-
-    NSMutableArray *dataSets = [[NSMutableArray alloc] init];
-    [dataSets addObject:set1];
-    
-    NSMutableArray *colors = [[NSMutableArray alloc] init];
-  
+        BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"-Tonality"];
+        set1.drawValuesEnabled = NO;
+        set1.stackLabels = @[@"Positive", @"Neutral", @"Negative"];
+        
+        
+        NSMutableArray *colors = [[NSMutableArray alloc] init];
+        
         [colors addObject:[UIColor colorWithRed:64/255.f green:211/255.f blue:133/255.f alpha:1.f]];
         [colors addObject:[UIColor colorWithRed:216/255.f green:216/255.f blue:216/255.f alpha:1.f]];
         [colors addObject:[UIColor colorWithRed:255/255.f green:64/255.f blue:64/255.f alpha:1.f]];
-
-    set1.colors = colors;
-    
-    BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
-    barViews.data = data;
+        
+        set1.colors = colors;
+        set1.drawValuesEnabled = YES;
+        set1.valueFormatter = [[NSNumberFormatter alloc]init];
+        set1.valueFormatter.minimumFractionDigits = 0;
+        set1.valueFormatter.zeroSymbol  = @"";
+        [set1 setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10.f]];
+        NSMutableArray *dataSets = [[NSMutableArray alloc] init];
+        [dataSets addObject:set1];
+        
+        
+        BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
+        barViews.data = data;
     }
 }
 
@@ -3126,4 +3132,5 @@
     }
     
 }
+
 @end
