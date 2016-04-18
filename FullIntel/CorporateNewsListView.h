@@ -45,7 +45,7 @@
     
     UIView* accessoryView;
     UIImageView* accessoryViewImage;
-
+    CGFloat currentOffset;
     NSMutableArray *selectedCells;
     NSMutableArray *articleIdArray;
     CGFloat yPostionOfTOolbar;

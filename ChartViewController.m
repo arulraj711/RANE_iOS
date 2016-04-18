@@ -1903,6 +1903,7 @@
 
 
     int resultPoint = (int)entry.value;
+    NSLog(@"selected article count:%d",resultPoint);
     NSUInteger indexEntry  = entry.xIndex;
     NSUInteger stackIndex  = highlight.stackIndex;
     NSString *tonalityValue = [[NSString alloc]init];
@@ -1972,6 +1973,7 @@
             NSLog(@"index entry:%lu",(unsigned long)indexEntry);
             NSLog(@"date finals:%@",dateFinals);
             NSLog(@"correct date range:%@",[chartView getXValue:indexEntry]);
+            
             
             
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Trend of Coverage Article List"];

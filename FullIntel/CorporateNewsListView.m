@@ -382,7 +382,7 @@
     //NSLog(@"Add To Folder --->%@ and %@",articleIdToBePassed,unreadArticleIdArray);
     NSLog(@"Mark As Read --->%@ ",self.filterArray);
 
-    [self.articlesTableView setContentOffset:CGPointZero animated:YES];
+   // [self.articlesTableView setContentOffset:CGPointZero animated:YES];
     if(self.filterArray.count != 0) {
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"FolderClick"];
         
@@ -404,7 +404,8 @@
             self.popOver =[[UIPopoverController alloc] initWithContentViewController:popOverView];
             self.popOver.popoverContentSize=CGSizeMake(350, 267);
             //self.popOver.delegate = self;
-            [self.popOver presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2-100,SCREEN_HEIGHT/2-110, self.actionButton.frame.size.width, 100) inView:self.articlesTableView permittedArrowDirections:0 animated:YES];
+            NSLog(@"pop over y position:%f",currentOffset+300);
+            [self.popOver presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2-100,currentOffset+300, self.actionButton.frame.size.width, 100) inView:self.articlesTableView permittedArrowDirections:0 animated:YES];
         }
     } else {
         [self.view makeToast:@"Please select an artice." duration:0.5 position:CSToastPositionCenter];
@@ -3141,9 +3142,9 @@
     
     
     // UITableView only moves in one direction, y axis
-    CGFloat currentOffset = scroll.contentOffset.y;
+    currentOffset = scroll.contentOffset.y;
     CGFloat maximumOffset = scroll.contentSize.height - scroll.frame.size.height;
-    
+    NSLog(@"Scrolling ---:%f",currentOffset);
     // Change 10.0 to adjust the distance from bottom
     if (maximumOffset - currentOffset <= 10.0) {
         //NSLog(@"tableview reach the limt");
