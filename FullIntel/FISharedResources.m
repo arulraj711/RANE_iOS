@@ -1532,18 +1532,24 @@
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSError* error1;
         NSLog(@"error JSON:%@",operation);
-        NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
-        NSLog(@"error JSON:%@",errorJson);
-        if(errorJson == nil){
-            [FIUtils showErrorToast];
+        NSLog(@"error response object:%@",operation.responseObject);
+        if(operation.responseObject == nil) {
+            
         } else {
-            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
-                [self hideProgressView];
-                [self showLoginView:[NSNumber numberWithInt:0]];
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error JSON:%@",errorJson);
+            if(errorJson == nil){
+                [FIUtils showErrorToast];
             } else {
-                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                    [self hideProgressView];
+                    [self showLoginView:[NSNumber numberWithInt:0]];
+                } else {
+                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                }
             }
         }
+        
     }];
 }
 
