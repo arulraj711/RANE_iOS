@@ -2524,7 +2524,7 @@
     NSLog(@"%@",addedMonthName);
     
     for (int k=0; k<actualMonthName.count; k++) {
-        NSString *dt = [NSString stringWithFormat:@"%@ %@-%@ %@",[actualMonthName objectAtIndex:k],[dayComponentArray objectAtIndex:k],[addedMonthName objectAtIndex:k],[nextDayCompArray objectAtIndex:k]];
+        NSString *dt = [NSString stringWithFormat:@"%@ %@ - %@ %@",[actualMonthName objectAtIndex:k],[dayComponentArray objectAtIndex:k],[addedMonthName objectAtIndex:k],[nextDayCompArray objectAtIndex:k]];
         
         [outputsArray addObject:dt];
     }
