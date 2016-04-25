@@ -236,6 +236,7 @@
 		BAA6A58D1C86F43500B78883 /* ChartTypeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A58C1C86F43500B78883 /* ChartTypeObject.m */; };
 		BAB29F0F1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */; };
 		BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB29F101C3D27700008ED71 /* MoreSettingsView.m */; };
+		BAC8C5731CCDFAFB000FA656 /* ChartReportDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
 		F554DFD31BB016180062EAC7 /* FINewsLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFD21BB016180062EAC7 /* FINewsLetter.m */; };
@@ -678,6 +679,8 @@
 		BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MoreSettingsViewPhone.storyboard; sourceTree = "<group>"; };
 		BAB29F101C3D27700008ED71 /* MoreSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSettingsView.m; sourceTree = "<group>"; };
 		BAC6E9F31C633E8500446F99 /* FullIntel 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 6.xcdatamodel"; sourceTree = "<group>"; };
+		BAC8C5711CCDFAFB000FA656 /* ChartReportDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartReportDownloadView.h; sourceTree = "<group>"; };
+		BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartReportDownloadView.m; sourceTree = "<group>"; };
 		BAEE93501C0F235600CD4F88 /* FullIntel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 5.xcdatamodel"; sourceTree = "<group>"; };
 		C0F31A39A4389F1264B49B3B /* Pods_FullIntel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FullIntel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
@@ -971,6 +974,8 @@
 				BAA6A5821C86ED9A00B78883 /* ReportListCell.m */,
 				BA025F141CA11FA900DB60DA /* ReportCollectionCell.h */,
 				BA025F151CA11FA900DB60DA /* ReportCollectionCell.m */,
+				BAC8C5711CCDFAFB000FA656 /* ChartReportDownloadView.h */,
+				BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */,
 			);
 			name = Charts;
 			sourceTree = "<group>";
@@ -2216,6 +2221,7 @@
 				A0CF5C5B1B1DD98B00DED2D9 /* ExecutiveTimeLineCell.m in Sources */,
 				F7CE36E61A95E9490005AA0A /* RATreeView+Private.m in Sources */,
 				F7CE36DF1A95E9490005AA0A /* RABatchChanges.m in Sources */,
+				BAC8C5731CCDFAFB000FA656 /* ChartReportDownloadView.m in Sources */,
 				A0CF5C6C1B1DD98B00DED2D9 /* RecentPaternsCell.m in Sources */,
 				F7E368821ABC18F70083F38E /* MailPopoverView.m in Sources */,
 				A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */,

@@ -13,6 +13,7 @@
 #import "ReportListCell.h"
 #import "ReportListObject.h"
 #import "ReportCollectionCell.h"
+#import "ChartReportDownloadView.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface ChartListViewController ()
 
@@ -258,6 +259,18 @@
     int selectedTag = tapGesture.view.tag;
     ReportListObject *reportListObj = [reportListArray objectAtIndex:selectedTag];
    // [[FISharedResources sharedResourceManager]downloadReportForReportId:reportListObj.reportId];
+    UIStoryboard *storyboard;
+    ChartReportDownloadView *reportDownloadView;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPhone" bundle:nil];
+        reportDownloadView = [storyboard instantiateViewControllerWithIdentifier:@"ChartViewController"];
+    } else {
+        storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPad" bundle:nil];
+        reportDownloadView = [storyboard instantiateViewControllerWithIdentifier:@"ChartReportDownloadView"];
+    }
+    reportDownloadView.reportId = reportListObj.reportId;
+    
+    [self.navigationController pushViewController:reportDownloadView animated:YES];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

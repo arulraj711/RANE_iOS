@@ -649,6 +649,41 @@
             </objects>
             <point key="canvasLocation" x="4588" y="-2496"/>
         </scene>
+        <!--Chart Report Download View-->
+        <scene sceneID="vqq-sL-gtn">
+            <objects>
+                <viewController storyboardIdentifier="ChartReportDownloadView" id="Ug4-gm-EAv" customClass="ChartReportDownloadView" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cpE-Mj-84e"/>
+                        <viewControllerLayoutGuide type="bottom" id="x7b-NI-WTc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hBm-E4-C4r">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fx2-Tk-b5Q">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Ug4-gm-EAv" id="UWC-rp-Rhk"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fx2-Tk-b5Q" firstAttribute="leading" secondItem="hBm-E4-C4r" secondAttribute="leading" id="bAK-Uv-tav"/>
+                            <constraint firstAttribute="trailing" secondItem="fx2-Tk-b5Q" secondAttribute="trailing" id="ggr-RN-Y6Y"/>
+                            <constraint firstItem="fx2-Tk-b5Q" firstAttribute="top" secondItem="hBm-E4-C4r" secondAttribute="top" id="jkI-9J-dt9"/>
+                            <constraint firstItem="fx2-Tk-b5Q" firstAttribute="bottom" secondItem="x7b-NI-WTc" secondAttribute="top" id="oKP-Da-hbR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="reportWebView" destination="fx2-Tk-b5Q" id="qHt-0O-Kjn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1a4-C6-xQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="bg_pie_chart" width="280" height="280"/>
