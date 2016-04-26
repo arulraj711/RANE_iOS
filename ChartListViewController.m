@@ -269,7 +269,7 @@
         reportDownloadView = [storyboard instantiateViewControllerWithIdentifier:@"ChartReportDownloadView"];
     }
     reportDownloadView.reportId = reportListObj.reportId;
-    
+    reportDownloadView.reportTitle = reportListObj.reportTitle;
     [self.navigationController pushViewController:reportDownloadView animated:YES];
 }
 

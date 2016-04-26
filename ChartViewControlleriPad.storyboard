@@ -663,14 +663,21 @@
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fx2-Tk-b5Q">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="Ug4-gm-EAv" id="UWC-rp-Rhk"/>
                                 </connections>
                             </webView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="vGL-VR-EfP">
+                                <rect key="frame" x="0.0" y="20" width="600" height="3"/>
+                                <color key="tintColor" red="0.68627450980000004" green="0.039215686270000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="vGL-VR-EfP" firstAttribute="trailing" secondItem="fx2-Tk-b5Q" secondAttribute="trailing" id="5EN-0f-nnO"/>
+                            <constraint firstItem="vGL-VR-EfP" firstAttribute="leading" secondItem="fx2-Tk-b5Q" secondAttribute="leading" id="QOo-Ra-OjZ"/>
+                            <constraint firstItem="vGL-VR-EfP" firstAttribute="top" secondItem="cpE-Mj-84e" secondAttribute="bottom" id="UE9-z5-5VN"/>
                             <constraint firstItem="fx2-Tk-b5Q" firstAttribute="leading" secondItem="hBm-E4-C4r" secondAttribute="leading" id="bAK-Uv-tav"/>
                             <constraint firstAttribute="trailing" secondItem="fx2-Tk-b5Q" secondAttribute="trailing" id="ggr-RN-Y6Y"/>
                             <constraint firstItem="fx2-Tk-b5Q" firstAttribute="top" secondItem="hBm-E4-C4r" secondAttribute="top" id="jkI-9J-dt9"/>
@@ -678,6 +685,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="myProgressView" destination="vGL-VR-EfP" id="lNg-nM-l2I"/>
                         <outlet property="reportWebView" destination="fx2-Tk-b5Q" id="qHt-0O-Kjn"/>
                     </connections>
                 </viewController>

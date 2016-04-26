@@ -11,8 +11,12 @@
 @interface ChartReportDownloadView : UIViewController<UIDocumentInteractionControllerDelegate> {
     NSString *reportDownloadUrlString;
     NSString *filePathUrl;
+    IBOutlet UIProgressView* myProgressView;
+    BOOL theBool;
+    NSTimer *myTimer;
 }
 @property UIDocumentInteractionController *documentInteractionController;
 @property (weak, nonatomic) IBOutlet UIWebView *reportWebView;
 @property NSNumber *reportId;
+@property NSString *reportTitle;
 @end
