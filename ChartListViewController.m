@@ -263,7 +263,7 @@
     ChartReportDownloadView *reportDownloadView;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPhone" bundle:nil];
-        reportDownloadView = [storyboard instantiateViewControllerWithIdentifier:@"ChartViewController"];
+        reportDownloadView = [storyboard instantiateViewControllerWithIdentifier:@"ChartReportDownloadView"];
     } else {
         storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPad" bundle:nil];
         reportDownloadView = [storyboard instantiateViewControllerWithIdentifier:@"ChartReportDownloadView"];

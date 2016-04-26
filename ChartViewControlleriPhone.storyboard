@@ -461,6 +461,41 @@
             </objects>
             <point key="canvasLocation" x="392" y="342"/>
         </scene>
+        <!--Chart Report Download View-->
+        <scene sceneID="Utr-Wl-oZ0">
+            <objects>
+                <viewController storyboardIdentifier="ChartReportDownloadView" id="4Oz-u7-FLo" customClass="ChartReportDownloadView" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lQZ-V7-Zer"/>
+                        <viewControllerLayoutGuide type="bottom" id="IdF-13-3np"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Ze-b2-GKM">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LaT-mD-SMA">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="4Oz-u7-FLo" id="4l4-ZJ-HZi"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LaT-mD-SMA" firstAttribute="bottom" secondItem="IdF-13-3np" secondAttribute="top" id="Ohk-el-arY"/>
+                            <constraint firstItem="LaT-mD-SMA" firstAttribute="top" secondItem="3Ze-b2-GKM" secondAttribute="top" id="aDk-X6-DHP"/>
+                            <constraint firstItem="LaT-mD-SMA" firstAttribute="leading" secondItem="3Ze-b2-GKM" secondAttribute="leading" id="gio-1u-XSt"/>
+                            <constraint firstAttribute="trailing" secondItem="LaT-mD-SMA" secondAttribute="trailing" id="hjx-S9-m4K"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="reportWebView" destination="LaT-mD-SMA" id="2ma-l5-zzJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZJS-R3-K9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="DescImg" width="32" height="32"/>
