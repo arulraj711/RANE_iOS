@@ -55,7 +55,7 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSLog(@"%@",paths);
     
-    NSString *pathFloder = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@",@"new.ppt"]];
+    NSString *pathFloder = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@.ppt",@"Analysis_Report"]];
     NSString *defaultDBPath = [documentsDirectory stringByAppendingPathComponent:pathFloder];
     NSLog(@"default path:%@",defaultDBPath);
     NSData *tmp = [NSData dataWithContentsOfURL:theRessourcesURL];
