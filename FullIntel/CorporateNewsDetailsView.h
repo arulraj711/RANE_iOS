@@ -24,12 +24,13 @@
     NSString *mailBody;
     NSArray *coachMarks;
     WSCoachMarksView *coachMarksView;
-    
+    CGSize scrollViewSize;
     NSString *overallAuthorDetail;
     NSString *overallAuthorDetailOne;
     FPPopoverKeyboardResponsiveController *popover;
 
 }
+@property BOOL callAPIFromDrillIn;
 @property (nonatomic,strong) NSString *articleTitle;
 @property NSString *selectedNewsArticleId;
 @property NSIndexPath *selectedIndexPath;

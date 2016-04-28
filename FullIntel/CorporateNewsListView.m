@@ -2815,6 +2815,7 @@
             testView.changeOverSelectedValue = self.changeOverSelectedValue;
             testView.horizontalBarChartSelectedValue = self.horizontalBarChartSelectedValue;
             testView.horizontalBarChartTonalityValue = self.horizontalBarChartTonalityValue;
+            testView.callAPIFromDrillIn = NO;
             [self.navigationController pushViewController:testView animated:YES];
         }
     }

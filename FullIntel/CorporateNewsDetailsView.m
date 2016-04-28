@@ -499,6 +499,15 @@
                 [self.collectionView reloadData];
             } else {
                 if(self.articleIdArray.count != 0) {
+                    if(self.callAPIFromDrillIn) {
+                        CGSize currentSize = self.collectionView.bounds.size;
+                        int newValue = self.currentIndex+1;
+                        float offset = newValue * currentSize.width;
+                        [self.collectionView setContentOffset:CGPointMake(offset, 0)];
+                    } else {
+                        
+                    }
+                    
                     [self.collectionView reloadData];
                 }
             }
@@ -1606,7 +1615,7 @@
     
     NSLog(@"collection scroll x:%f and y:%f",scrollOffset,scrollOffsetY);
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
-        
+        self.callAPIFromDrillIn = YES;
         if(self.articleIdArray.count != 0) {
           //  NSString *inputJson;
             NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
