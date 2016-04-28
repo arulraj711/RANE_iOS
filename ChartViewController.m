@@ -162,8 +162,8 @@
 
     
     [[FISharedResources sharedResourceManager]getSingleReportDetailsForReportId:self.reportId];
-    
-    [[FISharedResources sharedResourceManager]getTopStoriesChartInfoFromDate:self.reportFromDate toDate:self.reportToDate withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10]];
+    double toDate = [self.reportToDate doubleValue]+86399000;
+    [[FISharedResources sharedResourceManager]getTopStoriesChartInfoFromDate:self.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10]];
    // Do any additional setup after loading the view.
 
 //    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTap)];
