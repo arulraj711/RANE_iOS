@@ -1190,6 +1190,7 @@
             }
             CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
             CorporateNewsListViewObj.titleName=data.name;
+            CorporateNewsListViewObj.mediaAnalysisArticleCount = [NSNumber numberWithInt:0];
             [self.revealController setFrontViewController:navCtlr];
             
             NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
@@ -1223,7 +1224,7 @@
                 
             }
             CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
-            
+            CorporateNewsListViewObj.mediaAnalysisArticleCount = [NSNumber numberWithInt:0];
             CorporateNewsListViewObj.titleName=data.name;
             [self.revealController setFrontViewController:navCtlr];
             
@@ -1270,6 +1271,7 @@
                 
             }
             CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+            CorporateNewsListViewObj.mediaAnalysisArticleCount = [NSNumber numberWithInt:0];
             CorporateNewsListViewObj.titleName=data.name;
             [self.revealController setFrontViewController:navCtlr];
         } else if([data.nodeId integerValue] == 7 && !data.isFolder) {
@@ -1572,6 +1574,7 @@
                         
                     }
                     CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+                    CorporateNewsListViewObj.mediaAnalysisArticleCount = [NSNumber numberWithInt:0];
                     CorporateNewsListViewObj.titleName=data.name;
                     [self.revealController setFrontViewController:navCtlr];
                     [[FISharedResources sharedResourceManager]fetchArticleFromFolderWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withFolderId:data.nodeId withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withQuery:@"" withFilterBy:@""];
@@ -1691,7 +1694,7 @@
                     
                 }
                 CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
-                
+                CorporateNewsListViewObj.mediaAnalysisArticleCount = [NSNumber numberWithInt:0];
                 CorporateNewsListViewObj.titleName=data.name;
                 [self.revealController setFrontViewController:navCtlr];
                 

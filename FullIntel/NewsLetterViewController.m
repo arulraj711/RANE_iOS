@@ -163,7 +163,8 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView
+   RowAtIndexPath:(NSIndexPath *)indexPath {
   //  [self.revealController showViewController:self.revealController.frontViewController];
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Newsletter List"];
     
@@ -180,6 +181,7 @@
         listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
     }
     listView.titleName = newsletter.newsLetterSubject;
+    listView.mediaAnalysisArticleCount = [NSNumber numberWithInt:0];
     [self.navigationController pushViewController:listView animated:YES];
 }
 

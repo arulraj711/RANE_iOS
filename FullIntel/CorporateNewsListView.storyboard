@@ -65,6 +65,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
@@ -2459,6 +2460,15 @@
                                             <action selector="actionsButtonClick:" destination="fWs-zM-deH" eventType="touchUpInside" id="BxK-Hv-QVI"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="128 Articles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ycm-Mq-A5K">
+                                        <rect key="frame" x="486" y="10" width="341" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="dSM-cJ-eTN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                        <color key="textColor" red="0.41960784309999999" green="0.42352941179999998" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2O-V4-Le2">
                                         <rect key="frame" x="864" y="10" width="150" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2477,7 +2487,9 @@
                                 <color key="backgroundColor" red="0.92941176470588238" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="grl-Ed-niv" firstAttribute="leading" secondItem="v83-Ot-PT3" secondAttribute="leading" constant="20" id="0Rq-wX-eVQ"/>
+                                    <constraint firstItem="Ycm-Mq-A5K" firstAttribute="top" secondItem="v83-Ot-PT3" secondAttribute="top" constant="10" id="G3r-5q-zKJ"/>
                                     <constraint firstAttribute="trailing" secondItem="I2O-V4-Le2" secondAttribute="trailing" constant="20" id="I9s-IA-sVT"/>
+                                    <constraint firstItem="I2O-V4-Le2" firstAttribute="leading" secondItem="Ycm-Mq-A5K" secondAttribute="trailing" constant="37" id="VDi-jR-AHt"/>
                                     <constraint firstItem="grl-Ed-niv" firstAttribute="top" secondItem="v83-Ot-PT3" secondAttribute="top" constant="14" id="Xtf-Zc-ZuO"/>
                                     <constraint firstAttribute="height" constant="50" id="dMW-5h-Vpv"/>
                                     <constraint firstItem="R5V-J9-UnM" firstAttribute="leading" secondItem="ZUf-qI-sh3" secondAttribute="trailing" constant="16" id="h6I-ot-dBJ"/>
@@ -2485,6 +2497,7 @@
                                     <constraint firstItem="ZUf-qI-sh3" firstAttribute="top" secondItem="v83-Ot-PT3" secondAttribute="top" constant="11" id="mgx-cn-bMJ"/>
                                     <constraint firstItem="R5V-J9-UnM" firstAttribute="top" secondItem="v83-Ot-PT3" secondAttribute="top" constant="10" id="nH6-RY-2yT"/>
                                     <constraint firstItem="ZUf-qI-sh3" firstAttribute="leading" secondItem="grl-Ed-niv" secondAttribute="trailing" constant="-1" id="pur-vQ-bQ7"/>
+                                    <constraint firstItem="Ycm-Mq-A5K" firstAttribute="leading" secondItem="R5V-J9-UnM" secondAttribute="trailing" constant="41" id="qzC-vS-4HS"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TE1-qa-EmO">
@@ -2740,6 +2753,7 @@
                         <outlet property="actionButton" destination="R5V-J9-UnM" id="sUx-BF-PwR"/>
                         <outlet property="articlesTableView" destination="m8m-4s-aeV" id="Nds-uO-vKM"/>
                         <outlet property="filterButton" destination="I2O-V4-Le2" id="k8p-ga-TbH"/>
+                        <outlet property="mediaAnalysisArticleCountText" destination="Ycm-Mq-A5K" id="zNW-ql-ydE"/>
                         <outlet property="segmentControl" destination="ZUf-qI-sh3" id="PG6-8M-f3j"/>
                         <outlet property="topView" destination="v83-Ot-PT3" id="6gD-rF-hok"/>
                     </connections>

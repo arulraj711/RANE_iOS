@@ -57,6 +57,7 @@
 @property BOOL isStarting;
 @property NSString *selectedNewsLetterArticleId;
 @property (nonatomic,strong) UIPopoverController *popOver;
+@property (weak, nonatomic) IBOutlet UILabel *mediaAnalysisArticleCountText;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *corporateListWidthConstraint;
 - (IBAction)filterButtonClick:(id)sender;
@@ -75,7 +76,7 @@
 @property (nonatomic,strong) IBOutlet UIButton *filterButton;
 @property NSMutableArray *filterArray;
 @property (weak, nonatomic) IBOutlet UIView *topView;
-
+@property NSNumber *mediaAnalysisArticleCount;
 //get the report type from chart
 @property (nonatomic,strong) NSNumber *reportTypeId;
 

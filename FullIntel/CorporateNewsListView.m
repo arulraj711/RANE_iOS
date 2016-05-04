@@ -92,7 +92,17 @@
     //toolbar additions---------------------------------------------------
     
     
-    
+    //set media analysis article count
+    if([self.mediaAnalysisArticleCount isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        self.mediaAnalysisArticleCountText.text = @"";
+
+//    } else if([self.mediaAnalysisArticleCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
+//        self.mediaAnalysisArticleCountText.text = [NSString stringWithFormat:@"%@ Article",self.mediaAnalysisArticleCount];
+
+    } else {
+        self.mediaAnalysisArticleCountText.text = [NSString stringWithFormat:@"%@ Articles",self.mediaAnalysisArticleCount];
+
+    }
     
     isSearchingInteger = 0;
     switchForFilter = 0;

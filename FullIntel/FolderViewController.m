@@ -140,6 +140,7 @@
         listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
     }
     listView.titleName = folder.folderName;
+    listView.mediaAnalysisArticleCount = [NSNumber numberWithInt:0];
     [self.navigationController pushViewController:listView animated:YES];
 }
 

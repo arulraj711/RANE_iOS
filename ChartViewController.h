@@ -28,6 +28,9 @@
     NSDictionary *articleCirculationMap;
     NSDictionary *articleCountMap;
 
+    NSDictionary *keyTopicsDic;
+    NSDictionary *mediaTypesDic;
+    
     NSArray *unScaledXvalue;
     NSArray *unScaledYvalue;
     NSArray *unscaledYvalueTwo;

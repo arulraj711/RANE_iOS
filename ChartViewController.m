@@ -365,7 +365,7 @@
     NSNotification *notification = sender;
     NSDictionary *keyTopicsInfoDic = [[notification userInfo] objectForKey:@"KeyTopicsInfo"];
     NSLog(@"Key Topics Info --->%@",keyTopicsInfoDic);
-    NSDictionary *keyTopicsDic = [keyTopicsInfoDic objectForKey:@"categoryCountMap"];
+    keyTopicsDic = [keyTopicsInfoDic objectForKey:@"categoryCountMap"];
     
     
     
@@ -389,8 +389,8 @@
     NSNotification *notification = sender;
     NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"MediaTypeInfo"];
     NSLog(@"MediaType Info --->%@",mediaTypeInfoDic);
-    NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"mediaCountMap"]);
-    NSArray *getKeysAndValues = [self getDictionaryAndGiveOutKeysAndPercentagesArray:keyTopicsDic];
+    mediaTypesDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"mediaCountMap"]);
+    NSArray *getKeysAndValues = [self getDictionaryAndGiveOutKeysAndPercentagesArray:mediaTypesDic];
     
     
     //if(keyTopicsDic.count != 0) {
@@ -409,12 +409,12 @@
 -(void)afterFetchingSentimentAndVolumeOverTimeInfo:(id)sender {
     NSNotification *notification = sender;
     NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"SentimentAndVolumeOverTimeInfo"];
-    NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"tagTonalityCountMap"]);
+    NSDictionary *sentimentChartDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"tagTonalityCountMap"]);
 
     
     NSSortDescriptor *descriptor=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
     NSArray *descriptors=[NSArray arrayWithObject: descriptor];
-    NSArray *reverseOrder=[[keyTopicsDic allKeys] sortedArrayUsingDescriptors:descriptors];   //contains the date in sorted form
+    NSArray *reverseOrder=[[sentimentChartDic allKeys] sortedArrayUsingDescriptors:descriptors];   //contains the date in sorted form
     
     
     NSArray *twoMemberArray = [self FindWeekNumberOfDate:reverseOrder];
@@ -428,7 +428,7 @@
     for (int i=0; i<reverseOrder.count; i++)
     {
         NSString *inpT = [reverseOrder objectAtIndex:i];
-        NSString *value = [keyTopicsDic objectForKey:inpT];
+        NSString *value = [sentimentChartDic objectForKey:inpT];
         [reverseOrders addObject:value];
     }
     NSLog(@"%@",reverseOrder);
@@ -497,10 +497,10 @@
 {
     NSNotification *notification = sender;
     NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"ChangeOverLastQuarterInfo"];
-    NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"tagTonality"]);
+    NSDictionary *changeOverChartDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"tagTonality"]);
     
     
-    changeOverInputArray=[self sortKeysInOrder:keyTopicsDic];   //contains the keys in sorted form
+    changeOverInputArray=[self sortKeysInOrder:changeOverChartDic];   //contains the keys in sorted form
     NSLog(@"%@",changeOverInputArray);
     
     
@@ -510,7 +510,7 @@
 
     NSString *firstKey = [NSString stringWithFormat:@"%@",[changeOverInputArray objectAtIndex:0]];    //contains the first key
 
-    NSMutableDictionary *dictWithDate = [keyTopicsDic objectForKey:firstKey];                 //gets the dict value of the first key
+    NSMutableDictionary *dictWithDate = [changeOverChartDic objectForKey:firstKey];                 //gets the dict value of the first key
     
     NSArray *firstArrayOfDates=[self sortKeysInOrder:dictWithDate];   //contains the dates of first key
     NSLog(@"%@",firstArrayOfDates);
@@ -523,7 +523,7 @@
     
     NSArray *keyMonthArray = [self GetMonthNameFromNumber:finalFormattedMonthNam];                  //Contains the array of month name
 
-    NSArray *reverseOrders = [self sortValuesOfKeysInOrder:keyTopicsDic withArray:changeOverInputArray];
+    NSArray *reverseOrders = [self sortValuesOfKeysInOrder:changeOverChartDic withArray:changeOverInputArray];
     NSLog(@"%@",reverseOrders);                                                  //the array with brand and its values
     reverseOrderBkUp = [NSMutableArray arrayWithArray:reverseOrders];
     NSMutableArray *trialArrayTwo = [[NSMutableArray alloc] init];                //contains the values of keys in sorted form
@@ -549,7 +549,7 @@
     
     
     NSLog(@"%@",trialArrayTwo);                                                  //the array with brand and its values
-    NSLog(@"%@",keyTopicsDic);                                                   //the array with brand and its values
+    NSLog(@"%@",changeOverChartDic);                                                   //the array with brand and its values
 
     
     
@@ -605,14 +605,14 @@
     NSNotification *notification = sender;
     NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"TopSourcesInfo"];
     NSLog(@"%@",mediaTypeInfoDic);
-    NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"outletMapTonality"]);
+    NSDictionary *topSourceChartDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"outletMapTonality"]);
     
     NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
     NSMutableArray *YValueForBrands = [[NSMutableArray alloc]init];    //the final array with brand's values
     
     //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
         
-        NSDictionary *dataDictionary = keyTopicsDic;
+        NSDictionary *dataDictionary = topSourceChartDic;
     
         NSArray *xyDictionary = [self GetSortedXvalueAndYvalueForStackedBarChart:dataDictionary];
         NSLog(@"%@",xyDictionary);
@@ -645,14 +645,14 @@
     NSNotification *notification = sender;
     NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"TopJournalistInfo"];
     NSLog(@"%@",mediaTypeInfoDic);
-    NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"contactMapTonality"]);
+    NSDictionary *topJournalistChartDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"contactMapTonality"]);
     
     NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
     NSMutableArray *YValueForBrands = [[NSMutableArray alloc]init];    //the final array with brand's values
     
     //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
     
-    NSDictionary *dataDictionary = keyTopicsDic;
+    NSDictionary *dataDictionary = topJournalistChartDic;
     
     NSArray *xyDictionary = [self GetSortedXvalueAndYvalueForStackedBarChart:dataDictionary];
     NSLog(@"%@",xyDictionary);
@@ -683,14 +683,14 @@
     NSNotification *notification = sender;
     NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"TopInfluencerInfo"];
     NSLog(@"%@",mediaTypeInfoDic);
-    NSDictionary *keyTopicsDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"outletInfluencerTonalityMap"]);
+    NSDictionary *topInfluencerChartDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"outletInfluencerTonalityMap"]);
     
     NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
     NSMutableArray *YValueForBrands = [[NSMutableArray alloc]init];    //the final array with brand's values
     
     //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
     
-    NSDictionary *dataDictionary = keyTopicsDic;
+    NSDictionary *dataDictionary = topInfluencerChartDic;
     
     NSArray *xyDictionary = [self GetSortedXvalueAndYvalueForStackedBarChart:dataDictionary];
     NSLog(@"%@",xyDictionary);
@@ -1823,20 +1823,6 @@
     
     NSLog(@"%@",NSStringFromCGPoint(poinOf));
 //    NSLog(@"%@",[barViews getDataSetByTouchPoint:poinOf]);
-    
-
-
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-
     NSLog(@"%@",[barViews getHighlightByTouchPoint:poinOf]);
 
     CGRect poi =[barViews getBarBounds:entry.data];
@@ -1974,7 +1960,7 @@
             NSLog(@"date finals:%@",dateFinals);
             NSLog(@"correct date range:%@",[chartView getXValue:indexEntry]);
             
-            
+            NSLog(@"Article count:%@",articleCountMap);
             
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Trend of Coverage Article List"];
         //call article api list
@@ -1997,7 +1983,8 @@
             listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
-            
+            NSLog(@"before setting article count:%@",[articleCountMap valueForKey:dateFinals]);
+            listView.mediaAnalysisArticleCount = [articleCountMap valueForKey:dateFinals];
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
@@ -2021,6 +2008,7 @@
       //  }
     
         NSLog(@"selected brand name:%@",brandName);
+        NSLog(@"key topics Dic:%@",keyTopicsDic);
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Key Topics Article List"];
         double toDate = [reportObject.reportToDate doubleValue]+86399000;
         [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:brandName fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
@@ -2043,7 +2031,7 @@
         listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
         listView.keyTopicsBrandName = brandName;
         listView.mediaTypesBrandName = brandName;
-        
+        listView.mediaAnalysisArticleCount = [keyTopicsDic objectForKey:brandName];
         listView.sentimentChartTonalityValue = tonalityValue;
         listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
         
@@ -2088,7 +2076,7 @@
         listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
         listView.keyTopicsBrandName = brandName;
         listView.mediaTypesBrandName = brandName;
-        
+        listView.mediaAnalysisArticleCount = [mediaTypesDic objectForKey:brandName];
         listView.sentimentChartTonalityValue = tonalityValue;
         listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
         
@@ -2107,8 +2095,14 @@
 
         if (poinOf.y > poinOfMarker.y) {
             NSLog(@"within bar");
-            NSString *arrayWithxIndex = [ValueArray objectAtIndex:indexEntry];
-            NSLog(@"%@",arrayWithxIndex);
+            NSLog(@"value array in select:%@",ValueArray);
+            NSLog(@"selected index entry:%lu",(unsigned long)indexEntry);
+            NSArray *selectedTonalityArray = [ValueArray objectAtIndex:indexEntry];
+           // NSLog(@"%@",arrayWithxIndex);
+            NSLog(@"selected tonality array:%@",selectedTonalityArray);
+            NSArray* selectedTonalityArrayReversed = [[selectedTonalityArray reverseObjectEnumerator] allObjects];
+            NSLog(@"stack index:%lu",(unsigned long)stackIndex);
+            NSLog(@"selected value:%@",[selectedTonalityArrayReversed objectAtIndex:stackIndex]);
             nameOfIndexForSentimentChart = [monthArray objectAtIndex:indexEntry];           //contains name eg. iPhone
             NSString *dateOFIndex = [weaveDateArray objectAtIndex:indexEntry];
             clickedDate = [self getFinalDateValueForWebService:dateOFIndex];
@@ -2133,7 +2127,7 @@
             listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
-            
+            listView.mediaAnalysisArticleCount = [selectedTonalityArrayReversed objectAtIndex:stackIndex];
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
@@ -2186,7 +2180,7 @@
             listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
-            
+            listView.mediaAnalysisArticleCount = [NSNumber numberWithInt:resultPoint];
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
@@ -2218,13 +2212,26 @@
             NSLog(@"%@",[brandAndSerialNumber objectForKey:brandName]);
             NSLog(@"%@",brandName);
             
+            
+            NSArray *brandNameArray = [brandName componentsSeparatedByCharactersInSet:
+                            [NSCharacterSet characterSetWithCharactersInString:@"()"]];
+            NSLog(@"brand arr:%@",brandNameArray);
+            NSArray *brandTonalityArray;
+            if(brandNameArray.count != 0) {
+                NSString *brandNameTonalityString = [brandNameArray objectAtIndex:1];
+                brandTonalityArray = [brandNameTonalityString componentsSeparatedByString:@"-"];
+                NSLog(@"brand tonality array:%@",brandTonalityArray);
+            }
+            
+            NSLog(@"stack index:%lu",(unsigned long)stackIndex);
+            NSLog(@"selected value:%@",[brandTonalityArray objectAtIndex:stackIndex]);
+            
             NSRange oneRang = [brandName rangeOfString:@" ("];
             brandName = [brandName substringToIndex:oneRang.location];
             NSLog(@"brand name:%@",brandName);
             NSLog(@"values%@",[brandAndSerialNumber objectForKey:brandName]);
-//            NSArray *brandArray = [brandName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-"]];
-//            NSLog(@"first:%@",[brandArray objectAtIndex:0]);
-//            brandName = [brandArray objectAtIndex:0];
+
+            
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Source Article List"];
             double toDate = [reportObject.reportToDate doubleValue]+86399000;
             [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
@@ -2248,7 +2255,7 @@
             listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
-            
+            listView.mediaAnalysisArticleCount = [brandTonalityArray objectAtIndex:stackIndex];
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
@@ -2280,6 +2287,20 @@
             NSLog(@"%@",brandName);
             //}
             
+            NSArray *brandNameArray = [brandName componentsSeparatedByCharactersInSet:
+                                       [NSCharacterSet characterSetWithCharactersInString:@"()"]];
+            NSLog(@"brand arr:%@",brandNameArray);
+            NSArray *brandTonalityArray;
+            if(brandNameArray.count != 0) {
+                NSString *brandNameTonalityString = [brandNameArray objectAtIndex:1];
+                brandTonalityArray = [brandNameTonalityString componentsSeparatedByString:@"-"];
+                NSLog(@"brand tonality array:%@",brandTonalityArray);
+            }
+            
+            NSLog(@"stack index:%lu",(unsigned long)stackIndex);
+            NSLog(@"selected value:%@",[brandTonalityArray objectAtIndex:stackIndex]);
+            
+            
             NSRange oneRang = [brandName rangeOfString:@" ("];
             brandName = [brandName substringToIndex:oneRang.location];
             NSLog(@"brand name:%@",brandName);
@@ -2306,7 +2327,7 @@
             listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
-            
+            listView.mediaAnalysisArticleCount = [brandTonalityArray objectAtIndex:stackIndex];
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
@@ -2336,6 +2357,20 @@
             brandName = [monthArray objectAtIndex:indexEntry];
             NSLog(@"%@",brandName);
             //}
+            
+            NSArray *brandNameArray = [brandName componentsSeparatedByCharactersInSet:
+                                       [NSCharacterSet characterSetWithCharactersInString:@"()"]];
+            NSLog(@"brand arr:%@",brandNameArray);
+            NSArray *brandTonalityArray;
+            if(brandNameArray.count != 0) {
+                NSString *brandNameTonalityString = [brandNameArray objectAtIndex:1];
+                brandTonalityArray = [brandNameTonalityString componentsSeparatedByString:@"-"];
+                NSLog(@"brand tonality array:%@",brandTonalityArray);
+            }
+            
+            NSLog(@"stack index:%lu",(unsigned long)stackIndex);
+            NSLog(@"selected value:%@",[brandTonalityArray objectAtIndex:stackIndex]);
+            
             NSRange oneRang = [brandName rangeOfString:@" ("];
             brandName = [brandName substringToIndex:oneRang.location];
             NSLog(@"brand name:%@",brandName);
@@ -2362,7 +2397,7 @@
             listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
-            
+            listView.mediaAnalysisArticleCount = [brandTonalityArray objectAtIndex:stackIndex];
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
