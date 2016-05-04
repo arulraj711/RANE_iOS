@@ -93,11 +93,16 @@
     
     
     //set media analysis article count
+    
+    NSLog(@"class :%@",self.mediaAnalysisArticleCount.class);
+   
+    
+    
     if([self.mediaAnalysisArticleCount isEqualToNumber:[NSNumber numberWithInt:0]]) {
         self.mediaAnalysisArticleCountText.text = @"";
 
-//    } else if([self.mediaAnalysisArticleCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
-//        self.mediaAnalysisArticleCountText.text = [NSString stringWithFormat:@"%@ Article",self.mediaAnalysisArticleCount];
+    } else if([self.mediaAnalysisArticleCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        self.mediaAnalysisArticleCountText.text = [NSString stringWithFormat:@"%@ Article",self.mediaAnalysisArticleCount];
 
     } else {
         self.mediaAnalysisArticleCountText.text = [NSString stringWithFormat:@"%@ Articles",self.mediaAnalysisArticleCount];

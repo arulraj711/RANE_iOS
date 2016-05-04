@@ -1984,7 +1984,14 @@
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
             NSLog(@"before setting article count:%@",[articleCountMap valueForKey:dateFinals]);
-            listView.mediaAnalysisArticleCount = [articleCountMap valueForKey:dateFinals];
+            
+            
+            NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+            f.numberStyle = NSNumberFormatterDecimalStyle;
+            NSNumber *articleCount = [f numberFromString:[NSString stringWithFormat:@"%@",[articleCountMap valueForKey:dateFinals]]];
+            
+            
+            listView.mediaAnalysisArticleCount = articleCount;
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
@@ -2031,7 +2038,13 @@
         listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
         listView.keyTopicsBrandName = brandName;
         listView.mediaTypesBrandName = brandName;
-        listView.mediaAnalysisArticleCount = [keyTopicsDic objectForKey:brandName];
+        
+        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+        f.numberStyle = NSNumberFormatterDecimalStyle;
+        NSNumber *articleCount = [f numberFromString:[NSString stringWithFormat:@"%@",[keyTopicsDic objectForKey:brandName]]];
+        
+        
+        listView.mediaAnalysisArticleCount = articleCount;
         listView.sentimentChartTonalityValue = tonalityValue;
         listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
         
@@ -2076,7 +2089,12 @@
         listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
         listView.keyTopicsBrandName = brandName;
         listView.mediaTypesBrandName = brandName;
-        listView.mediaAnalysisArticleCount = [mediaTypesDic objectForKey:brandName];
+        
+        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+        f.numberStyle = NSNumberFormatterDecimalStyle;
+        NSNumber *articleCount = [f numberFromString:[NSString stringWithFormat:@"%@",[mediaTypesDic objectForKey:brandName]]];
+        
+        listView.mediaAnalysisArticleCount = articleCount;
         listView.sentimentChartTonalityValue = tonalityValue;
         listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
         
@@ -2127,7 +2145,13 @@
             listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
-            listView.mediaAnalysisArticleCount = [selectedTonalityArrayReversed objectAtIndex:stackIndex];
+            
+            NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+            f.numberStyle = NSNumberFormatterDecimalStyle;
+            NSNumber *articleCount = [f numberFromString:[NSString stringWithFormat:@"%@",[selectedTonalityArrayReversed objectAtIndex:stackIndex]]];
+            
+            
+            listView.mediaAnalysisArticleCount = articleCount;
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
@@ -2255,7 +2279,12 @@
             listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
-            listView.mediaAnalysisArticleCount = [brandTonalityArray objectAtIndex:stackIndex];
+            
+            NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+            f.numberStyle = NSNumberFormatterDecimalStyle;
+            NSNumber *articleCount = [f numberFromString:[NSString stringWithFormat:@"%@",[brandTonalityArray objectAtIndex:stackIndex]]];
+            
+            listView.mediaAnalysisArticleCount = articleCount;
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
@@ -2327,7 +2356,12 @@
             listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
-            listView.mediaAnalysisArticleCount = [brandTonalityArray objectAtIndex:stackIndex];
+            
+            NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+            f.numberStyle = NSNumberFormatterDecimalStyle;
+            NSNumber *articleCount = [f numberFromString:[NSString stringWithFormat:@"%@",[brandTonalityArray objectAtIndex:stackIndex]]];
+            
+            listView.mediaAnalysisArticleCount = articleCount;
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
@@ -2397,7 +2431,12 @@
             listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
             listView.keyTopicsBrandName = brandName;
             listView.mediaTypesBrandName = brandName;
-            listView.mediaAnalysisArticleCount = [brandTonalityArray objectAtIndex:stackIndex];
+            
+            NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+            f.numberStyle = NSNumberFormatterDecimalStyle;
+            NSNumber *articleCount = [f numberFromString:[NSString stringWithFormat:@"%@",[brandTonalityArray objectAtIndex:stackIndex]]];
+            
+            listView.mediaAnalysisArticleCount = articleCount;
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
