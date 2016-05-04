@@ -1543,7 +1543,7 @@
         [xVals addObject:monthArray[i % monthArray.count]];
     }
 
-    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"-Tonality"];
+    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"- Tonality"];
     set1.drawValuesEnabled = NO;
     set1.stackLabels = @[@"Positive", @"Neutral", @"Negative"];
     
@@ -2238,7 +2238,7 @@
             
             
             NSArray *brandNameArray = [brandName componentsSeparatedByCharactersInSet:
-                            [NSCharacterSet characterSetWithCharactersInString:@"()"]];
+                            [NSCharacterSet characterSetWithCharactersInString:@"[]"]];
             NSLog(@"brand arr:%@",brandNameArray);
             NSArray *brandTonalityArray;
             if(brandNameArray.count != 0) {
@@ -2250,7 +2250,7 @@
             NSLog(@"stack index:%lu",(unsigned long)stackIndex);
             NSLog(@"selected value:%@",[brandTonalityArray objectAtIndex:stackIndex]);
             
-            NSRange oneRang = [brandName rangeOfString:@" ("];
+            NSRange oneRang = [brandName rangeOfString:@" ["];
             brandName = [brandName substringToIndex:oneRang.location];
             NSLog(@"brand name:%@",brandName);
             NSLog(@"values%@",[brandAndSerialNumber objectForKey:brandName]);
@@ -2317,7 +2317,7 @@
             //}
             
             NSArray *brandNameArray = [brandName componentsSeparatedByCharactersInSet:
-                                       [NSCharacterSet characterSetWithCharactersInString:@"()"]];
+                                       [NSCharacterSet characterSetWithCharactersInString:@"[]"]];
             NSLog(@"brand arr:%@",brandNameArray);
             NSArray *brandTonalityArray;
             if(brandNameArray.count != 0) {
@@ -2330,7 +2330,7 @@
             NSLog(@"selected value:%@",[brandTonalityArray objectAtIndex:stackIndex]);
             
             
-            NSRange oneRang = [brandName rangeOfString:@" ("];
+            NSRange oneRang = [brandName rangeOfString:@" ["];
             brandName = [brandName substringToIndex:oneRang.location];
             NSLog(@"brand name:%@",brandName);
             
@@ -2393,7 +2393,7 @@
             //}
             
             NSArray *brandNameArray = [brandName componentsSeparatedByCharactersInSet:
-                                       [NSCharacterSet characterSetWithCharactersInString:@"()"]];
+                                       [NSCharacterSet characterSetWithCharactersInString:@"[]"]];
             NSLog(@"brand arr:%@",brandNameArray);
             NSArray *brandTonalityArray;
             if(brandNameArray.count != 0) {
@@ -2405,7 +2405,7 @@
             NSLog(@"stack index:%lu",(unsigned long)stackIndex);
             NSLog(@"selected value:%@",[brandTonalityArray objectAtIndex:stackIndex]);
             
-            NSRange oneRang = [brandName rangeOfString:@" ("];
+            NSRange oneRang = [brandName rangeOfString:@" ["];
             brandName = [brandName substringToIndex:oneRang.location];
             NSLog(@"brand name:%@",brandName);
             
@@ -2919,7 +2919,7 @@
     NSLog(@"%@",sortedKeys);
     for (int i=0; i<sortedKeys.count; i++) {
         NSArray *toGroupVals =[finalSortedArrayOfValues objectAtIndex:i];
-        NSString *groupingText = [NSString stringWithFormat:@"%@ (%@-%@-%@)",[sortedKeys objectAtIndex:i],[toGroupVals objectAtIndex:2],[toGroupVals objectAtIndex:1],[toGroupVals objectAtIndex:0]];
+        NSString *groupingText = [NSString stringWithFormat:@"%@ [%@-%@-%@]",[sortedKeys objectAtIndex:i],[toGroupVals objectAtIndex:2],[toGroupVals objectAtIndex:1],[toGroupVals objectAtIndex:0]];
         [overallGroupedName addObject:groupingText];
     }
     NSLog(@"%@",overallGroupedName);
