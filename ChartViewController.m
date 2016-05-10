@@ -1110,7 +1110,7 @@
     pieViews.legend.wordWrapEnabled = YES;
     pieViews.legend.formSize = 5.0;
     pieViews.legend.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f];
-    pieViews.legend.xEntrySpace = 1.0;
+    pieViews.legend.xEntrySpace = 5.0;
     pieViews.delegate = self;
     
     if (ValueArray.count == 0) {
@@ -1289,7 +1289,7 @@
     barViews.legend.wordWrapEnabled = YES;
     barViews.legend.formSize = 5.0;
     barViews.legend.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f];
-    barViews.legend.xEntrySpace = 1.0;
+    barViews.legend.xEntrySpace = 5.0;
 
     [barViews setScaleEnabled:YES];
     barViews.pinchZoomEnabled = YES;
@@ -1455,7 +1455,7 @@
     //        [xVals addObject:[@((int)((BarChartDataEntry *)yVals[i]).value) stringValue]];
     //    }
     
-        BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"-Tonality"];
+        BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"- Tonality"];
         set1.drawValuesEnabled = NO;
         set1.stackLabels = @[@"Positive", @"Neutral", @"Negative"];
         

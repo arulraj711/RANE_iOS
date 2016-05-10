@@ -7,6 +7,7 @@
 //
 
 #import "ChartReportDownloadView.h"
+#import "FIWebService.h"
 
 @implementation ChartReportDownloadView
 
@@ -26,8 +27,11 @@
     NSString *companyId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"customerId"]];
     NSString *securityToken = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]];
     
-    reportDownloadUrlString = [NSString stringWithFormat:@"http://fullintel.com/1.4.1/api/v1/companies/%@/analysis/report/%@/export/ppt?security_token=%@",companyId,self.reportId,securityToken];
-    
+    reportDownloadUrlString = [NSString stringWithFormat:@"%@/api/v1/companies/%@/analysis/report/%@/export/ppt?security_token=%@&exportas=ppt",[FIWebService getServerURL],companyId,self.reportId,securityToken];
+    NSLog(@"server url:%@",[FIWebService getServerURL]);
+    NSLog(@"report download url:%@",reportDownloadUrlString);
+    self.reportWebView.scalesPageToFit = YES;
+
     [self.reportWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:reportDownloadUrlString]]];
     
     
