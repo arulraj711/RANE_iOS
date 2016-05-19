@@ -12,6 +12,7 @@
 #import "ChartTypeObject.h"
 #import "CorporateNewsListView.h"
 #import "NumberFormatterExtn.h"
+#import "NSString+URLEncoding.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 #define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
@@ -1691,7 +1692,7 @@
     
     
     
-    LineChartDataSet *d = [[LineChartDataSet alloc] initWithYVals:values label:[NSString stringWithFormat:@"Circulation"]];
+    LineChartDataSet *d = [[LineChartDataSet alloc] initWithYVals:values label:[NSString stringWithFormat:@"Articles"]];
     d.lineWidth = 5.0;
     d.circleRadius = 4.0;
     
@@ -1699,7 +1700,7 @@
     [d setCircleColor:[UIColor blackColor]];
     [dataSets addObject:d];
     
-    LineChartDataSet *ds = [[LineChartDataSet alloc] initWithYVals:valuesTwo label:[NSString stringWithFormat:@"Articles"]];
+    LineChartDataSet *ds = [[LineChartDataSet alloc] initWithYVals:valuesTwo label:[NSString stringWithFormat:@"Circulation"]];
     ds.axisDependency = AxisDependencyRight;
     ds.lineWidth = 5.0;
     ds.circleRadius = 4.0;
@@ -2018,7 +2019,7 @@
         NSLog(@"key topics Dic:%@",keyTopicsDic);
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Key Topics Article List"];
         double toDate = [reportObject.reportToDate doubleValue]+86399000;
-        [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:brandName fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:[brandName stringByAddingPercentEncodingForRFC3986] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
         
         
@@ -2036,8 +2037,8 @@
         listView.reportFromDate = reportObject.reportFromDate;
         listView.reportToDate = reportObject.reportToDate;
         listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
-        listView.keyTopicsBrandName = brandName;
-        listView.mediaTypesBrandName = brandName;
+        listView.keyTopicsBrandName = [brandName stringByAddingPercentEncodingForRFC3986];
+        listView.mediaTypesBrandName = [brandName stringByAddingPercentEncodingForRFC3986];
         
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
         f.numberStyle = NSNumberFormatterDecimalStyle;
@@ -2051,7 +2052,7 @@
         listView.changeOverSelectedValue = changeOverSelectedValue;
         
         listView.horizontalBarChartTonalityValue = tonalityValue;
-        listView.horizontalBarChartSelectedValue = brandName;
+        listView.horizontalBarChartSelectedValue = [brandName stringByAddingPercentEncodingForRFC3986];
         
         listView.titleName = brandName;//passing selected title
         
@@ -2069,7 +2070,7 @@
         }
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Media Types Article List"];
         double toDate = [reportObject.reportToDate doubleValue]+86399000;
-        [[FISharedResources sharedResourceManager]getMediaTypesArticleListFromMediaTypeField:@"mediaTypeId" mediaTypeValue:brandName fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getMediaTypesArticleListFromMediaTypeField:@"mediaTypeId" mediaTypeValue:[brandName stringByAddingPercentEncodingForRFC3986] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
         
         
@@ -2087,8 +2088,8 @@
         listView.reportFromDate = reportObject.reportFromDate;
         listView.reportToDate = reportObject.reportToDate;
         listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
-        listView.keyTopicsBrandName = brandName;
-        listView.mediaTypesBrandName = brandName;
+        listView.keyTopicsBrandName = [brandName stringByAddingPercentEncodingForRFC3986];
+        listView.mediaTypesBrandName = [brandName stringByAddingPercentEncodingForRFC3986];
         
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
         f.numberStyle = NSNumberFormatterDecimalStyle;
@@ -2101,7 +2102,7 @@
         listView.changeOverSelectedValue = changeOverSelectedValue;
         
         listView.horizontalBarChartTonalityValue = tonalityValue;
-        listView.horizontalBarChartSelectedValue = brandName;
+        listView.horizontalBarChartSelectedValue = [brandName stringByAddingPercentEncodingForRFC3986];
         
         listView.titleName = brandName;//passing selected title
         
@@ -2125,7 +2126,19 @@
             NSString *dateOFIndex = [weaveDateArray objectAtIndex:indexEntry];
             clickedDate = [self getFinalDateValueForWebService:dateOFIndex];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Sentiment and Volume Over Time Article List"];
-            [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:tonalityValue value2:nameOfIndexForSentimentChart fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            
+            
+//            NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+//                                                                                          NULL,
+//                                                                                          (CFStringRef)nameOfIndexForSentimentChart,
+//                                                                                          NULL,
+//                                                                                          (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+//                                                                                          kCFStringEncodingUTF8 ));
+//            
+//            NSLog(@"encoded string:%@",encodedString);
+            NSLog(@"result:%@",[nameOfIndexForSentimentChart stringByAddingPercentEncodingForRFC3986]);
+            
+            [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:tonalityValue value2:[nameOfIndexForSentimentChart stringByAddingPercentEncodingForRFC3986]  fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
             
             
             
@@ -2153,7 +2166,7 @@
             
             listView.mediaAnalysisArticleCount = articleCount;
             listView.sentimentChartTonalityValue = tonalityValue;
-            listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+            listView.sentimentChartSelectedName = [nameOfIndexForSentimentChart stringByAddingPercentEncodingForRFC3986];
             
             listView.changeOverSelectedValue = changeOverSelectedValue;
             
@@ -2184,7 +2197,7 @@
             NSString *dateAris = [firstArray objectAtIndex:indexEntry];
             clickedDate = [self getFinalDateValueForWebService:dateAris];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Change Over Last Quarter Article List"];
-            [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:changeOverSelectedValue fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:[changeOverSelectedValue stringByAddingPercentEncodingForRFC3986] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
             
             
             
@@ -2208,7 +2221,7 @@
             listView.sentimentChartTonalityValue = tonalityValue;
             listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
             
-            listView.changeOverSelectedValue = changeOverSelectedValue;
+            listView.changeOverSelectedValue = [changeOverSelectedValue stringByAddingPercentEncodingForRFC3986];
             
             listView.horizontalBarChartTonalityValue = tonalityValue;
             listView.horizontalBarChartSelectedValue = brandName;

@@ -1877,7 +1877,11 @@
             return NO;
 
         } else {
-            return YES;
+            if(self.devices.count != 0) {
+                return YES;
+            } else {
+                return NO;
+            }
 
         }
     }

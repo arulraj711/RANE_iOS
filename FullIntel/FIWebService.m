@@ -14,7 +14,7 @@
 #define LIVE_URL @"http://fullintel.com/services/mv01/sv00/appuser"
 #define STAGE_URL @"http://104.236.78.199/services/mv01/sv00/appuser"
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
-//NSString *url = @"https://stage.fullintel.com/1.4.2";
+//NSString *url = @"https://stage.fullintel.com/2.1.0";
 
 NSString *url = @"http://fullintel.com/2.0.0";
 
@@ -162,7 +162,8 @@ NSString *url = @"http://fullintel.com/2.0.0";
 + (void)getQueryResultsForFunctionName:(NSString *)functionName onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSTimeInterval startTimeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSLog(@"get function name:%@",functionName);
-    NSString *postURL = [NSString stringWithFormat:@"%@%@",url,[functionName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSString *postURL = [NSString stringWithFormat:@"%@%@",url,functionName];
     NSLog(@"post url:%@",postURL);
     NSURL *url = [NSURL URLWithString:postURL];
     NSLog(@"url string:%@",url);

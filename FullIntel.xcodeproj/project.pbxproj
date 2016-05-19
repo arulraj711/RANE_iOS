@@ -236,6 +236,7 @@
 		BAA6A58D1C86F43500B78883 /* ChartTypeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A58C1C86F43500B78883 /* ChartTypeObject.m */; };
 		BAB29F0F1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */; };
 		BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB29F101C3D27700008ED71 /* MoreSettingsView.m */; };
+		BAC174A01CEC63C100B243DD /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC1749F1CEC63C100B243DD /* NSString+URLEncoding.m */; };
 		BAC8C5731CCDFAFB000FA656 /* ChartReportDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
@@ -678,6 +679,8 @@
 		BAB29F0B1C3D273F0008ED71 /* MoreSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreSettingsView.h; sourceTree = "<group>"; };
 		BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MoreSettingsViewPhone.storyboard; sourceTree = "<group>"; };
 		BAB29F101C3D27700008ED71 /* MoreSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSettingsView.m; sourceTree = "<group>"; };
+		BAC1749E1CEC63C000B243DD /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
+		BAC1749F1CEC63C100B243DD /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		BAC6E9F31C633E8500446F99 /* FullIntel 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 6.xcdatamodel"; sourceTree = "<group>"; };
 		BAC8C5711CCDFAFB000FA656 /* ChartReportDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartReportDownloadView.h; sourceTree = "<group>"; };
 		BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartReportDownloadView.m; sourceTree = "<group>"; };
@@ -976,6 +979,8 @@
 				BA025F151CA11FA900DB60DA /* ReportCollectionCell.m */,
 				BAC8C5711CCDFAFB000FA656 /* ChartReportDownloadView.h */,
 				BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */,
+				BAC1749E1CEC63C000B243DD /* NSString+URLEncoding.h */,
+				BAC1749F1CEC63C100B243DD /* NSString+URLEncoding.m */,
 			);
 			name = Charts;
 			sourceTree = "<group>";
@@ -2262,6 +2267,7 @@
 				F7DB32611AA56F50002724D6 /* FIMenu.m in Sources */,
 				A0CF5C5A1B1DD98B00DED2D9 /* ExecutiveMovesController.m in Sources */,
 				A0CF5C691B1DD98B00DED2D9 /* IpAndLegalCell.m in Sources */,
+				BAC174A01CEC63C100B243DD /* NSString+URLEncoding.m in Sources */,
 				BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */,
 				BA025F161CA11FA900DB60DA /* ReportCollectionCell.m in Sources */,
 				A0CF5C711B1DD98B00DED2D9 /* TopStoriesCell.m in Sources */,
@@ -2357,8 +2363,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2378,7 +2384,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "5bb20a1f-f2d5-4300-a33e-3b71f29cb252";
+				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -2401,8 +2407,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2415,7 +2421,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "5bb20a1f-f2d5-4300-a33e-3b71f29cb252";
+				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -2429,7 +2435,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2456,7 +2462,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
