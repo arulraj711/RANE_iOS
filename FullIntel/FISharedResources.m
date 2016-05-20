@@ -1632,6 +1632,7 @@
                 //Handle Pagination
                 if(curatedNewsArray.count == 0) {
                     if(![pageNo isEqualToNumber:[NSNumber numberWithInt:0]]){
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"stopLoadingForAlert" object:nil];
                         UIWindow *window = [[UIApplication sharedApplication]windows][0];
                         [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
                     } else {
@@ -1936,6 +1937,7 @@
                 //Handle Pagination
                 if(curatedNewsArray.count == 0) {
                     if(![pageNo isEqualToNumber:[NSNumber numberWithInt:0]]){
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"stopLoadingForAlert" object:nil];
                         UIWindow *window = [[UIApplication sharedApplication]windows][0];
                         [window makeToast:@"No more articles to display" duration:1 position:CSToastPositionCenter];
                     } else {
