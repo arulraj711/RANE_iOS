@@ -243,17 +243,17 @@
     [self.segmentControl setSelectedSegmentIndex:2];
 }
 
-- (void)handlePanGestureStart {
-    self.articlesTableView.scrollEnabled = NO;
-    
-}
-
--(void)handleVeriticalPan {
-    self.articlesTableView.scrollEnabled = YES;
-}
--(void)handlePanGestureEnd {
-    self.articlesTableView.scrollEnabled = YES;
-}
+//- (void)handlePanGestureStart {
+//    self.articlesTableView.scrollEnabled = NO;
+//    
+//}
+//
+//-(void)handleVeriticalPan {
+//    self.articlesTableView.scrollEnabled = YES;
+//}
+//-(void)handlePanGestureEnd {
+//    self.articlesTableView.scrollEnabled = YES;
+//}
 
 
 -(void)changeAlpha{

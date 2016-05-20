@@ -370,7 +370,9 @@
                 NSString *pushResultJson = [[NSString alloc]initWithData:pushJsondata encoding:NSUTF8StringEncoding];
                 //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                 NSLog(@"enter back");
+                dispatch_async(dispatch_get_main_queue(), ^(void){
                 [[FISharedResources sharedResourceManager]updatePushNotificationWithDetails:pushResultJson withAccessToken:accessToken];
+                });
             } else {
                 
             }
@@ -402,7 +404,9 @@
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
         
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
         [[FISharedResources sharedResourceManager]validateUserOnResumeWithDetails:resultStr];
+        });
     }
         
     }
