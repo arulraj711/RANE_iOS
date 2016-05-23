@@ -1990,7 +1990,10 @@
         }
         //[FIUtils showNoNetworkToast];
     }
-    [_articlesTableView reloadData];
+   // [_articlesTableView reloadData];
+    [self.articlesTableView beginUpdates];
+    [self.articlesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:tapGesture, nil] withRowAnimation:UITableViewRowAnimationNone];
+    [self.articlesTableView endUpdates];
 }
 
 -(void)markedImpActions:(NSIndexPath *)tapGesture {
@@ -2131,7 +2134,10 @@
         }
         //[FIUtils showNoNetworkToast];
     }
-    [_articlesTableView reloadData];
+   // [_articlesTableView reloadData];
+    [self.articlesTableView beginUpdates];
+    [self.articlesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:tapGesture, nil] withRowAnimation:UITableViewRowAnimationNone];
+    [self.articlesTableView endUpdates];
     
 }
 

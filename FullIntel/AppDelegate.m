@@ -35,10 +35,10 @@
     
     
 //for stage localytics ID:
-    [Localytics autoIntegrate:@"bd26cfe0964dbeac7c1c840-ba054dc0-56ba-11e5-acff-00d0fea82624" launchOptions:launchOptions];
+    //[Localytics autoIntegrate:@"bd26cfe0964dbeac7c1c840-ba054dc0-56ba-11e5-acff-00d0fea82624" launchOptions:launchOptions];
 
 //for Live localytics ID:
-    //[Localytics autoIntegrate:@"f557a1d4226be8756ebd8dd-287a063c-5e18-11e5-7205-00736b041834" launchOptions:launchOptions];
+    [Localytics autoIntegrate:@"f557a1d4226be8756ebd8dd-287a063c-5e18-11e5-7205-00736b041834" launchOptions:launchOptions];
     
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
 
@@ -352,9 +352,9 @@
     NSLog(@"app enter in backgound");
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     NSLog(@"application enter in background:%@",accessToken);
-    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Minimize App"];
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
         if(accessToken.length > 0) {
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Minimize App"];
             NSTimeZone *timeZone = [NSTimeZone localTimeZone];
             NSMutableDictionary *pushDic = [[NSMutableDictionary alloc] init];
             
