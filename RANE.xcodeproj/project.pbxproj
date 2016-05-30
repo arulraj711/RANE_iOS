@@ -238,6 +238,7 @@
 		BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB29F101C3D27700008ED71 /* MoreSettingsView.m */; };
 		BAC174A01CEC63C100B243DD /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC1749F1CEC63C100B243DD /* NSString+URLEncoding.m */; };
 		BAC8C5731CCDFAFB000FA656 /* ChartReportDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */; };
+		BAFB01D61CFC250400690D2D /* BrandingNames.plist in Resources */ = {isa = PBXBuildFile; fileRef = BAFB01D51CFC250400690D2D /* BrandingNames.plist */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
 		F554DFD31BB016180062EAC7 /* FINewsLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFD21BB016180062EAC7 /* FINewsLetter.m */; };
@@ -584,7 +585,7 @@
 		A0DEC3E31AE94FF10046E8BB /* SocialWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialWebView.m; sourceTree = "<group>"; };
 		A0E06BF71C5A12E300C2AE17 /* CorporateDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateDetailCell.m; sourceTree = "<group>"; };
 		A0E06BF91C5A12F300C2AE17 /* CorporateNewsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateNewsDetailsView.m; sourceTree = "<group>"; };
-		A0E2234D1A91C2F00073814A /* FullIntel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FullIntel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0E2234D1A91C2F00073814A /* RANE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RANE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E223511A91C2F00073814A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E223521A91C2F00073814A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A0E223541A91C2F00073814A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -685,6 +686,7 @@
 		BAC8C5711CCDFAFB000FA656 /* ChartReportDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartReportDownloadView.h; sourceTree = "<group>"; };
 		BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartReportDownloadView.m; sourceTree = "<group>"; };
 		BAEE93501C0F235600CD4F88 /* FullIntel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 5.xcdatamodel"; sourceTree = "<group>"; };
+		BAFB01D51CFC250400690D2D /* BrandingNames.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BrandingNames.plist; sourceTree = "<group>"; };
 		C0F31A39A4389F1264B49B3B /* Pods_FullIntel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FullIntel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -1199,6 +1201,7 @@
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
+				BAFB01D41CFC24C700690D2D /* BrandingChanges */,
 				A0697BA31C7DCC6B0010B945 /* Charts */,
 				A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */,
 				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
@@ -1217,7 +1220,7 @@
 		A0E2234E1A91C2F00073814A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A0E2234D1A91C2F00073814A /* FullIntel.app */,
+				A0E2234D1A91C2F00073814A /* RANE.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1423,6 +1426,14 @@
 				BAA6A58C1C86F43500B78883 /* ChartTypeObject.m */,
 			);
 			name = Report_Modal;
+			sourceTree = "<group>";
+		};
+		BAFB01D41CFC24C700690D2D /* BrandingChanges */ = {
+			isa = PBXGroup;
+			children = (
+				BAFB01D51CFC250400690D2D /* BrandingNames.plist */,
+			);
+			name = BrandingChanges;
 			sourceTree = "<group>";
 		};
 		F31E3F70BB42037A5A25B2A7 /* Pods */ = {
@@ -1875,9 +1886,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A0E2234C1A91C2F00073814A /* FullIntel */ = {
+		A0E2234C1A91C2F00073814A /* RANE */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A0E223731A91C2F00073814A /* Build configuration list for PBXNativeTarget "FullIntel" */;
+			buildConfigurationList = A0E223731A91C2F00073814A /* Build configuration list for PBXNativeTarget "RANE" */;
 			buildPhases = (
 				98094DC19FE2E3852A0B2DCF /* Check Pods Manifest.lock */,
 				A0E223491A91C2F00073814A /* Sources */,
@@ -1891,9 +1902,9 @@
 			);
 			dependencies = (
 			);
-			name = FullIntel;
+			name = RANE;
 			productName = FullIntel;
-			productReference = A0E2234D1A91C2F00073814A /* FullIntel.app */;
+			productReference = A0E2234D1A91C2F00073814A /* RANE.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1912,7 +1923,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A0E223481A91C2F00073814A /* Build configuration list for PBXProject "FullIntel" */;
+			buildConfigurationList = A0E223481A91C2F00073814A /* Build configuration list for PBXProject "RANE" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1925,7 +1936,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A0E2234C1A91C2F00073814A /* FullIntel */,
+				A0E2234C1A91C2F00073814A /* RANE */,
 			);
 		};
 /* End PBXProject section */
@@ -2129,6 +2140,7 @@
 				F7E81F9C1A97057100F9A8D4 /* carolynryan.jpeg in Resources */,
 				F7ECACCC1AB0730000B57AB6 /* StockWidgetCell.xib in Resources */,
 				F7E81FAB1A97057100F9A8D4 /* ipads.jpg in Resources */,
+				BAFB01D61CFC250400690D2D /* BrandingNames.plist in Resources */,
 				BA51CC671C58A3BF00327578 /* chart_story.json in Resources */,
 				BA51CC9B1C58A46300327578 /* glyphicons-halflings-regular.woff in Resources */,
 				A0AAF00C1BFCA9540006A48C /* foler60.png in Resources */,
@@ -2447,7 +2459,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capestart.fistage;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = RANE;
 				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
 				SWIFT_OBJC_BRIDGING_HEADER = "FullIntel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2474,7 +2486,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capestart.fistage;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = RANE;
 				PROVISIONING_PROFILE = "80a2bd50-4038-44c2-b1ff-9895cd3ee6a2";
 				SWIFT_OBJC_BRIDGING_HEADER = "FullIntel-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2484,7 +2496,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A0E223481A91C2F00073814A /* Build configuration list for PBXProject "FullIntel" */ = {
+		A0E223481A91C2F00073814A /* Build configuration list for PBXProject "RANE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A0E223711A91C2F00073814A /* Debug */,
@@ -2493,7 +2505,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A0E223731A91C2F00073814A /* Build configuration list for PBXNativeTarget "FullIntel" */ = {
+		A0E223731A91C2F00073814A /* Build configuration list for PBXNativeTarget "RANE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A0E223741A91C2F00073814A /* Debug */,

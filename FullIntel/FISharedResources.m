@@ -195,6 +195,56 @@
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"id"]) forKey:@"customerId"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"analysisReportEnabled"]) forKey:@"CompanyAnalysisReportEnabled"];
                 
+                NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
+                NSString *documentsPath = [paths objectAtIndex:0];
+                NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"BrandingNames.plist"];
+                NSLog(@"writing file path:%@",plistPath);
+                NSDictionary *brandIdentity = NULL_TO_NIL([companyDic objectForKey:@"brandIdentity"]);
+              //  NSMutableArray *plist = [[NSMutableArray alloc] init];
+                NSArray *brandLabelArray = [brandIdentity objectForKey:@"labels"];
+                NSMutableArray *defaultLabelIdArray = [[NSMutableArray alloc]init];
+                NSMutableArray *defaultDisplayNameArray = [[NSMutableArray alloc]init];
+                for(NSDictionary *brandLabelDic in brandLabelArray) {
+                    NSLog(@"brand label dic:%@",brandLabelDic);
+                    
+                    
+//                    [plist addObject:@{@"id": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"id"]],
+//                                       @"name": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"name"]],
+//                                       @"displayName": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"displayName"]],
+//                                       @"labelTypeId": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"labelTypeId"]],
+//                                       @"defaultLabelId": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"defaultLabelId"]],
+//                                       @"createdAt": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"createdAt"]]}];
+                    
+                    
+                    
+                    [defaultLabelIdArray addObject:[NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"defaultLabelId"]]];
+                    [defaultDisplayNameArray addObject:[NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"displayName"]]];
+                }
+                
+                NSDictionary *plistDict = [[NSDictionary alloc] initWithObjects: defaultDisplayNameArray forKeys:defaultLabelIdArray];
+                
+                
+               // NSDictionary *plistDict = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects: @"1", @"2", @"3", nil] forKeys:[NSArray arrayWithObjects: @"Name", @"Country",@"Image", nil]];
+
+                
+                
+                NSLog(@"before setting plist:%@",plistDict);
+                NSString *error = nil;
+                NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:plistDict format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
+                
+                
+                
+                NSLog(@"plist data:%@",plistData);
+                if(plistData)
+                {
+                    [plistData writeToFile:plistPath atomically:YES];
+                    NSLog(@"data saved successfully");
+                }
+                else
+                {
+                    NSLog(@"data not saved");
+                }
+                
                 //User Info
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject objectForKey:@"securityToken"]) forKey:@"accesstoken"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject valueForKey:@"id"]) forKey:@"userId"];

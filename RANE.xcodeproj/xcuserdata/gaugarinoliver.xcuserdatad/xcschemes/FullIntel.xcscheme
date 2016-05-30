@@ -17,7 +17,7 @@
                BlueprintIdentifier = "A0E2234C1A91C2F00073814A"
                BuildableName = "FullIntel.app"
                BlueprintName = "FullIntel"
-               ReferencedContainer = "container:FullIntel.xcodeproj">
+               ReferencedContainer = "container:RANE.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "A0E2234C1A91C2F00073814A"
             BuildableName = "FullIntel.app"
             BlueprintName = "FullIntel"
-            ReferencedContainer = "container:FullIntel.xcodeproj">
+            ReferencedContainer = "container:RANE.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "A0E2234C1A91C2F00073814A"
             BuildableName = "FullIntel.app"
             BlueprintName = "FullIntel"
-            ReferencedContainer = "container:FullIntel.xcodeproj">
+            ReferencedContainer = "container:RANE.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "A0E2234C1A91C2F00073814A"
             BuildableName = "FullIntel.app"
             BlueprintName = "FullIntel"
-            ReferencedContainer = "container:FullIntel.xcodeproj">
+            ReferencedContainer = "container:RANE.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

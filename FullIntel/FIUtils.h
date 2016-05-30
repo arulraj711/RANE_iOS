@@ -31,4 +31,5 @@
 +(BOOL) NSStringIsValidEmail:(NSString *)checkString;
 +(NSString*)getDateFromTimeStampTwo:(double)timeStamp;
 +(NSString *)relativeDateStringForDate:(NSDate *)date;
++(NSDictionary *)getBrandingIdentityListFromPlistFile; //get branding identity list
 @end

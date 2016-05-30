@@ -554,6 +554,7 @@
     [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
     self.treeView.frame = self.treeBackView.bounds;
     
+   
     
     [self presentTutorialPopViewController];
 }
@@ -589,6 +590,9 @@
 
 -(void)loadMenus {
     NSLog(@"load menu calling twice");
+    
+    
+    
     
     NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
     NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
@@ -635,6 +639,8 @@
 
 -(void)test:(NSMutableArray *)array {
     
+    
+    
     self.data = [[NSMutableArray alloc]init];
     for(FIMenu *menu in array) {
         NSNumber *accountTypeIdStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
@@ -670,10 +676,16 @@
         folderArray = [[NSMutableArray alloc]initWithArray:oldSavedArray];
     }
     
+    NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
     
+    //NSLog(@"branding list:%@",brandingPropertyList);
+    
+    [self.addContentButton setTitle:[brandingPropertyList objectForKey:@"8"] forState:UIControlStateNormal];
+    [self.researchButton setTitle:[brandingPropertyList objectForKey:@"13"] forState:UIControlStateNormal];
+
     
     RADataObject *folderDataObj = [[RADataObject alloc]init];
-    folderDataObj.name = @"FOLDERS";
+    folderDataObj.name = [brandingPropertyList objectForKey:@"17"];
     folderDataObj.nodeId = [NSNumber numberWithInt:-100];
     folderDataObj.isFolder = YES;
     NSMutableArray *childArray = [[NSMutableArray alloc]init];
@@ -691,7 +703,7 @@
     
     //Add newsletter menu
     RADataObject *newsLetterObj = [[RADataObject alloc]init];
-    newsLetterObj.name = @"DAILY DIGEST";
+    newsLetterObj.name = [brandingPropertyList objectForKey:@"16"];
     newsLetterObj.nodeId = [NSNumber numberWithInt:-200];
     newsLetterObj.children = nil;
     [self.data addObject:newsLetterObj];
@@ -701,7 +713,7 @@
     if([userAnalysisReportEnabled isEqualToNumber:[NSNumber numberWithInt:1]] && [companyAnalysisReportEnabled isEqualToNumber:[NSNumber numberWithInt:1]]) {
         //Media Analysis menu
         RADataObject *mediaAnalysis = [[RADataObject alloc]init];
-        mediaAnalysis.name = @"MEDIA ANALYSIS";
+        mediaAnalysis.name = [brandingPropertyList objectForKey:@"18"];
         mediaAnalysis.nodeId = [NSNumber numberWithInt:-500];
         mediaAnalysis.children = nil;
         [self.data addObject:mediaAnalysis];
@@ -713,14 +725,14 @@
     {
         //AddContent menu
         RADataObject *newsLetterObj = [[RADataObject alloc]init];
-        newsLetterObj.name = @"ADD CONTENT";
+        newsLetterObj.name = [brandingPropertyList objectForKey:@"8"];
         newsLetterObj.nodeId = [NSNumber numberWithInt:-300];
         newsLetterObj.children = nil;
         [self.data addObject:newsLetterObj];
         
         //ResearchRequest Menu
         RADataObject *researchReqObj = [[RADataObject alloc]init];
-        researchReqObj.name = @"RESEARCH REQUEST";
+        researchReqObj.name = [brandingPropertyList objectForKey:@"13"];
         researchReqObj.nodeId = [NSNumber numberWithInt:-400];
         researchReqObj.children = nil;
         [self.data addObject:researchReqObj];
@@ -728,7 +740,7 @@
     }
     
     RADataObject *dataObj = [[RADataObject alloc]init];
-    dataObj.name = @"LOGOUT";
+    dataObj.name = [brandingPropertyList objectForKey:@"14"];
     dataObj.children = nil;
     [self.data addObject:dataObj];
     // [treeView reloadData];

@@ -333,6 +333,27 @@
     
 }
 
++(NSDictionary *)getBrandingIdentityListFromPlistFile {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"BrandingNames.plist"];
+    NSLog(@"file path:%@",plistPath);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath])
+    {
+        plistPath = [[NSBundle mainBundle] pathForResource:@"BrandingNames" ofType:@"plist"];
+    }
+    
+    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsPath = [paths objectAtIndex:0];
+//    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"BrandingNames.plist"];
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:(NSString *)plistPath];
+    NSLog(@"dictionary path:%@",dictionary);
+    return dict;
+}
+
+
 //+(void)showNoNetworkBanner {
 //    UIWindow *window = [[UIApplication sharedApplication]windows][0];
 //    NSLog(@"Unreachable width:%f and resize:%f and another:%f",window.frame.size.width,window.frame.size.width/2,(window.frame.size.width/2)-(200/2));

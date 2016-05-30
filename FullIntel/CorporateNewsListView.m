@@ -1936,7 +1936,8 @@
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
-            [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
+            [self.view makeToast:[brandingPropertyList objectForKey:@"20"] duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Remove Save Later" attributes:dictionary];
         }else {
@@ -1973,7 +1974,8 @@
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
-            [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
+            [self.view makeToast:[brandingPropertyList objectForKey:@"15"] duration:1.0 position:CSToastPositionCenter];
             NSLog(@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"]);
             NSLog(@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"]);
             NSLog(@"%@",[curatedNews valueForKey:@"title"]);
@@ -2025,7 +2027,8 @@
             
             if([markedImpUserId isEqualToString:@"-1"]) {
                 //Analyst
-                [self.view makeToast:@"A FullIntel analyst marked this as important. If you like to change, please request via Feedback" duration:2.0 position:CSToastPositionCenter];
+                NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
+                [self.view makeToast:[brandingPropertyList objectForKey:@"23"] duration:2.0 position:CSToastPositionCenter];
             } else if([markedImpUserId isEqualToString:loginUserIdString]) {
                 //LoginUser
                 
@@ -2070,7 +2073,8 @@
                 NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
                 NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
                 [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
-                [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
+                NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
+                [self.view makeToast:[brandingPropertyList objectForKey:@"21"] duration:1.0 position:CSToastPositionCenter];
                 NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
                 [Localytics tagEvent:@"Remove Marked Important" attributes:dictionary];
                 
@@ -2121,7 +2125,9 @@
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
-            [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
+
+            [self.view makeToast:[brandingPropertyList objectForKey:@"22"] duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Marked Important" attributes:dictionary];
         }
@@ -3200,7 +3206,8 @@
             
             if([markedImpUserId isEqualToString:@"-1"]) {
                 //Analyst
-                [self.view makeToast:@"A FullIntel analyst marked this as important. If you like to change, please request via Feedback" duration:2.0 position:CSToastPositionCenter];
+                NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
+                [self.view makeToast:[brandingPropertyList objectForKey:@"23"] duration:2.0 position:CSToastPositionCenter];
             } else if([markedImpUserId isEqualToString:loginUserIdString]) {
                 //LoginUser
                 
@@ -3224,7 +3231,8 @@
                 NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
                 NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
                 [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
-                [self.view makeToast:@"Removed from \"Marked Important\"" duration:1.0 position:CSToastPositionCenter];
+                NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
+                [self.view makeToast:[brandingPropertyList objectForKey:@"21"] duration:1.0 position:CSToastPositionCenter];
                 NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
                 [Localytics tagEvent:@"Remove Marked Important" attributes:dictionary];
                 
@@ -3254,7 +3262,8 @@
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
-            [self.view makeToast:@"Marked Important." duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
+            [self.view makeToast:[brandingPropertyList objectForKey:@"22"] duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Marked Important" attributes:dictionary];
         }
@@ -3306,7 +3315,8 @@
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
-            [self.view makeToast:@"Removed from \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
+            [self.view makeToast:[brandingPropertyList objectForKey:@"20"] duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Remove Save Later" attributes:dictionary];
         }else {
@@ -3344,7 +3354,8 @@
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
             [[FISharedResources sharedResourceManager]setUserActivitiesOnArticlesWithDetails:resultStr withFlag:NO];
-            [self.view makeToast:@"Added to \"Saved for Later\"" duration:1.0 position:CSToastPositionCenter];
+            NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
+            [self.view makeToast:[brandingPropertyList objectForKey:@"15"] duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":[curatedNews valueForKey:@"title"],@"companyName":[[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"]};
             [Localytics tagEvent:@"Save Later" attributes:dictionary];
         }
