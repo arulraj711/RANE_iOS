@@ -554,7 +554,9 @@
     [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
     self.treeView.frame = self.treeBackView.bounds;
     
-   
+    NSString *menuBottomLogoString = [[NSUserDefaults standardUserDefaults]objectForKey:@"leftmenuLogo"];
+    
+    [self.menuBottomLogo sd_setImageWithURL:[NSURL URLWithString:menuBottomLogoString] placeholderImage:nil];
     
     [self presentTutorialPopViewController];
 }
@@ -676,47 +678,88 @@
         folderArray = [[NSMutableArray alloc]initWithArray:oldSavedArray];
     }
     
-    NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
     
     //NSLog(@"branding list:%@",brandingPropertyList);
     
-    [self.addContentButton setTitle:[brandingPropertyList objectForKey:@"8"] forState:UIControlStateNormal];
-    [self.researchButton setTitle:[brandingPropertyList objectForKey:@"13"] forState:UIControlStateNormal];
-
+    NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:8]];
+    NSString *addContentButtonName = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+    if(addContentButtonName.length != 0) {
+        self.addContentLabel.hidden = NO;
+        self.addContentButton.hidden = NO;
+        [self.addContentButton setTitle:addContentButtonName forState:UIControlStateNormal];
+    } else {
+        self.addContentLabel.hidden = YES;
+        self.addContentButton.hidden = YES;
+    }
+    
+    
+    NSManagedObject *researchBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:13]];
+    NSString *researchRequestButtonName = [NSString stringWithFormat:@"%@",[researchBrandingIdentity valueForKey:@"name"]];
+    if(researchRequestButtonName.length != 0) {
+        self.researchRequestImage.hidden = NO;
+        self.researchButton.hidden = NO;
+        [self.researchButton setTitle:researchRequestButtonName forState:UIControlStateNormal];
+    } else {
+        self.researchButton.hidden = YES;
+        self.researchRequestImage.hidden = YES;
+    }
+    
+    
+    
+    
     
     RADataObject *folderDataObj = [[RADataObject alloc]init];
-    folderDataObj.name = [brandingPropertyList objectForKey:@"17"];
-    folderDataObj.nodeId = [NSNumber numberWithInt:-100];
-    folderDataObj.isFolder = YES;
-    NSMutableArray *childArray = [[NSMutableArray alloc]init];
-    //NSArray *menuArray = menu.listArray;
-    for(int i=0; i<folderArray.count; i++) {
-        RADataObject *insideMenu = [[RADataObject alloc]init];
-        FIFolder *folder = [folderArray objectAtIndex:i];
-        insideMenu.nodeId = folder.folderId;
-        insideMenu.name = [folder.folderName uppercaseString];
-        insideMenu.isFolder = YES;
-        [childArray addObject:insideMenu];
+    
+    NSManagedObject *foldersBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:17]];
+    NSString *foldersBrandName = [NSString stringWithFormat:@"%@",[foldersBrandingIdentity valueForKey:@"name"]];
+    if(foldersBrandName.length != 0) {
+        folderDataObj.name = [foldersBrandingIdentity valueForKey:@"name"];
+        folderDataObj.nodeId = [NSNumber numberWithInt:-100];
+        folderDataObj.isFolder = YES;
+        NSMutableArray *childArray = [[NSMutableArray alloc]init];
+        //NSArray *menuArray = menu.listArray;
+        for(int i=0; i<folderArray.count; i++) {
+            RADataObject *insideMenu = [[RADataObject alloc]init];
+            FIFolder *folder = [folderArray objectAtIndex:i];
+            insideMenu.nodeId = folder.folderId;
+            insideMenu.name = [folder.folderName uppercaseString];
+            insideMenu.isFolder = YES;
+            [childArray addObject:insideMenu];
+        }
+        folderDataObj.children = nil;
+        [self.data addObject:folderDataObj];
     }
-    folderDataObj.children = nil;
-    [self.data addObject:folderDataObj];
+    
     
     //Add newsletter menu
     RADataObject *newsLetterObj = [[RADataObject alloc]init];
-    newsLetterObj.name = [brandingPropertyList objectForKey:@"16"];
-    newsLetterObj.nodeId = [NSNumber numberWithInt:-200];
-    newsLetterObj.children = nil;
-    [self.data addObject:newsLetterObj];
+    
+    NSManagedObject *dailyDigestBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:16]];
+    NSString *dailyDigestBrandName = [NSString stringWithFormat:@"%@",[dailyDigestBrandingIdentity valueForKey:@"name"]];
+    if(dailyDigestBrandName.length != 0) {
+        newsLetterObj.name = [dailyDigestBrandingIdentity valueForKey:@"name"];
+        newsLetterObj.nodeId = [NSNumber numberWithInt:-200];
+        newsLetterObj.children = nil;
+        [self.data addObject:newsLetterObj];
+    }
+    
     
     NSNumber *userAnalysisReportEnabled = [[NSUserDefaults standardUserDefaults]valueForKey:@"UserAnalysisReportEnabled"];
     NSNumber *companyAnalysisReportEnabled = [[NSUserDefaults standardUserDefaults]valueForKey:@"CompanyAnalysisReportEnabled"];
     if([userAnalysisReportEnabled isEqualToNumber:[NSNumber numberWithInt:1]] && [companyAnalysisReportEnabled isEqualToNumber:[NSNumber numberWithInt:1]]) {
         //Media Analysis menu
         RADataObject *mediaAnalysis = [[RADataObject alloc]init];
-        mediaAnalysis.name = [brandingPropertyList objectForKey:@"18"];
-        mediaAnalysis.nodeId = [NSNumber numberWithInt:-500];
-        mediaAnalysis.children = nil;
-        [self.data addObject:mediaAnalysis];
+        
+        NSManagedObject *mediaAnalysisBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:18]];
+        NSString *mediaAnalysisBrandName = [NSString stringWithFormat:@"%@",[mediaAnalysisBrandingIdentity valueForKey:@"name"]];
+        if(mediaAnalysisBrandName.length != 0) {
+            mediaAnalysis.name = [mediaAnalysisBrandingIdentity valueForKey:@"name"];
+            mediaAnalysis.nodeId = [NSNumber numberWithInt:-500];
+            mediaAnalysis.children = nil;
+            [self.data addObject:mediaAnalysis];
+        }
+        
+        
     }
     
     
@@ -725,25 +768,37 @@
     {
         //AddContent menu
         RADataObject *newsLetterObj = [[RADataObject alloc]init];
-        newsLetterObj.name = [brandingPropertyList objectForKey:@"8"];
-        newsLetterObj.nodeId = [NSNumber numberWithInt:-300];
-        newsLetterObj.children = nil;
-        [self.data addObject:newsLetterObj];
+        if(addContentButtonName.length != 0) {
+            newsLetterObj.name = [addContentBrandingIdentity valueForKey:@"name"];
+            newsLetterObj.nodeId = [NSNumber numberWithInt:-300];
+            newsLetterObj.children = nil;
+            [self.data addObject:newsLetterObj];
+        }
+        
         
         //ResearchRequest Menu
         RADataObject *researchReqObj = [[RADataObject alloc]init];
-        researchReqObj.name = [brandingPropertyList objectForKey:@"13"];
-        researchReqObj.nodeId = [NSNumber numberWithInt:-400];
-        researchReqObj.children = nil;
-        [self.data addObject:researchReqObj];
+        if(researchRequestButtonName.length != 0) {
+            researchReqObj.name = [addContentBrandingIdentity valueForKey:@"name"];
+            researchReqObj.nodeId = [NSNumber numberWithInt:-400];
+            researchReqObj.children = nil;
+            [self.data addObject:researchReqObj];
+        }
+        
         
     }
     
-    RADataObject *dataObj = [[RADataObject alloc]init];
-    dataObj.name = [brandingPropertyList objectForKey:@"14"];
-    dataObj.children = nil;
-    [self.data addObject:dataObj];
-    // [treeView reloadData];
+    NSManagedObject *brandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:14]];
+    NSString *brandingName = [NSString stringWithFormat:@"%@",[brandingIdentity valueForKey:@"name"]];
+    if(brandingName.length != 0) {
+        RADataObject *dataObj = [[RADataObject alloc]init];
+        dataObj.name = [brandingIdentity valueForKey:@"name"];
+        dataObj.children = nil;
+        dataObj.nodeId = [NSNumber numberWithInt:-1000];
+        [self.data addObject:dataObj];
+
+    }
+        // [treeView reloadData];
 }
 
 -(RADataObject *)recursiveDataObjectFrom:(FIMenu *)menu {
@@ -992,7 +1047,7 @@
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
             cell.iconImage.image = [UIImage imageNamed:@"savedForLater"];
-        } else if([[dataObject.name uppercaseString] isEqualToString:@"LOGOUT"]) {
+        } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-1000]]) {
             cell.iconWidthConstraint.constant =15;
             cell.titleConstraint.constant = 9;
             cell.titleWidthConstraint.constant = 160;
@@ -1007,7 +1062,7 @@
             cell.iconImage.hidden = YES;
         }
     } else {
-        if([[dataObject.name uppercaseString]isEqualToString:@"FOLDERS"]) {
+        if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]) {
             cell.iconWidthConstraint.constant =15;
             cell.titleConstraint.constant = 9;
             cell.titleWidthConstraint.constant = 160;
@@ -1406,7 +1461,7 @@
                 [self.revealController showViewController:self.revealController.frontViewController];
             }
             
-        } else if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
+        } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-1000]]) {
             NSLog(@"hereeee");
             
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Logout"];
@@ -1415,6 +1470,9 @@
             } else {
                 [FIUtils deleteExistingData];
                 // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
+                
+                [[FISharedResources sharedResourceManager]clearEntity:@"BrandingIdentity"];
+                
                 [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
                 [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
@@ -1458,7 +1516,7 @@
             
         }
        // NSLog(@"left click:%@",data.nodeId);
-        if([[data.name uppercaseString] isEqualToString:@"LOGOUT"]) {
+        if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-1000]]) {
             NSLog(@"one");
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];

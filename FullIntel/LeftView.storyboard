@@ -84,6 +84,10 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9VO-WP-Jjk">
                                 <rect key="frame" x="80" y="566" width="100" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="fd9-DV-r7d"/>
+                                    <constraint firstAttribute="height" constant="20" id="too-Xu-bW8"/>
+                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAr-Y0-fGY">
                                 <rect key="frame" x="13" y="561" width="32" height="32"/>
@@ -119,8 +123,11 @@
                     </view>
                     <connections>
                         <outlet property="addContentButton" destination="W0r-Ng-bX2" id="lE0-hZ-11Q"/>
+                        <outlet property="addContentLabel" destination="VTq-27-E3e" id="jhN-zd-Cpi"/>
                         <outlet property="companyLogo" destination="Leg-9q-Ekc" id="k5U-fN-yiD"/>
+                        <outlet property="menuBottomLogo" destination="9VO-WP-Jjk" id="fxB-6R-dTN"/>
                         <outlet property="researchButton" destination="nvR-5C-trQ" id="gJo-D0-CgF"/>
+                        <outlet property="researchRequestImage" destination="byo-Ny-svN" id="Br7-vX-hel"/>
                         <outlet property="treeBackView" destination="pX9-aV-U8w" id="2T9-rn-Pce"/>
                     </connections>
                 </viewController>

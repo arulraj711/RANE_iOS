@@ -195,55 +195,93 @@
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"id"]) forKey:@"customerId"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"analysisReportEnabled"]) forKey:@"CompanyAnalysisReportEnabled"];
                 
-                NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
-                NSString *documentsPath = [paths objectAtIndex:0];
-                NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"BrandingNames.plist"];
-                NSLog(@"writing file path:%@",plistPath);
-                NSDictionary *brandIdentity = NULL_TO_NIL([companyDic objectForKey:@"brandIdentity"]);
-              //  NSMutableArray *plist = [[NSMutableArray alloc] init];
-                NSArray *brandLabelArray = [brandIdentity objectForKey:@"labels"];
-                NSMutableArray *defaultLabelIdArray = [[NSMutableArray alloc]init];
-                NSMutableArray *defaultDisplayNameArray = [[NSMutableArray alloc]init];
-                for(NSDictionary *brandLabelDic in brandLabelArray) {
-                    NSLog(@"brand label dic:%@",brandLabelDic);
-                    
-                    
-//                    [plist addObject:@{@"id": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"id"]],
-//                                       @"name": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"name"]],
-//                                       @"displayName": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"displayName"]],
-//                                       @"labelTypeId": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"labelTypeId"]],
-//                                       @"defaultLabelId": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"defaultLabelId"]],
-//                                       @"createdAt": [NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"createdAt"]]}];
-                    
-                    
-                    
-                    [defaultLabelIdArray addObject:[NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"defaultLabelId"]]];
-                    [defaultDisplayNameArray addObject:[NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"displayName"]]];
-                }
                 
-                NSDictionary *plistDict = [[NSDictionary alloc] initWithObjects: defaultDisplayNameArray forKeys:defaultLabelIdArray];
-                
-                
-               // NSDictionary *plistDict = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects: @"1", @"2", @"3", nil] forKeys:[NSArray arrayWithObjects: @"Name", @"Country",@"Image", nil]];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
+                    NSString *documentsPath = [paths objectAtIndex:0];
+                    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"BrandingNames.plist"];
+                    // NSLog(@"writing file path:%@",plistPath);
+                    NSDictionary *brandIdentity = NULL_TO_NIL([companyDic objectForKey:@"brandIdentity"]);
+                    
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"logo"]) forKey:@"leftmenuLogo"];
+                    
+                    NSData *placeholderImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[brandIdentity valueForKey:@"placeholderImage"]]];
+                    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                    NSString *placeholderImagePath = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
+                    [placeholderImageData writeToFile:placeholderImagePath atomically:YES];
+                    
+                    NSData *articleDrillPlaceholderImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[brandIdentity valueForKey:@"articleDrillPlaceholderImage"]]];
+                    NSString *drillPlaceholderImagePath = [documentsDirectory stringByAppendingPathComponent:@"articleDrillPlaceholderImage.png"];
+                    [articleDrillPlaceholderImageData writeToFile:drillPlaceholderImagePath atomically:YES];
+                    
+                    NSArray *brandLabelArray = [brandIdentity objectForKey:@"labels"];
+//                    NSMutableArray *defaultLabelIdArray = [[NSMutableArray alloc]init];
+//                    NSMutableArray *defaultDisplayNameArray = [[NSMutableArray alloc]init];
+                    for(NSDictionary *brandLabelDic in brandLabelArray) {
+                        NSLog(@"brand label dic:%@",brandLabelDic);
+                        
+                        
+                        NSManagedObjectContext *context;
+                        // Create a new managed object
+                        NSManagedObject *brandingIdentity;
+                        context = [self managedObjectContext];
+                        
+                        
+                        brandingIdentity = [NSEntityDescription insertNewObjectForEntityForName:@"BrandingIdentity" inManagedObjectContext:context];
+                        [brandingIdentity setValue:NULL_TO_NIL([brandLabelDic objectForKey:@"id"]) forKey:@"brandId"];
+                        [brandingIdentity setValue:NULL_TO_NIL([brandLabelDic objectForKey:@"createdAt"]) forKey:@"createdAt"];
 
+                        [brandingIdentity setValue:NULL_TO_NIL([brandLabelDic objectForKey:@"defaultLabelId"]) forKey:@"defaultLabelId"];
+
+                        [brandingIdentity setValue:NULL_TO_NIL([brandLabelDic objectForKey:@"displayName"]) forKey:@"displayName"];
+
+                        [brandingIdentity setValue:NULL_TO_NIL([brandLabelDic objectForKey:@"labelTypeId"]) forKey:@"labelTypeId"];
+                        [brandingIdentity setValue:NULL_TO_NIL([brandLabelDic objectForKey:@"name"]) forKey:@"name"];
+
+                        
+                        NSError *error = nil;
+                        // Save the object to persistent store
+                        if (![context save:&error]) {
+                            // NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+                            //NSLog(@"one");
+                        }else {
+                            //  NSLog(@"else part:%@",error);
+                        }
+
+                        
+                        
+                        
+                        
+                        
+//                        [defaultLabelIdArray addObject:[NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"defaultLabelId"]]];
+//                        [defaultDisplayNameArray addObject:[NSString stringWithFormat:@"%@",[brandLabelDic objectForKey:@"displayName"]]];
+                    }
+                    
+//                    NSDictionary *plistDict = [[NSDictionary alloc] initWithObjects: defaultDisplayNameArray forKeys:defaultLabelIdArray];
+//                    
+//                    
+//                    // NSDictionary *plistDict = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects: @"1", @"2", @"3", nil] forKeys:[NSArray arrayWithObjects: @"Name", @"Country",@"Image", nil]];
+//                    
+//                    
+//                    
+//                    //NSLog(@"before setting plist:%@",plistDict);
+//                    NSString *error = nil;
+//                    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:plistDict format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
+//                    
+//                    
+//                    
+//                    //NSLog(@"plist data:%@",plistData);
+//                    if(plistData)
+//                    {
+//                        [plistData writeToFile:plistPath atomically:YES];
+//                        //NSLog(@"data saved successfully");
+//                    }
+//                    else
+//                    {
+//                       // NSLog(@"data not saved");
+//                    }
+                });
                 
-                
-                NSLog(@"before setting plist:%@",plistDict);
-                NSString *error = nil;
-                NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:plistDict format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
-                
-                
-                
-                NSLog(@"plist data:%@",plistData);
-                if(plistData)
-                {
-                    [plistData writeToFile:plistPath atomically:YES];
-                    NSLog(@"data saved successfully");
-                }
-                else
-                {
-                    NSLog(@"data not saved");
-                }
                 
                 //User Info
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([responseObject objectForKey:@"securityToken"]) forKey:@"accesstoken"];
@@ -2272,7 +2310,9 @@
     if([self serviceIsReachable]) {
         [FIWebService createFolderWithDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             UIWindow *window = [[UIApplication sharedApplication]windows][0];
-            [window makeToast:@"Folder created successfully." duration:2 position:CSToastPositionCenter];
+            NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:28]];
+            NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+            [window makeToast:message duration:2 position:CSToastPositionCenter];
             
             //[[NSNotificationCenter defaultCenter]postNotificationName:@"FolderCreated" object:nil];
             [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:YES];
@@ -2345,7 +2385,9 @@
     if([self serviceIsReachable]) {
         [FIWebService saveArticlesToFolderWithDetails:details withSecurityToken:accessToken withFolderId:articleId onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             UIWindow *window = [[UIApplication sharedApplication]windows][0];
-            [window makeToast:@"Saved to folder successfully." duration:2 position:CSToastPositionCenter];
+            NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:31]];
+            NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+            [window makeToast:message duration:2 position:CSToastPositionCenter];
            // [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
             [self getFolderListWithAccessToken:accessToken withFlag:YES withCreatedFlag:NO];
@@ -2381,7 +2423,9 @@
     if([self serviceIsReachable]) {
         [FIWebService addMultipleArticlesToMultipleFolderWithDetails:details withSecurityToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             UIWindow *window = [[UIApplication sharedApplication]windows][0];
-            [window makeToast:@"Saved to folder successfully." duration:2 position:CSToastPositionCenter];
+            NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:31]];
+            NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+            [window makeToast:message duration:2 position:CSToastPositionCenter];
             // [[NSNotificationCenter defaultCenter]postNotificationName:@"StopFolderLoading" object:nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
             
@@ -2487,7 +2531,9 @@
             if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 if(flag == 1) {
                     UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                    [window makeToast:@"Updated content changes." duration:1 position:CSToastPositionCenter];
+                    NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:34]];
+                    NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+                    [window makeToast:message duration:1 position:CSToastPositionCenter];
                     NSMutableDictionary *menuDic = [[NSMutableDictionary alloc] init];
                     [menuDic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] forKey:@"securityToken"];
                     NSData *menuJsondata = [NSJSONSerialization dataWithJSONObject:menuDic options:NSJSONWritingPrettyPrinted error:nil];

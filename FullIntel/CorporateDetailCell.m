@@ -1140,8 +1140,9 @@
             [managedObjectContext save:nil];
             
             [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO]}];
-            NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
-            [self.contentView makeToast:[brandingPropertyList objectForKey:@"20"] duration:1.0 position:CSToastPositionCenter];
+            NSManagedObject *brandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:20]];
+            NSString *brandingName = [NSString stringWithFormat:@"%@",[brandingIdentity valueForKey:@"name"]];
+            [self.contentView makeToast:brandingName duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
             
             [Localytics tagEvent:@"Remove Save Later in Drill" attributes:dictionary];
@@ -1186,8 +1187,9 @@
             }
             [managedObjectContext save:nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"saveForLaterUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES]}];
-            NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
-            [self.contentView makeToast:[brandingPropertyList objectForKey:@"15"] duration:1.0 position:CSToastPositionCenter];
+            NSManagedObject *brandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:15]];
+            NSString *brandingName = [NSString stringWithFormat:@"%@",[brandingIdentity valueForKey:@"name"]];
+            [self.contentView makeToast:brandingName duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
             
             [Localytics tagEvent:@"Save Later in Drill" attributes:dictionary];
@@ -1336,9 +1338,9 @@
         if(sender.selected) {
         if([self.markedImpUserId isEqualToString:@"-1"]) {
             //Analyst
-            NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
-
-            [self.contentView makeToast:[brandingPropertyList objectForKey:@"23"] duration:2.0 position:CSToastPositionCenter];
+            NSManagedObject *brandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:23]];
+            NSString *brandingName = [NSString stringWithFormat:@"%@",[brandingIdentity valueForKey:@"name"]];
+            [self.contentView makeToast:brandingName duration:2.0 position:CSToastPositionCenter];
         } else if([self.markedImpUserId isEqualToString:loginUserId]) {
             //LoginUser 
            
@@ -1371,8 +1373,9 @@
                 [managedObjectContext save:nil];
                 
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:NO],@"articleId":self.selectedArticleId}];
-                NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
-                [self.contentView makeToast:[brandingPropertyList objectForKey:@"21"] duration:1.0 position:CSToastPositionCenter];
+                NSManagedObject *brandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:21]];
+                NSString *brandingName = [NSString stringWithFormat:@"%@",[brandingIdentity valueForKey:@"name"]];
+                [self.contentView makeToast:brandingName duration:1.0 position:CSToastPositionCenter];
                 NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
                 
                 [Localytics tagEvent:@"Remove Mark Important in Drill" attributes:dictionary];
@@ -1426,8 +1429,9 @@
             }
             [managedObjectContext save:nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"markedImportantUpdate" object:nil userInfo:@{@"indexPath":self.selectedIndexPath,@"status":[NSNumber numberWithBool:YES],@"articleId":self.selectedArticleId}];
-            NSDictionary *brandingPropertyList = [FIUtils getBrandingIdentityListFromPlistFile];
-            [self.contentView makeToast:[brandingPropertyList objectForKey:@"22"] duration:1.0 position:CSToastPositionCenter];
+            NSManagedObject *brandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:22]];
+            NSString *brandingName = [NSString stringWithFormat:@"%@",[brandingIdentity valueForKey:@"name"]];
+            [self.contentView makeToast:brandingName duration:1.0 position:CSToastPositionCenter];
             NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"article_Name":self.selectedArticleTitle};
             
             [Localytics tagEvent:@"Mark Important in Drill" attributes:dictionary];

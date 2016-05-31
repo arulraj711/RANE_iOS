@@ -1152,7 +1152,10 @@
         [self highlight:cell.articleTitle withString:self.searchText];
     }
     NSString *articleImageStr = [curatedNews valueForKey:@"image"];
-    [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"bannerImage"]];
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *drillinPlaceHolderImagePath = [documentsDirectory stringByAppendingPathComponent:@"articleDrillPlaceholderImage.png"];
+
+    [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
     [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
     cell.cachedImageViewSize = cell.articleImageView.frame;
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
@@ -1163,7 +1166,10 @@
 
     cell.overlayArticleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
     cell.overlayArticleDesc.text = [curatedNews valueForKey:@"desc"];
-    [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
+    
+    NSString *listPlaceHolderImagePath = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
+    
+    [cell.overlayArticleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:listPlaceHolderImagePath]];
     [cell.overlayArticleImageView setContentMode:UIViewContentModeScaleAspectFill];
     cell.overlayArticleTitle.text = [curatedNews valueForKey:@"title"];
     if (self.isSearching) {

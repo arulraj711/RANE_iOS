@@ -22,6 +22,8 @@
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;
+@property (weak, nonatomic) IBOutlet UIImageView *researchRequestImage;
+@property (weak, nonatomic) IBOutlet UILabel *addContentLabel;
 @property (weak, nonatomic) IBOutlet UIButton *researchButton;
 @property BOOL isFirstTime;
 @property (weak, nonatomic) IBOutlet UIView *treeBackView;
@@ -30,6 +32,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *companyName;
 @property (weak, nonatomic) IBOutlet UIImageView *companyLogo;
+@property (weak, nonatomic) IBOutlet UIImageView *menuBottomLogo;
+
 - (IBAction)addContentButtonClick:(id)sender;
 - (IBAction)researchRequestButtonClick:(UIButton *)sender;
 @end

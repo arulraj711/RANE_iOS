@@ -354,6 +354,21 @@
 }
 
 
++(NSManagedObject *)getBrandFromBrandingIdentityForId:(NSNumber *)defaultLabelId {
+    NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BrandingIdentity"];
+    NSPredicate *predicate;
+    predicate = [NSPredicate predicateWithFormat:@"defaultLabelId == %@",defaultLabelId];
+    [fetchRequest setPredicate:predicate];
+    NSArray *result =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSManagedObject *brandingIdentity;
+    if(result.count != 0) {
+        brandingIdentity = [result objectAtIndex:0];
+    }
+    return brandingIdentity;
+}
+
+
 //+(void)showNoNetworkBanner {
 //    UIWindow *window = [[UIApplication sharedApplication]windows][0];
 //    NSLog(@"Unreachable width:%f and resize:%f and another:%f",window.frame.size.width,window.frame.size.width/2,(window.frame.size.width/2)-(200/2));

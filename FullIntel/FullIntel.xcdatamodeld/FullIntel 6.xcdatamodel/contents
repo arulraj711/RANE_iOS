@@ -19,6 +19,14 @@
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="BrandingIdentity" syncable="YES">
+        <attribute name="brandId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="defaultLabelId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labelTypeId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Comments" syncable="YES">
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="String" syncable="YES"/>
@@ -326,5 +334,6 @@
         <element name="Stock_Widget" positionX="-234" positionY="-99" width="128" height="180"/>
         <element name="UserComments" positionX="-1863" positionY="-1431" width="128" height="118"/>
         <element name="Value_Widget" positionX="-110" positionY="-153" width="128" height="135"/>
+        <element name="BrandingIdentity" positionX="-2484" positionY="-1386" width="128" height="135"/>
     </elements>
 </model>

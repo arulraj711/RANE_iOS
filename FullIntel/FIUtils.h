@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 
 @interface FIUtils : NSObject
@@ -32,4 +33,5 @@
 +(NSString*)getDateFromTimeStampTwo:(double)timeStamp;
 +(NSString *)relativeDateStringForDate:(NSDate *)date;
 +(NSDictionary *)getBrandingIdentityListFromPlistFile; //get branding identity list
++(NSManagedObject *)getBrandFromBrandingIdentityForId:(NSNumber *)defaultLabelId;
 @end

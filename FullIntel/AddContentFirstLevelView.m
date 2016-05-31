@@ -433,7 +433,9 @@
         }
         // NSLog(@"content type %d and category:%d and checked array:%d and unchecked array:%@",contentType.count,categoryArray.count,self.checkedArray.count,contentType);
         if(self.checkedArray.count == 0) {
-            [self.view makeToast:@"Please select atleast one module" duration:1 position:CSToastPositionCenter];
+            NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:35]];
+            NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+            [self.view makeToast:message duration:1 position:CSToastPositionCenter];
         } else {
             NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
             [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];

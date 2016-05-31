@@ -65,7 +65,7 @@
 @property (nonatomic,strong) NSMutableArray *contentTypeList;
 @property (nonatomic,strong) NSString *getCommentArticleId;
 @property (nonatomic,strong) NSString *getCommentDetailString;
-
+-(BOOL)clearEntity:(NSString *)entity;
 -(void)saveDetailsInLocalyticsWithName:(NSString *)name;
 - (void)tagScreenInLocalytics:(NSString *)name;
 
