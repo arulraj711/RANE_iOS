@@ -131,7 +131,9 @@
 }
 
 - (IBAction)createFolderAction:(UIButton *)sender {
-    UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Create Folder" message:@"Please enter the folder name." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
+    NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:32]];
+    NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+    UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Create Folder" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
     
     alertView.alertViewStyle=UIAlertViewStylePlainTextInput;
     
