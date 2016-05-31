@@ -238,7 +238,6 @@
 		BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB29F101C3D27700008ED71 /* MoreSettingsView.m */; };
 		BAC174A01CEC63C100B243DD /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC1749F1CEC63C100B243DD /* NSString+URLEncoding.m */; };
 		BAC8C5731CCDFAFB000FA656 /* ChartReportDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */; };
-		BAFB01D61CFC250400690D2D /* BrandingNames.plist in Resources */ = {isa = PBXBuildFile; fileRef = BAFB01D51CFC250400690D2D /* BrandingNames.plist */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
 		F554DFD31BB016180062EAC7 /* FINewsLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFD21BB016180062EAC7 /* FINewsLetter.m */; };
@@ -686,7 +685,6 @@
 		BAC8C5711CCDFAFB000FA656 /* ChartReportDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartReportDownloadView.h; sourceTree = "<group>"; };
 		BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartReportDownloadView.m; sourceTree = "<group>"; };
 		BAEE93501C0F235600CD4F88 /* FullIntel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 5.xcdatamodel"; sourceTree = "<group>"; };
-		BAFB01D51CFC250400690D2D /* BrandingNames.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BrandingNames.plist; sourceTree = "<group>"; };
 		C0F31A39A4389F1264B49B3B /* Pods_FullIntel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FullIntel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
 		F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -1201,7 +1199,6 @@
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
-				BAFB01D41CFC24C700690D2D /* BrandingChanges */,
 				A0697BA31C7DCC6B0010B945 /* Charts */,
 				A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */,
 				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
@@ -1426,14 +1423,6 @@
 				BAA6A58C1C86F43500B78883 /* ChartTypeObject.m */,
 			);
 			name = Report_Modal;
-			sourceTree = "<group>";
-		};
-		BAFB01D41CFC24C700690D2D /* BrandingChanges */ = {
-			isa = PBXGroup;
-			children = (
-				BAFB01D51CFC250400690D2D /* BrandingNames.plist */,
-			);
-			name = BrandingChanges;
 			sourceTree = "<group>";
 		};
 		F31E3F70BB42037A5A25B2A7 /* Pods */ = {
@@ -2140,7 +2129,6 @@
 				F7E81F9C1A97057100F9A8D4 /* carolynryan.jpeg in Resources */,
 				F7ECACCC1AB0730000B57AB6 /* StockWidgetCell.xib in Resources */,
 				F7E81FAB1A97057100F9A8D4 /* ipads.jpg in Resources */,
-				BAFB01D61CFC250400690D2D /* BrandingNames.plist in Resources */,
 				BA51CC671C58A3BF00327578 /* chart_story.json in Resources */,
 				BA51CC9B1C58A46300327578 /* glyphicons-halflings-regular.woff in Resources */,
 				A0AAF00C1BFCA9540006A48C /* foler60.png in Resources */,

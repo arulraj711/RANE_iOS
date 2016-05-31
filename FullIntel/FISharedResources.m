@@ -197,9 +197,6 @@
                 
                 
                 dispatch_async(dispatch_get_main_queue(), ^(void){
-                    NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
-                    NSString *documentsPath = [paths objectAtIndex:0];
-                    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"BrandingNames.plist"];
                     // NSLog(@"writing file path:%@",plistPath);
                     NSDictionary *brandIdentity = NULL_TO_NIL([companyDic objectForKey:@"brandIdentity"]);
                     
