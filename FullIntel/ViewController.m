@@ -93,25 +93,25 @@
 -(void)handleLoginProcess {
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length == 0) {
-        UIStoryboard *centerStoryBoard;
-        UIViewController *viewCtlr;
-        
-        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-        {
-            centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
-            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-            
-            
-        } else {
-            centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
-            
-            
-        }
-        
-        
-        [self.revealController setFrontViewController:viewCtlr];
-        [self.revealController showViewController:self.revealController.frontViewController];
+//        UIStoryboard *centerStoryBoard;
+//        UIViewController *viewCtlr;
+//        
+//        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+//        {
+//            centerStoryBoard = [UIStoryboard storyboardWithName:@"MainPhone" bundle:nil];
+//            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+//            
+//            
+//        } else {
+//            centerStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//            viewCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"LoginView"];
+//            
+//            
+//        }
+//        
+//        
+//        [self.revealController setFrontViewController:viewCtlr];
+//        [self.revealController showViewController:self.revealController.frontViewController];
     } else {
         //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
         //        if(isFirst) {
