@@ -779,7 +779,7 @@
         //ResearchRequest Menu
         RADataObject *researchReqObj = [[RADataObject alloc]init];
         if(researchRequestButtonName.length != 0) {
-            researchReqObj.name = [addContentBrandingIdentity valueForKey:@"name"];
+            researchReqObj.name = [researchBrandingIdentity valueForKey:@"name"];
             researchReqObj.nodeId = [NSNumber numberWithInt:-400];
             researchReqObj.children = nil;
             [self.data addObject:researchReqObj];
