@@ -26,6 +26,7 @@
 #import "SocialWebView.h"
 #import "ViewController.h"
 #import "CorporateNewsListView.h"
+#import "UILabel+CustomHeaderLabel.h"
 
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface ExecutiveMovesController ()
@@ -55,14 +56,14 @@
     
    // NSLog(@"title name :%@",_titleName);
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"OpenSans" size:16];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text = _titleName;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"OpenSans" size:16];
+//    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text = _titleName;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.titleName];
     
     NSMutableAttributedString *attriString=[[NSMutableAttributedString alloc]initWithString:@"EXECUTIVE MOVES provides insight on key personnel changes in the industry that are relevant to you."];
     

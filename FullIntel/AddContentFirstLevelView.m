@@ -17,6 +17,7 @@
 #import "FIUtils.h"
 //#import "Localytics.h"
 #import "pop.h"
+#import "UILabel+CustomHeaderLabel.h"
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
@@ -102,15 +103,14 @@
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-        label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont fontWithName:@"Open Sans" size:16];
-        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-        label.text =@"Add Content";
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor whiteColor]; // change this color
-        self.navigationItem.titleView = label;
-        
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//        label.backgroundColor = [UIColor clearColor];
+//        label.font = [UIFont fontWithName:@"Open Sans" size:16];
+//        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//        label.text =@"Add Content";
+//        label.textAlignment = NSTextAlignmentCenter;
+//        label.textColor = [UIColor whiteColor]; // change this color
+        self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"Add Content"];
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
                                        initWithTitle:@"Cancel"
                                        style:UIBarButtonItemStyleBordered

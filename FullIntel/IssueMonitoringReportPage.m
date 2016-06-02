@@ -13,6 +13,8 @@
 #import "IssueMonitoringInfluencerCell.h"
 #import "IssueDrillInPage.h"
 #import "StoryTableViewCell.h"
+#import "UILabel+CustomHeaderLabel.h"
+
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface IssueMonitoringReportPage ()
 
@@ -43,14 +45,14 @@
     self.tableOuterView.layer.borderWidth = 1.0f;
     self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text =@"Issue Monitoring Report";
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+//    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text =@"Issue Monitoring Report";
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"Issue Monitoring Report"];
     
     
     [self.barChartButton setSelected:YES];

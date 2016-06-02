@@ -11,6 +11,8 @@
 #import "FINewsLetter.h"
 #import "NewsLetterCell.h"
 #import "CorporateNewsListView.h"
+#import "UILabel+CustomHeaderLabel.h"
+
 @interface NewsLetterViewController ()
 
 @end
@@ -21,14 +23,14 @@
     [super viewDidLoad];
     [self.revealController showViewController:self.revealController.frontViewController];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-   // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text =@"DAILY DIGEST";
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+//   // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text =@"DAILY DIGEST";
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"DAILY DIGEST"];
     
     // Do any additional setup after loading the view.
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];

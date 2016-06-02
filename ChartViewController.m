@@ -13,6 +13,8 @@
 #import "CorporateNewsListView.h"
 #import "NumberFormatterExtn.h"
 #import "NSString+URLEncoding.h"
+#import "UILabel+CustomHeaderLabel.h"
+
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 #define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
@@ -102,14 +104,14 @@
  //   [self selectItemAtIndexPath:0 animated:YES scrollPosition:UICollectionViewScrollPositionNone];
 
     NSLog(@"title string:%@",self.titleString);
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text =self.titleString;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+//    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text =self.titleString;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.titleString];
     
     fullName = 0;
     

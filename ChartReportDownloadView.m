@@ -8,19 +8,21 @@
 
 #import "ChartReportDownloadView.h"
 #import "FIWebService.h"
+#import "UILabel+CustomHeaderLabel.h"
+
 
 @implementation ChartReportDownloadView
 
 - (void)viewDidLoad {
 
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text = self.reportTitle;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+//    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text = self.reportTitle;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.reportTitle];
     
     
     

@@ -24,6 +24,7 @@
 #import "MoreSettingsView.h"
 #import "SavedListPopoverView.h"
 #import "UIColor+CustomColor.h"
+#import "UILabel+CustomHeaderLabel.h"
 
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -205,15 +206,15 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endOfTutorial) name:@"EndOfTutorial" object:nil];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text =_titleName;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor headerTextColor]; // change this color
-    self.navigationItem.titleView = label;
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+//    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text =_titleName;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor headerTextColor]; // change this color
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.titleName];
     
     
     
@@ -1288,16 +1289,16 @@
     [self commonMethodToAddTitle];
 }
 -(void)commonMethodToAddTitle{
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+//    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text =_titleName;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor]; // change this color
     
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text =_titleName;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    
-    self.navigationItem.titleView = label;
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.titleName];
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBars
 {

@@ -230,6 +230,7 @@
 		BA51CCA21C58A47300327578 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC9F1C58A47300327578 /* style.css */; };
 		BA6347911BFE02A300DCF13F /* BGTableViewRowActionWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */; };
 		BA74337E1D0049DE00EC69DA /* UIColor+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BA74337D1D0049DE00EC69DA /* UIColor+CustomColor.m */; };
+		BA7433841D006FDA00EC69DA /* UILabel+CustomHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BA7433831D006FDA00EC69DA /* UILabel+CustomHeaderLabel.m */; };
 		BAA6A5801C86E61E00B78883 /* ReportListObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A57F1C86E61E00B78883 /* ReportListObject.m */; };
 		BAA6A5831C86ED9A00B78883 /* ReportListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A5821C86ED9A00B78883 /* ReportListCell.m */; };
 		BAA6A5871C86F30F00B78883 /* ReportObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A5861C86F30F00B78883 /* ReportObject.m */; };
@@ -669,6 +670,8 @@
 		BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGTableViewRowActionWithImage.m; sourceTree = "<group>"; };
 		BA74337C1D0049DE00EC69DA /* UIColor+CustomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColor.h"; sourceTree = "<group>"; };
 		BA74337D1D0049DE00EC69DA /* UIColor+CustomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CustomColor.m"; sourceTree = "<group>"; };
+		BA7433821D006FDA00EC69DA /* UILabel+CustomHeaderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+CustomHeaderLabel.h"; sourceTree = "<group>"; };
+		BA7433831D006FDA00EC69DA /* UILabel+CustomHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+CustomHeaderLabel.m"; sourceTree = "<group>"; };
 		BAA6A57E1C86E61E00B78883 /* ReportListObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportListObject.h; sourceTree = "<group>"; };
 		BAA6A57F1C86E61E00B78883 /* ReportListObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportListObject.m; sourceTree = "<group>"; };
 		BAA6A5811C86ED9A00B78883 /* ReportListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportListCell.h; sourceTree = "<group>"; };
@@ -1228,7 +1231,7 @@
 		A0E2234F1A91C2F00073814A /* FullIntel */ = {
 			isa = PBXGroup;
 			children = (
-				BA74337B1D0049C400EC69DA /* CustomColor */,
+				BA74337B1D0049C400EC69DA /* CustomTheme */,
 				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
 				A0AAF0081BFCA7E20006A48C /* SecondTools */,
 				A0AAEFF71BFCA6CD0006A48C /* Toolbar */,
@@ -1418,13 +1421,15 @@
 			name = css;
 			sourceTree = "<group>";
 		};
-		BA74337B1D0049C400EC69DA /* CustomColor */ = {
+		BA74337B1D0049C400EC69DA /* CustomTheme */ = {
 			isa = PBXGroup;
 			children = (
 				BA74337C1D0049DE00EC69DA /* UIColor+CustomColor.h */,
 				BA74337D1D0049DE00EC69DA /* UIColor+CustomColor.m */,
+				BA7433821D006FDA00EC69DA /* UILabel+CustomHeaderLabel.h */,
+				BA7433831D006FDA00EC69DA /* UILabel+CustomHeaderLabel.m */,
 			);
-			name = CustomColor;
+			name = CustomTheme;
 			sourceTree = "<group>";
 		};
 		BAA6A5841C86F2C500B78883 /* Report_Modal */ = {
@@ -2328,6 +2333,7 @@
 				A08860801B427B9500939D51 /* FIFolder.m in Sources */,
 				F732C7D11AC930680071A4D8 /* InfluencerDetailsView.m in Sources */,
 				F7C1AB611ABFF41C00D8588A /* MoreViewCell.m in Sources */,
+				BA7433841D006FDA00EC69DA /* UILabel+CustomHeaderLabel.m in Sources */,
 				A0697B931C7DC2B20010B945 /* SwiftBridgeFile.swift in Sources */,
 				A07A05C11AF7981A0016AD46 /* AddContentFourthLevelView.m in Sources */,
 				A0DB6FC41B0B2BB400F6E2F4 /* CommentCell.m in Sources */,

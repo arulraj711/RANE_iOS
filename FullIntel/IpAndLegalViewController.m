@@ -31,6 +31,8 @@
 #import "MZFormSheetController.h"
 #import "SocialWebView.h"
 #import "ViewController.h"
+#import "UILabel+CustomHeaderLabel.h"
+
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface IpAndLegalViewController ()
 
@@ -53,14 +55,14 @@
     [self.navigationItem setLeftBarButtonItem:addButton];
     
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text = _titleName;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+//    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text = _titleName;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.titleName];
     
 //        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/184003479/fullIntel/testdata/legalDril.html"]];
 //        [_dealsWebView loadRequest:urlRequest];

@@ -11,6 +11,8 @@
 #import "IssuesResultListPage.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FISharedResources.h"
+#import "UILabel+CustomHeaderLabel.h"
+
 @interface CommunicationIssuesPage ()
 
 @end
@@ -28,14 +30,14 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
     [self.navigationItem setLeftBarButtonItem:addButton];
 
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.text =self.title;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = label;
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+//    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//    label.text =self.title;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.title];
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.revealPanGestureRecognizer.delegate = self;
         self.revealController.panDelegate = self;
