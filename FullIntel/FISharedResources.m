@@ -195,7 +195,8 @@
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"id"]) forKey:@"customerId"];
                 [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([companyDic valueForKey:@"analysisReportEnabled"]) forKey:@"CompanyAnalysisReportEnabled"];
                 
-                
+//                dispatch_queue_t _serialQueue = dispatch_queue_create("com.FullIntel.branding", DISPATCH_QUEUE_SERIAL);
+
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     // NSLog(@"writing file path:%@",plistPath);
                     NSDictionary *brandIdentity = NULL_TO_NIL([companyDic objectForKey:@"brandIdentity"]);
@@ -215,7 +216,7 @@
 //                    NSMutableArray *defaultLabelIdArray = [[NSMutableArray alloc]init];
 //                    NSMutableArray *defaultDisplayNameArray = [[NSMutableArray alloc]init];
                     for(NSDictionary *brandLabelDic in brandLabelArray) {
-                        NSLog(@"brand label dic:%@",brandLabelDic);
+                        //NSLog(@"brand label dic:%@",brandLabelDic);
                         
                         
                         NSManagedObjectContext *context;

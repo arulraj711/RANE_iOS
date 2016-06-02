@@ -30,37 +30,11 @@
 
 - (void)viewDidLoad {
     NSLog(@"login view didload");
-    i = 0;
-    
-    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"selectionValue"];
-
-    self.isAnimated = YES;
     [super viewDidLoad];
-    
-//    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-//    {
-//        _outerView.translatesAutoresizingMaskIntoConstraints = YES;
-//        CGFloat overallWidth = self.view.frame.size.width;
-//        CGFloat outerViewWidth = _outerView.frame.size.width;
-//        CGFloat outerViewHeight = _outerView.frame.size.height;
-//        
-//        CGFloat newOuterViewWidth = outerViewWidth-128;
-//        CGFloat approxPosition = overallWidth - newOuterViewWidth;
-//        CGFloat approxStartPosition = approxPosition/2;
-//        [_outerView setFrame:CGRectMake(approxStartPosition, 172, newOuterViewWidth, outerViewHeight)];
-//        
-//        
-//        _infoButtonPressed.translatesAutoresizingMaskIntoConstraints = YES;
-//        CGFloat logoPosition =_logoIcon.frame.size.width+_logoIcon.frame.origin.x;
-//        NSLog(@"%f",logoPosition);
-//        NSLog(@"%f",_logoIcon.frame.size.width);
-//        NSLog(@"%f",_logoIcon.frame.origin.x);
-//        
-//        [_infoButtonPressed setFrame:CGRectMake(logoPosition-66, _infoButtonPressed.frame.origin.y, _infoButtonPressed.frame.size.width, _infoButtonPressed.frame.size.height)];
-//    }
-    
+    i = 0;
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"selectionValue"];
+    self.isAnimated = YES;
     self.revealController.recognizesPanningOnFrontView = NO;
-    
     originalOuterViewy =_outerView.frame.origin.y;
     [self animateImages];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
@@ -77,6 +51,12 @@
     longPress.minimumPressDuration = 3;
     // longPress.numberOfTouches = 1;
     [self.logoIcon addGestureRecognizer:longPress];
+    
+    
+    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification

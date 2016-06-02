@@ -960,6 +960,7 @@
 		A0697BA31C7DCC6B0010B945 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
+				A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */,
 				BAA6A5841C86F2C500B78883 /* Report_Modal */,
 				A077DB761C857286008288D5 /* TopStoriesViewController.h */,
 				A077DB771C857286008288D5 /* TopStoriesViewController.m */,
@@ -983,6 +984,7 @@
 				BAC1749F1CEC63C100B243DD /* NSString+URLEncoding.m */,
 			);
 			name = Charts;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A07C1EC51C2A64C300447D33 /* More_Settings_Filter */ = {
@@ -997,6 +999,7 @@
 				BAB29F0D1C3D275A0008ED71 /* MoreSettingsViewPhone.storyboard */,
 			);
 			name = More_Settings_Filter;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A08145A41BD0B53D00AA5EE2 /* FPPopover */ = {
@@ -1048,6 +1051,7 @@
 				A0AAF00D1BFCB12B0006A48C /* new vesion */,
 			);
 			name = Toolbar;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A0AAF0081BFCA7E20006A48C /* SecondTools */ = {
@@ -1065,6 +1069,7 @@
 				A0AAF00A1BFCA9540006A48C /* foler60.png */,
 			);
 			name = SecondTools;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A0AAF00D1BFCB12B0006A48C /* new vesion */ = {
@@ -1199,11 +1204,6 @@
 		A0E223441A91C2F00073814A = {
 			isa = PBXGroup;
 			children = (
-				A0697BA31C7DCC6B0010B945 /* Charts */,
-				A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */,
-				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
-				A0AAF0081BFCA7E20006A48C /* SecondTools */,
-				A0AAEFF71BFCA6CD0006A48C /* Toolbar */,
 				A0E2234F1A91C2F00073814A /* FullIntel */,
 				A0E2236C1A91C2F00073814A /* FullIntelTests */,
 				A0F118B01AE7E0420047FE13 /* FullIntelTests */,
@@ -1225,6 +1225,10 @@
 		A0E2234F1A91C2F00073814A /* FullIntel */ = {
 			isa = PBXGroup;
 			children = (
+				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
+				A0AAF0081BFCA7E20006A48C /* SecondTools */,
+				A0AAEFF71BFCA6CD0006A48C /* Toolbar */,
+				A0697BA31C7DCC6B0010B945 /* Charts */,
 				BA51CC461C58A33F00327578 /* Communication Issues */,
 				A0AAEFE61BFC92570006A48C /* New Imgs */,
 				F554DFCB1BB00A7B0062EAC7 /* NewsLetter Page */,

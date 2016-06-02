@@ -96,18 +96,22 @@
     
     NSLog(@"class :%@",self.mediaAnalysisArticleCount.class);
    
-    
-    
-    if([self.mediaAnalysisArticleCount isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    if(self.mediaAnalysisArticleCount.class == nil) {
         self.mediaAnalysisArticleCountText.text = @"";
-
-    } else if([self.mediaAnalysisArticleCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        self.mediaAnalysisArticleCountText.text = [NSString stringWithFormat:@"%@ Article",self.mediaAnalysisArticleCount];
-
     } else {
-        self.mediaAnalysisArticleCountText.text = [NSString stringWithFormat:@"%@ Articles",self.mediaAnalysisArticleCount];
-
+        if([self.mediaAnalysisArticleCount isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            self.mediaAnalysisArticleCountText.text = @"";
+            
+        } else if([self.mediaAnalysisArticleCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            self.mediaAnalysisArticleCountText.text = [NSString stringWithFormat:@"%@ Article",self.mediaAnalysisArticleCount];
+            
+        } else {
+            self.mediaAnalysisArticleCountText.text = [NSString stringWithFormat:@"%@ Articles",self.mediaAnalysisArticleCount];
+            
+        }
     }
+    
+    
     
     isSearchingInteger = 0;
     switchForFilter = 0;
@@ -991,6 +995,11 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:navBtn];
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
     BOOL isFolderClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFolderClick"];
+    if(isFolderClick) {
+        NSLog(@"true:%@",newsLetterId);
+    } else {
+        NSLog(@"false:%@",newsLetterId);
+    }
     if(isFolderClick) {
         
     } else if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
