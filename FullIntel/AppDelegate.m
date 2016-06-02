@@ -19,6 +19,7 @@
 #import "Reachability.h"
 //#import "ATAppUpdater.h"
 #import "Localytics.h"
+#import "UIColor+CustomColor.h"
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
@@ -108,9 +109,9 @@
     
     
     
-    NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
-    NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    [[UINavigationBar appearance] setBarTintColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
+//    NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
+//    NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor headerBackgroundColor]];
     //[[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:97/255.0 green:98/255.0 blue:100/255.0 alpha:1.0]];
 //    navCtlr.navigationBar.tintColor = [UIColor whiteColor];
 //    navCtlr.navigationBar.barStyle = UIBarStyleBlack;

@@ -9,6 +9,7 @@
 #import "FIUtils.h"
 #import "FISharedResources.h"
 #import "UIView+Toast.h"
+#define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
 
 @implementation FIUtils
 
@@ -348,6 +349,19 @@
         brandingIdentity = [result objectAtIndex:0];
     }
     return brandingIdentity;
+}
+
+-(void)storeColorThemesFromBrandingDictionary:(NSDictionary *)dic {
+    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([dic objectForKey:@"headerBgColor"]) forKey:@"headerBgColor"];
+    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([dic objectForKey:@"headerFgColor"]) forKey:@"headerFgColor"];
+    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([dic objectForKey:@"highlightBgColor"]) forKey:@"highlightBgColor"];
+    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([dic objectForKey:@"highlightFgColor"]) forKey:@"highlightFgColor"];
+    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([dic objectForKey:@"menuBgColor"]) forKey:@"menuBgColor"];
+    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([dic objectForKey:@"textColor"]) forKey:@"textColor"];
+    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([dic objectForKey:@"notificationBgColor"]) forKey:@"notificationBgColor"];
+    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([dic objectForKey:@"notificationFgColor"]) forKey:@"notificationFgColor"];
+    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([dic objectForKey:@"buttonBgColor"]) forKey:@"buttonBgColor"];
+    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([dic objectForKey:@"buttonFgColor"]) forKey:@"buttonFgColor"];
 }
 
 

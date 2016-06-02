@@ -184,9 +184,12 @@
                 //Prefercence Info
 
                 NSDictionary *preferenceDic = NULL_TO_NIL([responseObject objectForKey:@"theme"]);
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"headerBgColor"]) forKey:@"headerColor"];
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"highlightFgColor"]) forKey:@"highlightColor"];
-                [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([preferenceDic objectForKey:@"menuBgColor"]) forKey:@"menuBgColor"];
+                FIUtils *utilsObject = [[FIUtils alloc]init];
+                [utilsObject storeColorThemesFromBrandingDictionary:preferenceDic];
+
+                
+                
+                
                 
                 //Company Info
                 NSDictionary *companyDic = NULL_TO_NIL([responseObject objectForKey:@"company"]);

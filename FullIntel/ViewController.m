@@ -16,6 +16,8 @@
 #import "SocialWebView.h"
 #import "FIWebService.h"
 #import <TwitterKit/TwitterKit.h>
+#import "UIColor+CustomColor.h"
+
 #define kPictureFrameHorizontalOffseta +35
 #define kPictureFrameHorizontalOffset +25
 
@@ -361,9 +363,9 @@
     [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
     // NSString *inputJson = [FIUtils createInputJsonForContentWithToekn:[notification.object objectForKey:@"securityToken"] lastArticleId:@"" contentTypeId:@"1" listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInteger:-1]];
-    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
-    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    [[UINavigationBar appearance] setBarTintColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
+//    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
+//    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor headerBackgroundColor]];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     
     

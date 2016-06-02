@@ -10,8 +10,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-
 @interface FIUtils : NSObject
+
 +(NSString*)getDateFromTimeStamp:(double)timeStamp;
 +(NSString*)createInputJsonForContentWithToekn:(NSString *)securityToken lastArticleId:(NSString *)articleId contentTypeId:(NSNumber *)contentTypeId listSize:(NSInteger)listSize activityTypeId:(NSString*)activityTypeId categoryId:(NSNumber *)categoryId;
 
@@ -26,12 +26,13 @@
 +(void)makeRoundedView:(UIView*)view;
 +(void)callRequestionUpdateWithModuleId:(NSInteger)moduleId
                           withFeatureId:(NSInteger)featureId;
-+(void)showNoNetworkBanner;
-+(void)hideNoNetworkBanner;
+//+(void)showNoNetworkBanner;
+//+(void)hideNoNetworkBanner;
 +(void)showErrorWithMessage:(NSString *)message;
 +(BOOL) NSStringIsValidEmail:(NSString *)checkString;
 +(NSString*)getDateFromTimeStampTwo:(double)timeStamp;
 +(NSString *)relativeDateStringForDate:(NSDate *)date;
-+(NSDictionary *)getBrandingIdentityListFromPlistFile; //get branding identity list
+//+(NSDictionary *)getBrandingIdentityListFromPlistFile; //get branding identity list
 +(NSManagedObject *)getBrandFromBrandingIdentityForId:(NSNumber *)defaultLabelId;
+-(void)storeColorThemesFromBrandingDictionary:(NSDictionary *)dic;
 @end

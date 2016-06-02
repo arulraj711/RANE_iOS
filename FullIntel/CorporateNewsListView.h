@@ -13,6 +13,8 @@
 #import "WSCoachMarksView.h"
 #import "PKRevealController.h"
 #import "FPPopoverController.h"
+#import "UIColor+CustomColors.h"
+
 @interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate, UISearchBarDelegate, UISearchControllerDelegate,UISearchDisplayDelegate,PanDelegate,FPPopoverControllerDelegate> {
     WSCoachMarksView *coachMarksView;
     NSMutableArray *legendsList;

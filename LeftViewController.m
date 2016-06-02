@@ -36,6 +36,7 @@
 #import "CommonViewController.h"
 #import "CommunicationIssuesPage.h"
 #import "ChartViewController.h"
+#import "UIColor+CustomColor.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -549,9 +550,9 @@
         });
         
     }
-    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
-    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
+//    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
+//    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [self.view setBackgroundColor: [UIColor menuBackgroundColor]];
     self.treeView.frame = self.treeBackView.bounds;
     
     NSString *menuBottomLogoString = [[NSUserDefaults standardUserDefaults]objectForKey:@"leftmenuLogo"];
@@ -596,9 +597,9 @@
     
     
     
-    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
-    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    [self.view setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
+//    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
+//    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [self.view setBackgroundColor: [UIColor menuBackgroundColor]];
     
     
     NSString *companyLogoImageStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyLogo"];
@@ -961,9 +962,9 @@
     RATableViewCell *cell = [self.treeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
     cell.cellItem = item;
     cell.expandButtonDelegate = self;
-    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
-    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    cell.backgroundColor = [FIUtils colorWithHexString:stringWithoutSpaces];
+//    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
+//    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    cell.backgroundColor = [UIColor menuBackgroundColor];
     [cell setupWithTitle:dataObject.name detailText:detailText level:level additionButtonHidden:NO];
     UIView *selectionColor = [[UIView alloc] init];
     selectionColor.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1];
@@ -1124,16 +1125,16 @@
     cell.customTitleLabel.frame = titleFrame;
     
     
-    NSString *highlightColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
-    NSString *highColor = [highlightColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+//    NSString *highlightColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
+//    NSString *highColor = [highlightColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     
     if(cell.customTitleLabel.isHighlighted)
     {
-        cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
+        cell.customTitleLabel.highlightedTextColor = [UIColor menuBackgroundColor];
     }
     else
     {
-        cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:highColor];
+        cell.customTitleLabel.highlightedTextColor = [UIColor highlightMenuTextColor];
     }
     
    // [cell.expandButton addTarget:self action:@selector(yourButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -1228,10 +1229,10 @@
         }
         
         
-        NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
-        NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+//        NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
+//        NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
         
-        cell.customTitleLabel.highlightedTextColor = [FIUtils colorWithHexString:stringWithoutSpaces];
+        cell.customTitleLabel.highlightedTextColor = [UIColor highlightMenuTextColor];
         
         
        // NSLog(@"after this");

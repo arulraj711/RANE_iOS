@@ -12,6 +12,8 @@
 #import "FIUtils.h"
 #import "UIView+Toast.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIColor+CustomColor.h"
+
 @interface SocialWebView ()
 
 @end
@@ -23,9 +25,9 @@
     // Do any additional setup after loading the view.
     
   //  NSString *fullURL = @"http://conecode.com";
-    NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
-    NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    [self.outerView setBackgroundColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
+//    NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
+//    NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [self.outerView setBackgroundColor:[UIColor headerBackgroundColor]];
    
     self.outerView.layer.masksToBounds = YES;
     self.outerView.layer.cornerRadius = 10;

@@ -229,6 +229,7 @@
 		BA51CCA11C58A47300327578 /* font-awesome.min.css in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC9E1C58A47300327578 /* font-awesome.min.css */; };
 		BA51CCA21C58A47300327578 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = BA51CC9F1C58A47300327578 /* style.css */; };
 		BA6347911BFE02A300DCF13F /* BGTableViewRowActionWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */; };
+		BA74337E1D0049DE00EC69DA /* UIColor+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BA74337D1D0049DE00EC69DA /* UIColor+CustomColor.m */; };
 		BAA6A5801C86E61E00B78883 /* ReportListObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A57F1C86E61E00B78883 /* ReportListObject.m */; };
 		BAA6A5831C86ED9A00B78883 /* ReportListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A5821C86ED9A00B78883 /* ReportListCell.m */; };
 		BAA6A5871C86F30F00B78883 /* ReportObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6A5861C86F30F00B78883 /* ReportObject.m */; };
@@ -666,6 +667,8 @@
 		BA51CC9F1C58A47300327578 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		BA63478F1BFE02A200DCF13F /* BGTableViewRowActionWithImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGTableViewRowActionWithImage.h; sourceTree = "<group>"; };
 		BA6347901BFE02A300DCF13F /* BGTableViewRowActionWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGTableViewRowActionWithImage.m; sourceTree = "<group>"; };
+		BA74337C1D0049DE00EC69DA /* UIColor+CustomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColor.h"; sourceTree = "<group>"; };
+		BA74337D1D0049DE00EC69DA /* UIColor+CustomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CustomColor.m"; sourceTree = "<group>"; };
 		BAA6A57E1C86E61E00B78883 /* ReportListObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportListObject.h; sourceTree = "<group>"; };
 		BAA6A57F1C86E61E00B78883 /* ReportListObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportListObject.m; sourceTree = "<group>"; };
 		BAA6A5811C86ED9A00B78883 /* ReportListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportListCell.h; sourceTree = "<group>"; };
@@ -1225,6 +1228,7 @@
 		A0E2234F1A91C2F00073814A /* FullIntel */ = {
 			isa = PBXGroup;
 			children = (
+				BA74337B1D0049C400EC69DA /* CustomColor */,
 				A07C1EC51C2A64C300447D33 /* More_Settings_Filter */,
 				A0AAF0081BFCA7E20006A48C /* SecondTools */,
 				A0AAEFF71BFCA6CD0006A48C /* Toolbar */,
@@ -1412,6 +1416,15 @@
 				BA51CC9F1C58A47300327578 /* style.css */,
 			);
 			name = css;
+			sourceTree = "<group>";
+		};
+		BA74337B1D0049C400EC69DA /* CustomColor */ = {
+			isa = PBXGroup;
+			children = (
+				BA74337C1D0049DE00EC69DA /* UIColor+CustomColor.h */,
+				BA74337D1D0049DE00EC69DA /* UIColor+CustomColor.m */,
+			);
+			name = CustomColor;
 			sourceTree = "<group>";
 		};
 		BAA6A5841C86F2C500B78883 /* Report_Modal */ = {
@@ -2283,6 +2296,7 @@
 				A0CF5C6F1B1DD98B00DED2D9 /* Stocks.m in Sources */,
 				F7CE36E11A95E9490005AA0A /* RATreeNodeCollectionController.m in Sources */,
 				F7CE36EA1A95E9490005AA0A /* RATreeView+UIScrollView.m in Sources */,
+				BA74337E1D0049DE00EC69DA /* UIColor+CustomColor.m in Sources */,
 				A0E223531A91C2F00073814A /* main.m in Sources */,
 				F55634651B94687A009E7C8E /* FIUnreadMenu.m in Sources */,
 				BA51CC721C58A3BF00327578 /* IssueMonitoringOutletCell.m in Sources */,

@@ -23,6 +23,8 @@
 #import "BGTableViewRowActionWithImage.h"
 #import "MoreSettingsView.h"
 #import "SavedListPopoverView.h"
+#import "UIColor+CustomColor.h"
+
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -68,13 +70,13 @@
     
     [toolbar setItems:[[NSArray alloc] initWithObjects:markAsReadButton,spacer,addTofolder,nil]];
     
-    NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
-    NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    [toolbar setBarTintColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
+//    NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
+//    NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    [toolbar setBarTintColor:[UIColor headerBackgroundColor]];
     [toolbar setBarTintColor: [UIColor colorWithRed:97/255.0 green:98/255.0 blue:100/255.0 alpha:1.0]];
     toolbar.tintColor = [UIColor whiteColor];
     toolbar.barStyle = UIBarStyleBlack;
-    [toolbar setBackgroundColor:[FIUtils colorWithHexString:stringWithoutSpaces]];
+    [toolbar setBackgroundColor:[UIColor headerBackgroundColor]];
     [toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
     [self.view addSubview:toolbar];
     yPostionOfTOolbar =toolbar.frame.origin.y;
@@ -210,7 +212,7 @@
     // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     label.text =_titleName;
     label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor]; // change this color
+    label.textColor = [UIColor headerTextColor]; // change this color
     self.navigationItem.titleView = label;
     
     
