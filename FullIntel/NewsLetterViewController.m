@@ -30,7 +30,7 @@
 //    label.text =@"DAILY DIGEST";
 //    label.textAlignment = NSTextAlignmentCenter;
 //    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"DAILY DIGEST"];
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.titleName];
     
     // Do any additional setup after loading the view.
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];

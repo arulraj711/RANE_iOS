@@ -37,6 +37,7 @@
 #import "CommunicationIssuesPage.h"
 #import "ChartViewController.h"
 #import "UIColor+CustomColor.h"
+#import "ChartListViewController.h"
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface LeftViewController () <RATreeViewDelegate, RATreeViewDataSource>
 
@@ -1543,7 +1544,8 @@
                  navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterView"];
              }
             
-            
+            NewsLetterViewController *newsletterViewObject=(NewsLetterViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+            newsletterViewObject.titleName = data.name;
             [self.revealController setFrontViewController:navCtlr];
             
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-300]]) {
@@ -1599,7 +1601,8 @@
                 storyboard = [UIStoryboard storyboardWithName:@"ChartViewControlleriPad" bundle:nil];
                 navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"ChartListViewControllerNav"];
             }
-            
+            ChartListViewController *chartListViewObject=(ChartListViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+            chartListViewObject.titleName = data.name;
             
             [self.revealController setFrontViewController:navCtlr];
             
@@ -1627,7 +1630,8 @@
                         navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
 
                     }
-                    ////               // FolderViewController *folderView = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+                    FolderViewController *folderViewObject=(FolderViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+                    folderViewObject.titleName = data.name;
                     [self.revealController setFrontViewController:navCtlr];
                 } else {
                     if([[data.name uppercaseString]isEqualToString:@"RSS"]) {

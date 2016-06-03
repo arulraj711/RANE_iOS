@@ -14,5 +14,6 @@
 }
 @property NSNumber *newsletterId;
 @property NSString *newsletterArticleId;
+@property NSString *titleName;
 @property (weak, nonatomic) IBOutlet UITableView *newsListTableView;
 @end

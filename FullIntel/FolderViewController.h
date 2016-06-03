@@ -16,5 +16,6 @@
 - (IBAction)rssButtonClick:(UIButton *)sender;
 - (IBAction)editButtonClick:(UIButton *)sender;
 - (IBAction)deleteButtonClick:(UIButton *)sender;
+@property NSString *titleName;
 @property BOOL isdeleteFlag;
 @end

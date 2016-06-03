@@ -40,7 +40,7 @@
 //    label.text =@"MEDIA ANALYSIS";
 //    label.textAlignment = NSTextAlignmentCenter;
 //    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"MEDIA ANALYSIS"];
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.titleName];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(afterFetchingReportList:)

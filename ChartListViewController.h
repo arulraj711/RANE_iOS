@@ -14,6 +14,6 @@
     UIActivityIndicatorView *activityIndicator;
 }
 - (IBAction)navigateToChartView:(id)sender;
-
+@property NSString *titleName;
 @property (nonatomic,strong) IBOutlet UICollectionView *reportCollectionView;
 @end
