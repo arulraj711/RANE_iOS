@@ -966,8 +966,8 @@
 //    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     cell.backgroundColor = [UIColor menuBackgroundColor];
     [cell setupWithTitle:dataObject.name detailText:detailText level:level additionButtonHidden:NO];
-    UIView *selectionColor = [[UIView alloc] init];
-    selectionColor.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1];
+//    UIView *selectionColor = [[UIView alloc] init];
+//    selectionColor.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1];
 //cell.selectedBackgroundView = selectionColor;
     
 //    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:1]]){
@@ -1189,7 +1189,11 @@
     
 }
 -(void)treeView:(RATreeView *)treeView didDeselectRowForItem:(id)item {
-//        RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
+    RADataObject *dataO = item;
+    NSLog(@"deselect item:%@",dataO.name);
+    RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
+    cell.contentView.backgroundColor = [UIColor menuBackgroundColor];
+
 //        cell.customTitleLabel.highlightedTextColor = UIColorFromRGB(0x666E73);
 //        cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 //    
@@ -1200,7 +1204,7 @@
 
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
-    NSLog(@"from Menu");
+    
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FromLogin"];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"selectionValue"];
 
@@ -1209,6 +1213,8 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFolderClick"];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isExpandButtonClick"];
         data = item;
+        NSLog(@"did select item:%@",data.name);
+
         //    //if([[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]iseq)
         //NSLog(@"one:%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]);
         if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
@@ -1227,7 +1233,7 @@
             // NSLog(@"list is clopsed");
             [cell.expandButton setSelected:YES];
         }
-        
+        cell.contentView.backgroundColor = [UIColor highlightMenuBackgroundColor];
         
 //        NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
 //        NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];

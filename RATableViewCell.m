@@ -71,8 +71,21 @@
     [super setSelected:selected animated:animated];
     self.countLabel.backgroundColor = [UIColor notificationBackgroundColor];
     self.countLabel.textColor = [UIColor notificationTextColor];
-    
+    //self.cellTopView.backgroundColor = [UIColor redColor];
+    self.contentView.backgroundColor = [UIColor highlightMenuBackgroundColor];
 }
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    if (highlighted) {
+        //self.cellTopView.backgroundColor = [UIColor redColor];
+        self.contentView.backgroundColor = [UIColor highlightMenuBackgroundColor];
+    } else {
+        //self.cellTopView.backgroundColor = [UIColor whiteColor];
+        self.contentView.backgroundColor = [UIColor menuBackgroundColor];
+    }
+}
+
 
 - (IBAction)expandButtonAction:(id)sender {
     NSLog(@"expand button click");
