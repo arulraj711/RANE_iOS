@@ -20,6 +20,7 @@
 
 #import "RATableViewCell.h"
 #import "FIUtils.h"
+#import "UIColor+CustomColor.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -51,6 +52,10 @@
 //    NSString *menuBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"menuBgColor"];
 //    NSString *stringWithoutSpaces = [menuBackgroundColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
 //    [self.contentView setBackgroundColor: [FIUtils colorWithHexString:stringWithoutSpaces]];
+    
+    self.countLabel.backgroundColor = [UIColor notificationBackgroundColor];
+    self.countLabel.textColor = [UIColor notificationTextColor];
+    
 }
 
 - (void)prepareForReuse
@@ -64,8 +69,8 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    
-    self.countLabel.backgroundColor = [UIColor colorWithRed:245/255.0 green:85/255.0 blue:103/255.0 alpha:1.0];
+    self.countLabel.backgroundColor = [UIColor notificationBackgroundColor];
+    self.countLabel.textColor = [UIColor notificationTextColor];
     
 }
 

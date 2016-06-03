@@ -18,5 +18,6 @@
 @property (nonatomic,strong) IBOutlet UIView *outerView;
 - (IBAction)closeAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *backImgeView;
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (nonatomic,strong) IBOutlet UILabel *titleText;
 @end

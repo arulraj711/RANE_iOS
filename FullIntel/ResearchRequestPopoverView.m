@@ -9,6 +9,7 @@
 #import "ResearchRequestPopoverView.h"
 #import "FISharedResources.h"
 #import "UIView+Toast.h"
+#import "UIColor+CustomColor.h"
 @interface ResearchRequestPopoverView ()
 
 @end
@@ -19,6 +20,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
+    //send button customization
+    self.sendButton.backgroundColor = [UIColor buttonBackgroundColor];
+    [self.sendButton setTitleColor:[UIColor buttonTextColor] forState:UIControlStateNormal];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(researchSend) name:@"ResearchSend" object:nil];
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
         
