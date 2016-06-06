@@ -20,6 +20,7 @@
 //#import "ATAppUpdater.h"
 #import "Localytics.h"
 #import "UIColor+CustomColor.h"
+
 @interface AppDelegate ()<PKRevealing>
 #pragma mark - Properties
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
@@ -146,6 +147,8 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
+    
+    self.window.backgroundColor = [UIColor menuBackgroundColor];
     
     // [self.revealController showViewController:self.revealController.leftViewController];
     
