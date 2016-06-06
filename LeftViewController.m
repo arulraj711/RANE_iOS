@@ -150,14 +150,20 @@
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.title = NSLocalizedString(@"Things", nil);
     [self updateNavigationItemButton];
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+
+    if(accessToken.length != 0) {
+        self.menus = [[NSMutableArray alloc]initWithArray:objectArray];
+        [self test:self.menus];
+        [treeView reloadData];
+    } else {
+        self.addContentLabel.hidden = YES;
+        self.addContentButton.hidden = YES;
+        self.researchButton.hidden = YES;
+        self.researchRequestImage.hidden = YES;
+    }
     
     
-    self.menus = [[NSMutableArray alloc]initWithArray:objectArray];
-    [self test:self.menus];
-    [treeView reloadData];
-    
-    NSLog(@"left data count:%d",self.data.count);
-        NSLog(@"come selectrow method");
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
             if(self.data.count > 6) {
                 [self.treeView selectRowForItem:[self.data objectAtIndex:0] animated:YES scrollPosition:RATreeViewScrollPositionTop];

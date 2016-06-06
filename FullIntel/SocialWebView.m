@@ -46,7 +46,7 @@
    
 
     if([[FISharedResources sharedResourceManager]serviceIsReachable]){
-        NSURL *url = [NSURL URLWithString:self.urlString];
+        NSURL *url = [NSURL URLWithString:@"https://ranenetwork.com/terms/"];
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
        // self.webView.scalesPageToFit = YES;
         
