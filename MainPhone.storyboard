@@ -97,7 +97,7 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INF-nf-AHx">
                                         <rect key="frame" x="6" y="170" width="293" height="36"/>
-                                        <color key="backgroundColor" red="0.2274509804" green="0.68627450980000004" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.074509803920000006" green="0.23921568630000001" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                         <state key="normal" title="Sign-In">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
