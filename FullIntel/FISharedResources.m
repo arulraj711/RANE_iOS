@@ -312,35 +312,26 @@
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             window.userInteractionEnabled = YES;
             NSLog(@"Error---->%@",error);
-            NSError* error1;
-            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
-            NSLog(@"error JSON:%@",errorJson);
-            
-            if(errorJson == nil){
-                [FIUtils showErrorToast];
+            if(operation.responseObject == nil) {
+                // Error object is null
             } else {
-                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:400]]){
-                    [self hideProgressView];
-                    [self showLoginView:[NSNumber numberWithInt:0]];
+                NSError* error1;
+                NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+                NSLog(@"error JSON:%@",errorJson);
+                
+                if(errorJson == nil){
+                    [FIUtils showErrorToast];
                 } else {
-                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                    if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:400]]){
+                        [self hideProgressView];
+                        [self showLoginView:[NSNumber numberWithInt:0]];
+                    } else {
+                        [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                    }
                 }
             }
+            
 
-            
-//                UIWindow *window = [[UIApplication sharedApplication]windows][0];
-//                [window makeToast:[errorJson objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
-
-            
-            //[FIUtils showErrorToast];
-            
-            
-//            NSError* error1;
-//            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
-//            NSLog(@"error JSON:%@",errorJson);
-//            [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
-            
-            //[self hideProgressHUDForView];
         }];
         
     } else {
