@@ -10,6 +10,7 @@
 #import "FIUtils.h"
 #import "FISharedResources.h"
 #import "UIView+Toast.h"
+#import "UILabel+CustomHeaderLabel.h"
 
 @interface MailPopoverView ()
 
@@ -28,7 +29,7 @@
     
 //    self.outerView.layer.masksToBounds = YES;
 //    self.outerView.layer.cornerRadius = 10.0f;
-    
+    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"Add Content"];
 }
 
 - (void)didReceiveMemoryWarning {

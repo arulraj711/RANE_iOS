@@ -13,6 +13,7 @@
 #import "UIView+Toast.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+CustomColor.h"
+#import "UILabel+CustomHeaderLabel.h"
 
 @interface SocialWebView ()
 
@@ -64,7 +65,14 @@
     }
 
     
-    _titleString.text=_titleStr;
+    //[self.titleString addSubview:[UILabel setCustomHeaderLabelFromText:self.titleStr]];
+    
+    _titleString.backgroundColor = [UIColor clearColor];
+    _titleString.font = [UIFont fontWithName:@"Open Sans" size:16];
+    // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    _titleString.text =_titleStr;
+    _titleString.textAlignment = NSTextAlignmentCenter;
+    _titleString.textColor = [UIColor headerTextColor];
 }
 
 - (void)didReceiveMemoryWarning {
