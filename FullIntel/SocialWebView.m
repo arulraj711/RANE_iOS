@@ -44,9 +44,10 @@
 //    UIScrollView *scrollView = [self.webView.subviews objectAtIndex:0];
 //    scrollView.delegate = self;//self must be UIScrollViewDelegate
    
-
+    NSLog(@"social view url string:%@",self.urlString);
+    
     if([[FISharedResources sharedResourceManager]serviceIsReachable]){
-        NSURL *url = [NSURL URLWithString:@"https://ranenetwork.com/terms/"];
+        NSURL *url = [NSURL URLWithString:self.urlString];
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
        // self.webView.scalesPageToFit = YES;
         

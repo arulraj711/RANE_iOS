@@ -447,7 +447,34 @@
 
 - (IBAction)forgetPasswordButtonPressed:(id)sender {
     [Localytics tagEvent:@"ForgotPasswordButtonClick"];
-    [self showForgetAlert:_usernameTextField.text withFlag:@""];
+    
+    UIStoryboard *storyBoard;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebViewPhone"];
+        [modalController setNavigationBarHidden:YES animated:NO];
+        SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        SocialWebViewObj.titleStr=@"Forgot Password";
+        NSString *signUpUrlString = [NSString stringWithFormat:@"https://ranenetwork.com/app/cms/users/password/new"];
+        SocialWebViewObj.urlString=signUpUrlString;
+        modalController.modalPresentationStyle = UIModalPresentationCustom;
+        
+        [self presentViewController:modalController animated:NO completion:nil];
+    } else {
+        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+        UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+        SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
+        SocialWebViewObj.titleStr=@"Forgot Password";
+        NSString *signUpUrlString = [NSString stringWithFormat:@"https://ranenetwork.com/app/cms/users/password/new"];
+        SocialWebViewObj.urlString=signUpUrlString;
+        modalController.modalPresentationStyle = UIModalPresentationCustom;
+        
+        [self presentViewController:modalController animated:NO completion:nil];
+    }
+    
+    
+  //  [self showForgetAlert:_usernameTextField.text withFlag:@""];
     
 }
 
@@ -560,7 +587,7 @@
         [modalController setNavigationBarHidden:YES animated:NO];
         SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
         SocialWebViewObj.titleStr=@"Privacy Policy";
-        NSString *privacyUrlString = [NSString stringWithFormat:@"%@/common/privacy",[FIWebService getServerURL]];
+        NSString *privacyUrlString = [NSString stringWithFormat:@"https://ranenetwork.com/terms/"];
         SocialWebViewObj.urlString=privacyUrlString;
         modalController.modalPresentationStyle = UIModalPresentationCustom;
         
@@ -570,7 +597,7 @@
         UINavigationController *modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
         SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
         SocialWebViewObj.titleStr=@"Privacy Policy";
-        NSString *privacyUrlString = [NSString stringWithFormat:@"%@/common/privacy",[FIWebService getServerURL]];
+        NSString *privacyUrlString = [NSString stringWithFormat:@"https://ranenetwork.com/terms/"];
         SocialWebViewObj.urlString=privacyUrlString;
         modalController.modalPresentationStyle = UIModalPresentationCustom;
         
