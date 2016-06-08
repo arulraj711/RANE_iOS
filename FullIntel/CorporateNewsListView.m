@@ -2539,8 +2539,18 @@
                 [cell.checkMarkButton setSelected:YES];
             }
         } else if(self.segmentControl.selectedSegmentIndex == 2) {
-            [cell.checkMarkButton setSelected:NO];
+            NSString *articleId = [curatedNews valueForKey:@"articleId"];
+            if([self.filterArray containsObject:articleId]) {
+                [cell.checkMarkButton setSelected:YES];
+            } else {
+                [cell.checkMarkButton setSelected:NO];
+            }
+            
         }
+        
+        
+        
+        
         
         if(cell.checkMarkButton.isSelected) {
             // [actionArticleIdList addObject:[curatedNews valueForKey:@"articleId"]];
