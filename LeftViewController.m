@@ -805,6 +805,12 @@
         dataObj.nodeId = [NSNumber numberWithInt:-1000];
         [self.data addObject:dataObj];
 
+    } else {
+        RADataObject *dataObj = [[RADataObject alloc]init];
+        dataObj.name = @"Logout";
+        dataObj.children = nil;
+        dataObj.nodeId = [NSNumber numberWithInt:-1000];
+        [self.data addObject:dataObj];
     }
         // [treeView reloadData];
 }
