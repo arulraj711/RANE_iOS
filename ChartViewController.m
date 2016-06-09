@@ -511,95 +511,86 @@
 
     //----------------------------------------------------------------to get the brand names in firstkey
 
-    NSString *firstKey = [NSString stringWithFormat:@"%@",[changeOverInputArray objectAtIndex:0]];    //contains the first key
-
-    NSMutableDictionary *dictWithDate = [changeOverChartDic objectForKey:firstKey];                 //gets the dict value of the first key
-    
-    NSArray *firstArrayOfDates=[self sortKeysInOrder:dictWithDate];   //contains the dates of first key
-    NSLog(@"%@",firstArrayOfDates);
-
-    NSArray *twoMemberArray = [self FindWeekNumberOfDate:firstArrayOfDates];                        //to get the array of month number
-    
-    NSArray *finalFormattedMonthNam = [twoMemberArray objectAtIndex:1];                             //Contains the array of month number
-    
-    //month name based array----------------------------------------------------------------
-    
-    NSArray *keyMonthArray = [self GetMonthNameFromNumber:finalFormattedMonthNam];                  //Contains the array of month name
-
-    NSArray *reverseOrders = [self sortValuesOfKeysInOrder:changeOverChartDic withArray:changeOverInputArray];
-    NSLog(@"%@",reverseOrders);                                                  //the array with brand and its values
-    reverseOrderBkUp = [NSMutableArray arrayWithArray:reverseOrders];
-    NSMutableArray *trialArrayTwo = [[NSMutableArray alloc] init];                //contains the values of keys in sorted form
-
-    for (int i =0;i<firstArrayOfDates.count;i++) {
-    NSString *firstgey = [NSString stringWithFormat:@"%@",[firstArrayOfDates objectAtIndex:i]];
-        NSMutableArray *arrayCodigos;
-        @try {
-            arrayCodigos = [NSMutableArray arrayWithArray:[reverseOrders valueForKey:firstgey]];
-
-        }
-        @catch (NSException *exception) {
-            NSLog(@"");
-        }
-        @finally {
-            NSLog(@"");
-
-        }
-    NSLog(@"arrayCodigos %@", arrayCodigos);
-    [trialArrayTwo addObject:arrayCodigos];
-    }
-    
-    
-    
-    NSLog(@"%@",trialArrayTwo);                                                  //the array with brand and its values
-    NSLog(@"%@",changeOverChartDic);                                                   //the array with brand and its values
-
-    
-    
-    
-    
-    
-        NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
-    
-        //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
-    
-        for (int m = 0; m<finalFormattedMonthNam.count; m++) {
+    if(changeOverInputArray.count != 0){
+        NSString *firstKey = [NSString stringWithFormat:@"%@",[changeOverInputArray objectAtIndex:0]];    //contains the first key
         
+        NSMutableDictionary *dictWithDate = [changeOverChartDic objectForKey:firstKey];                 //gets the dict value of the first key
+        
+        NSArray *firstArrayOfDates=[self sortKeysInOrder:dictWithDate];   //contains the dates of first key
+        NSLog(@"%@",firstArrayOfDates);
+        
+        NSArray *twoMemberArray = [self FindWeekNumberOfDate:firstArrayOfDates];                        //to get the array of month number
+        
+        NSArray *finalFormattedMonthNam = [twoMemberArray objectAtIndex:1];                             //Contains the array of month number
+        
+        //month name based array----------------------------------------------------------------
+        
+        NSArray *keyMonthArray = [self GetMonthNameFromNumber:finalFormattedMonthNam];                  //Contains the array of month name
+        
+        NSArray *reverseOrders = [self sortValuesOfKeysInOrder:changeOverChartDic withArray:changeOverInputArray];
+        NSLog(@"%@",reverseOrders);                                                  //the array with brand and its values
+        reverseOrderBkUp = [NSMutableArray arrayWithArray:reverseOrders];
+        NSMutableArray *trialArrayTwo = [[NSMutableArray alloc] init];                //contains the values of keys in sorted form
+        
+        for (int i =0;i<firstArrayOfDates.count;i++) {
+            NSString *firstgey = [NSString stringWithFormat:@"%@",[firstArrayOfDates objectAtIndex:i]];
+            NSMutableArray *arrayCodigos;
+            @try {
+                arrayCodigos = [NSMutableArray arrayWithArray:[reverseOrders valueForKey:firstgey]];
+                
+            }
+            @catch (NSException *exception) {
+                NSLog(@"");
+            }
+            @finally {
+                NSLog(@"");
+                
+            }
+            NSLog(@"arrayCodigos %@", arrayCodigos);
+            [trialArrayTwo addObject:arrayCodigos];
+        }
+        
+        
+        
+        NSLog(@"%@",trialArrayTwo);                                                  //the array with brand and its values
+        NSLog(@"%@",changeOverChartDic);                                                   //the array with brand and its values
+        
+        NSMutableArray *XValueWithBrands = [[NSMutableArray alloc]init];   //the final array with brands
+        
+        //loop to iterate untill all the brand names and its corresponding values are obtained-------------------------------------------------------------------------
+        
+        for (int m = 0; m<finalFormattedMonthNam.count; m++) {
+            
             NSArray *initXValueWithBrands = [NSArray arrayWithArray:changeOverInputArray];
             [XValueWithBrands addObjectsFromArray:initXValueWithBrands];
-    
+            
         }
         
         NSLog(@"%@",XValueWithBrands);
-
-    NSMutableArray *finalValueArray = [[NSMutableArray alloc]init];
-    for (NSDictionary *interMed in reverseOrders) {
-        NSLog(@"%@",interMed);
-        NSArray *firstArray=[self sortKeysInOrder:interMed];   //contains the keys in sorted form
-        NSLog(@"%@",firstArray);
-
-        NSArray *secArray = [self sortValuesOfKeysInOrder:interMed withArray:firstArray];
-        NSLog(@"%@",secArray);                                                  //the array with brand and its values
-//        [finalValueArray addObjectsFromArray:secArray];
-        [finalValueArray addObject:secArray];
         
-    }
-    NSLog(@"%@",finalValueArray);                                                  //the array with brand and its values
-
-
-
-    
-    
-    //if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
+        NSMutableArray *finalValueArray = [[NSMutableArray alloc]init];
+        for (NSDictionary *interMed in reverseOrders) {
+            NSLog(@"%@",interMed);
+            NSArray *firstArray=[self sortKeysInOrder:interMed];   //contains the keys in sorted form
+            NSLog(@"%@",firstArray);
+            
+            NSArray *secArray = [self sortValuesOfKeysInOrder:interMed withArray:firstArray];
+            NSLog(@"%@",secArray);                                                  //the array with brand and its values
+            //        [finalValueArray addObjectsFromArray:secArray];
+            [finalValueArray addObject:secArray];
+            
+        }
+        NSLog(@"%@",finalValueArray);                                                  //the array with brand and its values
+        
+        //if(keyTopicsDic.count != 0) {//defining the x and y values finally for plotting in the stacked bar chart
         monthArray = [NSArray arrayWithArray:keyMonthArray];
         ValueArray = [NSArray arrayWithArray:finalValueArray];
         int countVal = (int)monthArray.count;
         NSLog(@"multiple chart reverse order:%@",changeOverInputArray);
         [self plotMultipleBarChart:countVal range:8 withBrands:changeOverInputArray];
-    //}
-
-    
-    
+        //}
+        
+    }
     
 }
 
@@ -806,30 +797,33 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIStoryboard *storyBoard;
-    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-    {
-        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
-        
-    } else {
-        storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
-        
-    }
+    
    
+    if(chartStoryList.count != 0) {
+        UIStoryboard *storyBoard;
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            
+        } else {
+            storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            
+        }
+        NSDictionary *dic;
+        
+        dic = [chartStoryList objectAtIndex:indexPath.row];
+        
+        CorporateNewsDetailsView *testView;
+        testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
+        testView.forTopStories = [NSNumber numberWithInt:1];
+        // testView.articleTitle = NULL_TO_NIL([dic objectForKey:@"heading"]);
+        testView.currentIndex = indexPath.row;
+        testView.selectedIndexPath = indexPath;
+        testView.selectedNewsArticleId = [dic objectForKey:@"id"];
+        // testView.articleIdFromSearchLst =[NSMutableArray arrayWithArray:articleIdArray];
+        [self.navigationController pushViewController:testView animated:YES];
+    }
     
-    NSDictionary *dic;
-    
-    dic = [chartStoryList objectAtIndex:indexPath.row];
-    
-    CorporateNewsDetailsView *testView;
-    testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
-    testView.forTopStories = [NSNumber numberWithInt:1];
-   // testView.articleTitle = NULL_TO_NIL([dic objectForKey:@"heading"]);
-    testView.currentIndex = indexPath.row;
-    testView.selectedIndexPath = indexPath;
-    testView.selectedNewsArticleId = [dic objectForKey:@"id"];
-   // testView.articleIdFromSearchLst =[NSMutableArray arrayWithArray:articleIdArray];
-    [self.navigationController pushViewController:testView animated:YES];
 }
 
 #pragma mark - UICollectionView Datasource
@@ -1118,11 +1112,11 @@
     
     if (ValueArray.count == 0) {
         pieViews.noDataText = @"Chart Data not available";
-        
+        pieViews.userInteractionEnabled = NO;
         
     }
     else{
-
+        pieViews.userInteractionEnabled = YES;
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < count; i++){
@@ -1225,10 +1219,11 @@
     [barViews animateWithYAxisDuration:1.0];
     if (ValueArray.count == 0) {
         barViews.noDataText = @"Chart Data not available";
+        barViews.userInteractionEnabled = NO;
         
     }
     else{
-
+        barViews.userInteractionEnabled = YES;
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < count; i++){
@@ -1305,10 +1300,10 @@
     
     if (ValueArray.count == 0) {
         barViews.noDataText = @"Chart Data not available";
-        
+        barViews.userInteractionEnabled = NO;
     }
     else{
-
+        barViews.userInteractionEnabled = YES;
     NSLog(@"%@",ValueArray);
     NSLog(@"%@",monthArray);
     
@@ -1413,10 +1408,10 @@
 
     if (ValueArray.count == 0) {
         barViews.noDataText = @"Chart Data not available";
-        
+        barViews.userInteractionEnabled = NO;
     }
     else{
-
+        barViews.userInteractionEnabled = YES;
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < count; i++){
@@ -1524,9 +1519,10 @@
     NSLog(@"value array:%@",ValueArray);
     if (ValueArray.count == 0) {
         horizontalBarViews.noDataText = @"Chart Data not available";
-        
+        horizontalBarViews.userInteractionEnabled = NO;
     }
     else{
+        horizontalBarViews.userInteractionEnabled = YES;
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     for (int i = 0; i < count; i++){
@@ -1657,10 +1653,10 @@
     //animations------------------------------------------------------------------------
     if (ValueArray.count == 0) {
         lineChartView.noDataText = @"Chart Data not available";
-        
+        lineChartView.userInteractionEnabled = NO;
     }
     else{
-
+        lineChartView.userInteractionEnabled = YES;
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < count; i++)

@@ -89,21 +89,21 @@
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         
     }
-    
-    
-    NSDictionary *dic;
-    
-    dic = [_devices objectAtIndex:indexPath.row];
-    
-    CorporateNewsDetailsView *testView;
-    testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
-    testView.forTopStories = [NSNumber numberWithInt:1];
-   // testView.articleTitle = NULL_TO_NIL([dic objectForKey:@"heading"]);
-    testView.currentIndex = indexPath.row;
-    testView.selectedIndexPath = indexPath;
-    testView.selectedNewsArticleId = [dic objectForKey:@"id"];
-    // testView.articleIdFromSearchLst =[NSMutableArray arrayWithArray:articleIdArray];
-    [self.navigationController pushViewController:testView animated:YES];
+    if (self.devices.count != 0) {
+        NSDictionary *dic;
+        
+        dic = [_devices objectAtIndex:indexPath.row];
+        
+        CorporateNewsDetailsView *testView;
+        testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
+        testView.forTopStories = [NSNumber numberWithInt:1];
+        // testView.articleTitle = NULL_TO_NIL([dic objectForKey:@"heading"]);
+        testView.currentIndex = indexPath.row;
+        testView.selectedIndexPath = indexPath;
+        testView.selectedNewsArticleId = [dic objectForKey:@"id"];
+        // testView.articleIdFromSearchLst =[NSMutableArray arrayWithArray:articleIdArray];
+        [self.navigationController pushViewController:testView animated:YES];
+    }
 
 
 }
