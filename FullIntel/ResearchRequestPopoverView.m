@@ -24,6 +24,14 @@
     self.sendButton.backgroundColor = [UIColor buttonBackgroundColor];
     [self.sendButton setTitleColor:[UIColor buttonTextColor] forState:UIControlStateNormal];
     
+    self.cancelButton.backgroundColor = [UIColor buttonBackgroundColor];
+    [self.cancelButton setTitleColor:[UIColor buttonTextColor] forState:UIControlStateNormal];
+    
+    self.topView.backgroundColor = [UIColor headerBackgroundColor];
+    
+    
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(researchSend) name:@"ResearchSend" object:nil];
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
         
@@ -37,11 +45,22 @@
     }
     if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
         if(self.fromAddContent) {
-            self.titleText.text = @"Request Change";
+            self.titleText.backgroundColor = [UIColor clearColor];
+            self.titleText.font = [UIFont fontWithName:@"Open Sans" size:16];
+            // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+            self.titleText.text =@"Request Change";
+            self.titleText.textAlignment = NSTextAlignmentCenter;
+            self.titleText.textColor = [UIColor headerTextColor];
             self.articleDesc.text = [NSString stringWithFormat:@"Hi there,\n\nI would like to make the following changes to the topics\n\n"];
             
         }else {
-            self.titleText.text = @"Research Request";
+            self.titleText.backgroundColor = [UIColor clearColor];
+            self.titleText.font = [UIFont fontWithName:@"Open Sans" size:16];
+            // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+            self.titleText.text =@"Research Request";
+            self.titleText.textAlignment = NSTextAlignmentCenter;
+            self.titleText.textColor = [UIColor headerTextColor];
+            self.articleDesc.text = [NSString stringWithFormat:@"Hi there,\n\nI would like to make the following changes to the topics\n\n"];
             if(self.articleId.length != 0) {
                 self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\nArticleId : %@\nArticleTitle : %@\nArticleUrl : %@",self.articleId,self.articleTitle,self.articleUrl];
             }
@@ -54,11 +73,24 @@
         self.outerView.layer.masksToBounds = YES;
         self.outerView.layer.cornerRadius = 10;
         if(self.fromAddContent) {
-            self.titleText.text = @"Request Change";
+            self.titleText.backgroundColor = [UIColor clearColor];
+            self.titleText.font = [UIFont fontWithName:@"Open Sans" size:16];
+            // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+            self.titleText.text =@"Request Change";
+            self.titleText.textAlignment = NSTextAlignmentCenter;
+            self.titleText.textColor = [UIColor headerTextColor];
+            
             self.articleDesc.text = [NSString stringWithFormat:@"Hi there,\n\nI would like to make the following changes to the topics\n\n"];
             
         }else {
+            self.titleText.backgroundColor = [UIColor clearColor];
+            self.titleText.font = [UIFont fontWithName:@"Open Sans" size:16];
+            // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
             self.titleText.text = @"Research Request/Feedback";
+            self.titleText.textAlignment = NSTextAlignmentCenter;
+            self.titleText.textColor = [UIColor headerTextColor];
+            
+            
             if(self.articleId.length != 0) {
                 self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\nArticleId : %@\nArticleTitle : %@\nArticleUrl : %@",self.articleId,self.articleTitle,self.articleUrl];
             }

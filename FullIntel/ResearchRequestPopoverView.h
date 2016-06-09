@@ -19,5 +19,7 @@
 - (IBAction)closeAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *backImgeView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (nonatomic,strong) IBOutlet UILabel *titleText;
 @end

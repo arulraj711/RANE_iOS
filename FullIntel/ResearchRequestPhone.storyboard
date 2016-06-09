@@ -122,8 +122,11 @@
                     <size key="freeformSize" width="320" height="600"/>
                     <connections>
                         <outlet property="articleDesc" destination="Hfp-gc-fH4" id="K1e-rK-CXI"/>
+                        <outlet property="cancelButton" destination="wMy-Y9-ZfW" id="yQ2-KL-Rwe"/>
                         <outlet property="outerView" destination="L3e-gv-bHS" id="8U7-RK-UXn"/>
+                        <outlet property="sendButton" destination="eKs-mj-43X" id="Zs4-yW-xrO"/>
                         <outlet property="titleText" destination="IaU-fi-HMI" id="Z2H-se-gjy"/>
+                        <outlet property="topView" destination="IEu-CM-9Sl" id="1Kn-ro-ska"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cbm-Vg-4U9" userLabel="First Responder" sceneMemberID="firstResponder"/>
