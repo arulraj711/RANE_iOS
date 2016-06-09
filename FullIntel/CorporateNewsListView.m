@@ -3245,8 +3245,8 @@
                 
                 [markedImpBtn setSelected:NO];
                 [resultDic setObject:@"false" forKey:@"isSelected"];
-                //                [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
-                //                [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                                [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
+                                [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"markAsImportant"];
                 
                 if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
                     if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
@@ -3279,8 +3279,8 @@
         }else {
             [markedImpBtn setSelected:YES];
             [resultDic setObject:@"true" forKey:@"isSelected"];
-            //            [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
-            //            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+                        [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
+                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"markAsImportant"];
             [curatedNews setValue:[NSNumber numberWithInt:[loginUserIdString intValue]] forKey:@"markAsImportantUserId"];
             if([[curatedNews valueForKey:@"readStatus"] isEqualToNumber:[NSNumber numberWithInt:0]]) {
                 if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
@@ -3343,8 +3343,8 @@
         if(savedBtn.selected) {
             [savedBtn setSelected:NO];
             [resultDic setObject:@"false" forKey:@"isSelected"];
-            //            [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
-            //            [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+                        [curatedNewsDetail setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
+                        [curatedNews setValue:[NSNumber numberWithBool:NO] forKey:@"saveForLater"];
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
@@ -3383,8 +3383,8 @@
                 
             }
             
-            //            [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
-            //            [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
+                        [curatedNewsDetail setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
+                        [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"saveForLater"];
             NSData *jsondata = [NSJSONSerialization dataWithJSONObject:resultDic options:NSJSONWritingPrettyPrinted error:nil];
             
             NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
