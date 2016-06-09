@@ -339,7 +339,10 @@
         [addBtn setSelected:YES];
     } else {
         NSLog(@"fi view is not selected");
-        [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_fi"]  forState:UIControlStateNormal];
+        NSString *customWebViewIconUrlString =[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"webviewIcon"]];
+        UIImageView *webViewIcon = [[UIImageView alloc]init];
+        [webViewIcon sd_setImageWithURL:[NSURL URLWithString:customWebViewIconUrlString] placeholderImage:nil];
+        [addBtn setBackgroundImage:webViewIcon.image  forState:UIControlStateNormal];
         [addBtn setSelected:NO];
     }
     [addBtn addTarget:self action:@selector(globeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -1574,7 +1577,11 @@
         
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchToFullIntelView"];
         //NSLog(@"sender selected");
-        [sender setBackgroundImage:[UIImage imageNamed:@"nav_fi"] forState:UIControlStateNormal];
+        
+        NSString *customWebViewIconUrlString =[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"webviewIcon"]];
+        UIImageView *webViewIcon = [[UIImageView alloc]init];
+        [webViewIcon sd_setImageWithURL:[NSURL URLWithString:customWebViewIconUrlString] placeholderImage:nil];
+        [sender setBackgroundImage:webViewIcon.image forState:UIControlStateNormal];
         [sender setSelected:NO];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:0]}];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
