@@ -208,8 +208,14 @@
                     
                     [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"webviewIcon"]) forKey:@"webviewIcon"];
                     
-                    NSData *placeholderImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[brandIdentity valueForKey:@"placeholderImage"]]];
+                    NSData *webviewImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[brandIdentity valueForKey:@"webviewIcon"]]];
                     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                    NSString *webviewImagePath = [documentsDirectory stringByAppendingPathComponent:@"webviewImage.png"];
+                    [webviewImageData writeToFile:webviewImagePath atomically:YES];
+                    
+                    
+                    NSData *placeholderImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[brandIdentity valueForKey:@"placeholderImage"]]];
+                   // NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
                     NSString *placeholderImagePath = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
                     [placeholderImageData writeToFile:placeholderImagePath atomically:YES];
                     
