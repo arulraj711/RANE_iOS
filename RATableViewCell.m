@@ -55,6 +55,7 @@
     
     self.countLabel.backgroundColor = [UIColor notificationBackgroundColor];
     self.countLabel.textColor = [UIColor notificationTextColor];
+    self.customTitleLabel.textColor = [UIColor menuTextColor];
     
 }
 

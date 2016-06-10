@@ -150,7 +150,9 @@
     
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
     cell.name.text = contentCategory.name;
-    [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageWithContentsOfFile:path]];
     [cell.image setContentMode:UIViewContentModeScaleAspectFill];
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         //[self.selectedIdArray addObject:contentCategory.categoryId];

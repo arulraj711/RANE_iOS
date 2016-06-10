@@ -165,8 +165,7 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView
-   RowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   //  [self.revealController showViewController:self.revealController.frontViewController];
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Newsletter List"];
     

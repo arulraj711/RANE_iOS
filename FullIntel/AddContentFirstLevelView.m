@@ -177,9 +177,9 @@
     _tutorialDescriptionView.layer.cornerRadius=5.0f;
     
     
-    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
+    //UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
     
-    [self.view addGestureRecognizer:tapEvent];
+    //[self.view addGestureRecognizer:tapEvent];
     
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -499,8 +499,10 @@
 //        [cell.name setFont:[UIFont systemFontOfSize:10]];
 //    }
 
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
-    [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageWithContentsOfFile:path]];
     [cell.image setContentMode:UIViewContentModeScaleAspectFit];
     cell.name.text = contentCategory.name;
     cell.checkMarkButton.tag = indexPath.row;
