@@ -1222,11 +1222,23 @@
     
     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"MailButtonClick"];
     
+    NSString *mailHeaderString = [[NSUserDefaults standardUserDefaults]objectForKey:@"mailHeaderCaption"];
+    
     NSString *mailBodyStr;
     if(self.selectedArticleUrl.length != 0) {
-        mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n\n%@",self.selectedArticleTitle,self.articleDesc,self.selectedArticleUrl];
+        if(mailHeaderString.length != 0) {
+            mailBodyStr = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@",mailHeaderString,self.selectedArticleTitle,self.articleDesc,self.selectedArticleUrl];
+        } else {
+            mailBodyStr = [NSString stringWithFormat:@"\n\n%@\n\n%@\n\n%@",self.selectedArticleTitle,self.articleDesc,self.selectedArticleUrl];
+        }
+        
     } else {
-        mailBodyStr = [NSString stringWithFormat:@"Forwarded from FullIntel\n\n%@\n\n%@\n",self.selectedArticleTitle,self.articleDesc];
+        if(mailHeaderString.length != 0) {
+            mailBodyStr = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n",mailHeaderString,self.selectedArticleTitle,self.articleDesc];
+        } else {
+            mailBodyStr = [NSString stringWithFormat:@"\n\n%@\n\n%@\n",self.selectedArticleTitle,self.articleDesc];
+        }
+        
     }
     // NSLog(@"mail body string:%@ and title:%@",mailBodyStr,self.selectedArticleTitle);
     [[NSNotificationCenter defaultCenter]postNotificationName:@"mailButtonClick" object:nil userInfo:@{@"articleId":self.selectedArticleId,@"title":self.selectedArticleTitle,@"body":mailBodyStr}];

@@ -204,6 +204,8 @@
                     // NSLog(@"writing file path:%@",plistPath);
                     NSDictionary *brandIdentity = NULL_TO_NIL([companyDic objectForKey:@"brandIdentity"]);
                     
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"mailHeaderCaption"]) forKey:@"mailHeaderCaption"];
+                    
                     [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"logo"]) forKey:@"leftmenuLogo"];
                     
                     [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"webviewIcon"]) forKey:@"webviewIcon"];

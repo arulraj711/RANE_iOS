@@ -279,7 +279,8 @@
 {
     if(self.isAnimated) {
         static int count = 0;
-        NSArray *animationImages = @[[UIImage imageNamed:@"data-connectors.png"],[UIImage imageNamed:@"data-connectors.png"],[UIImage imageNamed:@"data-connectors.png"],[UIImage imageNamed:@"data-connectors.png"],[UIImage imageNamed:@"data-connectors.png"]];
+        
+        NSArray *animationImages = @[[UIImage imageNamed:@"data-connectors.png"],[UIImage imageNamed:@"City-Boston.jpg"],[UIImage imageNamed:@"data-connectors.png"],[UIImage imageNamed:@"new-york-city-wallpaper.jpg"],[UIImage imageNamed:@"data-connectors.png"]];
         UIImage *image = [animationImages objectAtIndex:(count % [animationImages count])];
         
         CGRect newframe = CGRectMake(self.backgroundImageView.frame.origin.x, self.backgroundImageView.frame.origin.y, self.backgroundImageView.frame.size.width, self.backgroundImageView.frame.size.height);

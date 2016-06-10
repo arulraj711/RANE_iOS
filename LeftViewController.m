@@ -566,7 +566,7 @@
     
     [self.menuBottomLogo sd_setImageWithURL:[NSURL URLWithString:menuBottomLogoString] placeholderImage:nil];
     
-    [self presentTutorialPopViewController];
+   // [self presentTutorialPopViewController];
 }
 
 -(void)updateUnreadCount {

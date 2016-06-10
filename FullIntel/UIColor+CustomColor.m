@@ -15,7 +15,7 @@
 +(UIColor *)headerBackgroundColor {
     NSString *headerBackgroundColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerBgColor"];
     if(headerBackgroundColor.length == 0) {
-        headerBackgroundColor = @"#616264";
+        headerBackgroundColor = @"#001a72";
     }
     const char *cStr = [headerBackgroundColor cStringUsingEncoding:NSASCIIStringEncoding];
     long x = strtol(cStr+1, NULL, 16);
