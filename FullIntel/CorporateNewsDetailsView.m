@@ -22,6 +22,8 @@
 #import "UIView+Toast.h"
 #import "pop.h"
 #import "UILabel+CustomHeaderLabel.h"
+#import "UIColor+CustomColor.h"
+
 
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -1419,23 +1421,109 @@
     NSString *articleUrl = [userInfo objectForKey:@"articleUrl"];
     
     
-    UIStoryboard *centerStoryBoard;
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequestPhone" bundle:nil];
-    }
-    else{
-        centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
-    }
-    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
-
-    ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
-    researchViewController.articleId = articleId;
-    researchViewController.articleTitle = articleTitle;
-    researchViewController.articleUrl = articleUrl;
-    //   popOverView.transitioningDelegate = self;
-    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+//    UIStoryboard *centerStoryBoard;
+//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//        centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequestPhone" bundle:nil];
+//    }
+//    else{
+//        centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
+//    }
+//    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
+//
+//    ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+//    researchViewController.articleId = articleId;
+//    researchViewController.articleTitle = articleTitle;
+//    researchViewController.articleUrl = articleUrl;
+//    //   popOverView.transitioningDelegate = self;
+//    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+//    
+//    [self presentViewController:popOverView animated:NO completion:nil];
     
-    [self presentViewController:popOverView animated:NO completion:nil];
+    
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    UIStoryboard *storyBoard;
+    UINavigationController *modalController;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        storyBoard = [UIStoryboard storyboardWithName:@"ResearchRequestPhone" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"requestNav"];
+        ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[modalController viewControllers]objectAtIndex:0];
+        researchViewController.articleId = articleId;
+        researchViewController.articleTitle = articleTitle;
+        researchViewController.articleUrl = articleUrl;
+        modalController.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:modalController animated:NO completion:nil];
+    } else {
+        storyBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"requestNav"];
+        
+        ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[modalController viewControllers]objectAtIndex:0];
+        researchViewController.articleId = articleId;
+        researchViewController.articleTitle = articleTitle;
+        researchViewController.articleUrl = articleUrl;
+
+        
+        formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
+        if(orientation == 1) {
+            formSheet.presentedFormSheetSize = CGSizeMake(760, 650);
+        } else {
+            formSheet.presentedFormSheetSize = CGSizeMake(800, 650);
+        }
+        
+        formSheet.shadowRadius = 2.0;
+        formSheet.shadowOpacity = 0.3;
+        formSheet.shouldDismissOnBackgroundViewTap = NO;
+        formSheet.shouldCenterVertically = YES;
+        //formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+        //__weak MZFormSheetController *weakFormSheet = formSheet;
+        
+        
+        // If you want to animate status bar use this code
+//        formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+//            UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
+//            if ([navController.topViewController isKindOfClass:[AddContentFirstLevelView class]]) {
+//                //AddContentFirstLevelView *mzvc = (AddContentFirstLevelView *)navController.topViewController;
+//                //  mzvc.showStatusBar = NO;
+//            }
+//            
+//            
+//            [UIView animateWithDuration:0.3 animations:^{
+//                if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+//                    [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+//                }
+//            }];
+//        };
+        
+        formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+            // Passing data
+            UINavigationController *navController = (UINavigationController *)presentedFSViewController;
+            // navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+            
+            
+            
+            [navController.navigationBar setTitleTextAttributes:
+             [NSDictionary dictionaryWithObjectsAndKeys:
+              [UIColor headerTextColor],
+              UITextAttributeTextColor,
+              [UIFont fontWithName:@"OpenSans" size:18.0],
+              UITextAttributeFont,
+              nil]];
+            
+            navController.topViewController.title = @"Research Request";
+        };
+        formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+        
+        [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
+        
+        //    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        //    if(accessToken.length > 0) {
+        [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+            
+        }];
+        
+    }
+    
+    
+    
 }
 
 -(void)widgetWebViewTrigger:(id)sender{

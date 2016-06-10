@@ -239,6 +239,7 @@
 		BAB29F111C3D27700008ED71 /* MoreSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB29F101C3D27700008ED71 /* MoreSettingsView.m */; };
 		BAC174A01CEC63C100B243DD /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC1749F1CEC63C100B243DD /* NSString+URLEncoding.m */; };
 		BAC8C5731CCDFAFB000FA656 /* ChartReportDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */; };
+		BAEC8FEA1D0AD997002DDBEF /* data-connectors.png in Resources */ = {isa = PBXBuildFile; fileRef = BAEC8FE91D0AD996002DDBEF /* data-connectors.png */; };
 		F54A7C401B68949900A4B784 /* MailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */; };
 		F552A81E1B6615410003B7C1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F552A81C1B6615410003B7C1 /* FBSDKLoginKit.framework */; };
 		F554DFD31BB016180062EAC7 /* FINewsLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = F554DFD21BB016180062EAC7 /* FINewsLetter.m */; };
@@ -688,6 +689,7 @@
 		BAC6E9F31C633E8500446F99 /* FullIntel 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 6.xcdatamodel"; sourceTree = "<group>"; };
 		BAC8C5711CCDFAFB000FA656 /* ChartReportDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartReportDownloadView.h; sourceTree = "<group>"; };
 		BAC8C5721CCDFAFB000FA656 /* ChartReportDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartReportDownloadView.m; sourceTree = "<group>"; };
+		BAEC8FE91D0AD996002DDBEF /* data-connectors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "data-connectors.png"; sourceTree = "<group>"; };
 		BAEE93501C0F235600CD4F88 /* FullIntel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FullIntel 5.xcdatamodel"; sourceTree = "<group>"; };
 		C0F31A39A4389F1264B49B3B /* Pods_FullIntel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FullIntel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54A7C3F1B68949900A4B784 /* MailStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MailStoryboard.storyboard; sourceTree = "<group>"; };
@@ -1752,6 +1754,7 @@
 		F7E81F4B1A97057000F9A8D4 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				BAEC8FE91D0AD996002DDBEF /* data-connectors.png */,
 				A033EC4B1BC37B9B003AAE4F /* Icon-40.png */,
 				A033EC4C1BC37B9B003AAE4F /* Icon-40@2x.png */,
 				A033EC4D1BC37B9B003AAE4F /* Icon-40@3x.png */,
@@ -2082,6 +2085,7 @@
 				A0CF5C591B1DD98B00DED2D9 /* ExecutiveMoves.storyboard in Resources */,
 				A0AAEFEF1BFCA6C20006A48C /* book-30.png in Resources */,
 				A0AAF0251BFCB12B0006A48C /* mail-60.png in Resources */,
+				BAEC8FEA1D0AD997002DDBEF /* data-connectors.png in Resources */,
 				A0CF5C791B1EFE1100DED2D9 /* dealsDril.html in Resources */,
 				A033EC5A1BC37B9B003AAE4F /* Icon-76.png in Resources */,
 				A05878AF1BD4A10200DCE62B /* AddContentPhone.storyboard in Resources */,

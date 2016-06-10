@@ -68,7 +68,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="idC-Qc-i4j">
                                         <rect key="frame" x="0.0" y="0.0" width="305" height="43"/>
-                                        <color key="backgroundColor" red="0.074509803920000006" green="0.23921568630000001" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.10196078431372549" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="KXC-bg-iXQ"/>
                                         </constraints>

@@ -11,8 +11,9 @@
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
 #import "FPPopoverKeyboardResponsiveController.h"
+#import "MZFormSheetController.h"
 
-@interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate,WSCoachMarksViewDelegate,UIWebViewDelegate> {
+@interface CorporateNewsDetailsView : UIViewController<MFMailComposeViewControllerDelegate,UIViewControllerTransitioningDelegate,UICollectionViewDataSource,UICollectionViewDelegate,WSCoachMarksViewDelegate,UIWebViewDelegate,MZFormSheetBackgroundWindowDelegate> {
     NSTimer *oneSecondTicker;
     NSManagedObject *curatedNewsDetail;
     NSManagedObject *curatedNewsAuthorDetail;
@@ -28,6 +29,8 @@
     NSString *overallAuthorDetail;
     NSString *overallAuthorDetailOne;
     FPPopoverKeyboardResponsiveController *popover;
+    MZFormSheetController *formSheet;
+
 
 }
 @property BOOL callAPIFromDrillIn;

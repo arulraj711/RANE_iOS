@@ -18,6 +18,7 @@
 //#import "Localytics.h"
 #import "pop.h"
 #import "UILabel+CustomHeaderLabel.h"
+#import "UIColor+CustomColor.h"
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
@@ -138,11 +139,10 @@
         Btn.titleLabel.font= [UIFont fontWithName:@"OpenSans" size:17];
         [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
-        [[UIBarButtonItem appearance]setTintColor:[UIColor whiteColor]];
+        [[UIBarButtonItem appearance]setTintColor:[UIColor buttonTextColor]];
         [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:addButton,  nil]];
         
-        UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
-        addBtnView.backgroundColor = [UIColor clearColor];
+        
         
         UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         [addBtn setFrame:CGRectMake(0,0,50,30)];
@@ -152,8 +152,8 @@
         
         addBtn.titleLabel.font= [UIFont fontWithName:@"OpenSans" size:17];
         [addBtn addTarget:self action:@selector(saveAction:) forControlEvents:UIControlEventTouchUpInside];
-        [addBtnView addSubview:addBtn];
-        UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtnView];
+        UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+        [[UIBarButtonItem appearance]setTintColor:[UIColor buttonTextColor]];
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,  nil]];
         
         

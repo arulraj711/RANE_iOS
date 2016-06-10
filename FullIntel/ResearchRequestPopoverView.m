@@ -10,6 +10,9 @@
 #import "FISharedResources.h"
 #import "UIView+Toast.h"
 #import "UIColor+CustomColor.h"
+#import "MZFormSheetController.h"
+#import "UILabel+CustomHeaderLabel.h"
+
 @interface ResearchRequestPopoverView ()
 
 @end
@@ -21,11 +24,12 @@
     // Do any additional setup after loading the view from its nib.
 
     //send button customization
-    self.sendButton.backgroundColor = [UIColor buttonBackgroundColor];
-    [self.sendButton setTitleColor:[UIColor buttonTextColor] forState:UIControlStateNormal];
+  //  self.sendButton.backgroundColor = [UIColor buttonBackgroundColor];
+    [[UIBarButtonItem appearance]setTintColor:[UIColor buttonTextColor]];
+    //[self.sendButton setTitleColor:[UIColor buttonTextColor] forState:UIControlStateNormal];
     
-    self.cancelButton.backgroundColor = [UIColor buttonBackgroundColor];
-    [self.cancelButton setTitleColor:[UIColor buttonTextColor] forState:UIControlStateNormal];
+   // self.cancelButton.backgroundColor = [UIColor buttonBackgroundColor];
+    //[self.cancelButton setTitleColor:[UIColor buttonTextColor] forState:UIControlStateNormal];
     
     self.topView.backgroundColor = [UIColor headerBackgroundColor];
     
@@ -45,33 +49,70 @@
     }
     if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
         if(self.fromAddContent) {
-            self.titleText.backgroundColor = [UIColor clearColor];
-            self.titleText.font = [UIFont fontWithName:@"Open Sans" size:16];
-            // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-            self.titleText.text =@"Request Change";
-            self.titleText.textAlignment = NSTextAlignmentCenter;
-            self.titleText.textColor = [UIColor headerTextColor];
+//            self.titleText.backgroundColor = [UIColor clearColor];
+//            self.titleText.font = [UIFont fontWithName:@"Open Sans" size:16];
+//            // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//            self.titleText.text =@"Request Change";
+//            self.titleText.textAlignment = NSTextAlignmentCenter;
+//            self.titleText.textColor = [UIColor headerTextColor];
+            
+            self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"Request Change"];
+            
             self.articleDesc.text = [NSString stringWithFormat:@"Hi there,\n\nI would like to make the following changes to the topics\n\n"];
             
         }else {
-            self.titleText.backgroundColor = [UIColor clearColor];
-            self.titleText.font = [UIFont fontWithName:@"Open Sans" size:16];
-            // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-            self.titleText.text =@"Research Request";
-            self.titleText.textAlignment = NSTextAlignmentCenter;
-            self.titleText.textColor = [UIColor headerTextColor];
+//            self.titleText.backgroundColor = [UIColor clearColor];
+//            self.titleText.font = [UIFont fontWithName:@"Open Sans" size:16];
+//            // label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+//            self.titleText.text =@"Research Request";
+//            self.titleText.textAlignment = NSTextAlignmentCenter;
+//            self.titleText.textColor = [UIColor headerTextColor];
+            
+            self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"Research Request"];
+            
             self.articleDesc.text = [NSString stringWithFormat:@"Hi there,\n\nI would like to make the following changes to the topics\n\n"];
             if(self.articleId.length != 0) {
                 self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\nArticleId : %@\nArticleTitle : %@\nArticleUrl : %@",self.articleId,self.articleTitle,self.articleUrl];
             }
             self.articleDesc.selectedRange = NSMakeRange(0, 0);
-            [self.articleDesc becomeFirstResponder];
+           // [self.articleDesc becomeFirstResponder];
         }
         //    [self.articleDesc setReturnKeyType: UIReturnKeyDone];
     }
     else{
-        self.outerView.layer.masksToBounds = YES;
-        self.outerView.layer.cornerRadius = 10;
+        
+        UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [Btn setFrame:CGRectMake(0, 0, 60, 30)];
+        // [Btn setBackgroundImage:[UIImage imageNamed:@"close"]  forState:UIControlStateNormal];
+        
+        [Btn setTitle:@"Cancel" forState:UIControlStateNormal];
+        
+        Btn.titleLabel.font= [UIFont fontWithName:@"OpenSans" size:17];
+        [Btn addTarget:self action:@selector(cancelButtonAction) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
+        [[UIBarButtonItem appearance]setTintColor:[UIColor buttonTextColor]];
+        [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:addButton,  nil]];
+        
+       // UIView *addBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+       // addBtnView.backgroundColor = [UIColor clearColor];
+        
+        UIButton *addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+        [addBtn setFrame:CGRectMake(0,0,50,30)];
+        // [addBtn setImage :[UIImage imageNamed:@"checkMark"]  forState:UIControlStateNormal];
+        
+        [addBtn setTitle:@"Send" forState:UIControlStateNormal];
+        
+        addBtn.titleLabel.font= [UIFont fontWithName:@"OpenSans" size:17];
+        [addBtn addTarget:self action:@selector(sendButtonAction) forControlEvents:UIControlEventTouchUpInside];
+        //[addBtnView addSubview:addBtn];
+        UIBarButtonItem *addContentButton = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+        [[UIBarButtonItem appearance]setTintColor:[UIColor buttonTextColor]];
+        [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,  nil]];
+        
+        
+//        self.outerView.layer.masksToBounds = YES;
+//        self.outerView.layer.cornerRadius = 10;
         if(self.fromAddContent) {
             self.titleText.backgroundColor = [UIColor clearColor];
             self.titleText.font = [UIFont fontWithName:@"Open Sans" size:16];
@@ -95,7 +136,7 @@
                 self.articleDesc.text = [NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n--------\nArticleId : %@\nArticleTitle : %@\nArticleUrl : %@",self.articleId,self.articleTitle,self.articleUrl];
             }
             self.articleDesc.selectedRange = NSMakeRange(0, 0);
-            [self.articleDesc becomeFirstResponder];
+           // [self.articleDesc becomeFirstResponder];
         }
         //    [self.articleDesc setReturnKeyType: UIReturnKeyDone];
         
@@ -201,13 +242,13 @@
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     
-    [self.view endEditing:YES];
+   // [self.view endEditing:YES];
     return YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden=YES;
+    //self.navigationController.navigationBarHidden=YES;
 }
 
 
@@ -228,6 +269,11 @@
     [self dismissViewControllerAnimated:NO completion:NULL];
 }
 - (IBAction)send:(id)sender {
+    [self sendButtonAction];
+    
+}
+
+-(void)sendButtonAction {
     if(self.articleDesc.text.length != 0) {
         NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
         [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"] forKey:@"userId"];
@@ -249,12 +295,27 @@
         //NSLog(@"request input:%@",resultStr);
         [[FISharedResources sharedResourceManager]sendResearchRequestWithDetails:resultStr];
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SendResearchRequest"];
+        [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     } else {
-        UIWindow *window = [[UIApplication sharedApplication]windows][0];
-        [window makeToast:@"Please enter a message to proceed." duration:1 position:CSToastPositionCenter];
+       // UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        [self.view makeToast:@"Please enter a message to proceed." duration:1 position:CSToastPositionCenter];
+       // [window makeToast:@"Please enter a message to proceed." duration:1 position:CSToastPositionCenter];
     }
+}
+
+-(void)cancelButtonAction{
+    
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CancelResearchRequest"];
+    
+        
+        //[[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"CancelChangesInAddContent"];
+        
+        [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     
 }
+
 
 -(void)researchSend {
     [self dismissViewControllerAnimated:YES completion:nil];
