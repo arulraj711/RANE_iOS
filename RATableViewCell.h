@@ -36,6 +36,7 @@
 @property RADataObject *cellItem;
 - (void)setupWithTitle:(NSString *)title detailText:(NSString *)detailText level:(NSInteger)level additionButtonHidden:(BOOL)additionButtonHidden;
 - (void)setAdditionButtonHidden:(BOOL)additionButtonHidden animated:(BOOL)animated;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *customTitleLeftConstraint;
 @property (weak, nonatomic) IBOutlet UIView *cellTopView;
 @property (weak, nonatomic) IBOutlet UIButton *expandButton;
 @property (weak, nonatomic) IBOutlet UILabel *customTitleLabel;

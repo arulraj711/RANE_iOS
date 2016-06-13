@@ -1084,7 +1084,7 @@
             cell.iconImage.image = [UIImage imageNamed:@"logout"];
         } else {
             cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant =9;
+            cell.titleConstraint.constant = 9+10*level;
             cell.titleWidthConstraint.constant = 185;
             left = 34 + 20 * level;
             cell.iconImage.hidden = YES;
@@ -1099,7 +1099,7 @@
             cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
         }else {
             cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9;
+            cell.titleConstraint.constant = 9+10*level;
             cell.titleWidthConstraint.constant = 185;
             left = 34 + 20 * level;
             cell.iconImage.hidden = YES;
