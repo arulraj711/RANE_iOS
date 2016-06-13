@@ -185,7 +185,10 @@
         //NSLog(@"article image url:%@",self.articleImageUrl);
         [shareView setInitialText:shortString];
         UIImageView *image = [[UIImageView alloc]init];
-        [image sd_setImageWithURL:[NSURL URLWithString:self.articleImageUrl] placeholderImage:[UIImage imageNamed:@"FI"]];
+        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
+        
+        [image sd_setImageWithURL:[NSURL URLWithString:self.articleImageUrl] placeholderImage:[UIImage imageWithContentsOfFile:path]];
         [shareView addImage:image.image];
         //[shareView removeAllImages];
         [shareView addURL:[NSURL URLWithString:self.articleUrl]];
