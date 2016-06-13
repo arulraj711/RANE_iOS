@@ -27,6 +27,8 @@
 @property (strong,nonatomic) NSNumber *nodeId;
 @property (strong,nonatomic) NSNumber *unReadCount;
 @property (strong,nonatomic) NSNumber *isParent;
+@property (strong,nonatomic) NSNumber *subListAvailable;
+
 @property BOOL isFolder;
 
 - (id)initWithName:(NSString *)name children:(NSArray *)array;

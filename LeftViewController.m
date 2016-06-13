@@ -828,15 +828,21 @@
     dataObj.name = menu.name;
     dataObj.nodeId = menu.nodeId;
     dataObj.unReadCount = menu.unreadCount;
-    NSLog(@"menu parent value:%@",menu.isParent);
+    dataObj.subListAvailable = menu.subListAvailable;
     dataObj.isParent = menu.isParent;
     // menu.name = [dic objectForKey:@"Name"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
-    NSArray *menuArray = menu.listArray;
-    for(FIMenu *dict in menuArray) {
-        RADataObject *insideMenu = [self recursiveDataObjectFrom:dict];
-        [array addObject:insideMenu];
+    if([menu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+        //subListAvailabel TRUE
+        NSArray *menuArray = menu.listArray;
+        for(FIMenu *dict in menuArray) {
+            RADataObject *insideMenu = [self recursiveDataObjectFrom:dict];
+            [array addObject:insideMenu];
+        }
+    } else {
+        //subListAvailabel FALSE
     }
+    
     dataObj.children = array;
     //menu.listArray = array;
     return dataObj;

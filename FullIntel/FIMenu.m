@@ -21,6 +21,7 @@
     menu.unreadCount = [dic objectForKey:@"unReadCount"];
     menu.isParent = [dic objectForKey:@"isParent"];
     menu.isSubscribed = [dic objectForKey:@"subscribed"];
+    menu.subListAvailable = [dic objectForKey:@"subListAvailable"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
     NSArray *menuArray = [dic objectForKey:@"subList"];
     for(NSDictionary *dict in menuArray) {
@@ -38,6 +39,7 @@
     [coder encodeObject:self.unreadCount forKey:@"unReadCount"];
     [coder encodeObject:self.isParent forKey:@"isParent"];
     [coder encodeObject:self.isSubscribed forKey:@"subscribed"];
+    [coder encodeObject:self.subListAvailable forKey:@"subListAvailable"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -49,6 +51,7 @@
         self.unreadCount = [coder decodeObjectForKey:@"unReadCount"];
         self.isParent = [coder decodeObjectForKey:@"isParent"];
         self.isSubscribed = [coder decodeObjectForKey:@"subscribed"];
+        self.subListAvailable = [coder decodeObjectForKey:@"subListAvailable"];
     }
     return self;
 }
