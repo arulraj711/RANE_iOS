@@ -210,6 +210,24 @@
                     
                     [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"webviewIcon"]) forKey:@"webviewIcon"];
                     
+                    /* For share customization */
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"domainName"]) forKey:@"domainName"];//set domain name
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"facebookApiId"]) forKey:@"facebookApiId"];//set FB API id
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"facebookClientId"]) forKey:@"facebookClientId"];//set FB client id
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"facebookRedirectUrl"]) forKey:@"facebookRedirectUrl"];//set FB redirect url
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"twitterShareText"]) forKey:@"twitterShareText"];//set twitter share text
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"linkedinShareText"]) forKey:@"linkedinShareText"];//set linkedin share text
+
+
+
+
+
+                    
+                    
+                    
+                    
+                    
+                    
                     NSData *webviewImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[brandIdentity valueForKey:@"webviewIcon"]]];
                     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
                     NSString *webviewImagePath = [documentsDirectory stringByAppendingPathComponent:@"webviewImage.png"];

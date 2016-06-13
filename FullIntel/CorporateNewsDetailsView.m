@@ -619,7 +619,7 @@
     
     //    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",articleUrl,articleTitle,articleDesc];
     
-    NSString *urlString=[NSString stringWithFormat:@"https://www.facebook.com/dialog/feed?_path=feed&app_id=679882412141918&client_id=679882412141918&redirect_uri=http://www.fullintel.com&display=popup&caption=%@&link=%@&from_login=1",articleTitle,articleUrl];
+    NSString *urlString=[NSString stringWithFormat:@"https://www.facebook.com/dialog/feed?_path=feed&app_id=%@&client_id=%@&redirect_uri=%@&display=popup&caption=%@&link=%@&from_login=1",[[NSUserDefaults standardUserDefaults] objectForKey:@"facebookApiId"],[[NSUserDefaults standardUserDefaults] objectForKey:@"facebookClientId"],[[NSUserDefaults standardUserDefaults] objectForKey:@"facebookRedirectUrl"],articleTitle,articleUrl];
     
     NSLog(@"linked in url:%@",urlString);
     NSString* urlTextEscaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -658,8 +658,8 @@
         socialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
         socialWebViewObj.titleStr=@"LinkedIn Share";
     }
-    NSString *linkedinTitleString = [NSString stringWithFormat:@"Shared from FullIntel : %@",articleTitle];
-    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=fullintel.com",articleUrl,linkedinTitleString,articleDesc];
+    NSString *linkedinTitleString = [NSString stringWithFormat:@"%@ %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"linkedinShareText"],articleTitle];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=%@",articleUrl,linkedinTitleString,articleDesc,[[NSUserDefaults standardUserDefaults]objectForKey:@"domainName"]];
     NSLog(@"linked in url:%@",urlString);
     NSString* urlTextEscaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"after link:%@",urlTextEscaped);

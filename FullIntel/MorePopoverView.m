@@ -171,7 +171,7 @@
         
         // define the range you're interested in
         
-        NSString *twitterTitleString = [NSString stringWithFormat:@"Shared from @FullIntel : %@",self.articleTitle];
+        NSString *twitterTitleString = [NSString stringWithFormat:@"%@ %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"twitterShareText"],self.articleTitle];
         
         NSRange stringRange = {0, MIN([twitterTitleString length], 94)};
 //        
