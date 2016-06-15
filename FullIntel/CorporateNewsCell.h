@@ -14,6 +14,7 @@
 }
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UITextView *descTextView;
+@property (weak, nonatomic) IBOutlet UILabel *descTextLabel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *outletImageWidthConstraint;
 @property (strong, nonatomic) IBOutlet UIImageView *outletIcon;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *outletHorizontalConstraint;

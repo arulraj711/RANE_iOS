@@ -2170,8 +2170,20 @@
     
     if(self.devices.count != 0) {
         
+        NSNumber *articleImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleImageVisible"];
+        NSNumber *articleListPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleListPlaceholderImageVisible"];
         //whatever else to configure your one cell you're going to return
-        CorporateNewsCell *cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        CorporateNewsCell *cell;
+        if([articleImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if([articleListPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withArticleImage"];
+            } else {
+                cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withoutArticleImage"];
+            }
+        } else {
+            cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withoutArticleImage"];
+        }
+        
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
             if (longPressActive) { //Perform action desired when cell is long pressed
@@ -2384,7 +2396,8 @@
         // [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
         
         cell.descTextView.text =[curatedNews valueForKey:@"desc"];
-        NSString *tcxtVw = [curatedNews valueForKey:@"desc"];
+        cell.descTextLabel.text = [curatedNews valueForKey:@"desc"];
+       // NSString *tcxtVw = [curatedNews valueForKey:@"desc"];
         cell.title.text = [curatedNews valueForKey:@"title"];
         if (isSearching) {
             [self highlight:cell.title withString:searchBar.text];

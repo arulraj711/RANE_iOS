@@ -70,6 +70,10 @@
                                                object:nil];
     
     [self handleLoginProcess];
+    
+    self.usernameTextField.text = @"kristine.eissing@ranenetwork.com";
+    self.passwordTextField.text = @"rane@123";
+    
 }
 
 -(void)handleLoginProcess {

@@ -217,7 +217,9 @@
                     [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"facebookRedirectUrl"]) forKey:@"facebookRedirectUrl"];//set FB redirect url
                     [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"twitterShareText"]) forKey:@"twitterShareText"];//set twitter share text
                     [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"linkedinShareText"]) forKey:@"linkedinShareText"];//set linkedin share text
-
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"articleImageVisible"]) forKey:@"articleImageVisible"];
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"articleListPlaceholderImageVisible"]) forKey:@"articleListPlaceholderImageVisible"];
+                    [[NSUserDefaults standardUserDefaults]setObject:NULL_TO_NIL([brandIdentity valueForKey:@"articleDrillPlaceholderImageVisible"]) forKey:@"articleDrillPlaceholderImageVisible"];
 
 
 

@@ -31,8 +31,12 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
             <string>OpenSans-Semibold</string>
             <string>OpenSans-Semibold</string>
             <string>OpenSans-Semibold</string>
@@ -60,7 +64,7 @@
                                 <color key="separatorColor" red="0.9137254901960784" green="0.9137254901960784" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="100" id="Tuf-Gk-eKH" customClass="CorporateNewsCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="withArticleImage" rowHeight="100" id="Tuf-Gk-eKH" customClass="CorporateNewsCell">
                                         <rect key="frame" x="0.0" y="65" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tuf-Gk-eKH" id="rFw-gw-R62">
@@ -147,6 +151,84 @@
                                             <outlet property="readStatusLeadConstraint" destination="iXs-qS-YZ6" id="uA9-gk-a9j"/>
                                             <outlet property="tickIconLeadConstraint" destination="ZdB-he-Qop" id="idy-Hb-qcP"/>
                                             <outlet property="title" destination="E7M-5b-22s" id="UR0-92-Ubr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="withoutArticleImage" rowHeight="100" id="hZ1-JF-6YK" customClass="CorporateNewsCell">
+                                        <rect key="frame" x="0.0" y="165" width="600" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hZ1-JF-6YK" id="0ea-0r-eMK">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="1000" text="Cozying Up At Home Meets the Performance Standards of Outdoor" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="8MC-Gh-bKD">
+                                                    <rect key="frame" x="15" y="5" width="570" height="40"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="eIz-fi-7Ep"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="14"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.40000000596046448" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AARON M. KESSLER and BRIAN X. CHEN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymv-WM-Emg">
+                                                    <rect key="frame" x="15" y="50" width="140" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="140" id="btg-lu-851"/>
+                                                        <constraint firstAttribute="height" constant="18" id="l2c-1q-UY9"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                                    <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.40000000596046448" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/11/15" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pxs-Jv-PBG">
+                                                    <rect key="frame" x="524" y="50" width="63" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="Fkc-PB-8N6"/>
+                                                        <constraint firstAttribute="width" constant="63" id="oTP-rr-qUm"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                                    <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="weJ-LZ-i3l">
+                                                    <rect key="frame" x="-30" y="31" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="bBP-mx-dsm"/>
+                                                        <constraint firstAttribute="height" constant="30" id="oCK-HR-30D"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdfsdfsdf dvfdgfdgfdgd d fdfgfdgfd  bggfdgdf ggfgfgfgfgf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJg-ge-eaL">
+                                                    <rect key="frame" x="15" y="73" width="570" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="yi1-ZN-7rU"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                                    <color key="textColor" red="0.38823529411764707" green="0.38823529411764707" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ymv-WM-Emg" firstAttribute="top" secondItem="8MC-Gh-bKD" secondAttribute="bottom" constant="5" id="0tS-82-S78"/>
+                                                <constraint firstItem="rJg-ge-eaL" firstAttribute="leading" secondItem="0ea-0r-eMK" secondAttribute="leadingMargin" constant="7" id="71m-E7-3qU"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rJg-ge-eaL" secondAttribute="trailing" constant="7" id="BQE-RK-sEv"/>
+                                                <constraint firstItem="weJ-LZ-i3l" firstAttribute="leading" secondItem="0ea-0r-eMK" secondAttribute="leading" constant="-30" id="H2S-qV-f5a"/>
+                                                <constraint firstItem="8MC-Gh-bKD" firstAttribute="leading" secondItem="0ea-0r-eMK" secondAttribute="leadingMargin" constant="7" id="OP5-aJ-ufV"/>
+                                                <constraint firstItem="ymv-WM-Emg" firstAttribute="leading" secondItem="0ea-0r-eMK" secondAttribute="leadingMargin" constant="7" id="aTO-jf-FVw"/>
+                                                <constraint firstItem="rJg-ge-eaL" firstAttribute="top" secondItem="ymv-WM-Emg" secondAttribute="bottom" constant="5" id="cDp-LA-fBd"/>
+                                                <constraint firstItem="Pxs-Jv-PBG" firstAttribute="top" secondItem="8MC-Gh-bKD" secondAttribute="bottom" constant="5" id="dVb-JR-dEC"/>
+                                                <constraint firstItem="8MC-Gh-bKD" firstAttribute="top" secondItem="0ea-0r-eMK" secondAttribute="topMargin" constant="-3" id="h2S-XW-wr8"/>
+                                                <constraint firstItem="weJ-LZ-i3l" firstAttribute="top" secondItem="0ea-0r-eMK" secondAttribute="top" constant="31" id="mHs-uh-TQW"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Pxs-Jv-PBG" secondAttribute="trailing" constant="5" id="nKJ-TH-7Lj"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8MC-Gh-bKD" secondAttribute="trailing" constant="7" id="xEF-My-LwH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="articleDate" destination="Pxs-Jv-PBG" id="XJI-0I-vNN"/>
+                                            <outlet property="authorName" destination="ymv-WM-Emg" id="Rtc-EJ-Xj7"/>
+                                            <outlet property="descTextLabel" destination="rJg-ge-eaL" id="VWT-We-b0H"/>
+                                            <outlet property="imageTickIcon" destination="weJ-LZ-i3l" id="Pyu-Uh-YRg"/>
+                                            <outlet property="tickIconLeadConstraint" destination="H2S-qV-f5a" id="ubU-Re-sBz"/>
+                                            <outlet property="title" destination="8MC-Gh-bKD" id="2ji-8Y-LBX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
