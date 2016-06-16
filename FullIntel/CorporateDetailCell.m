@@ -2188,8 +2188,12 @@
         if (y > 0) {
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
             {
-                self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
-                self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
+                NSNumber *articleDrillPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+                if([articleDrillPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    self.articleImageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
+                    self.articleImageView.center = CGPointMake(self.contentView.center.x, self.articleImageView.center.y);
+                }
+                
             }
             else
             {

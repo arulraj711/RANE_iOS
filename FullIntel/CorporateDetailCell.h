@@ -108,6 +108,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tweetLabelHeightConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bannerImageViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelTopConstraint;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *bioTitleLabel;

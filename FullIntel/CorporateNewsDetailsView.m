@@ -692,7 +692,15 @@
      NSLog(@"cell indexpath:%ld",(long)indexPath.row);
     self.selectedIndexPath = indexPath;
     self.selectedIndex = indexPath.row;
-    CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    CorporateDetailCell *cell;
+    NSNumber *articleDrillPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+    if([articleDrillPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withArticleImage" forIndexPath:indexPath];
+    } else {
+        cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withoutArticleImage" forIndexPath:indexPath];
+    }
+    
+    
     // [cell resetCellWebviewHeight];
     //[cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     cell.cachedImageViewSize = cell.articleImageView.frame;
@@ -1139,19 +1147,21 @@
 
 
 -(void)configureCell:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
-    CGSize maximumLabelSize = CGSizeMake(296, FLT_MAX);
+    CGSize maximumLabelSize = CGSizeMake(200, FLT_MAX);
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
-        CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.articleTitle.font constrainedToSize:maximumLabelSize lineBreakMode:cell.articleTitle.lineBreakMode];
-        NSLog(@"title height:%f",expectedLabelSize.height);
+        NSLog(@"starting constraint:%f",cell.articleTitleHeightConstraint.constant);
+        //CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.articleTitle.font constrainedToSize:maximumLabelSize lineBreakMode:cell.articleTitle.lineBreakMode];
+       // NSLog(@"title height:%f",expectedLabelSize.height);
         UIFont *myFont = [UIFont fontWithName:@"OpenSans-Semibold" size:24.0];
         CGRect textRect = [[curatedNews valueForKey:@"title"] boundingRectWithSize:maximumLabelSize
-                                             options:NSStringDrawingUsesLineFragmentOrigin
-                                          attributes:@{NSFontAttributeName:myFont}
-                                             context:nil];
+                                                                           options:NSStringDrawingUsesLineFragmentOrigin
+                                                                        attributes:@{NSFontAttributeName:myFont}
+                                                                           context:nil];
         NSLog(@"another title calc:%f",textRect.size.height);
         
-        cell.articleTitleHeightConstraint.constant = expectedLabelSize.height+10;
+        cell.articleTitleHeightConstraint.constant = textRect.size.height+10;
+        
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
     } else {
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
@@ -1163,9 +1173,23 @@
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *drillinPlaceHolderImagePath = [documentsDirectory stringByAppendingPathComponent:@"articleDrillPlaceholderImage.png"];
 
-    [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
-    [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
-    cell.cachedImageViewSize = cell.articleImageView.frame;
+    NSNumber *articleDrillPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+    if([articleDrillPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
+        [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
+        cell.cachedImageViewSize = cell.articleImageView.frame;
+        
+        
+    } else {
+//        [cell.articleTitle removeConstraint:cell.titleLabelTopConstraint];
+//        [cell removeConstraint:cell.titleLabelTopConstraint];
+//        [cell.contentView removeConstraint:cell.titleLabelTopConstraint];
+       // cell.titleLabelTopConstraint.constant = 30;
+        cell.articleImageView.backgroundColor = [UIColor blackColor];
+        cell.articleImageView.alpha = 0.6f;
+        cell.bannerImageViewHeightConstraint.constant = cell.articleTitleHeightConstraint.constant;
+    }
+    
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
     {
         cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
