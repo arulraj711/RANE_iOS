@@ -504,7 +504,7 @@
                                                                                 </constraint>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradiant" translatesAutoresizingMaskIntoConstraints="NO" id="RTk-RP-7cO">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RTk-RP-7cO">
                                                                             <rect key="frame" x="0.0" y="0.0" width="600" height="204"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                             <constraints>
@@ -1441,7 +1441,7 @@
                                                                                 </constraint>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradiant" translatesAutoresizingMaskIntoConstraints="NO" id="sbF-d4-SAV">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sbF-d4-SAV">
                                                                             <rect key="frame" x="0.0" y="0.0" width="600" height="204"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                             <constraints>
@@ -1457,7 +1457,6 @@
                                                                                 <constraint firstAttribute="height" constant="153" id="MOe-be-ltj"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="24"/>
-                                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <nil key="highlightedColor"/>
                                                                             <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                                                 <rect key="frame" x="15" y="95" width="291" height="84"/>
@@ -1470,7 +1469,7 @@
                                                                                 <constraint firstAttribute="width" constant="200" id="sYP-ZM-svE"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="12"/>
-                                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jan 27,2015" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r26-lk-Soz">
@@ -1480,9 +1479,16 @@
                                                                                 <constraint firstAttribute="height" constant="20" id="WiK-Iy-8uV"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="12"/>
-                                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WS8-Gn-Zo7">
+                                                                            <rect key="frame" x="0.0" y="200" width="600" height="1"/>
+                                                                            <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="1" id="b9V-xK-0ca"/>
+                                                                            </constraints>
+                                                                        </imageView>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VcW-HL-OKm">
                                                                             <rect key="frame" x="15" y="210" width="20" height="20"/>
                                                                             <constraints>
@@ -1981,7 +1987,9 @@
                                                                         <constraint firstItem="XEg-ED-0Ys" firstAttribute="leading" secondItem="ZYg-LW-rfk" secondAttribute="leading" id="W6B-Hw-cTA"/>
                                                                         <constraint firstItem="RdS-A8-0X0" firstAttribute="leading" secondItem="ZYg-LW-rfk" secondAttribute="leading" constant="5" id="YlU-G0-FTv"/>
                                                                         <constraint firstItem="EdW-9y-koh" firstAttribute="leading" secondItem="ZYg-LW-rfk" secondAttribute="leading" constant="15" id="Ywp-a4-uRn"/>
+                                                                        <constraint firstItem="WS8-Gn-Zo7" firstAttribute="leading" secondItem="ZYg-LW-rfk" secondAttribute="leading" id="ama-Z3-3b7"/>
                                                                         <constraint firstItem="SvW-Ki-yHa" firstAttribute="top" secondItem="MyS-pe-hsM" secondAttribute="bottom" constant="7" id="bhV-9X-9dN"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="WS8-Gn-Zo7" secondAttribute="trailing" id="cqd-FD-fGd"/>
                                                                         <constraint firstItem="dqg-tZ-gV4" firstAttribute="top" secondItem="SvW-Ki-yHa" secondAttribute="bottom" constant="9" id="d4u-3P-7p7"/>
                                                                         <constraint firstItem="3vj-p3-Zup" firstAttribute="leading" secondItem="ZYg-LW-rfk" secondAttribute="leading" constant="88" id="edM-1z-aWE"/>
                                                                         <constraint firstItem="hX9-dU-BJ6" firstAttribute="leading" secondItem="SvW-Ki-yHa" secondAttribute="trailing" constant="3" id="eoR-Mb-0Y2"/>
@@ -1993,6 +2001,7 @@
                                                                             <variation key="heightClass=regular-widthClass=compact" constant="10"/>
                                                                         </constraint>
                                                                         <constraint firstItem="pVn-My-hel" firstAttribute="top" secondItem="RdS-A8-0X0" secondAttribute="bottom" constant="-7" id="lbl-6X-ajF"/>
+                                                                        <constraint firstItem="WS8-Gn-Zo7" firstAttribute="top" secondItem="r26-lk-Soz" secondAttribute="bottom" constant="4" id="mbM-AN-gp5"/>
                                                                         <constraint firstItem="dqg-tZ-gV4" firstAttribute="leading" secondItem="ZYg-LW-rfk" secondAttribute="leading" constant="88" id="nly-EX-UyG"/>
                                                                         <constraint firstItem="mio-1T-uqe" firstAttribute="top" secondItem="sbF-d4-SAV" secondAttribute="bottom" constant="3" id="pEt-SO-TwL"/>
                                                                         <constraint firstItem="I0A-K4-dXA" firstAttribute="top" secondItem="hX9-dU-BJ6" secondAttribute="bottom" constant="1" id="qUW-r2-Cnk"/>
@@ -2423,7 +2432,6 @@
         <image name="chatPhone" width="30" height="30"/>
         <image name="close" width="32" height="32"/>
         <image name="folderPhone" width="30" height="30"/>
-        <image name="gradiant" width="608" height="200"/>
         <image name="group_blue" width="20" height="20"/>
         <image name="location" width="20" height="20"/>
         <image name="outlet" width="20" height="20"/>

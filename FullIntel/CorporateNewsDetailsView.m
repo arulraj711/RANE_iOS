@@ -1178,15 +1178,16 @@
         [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
         [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
         cell.cachedImageViewSize = cell.articleImageView.frame;
-        
+        //cell.gradButtonTops.image = [UIImage imageNamed:@"gradiant"];
         
     } else {
 //        [cell.articleTitle removeConstraint:cell.titleLabelTopConstraint];
 //        [cell removeConstraint:cell.titleLabelTopConstraint];
 //        [cell.contentView removeConstraint:cell.titleLabelTopConstraint];
        // cell.titleLabelTopConstraint.constant = 30;
-        cell.articleImageView.backgroundColor = [UIColor blackColor];
-        cell.articleImageView.alpha = 0.6f;
+        cell.articleImageView.backgroundColor = [UIColor clearColor];
+        //cell.articleImageView.alpha = 0.6f;
+       // cell.articleTitle.textColor = [UIColor blackColor];
         cell.bannerImageViewHeightConstraint.constant = cell.articleTitleHeightConstraint.constant;
     }
     
