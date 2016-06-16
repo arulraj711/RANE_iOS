@@ -160,8 +160,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="1000" text="Cozying Up At Home Meets the Performance Standards of Outdoor" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="8MC-Gh-bKD">
-                                                    <rect key="frame" x="15" y="5" width="570" height="40"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="1000" text="Cozying Up At Home Meets the Performance Standards of Outdoor fetretert fddfgdgf" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="8MC-Gh-bKD">
+                                                    <rect key="frame" x="15" y="2" width="570" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="eIz-fi-7Ep"/>
@@ -171,9 +171,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.40000000596046448" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AARON M. KESSLER and BRIAN X. CHEN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymv-WM-Emg">
-                                                    <rect key="frame" x="15" y="50" width="140" height="18"/>
+                                                    <rect key="frame" x="15" y="80" width="250" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="140" id="btg-lu-851"/>
+                                                        <constraint firstAttribute="width" constant="250" id="btg-lu-851"/>
                                                         <constraint firstAttribute="height" constant="18" id="l2c-1q-UY9"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
@@ -181,7 +181,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.40000000596046448" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/11/15" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pxs-Jv-PBG">
-                                                    <rect key="frame" x="524" y="50" width="63" height="16"/>
+                                                    <rect key="frame" x="524" y="80" width="63" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="Fkc-PB-8N6"/>
                                                         <constraint firstAttribute="width" constant="63" id="oTP-rr-qUm"/>
@@ -197,10 +197,10 @@
                                                         <constraint firstAttribute="height" constant="30" id="oCK-HR-30D"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdfsdfsdf dvfdgfdgfdgd d fdfgfdgfd  bggfdgdf ggfgfgfgfgf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJg-ge-eaL">
-                                                    <rect key="frame" x="15" y="73" width="570" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdfsdfsdf dvfdgfdgfdgd d fdfgfdgfd  bggfdgdf ggfgfgfgfgf fdfdfdf gfsgfgfdgfg gdfgdfgdfg gdfgdfgdfgdf gdfgdfgdf gfgdfgfdgdfg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJg-ge-eaL">
+                                                    <rect key="frame" x="15" y="40" width="570" height="38"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="yi1-ZN-7rU"/>
+                                                        <constraint firstAttribute="height" constant="38" id="yi1-ZN-7rU"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.38823529411764707" green="0.38823529411764707" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
@@ -208,17 +208,17 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ymv-WM-Emg" firstAttribute="top" secondItem="8MC-Gh-bKD" secondAttribute="bottom" constant="5" id="0tS-82-S78"/>
                                                 <constraint firstItem="rJg-ge-eaL" firstAttribute="leading" secondItem="0ea-0r-eMK" secondAttribute="leadingMargin" constant="7" id="71m-E7-3qU"/>
+                                                <constraint firstItem="ymv-WM-Emg" firstAttribute="top" secondItem="rJg-ge-eaL" secondAttribute="bottom" constant="2" id="7H0-pa-gyR"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="rJg-ge-eaL" secondAttribute="trailing" constant="7" id="BQE-RK-sEv"/>
                                                 <constraint firstItem="weJ-LZ-i3l" firstAttribute="leading" secondItem="0ea-0r-eMK" secondAttribute="leading" constant="-30" id="H2S-qV-f5a"/>
                                                 <constraint firstItem="8MC-Gh-bKD" firstAttribute="leading" secondItem="0ea-0r-eMK" secondAttribute="leadingMargin" constant="7" id="OP5-aJ-ufV"/>
+                                                <constraint firstItem="rJg-ge-eaL" firstAttribute="top" secondItem="8MC-Gh-bKD" secondAttribute="bottom" constant="-2" id="TwB-GH-5PZ"/>
                                                 <constraint firstItem="ymv-WM-Emg" firstAttribute="leading" secondItem="0ea-0r-eMK" secondAttribute="leadingMargin" constant="7" id="aTO-jf-FVw"/>
-                                                <constraint firstItem="rJg-ge-eaL" firstAttribute="top" secondItem="ymv-WM-Emg" secondAttribute="bottom" constant="5" id="cDp-LA-fBd"/>
-                                                <constraint firstItem="Pxs-Jv-PBG" firstAttribute="top" secondItem="8MC-Gh-bKD" secondAttribute="bottom" constant="5" id="dVb-JR-dEC"/>
-                                                <constraint firstItem="8MC-Gh-bKD" firstAttribute="top" secondItem="0ea-0r-eMK" secondAttribute="topMargin" constant="-3" id="h2S-XW-wr8"/>
+                                                <constraint firstItem="8MC-Gh-bKD" firstAttribute="top" secondItem="0ea-0r-eMK" secondAttribute="topMargin" constant="-6" id="h2S-XW-wr8"/>
                                                 <constraint firstItem="weJ-LZ-i3l" firstAttribute="top" secondItem="0ea-0r-eMK" secondAttribute="top" constant="31" id="mHs-uh-TQW"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Pxs-Jv-PBG" secondAttribute="trailing" constant="5" id="nKJ-TH-7Lj"/>
+                                                <constraint firstItem="Pxs-Jv-PBG" firstAttribute="top" secondItem="rJg-ge-eaL" secondAttribute="bottom" constant="2" id="wE5-oh-gz7"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="8MC-Gh-bKD" secondAttribute="trailing" constant="7" id="xEF-My-LwH"/>
                                             </constraints>
                                         </tableViewCellContentView>

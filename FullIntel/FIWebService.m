@@ -16,7 +16,7 @@
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
 //NSString *url = @"https://stage.fullintel.com/2.1.0";
 
-NSString *url = @"http://stageapi.fullintel.com/2.3.0";
+NSString *url = @"http://fullintel.com/2.3.0";
 
 
 #define FUNCTION_URL @"api/v1"
@@ -618,7 +618,8 @@ NSString *url = @"http://stageapi.fullintel.com/2.3.0";
 +(void)loginProcessWithDetails:(NSString*)details
             onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    [self getResultsForFunctionName:@"eti/customers/authenticate" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //@"eti/customers/authenticate"
+    [self getResultsForFunctionName:@"userauthentication" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation, error);
