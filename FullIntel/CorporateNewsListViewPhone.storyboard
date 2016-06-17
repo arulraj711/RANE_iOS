@@ -504,7 +504,7 @@
                                                                                 </constraint>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RTk-RP-7cO">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradiant" translatesAutoresizingMaskIntoConstraints="NO" id="RTk-RP-7cO">
                                                                             <rect key="frame" x="0.0" y="0.0" width="600" height="204"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                             <constraints>
@@ -994,9 +994,6 @@
                                                                         <constraint firstItem="aWL-oA-5U9" firstAttribute="leading" secondItem="0dU-Et-Fnu" secondAttribute="leading" constant="5" id="3bn-3G-NwZ"/>
                                                                         <constraint firstAttribute="trailing" secondItem="aWL-oA-5U9" secondAttribute="trailing" constant="5" id="4Ma-pt-vgp"/>
                                                                         <constraint firstItem="Fvy-aP-B9D" firstAttribute="top" secondItem="0dU-Et-Fnu" secondAttribute="top" id="4af-2p-Bef"/>
-                                                                        <constraint firstItem="k4G-2z-ZH3" firstAttribute="top" secondItem="j07-En-Sd7" secondAttribute="bottom" constant="15" id="4uE-BQ-Huh">
-                                                                            <variation key="heightClass=regular-widthClass=compact" constant="19"/>
-                                                                        </constraint>
                                                                         <constraint firstItem="w4r-O6-AD8" firstAttribute="leading" secondItem="0dU-Et-Fnu" secondAttribute="leading" constant="15" id="5ig-Zg-JXT"/>
                                                                         <constraint firstItem="FYc-3r-O7W" firstAttribute="leading" secondItem="hAC-uZ-VHb" secondAttribute="trailing" constant="3" id="69l-fa-WNG"/>
                                                                         <constraint firstItem="sBL-Uq-eGq" firstAttribute="top" secondItem="d82-th-qD9" secondAttribute="bottom" constant="8" id="6H9-XE-Szt"/>
@@ -1010,6 +1007,7 @@
                                                                         <constraint firstItem="k4G-2z-ZH3" firstAttribute="leading" secondItem="0dU-Et-Fnu" secondAttribute="leading" constant="15" id="BhJ-71-viO"/>
                                                                         <constraint firstItem="Pp8-Pp-bO8" firstAttribute="leading" secondItem="0dU-Et-Fnu" secondAttribute="leading" constant="15" id="CGx-bQ-kda"/>
                                                                         <constraint firstItem="HN2-Zq-HFe" firstAttribute="leading" secondItem="0dU-Et-Fnu" secondAttribute="leading" constant="88" id="Dh9-Un-Vwm"/>
+                                                                        <constraint firstItem="k4G-2z-ZH3" firstAttribute="top" secondItem="aWL-oA-5U9" secondAttribute="bottom" id="EL3-xY-0mo"/>
                                                                         <constraint firstItem="hPY-jL-Ky5" firstAttribute="top" secondItem="Uga-wb-A2o" secondAttribute="bottom" constant="1" id="Fcb-wt-o2p"/>
                                                                         <constraint firstItem="8AS-NO-CDn" firstAttribute="top" secondItem="oax-vi-SMr" secondAttribute="bottom" constant="9" id="Gw0-rO-UN3"/>
                                                                         <constraint firstAttribute="trailing" secondItem="PcO-Im-oh6" secondAttribute="trailing" constant="13" id="HrQ-OO-YP9"/>
@@ -1938,9 +1936,6 @@
                                                                         </constraint>
                                                                         <constraint firstItem="oLn-fK-gGX" firstAttribute="top" secondItem="3vj-p3-Zup" secondAttribute="bottom" constant="7" id="3bQ-u8-NJ2"/>
                                                                         <constraint firstItem="mio-1T-uqe" firstAttribute="top" secondItem="DWS-0G-SIG" secondAttribute="bottom" constant="13" id="5A4-pj-04A"/>
-                                                                        <constraint firstItem="opl-JR-hz3" firstAttribute="top" secondItem="7Fn-9O-D8C" secondAttribute="bottom" constant="15" id="5I7-aF-7Nw">
-                                                                            <variation key="heightClass=regular-widthClass=compact" constant="19"/>
-                                                                        </constraint>
                                                                         <constraint firstItem="VcW-HL-OKm" firstAttribute="top" secondItem="XEg-ED-0Ys" secondAttribute="bottom" constant="11" id="6yP-IP-d0J">
                                                                             <variation key="heightClass=regular-widthClass=compact" constant="8"/>
                                                                         </constraint>
@@ -1987,6 +1982,7 @@
                                                                         <constraint firstItem="XEg-ED-0Ys" firstAttribute="leading" secondItem="ZYg-LW-rfk" secondAttribute="leading" id="W6B-Hw-cTA"/>
                                                                         <constraint firstItem="RdS-A8-0X0" firstAttribute="leading" secondItem="ZYg-LW-rfk" secondAttribute="leading" constant="5" id="YlU-G0-FTv"/>
                                                                         <constraint firstItem="EdW-9y-koh" firstAttribute="leading" secondItem="ZYg-LW-rfk" secondAttribute="leading" constant="15" id="Ywp-a4-uRn"/>
+                                                                        <constraint firstItem="opl-JR-hz3" firstAttribute="top" secondItem="RdS-A8-0X0" secondAttribute="bottom" id="a4n-p2-C60"/>
                                                                         <constraint firstItem="WS8-Gn-Zo7" firstAttribute="leading" secondItem="ZYg-LW-rfk" secondAttribute="leading" id="ama-Z3-3b7"/>
                                                                         <constraint firstItem="SvW-Ki-yHa" firstAttribute="top" secondItem="MyS-pe-hsM" secondAttribute="bottom" constant="7" id="bhV-9X-9dN"/>
                                                                         <constraint firstAttribute="trailing" secondItem="WS8-Gn-Zo7" secondAttribute="trailing" id="cqd-FD-fGd"/>
@@ -2308,6 +2304,8 @@
                                             <outlet property="articleOutlet" destination="DWS-0G-SIG" id="tTv-Fe-FZL"/>
                                             <outlet property="articleTitle" destination="0zi-eJ-NiQ" id="fcv-mp-5gB"/>
                                             <outlet property="articleTitleHeightConstraint" destination="MOe-be-ltj" id="tOb-ys-4kL"/>
+                                            <outlet property="articleWebViewLeadingConstraint" destination="qtX-gt-Jia" id="cby-cd-PsG"/>
+                                            <outlet property="articleWebViewTrailingConstraint" destination="YlU-G0-FTv" id="ONT-qE-LoJ"/>
                                             <outlet property="articleWebview" destination="RdS-A8-0X0" id="rDV-EN-2Dk"/>
                                             <outlet property="authorImageView" destination="VcW-HL-OKm" id="h1m-xt-GwR"/>
                                             <outlet property="authorLocationLabel" destination="f6N-v1-Xyn" id="BXv-1E-3RX"/>
@@ -2432,6 +2430,7 @@
         <image name="chatPhone" width="30" height="30"/>
         <image name="close" width="32" height="32"/>
         <image name="folderPhone" width="30" height="30"/>
+        <image name="gradiant" width="608" height="200"/>
         <image name="group_blue" width="20" height="20"/>
         <image name="location" width="20" height="20"/>
         <image name="outlet" width="20" height="20"/>

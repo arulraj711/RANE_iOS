@@ -532,7 +532,12 @@
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     NSLog(@"device orientation changes");
-    [self.collectionView reloadData];
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        
+    } else {
+        [self.collectionView reloadData];
+    }
+    
     //Obtaining the current device orientation
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     
@@ -1735,8 +1740,8 @@
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     // NSLog(@"collection view scroll");
     int lastCount = self.articleIdArray.count-1;
-    NSLog(@"%@",self.articleIdArray);
-    NSLog(@"%d",lastCount);
+//    NSLog(@"%@",self.articleIdArray);
+//    NSLog(@"%d",lastCount);
 
     float scrollOffset = self.collectionView.contentOffset.x;
     
@@ -1750,10 +1755,10 @@
     }
     
     
-    float scrollOffsetY = self.collectionView.contentOffset.y;
+   // float scrollOffsetY = self.collectionView.contentOffset.y;
     
     
-    NSLog(@"collection scroll x:%f and y:%f",scrollOffset,scrollOffsetY);
+    //NSLog(@"collection scroll x:%f and y:%f",scrollOffset,scrollOffsetY);
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
         self.callAPIFromDrillIn = YES;
         if(self.articleIdArray.count != 0) {

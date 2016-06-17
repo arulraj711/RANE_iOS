@@ -110,6 +110,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bannerImageViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelTopConstraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *articleWebViewLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *articleWebViewTrailingConstraint;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *bioTitleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bioDivider;

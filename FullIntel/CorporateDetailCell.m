@@ -118,6 +118,14 @@
     [self.detailsWebview addGestureRecognizer:tapEvent];
     
     
+    
+    self.tweetCollectionViewHeightConstraint.constant = 0;
+    self.tweetLabelHeightConstraint.constant = 0;
+    self.tweetLabel.hidden = YES;
+    self.tweetDividerImageView.hidden = YES;
+    self.tweetsCollectionView.hidden = YES;
+    
+    
 }
 -(void)performAnimationForiPhoneButton:(NSTimer *)timer {
     NSString *indexString=timer.userInfo;
@@ -878,18 +886,19 @@
     
     CGRect frame = webView.frame;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        if (IS_IPHONE_6) {
-            frame.size.height = 380;
-        }
-        else if(IS_IPHONE_6P)
-        {
-            frame.size.height =450;
-        }
-        else{
-            frame.size.height = 350;
-
-        }
-
+//        if (IS_IPHONE_6) {
+//            frame.size.height = 380;
+//        }
+//        else if(IS_IPHONE_6P)
+//        {
+//            frame.size.height =450;
+//        }
+//        else{
+//            frame.size.height = 350;
+//
+//        }
+        
+        frame.size.height = 10;
     } else {
         frame.size.height = 10;
 
@@ -898,19 +907,30 @@
     webView.scrollView.scrollEnabled = NO;
     webView.scrollView.bounces = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        CGRect newBounds = self.articleWebview.bounds;
-        NSLog(@"%@",NSStringFromCGRect(newBounds));
-
-        newBounds.size.height =  self.articleWebview.scrollView.contentSize.height;
-        NSLog(@"%@",NSStringFromCGRect(newBounds));
-        NSLog(@"%@",NSStringFromCGSize(newBounds.size));
-        
-        NSLog(@"%f",self.webViewHeightConstraint.constant);
-        NSLog(@"%@",self.webViewHeightConstraint);
-        CGFloat pointOfWebview = newBounds.size.height;
-        NSLog(@"webview height-->%f",self.webViewHeightConstraint.constant);
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,pointOfWebview+750+self.bioLabel.frame.size.height);
+//        CGRect newBounds = self.articleWebview.bounds;
+//        NSLog(@"%@",NSStringFromCGRect(newBounds));
+//
+//        newBounds.size.height =  self.articleWebview.scrollView.contentSize.height;
+//        NSLog(@"%@",NSStringFromCGRect(newBounds));
+//        NSLog(@"%@",NSStringFromCGSize(newBounds.size));
+//        
+//        NSLog(@"%f",self.webViewHeightConstraint.constant);
+//        NSLog(@"%@",self.webViewHeightConstraint);
+//        CGFloat pointOfWebview = newBounds.size.height;
+//        NSLog(@"webview height-->%f",self.webViewHeightConstraint.constant);
+//        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,pointOfWebview+750+self.bioLabel.frame.size.height);
         //123thisiswhere
+        
+        
+        
+//        CGRect frame = self.articleWebview.frame;
+//        CGSize fittingSize = [self.articleWebview sizeThatFits:CGSizeZero];
+//        frame.size = fittingSize;
+//        self.articleWebview.frame = frame;
+//        NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
+//        self.webViewHeightConstraint.constant = self.articleWebview.frame.size.height;
+        
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant);
     }
     else{
         
@@ -923,6 +943,7 @@
     
     [self.timer invalidate];
     //[progressView removeFromSuperview];
+    
     [self loadTweetsAndSocialLink];
 }
 
@@ -937,10 +958,15 @@
     CGSize fittingSize = [self.articleWebview sizeThatFits:CGSizeZero];
     frame.size = fittingSize;
     self.articleWebview.frame = frame;
-    //NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
+    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
     self.webViewHeightConstraint.constant = self.articleWebview.frame.size.height;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-//        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, 20);
+        NSNumber *articleDrillPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+        if([articleDrillPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+400);
+        } else {
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+400);
+        }
         
     }
     else{
@@ -1080,12 +1106,19 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
+
     self.socialcollectionView.hidden = YES;
     self.tweetsLocalCollectionView.hidden = YES;
     [self.activityIndicator removeFromSuperview];
     [self.activityIndicator stopAnimating];
     //tweetsCollectionView.hidden = NO;
-    // self.webViewHeightConstraint.constant = 200;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        self.webViewHeightConstraint.constant = 200;
+    } else {
+        
+    }
+    
     //socialcollectionView.backgroundColor = [UIColor greenColor];
 }
 
