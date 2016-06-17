@@ -828,7 +828,18 @@
 
 -(RADataObject *)recursiveDataObjectFrom:(FIMenu *)menu {
     RADataObject *dataObj = [[RADataObject alloc]init];
-    dataObj.name = menu.name;
+    if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:9]]) {
+        NSManagedObject *markedImpBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:1]];
+        NSString *markedImportantName = [NSString stringWithFormat:@"%@",[markedImpBrandingIdentity valueForKey:@"name"]];
+        dataObj.name = markedImportantName;
+    } else if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+        NSManagedObject *savedForLaterBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:2]];
+        NSString *savedForLaterName = [NSString stringWithFormat:@"%@",[savedForLaterBrandingIdentity valueForKey:@"name"]];
+        dataObj.name = savedForLaterName;
+    } else {
+        dataObj.name = menu.name;
+    }
+    
     dataObj.nodeId = menu.nodeId;
     dataObj.unReadCount = menu.unreadCount;
     dataObj.subListAvailable = menu.subListAvailable;
