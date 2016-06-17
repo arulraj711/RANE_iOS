@@ -891,7 +891,7 @@
         }
 
     } else {
-        frame.size.height = 200;
+        frame.size.height = 10;
 
     }
     webView.frame = frame;
@@ -913,8 +913,8 @@
         //123thisiswhere
     }
     else{
-
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+        
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant);
     
     }
     //    self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];
@@ -923,6 +923,7 @@
     
     [self.timer invalidate];
     //[progressView removeFromSuperview];
+    [self loadTweetsAndSocialLink];
 }
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
@@ -943,69 +944,83 @@
         
     }
     else{
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
-
-    }
-    UICollectionViewFlowLayout* tweetFlowLayout = [[UICollectionViewFlowLayout alloc]init];
-    tweetFlowLayout.itemSize = CGSizeMake(100, 100);
-    [tweetFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+45, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
-
-        UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCellPhone" bundle:nil];
-        [self.tweetsLocalCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
-        [self.tweetsLocalCollectionView registerClass:[TweetsCellPhone class] forCellWithReuseIdentifier:@"Cell"];
-        if(IS_IPHONE_6P)
-        {
-            self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+45, self.tweetsCollectionView.frame.size.width+35, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
-
+        NSNumber *articleDrillPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+        if([articleDrillPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+800);
+        } else {
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+400);
         }
-
-    }
-    else{
-        self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+100, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
-
-        UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCell" bundle:nil];
-        [self.tweetsLocalCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
-        [self.tweetsLocalCollectionView registerClass:[TweetsCell class] forCellWithReuseIdentifier:@"Cell"];
-
         
+
     }
-    self.tweetsLocalCollectionView.delegate = self;
-    self.tweetsLocalCollectionView.dataSource = self;
-    //tweetsCollectionView.hidden = NO;
-    self.tweetsLocalCollectionView.backgroundColor = [UIColor clearColor];
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
-    [self.activityIndicator startAnimating];
-    [self.tweetsCollectionView addSubview:self.activityIndicator];
-    lbl= [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.tweetsCollectionView.frame.size.width, 300)];
-    //    lbl.text = @"No Tweets found for this article";
-    //    lbl.font = [UIFont fontWithName:@"Arial" size:20];
-    //    lbl.textAlignment = NSTextAlignmentCenter;
-    //    lbl.textColor = [UIColor lightGrayColor];
-    // lbl.backgroundColor = [UIColor blackColor];
-    UIImageView *tweetImg = [[UIImageView alloc]initWithFrame:CGRectMake((self.tweetsCollectionView.frame.size.width-80)/2, 80, 80, 80)];
-    tweetImg.image = [UIImage imageNamed:@"notweet"];
-    //tweetImg.backgroundColor = [UIColor greenColor];
-    [lbl addSubview:tweetImg];
-    
-    UILabel *tweetText = [[UILabel alloc]initWithFrame:CGRectMake(0, 200, self.tweetsCollectionView.frame.size.width, 50)];
-    tweetText.text = @"No tweets available";
-    tweetText.font = [UIFont fontWithName:@"Arial" size:20];
-    tweetText.textAlignment = NSTextAlignmentCenter;
-    tweetText.textColor = [UIColor lightGrayColor];
-    [lbl addSubview:tweetText];
-    
-    [self.tweetsCollectionView addSubview:lbl];
-    [self.scrollView addSubview:self.tweetsLocalCollectionView];
+//    UICollectionViewFlowLayout* tweetFlowLayout = [[UICollectionViewFlowLayout alloc]init];
+//    tweetFlowLayout.itemSize = CGSizeMake(100, 100);
+//    [tweetFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+//    
+//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//        self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+45, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
+//
+//        UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCellPhone" bundle:nil];
+//        [self.tweetsLocalCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
+//        [self.tweetsLocalCollectionView registerClass:[TweetsCellPhone class] forCellWithReuseIdentifier:@"Cell"];
+//        if(IS_IPHONE_6P)
+//        {
+//            self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+45, self.tweetsCollectionView.frame.size.width+35, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
+//
+//        }
+//
+//    }
+//    else{
+//        self.tweetsLocalCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(self.tweetsCollectionView.frame.origin.x, self.articleWebview.frame.size.height+self.articleWebview.frame.origin.y+100, self.tweetsCollectionView.frame.size.width, self.tweetsCollectionView.frame.size.height) collectionViewLayout:tweetFlowLayout];
+//
+//        UINib *tweetCellNib = [UINib nibWithNibName:@"TweetsCell" bundle:nil];
+//        [self.tweetsLocalCollectionView registerNib:tweetCellNib forCellWithReuseIdentifier:@"Cell"];
+//        [self.tweetsLocalCollectionView registerClass:[TweetsCell class] forCellWithReuseIdentifier:@"Cell"];
+//
+//        
+//    }
+//    self.tweetsLocalCollectionView.delegate = self;
+//    self.tweetsLocalCollectionView.dataSource = self;
+//    //tweetsCollectionView.hidden = NO;
+//    self.tweetsLocalCollectionView.backgroundColor = [UIColor clearColor];
+//    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    self.activityIndicator.center = CGPointMake(self.tweetsCollectionView.frame.size.width / 2, self.tweetsCollectionView.frame.size.height / 2);
+//    [self.activityIndicator startAnimating];
+//    [self.tweetsCollectionView addSubview:self.activityIndicator];
+//    lbl= [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.tweetsCollectionView.frame.size.width, 300)];
+//    //    lbl.text = @"No Tweets found for this article";
+//    //    lbl.font = [UIFont fontWithName:@"Arial" size:20];
+//    //    lbl.textAlignment = NSTextAlignmentCenter;
+//    //    lbl.textColor = [UIColor lightGrayColor];
+//    // lbl.backgroundColor = [UIColor blackColor];
+//    UIImageView *tweetImg = [[UIImageView alloc]initWithFrame:CGRectMake((self.tweetsCollectionView.frame.size.width-80)/2, 80, 80, 80)];
+//    tweetImg.image = [UIImage imageNamed:@"notweet"];
+//    //tweetImg.backgroundColor = [UIColor greenColor];
+//    [lbl addSubview:tweetImg];
+//    
+//    UILabel *tweetText = [[UILabel alloc]initWithFrame:CGRectMake(0, 200, self.tweetsCollectionView.frame.size.width, 50)];
+//    tweetText.text = @"No tweets available";
+//    tweetText.font = [UIFont fontWithName:@"Arial" size:20];
+//    tweetText.textAlignment = NSTextAlignmentCenter;
+//    tweetText.textColor = [UIColor lightGrayColor];
+//    [lbl addSubview:tweetText];
+//    
+//    [self.tweetsCollectionView addSubview:lbl];
+//    [self.scrollView addSubview:self.tweetsLocalCollectionView];
     UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    self.tweetCollectionViewHeightConstraint.constant = 300;
-    self.tweetLabelHeightConstraint.constant = 41;
-    self.tweetLabel.hidden = NO;
-    self.tweetDividerImageView.hidden = NO;
-    self.tweetsCollectionView.hidden = NO;
+//    self.tweetCollectionViewHeightConstraint.constant = 300;
+//    self.tweetLabelHeightConstraint.constant = 41;
+//    self.tweetLabel.hidden = NO;
+//    self.tweetDividerImageView.hidden = NO;
+//    self.tweetsCollectionView.hidden = NO;
+    
+    self.tweetCollectionViewHeightConstraint.constant = 0;
+    self.tweetLabelHeightConstraint.constant = 0;
+    self.tweetLabel.hidden = YES;
+    self.tweetDividerImageView.hidden = YES;
+    self.tweetsCollectionView.hidden = YES;
+    
+    
     UINib *cellNib;
     if ([UIDevice currentDevice].userInterfaceIdiom ==UIUserInterfaceIdiomPhone) {
         //flowLayout.itemSize = CGSizeMake(40, 40);
@@ -2216,13 +2231,13 @@
             //if(y > -200 && scrollView.contentOffset.x==0) {
             
             
-            if(!self.isTwitterLoad) {
-                //                //followersArray=[[NSMutableArray alloc]init];
-                //               // [followersArray removeAllObjects];
-                
-                [self loadTweetsAndSocialLink];
-            }
-            // }//hidden
+//            if(!self.isTwitterLoad) {
+//                //                //followersArray=[[NSMutableArray alloc]init];
+//                //               // [followersArray removeAllObjects];
+//                
+//                [self loadTweetsAndSocialLink];
+//            }
+ /* twitter API calling
 // tweet api is called if the visibility of influencer tweet is true.
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
                 if (CGRectIntersectsRect(scrollView.bounds, _tweetLabel.frame) == true  && !self.isTwitterAPICalled) {
@@ -2237,12 +2252,13 @@
             }
             else
             {
-            if(y < -positionOfCollectionViewInScrollView.origin.y+600 && !self.isTwitterAPICalled) {
-                NSLog(@"call twitter API");
-                
-                [self loadTweetsFromPost];
-            }
-            }
+                if(y < -positionOfCollectionViewInScrollView.origin.y+600 && !self.isTwitterAPICalled) {
+                    NSLog(@"call twitter API");
+                    
+                    [self loadTweetsFromPost];
+                }
+
+            } */
         }
         
     }
