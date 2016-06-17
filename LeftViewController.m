@@ -703,6 +703,7 @@
         self.addContentLabel.hidden = NO;
         self.addContentButton.hidden = NO;
         [self.addContentButton setTitle:addContentButtonName forState:UIControlStateNormal];
+        [self.addContentButton setTitleColor:[UIColor menuTextColor] forState:UIControlStateNormal];
     } else {
         self.addContentLabel.hidden = YES;
         self.addContentButton.hidden = YES;
@@ -715,6 +716,8 @@
         self.researchRequestImage.hidden = NO;
         self.researchButton.hidden = NO;
         [self.researchButton setTitle:researchRequestButtonName forState:UIControlStateNormal];
+        [self.researchButton setTitleColor:[UIColor menuTextColor] forState:UIControlStateNormal];
+
     } else {
         self.researchButton.hidden = YES;
         self.researchRequestImage.hidden = YES;
