@@ -2472,7 +2472,7 @@
         }
         CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
         CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.title.font constrainedToSize:maximumLabelSize lineBreakMode:cell.title.lineBreakMode];
-        //NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
+        NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
         
         
         cell.titleHeightConstraint.constant = expectedLabelSize.height;

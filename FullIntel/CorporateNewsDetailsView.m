@@ -1164,6 +1164,16 @@
         
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
     } else {
+        //OpenSans-Semibold 28.0
+        
+        CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
+        CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.articleTitle.font constrainedToSize:maximumLabelSize lineBreakMode:cell.articleTitle.lineBreakMode];
+        NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
+        
+        
+        cell.articleTitleHeightConstraint.constant = expectedLabelSize.height;
+        
+
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
     }
     if (self.isSearching) {
@@ -1181,14 +1191,16 @@
         //cell.gradButtonTops.image = [UIImage imageNamed:@"gradiant"];
         
     } else {
-//        [cell.articleTitle removeConstraint:cell.titleLabelTopConstraint];
-//        [cell removeConstraint:cell.titleLabelTopConstraint];
-//        [cell.contentView removeConstraint:cell.titleLabelTopConstraint];
-       // cell.titleLabelTopConstraint.constant = 30;
-        cell.articleImageView.backgroundColor = [UIColor clearColor];
-        //cell.articleImageView.alpha = 0.6f;
-       // cell.articleTitle.textColor = [UIColor blackColor];
-        cell.bannerImageViewHeightConstraint.constant = cell.articleTitleHeightConstraint.constant;
+
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            cell.articleImageView.backgroundColor = [UIColor clearColor];
+            cell.bannerImageViewHeightConstraint.constant = cell.articleTitleHeightConstraint.constant;
+        } else {
+            cell.titleLabelTopConstraint.constant = 0;
+        }
+
+        
     }
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
