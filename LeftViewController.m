@@ -702,6 +702,7 @@
     if(addContentButtonName.length != 0) {
         self.addContentLabel.hidden = NO;
         self.addContentButton.hidden = NO;
+        self.addContentLabel.textColor = [UIColor menuTextColor];
         [self.addContentButton setTitle:addContentButtonName forState:UIControlStateNormal];
         [self.addContentButton setTitleColor:[UIColor menuTextColor] forState:UIControlStateNormal];
     } else {
@@ -714,6 +715,8 @@
     NSString *researchRequestButtonName = [NSString stringWithFormat:@"%@",[researchBrandingIdentity valueForKey:@"name"]];
     if(researchRequestButtonName.length != 0) {
         self.researchRequestImage.hidden = NO;
+        [self.researchRequestImage setTintColor:[UIColor menuTextColor]];
+        [self.researchRequestImage setImage:[[UIImage imageNamed:@"researchReq"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         self.researchButton.hidden = NO;
         [self.researchButton setTitle:researchRequestButtonName forState:UIControlStateNormal];
         [self.researchButton setTitleColor:[UIColor menuTextColor] forState:UIControlStateNormal];
@@ -1081,21 +1084,30 @@
             cell.titleWidthConstraint.constant = 160;
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
-            cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
+            
+            [cell.iconImage setTintColor:[UIColor menuTextColor]];
+            [cell.iconImage setImage:[[UIImage imageNamed:@"markedImp"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+            
+//            cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
+//            cell.iconImage.tintColor = [UIColor redColor];
         } else if([dataObject.nodeId integerValue] == 6) {
             cell.iconWidthConstraint.constant =15;
             cell.titleConstraint.constant = 9;
             cell.titleWidthConstraint.constant = 160;
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
-            cell.iconImage.image = [UIImage imageNamed:@"savedForLater"];
+            [cell.iconImage setTintColor:[UIColor menuTextColor]];
+            [cell.iconImage setImage:[[UIImage imageNamed:@"savedForLater"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+            //cell.iconImage.image = [UIImage imageNamed:@"savedForLater"];
         } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-1000]]) {
             cell.iconWidthConstraint.constant =15;
             cell.titleConstraint.constant = 9;
             cell.titleWidthConstraint.constant = 160;
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
-            cell.iconImage.image = [UIImage imageNamed:@"logout"];
+            [cell.iconImage setTintColor:[UIColor menuTextColor]];
+            [cell.iconImage setImage:[[UIImage imageNamed:@"logout"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+            //cell.iconImage.image = [UIImage imageNamed:@"logout"];
         } else {
             cell.iconWidthConstraint.constant =15;
             cell.titleConstraint.constant = 9+10*level;
@@ -1110,7 +1122,9 @@
             cell.titleWidthConstraint.constant = 160;
             left = 40 + 11 + 20 * level;
             cell.iconImage.hidden = NO;
-            cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
+            [cell.iconImage setTintColor:[UIColor menuTextColor]];
+            [cell.iconImage setImage:[[UIImage imageNamed:@"folder_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+            //cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
         }else {
             cell.iconWidthConstraint.constant =15;
             cell.titleConstraint.constant = 9+10*level;
@@ -1127,7 +1141,9 @@
         cell.titleWidthConstraint.constant = 160;
         left = 40 + 11 + 20 * level;
         cell.iconImage.hidden = NO;
-        cell.iconImage.image = [UIImage imageNamed:@"dailydigest_menu"];
+        [cell.iconImage setTintColor:[UIColor menuTextColor]];
+        [cell.iconImage setImage:[[UIImage imageNamed:@"dailydigest_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+        //cell.iconImage.image = [UIImage imageNamed:@"dailydigest_menu"];
     } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-300]]) {
         //For Add Content
         cell.iconWidthConstraint.constant =15;
@@ -1135,7 +1151,9 @@
         cell.titleWidthConstraint.constant = 160;
         left = 40 + 11 + 20 * level;
         cell.iconImage.hidden = NO;
-        cell.iconImage.image = [UIImage imageNamed:@"addcontent_menu"];
+        [cell.iconImage setTintColor:[UIColor menuTextColor]];
+        [cell.iconImage setImage:[[UIImage imageNamed:@"addcontent_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+        //cell.iconImage.image = [UIImage imageNamed:@"addcontent_menu"];
     } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-400]])  {
         //For Research request
         cell.iconWidthConstraint.constant =15;
@@ -1143,7 +1161,9 @@
         cell.titleWidthConstraint.constant = 160;
         left = 40 + 11 + 20 * level;
         cell.iconImage.hidden = NO;
-        cell.iconImage.image = [UIImage imageNamed:@"researchReq"];
+        [cell.iconImage setTintColor:[UIColor menuTextColor]];
+        [cell.iconImage setImage:[[UIImage imageNamed:@"researchReq"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+        //cell.iconImage.image = [UIImage imageNamed:@"researchReq"];
     } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-500]]) {
         //For Media Analysis
         cell.iconWidthConstraint.constant =15;
@@ -1151,7 +1171,9 @@
         cell.titleWidthConstraint.constant = 160;
         left = 40 + 11 + 20 * level;
         cell.iconImage.hidden = NO;
-        cell.iconImage.image = [UIImage imageNamed:@"mediaanalysis_menu"];
+        [cell.iconImage setTintColor:[UIColor menuTextColor]];
+        [cell.iconImage setImage:[[UIImage imageNamed:@"mediaanalysis_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+        //cell.iconImage.image = [UIImage imageNamed:@"mediaanalysis_menu"];
     }
     
     
