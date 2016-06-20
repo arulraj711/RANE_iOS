@@ -2048,16 +2048,8 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HvF-dP-TZc">
                                                             <rect key="frame" x="0.0" y="16" width="600" height="128"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9kT-sB-Heg">
-                                                                    <rect key="frame" x="8" y="8" width="100" height="100"/>
-                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="100" id="ErY-eN-atX"/>
-                                                                        <constraint firstAttribute="height" constant="100" id="zPD-Ng-cwx"/>
-                                                                    </constraints>
-                                                                </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="clip" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAP-dK-2Q6">
-                                                                    <rect key="frame" x="116" y="8" width="476" height="53"/>
+                                                                    <rect key="frame" x="15" y="8" width="570" height="53"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="53" id="a7s-Ww-4EW"/>
@@ -2065,6 +2057,19 @@
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith, The Verge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XeR-kJ-1TJ">
+                                                                    <rect key="frame" x="15" y="69" width="250" height="18"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="18" id="1HE-hA-dCP"/>
+                                                                        <constraint firstAttribute="width" constant="250" id="cgn-YW-zXh"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                    <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                                        <rect key="frame" x="112" y="61" width="124" height="17"/>
+                                                                    </variation>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jul 07, 2015" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XiL-7o-gLO">
                                                                     <rect key="frame" x="502" y="69" width="90" height="18"/>
@@ -2075,19 +2080,6 @@
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                     <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith, The Verge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XeR-kJ-1TJ">
-                                                                    <rect key="frame" x="116" y="69" width="100" height="18"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="18" id="1HE-hA-dCP"/>
-                                                                        <constraint firstAttribute="width" constant="100" id="cgn-YW-zXh"/>
-                                                                    </constraints>
-                                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                                                    <color key="textColor" red="0.40000000000000002" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                                        <rect key="frame" x="112" y="61" width="124" height="17"/>
-                                                                    </variation>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5eb-lD-TkF">
                                                                     <rect key="frame" x="0.0" y="115" width="40" height="5"/>
@@ -2117,6 +2109,7 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
+                                                                <constraint firstItem="XeR-kJ-1TJ" firstAttribute="leading" secondItem="HvF-dP-TZc" secondAttribute="leading" constant="15" id="8qp-4K-Ie4"/>
                                                                 <constraint firstItem="iK1-vv-Z70" firstAttribute="top" secondItem="HvF-dP-TZc" secondAttribute="top" constant="106" id="Cfd-gR-woA"/>
                                                                 <constraint firstAttribute="height" constant="128" id="DFM-Pv-hZ2">
                                                                     <variation key="heightClass=regular-widthClass=compact" constant="140"/>
@@ -2124,18 +2117,15 @@
                                                                 <constraint firstItem="XeR-kJ-1TJ" firstAttribute="top" secondItem="jAP-dK-2Q6" secondAttribute="bottom" constant="8" id="EhL-pJ-2ji"/>
                                                                 <constraint firstItem="5eb-lD-TkF" firstAttribute="top" secondItem="HvF-dP-TZc" secondAttribute="top" constant="115" id="IY9-Am-Cuy"/>
                                                                 <constraint firstItem="5eb-lD-TkF" firstAttribute="leading" secondItem="HvF-dP-TZc" secondAttribute="leading" id="JVB-TY-jUr"/>
-                                                                <constraint firstItem="9kT-sB-Heg" firstAttribute="top" secondItem="HvF-dP-TZc" secondAttribute="top" constant="8" id="NfS-sL-c26"/>
+                                                                <constraint firstItem="jAP-dK-2Q6" firstAttribute="leading" secondItem="HvF-dP-TZc" secondAttribute="leading" constant="15" id="L3O-Hc-VKr"/>
                                                                 <constraint firstItem="XiL-7o-gLO" firstAttribute="top" secondItem="jAP-dK-2Q6" secondAttribute="bottom" constant="8" id="XGJ-yx-GlD"/>
-                                                                <constraint firstAttribute="trailing" secondItem="jAP-dK-2Q6" secondAttribute="trailing" constant="8" id="Zq5-3O-GXO"/>
-                                                                <constraint firstItem="XeR-kJ-1TJ" firstAttribute="leading" secondItem="9kT-sB-Heg" secondAttribute="trailing" constant="8" id="bdg-0q-qqA"/>
+                                                                <constraint firstAttribute="trailing" secondItem="jAP-dK-2Q6" secondAttribute="trailing" constant="15" id="Zq5-3O-GXO"/>
                                                                 <constraint firstItem="sWz-aT-M8w" firstAttribute="top" secondItem="HvF-dP-TZc" secondAttribute="top" constant="115" id="cE3-lG-Qlk"/>
-                                                                <constraint firstItem="9kT-sB-Heg" firstAttribute="leading" secondItem="HvF-dP-TZc" secondAttribute="leading" constant="8" id="cem-jm-HjC"/>
                                                                 <constraint firstItem="jAP-dK-2Q6" firstAttribute="top" secondItem="HvF-dP-TZc" secondAttribute="top" constant="8" id="eB5-bn-MqW"/>
                                                                 <constraint firstAttribute="trailing" secondItem="XiL-7o-gLO" secondAttribute="trailing" constant="8" id="eR7-uB-BU7"/>
                                                                 <constraint firstItem="sWz-aT-M8w" firstAttribute="leading" secondItem="iK1-vv-Z70" secondAttribute="trailing" id="foV-ma-n42"/>
                                                                 <constraint firstAttribute="trailing" secondItem="sWz-aT-M8w" secondAttribute="trailing" constant="-1" id="nuO-dL-2CE"/>
                                                                 <constraint firstItem="iK1-vv-Z70" firstAttribute="leading" secondItem="5eb-lD-TkF" secondAttribute="trailing" constant="1" id="vFC-Jj-LKd"/>
-                                                                <constraint firstItem="jAP-dK-2Q6" firstAttribute="leading" secondItem="9kT-sB-Heg" secondAttribute="trailing" constant="8" id="wPp-HX-vhE"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5P-bB-5F1">
@@ -2343,7 +2333,6 @@
                                             <outlet property="outletLabelTopConstraint" destination="qUW-r2-Cnk" id="xpW-rb-UZy"/>
                                             <outlet property="overlayArticleAuthor" destination="XeR-kJ-1TJ" id="gLU-97-xc1"/>
                                             <outlet property="overlayArticleDate" destination="XiL-7o-gLO" id="NYk-Ch-srZ"/>
-                                            <outlet property="overlayArticleImageView" destination="9kT-sB-Heg" id="ttG-oA-j3y"/>
                                             <outlet property="overlayArticleTitle" destination="jAP-dK-2Q6" id="R7F-6M-QH0"/>
                                             <outlet property="overlayView" destination="HvF-dP-TZc" id="YFJ-85-k5o"/>
                                             <outlet property="requestBtn" destination="weA-pb-l6p" id="0zi-GG-3zL"/>
