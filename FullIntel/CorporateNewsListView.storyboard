@@ -1230,6 +1230,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="1000" height="600"/>
                     <connections>
+                        <outlet property="closeButton" destination="XHa-v5-yWu" id="c2E-ve-j81"/>
                         <outlet property="outerView" destination="4kR-ne-ClQ" id="3GJ-Ze-fev"/>
                         <outlet property="titleString" destination="dA7-bh-SGC" id="dQc-He-R2v"/>
                         <outlet property="webView" destination="989-L9-4XG" id="aRb-Ox-2Xo"/>

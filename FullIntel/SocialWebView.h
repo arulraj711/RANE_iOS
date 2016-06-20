@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 - (IBAction)closeAction:(id)sender;
 @property (nonatomic,strong) NSString *urlString;
+@property (strong, nonatomic) IBOutlet UIButton *closeButton;
 
 @property (nonatomic,strong) NSString *titleStr;
 

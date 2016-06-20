@@ -1591,7 +1591,7 @@
     else{
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         
-        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"widgetWebView"];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
         SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
         SocialWebViewObj.titleStr=title;
         SocialWebViewObj.urlString=link;

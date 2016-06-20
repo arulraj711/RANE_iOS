@@ -14,6 +14,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+CustomColor.h"
 #import "UILabel+CustomHeaderLabel.h"
+#import "UIImage+CustomNavIconImage.h"
 
 @interface SocialWebView ()
 
@@ -41,7 +42,9 @@
     layer.shadowRadius=3.0f;
     layer.shadowOffset=CGSizeMake(0.0f,0.0f);
     
+    [self.closeButton setBackgroundImage:[UIImage createCustomNavIconFromImage:@"close"] forState:UIControlStateNormal];
 
+    
 //    UIScrollView *scrollView = [self.webView.subviews objectAtIndex:0];
 //    scrollView.delegate = self;//self must be UIScrollViewDelegate
    
