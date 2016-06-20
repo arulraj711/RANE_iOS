@@ -14,6 +14,7 @@
 #import "CorporateNewsListView.h"
 #import "ViewController.h"
 #import "UILabel+CustomHeaderLabel.h"
+#import "UIImage+CustomNavIconImage.h"
 
 @interface FolderViewController ()
 
@@ -37,7 +38,7 @@
     // Do any additional setup after loading the view.
     UIButton *Btn =[UIButton buttonWithType:UIButtonTypeCustom];
     [Btn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    [Btn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+    [Btn setBackgroundImage:[UIImage createCustomNavIconFromImage:@"navmenu"]  forState:UIControlStateNormal];
     [Btn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
     [self.navigationItem setLeftBarButtonItem:addButton];

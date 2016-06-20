@@ -23,7 +23,7 @@
 #import "pop.h"
 #import "UILabel+CustomHeaderLabel.h"
 #import "UIColor+CustomColor.h"
-
+#import "UIImage+CustomNavIconImage.h"
 
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -102,6 +102,8 @@
     
     _tutorialTextBoxView.hidden=YES;
     _tutorialTextBoxView.layer.cornerRadius=5.0f;
+    
+    self.navigationController.navigationBar.tintColor = [UIColor headerTextColor];
     
 }
 
@@ -337,7 +339,7 @@
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
     if(isFIViewSelected) {
         NSLog(@"fi view is selected");
-        [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_globe"]  forState:UIControlStateNormal];
+        [addBtn setBackgroundImage:[UIImage createCustomNavIconFromImage:@"nav_globe"]  forState:UIControlStateNormal];
         [addBtn setSelected:YES];
     } else {
         NSLog(@"fi view is not selected");
@@ -1719,7 +1721,7 @@
         //NSLog(@"sender is not selected");
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchToWebView"];
         
-        [sender setBackgroundImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage createCustomNavIconFromImage:@"nav_globe"] forState:UIControlStateNormal];
         [sender setSelected:YES];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:1]}];
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];

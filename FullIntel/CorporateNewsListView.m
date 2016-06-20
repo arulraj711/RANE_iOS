@@ -25,6 +25,7 @@
 #import "SavedListPopoverView.h"
 #import "UIColor+CustomColor.h"
 #import "UILabel+CustomHeaderLabel.h"
+#import "UIImage+CustomNavIconImage.h"
 
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -993,7 +994,7 @@
     
     navBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     [navBtn setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-    [navBtn setBackgroundImage:[UIImage imageNamed:@"navmenu"]  forState:UIControlStateNormal];
+    [navBtn setBackgroundImage:[UIImage createCustomNavIconFromImage:@"navmenu"]  forState:UIControlStateNormal];
     [navBtn addTarget:self action:@selector(backBtnPress) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:navBtn];
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
@@ -1015,7 +1016,7 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         Btns =[UIButton buttonWithType:UIButtonTypeCustom];
         [Btns setFrame:CGRectMake(0.0f,0.0f,20.0f,20.0f)];
-        [Btns setBackgroundImage:[UIImage imageNamed:@"settingsFilter"]  forState:UIControlStateNormal];
+        [Btns setBackgroundImage:[UIImage createCustomNavIconFromImage:@"settingsFilter"]  forState:UIControlStateNormal];
         [Btns addTarget:self action:@selector(settingsButtonFilter) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *addButtons = [[UIBarButtonItem alloc] initWithCustomView:Btns];
         // [self.navigationItem setRightBarButtonItem:addButtons];
@@ -1027,7 +1028,7 @@
         
         searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
         [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-        [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
+        [searchButtons setBackgroundImage:[UIImage createCustomNavIconFromImage:@"search"]  forState:UIControlStateNormal];
         [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
         NSArray *buttonsArr = [NSArray arrayWithObjects:addButtons,addButtonsBtnns,addButtonsRight, nil];
@@ -1047,7 +1048,24 @@
         
         searchButtons =[UIButton buttonWithType:UIButtonTypeCustom];
         [searchButtons setFrame:CGRectMake(0.0f,0.0f,16.0f,15.0f)];
-        [searchButtons setBackgroundImage:[UIImage imageNamed:@"search"]  forState:UIControlStateNormal];
+        
+        
+        
+        
+//        UIImageView *searchImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 16, 15)];
+//        [searchImageView setTintColor:[UIColor redColor]];
+//         [searchImageView setImage:[[UIImage imageNamed:@"search"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+//        
+//        UIImage *newImage = [searchImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//        UIGraphicsBeginImageContextWithOptions(searchImageView.image.size, NO, newImage.scale);
+//        [[UIColor headerTextColor] set];
+//        [newImage drawInRect:CGRectMake(0, 0, searchImageView.image.size.width, newImage.size.height)];
+//        newImage = UIGraphicsGetImageFromCurrentImageContext();
+//        UIGraphicsEndImageContext();
+//        
+        
+        
+        [searchButtons setBackgroundImage:[UIImage createCustomNavIconFromImage:@"search"]  forState:UIControlStateNormal];
         [searchButtons addTarget:self action:@selector(searchButtonFilter) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *addButtonsRight = [[UIBarButtonItem alloc] initWithCustomView:searchButtons];
         

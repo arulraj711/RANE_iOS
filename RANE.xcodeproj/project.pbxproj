@@ -35,6 +35,7 @@
 		A059B6BF1BF5F1200060683F /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A059B6BD1BF5F1200060683F /* CommonViewController.m */; };
 		A059B6C31BF5F43E0060683F /* CommonViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */; };
 		A059FCAA1CB3CB0700858865 /* NumberFormatterExtn.m in Sources */ = {isa = PBXBuildFile; fileRef = A059FCA91CB3CB0700858865 /* NumberFormatterExtn.m */; };
+		A05A4C711D18123100284CC4 /* UIImage+CustomNavIconImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A05A4C701D18123100284CC4 /* UIImage+CustomNavIconImage.m */; };
 		A05C1A7D1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05C1A7C1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard */; };
 		A05DA9C11C466422009ACB48 /* CorporateNewsListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */; };
 		A0697B931C7DC2B20010B945 /* SwiftBridgeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0697B921C7DC2B20010B945 /* SwiftBridgeFile.swift */; };
@@ -392,6 +393,8 @@
 		A059B6C21BF5F43E0060683F /* CommonViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommonViewController.storyboard; sourceTree = "<group>"; };
 		A059FCA81CB3CB0700858865 /* NumberFormatterExtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberFormatterExtn.h; sourceTree = "<group>"; };
 		A059FCA91CB3CB0700858865 /* NumberFormatterExtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberFormatterExtn.m; sourceTree = "<group>"; };
+		A05A4C6F1D18123100284CC4 /* UIImage+CustomNavIconImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CustomNavIconImage.h"; sourceTree = "<group>"; };
+		A05A4C701D18123100284CC4 /* UIImage+CustomNavIconImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CustomNavIconImage.m"; sourceTree = "<group>"; };
 		A05C1A7C1C85D1E300EC5008 /* ChartViewControlleriPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChartViewControlleriPad.storyboard; sourceTree = "<group>"; };
 		A05DA9C01C466422009ACB48 /* CorporateNewsListView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CorporateNewsListView.storyboard; sourceTree = "<group>"; };
 		A0697B911C7DC2B00010B945 /* FullIntel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FullIntel-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1405,6 +1408,8 @@
 				BA74337D1D0049DE00EC69DA /* UIColor+CustomColor.m */,
 				BA7433821D006FDA00EC69DA /* UILabel+CustomHeaderLabel.h */,
 				BA7433831D006FDA00EC69DA /* UILabel+CustomHeaderLabel.m */,
+				A05A4C6F1D18123100284CC4 /* UIImage+CustomNavIconImage.h */,
+				A05A4C701D18123100284CC4 /* UIImage+CustomNavIconImage.m */,
 			);
 			name = CustomTheme;
 			sourceTree = "<group>";
@@ -2206,6 +2211,7 @@
 				F7CE36DF1A95E9490005AA0A /* RABatchChanges.m in Sources */,
 				BAC8C5731CCDFAFB000FA656 /* ChartReportDownloadView.m in Sources */,
 				A0CF5C6C1B1DD98B00DED2D9 /* RecentPaternsCell.m in Sources */,
+				A05A4C711D18123100284CC4 /* UIImage+CustomNavIconImage.m in Sources */,
 				F7E368821ABC18F70083F38E /* MailPopoverView.m in Sources */,
 				A07A05B81AF769040016AD46 /* AddContentSecondLevelView.m in Sources */,
 				A08145AE1BD0B7BD00AA5EE2 /* FPPopoverKeyboardResponsiveController.m in Sources */,
