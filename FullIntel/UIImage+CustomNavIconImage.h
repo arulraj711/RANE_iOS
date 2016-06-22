@@ -11,4 +11,5 @@
 
 @interface UIImage (CustomNavIconImage)
 +(UIImage *)createCustomNavIconFromImage:(NSString *)iconImageName;
++(UIImage *)createCustomExpandButtonFromImage:(NSString *)iconImageName;
 @end
