@@ -14,6 +14,7 @@
 @interface ViewController : UIViewController<CMPopTipViewDelegate>{
     CGRect oldFrame;
     CGFloat originalOuterViewy;
+    UIActivityIndicatorView *activityIndicator;
     int i;
 }
 @property CGPoint originalCenter;

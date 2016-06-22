@@ -71,8 +71,8 @@
     
     [self handleLoginProcess];
     
-//    self.usernameTextField.text = @"kristine.eissing@ranenetwork.com";
-//    self.passwordTextField.text = @"rane@123";
+    self.usernameTextField.text = @"kristine.eissing@ranenetwork.com";
+    self.passwordTextField.text = @"rane@123";
     
 }
 
@@ -355,8 +355,14 @@
         [gradedetails setObject:_passwordTextField.text forKey:@"password"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
         
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.alpha = 1.0;
+        activityIndicator.center = self.view.center;
+        activityIndicator.hidesWhenStopped = YES;
+        [self.view addSubview:activityIndicator];
+        [activityIndicator startAnimating];
         
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
         [[FISharedResources sharedResourceManager] checkLoginUserWithDetails:resultStr];
         
     }

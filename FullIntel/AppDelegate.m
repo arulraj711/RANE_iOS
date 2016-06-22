@@ -73,6 +73,10 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
    
+   
+
+    
+    
 //    UIStoryboard *centerStoryBoard;
 //    UINavigationController *navCtlr;
 //
