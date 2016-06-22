@@ -336,6 +336,10 @@
                                             <outlet property="delegate" destination="JHw-hO-fkV" id="QiW-tE-lgI"/>
                                         </connections>
                                     </webView>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="7o1-Vv-Z6x">
+                                        <rect key="frame" x="0.0" y="50" width="355" height="3"/>
+                                        <color key="tintColor" red="0.68627450980000004" green="0.039215686270000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dA7-bh-SGC">
                                         <rect key="frame" x="44" y="8" width="253" height="34"/>
                                         <constraints>
@@ -348,12 +352,15 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.1019607843" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="7o1-Vv-Z6x" firstAttribute="top" secondItem="4kR-ne-ClQ" secondAttribute="top" constant="50" id="3SU-So-cj4"/>
                                     <constraint firstItem="989-L9-4XG" firstAttribute="leading" secondItem="4kR-ne-ClQ" secondAttribute="leading" id="5ux-le-6SA"/>
+                                    <constraint firstAttribute="trailing" secondItem="7o1-Vv-Z6x" secondAttribute="trailing" id="CRS-R9-wl2"/>
                                     <constraint firstItem="dA7-bh-SGC" firstAttribute="leading" secondItem="4kR-ne-ClQ" secondAttribute="leadingMargin" constant="36" id="GBE-W6-AXf"/>
                                     <constraint firstItem="989-L9-4XG" firstAttribute="centerX" secondItem="dA7-bh-SGC" secondAttribute="centerX" constant="7" id="LPk-8q-rOY"/>
                                     <constraint firstAttribute="trailing" secondItem="989-L9-4XG" secondAttribute="trailing" id="VQg-wF-5EJ"/>
                                     <constraint firstItem="989-L9-4XG" firstAttribute="top" secondItem="XHa-v5-yWu" secondAttribute="bottom" constant="5" id="Wc2-bx-auR"/>
                                     <constraint firstAttribute="bottom" secondItem="989-L9-4XG" secondAttribute="bottom" id="Yjt-cQ-Nr4"/>
+                                    <constraint firstItem="7o1-Vv-Z6x" firstAttribute="leading" secondItem="4kR-ne-ClQ" secondAttribute="leading" id="f3T-c9-rnC"/>
                                     <constraint firstItem="dA7-bh-SGC" firstAttribute="top" secondItem="4kR-ne-ClQ" secondAttribute="topMargin" id="gDP-5t-wyY"/>
                                     <constraint firstItem="XHa-v5-yWu" firstAttribute="centerY" secondItem="dA7-bh-SGC" secondAttribute="centerY" id="nwg-RC-C6G"/>
                                     <constraint firstItem="989-L9-4XG" firstAttribute="top" secondItem="dA7-bh-SGC" secondAttribute="bottom" constant="8" symbolic="YES" id="thX-KK-5iZ"/>
@@ -376,6 +383,7 @@
                     <navigationItem key="navigationItem" id="bKa-Rm-ldS"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="myProgressView" destination="7o1-Vv-Z6x" id="chl-00-CO2"/>
                         <outlet property="outerView" destination="4kR-ne-ClQ" id="3GJ-Ze-fev"/>
                         <outlet property="titleString" destination="dA7-bh-SGC" id="dQc-He-R2v"/>
                         <outlet property="webView" destination="989-L9-4XG" id="aRb-Ox-2Xo"/>

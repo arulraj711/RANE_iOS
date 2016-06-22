@@ -1185,6 +1185,10 @@
                                             <outlet property="delegate" destination="JHw-hO-fkV" id="QiW-tE-lgI"/>
                                         </connections>
                                     </webView>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progressViewStyle="bar" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="gC3-WA-KeR">
+                                        <rect key="frame" x="0.0" y="50" width="800" height="3"/>
+                                        <color key="tintColor" red="0.68627450980000004" green="0.039215686270000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dA7-bh-SGC">
                                         <rect key="frame" x="8" y="8" width="784" height="34"/>
                                         <constraints>
@@ -1199,10 +1203,13 @@
                                 <constraints>
                                     <constraint firstItem="XHa-v5-yWu" firstAttribute="leading" secondItem="4kR-ne-ClQ" secondAttribute="leading" constant="10" id="6uY-xN-KJk"/>
                                     <constraint firstItem="989-L9-4XG" firstAttribute="leading" secondItem="4kR-ne-ClQ" secondAttribute="leading" id="87g-j3-bhr"/>
+                                    <constraint firstAttribute="trailing" secondItem="gC3-WA-KeR" secondAttribute="trailing" id="Ira-dS-LA5"/>
                                     <constraint firstItem="989-L9-4XG" firstAttribute="top" secondItem="4kR-ne-ClQ" secondAttribute="top" constant="50" id="LI2-A5-wBd"/>
                                     <constraint firstItem="989-L9-4XG" firstAttribute="centerX" secondItem="dA7-bh-SGC" secondAttribute="centerX" id="Nvt-bF-KjQ"/>
                                     <constraint firstAttribute="bottom" secondItem="989-L9-4XG" secondAttribute="bottom" id="PxW-bX-6DX"/>
+                                    <constraint firstItem="gC3-WA-KeR" firstAttribute="top" secondItem="4kR-ne-ClQ" secondAttribute="top" constant="50" id="RTX-Gu-kML"/>
                                     <constraint firstAttribute="trailing" secondItem="dA7-bh-SGC" secondAttribute="trailing" constant="8" id="bOt-bc-r70"/>
+                                    <constraint firstItem="gC3-WA-KeR" firstAttribute="leading" secondItem="4kR-ne-ClQ" secondAttribute="leading" id="bad-4S-vyd"/>
                                     <constraint firstItem="dA7-bh-SGC" firstAttribute="top" secondItem="4kR-ne-ClQ" secondAttribute="top" constant="8" id="hdL-AT-q1k"/>
                                     <constraint firstAttribute="trailing" secondItem="989-L9-4XG" secondAttribute="trailing" id="p7k-yd-yd0"/>
                                     <constraint firstItem="dA7-bh-SGC" firstAttribute="leading" secondItem="4kR-ne-ClQ" secondAttribute="leading" constant="8" id="xd1-Wr-5my"/>
@@ -1231,6 +1238,7 @@
                     <size key="freeformSize" width="1000" height="600"/>
                     <connections>
                         <outlet property="closeButton" destination="XHa-v5-yWu" id="c2E-ve-j81"/>
+                        <outlet property="myProgressView" destination="gC3-WA-KeR" id="xDI-ed-SZX"/>
                         <outlet property="outerView" destination="4kR-ne-ClQ" id="3GJ-Ze-fev"/>
                         <outlet property="titleString" destination="dA7-bh-SGC" id="dQc-He-R2v"/>
                         <outlet property="webView" destination="989-L9-4XG" id="aRb-Ox-2Xo"/>

@@ -76,6 +76,8 @@
     _titleString.text =_titleStr;
     _titleString.textAlignment = NSTextAlignmentCenter;
     _titleString.textColor = [UIColor headerTextColor];
+    
+    myProgressView.progress = 0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -117,6 +119,12 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
+    
+    myProgressView.progress = 0;
+    theBool = false;
+    //0.01667 is roughly 1/60, so it will update at 60 FPS
+    myTimer = [NSTimer scheduledTimerWithTimeInterval:0.1667 target:self selector:@selector(timerCallback) userInfo:nil repeats:YES];
+    
     [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('footer').style.display = 'none'"];
 //    timer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
 //    progressView = [[UCZProgressView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-50, self.view.frame.size.height/2-50, 100, 100)];
@@ -128,7 +136,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     
     //NSLog(@"webViewDidFinishLoad");
-    
+    theBool = true;
     [timer invalidate];
     [progressView removeFromSuperview];
     [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.querySelector('meta[name=viewport]').setAttribute('content', 'width=%d;', false); ", (int)webView.frame.size.width]];
@@ -152,13 +160,31 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-
-
 - (IBAction)closeAction:(id)sender {
     [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 //    MZFormSheetController *controller = self.navigationController.formSheetController;
 //    [controller dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+
+-(void)timerCallback {
+    if (theBool) {
+        if (myProgressView.progress >= 1) {
+            myProgressView.hidden = true;
+            [myTimer invalidate];
+        }
+        else {
+            myProgressView.progress += 0.1;
+        }
+    }
+    else {
+        myProgressView.progress += 0.01;
+        if (myProgressView.progress >= 0.95) {
+            myProgressView.progress = 0.95;
+        }
+    }
+}
+
 @end

@@ -12,6 +12,9 @@
 @interface SocialWebView : UIViewController<UIScrollViewDelegate> {
     UCZProgressView *progressView;
     NSTimer *timer;
+    IBOutlet UIProgressView* myProgressView;
+    BOOL theBool;
+    NSTimer *myTimer;
 }
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 - (IBAction)closeAction:(id)sender;
