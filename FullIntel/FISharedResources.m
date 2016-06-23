@@ -2664,12 +2664,20 @@
     }
 }
 
--(void)updateAppViewTypeWithDetails:(NSString *)details {
+-(void)updateAppViewTypeWithDetails:(NSString *)details withStatus:(NSNumber *)status{
     if([self serviceIsReachable]) {
         [FIWebService updateAppViewTypeWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+                if([status isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                    NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:27]];
+                    NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+                    [window makeToast:message duration:1 position:CSToastPositionCenter];
+                } else if([status isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:26]];
+                    NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+                    [window makeToast:message duration:1 position:CSToastPositionCenter];
+                }
             } else {
                 [self hideProgressView];
                 [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];

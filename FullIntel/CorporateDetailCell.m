@@ -311,7 +311,7 @@
         [gradedetails setObject:[NSNumber numberWithInt:1] forKey:@"appViewTypeId"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager]updateAppViewTypeWithDetails:resultStr];
+        [[FISharedResources sharedResourceManager]updateAppViewTypeWithDetails:resultStr withStatus:[NSNumber numberWithInt:1]];
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
     } else {
         self.detailsWebview.hidden = NO;
@@ -322,7 +322,7 @@
         [gradedetails setObject:[NSNumber numberWithInt:2] forKey:@"appViewTypeId"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
         NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        [[FISharedResources sharedResourceManager]updateAppViewTypeWithDetails:resultStr];
+        [[FISharedResources sharedResourceManager]updateAppViewTypeWithDetails:resultStr withStatus:[NSNumber numberWithInt:0]];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
         //[self.contentView addSubview:self.detailsWebview];
     }
