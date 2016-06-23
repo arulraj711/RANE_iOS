@@ -342,6 +342,9 @@
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             window.userInteractionEnabled = YES;
             NSLog(@"Error---->%@",error);
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"LoginFailed" object:nil];
+            
             if(operation.responseObject == nil) {
                 // Error object is null
             } else {
@@ -2714,7 +2717,9 @@
             
             if(![[responseObject objectForKey:@"code"]isEqualToNumber:[NSNumber numberWithInt:102]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
-                [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
+                NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:19]];
+                NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+                [window makeToast:message duration:1 position:CSToastPositionCenter];
                 [self getCommentsWithDetails:self.getCommentDetailString withArticleId:self.getCommentArticleId];
                 [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Post Comment"];
                 
