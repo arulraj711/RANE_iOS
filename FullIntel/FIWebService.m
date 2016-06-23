@@ -620,7 +620,7 @@ NSString *url = @"http://fullintel.com/2.3.0";
             onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     //@"eti/customers/authenticate"
     //@"userauthentication"
-    [self getResultsForFunctionName:@"eti/customers/authenticate" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getResultsForFunctionName:@"userauthentication" withPostDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation, error);

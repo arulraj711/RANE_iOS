@@ -23,7 +23,7 @@
 #import "pop.h"
 #import "UILabel+CustomHeaderLabel.h"
 #import "UIColor+CustomColor.h"
-#import "UIImage+CustomNavIconImage.h"
+
 
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -36,9 +36,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-   
     
-
+    
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
     
@@ -52,13 +52,13 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endOfTutorial) name:@"EndOfDrillDownTutorial" object:nil];
     
-
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(widgetWebViewTrigger:) name:@"widgetWebViewCalled" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopLoadingForAlert) name:@"stopLoadingForAlert" object:nil];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getArticleIdListFromDB) name:@"CuratedNewsDetailsUpdate" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getArticleIdListFromDB) name:@"CuratedNewsDetailsUpdate" object:nil];
     
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailButtonClick:) name:@"mailButtonClick" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globeButtonClick:) name:@"globeButtonClick" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommentsView:) name:@"showCommentsView" object:nil];
@@ -71,7 +71,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLinkSelection:) name:@"fbSelection" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nextFolderClick:) name:@"nextFolderClick" object:nil];
-
+    
     [self addCustomNavRightButton];
     oneSecondTicker = [[NSTimer alloc] init];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -91,19 +91,17 @@
     
     innerWebView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)];
     // self.navigationItem.rightBarButtonItem =nil;
-//    if (_isSearching == 1 || _switchForFilter==1 || _switchForFilter==2) {
-//        self.articleIdArray = [[NSMutableArray alloc]initWithArray:self.articleIdFromSearchLst];
-//        [self.collectionView reloadData];
-//    }
-//    else {
-        [self getArticleIdListFromDB];
-
-  //  }
+    //    if (_isSearching == 1 || _switchForFilter==1 || _switchForFilter==2) {
+    //        self.articleIdArray = [[NSMutableArray alloc]initWithArray:self.articleIdFromSearchLst];
+    //        [self.collectionView reloadData];
+    //    }
+    //    else {
+    [self getArticleIdListFromDB];
+    
+    //  }
     
     _tutorialTextBoxView.hidden=YES;
     _tutorialTextBoxView.layer.cornerRadius=5.0f;
-    
-    self.navigationController.navigationBar.tintColor = [UIColor headerTextColor];
     
 }
 
@@ -319,13 +317,13 @@
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
     {
-//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-//        label.backgroundColor = [UIColor clearColor];
-//        label.font = [UIFont fontWithName:@"Open Sans" size:17];
-//        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-//        label.text = self.articleTitle;
-//        label.textAlignment = NSTextAlignmentCenter;
-//        label.textColor = [UIColor whiteColor]; // change this color
+        //        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+        //        label.backgroundColor = [UIColor clearColor];
+        //        label.font = [UIFont fontWithName:@"Open Sans" size:17];
+        //        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        //        label.text = self.articleTitle;
+        //        label.textAlignment = NSTextAlignmentCenter;
+        //        label.textColor = [UIColor whiteColor]; // change this color
         self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.articleTitle];
     }
     
@@ -339,7 +337,7 @@
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
     if(isFIViewSelected) {
         NSLog(@"fi view is selected");
-        [addBtn setBackgroundImage:[UIImage createCustomNavIconFromImage:@"nav_globe"]  forState:UIControlStateNormal];
+        [addBtn setBackgroundImage:[UIImage imageNamed:@"nav_globe"]  forState:UIControlStateNormal];
         [addBtn setSelected:YES];
     } else {
         NSLog(@"fi view is not selected");
@@ -527,19 +525,14 @@
         NSLog(@"selected article id:%@",self.articleIdArray);
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-
+        
     }
 }
 
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     NSLog(@"device orientation changes");
-    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        
-    } else {
-        [self.collectionView reloadData];
-    }
-    
+    [self.collectionView reloadData];
     //Obtaining the current device orientation
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     
@@ -588,12 +581,12 @@
         [curatedNews setValue:curatedNewsDetails forKey:@"details"];
     }
     [managedObjectContext save:nil];
-//    NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
-//  //  NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
-//    if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
-//    cell.badgeTwo.value =[totalComments integerValue];
-//    cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
-//    }
+    //    NSNumber *unreadCnt = [curatedNewsDetail valueForKey:@"unReadComment"];
+    //  //  NSNumber *totalCnt = [curatedNewsDetail valueForKey:@"totalComments"];
+    //    if([unreadCnt isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    //    cell.badgeTwo.value =[totalComments integerValue];
+    //    cell.badgeTwo.fillColor = UIColorFromRGB(0xbcbcbc);
+    //    }
 }
 
 -(void)fbLinkSelection:(id)sender {
@@ -622,7 +615,7 @@
         socialWebViewObj.titleStr=@"";
         
     }
-
+    
     
     //    NSString *urlString = [NSString stringWithFormat:@"https://www.linkedin.com/shareArticle?mini=true&url=%@&title=%@&summary=%@&source=LinkedIn",articleUrl,articleTitle,articleDesc];
     
@@ -696,18 +689,10 @@
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-     NSLog(@"cell indexpath:%ld",(long)indexPath.row);
+    NSLog(@"cell indexpath:%ld",(long)indexPath.row);
     self.selectedIndexPath = indexPath;
     self.selectedIndex = indexPath.row;
-    CorporateDetailCell *cell;
-    NSNumber *articleDrillPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
-    if([articleDrillPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withArticleImage" forIndexPath:indexPath];
-    } else {
-        cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withoutArticleImage" forIndexPath:indexPath];
-    }
-    
-    
+    CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     // [cell resetCellWebviewHeight];
     //[cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     cell.cachedImageViewSize = cell.articleImageView.frame;
@@ -727,60 +712,60 @@
     
     NSLog(@"cell article id:%@",[self.articleIdArray objectAtIndex:indexPath.row]);
     NSPredicate *predicate;
-//    if (_isSearching ==1) {
-//        predicate = [NSPredicate predicateWithFormat:@"articleId == %@",_articleIdFromSearchLst];
-//
-//    }
-//    else{
-        predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];
-
-//    }
+    //    if (_isSearching ==1) {
+    //        predicate = [NSPredicate predicateWithFormat:@"articleId == %@",_articleIdFromSearchLst];
+    //
+    //    }
+    //    else{
+    predicate = [NSPredicate predicateWithFormat:@"articleId == %@",[self.articleIdArray objectAtIndex:indexPath.row]];
+    
+    //    }
     [fetchRequest setPredicate:predicate];
     NSLog(@"%@",predicate);
-
+    
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     NSLog(@"%@",newPerson);
-
+    
     if(newPerson.count != 0) {
         NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-         NSLog(@"selected curated news:%@",curatedNews);
+        NSLog(@"selected curated news:%@",curatedNews);
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             curatedNewsDetail = [curatedNews valueForKey:@"details"];
             curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
             NSLog(@"%@",curatedNewsDetail);
             NSLog(@"%@",curatedNewsAuthorDetail);
-
+            
             NSString *htmlString;
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
             {
-
-            htmlString = [NSString stringWithFormat:@"<body style='color:#000000;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+                
+                htmlString = [NSString stringWithFormat:@"<body style='color:#000000;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
             }
             else
             {
-            htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
-
+                htmlString = [NSString stringWithFormat:@"<body style='color:#666e73;font-family:Open Sans;line-height: 1.7;font-size: 16px;font-weight: 310;'>%@",[curatedNewsDetail valueForKey:@"article"]];
+                
             }
             NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
             NSLog(@"%@",relatedPostSet);
-
+            
             NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
             NSLog(@"%@",postArray);
             
             NSLog(@"%@",htmlString);
             [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
-
+            
             if (self.isSearching) {
-
                 
-//
-//                NSString *repString = [NSString stringWithFormat:@"<font color='red'>%@</font>",self.searchText];
-//                // Then you need to replace a string (say 'stringA') with new string (say 'stringB')
-//                // htmlString = [htmlString stringByReplacingOccurrencesOfString:@"Apple" withString:repString];
-//                
-//                htmlString =[htmlString stringByReplacingOccurrencesOfString:self.searchText withString:repString options:NSCaseInsensitiveSearch range: NSMakeRange(0, [htmlString length])];
-//                [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
-
+                
+                //
+                //                NSString *repString = [NSString stringWithFormat:@"<font color='red'>%@</font>",self.searchText];
+                //                // Then you need to replace a string (say 'stringA') with new string (say 'stringB')
+                //                // htmlString = [htmlString stringByReplacingOccurrencesOfString:@"Apple" withString:repString];
+                //
+                //                htmlString =[htmlString stringByReplacingOccurrencesOfString:self.searchText withString:repString options:NSCaseInsensitiveSearch range: NSMakeRange(0, [htmlString length])];
+                //                [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
+                
                 
                 
                 NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:self.searchText
@@ -791,14 +776,12 @@
                                                                   range:NSMakeRange(0, htmlString.length)
                                                            withTemplate:@"<span style='background-color:#FFFF00'>$0</span>"];
                 [cell.articleWebview loadHTMLString:output baseURL:nil];
-
+                
                 
             } else {
                 [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
-
+                
             }
-
-
             
             
             
@@ -806,7 +789,9 @@
             
             
             
-
+            
+            
+            
             [self updateCellViewType:cell forCuratedNews:curatedNews atIndexPath:indexPath];
             NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
             NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
@@ -848,7 +833,7 @@
 //                                               withTemplate:@"<span class='highlight'>$0</span>"];
 //    [inWebView loadHTMLString:output baseURL:nil];
 //
-//    
+//
 //}
 
 -(void)configureAuthorDetails:(CorporateDetailCell *)cell forCuratedNewsAuthor:(NSManagedObject *)curatedNewsAuthor {
@@ -903,9 +888,9 @@
         
         NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
         cell.authorWorkTitleLabel.text = [workTitle valueForKey:@"title"];
-//        if (self.isSearching) {
-//            [self highlight:cell.authorWorkTitleLabel withString:self.searchText];
-//        }
+        //        if (self.isSearching) {
+        //            [self highlight:cell.authorWorkTitleLabel withString:self.searchText];
+        //        }
     } else {
         cell.workTitleIcon.hidden = YES;
         cell.workTitleIconHeightConstraint.constant = 0;
@@ -913,7 +898,7 @@
         cell.outletImageTopConstraint.constant = 0;
         cell.outletLabelTopConstraint.constant = 0;
         cell.authorWorkTitleLabel.text = @"";
-
+        
     }
     
     
@@ -927,20 +912,20 @@
             cell.outletIconHeightConstraint.constant = 10;
             cell.locationLabelTopConstraint.constant = 1;
             cell.outletLabelHeightConstraint.constant = 18;
-
+            
         }
         else{
             cell.locationImageTopConstarint.constant = 10;
             cell.outletIconHeightConstraint.constant = 15;
             cell.locationLabelTopConstraint.constant = 4;
             cell.outletLabelHeightConstraint.constant = 21;
-
+            
         }
         NSManagedObject *outlet = [outletArray objectAtIndex:0];
         cell.authorOutletName.text = [outlet valueForKey:@"outletname"];
-//        if (self.isSearching) {
-//            [self highlight:cell.authorOutletName withString:self.searchText];
-//        }
+        //        if (self.isSearching) {
+        //            [self highlight:cell.authorOutletName withString:self.searchText];
+        //        }
     }else {
         cell.outletIcon.hidden = YES;
         cell.outletIconHeightConstraint.constant = 0;
@@ -948,7 +933,7 @@
         cell.locationLabelTopConstraint.constant = 0;
         cell.outletLabelHeightConstraint.constant = 0;
         cell.authorOutletName.text = @"";
-
+        
     }
     
     
@@ -982,9 +967,9 @@
         }
         
         cell.authorLocationLabel.text = authorPlace;
-//        if (self.isSearching) {
-//            [self highlight:cell.authorLocationLabel withString:self.searchText];
-//        }
+        //        if (self.isSearching) {
+        //            [self highlight:cell.authorLocationLabel withString:self.searchText];
+        //        }
     } else {
         cell.locationIcon.hidden = YES;
         cell.locationIconHeightConstraint.constant = 0;
@@ -992,7 +977,7 @@
         cell.beatsImageTopConstraint.constant = 0;
         cell.beatsLabelTopConstraint.constant = 0;
         cell.authorLocationLabel.text = @"";
-
+        
     }
     
     NSSet *beatSet = [curatedNewsAuthor valueForKey:@"authorBeat"];
@@ -1008,23 +993,23 @@
         {
             cell.beatsIconHeightConstraint.constant = 10;
             cell.beatsLabelHeightConstraint.constant = 18;
-
+            
         }
         else{
             cell.beatsIconHeightConstraint.constant = 15;
             cell.beatsLabelHeightConstraint.constant = 21;
-
+            
         }
         cell.authorTagLabel.text = beatString;
-//        if (self.isSearching) {
-//            [self highlight:cell.authorTagLabel withString:self.searchText];
-//        }
+        //        if (self.isSearching) {
+        //            [self highlight:cell.authorTagLabel withString:self.searchText];
+        //        }
     } else {
         cell.beatsIcon.hidden = YES;
         cell.beatsIconHeightConstraint.constant = 0;
         cell.beatsLabelHeightConstraint.constant = 0;
         cell.authorTagLabel.text = @"";
-
+        
     }
     
     NSString *bioString = [curatedNewsAuthor valueForKey:@"bibliography"];
@@ -1035,9 +1020,9 @@
         cell.bioDivider.hidden = NO;
         cell.bioLabel.hidden = NO;
         cell.bioLabel.text = bioString;
-//        if (self.isSearching) {
-//            [self highlight:cell.bioLabel withString:self.searchText];
-//        }
+        //        if (self.isSearching) {
+        //            [self highlight:cell.bioLabel withString:self.searchText];
+        //        }
     } else {
         cell.bioTitleLabel.hidden = YES;
         cell.bioDivider.hidden = YES;
@@ -1154,12 +1139,11 @@
 
 
 -(void)configureCell:(CorporateDetailCell *)cell forCuratedNews:(NSManagedObject *)curatedNews atIndexPath:(NSIndexPath *)indexpath {
-    CGSize maximumLabelSize = CGSizeMake(200, FLT_MAX);
+    CGSize maximumLabelSize = CGSizeMake(296, FLT_MAX);
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
-        NSLog(@"starting constraint:%f",cell.articleTitleHeightConstraint.constant);
-        //CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.articleTitle.font constrainedToSize:maximumLabelSize lineBreakMode:cell.articleTitle.lineBreakMode];
-       // NSLog(@"title height:%f",expectedLabelSize.height);
+        CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.articleTitle.font constrainedToSize:maximumLabelSize lineBreakMode:cell.articleTitle.lineBreakMode];
+        NSLog(@"title height:%f",expectedLabelSize.height);
         UIFont *myFont = [UIFont fontWithName:@"OpenSans-Semibold" size:24.0];
         CGRect textRect = [[curatedNews valueForKey:@"title"] boundingRectWithSize:maximumLabelSize
                                                                            options:NSStringDrawingUsesLineFragmentOrigin
@@ -1167,20 +1151,9 @@
                                                                            context:nil];
         NSLog(@"another title calc:%f",textRect.size.height);
         
-        cell.articleTitleHeightConstraint.constant = textRect.size.height+10;
-        
+        cell.articleTitleHeightConstraint.constant = expectedLabelSize.height+10;
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
     } else {
-        //OpenSans-Semibold 28.0
-        
-        CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
-        CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.articleTitle.font constrainedToSize:maximumLabelSize lineBreakMode:cell.articleTitle.lineBreakMode];
-        NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
-        
-        
-        cell.articleTitleHeightConstraint.constant = expectedLabelSize.height;
-        
-
         cell.articleTitle.text = [curatedNews valueForKey:@"title"];
     }
     if (self.isSearching) {
@@ -1189,33 +1162,16 @@
     NSString *articleImageStr = [curatedNews valueForKey:@"image"];
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *drillinPlaceHolderImagePath = [documentsDirectory stringByAppendingPathComponent:@"articleDrillPlaceholderImage.png"];
-
-    NSNumber *articleDrillPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
-    if([articleDrillPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
-        [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
-        cell.cachedImageViewSize = cell.articleImageView.frame;
-        //cell.gradButtonTops.image = [UIImage imageNamed:@"gradiant"];
-        
-    } else {
-
-        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-        {
-            cell.articleImageView.backgroundColor = [UIColor clearColor];
-            cell.bannerImageViewHeightConstraint.constant = cell.articleTitleHeightConstraint.constant;
-        } else {
-            cell.titleLabelTopConstraint.constant = 0;
-        }
-
-        
-    }
     
+    [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
+    [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
+    cell.cachedImageViewSize = cell.articleImageView.frame;
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
     {
         cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
         
     }
-
+    
     cell.overlayArticleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
     cell.overlayArticleDesc.text = [curatedNews valueForKey:@"desc"];
     
@@ -1258,7 +1214,7 @@
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
     {
         cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
-
+        
     }
     cell.overlayArticleOutlet.text = [curatedNews valueForKey:@"outlet"];
     
@@ -1285,16 +1241,16 @@
                 cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
                 cell.articleAuthor.text = overallAuthorDetailOne;
                 cell.overlayArticleAuthor.text = overallAuthorDetailOne;
-            
+                
             }
             else
             {
-
+                
                 cell.articleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
                 cell.overlayArticleAuthor.text = [multipleAuthorArray componentsJoinedByString:@" and "];
                 
             }
-           
+            
         } else {
             NSManagedObject *authorObject = [authorArray objectAtIndex:0];
             cell.overlayArticleAuthor.text = [authorObject valueForKey:@"name"];
@@ -1304,7 +1260,7 @@
                 cell.articleAuthor.text = overallAuthorDetail;
                 cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];
                 cell.overlayArticleAuthor.text = overallAuthorDetail;
-
+                
             }
             else
             {
@@ -1332,9 +1288,9 @@
     cell.authorName.text = [authors valueForKey:@"name"];
     if (self.isSearching) {
         [self highlight:cell.aboutAuthorName withString:self.searchText];
-
+        
     }
-
+    
     
     NSSet *authorSets = [curatedNews valueForKey:@"authorDetails"];
     NSMutableArray *legendsArray = [[NSMutableArray alloc]initWithArray:[authorSets allObjects]];
@@ -1346,15 +1302,15 @@
     NSSet *workTitleSet = [author valueForKey:@"authorWorkTitle"];
     NSMutableArray *workTitleArray = [[NSMutableArray alloc]initWithArray:[workTitleSet allObjects]];
     NSLog(@"Author Info ---->%@",workTitleArray);
-
+    
     if (workTitleArray.count !=0) {
         NSManagedObject *workTitle = [workTitleArray objectAtIndex:0];
         cell.authorWorkTitle.text = [workTitle valueForKey:@"title"];
     }
-
+    
     [cell.authorImageView sd_setImageWithURL:[NSURL URLWithString:[author valueForKey:@"imageURL"]] placeholderImage:[UIImage imageNamed:@"userIcon_150"]];
     [cell.authorImageView setContentMode:UIViewContentModeScaleAspectFill];
-  
+    
     
 }
 
@@ -1408,23 +1364,23 @@
 -(void)nextFolderClick:(id)sender {
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-        {
-           
-            
-            NSNotification *notification = sender;
-            NSDictionary *userInfo = notification.userInfo;
-            UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
-            UINavigationController *navCtlr = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
-            
-//            popOverView.articleId = articleId;
-//            popOverView.selectedIndexPath = indexPath;
-//            SavedListPopoverView *popOverView=(SavedListPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
-            
-            navCtlr.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            [self presentViewController:navCtlr animated:NO completion:nil];
-
-
-        }
+    {
+        
+        
+        NSNotification *notification = sender;
+        NSDictionary *userInfo = notification.userInfo;
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"SavedListPopoverViewPhone" bundle:nil];
+        UINavigationController *navCtlr = [storyBoard instantiateViewControllerWithIdentifier:@"SavedList"];
+        
+        //            popOverView.articleId = articleId;
+        //            popOverView.selectedIndexPath = indexPath;
+        //            SavedListPopoverView *popOverView=(SavedListPopoverView *)[[navCtlr viewControllers]objectAtIndex:0];
+        
+        navCtlr.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        [self presentViewController:navCtlr animated:NO completion:nil];
+        
+        
+    }
     
     
 }
@@ -1450,8 +1406,8 @@
     navCtlr.modalPresentationStyle = UIModalPresentationCustom;
     
     [self presentViewController:navCtlr animated:NO completion:nil];
-
-
+    
+    
     //[self.navigationController presentViewController:popOverView
     //  animated:YES
     //completion:NULL];
@@ -1466,23 +1422,23 @@
     NSString *articleUrl = [userInfo objectForKey:@"articleUrl"];
     
     
-//    UIStoryboard *centerStoryBoard;
-//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-//        centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequestPhone" bundle:nil];
-//    }
-//    else{
-//        centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
-//    }
-//    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
-//
-//    ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
-//    researchViewController.articleId = articleId;
-//    researchViewController.articleTitle = articleTitle;
-//    researchViewController.articleUrl = articleUrl;
-//    //   popOverView.transitioningDelegate = self;
-//    popOverView.modalPresentationStyle = UIModalPresentationCustom;
-//    
-//    [self presentViewController:popOverView animated:NO completion:nil];
+    //    UIStoryboard *centerStoryBoard;
+    //    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+    //        centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequestPhone" bundle:nil];
+    //    }
+    //    else{
+    //        centerStoryBoard = [UIStoryboard storyboardWithName:@"ResearchRequest" bundle:nil];
+    //    }
+    //    UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"requestNav"];
+    //
+    //    ResearchRequestPopoverView *researchViewController=(ResearchRequestPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
+    //    researchViewController.articleId = articleId;
+    //    researchViewController.articleTitle = articleTitle;
+    //    researchViewController.articleUrl = articleUrl;
+    //    //   popOverView.transitioningDelegate = self;
+    //    popOverView.modalPresentationStyle = UIModalPresentationCustom;
+    //
+    //    [self presentViewController:popOverView animated:NO completion:nil];
     
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
@@ -1505,7 +1461,7 @@
         researchViewController.articleId = articleId;
         researchViewController.articleTitle = articleTitle;
         researchViewController.articleUrl = articleUrl;
-
+        
         
         formSheet = [[MZFormSheetController alloc] initWithViewController:modalController];
         if(orientation == 1) {
@@ -1523,20 +1479,20 @@
         
         
         // If you want to animate status bar use this code
-//        formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
-//            UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
-//            if ([navController.topViewController isKindOfClass:[AddContentFirstLevelView class]]) {
-//                //AddContentFirstLevelView *mzvc = (AddContentFirstLevelView *)navController.topViewController;
-//                //  mzvc.showStatusBar = NO;
-//            }
-//            
-//            
-//            [UIView animateWithDuration:0.3 animations:^{
-//                if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-//                    [weakFormSheet setNeedsStatusBarAppearanceUpdate];
-//                }
-//            }];
-//        };
+        //        formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+        //            UINavigationController *navController = (UINavigationController *)weakFormSheet.presentedFSViewController;
+        //            if ([navController.topViewController isKindOfClass:[AddContentFirstLevelView class]]) {
+        //                //AddContentFirstLevelView *mzvc = (AddContentFirstLevelView *)navController.topViewController;
+        //                //  mzvc.showStatusBar = NO;
+        //            }
+        //
+        //
+        //            [UIView animateWithDuration:0.3 animations:^{
+        //                if ([weakFormSheet respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        //                    [weakFormSheet setNeedsStatusBarAppearanceUpdate];
+        //                }
+        //            }];
+        //        };
         
         formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
             // Passing data
@@ -1586,12 +1542,12 @@
         SocialWebViewObj.titleStr=title;
         SocialWebViewObj.urlString=link;
         [self.navigationController pushViewController:SocialWebViewObj animated:YES];
-
+        
     }
     else{
         storyBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
         
-        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"SocialWebView"];
+        modalController = [storyBoard instantiateViewControllerWithIdentifier:@"widgetWebView"];
         SocialWebView *SocialWebViewObj=(SocialWebView *)[[modalController viewControllers]objectAtIndex:0];
         SocialWebViewObj.titleStr=title;
         SocialWebViewObj.urlString=link;
@@ -1678,7 +1634,7 @@
         } else {
             centerStoryBoard = [UIStoryboard storyboardWithName:@"MailStoryboard" bundle:nil];
         }
-        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"mailNav"];        
+        UINavigationController *popOverView =[centerStoryBoard instantiateViewControllerWithIdentifier:@"mailNav"];
         MailPopoverView *mailViewController=(MailPopoverView *)[[popOverView viewControllers]objectAtIndex:0];
         mailViewController.articleId= mailArticleId;
         mailViewController.mailSubject = mailTitle;
@@ -1721,7 +1677,7 @@
         //NSLog(@"sender is not selected");
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SwitchToWebView"];
         
-        [sender setBackgroundImage:[UIImage createCustomNavIconFromImage:@"nav_globe"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"nav_globe"] forState:UIControlStateNormal];
         [sender setSelected:YES];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"removeWebView" object:nil userInfo:@{@"status":[NSNumber numberWithBool:1]}];
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFIViewSelected"];
@@ -1732,7 +1688,7 @@
 -(void)stopLoadingForAlert{
     [self.activityIndicator stopAnimating];
     self.collectionView.scrollEnabled = YES;
- 
+    
 }
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
@@ -1742,9 +1698,9 @@
     [cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     // NSLog(@"collection view scroll");
     int lastCount = self.articleIdArray.count-1;
-//    NSLog(@"%@",self.articleIdArray);
-//    NSLog(@"%d",lastCount);
-
+    NSLog(@"%@",self.articleIdArray);
+    NSLog(@"%d",lastCount);
+    
     float scrollOffset = self.collectionView.contentOffset.x;
     
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
@@ -1757,21 +1713,21 @@
     }
     
     
-   // float scrollOffsetY = self.collectionView.contentOffset.y;
+    float scrollOffsetY = self.collectionView.contentOffset.y;
     
     
-    //NSLog(@"collection scroll x:%f and y:%f",scrollOffset,scrollOffsetY);
+    NSLog(@"collection scroll x:%f and y:%f",scrollOffset,scrollOffsetY);
     if(scrollOffset > self.collectionView.frame.size.width*lastCount) {
         self.callAPIFromDrillIn = YES;
         if(self.articleIdArray.count != 0) {
-          //  NSString *inputJson;
+            //  NSString *inputJson;
             NSNumber *parentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
             NSLog(@"parent id:%@",parentId);
             NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
             NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
             NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
-//            NSNumber *contentTypeIDS;
-//            NSNumber *activityTypeIDS;
+            //            NSNumber *contentTypeIDS;
+            //            NSNumber *activityTypeIDS;
             NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
             NSPredicate *predicate;
@@ -1852,7 +1808,7 @@
             NSLog(@"PageNo --->%ld",(long)pageNo);
             NSLog(@"folderId --->%@",folderId);
             if ([forTopStories isEqualToNumber:[NSNumber numberWithInt:0]]) {
-
+                
                 self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
                 [self.view addSubview:self.activityIndicator];
                 self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
@@ -1976,7 +1932,7 @@
             }
             //[self getArticleIdListFromDB];
             
-           //  [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
+            //  [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Test"];
             
         }
     }
@@ -1985,7 +1941,7 @@
 - (void)highlight:(UILabel *)isLabel withString:(NSString *)searchString{
     NSError *error;
     NSLog(@"%ld",(long)isLabel.tag);
-
+    
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: searchString options:NSRegularExpressionCaseInsensitive error:&error];
     
     if (!error)
@@ -1998,17 +1954,17 @@
             
             if (isLabel.tag == 111 || isLabel.tag == 112) {
                 bgColors = [FIUtils colorWithHexString:@"368DD7"];
-
+                
             } else {
                 bgColors = [FIUtils colorWithHexString:@"FFFF00"];
-
+                
             }
             
             NSRange matchRange = [aMatch range];
             [attributedString setAttributes:@{NSBackgroundColorAttributeName:bgColors} range: matchRange];
         }
-//        NSLog(@"%@",attributedString);
-
+        //        NSLog(@"%@",attributedString);
+        
         [isLabel setAttributedText:attributedString];
         
     }
