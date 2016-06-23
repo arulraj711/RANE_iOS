@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1808" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -39,23 +39,12 @@
                                     <constraint firstAttribute="height" constant="1" id="wz6-bN-OuZ"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAr-Y0-fGY">
-                                <rect key="frame" x="19" y="631" width="25" height="25"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9VO-WP-Jjk">
+                                <rect key="frame" x="15" y="630" width="245" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="pJ8-Kv-HCi"/>
-                                    <constraint firstAttribute="height" constant="25" id="qbC-fS-xPe"/>
-                                </constraints>
-                                <state key="normal" image="help">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9VO-WP-Jjk">
-                                <rect key="frame" x="60" y="630" width="200" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="9sr-E1-VKY"/>
-                                    <constraint firstAttribute="height" constant="30" id="X2J-9S-NFD"/>
+                                    <constraint firstAttribute="width" constant="245" id="EdN-qJ-qNS"/>
+                                    <constraint firstAttribute="height" constant="30" id="IFe-eo-3j4"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pX9-aV-U8w">
@@ -65,19 +54,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-5" id="04p-ax-aAv"/>
                             <constraint firstItem="dsa-DF-Mgs" firstAttribute="top" secondItem="0nW-UY-enU" secondAttribute="top" id="69e-v3-gwD"/>
-                            <constraint firstItem="BAr-Y0-fGY" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leading" constant="19" id="FGe-Kh-Tka"/>
                             <constraint firstItem="Ngc-2i-mQd" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-20" id="SWw-TW-B84"/>
-                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="7" id="UfM-gC-zzM"/>
+                            <constraint firstItem="DvD-gs-tsd" firstAttribute="top" secondItem="9VO-WP-Jjk" secondAttribute="bottom" constant="7" id="TKG-nn-tQK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pX9-aV-U8w" secondAttribute="trailing" constant="21" id="XuJ-6j-WIV"/>
                             <constraint firstItem="dsa-DF-Mgs" firstAttribute="leading" secondItem="pX9-aV-U8w" secondAttribute="leading" constant="-4" id="ZIo-wE-ez4"/>
                             <constraint firstItem="pX9-aV-U8w" firstAttribute="top" secondItem="dsa-DF-Mgs" secondAttribute="bottom" constant="2" id="bOM-fa-QOj"/>
-                            <constraint firstItem="DvD-gs-tsd" firstAttribute="top" secondItem="BAr-Y0-fGY" secondAttribute="bottom" constant="11" id="eJT-Yp-egG"/>
+                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="7" id="fXx-od-0nb"/>
                             <constraint firstItem="Ngc-2i-mQd" firstAttribute="top" secondItem="pX9-aV-U8w" secondAttribute="bottom" constant="2" id="gYN-LF-Vph"/>
-                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="leading" secondItem="BAr-Y0-fGY" secondAttribute="trailing" constant="16" id="jxT-9X-csR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ngc-2i-mQd" secondAttribute="trailing" constant="-5" id="od4-II-pIi"/>
                             <constraint firstItem="pX9-aV-U8w" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-20" id="x23-d8-wMA"/>
-                            <constraint firstItem="BAr-Y0-fGY" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="8" id="zoJ-cT-FkB"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -93,7 +80,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="help" width="32" height="32"/>
         <image name="logo" width="100" height="20"/>
     </resources>
 </document>

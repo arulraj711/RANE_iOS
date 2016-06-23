@@ -698,7 +698,7 @@
     //NSLog(@"branding list:%@",brandingPropertyList);
     
     NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:8]];
-    NSString *addContentButtonName = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+    NSString *addContentButtonName = [[NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]] uppercaseString];
     if(addContentButtonName.length != 0) {
         self.addContentLabel.hidden = NO;
         self.addContentButton.hidden = NO;

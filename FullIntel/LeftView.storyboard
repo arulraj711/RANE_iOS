@@ -82,39 +82,26 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9VO-WP-Jjk">
-                                <rect key="frame" x="60" y="562" width="200" height="30"/>
+                                <rect key="frame" x="13" y="562" width="245" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="fd9-DV-r7d"/>
-                                    <constraint firstAttribute="height" constant="30" id="too-Xu-bW8"/>
+                                    <constraint firstAttribute="height" constant="30" id="3WR-Rq-Al7"/>
+                                    <constraint firstAttribute="width" constant="245" id="Mp3-s0-Cnh"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAr-Y0-fGY">
-                                <rect key="frame" x="13" y="561" width="32" height="32"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="4RV-ow-8ys"/>
-                                    <constraint firstAttribute="width" constant="32" id="t6C-6b-stS"/>
-                                </constraints>
-                                <state key="normal" image="help">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Ngc-2i-mQd" firstAttribute="top" secondItem="pX9-aV-U8w" secondAttribute="bottom" constant="-1" id="32Q-Yc-kXy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pX9-aV-U8w" secondAttribute="trailing" constant="281" id="5RX-Dd-8Uv"/>
-                            <constraint firstItem="DvD-gs-tsd" firstAttribute="top" secondItem="9VO-WP-Jjk" secondAttribute="bottom" constant="8" id="5qy-jJ-cmA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ngc-2i-mQd" secondAttribute="trailing" constant="264" id="6rO-cG-B2W"/>
-                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="40" id="DJR-t3-idS"/>
-                            <constraint firstItem="BAr-Y0-fGY" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-3" id="Gk1-Vg-ogZ"/>
+                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-7" id="Bhf-Ek-X8Y"/>
                             <constraint firstItem="dsa-DF-Mgs" firstAttribute="top" secondItem="0nW-UY-enU" secondAttribute="top" id="Iuk-7h-UHp"/>
                             <constraint firstItem="Ngc-2i-mQd" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-16" id="PlT-E3-VV2"/>
+                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="6" id="R4R-LU-FUN"/>
                             <constraint firstItem="pX9-aV-U8w" firstAttribute="top" secondItem="dsa-DF-Mgs" secondAttribute="bottom" constant="15" id="RtD-2O-XLX"/>
-                            <constraint firstItem="9VO-WP-Jjk" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="6" id="cSM-TS-iRl"/>
+                            <constraint firstItem="DvD-gs-tsd" firstAttribute="top" secondItem="9VO-WP-Jjk" secondAttribute="bottom" constant="8" id="hB3-9u-al6"/>
                             <constraint firstItem="pX9-aV-U8w" firstAttribute="leading" secondItem="0nW-UY-enU" secondAttribute="leadingMargin" constant="-25" id="k5s-S5-SbD"/>
-                            <constraint firstItem="BAr-Y0-fGY" firstAttribute="top" secondItem="Ngc-2i-mQd" secondAttribute="bottom" constant="5" id="mWz-U7-keF"/>
                             <constraint firstItem="dsa-DF-Mgs" firstAttribute="leading" secondItem="Ngc-2i-mQd" secondAttribute="leading" id="nL9-bi-hWU"/>
                         </constraints>
                     </view>
@@ -134,7 +121,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="help" width="32" height="32"/>
         <image name="logo" width="100" height="20"/>
         <image name="researchReq" width="15" height="15"/>
     </resources>
