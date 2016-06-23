@@ -21,6 +21,7 @@
 #import "RATableViewCell.h"
 #import "FIUtils.h"
 #import "UIColor+CustomColor.h"
+#import "UIImage+CustomNavIconImage.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -56,6 +57,9 @@
     self.countLabel.backgroundColor = [UIColor notificationBackgroundColor];
     self.countLabel.textColor = [UIColor notificationTextColor];
     self.customTitleLabel.textColor = [UIColor menuTextColor];
+    [self.expandButton setBackgroundImage:[UIImage createCustomExpandButtonFromImage:@"expand_right"]  forState:UIControlStateNormal];
+    [self.expandButton setBackgroundImage:[UIImage createCustomExpandButtonFromImage:@"expand_down"]  forState:UIControlStateSelected];
+    [self.expandButton setBackgroundImage:[UIImage createCustomExpandButtonFromImage:@"expand_down"]  forState:UIControlStateHighlighted];
     
 }
 
