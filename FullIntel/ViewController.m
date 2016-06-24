@@ -73,8 +73,8 @@
     
     [self handleLoginProcess];
     
-    self.usernameTextField.text = @"kristine.eissing@ranenetwork.com";
-    self.passwordTextField.text = @"Welcome0804!";
+//    self.usernameTextField.text = @"kristine.eissing@ranenetwork.com";
+//    self.passwordTextField.text = @"Welcome0804!";
     
 }
 

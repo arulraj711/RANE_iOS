@@ -40,8 +40,9 @@
     //[Localytics autoIntegrate:@"bd26cfe0964dbeac7c1c840-ba054dc0-56ba-11e5-acff-00d0fea82624" launchOptions:launchOptions];
 
 //for Live localytics ID:
-    [Localytics autoIntegrate:@"f557a1d4226be8756ebd8dd-287a063c-5e18-11e5-7205-00736b041834" launchOptions:launchOptions];
+    //[Localytics autoIntegrate:@"f557a1d4226be8756ebd8dd-287a063c-5e18-11e5-7205-00736b041834" launchOptions:launchOptions];
     
+    [Localytics autoIntegrate:@"c68ec90e3f458b1eb439bcb-9d21537a-39f6-11e6-5b26-0042876ec363" launchOptions:launchOptions];
     [Fabric with:@[TwitterKit, CrashlyticsKit, DigitsKit]];
 
 //    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.mycompany.myqueue", 0);
