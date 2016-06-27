@@ -698,7 +698,7 @@
     //NSLog(@"branding list:%@",brandingPropertyList);
     
     NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:8]];
-    NSString *addContentButtonName = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+    NSString *addContentButtonName = [[NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]] uppercaseString];
     if(addContentButtonName.length != 0) {
         self.addContentLabel.hidden = NO;
         self.addContentButton.hidden = NO;
@@ -775,7 +775,7 @@
         NSManagedObject *mediaAnalysisBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:18]];
         NSString *mediaAnalysisBrandName = [[NSString stringWithFormat:@"%@",[mediaAnalysisBrandingIdentity valueForKey:@"name"]] uppercaseString];
         if(mediaAnalysisBrandName.length != 0) {
-            mediaAnalysis.name = [mediaAnalysisBrandingIdentity valueForKey:@"name"];
+            mediaAnalysis.name = [[mediaAnalysisBrandingIdentity valueForKey:@"name"] uppercaseString];
             mediaAnalysis.nodeId = [NSNumber numberWithInt:-500];
             mediaAnalysis.children = nil;
             [self.data addObject:mediaAnalysis];
