@@ -565,16 +565,16 @@
     NSString *menuBottomLogoString = [[NSUserDefaults standardUserDefaults]objectForKey:@"leftmenuLogo"];
     
     [self.menuBottomLogo sd_setImageWithURL:[NSURL URLWithString:menuBottomLogoString] placeholderImage:nil];
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialBoxShown"];
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialShown"];
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"CloseAddContentTutorial"];
-    
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"MarkImportantTutorialTrigger"];
-    
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SwipeUpAndDownTutorialTrigger"];
-    
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SwipeDownTutorialTrigger"];
-   // [self presentTutorialPopViewController];
+//    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialBoxShown"];
+//    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialShown"];
+//    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"CloseAddContentTutorial"];
+//    
+//    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"MarkImportantTutorialTrigger"];
+//    
+//    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SwipeUpAndDownTutorialTrigger"];
+//    
+//    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"SwipeDownTutorialTrigger"];
+    [self presentTutorialPopViewController];
 }
 
 -(void)updateUnreadCount {

@@ -177,9 +177,9 @@
     _tutorialDescriptionView.layer.cornerRadius=5.0f;
     
     
-    //UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
+    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
     
-    //[self.view addGestureRecognizer:tapEvent];
+    [self.view addGestureRecognizer:tapEvent];
     
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -553,7 +553,6 @@
     }
     
     
-    
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
     if (coachMarksShown == NO) {
         
@@ -572,7 +571,7 @@
     }
     cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
     cell.contentView.layer.borderWidth = 1.0f;
-    
+
     return cell;
 }
 
