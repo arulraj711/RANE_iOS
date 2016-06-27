@@ -953,17 +953,17 @@
                                                                                     </constraints>
                                                                                     <variation key="default">
                                                                                         <mask key="constraints">
+                                                                                            <exclude reference="27b-UV-UQb"/>
                                                                                             <exclude reference="QZL-T5-ta9"/>
                                                                                             <exclude reference="suu-yh-D7s"/>
-                                                                                            <exclude reference="27b-UV-UQb"/>
                                                                                         </mask>
                                                                                     </variation>
                                                                                     <variation key="heightClass=regular-widthClass=compact">
                                                                                         <mask key="constraints">
-                                                                                            <include reference="QZL-T5-ta9"/>
-                                                                                            <exclude reference="suu-yh-D7s"/>
-                                                                                            <exclude reference="i3w-8g-Yhh"/>
                                                                                             <include reference="27b-UV-UQb"/>
+                                                                                            <include reference="QZL-T5-ta9"/>
+                                                                                            <exclude reference="i3w-8g-Yhh"/>
+                                                                                            <exclude reference="suu-yh-D7s"/>
                                                                                         </mask>
                                                                                     </variation>
                                                                                     <connections>
