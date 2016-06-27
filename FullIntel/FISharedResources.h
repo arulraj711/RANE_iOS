@@ -46,7 +46,7 @@
 -(void)sendResearchRequestWithDetails:(NSString *)details;
 -(void)getCommentsWithDetails:(NSString *)details withArticleId:(NSString *)articleId;
 -(void)addCommentsWithDetails:(NSString *)details;
--(void)updateAppViewTypeWithDetails:(NSString *)details;
+-(void)updateAppViewTypeWithDetails:(NSString *)details withStatus:(NSNumber *)status;
 -(void)featureAccessRequestWithDetails:(NSString *)details;
 -(void)updateFolderId:(NSString *)entity withFolderId:(NSNumber *)folderId;
 -(NSArray *)getTweetDetails:(NSString *)details;
