@@ -385,6 +385,7 @@
     NSLog(@"cell tap is working:%d",[tapGesture.view tag]);
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
     if (coachMarksShown == NO) {
+        NSLog(@"inside if");
         SecondLevelCell *cell = (SecondLevelCell *)tapGesture.view;
        // SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:[tapGesture.view tag] inSection:0]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
