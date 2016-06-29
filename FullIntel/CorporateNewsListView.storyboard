@@ -2878,6 +2878,7 @@
                                             <outlet property="commentBtn" destination="we8-6P-dUK" id="l6e-me-VMT"/>
                                             <outlet property="detailsWebview" destination="yqd-5n-b6O" id="OJD-J6-bUH"/>
                                             <outlet property="folderBtn" destination="M5x-VV-L4Z" id="NEB-P8-9oT"/>
+                                            <outlet property="gradientImageViewHeightConstraint" destination="Nym-cs-Wf1" id="kWD-2b-MVT"/>
                                             <outlet property="locationIcon" destination="GtE-BP-A8V" id="4Tw-pN-iYp"/>
                                             <outlet property="locationIconHeightConstraint" destination="uCG-z1-REY" id="yfa-2g-ZUL"/>
                                             <outlet property="locationImageTopConstarint" destination="PqY-QF-Tc6" id="FYX-dZ-Cz8"/>

@@ -2192,15 +2192,7 @@
         NSNumber *articleListPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleListPlaceholderImageVisible"];
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell;
-        if([articleImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            if([articleListPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withArticleImage"];
-            } else {
-                cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withoutArticleImage"];
-            }
-        } else {
-            cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withoutArticleImage"];
-        }
+        
         
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
@@ -2282,6 +2274,25 @@
         // Configure the cell...
         
         NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+        
+        if([articleImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            
+            NSString *articleImageUrlString = [curatedNews valueForKey:@"image"];
+            if(articleImageUrlString.length != 0) {
+                cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withArticleImage"];
+            } else {
+                if([articleListPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withArticleImage"];
+                } else {
+                    cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withoutArticleImage"];
+                }
+            }
+           
+        } else {
+            cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withoutArticleImage"];
+        }
+        
+        
         
         NSSet *authorSet = [curatedNews valueForKey:@"author"];
         NSMutableArray *authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];

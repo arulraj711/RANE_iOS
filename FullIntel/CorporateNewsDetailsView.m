@@ -707,6 +707,10 @@
     cell.tweetsLocalCollectionView.hidden = YES;
     [cell.activityIndicator removeFromSuperview];
     [cell.activityIndicator stopAnimating];
+    
+//    cell.bannerImageViewHeightConstraint.constant = 0;
+//    cell.gradientImageViewHeightConstraint.constant = 60;
+    
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSLog(@"%@",fetchRequest);
