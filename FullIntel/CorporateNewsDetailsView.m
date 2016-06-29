@@ -693,7 +693,7 @@
     NSLog(@"cell indexpath:%ld",(long)indexPath.row);
     self.selectedIndexPath = indexPath;
     self.selectedIndex = indexPath.row;
-    CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withoutArticleImage" forIndexPath:indexPath];
     // [cell resetCellWebviewHeight];
     //[cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     cell.cachedImageViewSize = cell.articleImageView.frame;
@@ -708,8 +708,7 @@
     [cell.activityIndicator removeFromSuperview];
     [cell.activityIndicator stopAnimating];
     
-//    cell.bannerImageViewHeightConstraint.constant = 0;
-//    cell.gradientImageViewHeightConstraint.constant = 60;
+   
     
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
@@ -1168,8 +1167,25 @@
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *drillinPlaceHolderImagePath = [documentsDirectory stringByAppendingPathComponent:@"articleDrillPlaceholderImage.png"];
     
-    [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
-    [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
+    NSNumber *articleDrillPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+    if([articleDrillPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
+        [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
+        cell.cachedImageViewSize = cell.articleImageView.frame;
+        //cell.gradButtonTops.image = [UIImage imageNamed:@"gradiant"];
+    } else {
+        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            cell.articleImageView.backgroundColor = [UIColor clearColor];
+            cell.bannerImageViewHeightConstraint.constant = cell.articleTitleHeightConstraint.constant;
+        } else {
+            cell.titleLabelTopConstraint.constant = 0;
+        }
+    }
+
+    
+   // [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
+   // [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
     cell.cachedImageViewSize = cell.articleImageView.frame;
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
     {
