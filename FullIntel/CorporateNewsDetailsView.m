@@ -510,6 +510,8 @@
             } else {
                 if(self.articleIdArray.count != 0) {
                     if(self.callAPIFromDrillIn) {
+                        CGPoint currentOffset = [self.collectionView contentOffset];
+                        self.currentIndex = currentOffset.x / self.collectionView.frame.size.width;
                         CGSize currentSize = self.collectionView.bounds.size;
                         int newValue = self.currentIndex+1;
                         float offset = newValue * currentSize.width;
