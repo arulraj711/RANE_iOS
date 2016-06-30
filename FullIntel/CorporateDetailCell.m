@@ -891,7 +891,23 @@
         }
         
     } else {
-        frame.size.height = 200;
+        
+        NSNumber *articleImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleImageVisible"];
+        NSNumber *articleListPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+        if([articleImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if(self.selectedArticleImageUrl.length != 0) {
+                frame.size.height = 200;
+            } else {
+                if([articleListPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    frame.size.height = 200;
+                } else {
+                   frame.size.height = 600;
+                }
+            }
+            
+        } else {
+            frame.size.height = 600;
+        }
         
     }
     webView.frame = frame;
@@ -911,10 +927,24 @@
         NSLog(@"webview height-->%f",self.webViewHeightConstraint.constant);
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,pointOfWebview+750+self.bioLabel.frame.size.height);
         //123thisiswhere
-    }
-    else{
+    } else{
+        NSNumber *articleImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleImageVisible"];
+        NSNumber *articleListPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+        if([articleImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if(self.selectedArticleImageUrl.length != 0) {
+                self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+            } else {
+                if([articleListPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+                } else {
+                    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+800);
+                }
+            }
+            
+        } else {
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+800);
+        }
         
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
         
     }
     //    self.starRating = [[AMRatingControl alloc]initWithLocation:CGPointMake(0, 0) emptyColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] solidColor:[UIColor colorWithRed:161/255.0 green:16/255.0 blue:27/255.0 alpha:1.0] andMaxRating:5];
@@ -943,7 +973,22 @@
         
     }
     else{
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+        NSNumber *articleImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleImageVisible"];
+        NSNumber *articleListPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+        if([articleImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if(self.selectedArticleImageUrl.length != 0) {
+                self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+            } else {
+                if([articleListPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+1300);
+                } else {
+                    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+800);
+                }
+            }
+            
+        } else {
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+800);
+        }
         
     }
     UICollectionViewFlowLayout* tweetFlowLayout = [[UICollectionViewFlowLayout alloc]init];

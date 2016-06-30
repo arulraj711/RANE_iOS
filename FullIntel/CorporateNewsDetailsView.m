@@ -693,21 +693,9 @@
     NSLog(@"cell indexpath:%ld",(long)indexPath.row);
     self.selectedIndexPath = indexPath;
     self.selectedIndex = indexPath.row;
-    CorporateDetailCell *cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withoutArticleImage" forIndexPath:indexPath];
-    // [cell resetCellWebviewHeight];
-    //[cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    cell.cachedImageViewSize = cell.articleImageView.frame;
-    cell.isTwitterLoad = NO;
-    cell.isTwitterAPICalled = NO;
-    cell.socialcollectionView.delegate = nil;
-    cell.socialcollectionView.dataSource = nil;
-    cell.socialcollectionView.hidden = YES;
-    cell.tweetsLocalCollectionView.delegate = nil;
-    cell.tweetsLocalCollectionView.dataSource = nil;
-    cell.tweetsLocalCollectionView.hidden = YES;
-    [cell.activityIndicator removeFromSuperview];
-    [cell.activityIndicator stopAnimating];
     
+    
+    CorporateDetailCell *cell;
    
     
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
@@ -733,6 +721,60 @@
     if(newPerson.count != 0) {
         NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
         NSLog(@"selected curated news:%@",curatedNews);
+        
+        
+        NSNumber *articleImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleImageVisible"];
+        NSNumber *articleListPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+        if([articleImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            
+            NSString *articleImageUrlString = [curatedNews valueForKey:@"image"];
+            if(articleImageUrlString.length != 0) {
+                cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withArticleImage" forIndexPath:indexPath];
+            } else {
+                if([articleListPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withArticleImage" forIndexPath:indexPath];
+                } else {
+                    cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withoutArticleImage" forIndexPath:indexPath];
+                    
+                    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+                    {
+                        cell.articleImageView.backgroundColor = [UIColor clearColor];
+                        cell.bannerImageViewHeightConstraint.constant = cell.articleTitleHeightConstraint.constant;
+                    } else {
+                        cell.titleLabelTopConstraint.constant = 0;
+                        cell.bannerImageViewHeightConstraint.constant = 0;
+                    }
+                }
+            }
+            
+        } else {
+            cell = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withoutArticleImage" forIndexPath:indexPath];
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            {
+                cell.articleImageView.backgroundColor = [UIColor clearColor];
+                cell.bannerImageViewHeightConstraint.constant = cell.articleTitleHeightConstraint.constant;
+            } else {
+                cell.titleLabelTopConstraint.constant = 0;
+                cell.bannerImageViewHeightConstraint.constant = 0;
+            }
+        }
+        
+        
+        // = (CorporateDetailCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"withoutArticleImage" forIndexPath:indexPath];
+        // [cell resetCellWebviewHeight];
+        //[cell.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        cell.cachedImageViewSize = cell.articleImageView.frame;
+        cell.isTwitterLoad = NO;
+        cell.isTwitterAPICalled = NO;
+        cell.socialcollectionView.delegate = nil;
+        cell.socialcollectionView.dataSource = nil;
+        cell.socialcollectionView.hidden = YES;
+        cell.tweetsLocalCollectionView.delegate = nil;
+        cell.tweetsLocalCollectionView.dataSource = nil;
+        cell.tweetsLocalCollectionView.hidden = YES;
+        [cell.activityIndicator removeFromSuperview];
+        [cell.activityIndicator stopAnimating];
+        
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             curatedNewsDetail = [curatedNews valueForKey:@"details"];
             curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
@@ -786,15 +828,6 @@
                 [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
                 
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
             [self updateCellViewType:cell forCuratedNews:curatedNews atIndexPath:indexPath];
             NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
@@ -1167,22 +1200,33 @@
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *drillinPlaceHolderImagePath = [documentsDirectory stringByAppendingPathComponent:@"articleDrillPlaceholderImage.png"];
     
-    NSNumber *articleDrillPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
-    if([articleDrillPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
-        [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
-        cell.cachedImageViewSize = cell.articleImageView.frame;
-        //cell.gradButtonTops.image = [UIImage imageNamed:@"gradiant"];
-    } else {
-        if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-        {
-            cell.articleImageView.backgroundColor = [UIColor clearColor];
-            cell.bannerImageViewHeightConstraint.constant = cell.articleTitleHeightConstraint.constant;
+    NSNumber *articleImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleImageVisible"];
+    NSNumber *articleListPlaceholderImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleDrillPlaceholderImageVisible"];
+    if([articleImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        if(articleImageStr.length != 0) {
+            [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
+            [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
         } else {
-            cell.titleLabelTopConstraint.constant = 0;
+            if([articleListPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
+                [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
+            } else {
+                [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:nil];
+                [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
+            }
         }
+        
+    } else {
+        [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:nil];
+        [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
     }
-
+    
+    
+    
+    
+    
+    
+    
     
    // [cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:articleImageStr] placeholderImage:[UIImage imageWithContentsOfFile:drillinPlaceHolderImagePath]];
    // [cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
