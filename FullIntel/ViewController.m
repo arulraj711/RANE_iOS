@@ -40,6 +40,7 @@
     originalOuterViewy =_outerView.frame.origin.y;
     [self animateImages];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogin:) name:@"Login" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLoginFailed) name:@"LoginFailed" object:nil];
     oldFrame = self.backgroundImageView.frame;
     self.originalCenter = self.view.center;
     self.usernameTextField.layer.borderWidth = 1.0f;
@@ -126,6 +127,10 @@
     }
 }
 
+-(void)afterLoginFailed {
+    [activityIndicator stopAnimating];
+    [activityIndicator removeFromSuperview];
+}
 
 
 -(void)viewDidAppear:(BOOL)animated {

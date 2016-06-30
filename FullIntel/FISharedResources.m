@@ -342,6 +342,7 @@
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             window.userInteractionEnabled = YES;
             NSLog(@"Error---->%@",error);
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"LoginFailed" object:nil];
             if(operation.responseObject == nil) {
                 // Error object is null
             } else {
