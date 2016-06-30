@@ -58,6 +58,7 @@
 @property BOOL isNewsLetterNav;
 @property BOOL isStarting;
 @property NSString *selectedNewsLetterArticleId;
+@property NSNumber *companyId;
 @property (nonatomic,strong) UIPopoverController *popOver;
 @property (weak, nonatomic) IBOutlet UILabel *mediaAnalysisArticleCountText;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;

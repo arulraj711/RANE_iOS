@@ -28,6 +28,7 @@
 @property (strong,nonatomic) NSNumber *unReadCount;
 @property (strong,nonatomic) NSNumber *isParent;
 @property (strong,nonatomic) NSNumber *subListAvailable;
+@property (strong,nonatomic) NSNumber *companyId;
 
 @property BOOL isFolder;
 

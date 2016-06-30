@@ -12,6 +12,7 @@
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSMutableArray *listArray;
 @property (nonatomic,strong) NSNumber *nodeId;
+@property (nonatomic,strong) NSNumber *companyId;
 @property (nonatomic,strong) NSNumber *unreadCount;
 @property (nonatomic,strong) NSNumber *isParent;
 @property (nonatomic,strong) NSNumber *isSubscribed;

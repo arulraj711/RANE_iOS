@@ -34,6 +34,7 @@
 
 }
 @property BOOL callAPIFromDrillIn;
+@property NSNumber *companyIdInDetailPage;
 @property (nonatomic,strong) NSString *articleTitle;
 @property NSString *selectedNewsArticleId;
 @property NSIndexPath *selectedIndexPath;
