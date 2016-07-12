@@ -583,13 +583,14 @@
     NSLog(@"unread menu array:%@ and selected item:%@",unreadMenuArray,data.name);
     for(RADataObject *dataObject in self.data) {
         for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
-            if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId]) {
+            if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId] && [dataObject.companyId isEqualToNumber:unreadMenu.companyId]) {
                 dataObject.unReadCount = unreadMenu.unreadCount;
                 if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:9]]) {
                     
                 } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
                     
                 } else {
+                    NSLog(@"item--->%@ and Count--->%d",data.name,[dataObject.unReadCount integerValue]);
                     unreadCnt = unreadCnt+[dataObject.unReadCount integerValue];
                 }
                 [self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone];

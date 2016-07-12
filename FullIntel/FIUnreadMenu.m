@@ -14,5 +14,6 @@
     self.isParent = [dictionary objectForKey:@"isParent"];
     self.isSubscribed = [dictionary objectForKey:@"subscribed"];
     self.unreadCount = [dictionary objectForKey:@"unReadCount"];
+    self.companyId = [dictionary objectForKey:@"companyId"];
 }
 @end
