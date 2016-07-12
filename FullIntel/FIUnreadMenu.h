@@ -13,5 +13,6 @@
 @property (nonatomic,strong) NSNumber *isParent;
 @property (nonatomic,strong) NSNumber *isSubscribed;
 @property (nonatomic,strong) NSNumber *unreadCount;
+@property (strong,nonatomic) NSNumber *companyId;
 -(void)setUnreadMenuObjectFromDic:(NSDictionary *)dictionary;
 @end

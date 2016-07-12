@@ -20,6 +20,7 @@
     menu.nodeId = [dic objectForKey:@"id"];
     menu.unreadCount = [dic objectForKey:@"unReadCount"];
     menu.isParent = [dic objectForKey:@"isParent"];
+    menu.companyId = [dic objectForKey:@"companyId"];
     menu.isSubscribed = [dic objectForKey:@"subscribed"];
     menu.subListAvailable = [dic objectForKey:@"subListAvailable"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
@@ -36,6 +37,7 @@
     [coder encodeObject:self.name forKey:@"name"];
     [coder encodeObject:self.listArray forKey:@"list"];
     [coder encodeObject:self.nodeId forKey:@"nodeid"];
+    [coder encodeObject:self.companyId forKey:@"companyId"];
     [coder encodeObject:self.unreadCount forKey:@"unReadCount"];
     [coder encodeObject:self.isParent forKey:@"isParent"];
     [coder encodeObject:self.isSubscribed forKey:@"subscribed"];
@@ -48,6 +50,7 @@
         self.name = [coder decodeObjectForKey:@"name"];
         self.listArray = [coder decodeObjectForKey:@"list"];
         self.nodeId = [coder decodeObjectForKey:@"nodeid"];
+        self.companyId = [coder decodeObjectForKey:@"companyId"];
         self.unreadCount = [coder decodeObjectForKey:@"unReadCount"];
         self.isParent = [coder decodeObjectForKey:@"isParent"];
         self.isSubscribed = [coder decodeObjectForKey:@"subscribed"];
