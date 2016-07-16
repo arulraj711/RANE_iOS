@@ -65,16 +65,16 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         if (IS_IPHONE_6)
         {
-        layout.blockPixels = CGSizeMake(110,110);
+            layout.blockPixels = CGSizeMake(110,110);
             
             
         }
         else if (IS_IPHONE_6P)
         {
-        layout.blockPixels = CGSizeMake(110,110);
-
+            layout.blockPixels = CGSizeMake(110,110);
+            
         }
-
+        
     } else {
         if(orientation == 1) {
             layout.blockPixels = CGSizeMake(120,150);
@@ -104,27 +104,27 @@
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         
-//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-//        label.backgroundColor = [UIColor clearColor];
-//        label.font = [UIFont fontWithName:@"Open Sans" size:16];
-//        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-//        label.text =@"Add Content";
-//        label.textAlignment = NSTextAlignmentCenter;
-//        label.textColor = [UIColor whiteColor]; // change this color
+        //        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+        //        label.backgroundColor = [UIColor clearColor];
+        //        label.font = [UIFont fontWithName:@"Open Sans" size:16];
+        //        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        //        label.text =@"Add Content";
+        //        label.textAlignment = NSTextAlignmentCenter;
+        //        label.textColor = [UIColor whiteColor]; // change this color
         self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"Add Content"];
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
-                                       initWithTitle:@"Cancel"
-                                       style:UIBarButtonItemStyleBordered
-                                       target:self
-                                       action:@selector(cancelButtonPress)];
+                                         initWithTitle:@"Cancel"
+                                         style:UIBarButtonItemStyleBordered
+                                         target:self
+                                         action:@selector(cancelButtonPress)];
         self.navigationItem.leftBarButtonItem = cancelButton;
         
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"CloseAddContentTutorial"];
-   
+        
         UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]
-                                         initWithTitle:@"Save"
-                                         style:UIBarButtonItemStyleBordered
-                                         target:self
+                                       initWithTitle:@"Save"
+                                       style:UIBarButtonItemStyleBordered
+                                       target:self
                                        action:@selector(updateAddContent)];
         self.navigationItem.rightBarButtonItem = saveButton;
     }
@@ -162,10 +162,10 @@
         _requestChangeButton.layer.borderWidth=1.0f;
         
         
-
+        
     }
     _tutorialDescriptionView.hidden=YES;
-        BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
     if (coachMarksShown == YES) {
         _tutorialDescriptionView.hidden=YES;
         
@@ -177,9 +177,9 @@
     _tutorialDescriptionView.layer.cornerRadius=5.0f;
     
     
-    //UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
+    UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(triggerSecondTutorial)];
     
-    //[self.view addGestureRecognizer:tapEvent];
+    [self.view addGestureRecognizer:tapEvent];
     
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -195,18 +195,18 @@
 
 -(void)cancelButtonPress{
     [self dismissViewControllerAnimated:YES completion:nil];
-//    NSLog(@"back button press");
-//    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
-//        NSLog(@"left view closed");
-//        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
-//        [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
-//        [self.revealController showViewController:self.revealController.frontViewController];
-//    } else {
-//        NSLog(@"left view opened");
-//        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
-//        [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
-//        [self.revealController showViewController:self.revealController.leftViewController];
-//    }    
+    //    NSLog(@"back button press");
+    //    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+    //        NSLog(@"left view closed");
+    //        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+    //        [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
+    //        [self.revealController showViewController:self.revealController.frontViewController];
+    //    } else {
+    //        NSLog(@"left view opened");
+    //        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+    //        [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
+    //        [self.revealController showViewController:self.revealController.leftViewController];
+    //    }
     
 }
 -(void)triggerSecondTutorial{
@@ -297,10 +297,20 @@
     for(FIContentCategory *category in self.contentTypeArray) {
         //if([category.categoryId isEqualToNumber:[NSNumber numberWithInt:1]]) {
         if(category.isSubscribed) {
-            [self.checkedArray addObject:category.categoryId];
+            
+            NSMutableDictionary *dic =[[NSMutableDictionary alloc]init];
+            [dic setValue:category.categoryId forKey:@"id"];
+            [dic setValue:category.companyId forKey:@"companyId"];
+            [dic setValue:category.contentTypeForCustomerId forKey:@"contentTypeForCustomerId"];
+            
+            [self.checkedArray addObject:dic];
             [self.selectedIdArray addObject:category.categoryId];
         } else {
-            [self.uncheckedArray addObject:category.categoryId];
+            NSMutableDictionary *dic =[[NSMutableDictionary alloc]init];
+            [dic setValue:category.categoryId forKey:@"id"];
+            [dic setValue:category.companyId forKey:@"companyId"];
+            [dic setValue:category.contentTypeForCustomerId forKey:@"contentTypeForCustomerId"];
+            [self.uncheckedArray addObject:dic];
             [self.selectedIdArray removeObject:category.categoryId];
         }
         //}
@@ -421,13 +431,22 @@
         
         for(int i=0;i<self.checkedArray.count;i++) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-            [dic setObject:[self.checkedArray objectAtIndex:i] forKey:@"id"];
+            
+            NSDictionary *contentTypeDic = [self.checkedArray objectAtIndex:i];
+            
+            [dic setObject:[contentTypeDic objectForKey:@"id"] forKey:@"id"];
+            [dic setObject:[contentTypeDic objectForKey:@"companyId"] forKey:@"companyId"];
+            [dic setObject:[contentTypeDic objectForKey:@"contentTypeForCustomerId"] forKey:@"contentTypeForCustomerId"];
             [dic setObject:[NSNumber numberWithBool:YES] forKey:@"isSubscribed"];
             [contentType addObject:dic];
         }
         for(int i=0;i<self.uncheckedArray.count;i++) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-            [dic setObject:[self.uncheckedArray objectAtIndex:i] forKey:@"id"];
+            NSDictionary *contentTypeDic = [self.uncheckedArray objectAtIndex:i];
+            
+            [dic setObject:[contentTypeDic objectForKey:@"id"] forKey:@"id"];
+            [dic setObject:[contentTypeDic objectForKey:@"companyId"] forKey:@"companyId"];
+            [dic setObject:[contentTypeDic objectForKey:@"contentTypeForCustomerId"] forKey:@"contentTypeForCustomerId"];
             [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
             [contentType addObject:dic];
         }
@@ -483,22 +502,22 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"cell for item");
     FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
-//    if (IS_IPHONE_5) {
-//        cell.bottomContentView.translatesAutoresizingMaskIntoConstraints = YES; //This part hung me up
-//        cell.bottomContentView.frame = CGRectMake(cell.bottomContentView.frame.origin.x, cell.bottomContentView.frame.origin.y-20, cell.bottomContentView.frame.size.width, cell.bottomContentView.frame.size.height);
-//        
-//        cell.checkMarkButton.translatesAutoresizingMaskIntoConstraints = YES;   //This part hung me up
-//        cell.checkMarkButton.frame = CGRectMake(cell.checkMarkButton.frame.origin.x-15, cell.checkMarkButton.frame.origin.y-20, cell.checkMarkButton.frame.size.width, cell.checkMarkButton.frame.size.height);
-//
-//        cell.imgBottomPart.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
-//        cell.imgBottomPart.frame = CGRectMake(cell.imgBottomPart.frame.origin.x, cell.imgBottomPart.frame.origin.y-20, cell.imgBottomPart.frame.size.width, cell.imgBottomPart.frame.size.height);
-//        
-//        cell.name.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
-//        cell.name.frame = CGRectMake(cell.name.frame.origin.x, cell.name.frame.origin.y, cell.name.frame.size.width, cell.name.frame.size.height-10);
-//
-//        [cell.name setFont:[UIFont systemFontOfSize:10]];
-//    }
-
+    //    if (IS_IPHONE_5) {
+    //        cell.bottomContentView.translatesAutoresizingMaskIntoConstraints = YES; //This part hung me up
+    //        cell.bottomContentView.frame = CGRectMake(cell.bottomContentView.frame.origin.x, cell.bottomContentView.frame.origin.y-20, cell.bottomContentView.frame.size.width, cell.bottomContentView.frame.size.height);
+    //
+    //        cell.checkMarkButton.translatesAutoresizingMaskIntoConstraints = YES;   //This part hung me up
+    //        cell.checkMarkButton.frame = CGRectMake(cell.checkMarkButton.frame.origin.x-15, cell.checkMarkButton.frame.origin.y-20, cell.checkMarkButton.frame.size.width, cell.checkMarkButton.frame.size.height);
+    //
+    //        cell.imgBottomPart.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
+    //        cell.imgBottomPart.frame = CGRectMake(cell.imgBottomPart.frame.origin.x, cell.imgBottomPart.frame.origin.y-20, cell.imgBottomPart.frame.size.width, cell.imgBottomPart.frame.size.height);
+    //
+    //        cell.name.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
+    //        cell.name.frame = CGRectMake(cell.name.frame.origin.x, cell.name.frame.origin.y, cell.name.frame.size.width, cell.name.frame.size.height-10);
+    //
+    //        [cell.name setFont:[UIFont systemFontOfSize:10]];
+    //    }
+    
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
     FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
@@ -515,7 +534,7 @@
     } else {
         NSNumber *accountTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
         //if([accountTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-       // cell.gradientView.hidden = NO;
+        // cell.gradientView.hidden = NO;
         cell.upgradeButton.hidden = NO;
         cell.checkMarkButton.hidden = YES;
         UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
@@ -551,7 +570,6 @@
         //[self.selectedIdArray removeObject:contentCategory.categoryId];
         [cell.checkMarkButton setSelected:NO];
     }
-    
     
     
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
@@ -653,20 +671,39 @@
         [self.selectedIdArray removeObject:contentCategory.categoryId];
         [sender setSelected:NO];
         
-        [self.checkedArray removeObject:contentCategory.categoryId];
+        NSLog(@"checked array dic:%@",self.checkedArray);
+        NSDictionary *selectedDic;
+        for(NSDictionary *dic in self.checkedArray) {
+            if([[dic objectForKey:@"id"] isEqual:contentCategory.categoryId]) {
+                selectedDic = dic;
+            } else {
+                
+            }
+        }
+        NSLog(@"after dic:%@",selectedDic);
+        [self.checkedArray removeObject:selectedDic];
+        NSLog(@"after that");
         // } else {
-        [self.uncheckedArray addObject:contentCategory.categoryId];
+        [self.uncheckedArray addObject:selectedDic];
         // }
         
     } else {
         [self.selectedIdArray addObject:contentCategory.categoryId];
         [sender setSelected:YES];
         
-        //  if([self.checkedArray containsObject:contentCategory.categoryId]) {
-        [self.checkedArray addObject:contentCategory.categoryId];
-        // } else {
-        [self.uncheckedArray removeObject:contentCategory.categoryId];
-        // }
+        NSLog(@"unchecked array dic:%@",self.uncheckedArray);
+        NSDictionary *selectedDic;
+        for(NSDictionary *dic in self.uncheckedArray) {
+            if([[dic objectForKey:@"id"] isEqual:contentCategory.categoryId]) {
+                selectedDic = dic;
+            } else {
+                
+            }
+        }
+        NSLog(@"after dic:%@",selectedDic);
+        
+        [self.uncheckedArray removeObject:selectedDic];
+        [self.checkedArray addObject:selectedDic];
     }
     
     NSLog(@"after selection:%@ and checked:%@ and unchecked:%@",self.selectedIdArray,self.checkedArray,self.uncheckedArray);

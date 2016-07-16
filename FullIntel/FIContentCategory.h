@@ -13,6 +13,8 @@
 @property (nonatomic,strong) NSMutableArray *listArray;
 @property (nonatomic,strong) NSNumber *categoryId;
 @property (nonatomic,strong) NSString *imageUrl;
+@property (nonatomic,strong) NSNumber *companyId;
+@property (nonatomic,strong) NSNumber *contentTypeForCustomerId;
 @property (assign) BOOL isSubscribed;
 @property (assign) BOOL isCompanySubscribed;
 //-(void)createMenuFromDic:(NSDictionary *)dic;

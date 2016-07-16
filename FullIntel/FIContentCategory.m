@@ -10,13 +10,15 @@
 
 @implementation FIContentCategory
 +(FIContentCategory *)recursiveMenu:(NSDictionary *)dic {
-  //  NSLog(@"dic in model name:%@ and count:%@",[dic objectForKey:@"name"],[dic objectForKey:@"unReadCount"]);
+    //  NSLog(@"dic in model name:%@ and count:%@",[dic objectForKey:@"name"],[dic objectForKey:@"unReadCount"]);
     FIContentCategory *menu = [[FIContentCategory alloc]init];
     menu.name = [dic objectForKey:@"name"];
     menu.categoryId = [dic objectForKey:@"id"];
     menu.imageUrl = [dic objectForKey:@"imageURL"];
     menu.isSubscribed = [[dic objectForKey:@"isSubscribed"] boolValue];
     menu.isCompanySubscribed = [[dic objectForKey:@"isUnsubscribedByCompany"] boolValue];
+    menu.companyId = [dic objectForKey:@"companyId"];
+    menu.contentTypeForCustomerId = [dic objectForKey:@"contentTypeForCustomerId"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
     NSArray *menuArray = [dic objectForKey:@"list"];
     for(NSDictionary *dict in menuArray) {
@@ -32,6 +34,8 @@
     [coder encodeObject:self.listArray forKey:@"list"];
     [coder encodeObject:self.categoryId forKey:@"id"];
     [coder encodeObject:self.imageUrl forKey:@"imageURL"];
+    [coder encodeObject:self.companyId forKey:@"companyId"];
+    [coder encodeObject:self.contentTypeForCustomerId forKey:@"contentTypeForCustomerId"];
     [coder encodeObject:[NSNumber numberWithBool:self.isSubscribed] forKey:@"isSubscribed"];
     [coder encodeObject:[NSNumber numberWithBool:self.isCompanySubscribed] forKey:@"isUnsubscribedByCompany"];
     
@@ -44,6 +48,8 @@
         self.listArray = [coder decodeObjectForKey:@"list"];
         self.categoryId = [coder decodeObjectForKey:@"id"];
         self.imageUrl = [coder decodeObjectForKey:@"imageURL"];
+        self.companyId = [coder decodeObjectForKey:@"companyId"];
+        self.contentTypeForCustomerId = [coder decodeObjectForKey:@"contentTypeForCustomerId"];
         self.isSubscribed = [[coder decodeObjectForKey:@"isSubscribed"] boolValue];
         self.isCompanySubscribed = [[coder decodeObjectForKey:@"isUnsubscribedByCompany"] boolValue];
         
