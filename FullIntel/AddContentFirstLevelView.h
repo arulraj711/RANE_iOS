@@ -21,6 +21,16 @@
 @property (nonatomic,strong) NSMutableArray *selectedIdArray;
 @property (nonatomic,strong) NSMutableArray *checkedArray;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
+
+//For companyID
+@property (nonatomic,strong) NSMutableArray *checkedCompanyIdArray;
+@property (nonatomic,strong) NSMutableArray *uncheckedCompanyIdArray;
+
+//For ContentTypeForCustomerId
+@property (nonatomic,strong) NSMutableArray *checkedContentTypeForCustomerIdArray;
+@property (nonatomic,strong) NSMutableArray *uncheckedContentTypeForCustomerIdArray;
+
+
 @property (weak, nonatomic) IBOutlet UIButton *requestChangeButton;
 @property (weak,nonatomic) IBOutlet UIView *tutorialDescriptionView;
 - (IBAction)checkMark:(id)sender;

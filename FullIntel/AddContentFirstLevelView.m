@@ -297,10 +297,20 @@
     for(FIContentCategory *category in self.contentTypeArray) {
         //if([category.categoryId isEqualToNumber:[NSNumber numberWithInt:1]]) {
         if(category.isSubscribed) {
-            [self.checkedArray addObject:category.categoryId];
+            
+            NSMutableDictionary *dic =[[NSMutableDictionary alloc]init];
+            [dic setValue:category.categoryId forKey:@"id"];
+            [dic setValue:category.companyId forKey:@"companyId"];
+            [dic setValue:category.contentTypeForCustomerId forKey:@"contentTypeForCustomerId"];
+            
+            [self.checkedArray addObject:dic];
             [self.selectedIdArray addObject:category.categoryId];
         } else {
-            [self.uncheckedArray addObject:category.categoryId];
+            NSMutableDictionary *dic =[[NSMutableDictionary alloc]init];
+            [dic setValue:category.categoryId forKey:@"id"];
+            [dic setValue:category.companyId forKey:@"companyId"];
+            [dic setValue:category.contentTypeForCustomerId forKey:@"contentTypeForCustomerId"];
+            [self.uncheckedArray addObject:dic];
             [self.selectedIdArray removeObject:category.categoryId];
         }
         //}
@@ -421,13 +431,22 @@
         
         for(int i=0;i<self.checkedArray.count;i++) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-            [dic setObject:[self.checkedArray objectAtIndex:i] forKey:@"id"];
+            
+            NSDictionary *contentTypeDic = [self.checkedArray objectAtIndex:i];
+            
+            [dic setObject:[contentTypeDic objectForKey:@"id"] forKey:@"id"];
+            [dic setObject:[contentTypeDic objectForKey:@"companyId"] forKey:@"companyId"];
+            [dic setObject:[contentTypeDic objectForKey:@"contentTypeForCustomerId"] forKey:@"contentTypeForCustomerId"];
             [dic setObject:[NSNumber numberWithBool:YES] forKey:@"isSubscribed"];
             [contentType addObject:dic];
         }
         for(int i=0;i<self.uncheckedArray.count;i++) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-            [dic setObject:[self.uncheckedArray objectAtIndex:i] forKey:@"id"];
+            NSDictionary *contentTypeDic = [self.uncheckedArray objectAtIndex:i];
+            
+            [dic setObject:[contentTypeDic objectForKey:@"id"] forKey:@"id"];
+            [dic setObject:[contentTypeDic objectForKey:@"companyId"] forKey:@"companyId"];
+            [dic setObject:[contentTypeDic objectForKey:@"contentTypeForCustomerId"] forKey:@"contentTypeForCustomerId"];
             [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
             [contentType addObject:dic];
         }
@@ -652,20 +671,39 @@
         [self.selectedIdArray removeObject:contentCategory.categoryId];
         [sender setSelected:NO];
         
-        [self.checkedArray removeObject:contentCategory.categoryId];
+        NSLog(@"checked array dic:%@",self.checkedArray);
+        NSDictionary *selectedDic;
+        for(NSDictionary *dic in self.checkedArray) {
+            if([[dic objectForKey:@"id"] isEqual:contentCategory.categoryId]) {
+                selectedDic = dic;
+            } else {
+                
+            }
+        }
+        NSLog(@"after dic:%@",selectedDic);
+        [self.checkedArray removeObject:selectedDic];
+        NSLog(@"after that");
         // } else {
-        [self.uncheckedArray addObject:contentCategory.categoryId];
+        [self.uncheckedArray addObject:selectedDic];
         // }
         
     } else {
         [self.selectedIdArray addObject:contentCategory.categoryId];
         [sender setSelected:YES];
         
-        //  if([self.checkedArray containsObject:contentCategory.categoryId]) {
-        [self.checkedArray addObject:contentCategory.categoryId];
-        // } else {
-        [self.uncheckedArray removeObject:contentCategory.categoryId];
-        // }
+        NSLog(@"unchecked array dic:%@",self.uncheckedArray);
+        NSDictionary *selectedDic;
+        for(NSDictionary *dic in self.uncheckedArray) {
+            if([[dic objectForKey:@"id"] isEqual:contentCategory.categoryId]) {
+                selectedDic = dic;
+            } else {
+                
+            }
+        }
+        NSLog(@"after dic:%@",selectedDic);
+        
+        [self.uncheckedArray removeObject:selectedDic];
+        [self.checkedArray addObject:selectedDic];
     }
     
     NSLog(@"after selection:%@ and checked:%@ and unchecked:%@",self.selectedIdArray,self.checkedArray,self.uncheckedArray);
