@@ -565,7 +565,7 @@
 		A0DEC3E31AE94FF10046E8BB /* SocialWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialWebView.m; sourceTree = "<group>"; };
 		A0E06BF71C5A12E300C2AE17 /* CorporateDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateDetailCell.m; sourceTree = "<group>"; };
 		A0E06BF91C5A12F300C2AE17 /* CorporateNewsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorporateNewsDetailsView.m; sourceTree = "<group>"; };
-		A0E2234D1A91C2F00073814A /* RANE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RANE.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0E2234D1A91C2F00073814A /* FullIntel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FullIntel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E223511A91C2F00073814A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E223521A91C2F00073814A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A0E223541A91C2F00073814A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1204,7 +1204,7 @@
 		A0E2234E1A91C2F00073814A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A0E2234D1A91C2F00073814A /* RANE.app */,
+				A0E2234D1A91C2F00073814A /* FullIntel.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1887,7 +1887,7 @@
 			);
 			name = RANE;
 			productName = FullIntel;
-			productReference = A0E2234D1A91C2F00073814A /* RANE.app */;
+			productReference = A0E2234D1A91C2F00073814A /* FullIntel.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2433,7 +2433,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capestart.fistage;
-				PRODUCT_NAME = RANE;
+				PRODUCT_NAME = FullIntel;
 				PROVISIONING_PROFILE = "28a0ede0-bb9a-4a95-9f70-882cfdf3702d";
 				SWIFT_OBJC_BRIDGING_HEADER = "FullIntel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2460,7 +2460,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capestart.fistage;
-				PRODUCT_NAME = RANE;
+				PRODUCT_NAME = FullIntel;
 				PROVISIONING_PROFILE = "28a0ede0-bb9a-4a95-9f70-882cfdf3702d";
 				SWIFT_OBJC_BRIDGING_HEADER = "FullIntel-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
