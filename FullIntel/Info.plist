@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>CFBundleDisplayName</key>
-	<string>RANE Monitoring</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
@@ -32,7 +30,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb679882412141918</string>
-				<string>fullintel</string>
+				<string>rane</string>
 			</array>
 		</dict>
 	</array>

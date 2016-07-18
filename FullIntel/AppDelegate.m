@@ -51,7 +51,7 @@
 //    });
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"rane://"]];
     });
     
 //    
@@ -170,6 +170,16 @@
     
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    NSLog(@"url recieved: %@", url);
+    NSLog(@"query string: %@", [url query]);
+    NSLog(@"host: %@", [url host]);
+    NSLog(@"url path: %@", [url path]);
+    
+    return YES;
+}
+
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 
