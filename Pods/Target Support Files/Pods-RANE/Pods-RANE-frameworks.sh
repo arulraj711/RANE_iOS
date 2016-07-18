@@ -16,7 +16,7 @@ install_framework()
     local source="$1"
   fi
 
-  local destination="${CONFIGURATION_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
+  local destination="${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
 
   if [ -L "${source}" ]; then
       echo "Symlinked..."
@@ -59,8 +59,8 @@ code_sign_if_enabled() {
   if [ -n "${EXPANDED_CODE_SIGN_IDENTITY}" -a "${CODE_SIGNING_REQUIRED}" != "NO" -a "${CODE_SIGNING_ALLOWED}" != "NO" ]; then
     # Use the current code_sign_identitiy
     echo "Code Signing $1 with Identity ${EXPANDED_CODE_SIGN_IDENTITY_NAME}"
-    echo "/usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} --preserve-metadata=identifier,entitlements \"$1\""
-    /usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} --preserve-metadata=identifier,entitlements "$1"
+    echo "/usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements \"$1\""
+    /usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements "$1"
   fi
 }
 
@@ -84,34 +84,36 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-RANE/AFNetworking.framework"
-  install_framework "Pods-RANE/AMRatingControl.framework"
-  install_framework "Pods-RANE/ATAppUpdater.framework"
-  install_framework "Pods-RANE/Charts.framework"
-  install_framework "Pods-RANE/MZAppearance.framework"
-  install_framework "Pods-RANE/MZFormSheetController.framework"
-  install_framework "Pods-RANE/PKRevealController.framework"
-  install_framework "Pods-RANE/SDWebImage.framework"
-  install_framework "Pods-RANE/Toast.framework"
-  install_framework "Pods-RANE/UCZProgressView.framework"
-  install_framework "Pods-RANE/UICollectionViewRightAlignedLayout.framework"
-  install_framework "Pods-RANE/UIImageView_Letters.framework"
-  install_framework "Pods-RANE/WSCoachMarksView.framework"
-  install_framework "Pods-RANE/pop.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AMRatingControl/AMRatingControl.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ATAppUpdater/ATAppUpdater.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Charts/Charts.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MZAppearance/MZAppearance.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MZFormSheetController/MZFormSheetController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/PKRevealController/PKRevealController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Reachability/Reachability.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Toast/Toast.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/UCZProgressView/UCZProgressView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/UICollectionViewRightAlignedLayout/UICollectionViewRightAlignedLayout.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/UIImageView-Letters/UIImageView_Letters.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/WSCoachMarksView/WSCoachMarksView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-RANE/AFNetworking.framework"
-  install_framework "Pods-RANE/AMRatingControl.framework"
-  install_framework "Pods-RANE/ATAppUpdater.framework"
-  install_framework "Pods-RANE/Charts.framework"
-  install_framework "Pods-RANE/MZAppearance.framework"
-  install_framework "Pods-RANE/MZFormSheetController.framework"
-  install_framework "Pods-RANE/PKRevealController.framework"
-  install_framework "Pods-RANE/SDWebImage.framework"
-  install_framework "Pods-RANE/Toast.framework"
-  install_framework "Pods-RANE/UCZProgressView.framework"
-  install_framework "Pods-RANE/UICollectionViewRightAlignedLayout.framework"
-  install_framework "Pods-RANE/UIImageView_Letters.framework"
-  install_framework "Pods-RANE/WSCoachMarksView.framework"
-  install_framework "Pods-RANE/pop.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AMRatingControl/AMRatingControl.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ATAppUpdater/ATAppUpdater.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Charts/Charts.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MZAppearance/MZAppearance.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MZFormSheetController/MZFormSheetController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/PKRevealController/PKRevealController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Reachability/Reachability.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Toast/Toast.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/UCZProgressView/UCZProgressView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/UICollectionViewRightAlignedLayout/UICollectionViewRightAlignedLayout.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/UIImageView-Letters/UIImageView_Letters.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/WSCoachMarksView/WSCoachMarksView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi

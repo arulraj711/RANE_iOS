@@ -52,7 +52,7 @@ DEPENDENCIES:
   - Charts
   - Localytics (~> 3.1)
   - MZFormSheetController (~> 3.0.2)
-  - PKRevealController (~> 2.0.6)
+  - PKRevealController (~> 2.0.5)
   - pop (~> 1.0)
   - SDWebImage (~> 3.6)
   - Toast (~> 2.4)
@@ -79,4 +79,6 @@ SPEC CHECKSUMS:
   UIImageView-Letters: ea2b315919f0c50bb98999c3a3d7208db0c7064b
   WSCoachMarksView: d1653c058c8289a300ddf28af9dd49eb659c9c42
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 22786b9636a6dccc6e8e06a17989c2fa03d7f7ff
+
+COCOAPODS: 1.0.1

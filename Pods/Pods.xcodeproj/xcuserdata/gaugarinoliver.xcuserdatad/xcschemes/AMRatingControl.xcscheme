@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'ED5199632A04496CF8EC7CE7'
+               BlueprintIdentifier = '6D77AF34AD32248DB71B77C45D2AE050'
                BlueprintName = 'AMRatingControl'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'AMRatingControl.framework'>

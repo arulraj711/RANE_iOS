@@ -117,7 +117,7 @@
 
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.revealPanGestureRecognizer.delegate = self;
-        self.revealController.panDelegate = self;
+//        self.revealController.panDelegate = self;
     } else {
         
     }

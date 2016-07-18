@@ -11,11 +11,11 @@
 #import "MZFormSheetController.h"
 #import <MessageUI/MessageUI.h>
 #import "WSCoachMarksView.h"
-#import "PKRevealController.h"
 #import "FPPopoverController.h"
 #import "UIColor+CustomColors.h"
+#import "PKRevealController.h"
 
-@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate, UISearchBarDelegate, UISearchControllerDelegate,UISearchDisplayDelegate,PanDelegate,FPPopoverControllerDelegate> {
+@interface CorporateNewsListView : UIViewController<MZFormSheetBackgroundWindowDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,WSCoachMarksViewDelegate,UIGestureRecognizerDelegate, UISearchBarDelegate, UISearchControllerDelegate,UISearchDisplayDelegate,FPPopoverControllerDelegate> {
     WSCoachMarksView *coachMarksView;
     NSMutableArray *legendsList;
     NSManagedObject *author;

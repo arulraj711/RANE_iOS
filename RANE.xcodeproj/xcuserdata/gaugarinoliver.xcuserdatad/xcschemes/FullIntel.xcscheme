@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A0E2234C1A91C2F00073814A"
-               BuildableName = "RANE.app"
+               BuildableName = "FullIntel.app"
                BlueprintName = "RANE"
                ReferencedContainer = "container:RANE.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A0E2234C1A91C2F00073814A"
-            BuildableName = "RANE.app"
+            BuildableName = "FullIntel.app"
             BlueprintName = "RANE"
             ReferencedContainer = "container:RANE.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A0E2234C1A91C2F00073814A"
-            BuildableName = "RANE.app"
+            BuildableName = "FullIntel.app"
             BlueprintName = "RANE"
             ReferencedContainer = "container:RANE.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A0E2234C1A91C2F00073814A"
-            BuildableName = "RANE.app"
+            BuildableName = "FullIntel.app"
             BlueprintName = "RANE"
             ReferencedContainer = "container:RANE.xcodeproj">
          </BuildableReference>

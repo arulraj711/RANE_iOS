@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PKRevealController.h"
 
-@interface ExecutiveMovesController : UIViewController<PanDelegate>
+@interface ExecutiveMovesController : UIViewController
 @property (weak, nonatomic) IBOutlet UICollectionView *widgetCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *twitterCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *socialCollectionView;

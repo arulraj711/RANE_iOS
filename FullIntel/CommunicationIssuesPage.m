@@ -40,7 +40,7 @@
     self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.title];
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.revealPanGestureRecognizer.delegate = self;
-        self.revealController.panDelegate = self;
+//        self.revealController.panDelegate = self;
     } else {
         
     }
@@ -69,12 +69,12 @@
 
 -(void)backBtnPress {
     NSLog(@"back button press");
-    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+    if(self.revealController.state == 2) {
         NSLog(@"left view closed");
        // NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
        // [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
         [self.revealController showViewController:self.revealController.frontViewController];
-    } else {
+    } else if(self.revealController.state == 3){
         NSLog(@"left view opened");
         //NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
         //[Localytics tagEvent:@"MenuOpened" attributes:dictionary];

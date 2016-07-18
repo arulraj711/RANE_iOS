@@ -38,8 +38,8 @@
 - (void)commonInit {
     self.backgroundColor = [UIColor clearColor];
     
-    self.lineWidth = 1.0;
-    self.tintColor = [UIColor redColor];
+    self.lineWidth = 3.0;
+    self.tintColor = [UIColor colorWithRed:181.0 / 255.0 green:182.0 / 255.0 blue:183.0 / 255.0 alpha:1.0];
     self.radius = 20.0;
     self.usesVibrancyEffect = YES;
     
@@ -69,7 +69,7 @@
 
 - (UIView *)defaultBackgroundView {
     UIView *backgroundView = [[UIView alloc] init];
-    backgroundView.backgroundColor = [UIColor clearColor];
+    backgroundView.backgroundColor = [UIColor whiteColor];
     
     return backgroundView;
 }

@@ -718,15 +718,15 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 - (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)tapGesture
 {
     // If last form sheet controller will begin dismiss, don't want to recive touch
-//    if (tapGesture.state == UIGestureRecognizerStateEnded && [MZFormSheetController sharedQueue].count > 0){
-//        CGPoint location = [tapGesture locationInView:[tapGesture.view superview]];
-//        if (self.didTapOnBackgroundViewCompletionHandler) {
-//            self.didTapOnBackgroundViewCompletionHandler(location);
-//        }
-//        if (self.shouldDismissOnBackgroundViewTap) {
-//            [self dismissAnimated:YES completionHandler:nil];
-//        }
-//    }
+    if (tapGesture.state == UIGestureRecognizerStateEnded && [MZFormSheetController sharedQueue].count > 0){
+        CGPoint location = [tapGesture locationInView:[tapGesture.view superview]];
+        if (self.didTapOnBackgroundViewCompletionHandler) {
+            self.didTapOnBackgroundViewCompletionHandler(location);
+        }
+        if (self.shouldDismissOnBackgroundViewTap) {
+            [self dismissAnimated:YES completionHandler:nil];
+        }
+    }
 }
 
 #pragma mark - UIKeyboard Notifications
