@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'DEE30411BE650714CF6BED8A'
+               BlueprintIdentifier = '54BD77D977637709731355F9CE8B6332'
                BlueprintName = 'ATAppUpdater'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'ATAppUpdater.framework'>

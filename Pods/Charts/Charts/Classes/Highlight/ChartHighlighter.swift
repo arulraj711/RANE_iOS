@@ -31,7 +31,6 @@ public class ChartHighlighter : NSObject
     /// - returns:
     public func getHighlight(x x: Double, y: Double) -> ChartHighlight?
     {
-        
         let xIndex = getXIndex(x)
         if (xIndex == -Int.max)
         {
@@ -52,7 +51,6 @@ public class ChartHighlighter : NSObject
     /// - returns:
     public func getXIndex(x: Double) -> Int
     {
-        
         // create an array of the touch-point
         var pt = CGPoint(x: x, y: 0.0)
         

@@ -67,7 +67,7 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     public var descriptionTextPosition: CGPoint? = nil
     
     /// font object for drawing the information text when there are no values in the chart
-    public var infoFont: UIFont! = UIFont(name: "HelveticaNeue", size: 20.0)
+    public var infoFont: UIFont! = UIFont(name: "HelveticaNeue", size: 12.0)
     public var infoTextColor: UIColor! = UIColor(red: 247.0/255.0, green: 189.0/255.0, blue: 51.0/255.0, alpha: 1.0) // orange
     
     /// description text that appears in the bottom right corner of the chart
