@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PKRevealController.h"
 
-@interface CommunicationIssuesPage : UIViewController<PanDelegate,UIGestureRecognizerDelegate> {
+@interface CommunicationIssuesPage : UIViewController<UIGestureRecognizerDelegate> {
     NSArray *issueList;
 }
 @property (weak, nonatomic) IBOutlet UITableView *issuesTableView;

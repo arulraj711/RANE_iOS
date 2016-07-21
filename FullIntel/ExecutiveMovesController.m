@@ -90,7 +90,7 @@
      _rotateView.transform = CGAffineTransformMakeRotation(-0.6);
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.revealPanGestureRecognizer.delegate = self;
-        self.revealController.panDelegate = self;
+//        self.revealController.panDelegate = self;
     } else {
         
     }
@@ -176,14 +176,18 @@
 -(void)backBtnPress {
     
     
-    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
-       // NSLog(@"left view opened");
+    NSLog(@"back button press:%d",self.revealController.state);
+    if(self.revealController.state == 2) {
+        NSLog(@"left view closed");
+        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+        [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
         [self.revealController showViewController:self.revealController.frontViewController];
-    } else {
-       // NSLog(@"left view closed");
+    } else if(self.revealController.state == 3){
+        NSLog(@"left view opened");
+        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+        [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
         [self.revealController showViewController:self.revealController.leftViewController];
     }
-    
 }
 
 #pragma mark - UICollectionView Delegate

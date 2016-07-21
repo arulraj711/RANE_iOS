@@ -188,13 +188,13 @@
 }
 
 -(void)backBtnPress {
-    NSLog(@"back button press");
-    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+    NSLog(@"back button press:%d",self.revealController.state);
+    if(self.revealController.state == 2) {
         NSLog(@"left view closed");
         NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
         [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
         [self.revealController showViewController:self.revealController.frontViewController];
-    } else {
+    } else if(self.revealController.state == 3){
         NSLog(@"left view opened");
         NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
         [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
