@@ -72,8 +72,8 @@
     
     [self handleLoginProcess];
     
-    self.usernameTextField.text = @"Pfizer@fullintel.com";
-    self.passwordTextField.text = @"fipfizer";
+//    self.usernameTextField.text = @"Pfizer@fullintel.com";
+//    self.passwordTextField.text = @"fipfizer";
     
 }
 

@@ -1548,7 +1548,22 @@
             [_menuList addObject:menu];
         }
         [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:_menuList];
+            NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+            if(accessToken.length != 0) {
+                dispatch_queue_t globalConcurrentQueue =
+                dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+                
+                
+                // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+                
+                dispatch_async(globalConcurrentQueue, ^{
+                    //  NSLog(@"A - 1");
+                    [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+                });
+                
+            }
+
        // [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
         } else if([responseObject isKindOfClass:[NSDictionary class]]){
             if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
@@ -1591,11 +1606,14 @@
                 
                 
                 for(NSDictionary *dic in menuArray) {
+                    NSLog(@"unread menu dic:%@",dic);
                     FIUnreadMenu *menu = [FIUnreadMenu recursiveUnReadMenu:dic];
+                    
                     [_menuUnReadCountArray addObject:menu];
                 }
+                NSLog(@"_menuUnReadCountArray %@",_menuUnReadCountArray);
                 [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnReadMenuList"];
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:_menuUnReadCountArray];
                 
                 
 //                for(NSDictionary *dic in menuArray) {

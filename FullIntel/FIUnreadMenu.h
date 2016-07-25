@@ -15,6 +15,7 @@
 @property (nonatomic,strong) NSNumber *unreadCount;
 @property (nonatomic,strong) NSNumber *articleCount;
 @property (strong,nonatomic) NSNumber *companyId;
+@property (nonatomic,strong) NSNumber *subListAvailable;
 @property (nonatomic,strong) NSMutableArray *listArray;
 -(void)setUnreadMenuObjectFromDic:(NSDictionary *)dictionary;
 +(FIUnreadMenu *)recursiveUnReadMenu:(NSDictionary *)dic;

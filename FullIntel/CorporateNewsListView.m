@@ -251,20 +251,7 @@
     [self.segmentControl setSelectedSegmentIndex:2];
     
     
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    if(accessToken.length != 0) {
-        dispatch_queue_t globalConcurrentQueue =
-        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        
-        
-        // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
-        
-        dispatch_async(globalConcurrentQueue, ^{
-            //  NSLog(@"A - 1");
-            [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
-        });
-        
-    }
+    
     
 }
 
@@ -1838,7 +1825,7 @@
 
 -(void)backBtnPress {
     NSLog(@"back button press:%d",self.revealController.state);
-    if(self.revealController.state == 2) {
+    if(self.revealController.state == 2 || self.revealController.state == 1) {
         NSLog(@"left view closed");
         NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
         [Localytics tagEvent:@"MenuClosed" attributes:dictionary];

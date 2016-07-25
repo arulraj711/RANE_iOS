@@ -20,7 +20,7 @@
 
 
 +(FIUnreadMenu *)recursiveUnReadMenu:(NSDictionary *)dic {
-    // NSLog(@"dic in model name:%@ and count:%@",[dic objectForKey:@"name"],[dic objectForKey:@"unReadCount"]);
+     NSLog(@"dic in model name:%@ and count:%@",[dic objectForKey:@"name"],[dic objectForKey:@"articleCount"]);
     FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
   
     menu.nodeId = [dic objectForKey:@"id"];
@@ -31,6 +31,7 @@
    menu.articleCount = [dic objectForKey:@"articleCount"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
     NSArray *menuArray = NULL_TO_NIL([dic objectForKey:@"subList"]);
+    menu.subListAvailable = [dic objectForKey:@"subListAvailable"];
     NSLog(@"unread menu list array:%@ and copunt:%d",menuArray,menuArray.count);
     if(menuArray.count != 0) {
         for(NSDictionary *dict in menuArray) {
@@ -39,6 +40,7 @@
         }
     }
     menu.listArray = array;
+    NSLog(@"menu:%@",menu);
     return menu;
 }
 
@@ -50,6 +52,7 @@
     [coder encodeObject:self.isParent forKey:@"isParent"];
     [coder encodeObject:self.isSubscribed forKey:@"subscribed"];
     [coder encodeObject:self.articleCount forKey:@"articleCount"];
+    [coder encodeObject:self.articleCount forKey:@"subListAvailable"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -62,6 +65,7 @@
         self.isParent = [coder decodeObjectForKey:@"isParent"];
         self.isSubscribed = [coder decodeObjectForKey:@"subscribed"];
         self.articleCount = [coder decodeObjectForKey:@"articleCount"];
+        self.subListAvailable = [coder decodeObjectForKey:@"subListAvailable"];
     }
     return self;
 }
