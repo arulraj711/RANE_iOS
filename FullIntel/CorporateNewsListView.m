@@ -249,6 +249,23 @@
     
     //Set Default segment selection as "None"
     [self.segmentControl setSelectedSegmentIndex:2];
+    
+    
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length != 0) {
+        dispatch_queue_t globalConcurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+        
+        
+        // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+        
+        dispatch_async(globalConcurrentQueue, ^{
+            //  NSLog(@"A - 1");
+            [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+        });
+        
+    }
+    
 }
 
 //- (void)handlePanGestureStart {

@@ -1588,13 +1588,23 @@
             if([responseObject isKindOfClass:[NSArray class]]){
                 NSArray *menuArray = responseObject;
                 [_menuUnReadCountArray removeAllObjects];
+                
+                
                 for(NSDictionary *dic in menuArray) {
-                    FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
-                    [menu setUnreadMenuObjectFromDic:dic];
+                    FIUnreadMenu *menu = [FIUnreadMenu recursiveUnReadMenu:dic];
                     [_menuUnReadCountArray addObject:menu];
                 }
-                //   [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnreadMenuAPI"];
+                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnReadMenuList"];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:nil];
+                
+                
+//                for(NSDictionary *dic in menuArray) {
+//                    FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
+//                    [menu setUnreadMenuObjectFromDic:dic];
+//                    [_menuUnReadCountArray addObject:menu];
+//                }
+//                //   [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnreadMenuAPI"];
+//                [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:nil];
                 //[self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
                 
