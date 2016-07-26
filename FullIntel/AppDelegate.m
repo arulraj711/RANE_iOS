@@ -51,9 +51,18 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fullintel://"]];
+        
+        
     });
     
-//    
+//
+    
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length > 0) {
+        [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
+    }
+    
+    
 //    // Initialize Reachability
 //    Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
 //    
@@ -411,7 +420,7 @@
         
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0) {
-        [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
+        //[[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
         NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
         [logoutDic setObject:accessToken forKey:@"securityToken"];
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
