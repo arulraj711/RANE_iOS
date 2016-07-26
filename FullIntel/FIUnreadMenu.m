@@ -20,7 +20,7 @@
 
 
 +(FIUnreadMenu *)recursiveUnReadMenu:(NSDictionary *)dic {
-     NSLog(@"dic in model name:%@ and count:%@",[dic objectForKey:@"name"],[dic objectForKey:@"articleCount"]);
+     //NSLog(@"dic in model name:%@ and count:%@",[dic objectForKey:@"name"],[dic objectForKey:@"articleCount"]);
     FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
   
     menu.nodeId = [dic objectForKey:@"id"];
@@ -32,7 +32,7 @@
     NSMutableArray *array = [[NSMutableArray alloc]init];
     NSArray *menuArray = NULL_TO_NIL([dic objectForKey:@"subList"]);
     menu.subListAvailable = [dic objectForKey:@"subListAvailable"];
-    NSLog(@"unread menu list array:%@ and copunt:%d",menuArray,menuArray.count);
+    //NSLog(@"unread menu list array:%@ and copunt:%d",menuArray,menuArray.count);
     if(menuArray.count != 0) {
         for(NSDictionary *dict in menuArray) {
             FIUnreadMenu *insideMenu = [self recursiveUnReadMenu:dict];
@@ -40,7 +40,7 @@
         }
     }
     menu.listArray = array;
-    NSLog(@"menu:%@",menu);
+   // NSLog(@"menu:%@",menu);
     return menu;
 }
 

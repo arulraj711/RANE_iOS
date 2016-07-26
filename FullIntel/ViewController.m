@@ -72,8 +72,7 @@
     
     [self handleLoginProcess];
     
-//    self.usernameTextField.text = @"Pfizer@fullintel.com";
-//    self.passwordTextField.text = @"fipfizer";
+
     
 }
 
@@ -390,6 +389,7 @@
 //    dispatch_async(globalConcurrentQueue, ^{
         // NSLog(@"A - 1");
         [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
+    [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
  //   });
     if(accessToken.length > 0) {
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];

@@ -39,7 +39,7 @@
     
     
     
-    
+    NSLog(@"drillin companyID:%@",self.companyIdInDetailPage);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLinkSelected:) name:@"socialLinkSelected" object:nil];
     

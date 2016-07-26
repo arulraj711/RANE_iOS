@@ -59,7 +59,7 @@
     
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0) {
-        [[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
+        [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
     }
     
     
@@ -413,11 +413,8 @@
 }
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {
+    NSLog(@"application did become active");
     if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-        
-        
-        
-        
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0) {
         //[[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];

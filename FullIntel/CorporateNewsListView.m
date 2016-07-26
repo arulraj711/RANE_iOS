@@ -52,7 +52,7 @@
 
 - (void)viewDidLoad {
     NSLog(@"view did load title:%@",self.titleName);
-    
+    NSLog(@"list view companyID:%@",self.companyId);
     [super viewDidLoad];
     flagForToolbar = 0;
     selectedCells = [[NSMutableArray alloc]init];
@@ -887,7 +887,7 @@
     } else {
         //        BOOL isFirst = [[NSUserDefaults standardUserDefaults]boolForKey:@"firstTimeFlag"];
         //        if(isFirst) {
-        [self loadCuratedNews];
+        //[self loadCuratedNews];
         //        }
         [[FISharedResources sharedResourceManager]tagScreenInLocalytics:self.titleName];
        // [self loadCuratedNews];

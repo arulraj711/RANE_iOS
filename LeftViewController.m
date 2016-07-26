@@ -109,6 +109,8 @@
                 else
                     objectArray = [[NSMutableArray alloc] init];
             }
+        } else {
+            [self.data removeAllObjects];
         }
 
     }
@@ -132,7 +134,7 @@
     treeView.delegate = self;
     treeView.dataSource = self;
     treeView.separatorStyle = RATreeViewCellSeparatorStyleNone;
-    // [treeView reloadData];
+    [treeView reloadData];
     [treeView setBackgroundColor:[UIColor clearColor]];
     self.treeView = treeView;
     [self.treeView registerNib:[UINib nibWithNibName:NSStringFromClass([RATableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RATableViewCell class])];
@@ -611,17 +613,16 @@
 ////    {
 //        NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray1];
     
-//    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
-//    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
-   
-//    menuArray = [[FISharedResources sharedResourceManager]menuList];
+    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+    menuArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
     
     
     for(FIMenu *menu in menuArray) {
-        NSLog(@"old count array:%@",unreadMenuArray);
+        //NSLog(@"old count array:%@",unreadMenuArray);
         for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
-            NSLog(@"unread count:%@",unreadMenu.unreadCount);
-            NSLog(@"nodeid:%@:%@ and :%@",menu.name,menu.nodeId,unreadMenu.nodeId);
+            //NSLog(@"unread count:%@",unreadMenu.unreadCount);
+            //NSLog(@"nodeid:%@:%@ and :%@",menu.name,menu.nodeId,unreadMenu.nodeId);
             if([menu.nodeId isEqualToNumber:unreadMenu.nodeId] && [menu.companyId isEqualToNumber:unreadMenu.companyId]) {
                 menu.unreadCount = unreadMenu.unreadCount;
                 if([menu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]] && [unreadMenu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]]) {
@@ -634,7 +635,7 @@
         }
     }
 
-    NSLog(@"-->%@",menuArray);
+    //NSLog(@"-->%@",menuArray);
     
      [self loadMenus];
     
@@ -677,6 +678,9 @@
 
 -(void)loadMenusFromService:(NSNotification *)notification {
     menuArray = notification.object;
+
+    [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:menuArray] forKey:@"MenuList"];
+    
     NSLog(@"after menu:%@",menuArray);
 }
 
@@ -711,9 +715,9 @@
 //    }
 //    NSLog(@"menu count:%lu",(unsigned long)self.menus.count);
     [self test:self.menus];
-    NSLog(@"final data:%@",self.data);
+    //NSLog(@"final data:%@",self.data);
     [treeView reloadData];
-    NSLog(@"data count:%lu",(unsigned long)self.data.count);
+    //NSLog(@"data count:%lu",(unsigned long)self.data.count);
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0 && self.data.count > 2) {
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -738,7 +742,7 @@
     for(FIMenu *menu in existMenu) {
         for(FIUnreadMenu *unreadMenu in countMenu) {
             if([menu.nodeId isEqualToNumber:unreadMenu.nodeId] && [menu.companyId isEqualToNumber:unreadMenu.companyId ]) {
-                NSLog(@"unread counttttttt:%@",unreadMenu.articleCount);
+                //NSLog(@"unread counttttttt:%@",unreadMenu.articleCount);
                 menu.articleCount = unreadMenu.articleCount;
                 if(unreadMenu.articleCount > 0){
                     hasSub = true;
@@ -789,9 +793,9 @@
                     RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
                     
 //                    dataObj.articleCount = [self getUnreadArticleCountFromId:menu.nodeId];
-                    NSLog(@"%@ ---> %@ andddd:%@",dataObj.name,dataObj.articleCount,menu.articleCount);
+                    //NSLog(@"%@ ---> %@ andddd:%@",dataObj.name,dataObj.articleCount,menu.articleCount);
                     //if([menu.articleCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                        NSLog(@"added");
+                       // NSLog(@"added");
                     if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
                         [self.data addObject:dataObj];
                     }
@@ -986,7 +990,7 @@
 //        
 //
     
-    NSLog(@"aaaaaaa:%@",menu.articleCount);
+    //NSLog(@"aaaaaaa:%@",menu.articleCount);
     dataObj.companyId = menu.companyId;
     dataObj.nodeId = menu.nodeId;
     dataObj.unReadCount = menu.unreadCount;
@@ -1704,7 +1708,8 @@
                 // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
                 
                 [[FISharedResources sharedResourceManager]clearEntity:@"BrandingIdentity"];
-                
+                NSMutableArray *array = [[NSMutableArray alloc]init];
+                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:array] forKey:@"MenuList"];
                 [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
                 [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
@@ -1713,7 +1718,9 @@
                 
                 // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
                 // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
-                
+                [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"FI"]];
+                [self.data removeAllObjects];
+                [treeView reloadData];
                 UIStoryboard *centerStoryBoard;
                 UIViewController *viewCtlr;
                 
