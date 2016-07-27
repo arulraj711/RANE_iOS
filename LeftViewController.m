@@ -54,6 +54,9 @@
 {
     [super viewDidLoad];
     
+    NSLog(@"left view did load");
+    
+    
     self.treeView.allowsMultipleSelectionDuringEditing = NO;
     self.treeView.allowsMultipleSelection = NO;
     
@@ -188,6 +191,25 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber.integerValue];
    // NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
    // [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
+    
+    
+    
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        if(accessToken.length > 0) {
+            //[[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
+            NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
+            [logoutDic setObject:accessToken forKey:@"securityToken"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                [[FISharedResources sharedResourceManager]validateUserOnResumeWithDetails:resultStr];
+            });
+        }
+        
+    }
+    
     
 }
 -(void)afterSecondTutorial{
@@ -681,11 +703,11 @@
 
     [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:menuArray] forKey:@"MenuList"];
     
-    NSLog(@"after menu:%@",menuArray);
+   
 }
 
 -(void)loadMenus {
-    NSLog(@"load menu calling twice");
+   
     
     
     

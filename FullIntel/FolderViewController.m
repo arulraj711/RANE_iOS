@@ -43,8 +43,19 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
     [self.navigationItem setLeftBarButtonItem:addButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
-    [self fetchFolderDetails];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchFolderList) name:@"FetchFolderList" object:nil];
+    
+    
+    [[FISharedResources sharedResourceManager] getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
+    
+    
+    
+}
+
+-(void)fetchFolderList {
+    [self fetchFolderDetails];
 }
 
 -(void)viewDidAppear:(BOOL)animated {

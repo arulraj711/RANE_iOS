@@ -51,7 +51,7 @@
 @implementation CorporateNewsListView
 
 - (void)viewDidLoad {
-    NSLog(@"view did load title:%@",self.titleName);
+    NSLog(@"news list view did load title:%@",self.titleName);
     NSLog(@"list view companyID:%@",self.companyId);
     [super viewDidLoad];
     flagForToolbar = 0;

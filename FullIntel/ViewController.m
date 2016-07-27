@@ -397,13 +397,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
     }
     
-    dispatch_queue_t globalBackgroundQueue =
-    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     
-    dispatch_async(globalBackgroundQueue, ^{
-        NSLog(@"calling folder option");
-        [[FISharedResources sharedResourceManager] getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
-    });
     
     
     NSTimeZone *timeZone = [NSTimeZone localTimeZone];

@@ -1714,7 +1714,7 @@
                 } else if(flag) {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
                 }else {
-//                    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"FetchFolderList" object:nil];
                 }
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
