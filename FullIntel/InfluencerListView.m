@@ -134,7 +134,7 @@
 
 -(void)backBtnPress {
     NSLog(@"back button press:%d",self.revealController.state);
-    if(self.revealController.state == 2) {
+    if(self.revealController.state == 2 || self.revealController.state == 1) {
         NSLog(@"left view closed");
         NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
         [Localytics tagEvent:@"MenuClosed" attributes:dictionary];

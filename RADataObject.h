@@ -29,6 +29,7 @@
 @property (strong,nonatomic) NSNumber *isParent;
 @property (strong,nonatomic) NSNumber *subListAvailable;
 @property (strong,nonatomic) NSNumber *companyId;
+@property (strong,nonatomic) NSNumber *articleCount;
 @property BOOL isFolder;
 
 - (id)initWithName:(NSString *)name children:(NSArray *)array;

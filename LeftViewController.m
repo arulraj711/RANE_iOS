@@ -57,8 +57,8 @@
     self.treeView.allowsMultipleSelectionDuringEditing = NO;
     self.treeView.allowsMultipleSelection = NO;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenus) name:@"MenuList" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnreadCount) name:@"UnreadMenuAPI" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenusFromService:) name:@"MenuList" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnreadCount:) name:@"UnreadMenuAPI" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(afterLogout) name:@"logoutSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestChange:) name:@"requestChange" object:nil];
@@ -109,6 +109,8 @@
                 else
                     objectArray = [[NSMutableArray alloc] init];
             }
+        } else {
+            [self.data removeAllObjects];
         }
 
     }
@@ -132,7 +134,7 @@
     treeView.delegate = self;
     treeView.dataSource = self;
     treeView.separatorStyle = RATreeViewCellSeparatorStyleNone;
-    // [treeView reloadData];
+    [treeView reloadData];
     [treeView setBackgroundColor:[UIColor clearColor]];
     self.treeView = treeView;
     [self.treeView registerNib:[UINib nibWithNibName:NSStringFromClass([RATableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RATableViewCell class])];
@@ -153,9 +155,10 @@
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
 
     if(accessToken.length != 0) {
-        self.menus = [[NSMutableArray alloc]initWithArray:objectArray];
-        [self test:self.menus];
-        [treeView reloadData];
+//        self.menus = [[NSMutableArray alloc]initWithArray:objectArray];
+//        [self test:self.menus];
+//        NSLog(@"final data:%@",self.data);
+//        [treeView reloadData];
     } else {
         self.addContentLabel.hidden = YES;
         self.addContentButton.hidden = YES;
@@ -185,6 +188,25 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber.integerValue];
    // NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
    // [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
+    
+    
+    
+    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        if(accessToken.length > 0) {
+            //[[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
+            NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
+            [logoutDic setObject:accessToken forKey:@"securityToken"];
+            NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
+            
+            NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                [[FISharedResources sharedResourceManager]validateUserOnResumeWithDetails:resultStr];
+            });
+        }
+        
+    }
+    
     
 }
 -(void)afterSecondTutorial{
@@ -577,37 +599,112 @@
    // [self presentTutorialPopViewController];
 }
 
--(void)updateUnreadCount {
+-(void)updateUnreadCount:(NSNotification*)notification {
+    NSArray  *unreadMenuArray = notification.object;
     unreadCnt = 0;
-    NSMutableArray *unreadMenuArray = [[FISharedResources sharedResourceManager]menuUnReadCountArray];
-    NSLog(@"unread menu array:%@ and selected item:%@",unreadMenuArray,data.name);
-    for(RADataObject *dataObject in self.data) {
+    
+//    for(FIMenu *menu in self.data) {
+//        
+//    }
+    
+    
+//    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+//    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+//    if (dataRepresentingSavedArray.length != 0)
+//    {
+//        NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+//        if (oldSavedArray != nil) {
+//            self.menus = [[NSMutableArray alloc]initWithArray:oldSavedArray];
+//        }
+//    }
+//    NSLog(@"menu count:%lu",(unsigned long)self.menus.count);
+//    [self test:self.menus];
+//    [treeView reloadData];
+    
+    
+    
+//    NSMutableArray *unreadMenuArray = [[FISharedResources sharedResourceManager]menuUnReadCountArray];
+//    NSLog(@"unread menu array:%@ and selected item:%@",unreadMenuArray,data.name);
+    
+//    NSUserDefaults *currentDefaults1 = [NSUserDefaults standardUserDefaults];
+//    NSData *dataRepresentingSavedArray1 = [currentDefaults1 objectForKey:@"UnReadMenuList"];
+////    if (dataRepresentingSavedArray1.length != 0)
+////    {
+//        NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray1];
+    
+    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+    menuArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+    
+    
+    for(FIMenu *menu in menuArray) {
+        //NSLog(@"old count array:%@",unreadMenuArray);
         for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
-            if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId] && [dataObject.companyId isEqualToNumber:unreadMenu.companyId]) {
-                dataObject.unReadCount = unreadMenu.unreadCount;
-                if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:9]]) {
-                    
-                } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
-                    
-                } else {
-                    unreadCnt = unreadCnt+[dataObject.unReadCount integerValue];
+            //NSLog(@"unread count:%@",unreadMenu.unreadCount);
+            //NSLog(@"nodeid:%@:%@ and :%@",menu.name,menu.nodeId,unreadMenu.nodeId);
+            if([menu.nodeId isEqualToNumber:unreadMenu.nodeId] && [menu.companyId isEqualToNumber:unreadMenu.companyId]) {
+                menu.unreadCount = unreadMenu.unreadCount;
+                if([menu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]] && [unreadMenu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+                    [self setSubMenuArticleCount:menu.listArray with:unreadMenu.listArray];
                 }
-                [self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone];
+                else if(!unreadMenu.subListAvailable){
+                    menu.subListAvailable = unreadMenu.subListAvailable;
+                }
             }
         }
     }
-    NSLog(@"menu unread count:%d",unreadCnt);
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCnt];
-    NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
-    [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
+
+    //NSLog(@"-->%@",menuArray);
     
-    //[treeView reloadData];
-    [self.treeView selectRowForItem:data animated:YES scrollPosition:RATreeViewScrollPositionNone];
+     [self loadMenus];
+    
+    
+//    for(RADataObject *dataObject in self.data) {
+//        NSUserDefaults *currentDefaults1 = [NSUserDefaults standardUserDefaults];
+//        NSData *dataRepresentingSavedArray1 = [currentDefaults1 objectForKey:@"UnReadMenuList"];
+//        if (dataRepresentingSavedArray1.length != 0)
+//        {
+//            NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray1];
+//            if (oldSavedArray != nil) {
+//                for(FIUnreadMenu *unreadMenu in oldSavedArray) {
+//       // for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
+//            if([dataObject.nodeId isEqualToNumber:unreadMenu.nodeId] && [dataObject.companyId isEqualToNumber:unreadMenu.companyId]) {
+//                dataObject.unReadCount = unreadMenu.unreadCount;
+//                dataObject.articleCount = unreadMenu.articleCount;
+//                if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:9]]) {
+//                    
+//                } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+//                    
+//                } else {
+//                    NSLog(@"item--->%@ and Count--->%d",data.name,[dataObject.unReadCount integerValue]);
+//                    unreadCnt = unreadCnt+[dataObject.unReadCount integerValue];
+//                }
+//                [self.treeView reloadRowsForItems:[NSArray arrayWithObject:dataObject] withRowAnimation:RATreeViewRowAnimationNone];
+//            }
+//        }
+//            }
+//    }
+//    }
+//    NSLog(@"menu unread count:%d",unreadCnt);
+//    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCnt];
+//    NSNumber *badgeNumber = [NSNumber numberWithInt:unreadCnt];
+//    [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
+   
+//    //[treeView reloadData];
+//    [self.treeView selectRowForItem:data animated:YES scrollPosition:RATreeViewScrollPositionNone];
     
 }
 
+-(void)loadMenusFromService:(NSNotification *)notification {
+    menuArray = notification.object;
+
+    [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:menuArray] forKey:@"MenuList"];
+    
+   
+}
+
 -(void)loadMenus {
-    NSLog(@"load menu calling twice");
+   
     
     
     
@@ -626,19 +723,20 @@
     self.companyName.minimumFontSize = 8.;
     self.companyName.adjustsFontSizeToFitWidth = YES;
     
-    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
-    if (dataRepresentingSavedArray.length != 0)
-    {
-        NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
-        if (oldSavedArray != nil) {
-            self.menus = [[NSMutableArray alloc]initWithArray:oldSavedArray];
-        }
-    }
-    NSLog(@"menu count:%lu",(unsigned long)self.menus.count);
+//    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+//    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+//    if (dataRepresentingSavedArray.length != 0)
+//    {
+//        NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+//        if (oldSavedArray != nil) {
+            self.menus = [[NSMutableArray alloc]initWithArray:menuArray];
+//        }
+//    }
+//    NSLog(@"menu count:%lu",(unsigned long)self.menus.count);
     [self test:self.menus];
+    //NSLog(@"final data:%@",self.data);
     [treeView reloadData];
-    NSLog(@"data count:%lu",(unsigned long)self.data.count);
+    //NSLog(@"data count:%lu",(unsigned long)self.data.count);
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
     if(accessToken.length > 0 && self.data.count > 2) {
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -655,6 +753,48 @@
     
 }
 
+
+
+
+-(void) setSubMenuArticleCount:(NSMutableArray*)existMenu with:(NSMutableArray *)countMenu {
+    bool hasSub = false;
+    for(FIMenu *menu in existMenu) {
+        for(FIUnreadMenu *unreadMenu in countMenu) {
+            if([menu.nodeId isEqualToNumber:unreadMenu.nodeId] && [menu.companyId isEqualToNumber:unreadMenu.companyId ]) {
+                //NSLog(@"unread counttttttt:%@",unreadMenu.articleCount);
+                menu.articleCount = unreadMenu.articleCount;
+                if(unreadMenu.articleCount > 0){
+                    hasSub = true;
+                }
+            }
+        }
+        menu.subListAvailable = [NSNumber numberWithBool:hasSub];
+        if(NULL != menu.listArray && menu.listArray.count > 0){
+            [self setSubMenuArticleCount:menu.listArray with:countMenu];
+        }
+
+    }
+}
+
+
+//-(NSNumber *)getUnreadArticleCountFromId:(NSNumber *)nodeId {
+//    NSUserDefaults *currentDefaults1 = [NSUserDefaults standardUserDefaults];
+//    NSData *dataRepresentingSavedArray1 = [currentDefaults1 objectForKey:@"UnReadMenuList"];
+//    if (dataRepresentingSavedArray1.length != 0)
+//    {
+//        NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray1];
+//        if (oldSavedArray != nil) {
+//            for(FIUnreadMenu *menusss in oldSavedArray) {
+//                NSLog(@"fooooo:%@",menusss);
+////                if(menu.nodeId == nodeId) {
+////                    return menu.articleCount;
+////                }
+//            }
+//        }
+//    }
+//    return 0;
+//}
+
 -(void)test:(NSMutableArray *)array {
     
     
@@ -663,23 +803,39 @@
     for(FIMenu *menu in array) {
         NSNumber *accountTypeIdStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
         
-        if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+       // if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
             if([accountTypeIdStr isEqualToNumber:[NSNumber numberWithInt:3]]) {
                 //handle test user
                 if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:7]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:5]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:2]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:4]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
                     
                 } else {
                     RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
-                    // NSLog(@"for loop:%@",dataObj);
-                    [self.data addObject:dataObj];
+                    
+//                    dataObj.articleCount = [self getUnreadArticleCountFromId:menu.nodeId];
+                    //NSLog(@"%@ ---> %@ andddd:%@",dataObj.name,dataObj.articleCount,menu.articleCount);
+                    //if([menu.articleCount isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                       // NSLog(@"added");
+                    if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+                        [self.data addObject:dataObj];
+                    }
+                    
+//                    } else {
+//                        NSLog(@"not added");
+//                        
+//                    }
+                    
                 }
             } else {
                 RADataObject *dataObj = [self recursiveDataObjectFrom:menu];
-                // NSLog(@"for loop:%@",dataObj);
-                [self.data addObject:dataObj];
+//                dataObj.articleCount = [self getUnreadArticleCountFromId:menu.nodeId];
+//               NSLog(@"for looppppp:%@",dataObj.articleCount);
+                if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+                    [self.data addObject:dataObj];
+                } 
+                
             }
             
-        }
+        //}
         
     }
     //self.data = [NSArray arrayWithObjects:phone, computer, car, bike, house, flats, motorbike, drinks, food, nil];
@@ -775,7 +931,7 @@
         NSManagedObject *mediaAnalysisBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:18]];
         NSString *mediaAnalysisBrandName = [[NSString stringWithFormat:@"%@",[mediaAnalysisBrandingIdentity valueForKey:@"name"]] uppercaseString];
         if(mediaAnalysisBrandName.length != 0) {
-            mediaAnalysis.name = [mediaAnalysisBrandingIdentity valueForKey:@"name"];
+            mediaAnalysis.name = [[mediaAnalysisBrandingIdentity valueForKey:@"name"] uppercaseString];
             mediaAnalysis.nodeId = [NSNumber numberWithInt:-500];
             mediaAnalysis.children = nil;
             [self.data addObject:mediaAnalysis];
@@ -842,23 +998,39 @@
     } else {
         dataObj.name = menu.name;
     }
+    
+//    NSMutableArray *unreadMenuArray = [[FISharedResources sharedResourceManager]menuUnReadCountArray];
+//    NSLog(@"unread menu array:%@ and selected item:%@",unreadMenuArray,data.name);
+//    for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
+//        NSLog(@"%@ ----> %@",menu.nodeId,unreadMenu.nodeId);
+//        if(menu.nodeId == unreadMenu.nodeId) {
+//            dataObj.articleCount = unreadMenu.articleCount;
+//        }
+//        
+//
+    
+    //NSLog(@"aaaaaaa:%@",menu.articleCount);
     dataObj.companyId = menu.companyId;
     dataObj.nodeId = menu.nodeId;
     dataObj.unReadCount = menu.unreadCount;
     dataObj.subListAvailable = menu.subListAvailable;
     dataObj.isParent = menu.isParent;
+    dataObj.articleCount = menu.articleCount;
     // menu.name = [dic objectForKey:@"Name"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
-    if([menu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+    //if([menu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]]) {
         //subListAvailabel TRUE
         NSArray *menuArray = menu.listArray;
         for(FIMenu *dict in menuArray) {
             RADataObject *insideMenu = [self recursiveDataObjectFrom:dict];
-            [array addObject:insideMenu];
+            
+            if([insideMenu.isParent isEqualToNumber:[NSNumber numberWithInt:-1]] || (![insideMenu.isParent isEqualToNumber:[NSNumber numberWithInt:-1]] && ![insideMenu.articleCount isEqualToNumber:[NSNumber numberWithInt:0]])) {
+                [array addObject:insideMenu];
+            }
         }
-    } else {
-        //subListAvailabel FALSE
-    }
+//    } else {
+//        //subListAvailabel FALSE
+//    }
     
     dataObj.children = array;
     //menu.listArray = array;
@@ -1555,7 +1727,8 @@
                 // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFIViewSelected"];
                 
                 [[FISharedResources sharedResourceManager]clearEntity:@"BrandingIdentity"];
-                
+                NSMutableArray *array = [[NSMutableArray alloc]init];
+                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:array] forKey:@"MenuList"];
                 [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"MenuList"];
                 [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"accesstoken"];
                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"firstTimeFlag"];
@@ -1564,7 +1737,9 @@
                 
                 // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
                 // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
-                
+                [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"FI"]];
+                [self.data removeAllObjects];
+                [treeView reloadData];
                 UIStoryboard *centerStoryBoard;
                 UIViewController *viewCtlr;
                 
@@ -1755,7 +1930,7 @@
                     [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
                     //[[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
                     inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
-                    [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
+                  //  [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
                 }
                 
                 // NSLog(@"empty node id");
@@ -1801,8 +1976,8 @@
                     
                     [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
                     [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
-                   // inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
-//                    [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
+                    inputJson = [FIUtils createInputJsonForContentWithToekn:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] lastArticleId:@"" contentTypeId:data.nodeId listSize:10 activityTypeId:@"" categoryId:[NSNumber numberWithInt:-1]];
+                   // [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"]];
                     
                     NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
                     NSString *queryString = [FIUtils formArticleListInuptFromSecurityToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withContentTypeId:data.nodeId withPageNumber:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withQuery:@"" withContentCategoryId:[NSNumber numberWithInt:-1] withOrderBy:@"" withFilterBy:@"" withActivityTypeID:[NSNumber numberWithInt:0] withCompanyId:data.companyId];

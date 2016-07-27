@@ -1549,8 +1549,23 @@
             FIMenu *menu = [FIMenu recursiveMenu:dic];
             [_menuList addObject:menu];
         }
-        [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+       // [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"MenuList"];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:_menuList];
+//            NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+//            if(accessToken.length != 0) {
+//                dispatch_queue_t globalConcurrentQueue =
+//                dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+//                
+//                
+//                // dispatch_queue_t queue_a = dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT);
+//                
+//                dispatch_async(globalConcurrentQueue, ^{
+//                    //  NSLog(@"A - 1");
+//                    [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+//                });
+//                
+//            }
+
        // [self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
         } else if([responseObject isKindOfClass:[NSDictionary class]]){
             if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
@@ -1591,12 +1606,23 @@
                 NSArray *menuArray = responseObject;
                 [_menuUnReadCountArray removeAllObjects];
                 for(NSDictionary *dic in menuArray) {
-                    FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
-                    [menu setUnreadMenuObjectFromDic:dic];
+                    //NSLog(@"unread menu dic:%@",dic);
+                    FIUnreadMenu *menu = [FIUnreadMenu recursiveUnReadMenu:dic];
+                    
                     [_menuUnReadCountArray addObject:menu];
                 }
-                //   [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnreadMenuAPI"];
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:nil];
+                //NSLog(@"_menuUnReadCountArray %@",_menuUnReadCountArray);
+                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnReadMenuList"];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:_menuUnReadCountArray];
+                
+                
+//                for(NSDictionary *dic in menuArray) {
+//                    FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
+//                    [menu setUnreadMenuObjectFromDic:dic];
+//                    [_menuUnReadCountArray addObject:menu];
+//                }
+//                //   [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnreadMenuAPI"];
+//                [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:nil];
                 //[self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
                 
@@ -1688,7 +1714,7 @@
                 } else if(flag) {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveToFolder" object:nil];
                 }else {
-//                    [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuList" object:nil];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"FetchFolderList" object:nil];
                 }
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {

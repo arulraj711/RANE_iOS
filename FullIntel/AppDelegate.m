@@ -54,7 +54,14 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"rane://"]];
     });
     
-//    
+//
+    
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    if(accessToken.length > 0) {
+        [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+    }
+    
+    
 //    // Initialize Reachability
 //    Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
 //    
@@ -415,20 +422,8 @@
 }
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {
-    if([[FISharedResources sharedResourceManager]serviceIsReachable]) {
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    if(accessToken.length > 0) {
-        NSMutableDictionary *logoutDic = [[NSMutableDictionary alloc] init];
-        [logoutDic setObject:accessToken forKey:@"securityToken"];
-        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:logoutDic options:NSJSONWritingPrettyPrinted error:nil];
-        
-        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-        [[FISharedResources sharedResourceManager]validateUserOnResumeWithDetails:resultStr];
-        });
-    }
-        
-    }
+   // NSLog(@"application did become active");
+    
 }
 
 

@@ -43,8 +43,19 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
     [self.navigationItem setLeftBarButtonItem:addButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopFolderLoading) name:@"StopFolderLoading" object:nil];
-    [self fetchFolderDetails];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchFolderList) name:@"FetchFolderList" object:nil];
+    
+    
+    [[FISharedResources sharedResourceManager] getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
+    
+    
+    
+}
+
+-(void)fetchFolderList {
+    [self fetchFolderDetails];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -250,8 +261,8 @@
 }
 
 -(void)backBtnPress {
-    NSLog(@"back button press:%d",self.revealController.state);
-    if(self.revealController.state == 2) {
+    NSLog(@"back button press");
+    if(self.revealController.state == 2 || self.revealController.state == 1) {
         NSLog(@"left view closed");
         NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
         [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
