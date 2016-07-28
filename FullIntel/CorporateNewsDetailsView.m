@@ -82,12 +82,12 @@
     [self.collectionView setCollectionViewLayout:flowLayout];
     // [self.collectionView reloadData];
     self.collectionView.dataSource = nil;
-    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.alpha = 1.0;
-    activityIndicator.center = self.view.center;
-    activityIndicator.hidesWhenStopped = YES;
-    [self.view addSubview:activityIndicator];
-    [activityIndicator startAnimating];
+//    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    activityIndicator.alpha = 1.0;
+//    activityIndicator.center = self.view.center;
+//    activityIndicator.hidesWhenStopped = YES;
+//    [self.view addSubview:activityIndicator];
+//    [activityIndicator startAnimating];
     
     innerWebView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)];
     // self.navigationItem.rightBarButtonItem =nil;
@@ -338,11 +338,11 @@
     
     BOOL isFIViewSelected = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFIViewSelected"];
     if(isFIViewSelected) {
-        NSLog(@"fi view is selected");
+//        NSLog(@"fi view is selected");
         [addBtn setBackgroundImage:[UIImage createCustomNavIconFromImage:@"nav_globe"]  forState:UIControlStateNormal];
         [addBtn setSelected:YES];
     } else {
-        NSLog(@"fi view is not selected");
+//        NSLog(@"fi view is not selected");
         
         NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString *webviewImagePath = [documentsDirectory stringByAppendingPathComponent:@"webviewImage.png"];
@@ -406,7 +406,7 @@
     else{
         BOOL testFlag = [[NSUserDefaults standardUserDefaults]boolForKey:@"Test"];
         if(testFlag) {
-            NSLog(@"test flag is TRUE");
+//            NSLog(@"test flag is TRUE");
             
             [self.activityIndicator stopAnimating];
             [oneSecondTicker invalidate];
@@ -419,7 +419,7 @@
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
             NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
             NSPredicate *predicate;
-            NSLog(@"newsletter id:%@ and %@",newsLetterId,self.isFromChart);
+//            NSLog(@"newsletter id:%@ and %@",newsLetterId,self.isFromChart);
             if([self.isFromChart isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 if(self.isSearching) {
                     predicate = [NSPredicate predicateWithFormat:@"isFromChart == %@ AND isSearch == %@",[NSNumber numberWithBool:YES],[NSNumber numberWithBool:self.isSearching]];
@@ -496,16 +496,16 @@
                 [elementsFromColumn addObject:[fetchedObject valueForKey:@"articleId"]];
             }
             
-            NSLog(@"elementsfrom column:%@",elementsFromColumn);
+//            NSLog(@"elementsfrom column:%@",elementsFromColumn);
             self.articleIdArray = [[NSMutableArray alloc]initWithArray:elementsFromColumn];
-            NSLog(@"article id array:%@ and selected articleId:%@",self.articleIdArray,self.selectedNewsArticleId);
+//            NSLog(@"article id array:%@ and selected articleId:%@",self.articleIdArray,self.selectedNewsArticleId);
             if(self.selectedNewsArticleId.length != 0) {
                 NSInteger atIndex = [self.articleIdArray indexOfObject:self.selectedNewsArticleId];
                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:atIndex inSection:0];
                 self.selectedIndexPath = indexPath;
                 //            [self.view layoutIfNeeded];
                 //            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-                NSLog(@"selected indexpath:%ld",(long)self.selectedIndexPath.row);
+//                NSLog(@"selected indexpath:%ld",(long)self.selectedIndexPath.row);
                 [self.collectionView reloadData];
             } else {
                 if(self.articleIdArray.count != 0) {
@@ -524,9 +524,9 @@
                 }
             }
         } else {
-            NSLog(@"test flag is FALSE");
+//            NSLog(@"test flag is FALSE");
         }
-        NSLog(@"selected article id:%@",self.articleIdArray);
+//        NSLog(@"selected article id:%@",self.articleIdArray);
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
@@ -691,6 +691,7 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSLog(@"article id array count:%d",self.articleIdArray.count);
     return self.articleIdArray.count;
 }
 
@@ -698,7 +699,8 @@
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-     NSLog(@"cell indexpath:%ld",(long)indexPath.row);
+    NSLog(@"cell for item");
+//     NSLog(@"cell indexpath:%ld",(long)indexPath.row);
     self.selectedIndexPath = indexPath;
     self.selectedIndex = indexPath.row;
     CorporateDetailCell *cell;
@@ -725,9 +727,9 @@
     [cell.activityIndicator stopAnimating];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
-    NSLog(@"%@",fetchRequest);
+//    NSLog(@"%@",fetchRequest);
     
-    NSLog(@"cell article id:%@",[self.articleIdArray objectAtIndex:indexPath.row]);
+//    NSLog(@"cell article id:%@",[self.articleIdArray objectAtIndex:indexPath.row]);
     NSPredicate *predicate;
 //    if (_isSearching ==1) {
 //        predicate = [NSPredicate predicateWithFormat:@"articleId == %@",_articleIdFromSearchLst];
@@ -738,19 +740,19 @@
 
 //    }
     [fetchRequest setPredicate:predicate];
-    NSLog(@"%@",predicate);
+//    NSLog(@"%@",predicate);
 
     NSArray *newPerson =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    NSLog(@"%@",newPerson);
+//    NSLog(@"%@",newPerson);
 
     if(newPerson.count != 0) {
         NSManagedObject *curatedNews = [newPerson objectAtIndex:0];
-         NSLog(@"selected curated news:%@",curatedNews);
+//         NSLog(@"selected curated news:%@",curatedNews);
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             curatedNewsDetail = [curatedNews valueForKey:@"details"];
             curatedNewsAuthorDetail = [curatedNews valueForKey:@"authorDetails"];
-            NSLog(@"%@",curatedNewsDetail);
-            NSLog(@"%@",curatedNewsAuthorDetail);
+//            NSLog(@"%@",curatedNewsDetail);
+//            NSLog(@"%@",curatedNewsAuthorDetail);
 
             NSString *htmlString;
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
@@ -764,12 +766,12 @@
 
             }
             NSSet *relatedPostSet = [curatedNewsDetail valueForKey:@"relatedPost"];
-            NSLog(@"%@",relatedPostSet);
+//            NSLog(@"%@",relatedPostSet);
 
             NSMutableArray *postArray = [[NSMutableArray alloc]initWithArray:[relatedPostSet allObjects]];
-            NSLog(@"%@",postArray);
+//            NSLog(@"%@",postArray);
             
-            NSLog(@"%@",htmlString);
+//            NSLog(@"%@",htmlString);
             [cell.articleWebview loadHTMLString:htmlString baseURL:nil];
 
             if (self.isSearching) {
@@ -1159,7 +1161,7 @@
     CGSize maximumLabelSize = CGSizeMake(200, FLT_MAX);
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
-        NSLog(@"starting constraint:%f",cell.articleTitleHeightConstraint.constant);
+//        NSLog(@"starting constraint:%f",cell.articleTitleHeightConstraint.constant);
         //CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.articleTitle.font constrainedToSize:maximumLabelSize lineBreakMode:cell.articleTitle.lineBreakMode];
        // NSLog(@"title height:%f",expectedLabelSize.height);
         UIFont *myFont = [UIFont fontWithName:@"OpenSans-Semibold" size:24.0];
@@ -1167,7 +1169,7 @@
                                                                            options:NSStringDrawingUsesLineFragmentOrigin
                                                                         attributes:@{NSFontAttributeName:myFont}
                                                                            context:nil];
-        NSLog(@"another title calc:%f",textRect.size.height);
+//        NSLog(@"another title calc:%f",textRect.size.height);
         
         cell.articleTitleHeightConstraint.constant = textRect.size.height+10;
         
@@ -1177,7 +1179,7 @@
         
         CGSize maximumLabelSize = CGSizeMake(600, FLT_MAX);
         CGSize expectedLabelSize = [[curatedNews valueForKey:@"title"] sizeWithFont:cell.articleTitle.font constrainedToSize:maximumLabelSize lineBreakMode:cell.articleTitle.lineBreakMode];
-        NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
+//        NSLog(@"text %@ and text height:%f",[curatedNews valueForKey:@"title"],expectedLabelSize.height);
         
         
         cell.articleTitleHeightConstraint.constant = expectedLabelSize.height;
@@ -1281,7 +1283,7 @@
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
                 NSManagedObject *authorObjectOne = [authorArray objectAtIndex:0];
                 overallAuthorDetailOne = [authorObjectOne valueForKey:@"name"];
-                NSLog(@"%@",[FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"]doubleValue]]);
+//                NSLog(@"%@",[FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"]doubleValue]]);
                 
                 cell.articleDate.text = [FIUtils getDateFromTimeStamp:[[curatedNews valueForKey:@"publishedDate"] doubleValue]];
                 cell.articleOutlet.text = [curatedNews valueForKey:@"outlet"];

@@ -2794,16 +2794,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSLog(longPressActive ? @"yes" : @"No");
-    NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
-    
-    
-    
     if (longPressActive) { //Perform action desired when cell is long pressed
-        NSLog(@"%@",[selectedCells lastObject]);
         NSNumber *rowNsNum = [NSNumber numberWithInteger:indexPath.row];
         NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
-        NSLog(@"checked news:%@",curatedNews);
         NSString *articleId = [curatedNews valueForKey:@"articleId"];
         
         if ([selectedCells containsObject:rowNsNum])
@@ -2879,12 +2872,7 @@
             //        if([userAccountTypeId isEqualToString:@"3"]) {
             //            testView = [storyBoard instantiateViewControllerWithIdentifier:@"NormalView"];
             //        }else if([userAccountTypeId isEqualToString:@"2"] || [userAccountTypeId isEqualToString:@"1"]) {
-            NSLog(@"%@",_titleName);
-            NSLog(@"%ld",(long)indexPath.row);
-            NSLog(@"%@",indexPath);
-            NSLog(@"%d",isSearching);
-            NSLog(@"%@",articleIdToBePassed);
-            NSLog(@"chart selected value:%@",[NSNumber numberWithBool:isFromChart]);
+            
             testView = [storyBoard instantiateViewControllerWithIdentifier:@"UpgradeView"];
             testView.searchText = searchBar.text;
             testView.isFromChart = [NSNumber numberWithBool:isFromChart];
@@ -3238,7 +3226,7 @@
     // UITableView only moves in one direction, y axis
     currentOffset = scroll.contentOffset.y;
     CGFloat maximumOffset = scroll.contentSize.height - scroll.frame.size.height;
-    NSLog(@"Scrolling ---:%f",currentOffset);
+//    NSLog(@"Scrolling ---:%f",currentOffset);
     // Change 10.0 to adjust the distance from bottom
     if (maximumOffset - currentOffset <= 10.0) {
         //NSLog(@"tableview reach the limt");
