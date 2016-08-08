@@ -2514,10 +2514,12 @@
             cell.readStatusImageView.hidden = NO;
             cell.articleImageView.alpha = 0.5;
             cell.contentView.alpha = 1;
+            cell.title.alpha = 0.6;
         } else {
             cell.readStatusImageView.hidden = YES;
             cell.articleImageView.alpha = 1;
             cell.contentView.alpha = 1;
+            cell.title.alpha = 1.0;
         }
         
         //[self updateReadUnReadStatusForRow:indexPath];
@@ -2717,11 +2719,11 @@
     CorporateNewsCell *cell = (CorporateNewsCell *)[self.articlesTableView cellForRowAtIndexPath:indexPath];
     // BOOL isRead = [NSNumber numberWithBool:[curatedNews valueForKey:@"readStatus"]];
     if([number isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        // cell.title.alpha = 0.7f;
+         cell.title.alpha = 0.7f;
         cell.readStatusImageView.hidden = NO;
         cell.contentView.alpha = 1.0;
     } else {
-        // cell.title.alpha = 1.0f;
+         cell.title.alpha = 1.0f;
         cell.readStatusImageView.hidden = YES;
         cell.contentView.alpha = 1.0;
     }

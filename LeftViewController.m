@@ -124,7 +124,7 @@
     NSString *companyLogoImageStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyLogo"];
     NSString *companyNameStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"];
     
-    [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:companyLogoImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
+    [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:companyLogoImageStr] placeholderImage:nil];
     self.companyName.text = [companyNameStr uppercaseString];
     self.companyName.numberOfLines = 1;
     self.companyName.minimumFontSize = 8.;
@@ -717,7 +717,7 @@
     NSString *companyLogoImageStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyLogo"];
     NSString *companyNameStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"companyName"];
     
-    [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:companyLogoImageStr] placeholderImage:[UIImage imageNamed:@"FI"]];
+    [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:companyLogoImageStr] placeholderImage:nil];
     self.companyName.text = [companyNameStr uppercaseString];
     self.companyName.numberOfLines = 1;
     self.companyName.minimumFontSize = 8.;
@@ -1737,7 +1737,7 @@
                 
                 // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
                 // navCtlr.navigationBar.tintColor = [UIColor whiteColor];
-                [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"FI"]];
+                [self.companyLogo sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:nil];
                 [self.data removeAllObjects];
                 [treeView reloadData];
                 UIStoryboard *centerStoryBoard;
