@@ -519,8 +519,15 @@
                     } else {
                         
                     }
-                    
                     [self.collectionView reloadData];
+//                    
+//                    CGPoint currentOffset = [self.collectionView contentOffset];
+//                    self.currentIndex = currentOffset.x / self.collectionView.frame.size.width;
+//                    CGSize currentSize = self.collectionView.bounds.size;
+//                    int newValue = self.currentIndex+5;
+//                    float offset = newValue * currentSize.width;
+//                    [self.collectionView setContentOffset:CGPointMake(offset, 0)];
+                    
                 }
             }
         } else {
@@ -699,7 +706,8 @@
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"cell for item");
+    NSLog(@"cell for item:%ld",(long)indexPath
+          .row);
 //     NSLog(@"cell indexpath:%ld",(long)indexPath.row);
     self.selectedIndexPath = indexPath;
     self.selectedIndex = indexPath.row;

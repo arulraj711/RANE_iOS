@@ -357,6 +357,7 @@
                 } else {
                     if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:400]]){
                         [self hideProgressView];
+                        [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
                         [self showLoginView:[NSNumber numberWithInt:0]];
                     } else {
                         [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
@@ -955,7 +956,7 @@
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"Test"];
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"firstTimeFlag"];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNews" object:nil userInfo:@{@"isFromChart":[NSNumber numberWithBool:NO]}];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetailsUpdate" object:nil];
+            //[[NSNotificationCenter defaultCenter]postNotificationName:@"CuratedNewsDetailsUpdate" object:nil];
 
         }
         
