@@ -82,21 +82,21 @@
 -(void)getTopInfluencerChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withAPILink:(NSString *)apiLink;
 -(void)getTopStoriesChartInfoFromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withPageNo:(NSNumber *)pageNo withSize:(NSNumber *)size;
 
--(void)getTrendOfCoverageArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+-(void)getTrendOfCoverageArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withModules:(NSString *)modules withTags:(NSString *)tags withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
 
 -(BOOL)clearChartRelatedArticles:(NSString *)entity;//clear local chart article data
 
 
--(void)getKeyTopicsArticleListFromField1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+-(void)getKeyTopicsArticleListFromField1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withModules:(NSString *)modules withTags:(NSString *)tags withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
 
--(void)getMediaTypesArticleListFromMediaTypeField:(NSString *)mediaTypeId mediaTypeValue:(NSString *)mediaTypeValue fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+-(void)getMediaTypesArticleListFromMediaTypeField:(NSString *)mediaTypeId mediaTypeValue:(NSString *)mediaTypeValue fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate  withModules:(NSString *)modules withTags:(NSString *)tags withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
 
 
--(void)getSentimentOverTimeArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn field1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+-(void)getSentimentOverTimeArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn field1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withModules:(NSString *)modules withTags:(NSString *)tags withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
 
--(void)getChangeOverLastQuarterArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn field1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+-(void)getChangeOverLastQuarterArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn field1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withModules:(NSString *)modules withTags:(NSString *)tags withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
 
--(void)getHorizontalLineBarChartArticleListFromField1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+-(void)getHorizontalLineBarChartArticleListFromField1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withModules:(NSString *)modules withTags:(NSString *)tags withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
 
 -(void)downloadReportForReportId:(NSNumber *)reportId;
 

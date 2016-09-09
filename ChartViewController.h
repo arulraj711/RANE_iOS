@@ -14,6 +14,7 @@
 #import "CMPopTipView.h"
 #import "UIView+Toast.h"
 #import "ReportObject.h"
+#import "ReportTypeObject.h"
 @interface ChartViewController : UIViewController<ChartViewDelegate,CMPopTipViewDelegate,UITableViewDelegate,UITableViewDataSource>{
     NSArray *monthArray;
     NSArray *ValueArray;
@@ -50,6 +51,7 @@
     
     CMPopTipView *popTipView;
     ReportObject *reportObject;
+    ReportTypeObject *reportType;
     NSArray *xInputForMonths;
     int oh;
     

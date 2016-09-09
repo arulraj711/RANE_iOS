@@ -13,7 +13,16 @@
 
 @implementation FIUtils
 
-
++(NSString*)createChartAPILinkFromLink:(NSString *)apiLink withModuleId:(NSString *)moduleId withTagId:(NSString *)tagId {
+    NSString *APILink = apiLink;
+    
+    APILink = [APILink stringByReplacingOccurrencesOfString:@"{modules}"
+                                                 withString:moduleId];
+    
+    APILink = [APILink stringByReplacingOccurrencesOfString:@"{tags}"
+                                                 withString:tagId];
+    return APILink;
+}
 
 +(NSString*)getDateFromTimeStamp:(double)timeStamp {
     double unixTimeStamp = timeStamp;

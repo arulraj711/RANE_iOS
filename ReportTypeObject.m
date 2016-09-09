@@ -28,5 +28,32 @@
     //set report chart type
     NSDictionary *reportChartInfoDic = NULL_TO_NIL([dic objectForKey:@"reportType"]);
     self.reportChartTyepId = NULL_TO_NIL([reportChartInfoDic objectForKey:@"id"]);
+    
+    //set reportContentTypesForCustomer
+    self.reportContentTypesForCustomer = @"";
+    NSArray *reportContentTypesForCustomerArray = NULL_TO_NIL([dic objectForKey:@"reportContentTypesForCustomer"]);
+    for(NSDictionary *dictionary in reportContentTypesForCustomerArray) {
+        if(self.reportContentTypesForCustomer.length != 0) {
+            self.reportContentTypesForCustomer = [NSString stringWithFormat:@"%@,%@",self.reportContentTypesForCustomer,[[[dictionary objectForKey:@"contentTypeForCustomer"] objectForKey:@"contentType"] objectForKey:@"id"]];
+        } else {
+            self.reportContentTypesForCustomer = [NSString stringWithFormat:@"%@",[[[dictionary objectForKey:@"contentTypeForCustomer"] objectForKey:@"contentType"] objectForKey:@"id"]];
+        }
+        
+    }
+    NSLog(@"reportContentTypesForCustomerArray%@",self.reportContentTypesForCustomer);
+    
+    //set reportContentTypesForCustomer
+    self.reportFields = @"";
+    NSArray *reportFieldsArray = NULL_TO_NIL([dic objectForKey:@"reportFields"]);
+    for(NSDictionary *dictionary in reportFieldsArray) {
+        if(self.reportFields.length != 0) {
+            self.reportFields = [NSString stringWithFormat:@"%@,%@",self.reportFields,[[dictionary objectForKey:@"field"] objectForKey:@"id"]];
+        } else {
+            self.reportFields = [NSString stringWithFormat:@"%@",[[dictionary objectForKey:@"field"] objectForKey:@"id"]];
+        }
+        
+    }
+    NSLog(@"reportFields%@",self.reportFields);
+    
 }
 @end

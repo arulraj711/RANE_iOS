@@ -82,6 +82,8 @@
 @property NSNumber *mediaAnalysisArticleCount;
 //get the report type from chart
 @property (nonatomic,strong) NSNumber *reportTypeId;
+@property (nonatomic,strong) NSString *reportModules;
+@property (nonatomic,strong) NSString *reportTags;
 
 //get the trend of coverage input from chart selection
 @property (nonatomic,strong) NSString *clickedDate;

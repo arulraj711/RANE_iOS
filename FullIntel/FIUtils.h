@@ -35,4 +35,5 @@
 //+(NSDictionary *)getBrandingIdentityListFromPlistFile; //get branding identity list
 +(NSManagedObject *)getBrandFromBrandingIdentityForId:(NSNumber *)defaultLabelId;
 -(void)storeColorThemesFromBrandingDictionary:(NSDictionary *)dic;
++(NSString*)createChartAPILinkFromLink:(NSString *)apiLink withModuleId:(NSString *)moduleId withTagId:(NSString *)tagId;
 @end

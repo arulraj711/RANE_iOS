@@ -3724,13 +3724,13 @@
     }
 }
 
--(void)getTrendOfCoverageArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
+-(void)getTrendOfCoverageArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withModules:(NSString *)modules withTags:(NSString *)tags withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
     
     
     
     //webservice call
     if([self serviceIsReachable]) {
-        [FIWebService fetchTrendOfCoverageArticleListWithClickedDate:clickedDate EndDateIn:endDateIn fromDate:fromDate toDate:toDate withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService fetchTrendOfCoverageArticleListWithClickedDate:clickedDate EndDateIn:endDateIn fromDate:fromDate toDate:toDate withModules:modules withTags:tags withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             [self hideProgressView];//hide progress view
             
@@ -3789,10 +3789,10 @@
 }
 
 
--(void)getKeyTopicsArticleListFromField1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
+-(void)getKeyTopicsArticleListFromField1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withModules:(NSString *)modules withTags:(NSString *)tags withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
     
     if([self serviceIsReachable]) {
-        [FIWebService fetchKeyTopicsArticleListWithField1:field_1 value1:value_1 fromDate:fromDate toDate:toDate withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService fetchKeyTopicsArticleListWithField1:field_1 value1:value_1 fromDate:fromDate toDate:toDate withModules:modules withTags:tags withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
             [self hideProgressView];//hide progress view
             
@@ -3847,10 +3847,10 @@
     }
 }
 
--(void)getMediaTypesArticleListFromMediaTypeField:(NSString *)mediaTypeId mediaTypeValue:(NSString *)mediaTypeValue fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
+-(void)getMediaTypesArticleListFromMediaTypeField:(NSString *)mediaTypeId mediaTypeValue:(NSString *)mediaTypeValue fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate  withModules:(NSString *)modules withTags:(NSString *)tags withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
     
     if([self serviceIsReachable]) {
-        [FIWebService fetchMediaTypeArticleListWithMediaTypeField:mediaTypeId mediaTypeValue:mediaTypeValue fromDate:fromDate toDate:toDate withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withFilterBy:@"" withQuery:@"" onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService fetchMediaTypeArticleListWithMediaTypeField:mediaTypeId mediaTypeValue:mediaTypeValue fromDate:fromDate toDate:toDate withModules:modules withTags:tags withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withFilterBy:@"" withQuery:@"" onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             [self hideProgressView];//hide progress view
             
@@ -3906,10 +3906,10 @@
 }
 
 
--(void)getSentimentOverTimeArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn field1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
+-(void)getSentimentOverTimeArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn field1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withModules:(NSString *)modules withTags:(NSString *)tags withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
     
     if([self serviceIsReachable]) {
-        [FIWebService fetchSentimentAndVolumeOverTimeArticleListWithClickedDate:clickedDate EndDateIn:endDateIn field1:field_1 field2:field_2 value1:value_1 value2:value_2 fromDate:fromDate toDate:toDate withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService fetchSentimentAndVolumeOverTimeArticleListWithClickedDate:clickedDate EndDateIn:endDateIn field1:field_1 field2:field_2 value1:value_1 value2:value_2 fromDate:fromDate toDate:toDate withModules:modules withTags:tags withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             [self hideProgressView];//hide progress view
             
@@ -3965,10 +3965,10 @@
 
 }
 
--(void)getChangeOverLastQuarterArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn field1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
+-(void)getChangeOverLastQuarterArticleListFromDate:(NSString *)clickedDate endDateIn:(NSString *)endDateIn field1:(NSString *)field_1 value1:(NSString *)value_1 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withModules:(NSString *)modules withTags:(NSString *)tags withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId
 {
     if([self serviceIsReachable]) {
-        [FIWebService fetchChangeOverLastQuarterArticleListWithClickedDate:clickedDate EndDateIn:endDateIn field1:field_1 value1:value_1 fromDate:fromDate toDate:toDate withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService fetchChangeOverLastQuarterArticleListWithClickedDate:clickedDate EndDateIn:endDateIn field1:field_1 value1:value_1 fromDate:fromDate toDate:toDate withModules:modules withTags:tags withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             [self hideProgressView];//hide progress view
             
@@ -4024,10 +4024,10 @@
 }
 
 
--(void)getHorizontalLineBarChartArticleListFromField1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
+-(void)getHorizontalLineBarChartArticleListFromField1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withModules:(NSString *)modules withTags:(NSString *)tags withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId {
     
     if([self serviceIsReachable]) {
-        [FIWebService fetchHorizontalLineBarChartArticleListWithField1:field_1 field2:field_2 value1:value_1 value2:value_2 fromDate:fromDate toDate:toDate withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [FIWebService fetchHorizontalLineBarChartArticleListWithField1:field_1 field2:field_2 value1:value_1 value2:value_2 fromDate:fromDate toDate:toDate withModules:modules withTags:tags withPageNo:pageNo withSize:size withFilterBy:filterBy withQuery:query onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             [self hideProgressView];//hide progress view
             
