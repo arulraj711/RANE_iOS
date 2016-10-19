@@ -1501,6 +1501,7 @@
        // NSLog(@"after this");
         if([data.nodeId integerValue] == 9 && !data.isFolder) {
             //1111
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click MarkedImportant"];
             [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
             UIStoryboard *centerStoryBoard;
@@ -1537,6 +1538,7 @@
         } else if([data.nodeId integerValue] == 1 && !data.isFolder) {
             NSLog(@"row selection calling");
             //2222
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
             UIStoryboard *centerStoryBoard;
@@ -1572,6 +1574,7 @@
                 [[FISharedResources sharedResourceManager]getCuratedNewsListWithAccessToken:queryString withCategoryId:[NSNumber numberWithInt:-1] withContentTypeId:contentTypeId withFlag:@"" withLastArticleId:@"" withActivityTypeId:[NSNumber numberWithInt:0]];
             }
         } else if([data.nodeId integerValue] == 6 && !data.isFolder) {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click SavedForLater"];
             [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-3] forKey:@"categoryId"];
@@ -1609,6 +1612,7 @@
             CorporateNewsListViewObj.companyId = data.companyId;
             [self.revealController setFrontViewController:navCtlr];
         } else if([data.nodeId integerValue] == 7 && !data.isFolder) {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click InfluencerList"];
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
             {
@@ -1634,6 +1638,7 @@
 
             }
         }else if([data.nodeId integerValue] == 8 && !data.isFolder) {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Deals"];
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
             {
@@ -1657,6 +1662,7 @@
                 [self.revealController showViewController:self.revealController.frontViewController];
             }
         }else if([data.nodeId integerValue] == 2 && !data.isFolder) {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click StockWatch"];
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
             {
@@ -1680,6 +1686,7 @@
            
         }
         else if([data.nodeId integerValue] == 4 && !data.isFolder) {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click IpAndLegal"];
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
             {
@@ -1706,6 +1713,7 @@
             
             
         } else if([data.nodeId integerValue] == 5 && !data.isFolder) {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click ExecutiveMoves"];
             if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
             {
@@ -1730,7 +1738,7 @@
             
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-1000]]) {
             NSLog(@"hereeee");
-            
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Logout"];
             if([[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] isEqual:[NSNull null]]) {
                 //handle null securtiy token
@@ -1788,11 +1796,13 @@
        // NSLog(@"left click:%@",data.nodeId);
         if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-1000]]) {
             NSLog(@"one");
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:36]]) {
             NSLog(@"two");
             //Newsletter navigation
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Newsletter"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:1] forKey:@"newsletterId"];
@@ -1814,7 +1824,7 @@
             
             //codingforadd
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Add Content Main Menu"];
-            
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
             UIStoryboard *storyBoard;
             UINavigationController *modalController;
@@ -1833,6 +1843,7 @@
                                  
                              }];
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-400]]) {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestButtonClick"];
             UIStoryboard *centerStoryBoard;
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -1853,6 +1864,7 @@
             
             //research
         }else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:37]]) {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Media Analysis"];
             UIStoryboard *storyboard;
             UINavigationController *navCtlr;
@@ -1873,6 +1885,7 @@
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:35]]){
             // folder click
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Folder"];
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
             UIStoryboard *storyboard;
             UINavigationController *navCtlr;
@@ -1891,6 +1904,7 @@
             [self.revealController setFrontViewController:navCtlr];
         } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:38]]) {
             //daily digest menu
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isDailyDigest"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
             UIStoryboard *centerStoryBoard;
@@ -1928,7 +1942,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
             UIStoryboard *centerStoryBoard;
             UINavigationController *navCtlr;
-            
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             if(data.nodeId != nil) {
                 if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:35]]){
                     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Folder"];
@@ -1985,7 +1999,9 @@
             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
             if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:36]]) {
                 //NewsLetter Nav
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
             } else if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
                 [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
                 
@@ -2001,6 +2017,7 @@
                 // NSLog(@"empty node id");
             } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:11]]) {
                 NSLog(@"Communication Issue Click");
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
                 if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
                 {
                     [[NSUserDefaults standardUserDefaults] setObject:data.nodeId forKey:@"parentId"];
@@ -2032,6 +2049,11 @@
                 RADataObject *dataObj = [self.treeView parentForItem:item];
                 NSLog(@"parent name:%@",dataObj.name);
                 
+                if([dataObj.nodeId isEqualToNumber:[NSNumber numberWithInt:38]]) {
+                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isDailyDigest"];
+                } else {
+                    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isDailyDigest"];
+                }
                 
                 
                 NSString *inputJson;

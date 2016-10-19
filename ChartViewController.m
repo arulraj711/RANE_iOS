@@ -381,7 +381,12 @@
     NSNotification *notification = sender;
     NSDictionary *keyTopicsInfoDic = [[notification userInfo] objectForKey:@"KeyTopicsInfo"];
     NSLog(@"Key Topics Info --->%@",keyTopicsInfoDic);
-    keyTopicsDic = [keyTopicsInfoDic objectForKey:@"categoryCountMap"];
+    if([selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+        keyTopicsDic = [keyTopicsInfoDic objectForKey:@"categoryCountMap"];
+    } else if([selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:9]]) {
+        keyTopicsDic = [keyTopicsInfoDic objectForKey:@"tonalityCountMap"];
+    }
+    
     
     
     
@@ -405,6 +410,7 @@
     NSNotification *notification = sender;
     NSDictionary *mediaTypeInfoDic = [[notification userInfo] objectForKey:@"MediaTypeInfo"];
     NSLog(@"MediaType Info --->%@",mediaTypeInfoDic);
+    
     mediaTypesDic = NULL_TO_NIL([mediaTypeInfoDic objectForKey:@"mediaCountMap"]);
     NSArray *getKeysAndValues = [self getDictionaryAndGiveOutKeysAndPercentagesArray:mediaTypesDic];
     
@@ -1175,10 +1181,17 @@
 //    [colors addObject:[UIColor colorWithRed:66/255.f green:187/255.f blue:113/255.f alpha:1.f]];
 //    [colors addObject:[UIColor colorWithRed:201/255.f green:218/255.f blue:248/255.f alpha:1.f]];
 //    [colors addObject:[UIColor colorWithRed:247/255.f green:127/255.f blue:0/255.f alpha:1.f]];
-    for(int i=0;i<count;i++) {
-        [colors addObject:[self randomColor]];
-        
-    }
+        if([selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+            for(int i=0;i<count;i++) {
+                [colors addObject:[self randomColor]];
+                
+            }
+        } else if([selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:9]]) {
+            [colors addObject:[UIColor colorWithRed:216/255.f green:216/255.f blue:216/255.f alpha:1.f]];
+            [colors addObject:[UIColor colorWithRed:64/255.f green:211/255.f blue:133/255.f alpha:1.f]];
+            [colors addObject:[UIColor colorWithRed:255/255.f green:64/255.f blue:64/255.f alpha:1.f]];
+        }
+    
     
     dataSet.colors = colors;
     

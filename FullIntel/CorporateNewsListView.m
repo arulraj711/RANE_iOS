@@ -445,12 +445,24 @@
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+    BOOL isDailyDigestClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isDailyDigest"];
     NSLog(@"load curated news categoryId:%@ and folderid:%@ and contentTypeId:%@ and newsletterid:%@",categoryId,folderId,contentTypeId,newsLetterId);
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate;
     
-    if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    if(isDailyDigestClick) {
+        [self.revealController showViewController:self.revealController.frontViewController];
+        if(isSearching) {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isSearch == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithBool:isSearching],[NSNumber numberWithBool:NO]];
+        } else if(switchForFilter == 1) {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+        } else if(switchForFilter == 2) {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+        } else {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithBool:NO]];
+        }
+    } else if([newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]] && [folderId isEqualToNumber:[NSNumber numberWithInt:0]]) {
         if([categoryId isEqualToNumber:[NSNumber numberWithInt:-3]]) {
             if(isSearching) {
                 predicate  = [NSPredicate predicateWithFormat:@"saveForLater == %@ AND categoryId==%@ AND isSearch == %@ AND readStatus==%@",[NSNumber numberWithBool:YES],categoryId,[NSNumber numberWithBool:isSearching],[NSNumber numberWithBool:NO]];
@@ -1101,12 +1113,24 @@
     NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
     NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
     NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+    BOOL isDailyDigestClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isDailyDigest"];
     NSLog(@"load curated news categoryId:%@ and folderid:%@ and contentTypeId:%@ and newsletterid:%@",categoryId,folderId,contentTypeId,newsLetterId);
     self.devices = [[NSMutableArray alloc]init];
     NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
     NSPredicate *predicate;
-    if(isFromChart) {
+    if(isDailyDigestClick) {
+        [self.revealController showViewController:self.revealController.frontViewController];
+        if(isSearching) {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isSearch == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithBool:isSearching],[NSNumber numberWithBool:NO]];
+        } else if(switchForFilter == 1) {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+        } else if(switchForFilter == 2) {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithInt:switchForFilter],[NSNumber numberWithBool:NO]];
+        } else {
+            predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND readStatus==%@",newsLetterId,[NSNumber numberWithBool:NO]];
+        }
+    } else if(isFromChart) {
         //self.navigationItem.leftBarButtonItem = nil;
         //Handling chart article list
         if(isSearching) {
