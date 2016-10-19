@@ -51,7 +51,7 @@
     
     CMPopTipView *popTipView;
     ReportObject *reportObject;
-    ReportTypeObject *reportType;
+    ReportTypeObject *selectedReportType;
     NSArray *xInputForMonths;
     int oh;
     
@@ -77,7 +77,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (nonatomic,strong) NSString *titleString;
 @property (nonatomic,strong) NSIndexPath *selectedIndexPath;
-
+@property (nonatomic,strong) NSString *numberOfMonthForChangeOverLastQuarter;
 //common methods
 - (IBAction)savecharttodevice:(id)sender;
 - (IBAction)infoButtonClick:(id)sender;

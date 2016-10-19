@@ -252,6 +252,7 @@
     chartView.reportFromDate = reportListObj.reportFromDate;
     chartView.reportToDate = reportListObj.reportToDate;
     chartView.titleString = reportListObj.reportTitle;
+    chartView.numberOfMonthForChangeOverLastQuarter = reportListObj.numberOfMonth;
     [self.navigationController pushViewController:chartView animated:YES];
 }
 

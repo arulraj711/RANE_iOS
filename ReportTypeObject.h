@@ -20,8 +20,8 @@
 @property (nonatomic,strong) NSNumber *isdeleted;
 @property (nonatomic,strong) NSNumber *reportChartTyepId;
 @property (nonatomic,strong) NSString *apiLink;
-@property (nonatomic,strong) NSString *reportContentTypesForCustomer;
-@property (nonatomic,strong) NSString *reportFields;
+@property (nonatomic,strong) NSString *moduleIds;
+@property (nonatomic,strong) NSString *tagIds;
 @property (nonatomic,strong) ChartTypeObject *chartTypeObject;
 -(void)setReportTypeFromDictionary:(NSDictionary *)dic;
 @end

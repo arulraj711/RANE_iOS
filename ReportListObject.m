@@ -25,6 +25,7 @@
     self.modifiedDate = NULL_TO_NIL([dic objectForKey:@"modifiedDate"]);
     self.isdeleted =NULL_TO_NIL([dic objectForKey:@"deleted"]);
     self.articleCount = NULL_TO_NIL([dic objectForKey:@"articleCount"]);
+    self.numberOfMonth = [NSString stringWithFormat:@"%@",[[dic objectForKey:@"reportDateRange"] objectForKey:@"months"]];
 }
 
 @end

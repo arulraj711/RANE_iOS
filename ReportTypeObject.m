@@ -29,31 +29,38 @@
     NSDictionary *reportChartInfoDic = NULL_TO_NIL([dic objectForKey:@"reportType"]);
     self.reportChartTyepId = NULL_TO_NIL([reportChartInfoDic objectForKey:@"id"]);
     
-    //set reportContentTypesForCustomer
-    self.reportContentTypesForCustomer = @"";
+    //set module Ids
+    self.moduleIds = [NSString stringWithFormat:@"%@",@""];
     NSArray *reportContentTypesForCustomerArray = NULL_TO_NIL([dic objectForKey:@"reportContentTypesForCustomer"]);
-    for(NSDictionary *dictionary in reportContentTypesForCustomerArray) {
-        if(self.reportContentTypesForCustomer.length != 0) {
-            self.reportContentTypesForCustomer = [NSString stringWithFormat:@"%@,%@",self.reportContentTypesForCustomer,[[[dictionary objectForKey:@"contentTypeForCustomer"] objectForKey:@"contentType"] objectForKey:@"id"]];
-        } else {
-            self.reportContentTypesForCustomer = [NSString stringWithFormat:@"%@",[[[dictionary objectForKey:@"contentTypeForCustomer"] objectForKey:@"contentType"] objectForKey:@"id"]];
+    if(reportContentTypesForCustomerArray.count != 0) {
+        
+        for(NSDictionary *dic in reportContentTypesForCustomerArray) {
+            if(self.moduleIds.length == 0) {
+                self.moduleIds = [NSString stringWithFormat:@"%@",NULL_TO_NIL([[[dic objectForKey:@"contentTypeForCustomer"] objectForKey:@"contentType"] objectForKey:@"id"])];
+            } else {
+                self.moduleIds = [NSString stringWithFormat:@"%@,%@",self.moduleIds,NULL_TO_NIL([[[dic objectForKey:@"contentTypeForCustomer"] objectForKey:@"contentType"] objectForKey:@"id"])];
+            }
+            
         }
         
+        
     }
-    NSLog(@"reportContentTypesForCustomerArray%@",self.reportContentTypesForCustomer);
     
-    //set reportContentTypesForCustomer
-    self.reportFields = @"";
+    //set tag Ids
+    self.tagIds = [NSString stringWithFormat:@"%@",@""];
     NSArray *reportFieldsArray = NULL_TO_NIL([dic objectForKey:@"reportFields"]);
-    for(NSDictionary *dictionary in reportFieldsArray) {
-        if(self.reportFields.length != 0) {
-            self.reportFields = [NSString stringWithFormat:@"%@,%@",self.reportFields,[[dictionary objectForKey:@"field"] objectForKey:@"id"]];
-        } else {
-            self.reportFields = [NSString stringWithFormat:@"%@",[[dictionary objectForKey:@"field"] objectForKey:@"id"]];
+    if(reportFieldsArray.count != 0) {
+        
+        for(NSDictionary *dic in reportFieldsArray) {
+            if(self.tagIds.length == 0) {
+                self.tagIds = [NSString stringWithFormat:@"%@",NULL_TO_NIL([[dic objectForKey:@"field"] objectForKey:@"id"])];
+            } else  {
+                self.tagIds = [NSString stringWithFormat:@"%@,%@",self.tagIds,NULL_TO_NIL([[dic objectForKey:@"field"] objectForKey:@"id"])];
+            }
+            
         }
         
     }
-    NSLog(@"reportFields%@",self.reportFields);
     
 }
 @end

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1808" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycQ-BJ-LHx">
@@ -39,7 +39,7 @@
                             <action selector="additionButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="GTB-gZ-3Vg"/>
                         </connections>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="markedImp" translatesAutoresizingMaskIntoConstraints="NO" id="jGr-gU-7RH">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jGr-gU-7RH">
                         <rect key="frame" x="15" y="12" width="15" height="15"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -54,10 +54,6 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rss_icon" translatesAutoresizingMaskIntoConstraints="NO" id="5Ri-QU-86W">
-                        <rect key="frame" x="265" y="12" width="15" height="15"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -75,15 +71,10 @@
                 <outlet property="expandButton" destination="RCW-5S-Op6" id="5zg-WL-aP9"/>
                 <outlet property="iconImage" destination="jGr-gU-7RH" id="BAZ-yF-Rmu"/>
                 <outlet property="iconWidthConstraint" destination="v4j-Me-8vW" id="LMP-bD-LLO"/>
-                <outlet property="rssImage" destination="5Ri-QU-86W" id="u8C-te-GMb"/>
                 <outlet property="titleConstraint" destination="ZoV-yi-P5E" id="FwI-GA-XeG"/>
                 <outlet property="titleWidthConstraint" destination="Mex-ZI-vdx" id="YfT-Ca-aN5"/>
             </connections>
             <point key="canvasLocation" x="213" y="155"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="markedImp" width="15" height="15"/>
-        <image name="rss_icon" width="16" height="16"/>
-    </resources>
 </document>

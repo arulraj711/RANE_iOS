@@ -105,6 +105,7 @@
   if (level == 0) {
     self.detailTextLabel.textColor = [UIColor blackColor];
   }
+    self.titleConstraint.constant = 6+20*level;
   
 //  if (level == 0) {
 //    self.backgroundColor = UIColorFromRGB(0xF7F7F7);
@@ -115,30 +116,30 @@
 //  }
   
     
-    CGFloat left;
-//    if([[title uppercaseString] isEqualToString:@"MARKED IMPORTANT"]) {
-//        left = 40 + 11 + 20 * level;
-//        self.iconImage.hidden = NO;
-//        self.iconImage.image = [UIImage imageNamed:@"markedImp"];
-//    } else if([[title uppercaseString] isEqualToString:@"SAVED FOR LATER"]) {
-//        left = 40 + 11 + 20 * level;
-//        self.iconImage.hidden = NO;
-//        self.iconImage.image = [UIImage imageNamed:@"savedForLater"];
-//    } else if([[title uppercaseString] isEqualToString:@"LOGOUT"]) {
-//        left = 40 + 11 + 20 * level;
-//        self.iconImage.hidden = NO;
-//        self.iconImage.image = [UIImage imageNamed:@"logout"];
-//    } else {
-//        left = 34 + 20 * level;
-//        self.iconImage.hidden = YES;
-//    }
-  CGRect titleFrame = self.customTitleLabel.frame;
-  titleFrame.origin.x = left;
-  self.customTitleLabel.frame = titleFrame;
-  
-  CGRect detailsFrame = self.detailedLabel.frame;
-  detailsFrame.origin.x = left;
-  self.detailedLabel.frame = detailsFrame;
+//    CGFloat left;
+////    if([[title uppercaseString] isEqualToString:@"MARKED IMPORTANT"]) {
+////        left = 40 + 11 + 20 * level;
+////        self.iconImage.hidden = NO;
+////        self.iconImage.image = [UIImage imageNamed:@"markedImp"];
+////    } else if([[title uppercaseString] isEqualToString:@"SAVED FOR LATER"]) {
+////        left = 40 + 11 + 20 * level;
+////        self.iconImage.hidden = NO;
+////        self.iconImage.image = [UIImage imageNamed:@"savedForLater"];
+////    } else if([[title uppercaseString] isEqualToString:@"LOGOUT"]) {
+////        left = 40 + 11 + 20 * level;
+////        self.iconImage.hidden = NO;
+////        self.iconImage.image = [UIImage imageNamed:@"logout"];
+////    } else {
+////        left = 34 + 20 * level;
+////        self.iconImage.hidden = YES;
+////    }
+//  CGRect titleFrame = self.customTitleLabel.frame;
+//  titleFrame.origin.x = left;
+//  self.customTitleLabel.frame = titleFrame;
+//  
+//  CGRect detailsFrame = self.detailedLabel.frame;
+//  detailsFrame.origin.x = left;
+//  self.detailedLabel.frame = detailsFrame;
 }
 
 

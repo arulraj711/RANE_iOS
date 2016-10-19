@@ -22,6 +22,7 @@
 @property (nonatomic,strong) NSNumber *modifiedDate;
 @property (nonatomic,strong) NSNumber *articleCount;
 @property (nonatomic,strong) NSNumber *isdeleted;
+@property (nonatomic,strong) NSString *numberOfMonth;
 
 -(void)setReportListObjectFromDictionary:(NSDictionary *)dic;
 @end

@@ -23,6 +23,7 @@
 @interface RADataObject : NSObject
 
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *iconURL;
 @property (strong, nonatomic) NSArray *children;
 @property (strong,nonatomic) NSNumber *nodeId;
 @property (strong,nonatomic) NSNumber *unReadCount;

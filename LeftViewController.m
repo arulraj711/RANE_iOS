@@ -889,59 +889,59 @@
     
     
     
-    RADataObject *folderDataObj = [[RADataObject alloc]init];
-    
-    NSManagedObject *foldersBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:17]];
-    NSString *foldersBrandName = [NSString stringWithFormat:@"%@",[foldersBrandingIdentity valueForKey:@"name"]];
-    if(foldersBrandName.length != 0) {
-        folderDataObj.name = [[foldersBrandingIdentity valueForKey:@"name"] uppercaseString];
-        folderDataObj.nodeId = [NSNumber numberWithInt:-100];
-        folderDataObj.isFolder = YES;
-        NSMutableArray *childArray = [[NSMutableArray alloc]init];
-        //NSArray *menuArray = menu.listArray;
-        for(int i=0; i<folderArray.count; i++) {
-            RADataObject *insideMenu = [[RADataObject alloc]init];
-            FIFolder *folder = [folderArray objectAtIndex:i];
-            insideMenu.nodeId = folder.folderId;
-            insideMenu.name = [folder.folderName uppercaseString];
-            insideMenu.isFolder = YES;
-            [childArray addObject:insideMenu];
-        }
-        folderDataObj.children = nil;
-        [self.data addObject:folderDataObj];
-    }
-    
-    
-    //Add newsletter menu
-    RADataObject *newsLetterObj = [[RADataObject alloc]init];
-    
-    NSManagedObject *dailyDigestBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:16]];
-    NSString *dailyDigestBrandName = [NSString stringWithFormat:@"%@",[dailyDigestBrandingIdentity valueForKey:@"name"]];
-    if(dailyDigestBrandName.length != 0) {
-        newsLetterObj.name = [[dailyDigestBrandingIdentity valueForKey:@"name"] uppercaseString];
-        newsLetterObj.nodeId = [NSNumber numberWithInt:-200];
-        newsLetterObj.children = nil;
-        [self.data addObject:newsLetterObj];
-    }
-    
-    
-    NSNumber *userAnalysisReportEnabled = [[NSUserDefaults standardUserDefaults]valueForKey:@"UserAnalysisReportEnabled"];
-    NSNumber *companyAnalysisReportEnabled = [[NSUserDefaults standardUserDefaults]valueForKey:@"CompanyAnalysisReportEnabled"];
-    if([userAnalysisReportEnabled isEqualToNumber:[NSNumber numberWithInt:1]] && [companyAnalysisReportEnabled isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        //Media Analysis menu
-        RADataObject *mediaAnalysis = [[RADataObject alloc]init];
-        
-        NSManagedObject *mediaAnalysisBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:18]];
-        NSString *mediaAnalysisBrandName = [[NSString stringWithFormat:@"%@",[mediaAnalysisBrandingIdentity valueForKey:@"name"]] uppercaseString];
-        if(mediaAnalysisBrandName.length != 0) {
-            mediaAnalysis.name = [[mediaAnalysisBrandingIdentity valueForKey:@"name"] uppercaseString];
-            mediaAnalysis.nodeId = [NSNumber numberWithInt:-500];
-            mediaAnalysis.children = nil;
-            [self.data addObject:mediaAnalysis];
-        }
-        
-        
-    }
+//    RADataObject *folderDataObj = [[RADataObject alloc]init];
+//    
+//    NSManagedObject *foldersBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:17]];
+//    NSString *foldersBrandName = [NSString stringWithFormat:@"%@",[foldersBrandingIdentity valueForKey:@"name"]];
+//    if(foldersBrandName.length != 0) {
+//        folderDataObj.name = [[foldersBrandingIdentity valueForKey:@"name"] uppercaseString];
+//        folderDataObj.nodeId = [NSNumber numberWithInt:-100];
+//        folderDataObj.isFolder = YES;
+//        NSMutableArray *childArray = [[NSMutableArray alloc]init];
+//        //NSArray *menuArray = menu.listArray;
+//        for(int i=0; i<folderArray.count; i++) {
+//            RADataObject *insideMenu = [[RADataObject alloc]init];
+//            FIFolder *folder = [folderArray objectAtIndex:i];
+//            insideMenu.nodeId = folder.folderId;
+//            insideMenu.name = [folder.folderName uppercaseString];
+//            insideMenu.isFolder = YES;
+//            [childArray addObject:insideMenu];
+//        }
+//        folderDataObj.children = nil;
+//        [self.data addObject:folderDataObj];
+//    }
+//    
+//    
+//    //Add newsletter menu
+//    RADataObject *newsLetterObj = [[RADataObject alloc]init];
+//    
+//    NSManagedObject *dailyDigestBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:16]];
+//    NSString *dailyDigestBrandName = [NSString stringWithFormat:@"%@",[dailyDigestBrandingIdentity valueForKey:@"name"]];
+//    if(dailyDigestBrandName.length != 0) {
+//        newsLetterObj.name = [[dailyDigestBrandingIdentity valueForKey:@"name"] uppercaseString];
+//        newsLetterObj.nodeId = [NSNumber numberWithInt:-200];
+//        newsLetterObj.children = nil;
+//        [self.data addObject:newsLetterObj];
+//    }
+//    
+//    
+//    NSNumber *userAnalysisReportEnabled = [[NSUserDefaults standardUserDefaults]valueForKey:@"UserAnalysisReportEnabled"];
+//    NSNumber *companyAnalysisReportEnabled = [[NSUserDefaults standardUserDefaults]valueForKey:@"CompanyAnalysisReportEnabled"];
+//    if([userAnalysisReportEnabled isEqualToNumber:[NSNumber numberWithInt:1]] && [companyAnalysisReportEnabled isEqualToNumber:[NSNumber numberWithInt:1]]) {
+//        //Media Analysis menu
+//        RADataObject *mediaAnalysis = [[RADataObject alloc]init];
+//        
+//        NSManagedObject *mediaAnalysisBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:18]];
+//        NSString *mediaAnalysisBrandName = [[NSString stringWithFormat:@"%@",[mediaAnalysisBrandingIdentity valueForKey:@"name"]] uppercaseString];
+//        if(mediaAnalysisBrandName.length != 0) {
+//            mediaAnalysis.name = [[mediaAnalysisBrandingIdentity valueForKey:@"name"] uppercaseString];
+//            mediaAnalysis.nodeId = [NSNumber numberWithInt:-500];
+//            mediaAnalysis.children = nil;
+//            [self.data addObject:mediaAnalysis];
+//        }
+//        
+//        
+//    }
     
     
     
@@ -1204,6 +1204,15 @@
 //        [[NSUserDefaults standardUserDefaults]setObject:badgeNumber forKey:@"badgeNumber"];
 //    }
     
+    /* code for setting menu icon images */
+    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-1000]]) {
+        cell.iconImage.image = [UIImage imageNamed:@"logout"];
+    } else {
+        if(![dataObject.iconURL isKindOfClass:[NSNull class]]) {
+            [cell.iconImage sd_setImageWithURL:[NSURL URLWithString:dataObject.iconURL] placeholderImage:nil];
+        }
+    }
+    
     
     BOOL expanded = [self.treeView isCellForItemExpanded:item];
     if(expanded) {
@@ -1251,126 +1260,126 @@
     
     
     
-    CGFloat left;
-    if(!dataObject.isFolder) {
-        if([dataObject.nodeId integerValue] == 9) {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9;
-            cell.titleWidthConstraint.constant = 160;
-            left = 40 + 11 + 20 * level;
-            cell.iconImage.hidden = NO;
-            
-            [cell.iconImage setTintColor:[UIColor menuTextColor]];
-            [cell.iconImage setImage:[[UIImage imageNamed:@"markedImp"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-            //[cell.customTitleLabel textColor:[UIColor menuTextColor]];
-//            cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
-//            cell.iconImage.tintColor = [UIColor redColor];
-        } else if([dataObject.nodeId integerValue] == 6) {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9;
-            cell.titleWidthConstraint.constant = 160;
-            left = 40 + 11 + 20 * level;
-            cell.iconImage.hidden = NO;
-            [cell.iconImage setTintColor:[UIColor menuTextColor]];
-            [cell.iconImage setImage:[[UIImage imageNamed:@"savedForLater"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-            //cell.iconImage.image = [UIImage imageNamed:@"savedForLater"];
-        } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-1000]]) {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9;
-            cell.titleWidthConstraint.constant = 160;
-            left = 40 + 11 + 20 * level;
-            cell.iconImage.hidden = NO;
-            [cell.iconImage setTintColor:[UIColor menuTextColor]];
-            [cell.iconImage setImage:[[UIImage imageNamed:@"logout"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-            //cell.iconImage.image = [UIImage imageNamed:@"logout"];
-        } else {
-            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9+10*level;
-            cell.titleWidthConstraint.constant = 185;
-            left = 34 + 20 * level;
-            cell.iconImage.hidden = YES;
-        }
-    } else {
-        if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]) {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9;
-            cell.titleWidthConstraint.constant = 160;
-            left = 40 + 11 + 20 * level;
-            cell.iconImage.hidden = NO;
-            [cell.iconImage setTintColor:[UIColor menuTextColor]];
-            [cell.iconImage setImage:[[UIImage imageNamed:@"folder_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-            //cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
-            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-        }else {
-            cell.iconWidthConstraint.constant =15;
-            cell.titleConstraint.constant = 9+10*level;
-            cell.titleWidthConstraint.constant = 185;
-            left = 34 + 20 * level;
-            cell.iconImage.hidden = YES;
-            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-        }
-    }
-    
-    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
-        //For Daily Digest
-        cell.iconWidthConstraint.constant =15;
-        cell.titleConstraint.constant = 9;
-        cell.titleWidthConstraint.constant = 160;
-        left = 40 + 11 + 20 * level;
-        cell.iconImage.hidden = NO;
-        [cell.iconImage setTintColor:[UIColor menuTextColor]];
-        [cell.iconImage setImage:[[UIImage imageNamed:@"dailydigest_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-        //cell.iconImage.image = [UIImage imageNamed:@"dailydigest_menu"];
-        cell.customTitleLabel.textColor = [UIColor menuTextColor];
-    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-300]]) {
-        //For Add Content
-        cell.iconWidthConstraint.constant =15;
-        cell.titleConstraint.constant = 9;
-        cell.titleWidthConstraint.constant = 160;
-        left = 40 + 11 + 20 * level;
-        cell.iconImage.hidden = NO;
-        [cell.iconImage setTintColor:[UIColor menuTextColor]];
-        [cell.iconImage setImage:[[UIImage imageNamed:@"addcontent_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-        //cell.iconImage.image = [UIImage imageNamed:@"addcontent_menu"];
-        cell.customTitleLabel.textColor = [UIColor menuTextColor];
-    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-400]])  {
-        //For Research request
-        cell.iconWidthConstraint.constant =15;
-        cell.titleConstraint.constant = 9;
-        cell.titleWidthConstraint.constant = 160;
-        left = 40 + 11 + 20 * level;
-        cell.iconImage.hidden = NO;
-        [cell.iconImage setTintColor:[UIColor menuTextColor]];
-        [cell.iconImage setImage:[[UIImage imageNamed:@"researchReq"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-        //cell.iconImage.image = [UIImage imageNamed:@"researchReq"];
-        cell.customTitleLabel.textColor = [UIColor menuTextColor];
-    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-500]]) {
-        //For Media Analysis
-        cell.iconWidthConstraint.constant =15;
-        cell.titleConstraint.constant = 9;
-        cell.titleWidthConstraint.constant = 160;
-        left = 40 + 11 + 20 * level;
-        cell.iconImage.hidden = NO;
-        [cell.iconImage setTintColor:[UIColor menuTextColor]];
-        [cell.iconImage setImage:[[UIImage imageNamed:@"mediaanalysis_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-        //cell.iconImage.image = [UIImage imageNamed:@"mediaanalysis_menu"];
-        cell.customTitleLabel.textColor = [UIColor menuTextColor];
-    }
-    
-    
-    if([[dataObject.name uppercaseString]isEqualToString:@"RSS"]) {
-        cell.rssImage.hidden = NO;
-    } else {
-        cell.rssImage.hidden = YES;
-    }
-    
-    CGRect titleFrame = cell.customTitleLabel.frame;
-    titleFrame.origin.x = left;
-    cell.customTitleLabel.frame = titleFrame;
+//    CGFloat left;
+//    if(!dataObject.isFolder) {
+//        if([dataObject.nodeId integerValue] == 9) {
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9;
+//            cell.titleWidthConstraint.constant = 160;
+//            left = 40 + 11 + 20 * level;
+//            cell.iconImage.hidden = NO;
+//            
+//            [cell.iconImage setTintColor:[UIColor menuTextColor]];
+//            [cell.iconImage setImage:[[UIImage imageNamed:@"markedImp"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
+//            //[cell.customTitleLabel textColor:[UIColor menuTextColor]];
+////            cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
+////            cell.iconImage.tintColor = [UIColor redColor];
+//        } else if([dataObject.nodeId integerValue] == 6) {
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9;
+//            cell.titleWidthConstraint.constant = 160;
+//            left = 40 + 11 + 20 * level;
+//            cell.iconImage.hidden = NO;
+//            [cell.iconImage setTintColor:[UIColor menuTextColor]];
+//            [cell.iconImage setImage:[[UIImage imageNamed:@"savedForLater"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
+//            //cell.iconImage.image = [UIImage imageNamed:@"savedForLater"];
+//        } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-1000]]) {
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9;
+//            cell.titleWidthConstraint.constant = 160;
+//            left = 40 + 11 + 20 * level;
+//            cell.iconImage.hidden = NO;
+//            [cell.iconImage setTintColor:[UIColor menuTextColor]];
+//            [cell.iconImage setImage:[[UIImage imageNamed:@"logout"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
+//            //cell.iconImage.image = [UIImage imageNamed:@"logout"];
+//        } else {
+//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9+10*level;
+//            cell.titleWidthConstraint.constant = 185;
+//            left = 34 + 20 * level;
+//            cell.iconImage.hidden = YES;
+//        }
+//    } else {
+//        if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]) {
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9;
+//            cell.titleWidthConstraint.constant = 160;
+//            left = 40 + 11 + 20 * level;
+//            cell.iconImage.hidden = NO;
+//            [cell.iconImage setTintColor:[UIColor menuTextColor]];
+//            [cell.iconImage setImage:[[UIImage imageNamed:@"folder_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+//            //cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
+//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
+//        }else {
+//            cell.iconWidthConstraint.constant =15;
+//            cell.titleConstraint.constant = 9+10*level;
+//            cell.titleWidthConstraint.constant = 185;
+//            left = 34 + 20 * level;
+//            cell.iconImage.hidden = YES;
+//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
+//        }
+//    }
+//    
+//    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
+//        //For Daily Digest
+//        cell.iconWidthConstraint.constant =15;
+//        cell.titleConstraint.constant = 9;
+//        cell.titleWidthConstraint.constant = 160;
+//        left = 40 + 11 + 20 * level;
+//        cell.iconImage.hidden = NO;
+//        [cell.iconImage setTintColor:[UIColor menuTextColor]];
+//        [cell.iconImage setImage:[[UIImage imageNamed:@"dailydigest_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+//        //cell.iconImage.image = [UIImage imageNamed:@"dailydigest_menu"];
+//        cell.customTitleLabel.textColor = [UIColor menuTextColor];
+//    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-300]]) {
+//        //For Add Content
+//        cell.iconWidthConstraint.constant =15;
+//        cell.titleConstraint.constant = 9;
+//        cell.titleWidthConstraint.constant = 160;
+//        left = 40 + 11 + 20 * level;
+//        cell.iconImage.hidden = NO;
+//        [cell.iconImage setTintColor:[UIColor menuTextColor]];
+//        [cell.iconImage setImage:[[UIImage imageNamed:@"addcontent_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+//        //cell.iconImage.image = [UIImage imageNamed:@"addcontent_menu"];
+//        cell.customTitleLabel.textColor = [UIColor menuTextColor];
+//    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-400]])  {
+//        //For Research request
+//        cell.iconWidthConstraint.constant =15;
+//        cell.titleConstraint.constant = 9;
+//        cell.titleWidthConstraint.constant = 160;
+//        left = 40 + 11 + 20 * level;
+//        cell.iconImage.hidden = NO;
+//        [cell.iconImage setTintColor:[UIColor menuTextColor]];
+//        [cell.iconImage setImage:[[UIImage imageNamed:@"researchReq"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+//        //cell.iconImage.image = [UIImage imageNamed:@"researchReq"];
+//        cell.customTitleLabel.textColor = [UIColor menuTextColor];
+//    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-500]]) {
+//        //For Media Analysis
+//        cell.iconWidthConstraint.constant =15;
+//        cell.titleConstraint.constant = 9;
+//        cell.titleWidthConstraint.constant = 160;
+//        left = 40 + 11 + 20 * level;
+//        cell.iconImage.hidden = NO;
+//        [cell.iconImage setTintColor:[UIColor menuTextColor]];
+//        [cell.iconImage setImage:[[UIImage imageNamed:@"mediaanalysis_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+//        //cell.iconImage.image = [UIImage imageNamed:@"mediaanalysis_menu"];
+//        cell.customTitleLabel.textColor = [UIColor menuTextColor];
+//    }
+//    
+//    
+//    if([[dataObject.name uppercaseString]isEqualToString:@"RSS"]) {
+//        cell.rssImage.hidden = NO;
+//    } else {
+//        cell.rssImage.hidden = YES;
+//    }
+//    
+//    CGRect titleFrame = cell.customTitleLabel.frame;
+//    titleFrame.origin.x = left;
+//    cell.customTitleLabel.frame = titleFrame;
     
     
 //    NSString *highlightColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
@@ -1781,7 +1790,7 @@
             NSLog(@"one");
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
-        } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
+        } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:36]]) {
             NSLog(@"two");
             //Newsletter navigation
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Newsletter"];
@@ -1843,7 +1852,7 @@
             
             
             //research
-        }else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-500]]) {
+        }else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:37]]) {
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Media Analysis"];
             UIStoryboard *storyboard;
             UINavigationController *navCtlr;
@@ -1861,6 +1870,59 @@
             
             
             //research
+        } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:35]]){
+            // folder click
+            [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Folder"];
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
+            UIStoryboard *storyboard;
+            UINavigationController *navCtlr;
+            
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+                storyboard = [UIStoryboard storyboardWithName:@"FolderViewPhone" bundle:nil];
+                navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+                
+            } else {
+                storyboard = [UIStoryboard storyboardWithName:@"FolderView" bundle:nil];
+                navCtlr = [storyboard instantiateViewControllerWithIdentifier:@"FolderView"];
+                
+            }
+            FolderViewController *folderViewObject=(FolderViewController *)[[navCtlr viewControllers]objectAtIndex:0];
+            folderViewObject.titleName = data.name;
+            [self.revealController setFrontViewController:navCtlr];
+        } else if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:38]]) {
+            //daily digest menu
+            [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
+            UIStoryboard *centerStoryBoard;
+            UINavigationController *navCtlr;
+            
+            
+            if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+            {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+                navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateViewPhone"];
+                
+                
+            } else {
+                centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+                navCtlr = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateView"];
+                
+                
+            }
+            CorporateNewsListView *CorporateNewsListViewObj=(CorporateNewsListView *)[[navCtlr viewControllers]objectAtIndex:0];
+            CorporateNewsListViewObj.mediaAnalysisArticleCount = [NSNumber numberWithInt:0];
+            CorporateNewsListViewObj.titleName=data.name;
+            CorporateNewsListViewObj.companyId = data.companyId;
+            [self.revealController setFrontViewController:navCtlr];
+            
+            NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+            if(accessToken.length > 0) {
+                [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:-1] forKey:@"categoryId"];
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"parentId"];
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];
+                
+                [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:[NSNumber numberWithInt:0] withPageNo:[NSNumber numberWithInt:0] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO withQuery:@"" withFilterBy:@""];
+            }
         }else if(data.isFolder){
             NSLog(@"three");
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
@@ -1868,7 +1930,7 @@
             UINavigationController *navCtlr;
             
             if(data.nodeId != nil) {
-                if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]){
+                if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:35]]){
                     [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Folder"];
                     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
                     UIStoryboard *storyboard;
@@ -1921,7 +1983,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"newsletterId"];
            // NSLog(@"four");
             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isRSSField"];
-            if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
+            if([data.nodeId isEqualToNumber:[NSNumber numberWithInt:36]]) {
                 //NewsLetter Nav
             } else if([data.nodeId integerValue] == 1 || [data.nodeId integerValue] == 9 || [data.nodeId integerValue] == 6 || [data.nodeId integerValue] == 7 || [data.nodeId integerValue]==2 || [data.nodeId integerValue]==8 || [data.nodeId integerValue]==4 || [data.nodeId integerValue]==5) {
                 [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:0] forKey:@"folderId"];

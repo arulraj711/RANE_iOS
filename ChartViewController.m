@@ -39,6 +39,7 @@
     [chartIcon addObject:@"issue_chart6"];
     [chartIcon addObject:@"issue_chart6"];
     [chartIcon addObject:@"issue_chart6"];
+    [chartIcon addObject:@"issue_chart2"];
 
     
     chartName = [[NSMutableArray alloc]init];
@@ -50,6 +51,7 @@
     [chartName addObject:@"Top Sources"];
     [chartName addObject:@"Top Journalists"];
     [chartName addObject:@"Top Influencers"];
+    [chartName addObject:@"Sentiment"];
 
     selectedChatIcon = [[NSMutableArray alloc]init];
     [selectedChatIcon addObject:@"selected_issue_chart3"];
@@ -60,6 +62,7 @@
     [selectedChatIcon addObject:@"selected_issue_chart6"];
     [selectedChatIcon addObject:@"selected_issue_chart6"];
     [selectedChatIcon addObject:@"selected_issue_chart6"];
+    [selectedChatIcon addObject:@"selected_issue_chart2"];
 
     
   //  typeOfChart = 0;
@@ -241,7 +244,7 @@
     NSNotification *notification = sender;
     reportObject = [[notification userInfo] objectForKey:@"reportObject"];
     NSLog(@"Report Object:%@",reportObject);
-    reportType = [reportObject.reportTypeArray objectAtIndex:0];
+    ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:0];
 
 //    NSString *apiLink = reportType.apiLink;
 //    
@@ -250,7 +253,7 @@
 //    
 //    apiLink = [apiLink stringByReplacingOccurrencesOfString:@"{tags}"
 //                                                 withString:reportType.reportFields];
-    NSString *apiLink = [FIUtils createChartAPILinkFromLink:reportType.apiLink withModuleId:reportType.reportContentTypesForCustomer withTagId:reportType.reportFields];
+    NSString *apiLink = [FIUtils modifiedAPILinkForLink:reportType.apiLink withModuleId:reportType.moduleIds withTagId:reportType.tagIds];
     
     [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     
@@ -986,24 +989,24 @@
     NSLog(@"%ld",(long)indexPath.item);
     [reverseOrderBkUp removeAllObjects];
     [reverseOrdersBkUp removeAllObjects];
-    ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:indexPath.row];
-    ChartTypeObject *chartType = reportType.chartTypeObject;
-    
+    NSLog(@"reporttype array count:%lu",(unsigned long)reportObject.reportTypeArray.count);
+    selectedReportType = [reportObject.reportTypeArray objectAtIndex:indexPath.row];
+    ChartTypeObject *chartType = selectedReportType.chartTypeObject;
     self.selectedIndexPath = indexPath;
-
-    NSString *descriptionText = [NSString stringWithFormat:@"%@",reportType.reportSummary];
+    
+    NSString *descriptionText = [NSString stringWithFormat:@"%@",selectedReportType.reportSummary];
     descText = [[NSAttributedString alloc]initWithData:[descriptionText dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
     NSLog(@"%@",descText);
     NSLog(@"%@",[descText string]);
-
-
+    
+    
     ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:indexPath.row]];
     
     
-  //  typeOfChart = (int) indexPath.row;
-    NSLog(@"report type:%@",reportType.reportTyepId);
-    NSLog(@"report chart type:%@",reportType.reportChartTyepId);
+    //  typeOfChart = (int) indexPath.row;
+    NSLog(@"report type:%@",selectedReportType.reportTyepId);
+    NSLog(@"report chart type:%@",selectedReportType.reportChartTyepId);
     NSLog(@"%@",chartType.chartTyepId);
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
@@ -1013,62 +1016,76 @@
         _titleLabel.text =[chartName objectAtIndex:indexPath.row];
     }
     
-    if([localReportTypeId isEqualToNumber:reportType.reportChartTyepId]) {
+    if([localReportTypeId isEqualToNumber:selectedReportType.reportChartTyepId]) {
         
     } else {
-        NSString *apiLink = [FIUtils createChartAPILinkFromLink:reportType.apiLink withModuleId:reportType.reportContentTypesForCustomer withTagId:reportType.reportFields];
-        [self loadChartValuesWithReportType:reportType.reportChartTyepId withAPILink:apiLink];
+        [self loadChartValuesWithReportType:selectedReportType.reportChartTyepId withAPILink:selectedReportType.apiLink withModuleId:selectedReportType.moduleIds withTagId:selectedReportType.tagIds];
     }
     
-    localReportTypeId = reportType.reportChartTyepId;
+    localReportTypeId = selectedReportType.reportChartTyepId;
     
 }
 
--(void)loadChartValuesWithReportType:(NSNumber*)reportType withAPILink:(NSString *)apiLink{
+-(void)loadChartValuesWithReportType:(NSNumber*)reportType withAPILink:(NSString *)apiLink withModuleId:(NSString *)moduleId withTagId:(NSString *)tagId{
     if ([reportType isEqualToNumber:[NSNumber numberWithInt:1]]) {
         // Select Trend of Coverage Chart
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Trend of Coverage"];
-        [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
         
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:2]]){
         // Select Key Types Chart
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Key Topics"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
-       
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
+        
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:3]]){
         // Select Media Types chart
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Media Types"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getMediaTypeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getMediaTypeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
     } else if ([reportType isEqualToNumber:[NSNumber numberWithInt:4]]){
         // Select Sentiment and Volume Over Time chart
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Sentiment and Volume Over Time"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
     }else if ([reportType isEqualToNumber:[NSNumber numberWithInt:5]]){
         // Select change over last quarter chart
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Change Over Last Quarter"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getChangeOverLastQuarterChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        apiLinkString = [apiLinkString stringByReplacingOccurrencesOfString:@"{months}"
+                                                                 withString:self.numberOfMonthForChangeOverLastQuarter];
+        [[FISharedResources sharedResourceManager]getChangeOverLastQuarterChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
     }else if ([reportType isEqualToNumber:[NSNumber numberWithInt:6]]){
         // Select top sources
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Top Sources"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getTopSourcesChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getTopSourcesChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
     } else if([reportType isEqualToNumber:[NSNumber numberWithInt:7]]) {
         //select top journalist
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Top Journalists"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getTopJournalistChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getTopJournalistChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
     } else if([reportType isEqualToNumber:[NSNumber numberWithInt:8]]) {
         //select top influencers
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Top Influencers"];
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [[FISharedResources sharedResourceManager]getTopInfluencerChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getTopInfluencerChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
+    } else if([reportType isEqualToNumber:[NSNumber numberWithInt:9]]) {
+        //select sentiment chart
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click sentiment"];
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
     }
 }
-
 - (void)selectItemAtIndexPath:(NSIndexPath *)indexPath
                      animated:(BOOL)animated
                scrollPosition:(UICollectionViewScrollPosition)scrollPosition{
@@ -1974,7 +1991,7 @@
             
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Trend of Coverage Article List"];
         //call article api list
-            [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:clickedDate endDateIn:trendOfCoverageEndDateIn fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withModules:reportType.reportContentTypesForCustomer withTags:reportType.reportFields withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]getTrendOfCoverageArticleListFromDate:clickedDate endDateIn:trendOfCoverageEndDateIn fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withModules:selectedReportType.moduleIds withTags:selectedReportType.tagIds withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
             
             
             UIStoryboard *centerStoryBoard;
@@ -1987,8 +2004,8 @@
                 listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
             }
             listView.reportTypeId = localReportTypeId;
-            listView.reportModules = reportType.reportContentTypesForCustomer;
-            listView.reportTags = reportType.reportFields;
+            listView.reportModules = selectedReportType.moduleIds;
+            listView.reportTags = selectedReportType.tagIds;
             listView.clickedDate = clickedDate;
             listView.reportFromDate = reportObject.reportFromDate;
             listView.reportToDate = reportObject.reportToDate;
@@ -2030,7 +2047,7 @@
         NSLog(@"key topics Dic:%@",keyTopicsDic);
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Key Topics Article List"];
         double toDate = [reportObject.reportToDate doubleValue]+86399000;
-        [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:[brandName stringByAddingPercentEncodingForRFC3986] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withModules:reportType.reportContentTypesForCustomer withTags:reportType.reportFields withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"fields.name" value1:[brandName stringByAddingPercentEncodingForRFC3986] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withModules:selectedReportType.moduleIds withTags:selectedReportType.tagIds withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
         
         
@@ -2044,8 +2061,8 @@
             listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
         }
         listView.reportTypeId = localReportTypeId;
-        listView.reportModules = reportType.reportContentTypesForCustomer;
-        listView.reportTags = reportType.reportFields;
+        listView.reportModules = selectedReportType.moduleIds;
+        listView.reportTags = selectedReportType.tagIds;
         listView.clickedDate = clickedDate;
         listView.reportFromDate = reportObject.reportFromDate;
         listView.reportToDate = reportObject.reportToDate;
@@ -2083,7 +2100,7 @@
         }
         [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Media Types Article List"];
         double toDate = [reportObject.reportToDate doubleValue]+86399000;
-        [[FISharedResources sharedResourceManager]getMediaTypesArticleListFromMediaTypeField:@"mediaTypeId" mediaTypeValue:[brandName stringByAddingPercentEncodingForRFC3986] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withModules:reportType.reportContentTypesForCustomer withTags:reportType.reportFields withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        [[FISharedResources sharedResourceManager]getMediaTypesArticleListFromMediaTypeField:@"mediaTypeId" mediaTypeValue:[brandName stringByAddingPercentEncodingForRFC3986] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withModules:selectedReportType.moduleIds withTags:selectedReportType.tagIds withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
         
         
         
@@ -2097,8 +2114,8 @@
             listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
         }
         listView.reportTypeId = localReportTypeId;
-        listView.reportModules = reportType.reportContentTypesForCustomer;
-        listView.reportTags = reportType.reportFields;
+        listView.reportModules = selectedReportType.moduleIds;
+        listView.reportTags = selectedReportType.tagIds;
         listView.clickedDate = clickedDate;
         listView.reportFromDate = reportObject.reportFromDate;
         listView.reportToDate = reportObject.reportToDate;
@@ -2153,7 +2170,7 @@
 //            NSLog(@"encoded string:%@",encodedString);
             NSLog(@"result:%@",[nameOfIndexForSentimentChart stringByAddingPercentEncodingForRFC3986]);
             
-            [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:tonalityValue value2:[nameOfIndexForSentimentChart stringByAddingPercentEncodingForRFC3986]  fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withModules:reportType.reportContentTypesForCustomer withTags:reportType.reportFields withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]getSentimentOverTimeArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"tonality.name" field2:@"fields.name" value1:tonalityValue value2:[nameOfIndexForSentimentChart stringByAddingPercentEncodingForRFC3986]  fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withModules:selectedReportType.moduleIds withTags:selectedReportType.tagIds withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
             
             
             
@@ -2167,8 +2184,8 @@
                 listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
             }
             listView.reportTypeId = localReportTypeId;
-            listView.reportModules = reportType.reportContentTypesForCustomer;
-            listView.reportTags = reportType.reportFields;
+            listView.reportModules = selectedReportType.moduleIds;
+            listView.reportTags = selectedReportType.tagIds;
             listView.clickedDate = clickedDate;
             listView.reportFromDate = reportObject.reportFromDate;
             listView.reportToDate = reportObject.reportToDate;
@@ -2214,7 +2231,7 @@
             NSString *dateAris = [firstArray objectAtIndex:indexEntry];
             clickedDate = [self getFinalDateValueForWebService:dateAris];
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Change Over Last Quarter Article List"];
-            [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:[changeOverSelectedValue stringByAddingPercentEncodingForRFC3986] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withModules:reportType.reportContentTypesForCustomer withTags:reportType.reportFields withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]getChangeOverLastQuarterArticleListFromDate:clickedDate endDateIn:@"MONTH" field1:@"fields.name" value1:[changeOverSelectedValue stringByAddingPercentEncodingForRFC3986] fromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withModules:selectedReportType.moduleIds withTags:selectedReportType.tagIds withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
             
             
             
@@ -2228,8 +2245,8 @@
                 listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
             }
             listView.reportTypeId = localReportTypeId;
-            listView.reportModules = reportType.reportContentTypesForCustomer;
-            listView.reportTags = reportType.reportFields;
+            listView.reportModules = selectedReportType.moduleIds;
+            listView.reportTags = selectedReportType.tagIds;
             listView.clickedDate = clickedDate;
             listView.reportFromDate = reportObject.reportFromDate;
             listView.reportToDate = reportObject.reportToDate;
@@ -2290,7 +2307,7 @@
             
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Source Article List"];
             double toDate = [reportObject.reportToDate doubleValue]+86399000;
-            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate]  withSize:[NSNumber numberWithInt:10] withModules:reportType.reportContentTypesForCustomer withTags:reportType.reportFields withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate]  withSize:[NSNumber numberWithInt:10] withModules:selectedReportType.moduleIds withTags:selectedReportType.tagIds withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
             
             
             
@@ -2305,8 +2322,8 @@
                 listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
             }
             listView.reportTypeId = localReportTypeId;
-            listView.reportModules = reportType.reportContentTypesForCustomer;
-            listView.reportTags = reportType.reportFields;
+            listView.reportModules = selectedReportType.moduleIds;
+            listView.reportTags = selectedReportType.tagIds;
             listView.clickedDate = clickedDate;
             listView.reportFromDate = reportObject.reportFromDate;
             listView.reportToDate = reportObject.reportToDate;
@@ -2370,7 +2387,7 @@
             
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Journalist Article List"];
             double toDate = [reportObject.reportToDate doubleValue]+86399000;
-            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate]  withSize:[NSNumber numberWithInt:10] withModules:reportType.reportContentTypesForCustomer withTags:reportType.reportFields withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"contact.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate]  withSize:[NSNumber numberWithInt:10] withModules:selectedReportType.moduleIds withTags:selectedReportType.tagIds withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
             
             
             
@@ -2384,8 +2401,8 @@
                 listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
             }
             listView.reportTypeId = localReportTypeId;
-            listView.reportModules = reportType.reportContentTypesForCustomer;
-            listView.reportTags = reportType.reportFields;
+            listView.reportModules = selectedReportType.moduleIds;
+            listView.reportTags = selectedReportType.tagIds;
             listView.clickedDate = clickedDate;
             listView.reportFromDate = reportObject.reportFromDate;
             listView.reportToDate = reportObject.reportToDate;
@@ -2447,7 +2464,7 @@
             
             [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Top Influencer Article List"];
             double toDate = [reportObject.reportToDate doubleValue]+86399000;
-            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withSize:[NSNumber numberWithInt:10] withModules:reportType.reportContentTypesForCustomer withTags:reportType.reportFields withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+            [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.id" value1:tonalityValue value2:[brandAndSerialNumber objectForKey:brandName] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withSize:[NSNumber numberWithInt:10] withModules:selectedReportType.moduleIds withTags:selectedReportType.tagIds withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
 
             
             
@@ -2461,8 +2478,8 @@
                 listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
             }
             listView.reportTypeId = localReportTypeId;
-            listView.reportModules = reportType.reportContentTypesForCustomer;
-            listView.reportTags = reportType.reportFields;
+            listView.reportModules = selectedReportType.moduleIds;
+            listView.reportTags = selectedReportType.tagIds;
             listView.clickedDate = clickedDate;
             listView.reportFromDate = reportObject.reportFromDate;
             listView.reportToDate = reportObject.reportToDate;
