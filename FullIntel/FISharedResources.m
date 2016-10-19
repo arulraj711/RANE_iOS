@@ -726,7 +726,7 @@
                 [curatedNews setValue:[dic objectForKey:@"readStatus"] forKey:@"readStatus"];
                 [_articleIdArray addObject:[dic objectForKey:@"id"]];
             }
-            
+            [curatedNews setValue:[NSNumber numberWithInt:-1] forKey:@"newsletterId"];//for dailydigest
             
             [curatedNews setValue:[NSNumber numberWithBool:isSearch] forKey:@"isSearch"];
             [curatedNews setValue:filterBy forKey:@"isFilter"];
@@ -1833,7 +1833,7 @@
                     
                     [curatedNews setValue:[NSNumber numberWithBool:isSearch] forKey:@"isSearch"];
                     [curatedNews setValue:filterdValue forKey:@"isFilter"];
-                    
+                    [curatedNews setValue:[NSNumber numberWithInt:-2] forKey:@"newsletterId"]; //for dailydigest
                     
                     //Set values in local db
                     [curatedNews setValue:[NSNumber numberWithBool:YES] forKey:@"isFolder"];
@@ -2135,6 +2135,7 @@
                     //                    if(flag) {
                     //                        [curatedNews setValue:[NSNumber numberWithInt:0] forKey:@"folderId"];
                     //                    } else {
+                    NSLog(@"incoming newsletter id-->:%@",newsletterId);
                     [curatedNews setValue:newsletterId forKey:@"newsletterId"];
                     // }
                     

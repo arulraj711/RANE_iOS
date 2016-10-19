@@ -2523,6 +2523,59 @@
             
         }
         
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:9]]) {
+        //Sentiment chart selection
+        
+        //if ([ValueArray containsObject:[NSNumber numberWithInt:resultPoint]]) {
+        // NSString *indexA = [ValueArray objectAtIndex:indexEntry];
+        brandName = [monthArray objectAtIndex:indexEntry];
+        
+        //  }
+        
+        NSLog(@"selected brand name:%@",brandName);
+        NSLog(@"key topics Dic:%@",keyTopicsDic);
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Key Topics Article List"];
+        double toDate = [reportObject.reportToDate doubleValue]+86399000;
+        [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"tonality.name" value1:[brandName stringByAddingPercentEncodingForRFC3986] fromDate:reportObject.reportFromDate toDate:[NSNumber numberWithDouble:toDate] withModules:selectedReportType.moduleIds withTags:selectedReportType.tagIds withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInt:0] withFilterBy:@"" withQuery:@"" withFlag:@"" withLastArticleId:@""];
+        
+        
+        
+        UIStoryboard *centerStoryBoard;
+        CorporateNewsListView *listView;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListViewPhone" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListViewPhone"];
+        } else {
+            centerStoryBoard = [UIStoryboard storyboardWithName:@"CorporateNewsListView" bundle:nil];
+            listView = [centerStoryBoard instantiateViewControllerWithIdentifier:@"CorporateNewsListView"];
+        }
+        listView.reportTypeId = localReportTypeId;
+        listView.reportModules = selectedReportType.moduleIds;
+        listView.reportTags = selectedReportType.tagIds;
+        listView.clickedDate = clickedDate;
+        listView.reportFromDate = reportObject.reportFromDate;
+        listView.reportToDate = reportObject.reportToDate;
+        listView.trendOfCoverageEndDateIn = trendOfCoverageEndDateIn;
+        listView.keyTopicsBrandName = [brandName stringByAddingPercentEncodingForRFC3986];
+        listView.mediaTypesBrandName = [brandName stringByAddingPercentEncodingForRFC3986];
+        
+        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+        f.numberStyle = NSNumberFormatterDecimalStyle;
+        NSNumber *articleCount = [f numberFromString:[NSString stringWithFormat:@"%@",[keyTopicsDic objectForKey:brandName]]];
+        
+        
+        listView.mediaAnalysisArticleCount = articleCount;
+        listView.sentimentChartTonalityValue = tonalityValue;
+        listView.sentimentChartSelectedName = nameOfIndexForSentimentChart;
+        
+        listView.changeOverSelectedValue = changeOverSelectedValue;
+        
+        listView.horizontalBarChartTonalityValue = tonalityValue;
+        listView.horizontalBarChartSelectedValue = [brandName stringByAddingPercentEncodingForRFC3986];
+        
+        listView.titleName = brandName;//passing selected title
+        
+        [self.navigationController pushViewController:listView animated:YES];
     }
 
 

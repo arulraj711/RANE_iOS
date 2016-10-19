@@ -413,13 +413,25 @@
             NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
             NSNumber *contentTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"parentId"];
             NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+            BOOL isDailyDigestClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isDailyDigest"];
             self.collectionView.scrollEnabled = YES;
             NSManagedObjectContext *context = [[FISharedResources sharedResourceManager]managedObjectContext];
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
             NSEntityDescription *entity = [NSEntityDescription entityForName:@"CuratedNews" inManagedObjectContext:context];
             NSPredicate *predicate;
             NSLog(@"newsletter id:%@ and %@",newsLetterId,self.isFromChart);
-            if([self.isFromChart isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if(isDailyDigestClick) {
+                [self.revealController showViewController:self.revealController.frontViewController];
+                if(self.isSearching) {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isSearch == %@",newsLetterId,[NSNumber numberWithBool:self.isSearching]];
+                } else if(self.switchForFilter == 1) {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
+                } else if(self.switchForFilter == 2) {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
+                } else {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
+                }
+            } else if([self.isFromChart isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 if(self.isSearching) {
                     predicate = [NSPredicate predicateWithFormat:@"isFromChart == %@ AND isSearch == %@",[NSNumber numberWithBool:YES],[NSNumber numberWithBool:self.isSearching]];
                 } else if(self.switchForFilter == 1) {
@@ -1796,12 +1808,23 @@
             NSNumber *folderId = [[NSUserDefaults standardUserDefaults]objectForKey:@"folderId"];
             NSNumber *category = [[NSUserDefaults standardUserDefaults] valueForKey:@"categoryId"];
             NSNumber *newsLetterId = [[NSUserDefaults standardUserDefaults]objectForKey:@"newsletterId"];
+            BOOL isDailyDigestClick = [[NSUserDefaults standardUserDefaults]boolForKey:@"isDailyDigest"];
             //            NSNumber *contentTypeIDS;
             //            NSNumber *activityTypeIDS;
             NSManagedObjectContext *context = [[FISharedResources sharedResourceManager] managedObjectContext];
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
             NSPredicate *predicate;
-            if([self.isFromChart isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            if(isDailyDigestClick) {
+                if(self.isSearching) {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isSearch == %@",newsLetterId,[NSNumber numberWithBool:self.isSearching]];
+                } else if(self.switchForFilter == 1) {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
+                } else if(self.switchForFilter == 2) {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@ AND isFilter == %@",newsLetterId,[NSNumber numberWithInt:self.switchForFilter]];
+                } else {
+                    predicate  = [NSPredicate predicateWithFormat:@"newsletterId == %@",newsLetterId];
+                }
+            } else if([self.isFromChart isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 if(self.isSearching) {
                     predicate = [NSPredicate predicateWithFormat:@"isFromChart == %@ AND isSearch == %@",[NSNumber numberWithBool:YES],[NSNumber numberWithBool:self.isSearching]];
                 } else if(self.switchForFilter == 1) {
@@ -1884,8 +1907,20 @@
                 self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
                 [self.activityIndicator startAnimating];
                 self.collectionView.scrollEnabled = NO;
-                
-                if([self.isFromChart isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                if(isDailyDigestClick) {
+                    if (self.isSearching) {
+                        [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:[NSNumber numberWithInt:0] withPageNo:[NSNumber numberWithInteger:pageNo] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO withQuery:self.searchText withFilterBy:@""];
+                    } else if (self.switchForFilter == 1){
+                        [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:[NSNumber numberWithInt:0] withPageNo:[NSNumber numberWithInteger:pageNo] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO withQuery:@"" withFilterBy:@"UNREAD"];
+                        
+                        
+                    } else if (self.switchForFilter == 2){
+                        [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:[NSNumber numberWithInt:0] withPageNo:[NSNumber numberWithInteger:pageNo] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO withQuery:@"" withFilterBy:@"RECENT"];
+                        
+                    } else {
+                        [[FISharedResources sharedResourceManager]fetchArticleFromNewsLetterWithAccessToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"accesstoken"] withNewsLetterId:[NSNumber numberWithInt:0] withPageNo:[NSNumber numberWithInteger:pageNo] withSize:[NSNumber numberWithInt:10] withUpFlag:NO withFlag:NO withQuery:@"" withFilterBy:@""];
+                    }
+                } else if([self.isFromChart isEqualToNumber:[NSNumber numberWithInt:1]]) {
                     NSString *filterString;
                     if (self.switchForFilter == 1){
                         filterString = @"UNREAD";
@@ -1918,6 +1953,9 @@
                     } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
                         //top influencers
                         [[FISharedResources sharedResourceManager]getHorizontalLineBarChartArticleListFromField1:@"tonality.name" field2:@"outlet.name.sort" value1:self.horizontalBarChartTonalityValue value2:self.horizontalBarChartSelectedValue fromDate:self.reportFromDate toDate:self.reportToDate withSize:[NSNumber numberWithInt:10] withModules:self.reportModules withTags:self.reportTags withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:self.searchText withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
+                    } else if([self.reportTypeId isEqualToNumber:[NSNumber numberWithInt:9]]) {
+                        //sentiment
+                        [[FISharedResources sharedResourceManager]getKeyTopicsArticleListFromField1:@"tonality.name" value1:self.keyTopicsBrandName fromDate:self.reportFromDate toDate:self.reportToDate withModules:self.reportModules withTags:self.reportTags withSize:[NSNumber numberWithInt:10] withPageNo:[NSNumber numberWithInteger:pageNo] withFilterBy:filterString withQuery:self.searchText withFlag:@"" withLastArticleId:[self.articleIdArray lastObject]];
                     }
                 } else {
                     if([folderId isEqualToNumber:[NSNumber numberWithInt:0]] && [newsLetterId isEqualToNumber:[NSNumber numberWithInt:0]]) {
