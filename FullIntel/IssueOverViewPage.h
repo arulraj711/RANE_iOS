@@ -10,5 +10,6 @@
 
 @interface IssueOverViewPage : UIViewController
 @property (weak, nonatomic) IBOutlet UIWebView *detailsWebView;
-
+@property (weak, nonatomic) IBOutlet UIImageView *overviewImageView;
+@property (nonatomic,strong) NSString *overviewImageUrl;
 @end

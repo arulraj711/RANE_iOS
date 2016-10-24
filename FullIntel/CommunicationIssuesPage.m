@@ -11,8 +11,7 @@
 #import "IssuesResultListPage.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FISharedResources.h"
-#import "UILabel+CustomHeaderLabel.h"
-
+#import "IssueMonitoringCell.h"
 @interface CommunicationIssuesPage ()
 
 @end
@@ -30,17 +29,17 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:Btn];
     [self.navigationItem setLeftBarButtonItem:addButton];
 
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-//    label.backgroundColor = [UIColor clearColor];
-//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-//    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-//    label.text =self.title;
-//    label.textAlignment = NSTextAlignmentCenter;
-//    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:self.title];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =self.title;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.revealController.revealPanGestureRecognizer.delegate = self;
-//        self.revealController.panDelegate = self;
+       // self.revealController.panDelegate = self;
     } else {
         
     }
@@ -67,28 +66,57 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 -(void)backBtnPress {
-    NSLog(@"back button press");
+    NSLog(@"back button press:%d",self.revealController.state);
     if(self.revealController.state == 2 || self.revealController.state == 1) {
         NSLog(@"left view closed");
-       // NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
-       // [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
+        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+        [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
         [self.revealController showViewController:self.revealController.frontViewController];
     } else if(self.revealController.state == 3){
         NSLog(@"left view opened");
-        //NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
-        //[Localytics tagEvent:@"MenuOpened" attributes:dictionary];
+        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+        [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
         [self.revealController showViewController:self.revealController.leftViewController];
     }
+    //    else {
+    //        [self.revealController showViewController:self.revealController.frontViewController];
+    //    }
     
 }
 
+
+
+//-(void)backBtnPress {
+//    NSLog(@"back button press");
+//    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
+//        NSLog(@"left view closed");
+//       // NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+//       // [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
+//        [self.revealController showViewController:self.revealController.frontViewController];
+//    } else {
+//        NSLog(@"left view opened");
+//        //NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
+//        //[Localytics tagEvent:@"MenuOpened" attributes:dictionary];
+//        [self.revealController showViewController:self.revealController.leftViewController];
+//    }
+//    
+//}
+
 -(void)viewDidAppear:(BOOL)animated {
-    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/issues.json"]];
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/CI_Issue_List.json"]];
     NSError *error;
     issueList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     NSLog(@"issue lis:%@",issueList);
     [self.issuesTableView reloadData];
+    
+    
+    NSData *data1 = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/CI_SubChartType.json"]];
+    NSError *error1;
+    subChartNameArrayList = [[NSMutableArray alloc]init];
+    subChartNameArrayList = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingAllowFragments error:&error1];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -107,6 +135,16 @@
     cell.outletsCount.text = [issueDic objectForKey:@"outletsCount"];
     cell.commentsCount.text = [issueDic objectForKey:@"commentsCount"];
    
+    //For setting main chart images
+    NSMutableArray *mainChartImageArray = [[NSMutableArray alloc]init];
+    mainChartImageArray = [issueDic objectForKey:@"issueImageArray"];
+    [cell.mainChartImage1 sd_setImageWithURL:[NSURL URLWithString:[mainChartImageArray objectAtIndex:1]] placeholderImage:nil];
+    [cell.mainChartImage2 sd_setImageWithURL:[NSURL URLWithString:[mainChartImageArray objectAtIndex:2]] placeholderImage:nil];
+    
+    //For setting sub chart images
+    cell.subChartImageArrayList = [issueDic objectForKey:@"subChartImageArray"];
+    cell.subChartNameArrayList = subChartNameArrayList;
+    [cell.collectionView reloadData];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //[cell.articleImageView sd_setImageWithURL:[NSURL URLWithString:[curatedNews valueForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"FI"]];
     //[cell.articleImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -117,9 +155,19 @@
 
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"CommunicationIssues" bundle:nil];
     IssuesResultListPage *issuesList = [storyBoard instantiateViewControllerWithIdentifier:@"IssuesResultList"];
+    NSDictionary *issueDic = [issueList objectAtIndex:indexPath.row];
+    issuesList.mainChartImageArray = [issueDic objectForKey:@"issueImageArray"];
+    issuesList.subChartImageArray = [issueDic objectForKey:@"subChartImageArray"];
+    issuesList.detailChartImageArray = [issueDic objectForKey:@"detailChartArray"];
+    issuesList.issueTitleString = [issueDic objectForKey:@"title"];
+    issuesList.issueDescriptionString = [issueDic objectForKey:@"desc"];
+    issuesList.articleListUrl = [issueDic objectForKey:@"articleListUrl"];
+    issuesList.topStoriesJSONUrl = [issueDic objectForKey:@"topStoryJsonUrl"];
+    issuesList.overviewImageUrl = [issueDic objectForKey:@"overviewImageUrl"];
     [self.navigationController pushViewController:issuesList animated:YES];
     
 }
+
 
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

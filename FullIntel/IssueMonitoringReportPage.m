@@ -13,8 +13,6 @@
 #import "IssueMonitoringInfluencerCell.h"
 #import "IssueDrillInPage.h"
 #import "StoryTableViewCell.h"
-#import "UILabel+CustomHeaderLabel.h"
-
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface IssueMonitoringReportPage ()
 
@@ -34,32 +32,35 @@
     self.changeLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.changeLabel.layer.borderWidth = 1;
     
+    self.issueTitle.text = self.issueTitleString;
+    
     self.storyIndex = 0;
-    self.selectedTitle.text = @"Sentiment Over Time";
+    self.selectedTitle.text = @"Trend of Coverage";
+    [self.chartImageView sd_setImageWithURL:[NSURL URLWithString:[self.detailChartImageArray objectAtIndex:0]] placeholderImage:nil];
     self.collectionView.hidden = YES;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.topStoriesJSONUrl]];
     NSError *error;
     chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     [self.storyTableView reloadData];
     self.tableOuterView.layer.borderWidth = 1.0f;
     self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-//    label.backgroundColor = [UIColor clearColor];
-//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-//    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-//    label.text =@"Issue Monitoring Report";
-//    label.textAlignment = NSTextAlignmentCenter;
-//    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"Issue Monitoring Report"];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =@"Issue Reports";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
+    isTopStoriesOpen = NO;
     
-    
-    [self.barChartButton setSelected:YES];
-    [self.pieChartButton setSelected:NO];
-    [self.lineChartButton setSelected:NO];
-    [self.doughChartButton setSelected:NO];
-    [self.numberButton setSelected:NO];
+    [self.trendOfCoverageChartButton setSelected:YES];
+    [self.sentimentChartButton setSelected:NO];
+    [self.mediaTypeChartButton setSelected:NO];
+    [self.topSourcesChartButton setSelected:NO];
+    [self.topAuthorsChartButton setSelected:NO];
+    [self.topInfluencersChartButton setSelected:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -209,105 +210,184 @@
 }
 
 
-- (IBAction)barChartBtnClick:(id)sender {
-    [self.barChartButton setSelected:YES];
-    [self.pieChartButton setSelected:NO];
-    [self.lineChartButton setSelected:NO];
-    [self.doughChartButton setSelected:NO];
-    [self.numberButton setSelected:NO];
+- (IBAction)trendOfCoverageChartBtnClick:(id)sender {
+    [self.trendOfCoverageChartButton setSelected:YES];
+    [self.sentimentChartButton setSelected:NO];
+    [self.mediaTypeChartButton setSelected:NO];
+    [self.topSourcesChartButton setSelected:NO];
+    [self.topAuthorsChartButton setSelected:NO];
+    [self.topInfluencersChartButton setSelected:NO];
     self.storyIndex = 0;
-    self.selectedTitle.text = @"Sentiment Over Time";
+    self.selectedTitle.text = @"Trend of Coverage";
     self.storyTitle.text = @"Top Stories";
     self.collectionView.hidden = YES;
-    self.chartImageView.image = [UIImage imageNamed:@"bar_chart"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSError *error;
-    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    [self.chartImageView sd_setImageWithURL:[NSURL URLWithString:[self.detailChartImageArray objectAtIndex:0]] placeholderImage:nil];
+    //self.chartImageView.image = [UIImage imageNamed:@"bar_chart"];
+//    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/chart_story.json"]];
+//    NSError *error;
+//    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     [self.storyTableView reloadData];
 }
-- (IBAction)doughnetChartBtnClick:(id)sender {
-    [self.barChartButton setSelected:NO];
-    [self.pieChartButton setSelected:NO];
-    [self.lineChartButton setSelected:NO];
-    [self.doughChartButton setSelected:YES];
-    [self.numberButton setSelected:NO];
+- (IBAction)topSourcesChartBtnClick:(id)sender {
+    [self.trendOfCoverageChartButton setSelected:NO];
+    [self.sentimentChartButton setSelected:NO];
+    [self.mediaTypeChartButton setSelected:NO];
+    [self.topSourcesChartButton setSelected:YES];
+    [self.topAuthorsChartButton setSelected:NO];
+    [self.topInfluencersChartButton setSelected:NO];
     self.storyIndex = 0;
-    self.selectedTitle.text = @"Share of Voice - Topics";
+    self.selectedTitle.text = @"Top Sources";
     self.storyTitle.text = @"Top Stories";
     self.collectionView.hidden = YES;
-    self.chartImageView.image = [UIImage imageNamed:@"doughnut_chart"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSError *error;
-    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    [self.chartImageView sd_setImageWithURL:[NSURL URLWithString:[self.detailChartImageArray objectAtIndex:3]] placeholderImage:nil];
+    //self.chartImageView.image = [UIImage imageNamed:@"doughnut_chart"];
+//    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/chart_story.json"]];
+//    NSError *error;
+//    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     [self.storyTableView reloadData];
 }
-- (IBAction)lineChartBtnClick:(id)sender {
-    [self.barChartButton setSelected:NO];
-    [self.pieChartButton setSelected:NO];
-    [self.lineChartButton setSelected:YES];
-    [self.doughChartButton setSelected:NO];
-    [self.numberButton setSelected:NO];
+- (IBAction)mediaTypeChartBtnClick:(id)sender {
+    [self.trendOfCoverageChartButton setSelected:NO];
+    [self.sentimentChartButton setSelected:NO];
+    [self.mediaTypeChartButton setSelected:YES];
+    [self.topSourcesChartButton setSelected:NO];
+    [self.topAuthorsChartButton setSelected:NO];
+    [self.topInfluencersChartButton setSelected:NO];
     self.storyIndex = 0;
-    self.selectedTitle.text = @"Mentions Over Time";
+    self.selectedTitle.text = @"Media Types";
     self.storyTitle.text = @"Top Stories";
     self.collectionView.hidden = YES;
-    self.chartImageView.image = [UIImage imageNamed:@"line_chart"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSError *error;
-    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    //self.chartImageView.image = [UIImage imageNamed:@"line_chart"];
+    [self.chartImageView sd_setImageWithURL:[NSURL URLWithString:[self.detailChartImageArray objectAtIndex:2]] placeholderImage:nil];
+//    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/chart_story.json"]];
+//    NSError *error;
+//    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     [self.storyTableView reloadData];
 }
 
-- (IBAction)numberBtnClick:(id)sender {
-    [self.barChartButton setSelected:NO];
-    [self.pieChartButton setSelected:NO];
-    [self.lineChartButton setSelected:NO];
-    [self.doughChartButton setSelected:NO];
-    [self.numberButton setSelected:YES];
-    self.selectedTitle.text = @"";
-    self.collectionView.hidden = NO;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"issue_list" ofType:@"json"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSError *error;
-    issueList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    NSLog(@"number btn click count:%d",issueList.count);
-    [self.collectionView reloadData];
-    
-    
-    self.selectedItemArray = [[NSMutableArray alloc]init];
-    self.storyIndex = 1;
-    NSData *data1 = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/outlets.json"]];
-    NSError *error1;
-    monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingAllowFragments error:&error1];
-    NSLog(@"issue lis:%@",monitoringOutletList);
-    [self.selectedItemArray addObject:@"Outlets"];
+- (IBAction)topAuthorsChartBtnClick:(id)sender {
+    [self.trendOfCoverageChartButton setSelected:NO];
+    [self.sentimentChartButton setSelected:NO];
+    [self.mediaTypeChartButton setSelected:NO];
+    [self.topSourcesChartButton setSelected:NO];
+    [self.topAuthorsChartButton setSelected:YES];
+    [self.topInfluencersChartButton setSelected:NO];
+    self.storyIndex = 0;
+    self.selectedTitle.text = @"Top Authors";
+    self.storyTitle.text = @"Top Stories";
+    self.collectionView.hidden = YES;
+    //self.chartImageView.image = [UIImage imageNamed:@"doughnut_chart"];
+    [self.chartImageView sd_setImageWithURL:[NSURL URLWithString:[self.detailChartImageArray objectAtIndex:4]] placeholderImage:nil];
+//    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/chart_story.json"]];
+//    NSError *error;
+//    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     [self.storyTableView reloadData];
-    self.storyTitle.text = @"Top Outlets";
-    NSDictionary *issueDic = [issueList objectAtIndex:0];
-    [self.selectedItemArray addObject:[issueDic objectForKey:@"name"]];
-    [self.collectionView reloadData];
+//    [self.trendOfCoverageChartButton setSelected:NO];
+//    [self.sentimentChartButton setSelected:NO];
+//    [self.mediaTypeChartButton setSelected:NO];
+//    [self.topSourcesChartButton setSelected:NO];
+//    [self.topAuthorsChartButton setSelected:YES];
+//    [self.topInfluencersChartButton setSelected:NO];
+//    self.selectedTitle.text = @"";
+//    self.collectionView.hidden = NO;
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"issue_list" ofType:@"json"];
+//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+//    NSError *error;
+//    issueList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+//    NSLog(@"number btn click count:%d",issueList.count);
+//    [self.collectionView reloadData];
+//    
+//    
+//    self.selectedItemArray = [[NSMutableArray alloc]init];
+//    self.storyIndex = 1;
+//    NSData *data1 = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/outlets.json"]];
+//    NSError *error1;
+//    monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingAllowFragments error:&error1];
+//    NSLog(@"issue lis:%@",monitoringOutletList);
+//    [self.selectedItemArray addObject:@"Outlets"];
+//    [self.storyTableView reloadData];
+//    self.storyTitle.text = @"Top Outlets";
+//    NSDictionary *issueDic = [issueList objectAtIndex:0];
+//    [self.selectedItemArray addObject:[issueDic objectForKey:@"name"]];
+//    [self.collectionView reloadData];
     
 }
 
-- (IBAction)pieChartBtnClick:(id)sender {
+- (IBAction)sentimentChartBtnClick:(id)sender {
     //UIButton *btn = (UIButton *)sender;
-    [self.barChartButton setSelected:NO];
-    [self.pieChartButton setSelected:YES];
-    [self.lineChartButton setSelected:NO];
-    [self.doughChartButton setSelected:NO];
-    [self.numberButton setSelected:NO];
+    [self.trendOfCoverageChartButton setSelected:NO];
+    [self.sentimentChartButton setSelected:YES];
+    [self.mediaTypeChartButton setSelected:NO];
+    [self.topSourcesChartButton setSelected:NO];
+    [self.topAuthorsChartButton setSelected:NO];
+    [self.topInfluencersChartButton setSelected:NO];
     self.storyIndex = 0;
-    self.selectedTitle.text = @"Share of Voice - Products";
+    self.selectedTitle.text = @"Sentiment and Volume Over Time";
     self.storyTitle.text = @"Top Stories";
     self.collectionView.hidden = YES;
-    self.chartImageView.image = [UIImage imageNamed:@"pie_chart"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"chart_story" ofType:@"json"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSError *error;
-    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    //self.chartImageView.image = [UIImage imageNamed:@"pie_chart"];
+    [self.chartImageView sd_setImageWithURL:[NSURL URLWithString:[self.detailChartImageArray objectAtIndex:1]] placeholderImage:nil];
+//    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/chart_story.json"]];
+//    NSError *error;
+//    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     [self.storyTableView reloadData];
 }
+- (IBAction)topInfluencersChartBtnClick:(id)sender {
+    [self.trendOfCoverageChartButton setSelected:NO];
+    [self.sentimentChartButton setSelected:NO];
+    [self.mediaTypeChartButton setSelected:NO];
+    [self.topSourcesChartButton setSelected:NO];
+    [self.topAuthorsChartButton setSelected:NO];
+    [self.topInfluencersChartButton setSelected:YES];
+    self.storyIndex = 0;
+    self.selectedTitle.text = @"Top Influencers";
+    self.storyTitle.text = @"Top Stories";
+    self.collectionView.hidden = YES;
+    //self.chartImageView.image = [UIImage imageNamed:@"doughnut_chart"];
+    [self.chartImageView sd_setImageWithURL:[NSURL URLWithString:[self.detailChartImageArray objectAtIndex:5]] placeholderImage:nil];
+//    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/chart_story.json"]];
+//    NSError *error;
+//    chartStoryList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    [self.storyTableView reloadData];
+}
+
+//for iPad
+- (IBAction)topStoriesButtonClick:(id)sender {
+    
+    NSLog(@"constraint:%f",self.topStoriesViewLeadingConstraint.constant);
+    if(!isTopStoriesOpen) {
+        [UIView animateWithDuration:0.4
+                         animations:^{
+                             //[self.topStoriesButton setHidden:YES];
+                             //[self.topStoriesButton setSelected:YES];
+                             self.topStoriesButtonLabelWidthConstraint.constant = 0;
+                             self.tableOuterView.layer.borderWidth = 1.0f;
+                             self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+                             isTopStoriesOpen = YES;
+                             self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width-320;
+                             [self.view layoutIfNeeded];
+                             
+                             //[self loadChartValuesWithReportType:localReportTypeId];
+                             
+                             
+                         }];
+    } else {
+        [UIView animateWithDuration:0.4
+                         animations:^{
+                            // [self.topStoriesButton setHidden:NO];
+                             //[self.topStoriesButton setSelected:NO];
+                             self.topStoriesButtonLabelWidthConstraint.constant = 9;
+                             self.tableOuterView.layer.borderWidth = 0.0f;
+                             self.tableOuterView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+                             isTopStoriesOpen = NO;
+                             self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
+                             [self.view layoutIfNeeded];
+                             //  [self loadChartValuesWithReportType:localReportTypeId];
+                             
+                         }];
+    }
+    
+}
+
+
 @end

@@ -15,5 +15,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *articlesCount;
 @property (weak, nonatomic) IBOutlet UILabel *outletsCount;
 @property (weak, nonatomic) IBOutlet UILabel *commentsCount;
-
+@property (weak, nonatomic) IBOutlet UIImageView *mainChartImage1;
+@property (weak, nonatomic) IBOutlet UIImageView *mainChartImage2;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong,nonatomic) NSMutableArray *subChartImageArrayList;
+@property (strong,nonatomic) NSMutableArray *subChartNameArrayList;
 @end

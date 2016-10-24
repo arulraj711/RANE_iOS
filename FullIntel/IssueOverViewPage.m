@@ -7,7 +7,7 @@
 //
 
 #import "IssueOverViewPage.h"
-#import "UILabel+CustomHeaderLabel.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface IssueOverViewPage ()
 
@@ -17,18 +17,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-//    label.backgroundColor = [UIColor clearColor];
-//    label.font = [UIFont fontWithName:@"Open Sans" size:16];
-//    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-//    label.text =@"Issue Overview";
-//    label.textAlignment = NSTextAlignmentCenter;
-//    label.textColor = [UIColor whiteColor]; // change this color
-    self.navigationItem.titleView = [UILabel setCustomHeaderLabelFromText:@"Issue Overview"];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Open Sans" size:16];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.text =@"Issue Overview";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; // change this color
+    self.navigationItem.titleView = label;
     // Do any additional setup after loading the view.
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-    [self.detailsWebView loadHTMLString:htmlString baseURL:nil];
+    //NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+//    NSString* htmlString = [NSString stringWithContentsOfFile:self.overviewImageUrl encoding:NSUTF8StringEncoding error:nil];
+//    [self.detailsWebView loadHTMLString:htmlString baseURL:nil];
+    
+    
+    [self.overviewImageView sd_setImageWithURL:[NSURL URLWithString:self.overviewImageUrl] placeholderImage:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {

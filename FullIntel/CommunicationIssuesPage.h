@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PKRevealController.h"
+
 
 @interface CommunicationIssuesPage : UIViewController<UIGestureRecognizerDelegate> {
     NSArray *issueList;
+    NSMutableArray *subChartNameArrayList;
+    
 }
+
 @property (weak, nonatomic) IBOutlet UITableView *issuesTableView;
 @property (nonatomic,strong) NSString *title;
 @end
