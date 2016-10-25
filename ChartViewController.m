@@ -30,39 +30,28 @@
     [super viewDidLoad];
     
     
-    chartIcon = [[NSMutableArray alloc]init];
-    [chartIcon addObject:@"issue_chart3"];
-    [chartIcon addObject:@"issue_chart2"];
-    [chartIcon addObject:@"issue_chart4"];
-    [chartIcon addObject:@"issue_chart1"];
-    [chartIcon addObject:@"issue_chart1"];
-    [chartIcon addObject:@"issue_chart6"];
-    [chartIcon addObject:@"issue_chart6"];
-    [chartIcon addObject:@"issue_chart6"];
-    [chartIcon addObject:@"issue_chart2"];
-
-    
-    chartName = [[NSMutableArray alloc]init];
-    [chartName addObject:@"Trend of Coverage"];
-    [chartName addObject:@"Key Topics"];
-    [chartName addObject:@"Media Types"];
-    [chartName addObject:@"Sentiment and Volume over Time"];
-    [chartName addObject:@"Change over Last Quarter"];
-    [chartName addObject:@"Top Sources"];
-    [chartName addObject:@"Top Journalists"];
-    [chartName addObject:@"Top Influencers"];
-    [chartName addObject:@"Sentiment"];
-
-    selectedChatIcon = [[NSMutableArray alloc]init];
-    [selectedChatIcon addObject:@"selected_issue_chart3"];
-    [selectedChatIcon addObject:@"selected_issue_chart2"];
-    [selectedChatIcon addObject:@"selected_issue_chart4"];
-    [selectedChatIcon addObject:@"selected_issue_chart1"];
-    [selectedChatIcon addObject:@"selected_issue_chart1"];
-    [selectedChatIcon addObject:@"selected_issue_chart6"];
-    [selectedChatIcon addObject:@"selected_issue_chart6"];
-    [selectedChatIcon addObject:@"selected_issue_chart6"];
-    [selectedChatIcon addObject:@"selected_issue_chart2"];
+//    chartIcon = [[NSMutableArray alloc]init];
+//    [chartIcon addObject:@"issue_chart3"];
+//    [chartIcon addObject:@"issue_chart2"];
+//    [chartIcon addObject:@"issue_chart4"];
+//    [chartIcon addObject:@"issue_chart1"];
+//    [chartIcon addObject:@"issue_chart1"];
+//    [chartIcon addObject:@"issue_chart6"];
+//    [chartIcon addObject:@"issue_chart6"];
+//    [chartIcon addObject:@"issue_chart6"];
+//    [chartIcon addObject:@"issue_chart2"];
+//
+//
+//    selectedChatIcon = [[NSMutableArray alloc]init];
+//    [selectedChatIcon addObject:@"selected_issue_chart3"];
+//    [selectedChatIcon addObject:@"selected_issue_chart2"];
+//    [selectedChatIcon addObject:@"selected_issue_chart4"];
+//    [selectedChatIcon addObject:@"selected_issue_chart1"];
+//    [selectedChatIcon addObject:@"selected_issue_chart1"];
+//    [selectedChatIcon addObject:@"selected_issue_chart6"];
+//    [selectedChatIcon addObject:@"selected_issue_chart6"];
+//    [selectedChatIcon addObject:@"selected_issue_chart6"];
+//    [selectedChatIcon addObject:@"selected_issue_chart2"];
 
     
   //  typeOfChart = 0;
@@ -80,7 +69,7 @@
         selectedChartIndex = 0;
         
         self.topStoriesViewLeadingConstraint.constant = self.view.frame.size.width;
-        self.chartNameLabel.text =[chartName objectAtIndex:0];
+        //self.chartNameLabel.text =[chartName objectAtIndex:0];
         
         //[self plotLineChart:6 range:6];
 
@@ -100,7 +89,7 @@
         [self.navigationItem setRightBarButtonItem:addButtons];
 
         
-        _titleLabel.text =[chartName objectAtIndex:0];
+       // _titleLabel.text =[chartName objectAtIndex:0];
         
 
     }
@@ -253,12 +242,13 @@
 //    
 //    apiLink = [apiLink stringByReplacingOccurrencesOfString:@"{tags}"
 //                                                 withString:reportType.reportFields];
-    NSString *apiLink = [FIUtils modifiedAPILinkForLink:reportType.apiLink withModuleId:reportType.moduleIds withTagId:reportType.tagIds];
+//    NSString *apiLink = [FIUtils modifiedAPILinkForLink:reportType.apiLink withModuleId:reportType.moduleIds withTagId:reportType.tagIds];
+//    
+//    [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
     
-    [[FISharedResources sharedResourceManager]getTrendOfCoverageChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLink];
-    
-    [self.chartIconCollectionView reloadData];
     [self collectionView:_chartIconCollectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [self.chartIconCollectionView reloadData];
+    
     
 }
 
@@ -380,30 +370,33 @@
 -(void)afterFetchingKeyTopicsInfo:(id)sender {
     NSNotification *notification = sender;
     NSDictionary *keyTopicsInfoDic = [[notification userInfo] objectForKey:@"KeyTopicsInfo"];
-    NSLog(@"Key Topics Info --->%@",keyTopicsInfoDic);
-    if([selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        keyTopicsDic = [keyTopicsInfoDic objectForKey:@"categoryCountMap"];
-    } else if([selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:9]]) {
-        keyTopicsDic = [keyTopicsInfoDic objectForKey:@"tonalityCountMap"];
-    }
-    
-    
-    
-    
-    NSArray *getKeysAndValues = [self getDictionaryAndGiveOutKeysAndPercentagesArray:keyTopicsDic];
-
-
-   // if(keyTopicsDic.count != 0) {
+    NSLog(@"Key Topics Info --->%lu",(unsigned long)keyTopicsInfoDic.count);
+    if(keyTopicsInfoDic.count != 0) {
+        if([selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+            keyTopicsDic = [keyTopicsInfoDic objectForKey:@"categoryCountMap"];
+        } else if([selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:9]]) {
+            keyTopicsDic = [keyTopicsInfoDic objectForKey:@"tonalityCountMap"];
+        }
+        
+        
+        
+        
+        NSArray *getKeysAndValues = [self getDictionaryAndGiveOutKeysAndPercentagesArray:keyTopicsDic];
+        
+        
+        // if(keyTopicsDic.count != 0) {
         
         monthArray = [getKeysAndValues objectAtIndex:0];
         ValueArray = [getKeysAndValues objectAtIndex:1];
-
+        
         
         int countVal = (int)monthArray.count;
         
         [self plotPieChart:countVal range:7 withType:1];//type 1 for pie chart
-
-   // }
+        
+        // }
+    }
+    
 }
 //Updating Media Type Chart Details
 -(void)afterFetchingMediaTypeInfo:(id)sender {
@@ -869,115 +862,123 @@
     ReportTypeObject *reportTypeforFirstTime = [reportObject.reportTypeArray objectAtIndex:0];
     NSString *descriptionText = [NSString stringWithFormat:@"%@",reportTypeforFirstTime.reportSummary];
     descText = [[NSAttributedString alloc]initWithData:[descriptionText dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
-    
+    NSLog(@"selected icon:%@",reportType.chartSelectedIcon);
+    NSLog(@"normal icon:%@",reportType.chartIcon);
+    if ([indexPath isEqual:self.selectedIndexPath]) {
+        cell.chartIconImage.image = [UIImage imageNamed:reportType.chartSelectedIcon];
+    } else {
+        cell.chartIconImage.image = [UIImage imageNamed:reportType.chartIcon];
+    }
   
-
-    if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        //Pie Chart - Key Topics
-        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
-        {
-            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
-
-        }
-        else{
-            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:1]];
-
-        }
     
-    }
-    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]){
-        //Bar Chart - Sentiment and Volume Over Time
-        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
-        {
-            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
-
-        }
-        else{
-            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
-
-        }
-
-    }
-    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:3]]){
-        //Line Chart - Trend of Coverage
-        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
-        {
-            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
-
-        }
-        else{
-            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
-
-        }
-
-    }
-    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:4]]){
-        //Donut Chart - Media Types
-        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
-        {
-            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
-
-        }
-        else{
-            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:2]];
-
-        }
-
-    }
-    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:5]]){
-        //MutliBar Chart - Change Over Last Quarter
-        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
-        {
-            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
-
-        }
-        else{
-            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
-
-        }
-
-    }
-    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:6]]){
-        //Horizontal Bar Chart - Top Sources
-        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
-        {
-            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
-
-        }
-        else{
-            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:5]];
-
-        }
-
-    }
-    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:7]]){
-        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
-        {
-            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
-
-        }
-        else{
-            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
-
-        }
-
-    }
-    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:8]]){
-        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
-        {
-            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
-
-        }
-        else{
-            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
-
-        }
-
-    }
     
-    else {
-        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
-    }
+
+//    if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+//        //Pie Chart - Key Topics
+//        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+//        {
+//            cell.chartIconImage.image = [UIImage imageNamed:reportType.chartSelectedIcon];
+//
+//        }
+//        else{
+//            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:1]];
+//
+//        }
+//    
+//    }
+//    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]){
+//        //Bar Chart - Sentiment and Volume Over Time
+//        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+//        {
+//            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+//
+//        }
+//        else{
+//            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
+//
+//        }
+//
+//    }
+//    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:3]]){
+//        //Line Chart - Trend of Coverage
+//        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+//        {
+//            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+//
+//        }
+//        else{
+//            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+//
+//        }
+//
+//    }
+//    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:4]]){
+//        //Donut Chart - Media Types
+//        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+//        {
+//            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+//
+//        }
+//        else{
+//            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:2]];
+//
+//        }
+//
+//    }
+//    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:5]]){
+//        //MutliBar Chart - Change Over Last Quarter
+//        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+//        {
+//            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+//
+//        }
+//        else{
+//            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:3]];
+//
+//        }
+//
+//    }
+//    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:6]]){
+//        //Horizontal Bar Chart - Top Sources
+//        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+//        {
+//            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+//
+//        }
+//        else{
+//            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:5]];
+//
+//        }
+//
+//    }
+//    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:7]]){
+//        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+//        {
+//            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+//
+//        }
+//        else{
+//            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+//
+//        }
+//
+//    }
+//    else if ([chartType.chartTyepId isEqualToNumber:[NSNumber numberWithInt:8]]){
+//        if ([indexPath isEqual:self.selectedIndexPath]) // you need to create selectedIndexPath as a property
+//        {
+//            cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:self.selectedIndexPath.row]];
+//
+//        }
+//        else{
+//            cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+//
+//        }
+//
+//    }
+//    
+//    else {
+//        cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:0]];
+//    }
 
 //    cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:indexPath.row]];
     
@@ -1007,7 +1008,7 @@
     
     
     ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.chartIconImage.image = [UIImage imageNamed:[selectedChatIcon objectAtIndex:indexPath.row]];
+    cell.chartIconImage.image = [UIImage imageNamed:selectedReportType.chartSelectedIcon];
     
     
     //  typeOfChart = (int) indexPath.row;
@@ -1016,10 +1017,10 @@
     NSLog(@"%@",chartType.chartTyepId);
     
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-        self.chartNameLabel.text =[chartName objectAtIndex:indexPath.row];
+        self.chartNameLabel.text =selectedReportType.reportName;
     }
     else{
-        _titleLabel.text =[chartName objectAtIndex:indexPath.row];
+        _titleLabel.text =selectedReportType.reportName;
     }
     
     if([localReportTypeId isEqualToNumber:selectedReportType.reportChartTyepId]) {
@@ -1113,8 +1114,9 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    ReportTypeObject *reportType = [reportObject.reportTypeArray objectAtIndex:indexPath.row];
     ChartIconCell *cell = (ChartIconCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.chartIconImage.image = [UIImage imageNamed:[chartIcon objectAtIndex:indexPath.row]];
+    cell.chartIconImage.image = [UIImage imageNamed:reportType.chartIcon];
 
 }
 
@@ -1181,7 +1183,7 @@
 //    [colors addObject:[UIColor colorWithRed:66/255.f green:187/255.f blue:113/255.f alpha:1.f]];
 //    [colors addObject:[UIColor colorWithRed:201/255.f green:218/255.f blue:248/255.f alpha:1.f]];
 //    [colors addObject:[UIColor colorWithRed:247/255.f green:127/255.f blue:0/255.f alpha:1.f]];
-        if([selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+        if([selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:2]] || [selectedReportType.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:3]]) {
             for(int i=0;i<count;i++) {
                 [colors addObject:[self randomColor]];
                 

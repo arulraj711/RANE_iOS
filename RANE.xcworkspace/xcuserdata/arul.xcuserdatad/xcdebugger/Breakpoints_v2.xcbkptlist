@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FullIntel/CorporateNewsListView.m"
-            timestampString = "498545866.085545"
+            filePath = "ChartViewController.m"
+            timestampString = "499068869.002778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1122"
-            endingLineNumber = "1122"
-            landmarkName = "-loadCuratedNews"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
+            landmarkName = "-afterFetchingKeyTopicsInfo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

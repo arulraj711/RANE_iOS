@@ -62,5 +62,36 @@
         
     }
     
+    //set chart icon images manually
+    NSLog(@"report type id:%@",self.reportChartTyepId);
+    if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart3"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart3"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart2"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart2"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:3]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart4"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart4"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:4]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart1"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart1"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:5]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart1"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart1"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart6"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart6"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:7]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart6"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart6"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart6"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart6"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:9]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart2"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart2"];
+    }
+    
 }
 @end

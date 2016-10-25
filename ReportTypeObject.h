@@ -23,5 +23,7 @@
 @property (nonatomic,strong) NSString *moduleIds;
 @property (nonatomic,strong) NSString *tagIds;
 @property (nonatomic,strong) ChartTypeObject *chartTypeObject;
+@property (nonatomic,strong) NSString *chartIcon;
+@property (nonatomic,strong) NSString *chartSelectedIcon;
 -(void)setReportTypeFromDictionary:(NSDictionary *)dic;
 @end

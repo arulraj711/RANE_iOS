@@ -23,13 +23,18 @@
     self.modifiedBy = NULL_TO_NIL([dic objectForKey:@"modifiedBy"]);
     self.modifiedDate = NULL_TO_NIL([dic objectForKey:@"modifiedDate"]);
     self.isdeleted = NULL_TO_NIL([dic objectForKey:@"deleted"]);
-    
     self.reportTypeArray = [[NSMutableArray alloc]init];
     NSArray *reportArray = NULL_TO_NIL([dic objectForKey:@"reports"]);
     for(NSDictionary *dic in reportArray) {
         ReportTypeObject *reportType = [[ReportTypeObject alloc]init];
         [reportType setReportTypeFromDictionary:dic];
-        [self.reportTypeArray addObject:reportType];
+        if([reportType.isdeleted isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+            NSLog(@"deleted");
+        } else {
+            NSLog(@"not deleted");
+            [self.reportTypeArray addObject:reportType];
+        }
+        
     }
 }
 @end

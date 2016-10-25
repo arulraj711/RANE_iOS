@@ -41,8 +41,8 @@
     
     CGFloat widthOfChartViewOutline;
     CGFloat heightOfChartViewOutline;
-    NSMutableArray *chartIcon,*selectedChatIcon;
-    NSMutableArray *chartName;
+    //NSMutableArray *chartIcon,*selectedChatIcon;
+   // NSMutableArray *chartName;
     
     PieChartView *pieViews;
     BarChartView *barViews;
