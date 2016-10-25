@@ -1019,6 +1019,7 @@
     dataObj.subListAvailable = menu.subListAvailable;
     dataObj.isParent = menu.isParent;
     dataObj.articleCount = menu.articleCount;
+    dataObj.iconURL = menu.menuIconURL;
     // menu.name = [dic objectForKey:@"Name"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
     //if([menu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]]) {
@@ -1209,6 +1210,7 @@
         cell.iconImage.image = [UIImage imageNamed:@"logout"];
     } else {
         if(![dataObject.iconURL isKindOfClass:[NSNull class]]) {
+           // NSLog(@"menu icon url:%@",dataObject.iconURL);
             [cell.iconImage sd_setImageWithURL:[NSURL URLWithString:dataObject.iconURL] placeholderImage:nil];
         }
     }

@@ -17,6 +17,7 @@
 @property (nonatomic,strong) NSNumber *isParent;
 @property (nonatomic,strong) NSNumber *isSubscribed;
 @property (nonatomic,strong) NSNumber *subListAvailable;
+@property (nonatomic,strong) NSString *menuIconURL;
 @property (nonatomic,strong) NSNumber *articleCount;
 -(void)createMenuFromDic:(NSDictionary *)dic;
 +(FIMenu *)recursiveMenu:(NSDictionary *)dic;
