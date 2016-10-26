@@ -1866,10 +1866,10 @@
     
     NSLog(@"%@",NSStringFromCGPoint(poinOf));
 //    NSLog(@"%@",[barViews getDataSetByTouchPoint:poinOf]);
-    NSLog(@"%@",[barViews getHighlightByTouchPoint:poinOf]);
+    NSLog(@"test:%@",[barViews getHighlightByTouchPoint:poinOf]);
 
-    CGRect poi =[barViews getBarBounds:entry.data];
-    NSLog(@"%@",NSStringFromCGRect(poi));
+    //CGRect poi =[barViews getBarBounds:entry.data];
+   // NSLog(@"%@",NSStringFromCGRect(poi));
 
     
     NSMutableArray *containingXValue = [[NSMutableArray alloc]init];
