@@ -2240,12 +2240,32 @@
         //whatever else to configure your one cell you're going to return
         CorporateNewsCell *cell;
         
+        // Configure the cell...
+        
+        NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
+        
+        if([articleImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            
+            NSString *articleImageUrlString = [curatedNews valueForKey:@"image"];
+            if(articleImageUrlString.length != 0) {
+                cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withArticleImage"];
+            } else {
+                if([articleListPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                    cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withArticleImage"];
+                } else {
+                    cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withoutArticleImage"];
+                }
+            }
+           
+        } else {
+            cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withoutArticleImage"];
+        }
         
         if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
             if (longPressActive) { //Perform action desired when cell is long pressed
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+                
                 NSLog(@"%@, %ld",selectedCells,(long)indexPath.row);
                 
                 
@@ -2291,11 +2311,11 @@
                 }
             }
             else{
-              
-                    NSLog(@"cell editing no ---------");
-                    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-
-
+                
+                NSLog(@"cell editing no ---------");
+                cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+                
+                
                 [UIView animateWithDuration:0.4
                                  animations:^{
                                      cell.articleImageLeadConstraint.constant = 2;
@@ -2316,30 +2336,6 @@
         else{
             
         }
-       
-        
-        // Configure the cell...
-        
-        NSManagedObject *curatedNews = [self.devices objectAtIndex:indexPath.row];
-        
-        if([articleImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            
-            NSString *articleImageUrlString = [curatedNews valueForKey:@"image"];
-            if(articleImageUrlString.length != 0) {
-                cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withArticleImage"];
-            } else {
-                if([articleListPlaceholderImageVisible isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                    cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withArticleImage"];
-                } else {
-                    cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withoutArticleImage"];
-                }
-            }
-           
-        } else {
-            cell = (CorporateNewsCell *)[tableView dequeueReusableCellWithIdentifier:@"withoutArticleImage"];
-        }
-        
-        
         
         NSSet *authorSet = [curatedNews valueForKey:@"author"];
         NSMutableArray *authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
