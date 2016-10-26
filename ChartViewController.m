@@ -726,10 +726,11 @@
     NSNotification *notification = sender;
     NSArray *topStoriesInfoArray = [[notification userInfo] objectForKey:@"TopStoriesInfo"];
     NSLog(@"afterFetchingTopStoriesInfo %@",topStoriesInfoArray);
-    chartStoryList = [[NSMutableArray alloc]initWithArray:topStoriesInfoArray];
-    articleIdArray =[chartStoryList valueForKeyPath:@"id"];
-    [self.storyTableView reloadData];
-    
+    if(topStoriesInfoArray.count != 0) {
+        chartStoryList = [[NSMutableArray alloc]initWithArray:topStoriesInfoArray];
+        articleIdArray =[chartStoryList valueForKeyPath:@"id"];
+        [self.storyTableView reloadData];
+    }
 }
 
 
