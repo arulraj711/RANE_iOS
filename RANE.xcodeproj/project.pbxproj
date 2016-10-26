@@ -2349,8 +2349,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2370,7 +2370,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "f54b0fc0-7cc3-4ea2-b8ee-eafdb8ccfe29";
+				PROVISIONING_PROFILE = "d3296c30-87e8-428c-a7ea-aea76eab64e4";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -2393,8 +2393,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2407,7 +2407,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "f54b0fc0-7cc3-4ea2-b8ee-eafdb8ccfe29";
+				PROVISIONING_PROFILE = "d3296c30-87e8-428c-a7ea-aea76eab64e4";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -2421,8 +2421,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2432,9 +2432,9 @@
 				INFOPLIST_FILE = FullIntel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.capestart.fistage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.capestart.fi;
 				PRODUCT_NAME = FullIntel;
-				PROVISIONING_PROFILE = "f54b0fc0-7cc3-4ea2-b8ee-eafdb8ccfe29";
+				PROVISIONING_PROFILE = "d3296c30-87e8-428c-a7ea-aea76eab64e4";
 				SWIFT_OBJC_BRIDGING_HEADER = "FullIntel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2448,8 +2448,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gaugarin Oliver (T49XF9TSLH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FullIntel LLC (8JJ7VBN6MD)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2459,9 +2459,9 @@
 				INFOPLIST_FILE = FullIntel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.capestart.fistage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.capestart.fi;
 				PRODUCT_NAME = FullIntel;
-				PROVISIONING_PROFILE = "f54b0fc0-7cc3-4ea2-b8ee-eafdb8ccfe29";
+				PROVISIONING_PROFILE = "d3296c30-87e8-428c-a7ea-aea76eab64e4";
 				SWIFT_OBJC_BRIDGING_HEADER = "FullIntel-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

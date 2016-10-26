@@ -21,6 +21,7 @@
     RADataObject *data;
     NSTimer *popAnimationTimerTwo,*popAnimationTimer;
     NSArray *menuArray;
+    NSMutableArray *menuSelectionArray;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addContentButton;
 @property (weak, nonatomic) IBOutlet UIImageView *researchRequestImage;

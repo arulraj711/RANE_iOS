@@ -59,7 +59,7 @@
     
     self.treeView.allowsMultipleSelectionDuringEditing = NO;
     self.treeView.allowsMultipleSelection = NO;
-    
+    menuSelectionArray = [[NSMutableArray alloc]init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenusFromService:) name:@"MenuList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnreadCount:) name:@"UnreadMenuAPI" object:nil];
     
@@ -1260,143 +1260,23 @@
         cell.expandButton.hidden = YES;
     }
     
-    
-    
-//    CGFloat left;
-//    if(!dataObject.isFolder) {
-//        if([dataObject.nodeId integerValue] == 9) {
-//            cell.iconWidthConstraint.constant =15;
-//            cell.titleConstraint.constant = 9;
-//            cell.titleWidthConstraint.constant = 160;
-//            left = 40 + 11 + 20 * level;
-//            cell.iconImage.hidden = NO;
-//            
-//            [cell.iconImage setTintColor:[UIColor menuTextColor]];
-//            [cell.iconImage setImage:[[UIImage imageNamed:@"markedImp"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-//            //[cell.customTitleLabel textColor:[UIColor menuTextColor]];
-////            cell.iconImage.image = [UIImage imageNamed:@"markedImp"];
-////            cell.iconImage.tintColor = [UIColor redColor];
-//        } else if([dataObject.nodeId integerValue] == 6) {
-//            cell.iconWidthConstraint.constant =15;
-//            cell.titleConstraint.constant = 9;
-//            cell.titleWidthConstraint.constant = 160;
-//            left = 40 + 11 + 20 * level;
-//            cell.iconImage.hidden = NO;
-//            [cell.iconImage setTintColor:[UIColor menuTextColor]];
-//            [cell.iconImage setImage:[[UIImage imageNamed:@"savedForLater"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-//            //cell.iconImage.image = [UIImage imageNamed:@"savedForLater"];
-//        } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-1000]]) {
-//            cell.iconWidthConstraint.constant =15;
-//            cell.titleConstraint.constant = 9;
-//            cell.titleWidthConstraint.constant = 160;
-//            left = 40 + 11 + 20 * level;
-//            cell.iconImage.hidden = NO;
-//            [cell.iconImage setTintColor:[UIColor menuTextColor]];
-//            [cell.iconImage setImage:[[UIImage imageNamed:@"logout"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-//            //cell.iconImage.image = [UIImage imageNamed:@"logout"];
-//        } else {
-//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-//            cell.iconWidthConstraint.constant =15;
-//            cell.titleConstraint.constant = 9+10*level;
-//            cell.titleWidthConstraint.constant = 185;
-//            left = 34 + 20 * level;
-//            cell.iconImage.hidden = YES;
-//        }
-//    } else {
-//        if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-100]]) {
-//            cell.iconWidthConstraint.constant =15;
-//            cell.titleConstraint.constant = 9;
-//            cell.titleWidthConstraint.constant = 160;
-//            left = 40 + 11 + 20 * level;
-//            cell.iconImage.hidden = NO;
-//            [cell.iconImage setTintColor:[UIColor menuTextColor]];
-//            [cell.iconImage setImage:[[UIImage imageNamed:@"folder_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-//            //cell.iconImage.image = [UIImage imageNamed:@"folder_menu"];
-//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-//        }else {
-//            cell.iconWidthConstraint.constant =15;
-//            cell.titleConstraint.constant = 9+10*level;
-//            cell.titleWidthConstraint.constant = 185;
-//            left = 34 + 20 * level;
-//            cell.iconImage.hidden = YES;
-//            cell.customTitleLabel.textColor = [UIColor menuTextColor];
-//        }
-//    }
-//    
-//    if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-200]]) {
-//        //For Daily Digest
-//        cell.iconWidthConstraint.constant =15;
-//        cell.titleConstraint.constant = 9;
-//        cell.titleWidthConstraint.constant = 160;
-//        left = 40 + 11 + 20 * level;
-//        cell.iconImage.hidden = NO;
-//        [cell.iconImage setTintColor:[UIColor menuTextColor]];
-//        [cell.iconImage setImage:[[UIImage imageNamed:@"dailydigest_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-//        //cell.iconImage.image = [UIImage imageNamed:@"dailydigest_menu"];
-//        cell.customTitleLabel.textColor = [UIColor menuTextColor];
-//    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-300]]) {
-//        //For Add Content
-//        cell.iconWidthConstraint.constant =15;
-//        cell.titleConstraint.constant = 9;
-//        cell.titleWidthConstraint.constant = 160;
-//        left = 40 + 11 + 20 * level;
-//        cell.iconImage.hidden = NO;
-//        [cell.iconImage setTintColor:[UIColor menuTextColor]];
-//        [cell.iconImage setImage:[[UIImage imageNamed:@"addcontent_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-//        //cell.iconImage.image = [UIImage imageNamed:@"addcontent_menu"];
-//        cell.customTitleLabel.textColor = [UIColor menuTextColor];
-//    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-400]])  {
-//        //For Research request
-//        cell.iconWidthConstraint.constant =15;
-//        cell.titleConstraint.constant = 9;
-//        cell.titleWidthConstraint.constant = 160;
-//        left = 40 + 11 + 20 * level;
-//        cell.iconImage.hidden = NO;
-//        [cell.iconImage setTintColor:[UIColor menuTextColor]];
-//        [cell.iconImage setImage:[[UIImage imageNamed:@"researchReq"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-//        //cell.iconImage.image = [UIImage imageNamed:@"researchReq"];
-//        cell.customTitleLabel.textColor = [UIColor menuTextColor];
-//    } else if([dataObject.nodeId isEqualToNumber:[NSNumber numberWithInt:-500]]) {
-//        //For Media Analysis
-//        cell.iconWidthConstraint.constant =15;
-//        cell.titleConstraint.constant = 9;
-//        cell.titleWidthConstraint.constant = 160;
-//        left = 40 + 11 + 20 * level;
-//        cell.iconImage.hidden = NO;
-//        [cell.iconImage setTintColor:[UIColor menuTextColor]];
-//        [cell.iconImage setImage:[[UIImage imageNamed:@"mediaanalysis_menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-//        //cell.iconImage.image = [UIImage imageNamed:@"mediaanalysis_menu"];
-//        cell.customTitleLabel.textColor = [UIColor menuTextColor];
-//    }
-//    
-//    
-//    if([[dataObject.name uppercaseString]isEqualToString:@"RSS"]) {
-//        cell.rssImage.hidden = NO;
-//    } else {
-//        cell.rssImage.hidden = YES;
-//    }
-//    
-//    CGRect titleFrame = cell.customTitleLabel.frame;
-//    titleFrame.origin.x = left;
-//    cell.customTitleLabel.frame = titleFrame;
-    
-    
-//    NSString *highlightColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"highlightColor"];
-//    NSString *highColor = [highlightColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    
-    if(cell.customTitleLabel.isHighlighted)
-    {
-        cell.customTitleLabel.highlightedTextColor = [UIColor menuBackgroundColor];
-    }
-    else
-    {
+    if([menuSelectionArray containsObject:dataObject.nodeId]) {
+        NSLog(@"cell selected");
         cell.customTitleLabel.highlightedTextColor = [UIColor highlightMenuTextColor];
+        cell.contentView.backgroundColor = [UIColor highlightMenuBackgroundColor];
+    } else {
+        NSLog(@"cell is not selected");
+        cell.customTitleLabel.highlightedTextColor = [UIColor menuBackgroundColor];
+        cell.contentView.backgroundColor = [UIColor menuBackgroundColor];
     }
     
-   // [cell.expandButton addTarget:self action:@selector(yourButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+//    if(cell.contentView.backgroundColor == [UIColor highlightMenuBackgroundColor]) {
+//        cell.customTitleLabel.highlightedTextColor = [UIColor highlightMenuTextColor];
+//    } else {
+//        cell.customTitleLabel.highlightedTextColor = [UIColor menuBackgroundColor];
+//    }
+
     return cell;
 }
 
@@ -1449,10 +1329,11 @@
 }
 -(void)treeView:(RATreeView *)treeView didDeselectRowForItem:(id)item {
     RADataObject *dataO = item;
+    [menuSelectionArray removeObject:data.nodeId];
     NSLog(@"deselect item:%@",dataO.name);
     RATableViewCell *cell = (RATableViewCell *)[self.treeView cellForItem:item];
     cell.contentView.backgroundColor = [UIColor menuBackgroundColor];
-
+    cell.customTitleLabel.highlightedTextColor = [UIColor menuBackgroundColor];
 //        cell.customTitleLabel.highlightedTextColor = UIColorFromRGB(0x666E73);
 //        cell.iconImage.image = [cell.iconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 //    
@@ -1472,6 +1353,7 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFolderClick"];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isExpandButtonClick"];
         data = item;
+        [menuSelectionArray addObject:data.nodeId];
         NSLog(@"did select item:%@",data.name);
 
         //    //if([[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"]iseq)
