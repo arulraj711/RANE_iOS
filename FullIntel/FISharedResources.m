@@ -418,7 +418,7 @@
     if([self serviceIsReachable]) {
         // [self showProgressHUDForView];
         [FIWebService validateUserOnResumeWithAccessToken:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+//            if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 //Update read/unread status in DB
                 NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
                 NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
@@ -466,11 +466,23 @@
                 });
                 
                 
-            } else {
-                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
-            }
+//            } else {
+//                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+//            }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error menu unread JSON:%@",errorJson);
+            if(errorJson == nil){
+                [FIUtils showErrorToast];
+            } else {
+                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                    [self hideProgressView];
+                    [self showLoginView:[NSNumber numberWithInt:0]];
+                } else {
+                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                }
+            }
         }];
         
     } else {
@@ -2643,18 +2655,31 @@
 -(void)setUserActivitiesOnArticlesWithDetails:(NSString *)details withFlag :(BOOL)boolValue{
     if([self serviceIsReachable]) {
     [FIWebService userActivitiesOnArticlesWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-       if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+       //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
            if (boolValue) {
                UIWindow *window = [[UIApplication sharedApplication]windows][0];
                [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
            }
 
-       } else {
-           [self hideProgressView];
-           [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
-       }
+//       } else {
+//           [self hideProgressView];
+//           [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+//       }
     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [FIUtils showErrorToast];
+        //[FIUtils showErrorToast];
+        NSError* error1;
+        NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+        NSLog(@"error menu unread JSON:%@",errorJson);
+        if(errorJson == nil){
+            [FIUtils showErrorToast];
+        } else {
+            if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                [self hideProgressView];
+                [self showLoginView:[NSNumber numberWithInt:0]];
+            } else {
+                [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+            }
+        }
     }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -2694,7 +2719,7 @@
 -(void)updateAppViewTypeWithDetails:(NSString *)details withStatus:(NSNumber *)status{
     if([self serviceIsReachable]) {
         [FIWebService updateAppViewTypeWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 if([status isEqualToNumber:[NSNumber numberWithInt:0]]) {
                     NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:27]];
@@ -2705,12 +2730,24 @@
                     NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
                     [window makeToast:message duration:1 position:CSToastPositionCenter];
                 }
-            } else {
-                [self hideProgressView];
-                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
-            }
+//            } else {
+//                [self hideProgressView];
+//                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+//            }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error menu unread JSON:%@",errorJson);
+            if(errorJson == nil){
+                [FIUtils showErrorToast];
+            } else {
+                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                    [self hideProgressView];
+                    [self showLoginView:[NSNumber numberWithInt:0]];
+                } else {
+                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                }
+            }
         }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
@@ -2725,15 +2762,27 @@
 -(void)featureAccessRequestWithDetails:(NSString *)details {
     if([self serviceIsReachable]) {
         [FIWebService featureAccessRequestWithDetails:details onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 UIWindow *window = [[UIApplication sharedApplication]windows][0];
                 [window makeToast:[responseObject objectForKey:@"message"] duration:1 position:CSToastPositionCenter];
-            } else {
-                [self hideProgressView];
-                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
-            }
+//            } else {
+//                [self hideProgressView];
+//                [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+//            }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [FIUtils showErrorToast];
+            NSError* error1;
+            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+            NSLog(@"error menu unread JSON:%@",errorJson);
+            if(errorJson == nil){
+                [FIUtils showErrorToast];
+            } else {
+                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                    [self hideProgressView];
+                    [self showLoginView:[NSNumber numberWithInt:0]];
+                } else {
+                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                }
+            }
         }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
