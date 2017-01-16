@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "499181345.841776"
+            timestampString = "506260834.282359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1860"
-            endingLineNumber = "1860"
+            startingLineNumber = "1875"
+            endingLineNumber = "1875"
             landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "499181355.09699"
+            timestampString = "506261326.072315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1958"
-            endingLineNumber = "1958"
+            startingLineNumber = "1974"
+            endingLineNumber = "1974"
             landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "499181472.18113"
+            timestampString = "506260834.282359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1869"
-            endingLineNumber = "1869"
+            startingLineNumber = "1884"
+            endingLineNumber = "1884"
             landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "499181476.736631"
+            timestampString = "506260834.282359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1896"
-            endingLineNumber = "1896"
+            startingLineNumber = "1911"
+            endingLineNumber = "1911"
             landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChartViewController.m"
-            timestampString = "499181480.21674"
+            timestampString = "506260834.282359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1907"
-            endingLineNumber = "1907"
+            startingLineNumber = "1922"
+            endingLineNumber = "1922"
             landmarkName = "-chartValueSelected:entry:dataSetIndex:highlight:"
             landmarkType = "5">
          </BreakpointContent>

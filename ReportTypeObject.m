@@ -91,6 +91,17 @@
     } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:9]]) {
         self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart2"];
         self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart2"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:10]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart1"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart1"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:11]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart1"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart1"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:12]]) {
+        self.chartIcon = [NSString stringWithFormat:@"%@",@"issue_chart1"];
+        self.chartSelectedIcon = [NSString stringWithFormat:@"%@",@"selected_issue_chart1"];
+    } else if([self.reportChartTyepId isEqualToNumber:[NSNumber numberWithInt:13]]) {
+        
     }
     
 }

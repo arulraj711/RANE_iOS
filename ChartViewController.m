@@ -1092,6 +1092,21 @@
         [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
         [[FISharedResources sharedResourceManager]getKeyTopicsChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
+    } else if([reportType isEqualToNumber:[NSNumber numberWithInt:10]]) {
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Volume and Sentiment-HCP"];
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
+    } else if([reportType isEqualToNumber:[NSNumber numberWithInt:11]]) {
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Volume and Sentiment-SMB"];
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
+    } else if([reportType isEqualToNumber:[NSNumber numberWithInt:12]]) {
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"Click Volume and Sentiment-SHSC"];
+        [self collectionView:_chartIconCollectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        NSString *apiLinkString = [FIUtils modifiedAPILinkForLink:apiLink withModuleId:moduleId withTagId:tagId];
+        [[FISharedResources sharedResourceManager]getSentimentAndVolumeOverTimeChartInfoFromDate:reportObject.reportFromDate toDate:reportObject.reportToDate withAPILink:apiLinkString];
     }
 }
 - (void)selectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -1933,6 +1948,7 @@
 
     int resultPoint = (int)entry.value;
     NSLog(@"selected article count:%d",resultPoint);
+    NSLog(@"report type id:%@",localReportTypeId);
     NSUInteger indexEntry  = entry.xIndex;
     NSUInteger stackIndex  = highlight.stackIndex;
     NSString *tonalityValue = [[NSString alloc]init];
@@ -2157,7 +2173,7 @@
         [self.navigationController pushViewController:listView animated:YES];
 
         
-    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:4]]) {
+    } else if([localReportTypeId isEqualToNumber:[NSNumber numberWithInt:4]] || [localReportTypeId isEqualToNumber:[NSNumber numberWithInt:10]] || [localReportTypeId isEqualToNumber:[NSNumber numberWithInt:11]] || [localReportTypeId isEqualToNumber:[NSNumber numberWithInt:12]]) {
         //Sentiment and volume over time chart
 
         if (poinOf.y > poinOfMarker.y) {
