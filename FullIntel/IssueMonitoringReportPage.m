@@ -113,7 +113,7 @@
         self.storyTitle.text = @"Top Outlets";
         self.monitoringInfluencerTableView.hidden = YES;
         self.monitoringOutletTableView.hidden = NO;
-        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/outlets.json"]];
+        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://s3.amazonaws.com/s3fullintel.com/fi/iPad_demo/json/outlets.json"]];
         NSError *error;
         monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         NSLog(@"issue lis:%@",monitoringOutletList);
@@ -123,7 +123,7 @@
         self.storyTitle.text = @"Top Authors";
         self.monitoringOutletTableView.hidden = YES;
         self.monitoringInfluencerTableView.hidden = NO;
-        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/authors.json"]];
+        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://s3.amazonaws.com/s3fullintel.com/fi/iPad_demo/json/authors.json"]];
         NSError *error;
         monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         NSLog(@"issue lis:%@",monitoringOutletList);
@@ -133,7 +133,7 @@
         self.storyTitle.text = @"Top Influencers";
         self.monitoringOutletTableView.hidden = YES;
         self.monitoringInfluencerTableView.hidden = NO;
-        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/influencers.json"]];
+        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://s3.amazonaws.com/s3fullintel.com/fi/iPad_demo/json/influencers.json"]];
         NSError *error;
         monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         NSLog(@"issue lis:%@",monitoringOutletList);
@@ -143,7 +143,7 @@
         self.storyTitle.text = @"Top Friends";
         self.monitoringOutletTableView.hidden = YES;
         self.monitoringInfluencerTableView.hidden = NO;
-        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/friends.json"]];
+        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://s3.amazonaws.com/s3fullintel.com/fi/iPad_demo/json/friends.json"]];
         NSError *error;
         monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         NSLog(@"issue lis:%@",monitoringOutletList);
@@ -153,7 +153,7 @@
         self.storyTitle.text = @"Top Foes";
         self.monitoringOutletTableView.hidden = YES;
         self.monitoringInfluencerTableView.hidden = NO;
-        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/foes.json"]];
+        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://s3.amazonaws.com/s3fullintel.com/fi/iPad_demo/json/foes.json"]];
         NSError *error;
         monitoringOutletList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         NSLog(@"issue lis:%@",monitoringOutletList);

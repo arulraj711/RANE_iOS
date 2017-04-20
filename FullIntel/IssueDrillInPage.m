@@ -27,7 +27,7 @@
 }
 
 -(void) viewDidAppear:(BOOL)animated {
-    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/drillin.json"]];
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://s3.amazonaws.com/s3fullintel.com/fi/iPad_demo/json/drillin.json"]];
     NSError *error;
     NSDictionary *articleDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     NSLog(@"article dic:%@",articleDic);

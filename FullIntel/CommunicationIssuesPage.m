@@ -105,14 +105,14 @@
 //}
 
 -(void)viewDidAppear:(BOOL)animated {
-    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/CI_Issue_List.json"]];
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://s3.amazonaws.com/s3fullintel.com/fi/iPad_demo/json/CI_Issue_List.json"]];
     NSError *error;
     issueList = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     NSLog(@"issue lis:%@",issueList);
     [self.issuesTableView reloadData];
     
     
-    NSData *data1 = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/276740356/FullIntel/CI/CI_SubChartType.json"]];
+    NSData *data1 = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://s3.amazonaws.com/s3fullintel.com/fi/iPad_demo/json/CI_SubChartType.json"]];
     NSError *error1;
     subChartNameArrayList = [[NSMutableArray alloc]init];
     subChartNameArrayList = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingAllowFragments error:&error1];
