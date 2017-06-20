@@ -238,6 +238,13 @@
        // [self.selectedIdArray removeObject:contentCategory.categoryId];
         [cell.checkMarkButton setSelected:NO];
     }
+    
+    if(contentCategory.listArray.count != 0) {
+        cell.expandButton.hidden = NO;
+    } else {
+        cell.expandButton.hidden = YES;
+    }
+    
     cell.checkMarkButton.tag = indexPath.row;
     cell.expandButton.tag = indexPath.row;
     cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;

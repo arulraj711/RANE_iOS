@@ -780,7 +780,7 @@
     }
     
     
-    if(contentCategory.listArray.count != 0) {
+    if([contentCategory.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]] && contentCategory.listArray.count != 0) {
         cell.expandButton.hidden = NO;
     } else {
         cell.expandButton.hidden = YES;
