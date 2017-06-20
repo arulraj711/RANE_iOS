@@ -15,5 +15,6 @@
 @property (nonatomic,strong) IBOutlet UIView *gradientView;
 @property (nonatomic,strong) IBOutlet UIButton *upgradeButton;
 @property (strong, nonatomic) IBOutlet UIView *bottomContentView;
+@property (weak, nonatomic) IBOutlet UIButton *expandButton;
 @property (strong, nonatomic) IBOutlet UIImageView *imgBottomPart;
 @end

@@ -121,7 +121,7 @@
         
     }
     
-    [[UIBarButtonItem appearance] setTintColor:[UIColor redColor]];
+    //[[UIBarButtonItem appearance] setTintColor:[UIColor redColor]];
     
 //    NSString *headerColor = [[NSUserDefaults standardUserDefaults]objectForKey:@"headerColor"];
 //    NSString *stringWithoutSpaces = [headerColor stringByReplacingOccurrencesOfString:@"#" withString:@""];

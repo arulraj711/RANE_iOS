@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface FIUnreadMenu : NSObject
+@property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSNumber *nodeId;
 @property (nonatomic,strong) NSNumber *isParent;
 @property (nonatomic,strong) NSNumber *isSubscribed;

@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *categoryCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 - (IBAction)checkMark:(id)sender;
+- (IBAction)expandButtonClick:(id)sender;
 @property (nonatomic, assign) id<FourthLevelDelegate> delegate;
 @property (nonatomic,strong) NSMutableArray *innerArray;
 @property (nonatomic,strong) NSMutableArray *selectedIdArray;

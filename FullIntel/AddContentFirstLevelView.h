@@ -12,7 +12,14 @@
 @interface AddContentFirstLevelView : UIViewController<RFQuiltLayoutDelegate,UICollectionViewDelegate,SecondLevelDelegate> {
     RFQuiltLayout* layout;
     NSTimer *popAnimationTimer;
+     NSArray *menuArray;
+    int unreadCnt;
+    NSMutableArray *searchArray;
 }
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
+@property (strong) NSMutableArray *menus;
+@property (strong, nonatomic) NSMutableArray *data;
+- (IBAction)expandButtonClick:(id)sender;
 - (IBAction)closeAction:(id)sender;
 - (IBAction)requestChange:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *contentCollectionView;

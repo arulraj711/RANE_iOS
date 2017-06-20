@@ -16,11 +16,11 @@
 #define Twitter_API_Key @"1c29beff4fb9acba2e7f82bc9b945a4e"
 //NSString *url = @"https://stage.fullintel.com/2.1.0";
 
-NSString *url = @"https://fullintel.com/3.6.3";
+//NSString *url = @"https://fullintel.com/3.6.3";
 
 //Pre production URL
-//NSString *url = @"http://52.23.194.116/3.5.2";
-
+NSString *url = @"http://54.210.166.32/3.6.4";
+//NSString *url = @"http://192.168.3.244:8080/3.6.4";
 
 #define FUNCTION_URL @"api/v1"
 @implementation FIWebService

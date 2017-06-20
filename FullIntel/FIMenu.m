@@ -14,7 +14,7 @@
 }
 
 +(FIMenu *)recursiveMenu:(NSDictionary *)dic {
-    NSLog(@"dic in model name:%@ and count:%@",[dic objectForKey:@"name"],[dic objectForKey:@"unReadCount"]);
+    //NSLog(@"dic in model name:%@ and count:%@",[dic objectForKey:@"name"],[dic objectForKey:@"unReadCount"]);
     FIMenu *menu = [[FIMenu alloc]init];
     menu.name = [dic objectForKey:@"name"];
     menu.nodeId = [dic objectForKey:@"id"];

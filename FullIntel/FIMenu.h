@@ -19,6 +19,8 @@
 @property (nonatomic,strong) NSNumber *subListAvailable;
 @property (nonatomic,strong) NSString *menuIconURL;
 @property (nonatomic,strong) NSNumber *articleCount;
+@property (nonatomic,strong) NSNumber *contentTypeForCustomerId;
+@property (strong, nonatomic) NSMutableArray *children;
 -(void)createMenuFromDic:(NSDictionary *)dic;
 +(FIMenu *)recursiveMenu:(NSDictionary *)dic;
 @end

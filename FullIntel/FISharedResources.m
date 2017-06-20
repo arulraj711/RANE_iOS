@@ -700,7 +700,7 @@
             context = [self managedObjectContext];
             
             
-            NSLog(@"incoming content type:%@ and categoryid:%@ and articleID:%@",contentTypeId,categoryId,[dic objectForKey:@"id"]);
+            //NSLog(@"incoming content type:%@ and categoryid:%@ and articleID:%@",contentTypeId,categoryId,[dic objectForKey:@"id"]);
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
             NSPredicate *predicate;
             if(isSearch) {
@@ -1611,52 +1611,53 @@
     if([self serviceIsReachable]) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         [FIWebService fetchMenuUnreadCountWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //if([[responseObject objectForKey:@"isAuthenticated"]isEqualToNumber:[NSNumber numberWithInt:1]]) {
             if([responseObject isKindOfClass:[NSArray class]]){
                 NSArray *menuArray = responseObject;
                 [_menuUnReadCountArray removeAllObjects];
-                
-                
                 for(NSDictionary *dic in menuArray) {
-                    //NSLog(@"unread menu dic:%@",dic);
                     FIUnreadMenu *menu = [FIUnreadMenu recursiveUnReadMenu:dic];
-                    
                     [_menuUnReadCountArray addObject:menu];
                 }
-                //NSLog(@"_menuUnReadCountArray %@",_menuUnReadCountArray);
                 [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnReadMenuList"];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:_menuUnReadCountArray];
-                
-                
-//                for(NSDictionary *dic in menuArray) {
-//                    FIUnreadMenu *menu = [[FIUnreadMenu alloc]init];
-//                    [menu setUnreadMenuObjectFromDic:dic];
-//                    [_menuUnReadCountArray addObject:menu];
-//                }
-//                //   [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnreadMenuAPI"];
-//                [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:nil];
-                //[self getFolderListWithAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] withFlag:NO withCreatedFlag:NO];
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
-                
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
                     [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
                 }
             }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSError* error1;
-//            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
-//            NSLog(@"error menu unread JSON:%@",errorJson);
-//            if(errorJson == nil){
-//                [FIUtils showErrorToast];
-//            } else {
-//                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
-//                    [self hideProgressView];
-//                    [self showLoginView:[NSNumber numberWithInt:0]];
-//                } else {
-//                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
-//                }
-//            }
         }];
+        });
+    } else {
+        UIWindow *window = [[UIApplication sharedApplication]windows][0];
+        NSArray *subViewArray = [window subviews];
+        //NSLog(@"subview array count:%d",subViewArray.count);
+        if(subViewArray.count == 1) {
+            [self showBannerView];
+        }
+    }
+}
+
+-(void)getAddContentMenuWithAccessToken:(NSString *)accessToken {
+    if([self serviceIsReachable]) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            [FIWebService fetchMenuUnreadCountWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                if([responseObject isKindOfClass:[NSArray class]]){
+                    NSArray *menuArray = responseObject;
+                    [_menuUnReadCountArray removeAllObjects];
+                    for(NSDictionary *dic in menuArray) {
+                        FIUnreadMenu *menu = [FIUnreadMenu recursiveUnReadMenu:dic];
+                        [_menuUnReadCountArray addObject:menu];
+                    }
+                    [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnReadMenuList"];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"AddContentMenuAPI" object:_menuUnReadCountArray];
+                } else if([responseObject isKindOfClass:[NSDictionary class]]){
+                    if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {
+                        [self showLoginView:[responseObject objectForKey:@"isAuthenticated"]];
+                    }
+                }
+            } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            }];
         });
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];

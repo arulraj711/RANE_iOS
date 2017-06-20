@@ -12,6 +12,8 @@
 #import "FIContentCategory.h"
 #import "AddContentFifthLevelView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "FIMenu.h"
+#import "FirstLevelCell.h"
 
 @interface AddContentFourthLevelView ()
 
@@ -30,10 +32,10 @@
     self.checkedArray = [[NSMutableArray alloc]init];
     
     // Do any additional setup after loading the view.
-    RFQuiltLayout* layout = (id)[self.categoryCollectionView collectionViewLayout];
-    layout.direction = UICollectionViewScrollDirectionVertical;
+//    RFQuiltLayout* layout = (id)[self.categoryCollectionView collectionViewLayout];
+//    layout.direction = UICollectionViewScrollDirectionVertical;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        layout.blockPixels = CGSizeMake(110,110);
+        //layout.blockPixels = CGSizeMake(110,110);
        // UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
             testLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, self.selectTopicsLabel.frame.origin.y-10 ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
             testLabel.text = self.title;
@@ -44,7 +46,7 @@
 
         
     } else {
-    layout.blockPixels = CGSizeMake(180,180);
+    //layout.blockPixels = CGSizeMake(180,180);
         UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
         if(orientation == 1) {
             testLabel = [[UILabel alloc]initWithFrame:CGRectMake((130-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y ,self.selectTopicsLabel.frame.size.width,self.selectTopicsLabel.frame.size.height)];
@@ -72,7 +74,7 @@
 
 - (void)loadSelectedCategory
 {
-    if(self.isSelected) {
+    //if(self.isSelected) {
         BOOL isChanged = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFourthLevelChanged"];
         NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:[self.selectedId stringValue]];
         
@@ -97,10 +99,10 @@
                 }
             }
         }
-    } else {
-        self.selectedIdArray = [[NSMutableArray alloc]init];
-        [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
-    }
+//    } else {
+//        self.selectedIdArray = [[NSMutableArray alloc]init];
+//        [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
+//    }
     [self.categoryCollectionView reloadData];
     
 }
@@ -146,6 +148,10 @@
 
 #pragma mark – RFQuiltLayoutDelegate
 
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(10, 10, 10, 10);
+}
 
 -(CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout blockSizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return CGSizeMake(1, 1);
@@ -161,16 +167,16 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"cell for item");
-    SecondLevelCell *cell =(SecondLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
     
     FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
     cell.name.text = contentCategory.name;
     
-    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
-    
-    [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageWithContentsOfFile:path]];
-   [cell.image setContentMode:UIViewContentModeScaleAspectFill];
+//    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
+//    
+//    [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageWithContentsOfFile:path]];
+//   [cell.image setContentMode:UIViewContentModeScaleAspectFill];
     if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
         //[self.selectedIdArray addObject:contentCategory.categoryId];
         [cell.checkMarkButton setSelected:YES];
@@ -179,6 +185,7 @@
         [cell.checkMarkButton setSelected:NO];
     }
     cell.checkMarkButton.tag = indexPath.row;
+    cell.expandButton.tag = indexPath.row;
     cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
     cell.contentView.layer.borderWidth = 1.0f;
     UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cellTap:)];
@@ -207,6 +214,29 @@
     }
 }
 
+- (IBAction)expandButtonClick:(id)sender {
+    FIMenu *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
+    if(contentCategory.listArray.count != 0) {
+        UIStoryboard *storyboard;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            storyboard = [UIStoryboard storyboardWithName:@"AddContentPhone" bundle:nil];
+        } else if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+        }
+        AddContentFifthLevelView *thirdLevel = [storyboard instantiateViewControllerWithIdentifier:@"FifthLevel"];
+        thirdLevel.delegate = self;
+        thirdLevel.innerArray = contentCategory.listArray;
+        thirdLevel.title = contentCategory.name;
+        thirdLevel.previousArray = self.selectedIdArray;
+        thirdLevel.selectedId = contentCategory.nodeId;
+//        if(cell.checkMarkButton.isSelected) {
+//            thirdLevel.isSelected = YES;
+//        } else {
+//            thirdLevel.isSelected = NO;
+//        }
+        [self.navigationController pushViewController:thirdLevel animated:YES];
+    }
+}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 //    SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:indexPath];
@@ -234,24 +264,24 @@
 //}
 
 - (IBAction)checkMark:(id)sender {
-        FIContentCategory *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
-        if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
-            [self.selectedIdArray removeObject:contentCategory.categoryId];
+        FIMenu *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
+        if([self.selectedIdArray containsObject:contentCategory.nodeId]) {
+            [self.selectedIdArray removeObject:contentCategory.nodeId];
             [sender setSelected:NO];
-            [self.checkedArray removeObject:contentCategory.categoryId];
+            [self.checkedArray removeObject:contentCategory.nodeId];
             // } else {
-            [self.uncheckedArray addObject:contentCategory.categoryId];
+            [self.uncheckedArray addObject:contentCategory.nodeId];
             // }
             NSMutableArray *testArray = [[NSMutableArray alloc]init];
-            [[NSUserDefaults standardUserDefaults]setObject:testArray forKey:[contentCategory.categoryId stringValue]];
+            [[NSUserDefaults standardUserDefaults]setObject:testArray forKey:[contentCategory.nodeId stringValue]];
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFifthLevelChanged"];
         } else {
-            [self.selectedIdArray addObject:contentCategory.categoryId];
+            [self.selectedIdArray addObject:contentCategory.nodeId];
             [sender setSelected:YES];
             //  if([self.checkedArray containsObject:contentCategory.categoryId]) {
-            [self.checkedArray addObject:contentCategory.categoryId];
+            [self.checkedArray addObject:contentCategory.nodeId];
             // } else {
-            [self.uncheckedArray removeObject:contentCategory.categoryId];
+            [self.uncheckedArray removeObject:contentCategory.nodeId];
             // }
         }
     NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"contentCategory":contentCategory.name};

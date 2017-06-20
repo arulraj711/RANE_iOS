@@ -15,6 +15,8 @@
 #import "UIView+Toast.h"
 #import "AddContentSecondLevelView.h"
 #import "FIUtils.h"
+#import "FIMenu.h"
+#import "FIUnreadMenu.h"
 //#import "Localytics.h"
 #import "pop.h"
 #import "UILabel+CustomHeaderLabel.h"
@@ -45,6 +47,11 @@
     
     // Do any additional setup after loading the view.
     
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenusFromService:) name:@"MenuList" object:nil];
+    searchArray = [[NSMutableArray alloc]init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnreadCount:) name:@"AddContentMenuAPI" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadContentCategory) name:@"contentCategory" object:nil];
     
     
@@ -57,31 +64,37 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backBtnPress) name:@"closeAddContentView" object:nil];
     
-    layout = (id)[self.contentCollectionView collectionViewLayout];
-    layout.direction = UICollectionViewScrollDirectionVertical;
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    //NSLog(@"current device orientation:%ld",(long)orientation);
     
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        if (IS_IPHONE_6)
-        {
-        layout.blockPixels = CGSizeMake(110,110);
-            
-            
-        }
-        else if (IS_IPHONE_6P)
-        {
-        layout.blockPixels = CGSizeMake(110,110);
-
-        }
-
-    } else {
-        if(orientation == 1) {
-            layout.blockPixels = CGSizeMake(120,150);
-        }else {
-            layout.blockPixels = CGSizeMake(130,150);
-        }
-    }
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangeNotification:)
+                                                name:UITextFieldTextDidChangeNotification object:nil];
+    
+    
+//    layout = (id)[self.contentCollectionView collectionViewLayout];
+//    layout.direction = UICollectionViewScrollDirectionVertical;
+//    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+//    //NSLog(@"current device orientation:%ld",(long)orientation);
+//    
+//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//        if (IS_IPHONE_6)
+//        {
+//        layout.blockPixels = CGSizeMake(500,110);
+//            
+//            
+//        }
+//        else if (IS_IPHONE_6P)
+//        {
+//        layout.blockPixels = CGSizeMake(500,110);
+//
+//        }
+//
+//    } else {
+//        if(orientation == 1) {
+//            layout.blockPixels = CGSizeMake(120,150);
+//        }else {
+//            layout.blockPixels = CGSizeMake(130,150);
+//        }
+//    }
     
     
     //[self.contentCollectionView reloadData];
@@ -92,15 +105,9 @@
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"thirdLevelSelection"];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"fourthLevelSelection"];
     
-    NSMutableDictionary *contentCategoryJSON = [[NSMutableDictionary alloc] init];
-    [contentCategoryJSON setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
-    [contentCategoryJSON setObject:[NSNumber numberWithBool:NO] forKey:@"updateCategory"];
-    
-    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:contentCategoryJSON options:NSJSONWritingPrettyPrinted error:nil];
-    
-    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
-    [[FISharedResources sharedResourceManager]manageContentCategoryWithDetails:resultStr withFlag:0];
-    
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+    [[FISharedResources sharedResourceManager]getAddContentMenuWithAccessToken:accessToken];
+    //[[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         
@@ -161,8 +168,6 @@
         _requestChangeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
         _requestChangeButton.layer.borderWidth=1.0f;
         
-        
-
     }
     _tutorialDescriptionView.hidden=YES;
         BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
@@ -181,16 +186,206 @@
     
     [self.view addGestureRecognizer:tapEvent];
     
+    
+//    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+//    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+//    if (dataRepresentingSavedArray.length != 0)
+//    {
+//        NSArray *oldSavedArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+//        self.contentTypeArray = [[NSMutableArray alloc]initWithArray:oldSavedArray];
+//    }
+//    
+//    
+//    NSLog(@"content type array count :%d",self.contentTypeArray.count);
+    
 }
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    
-    
+
+//-(void)loadMenusFromService:(NSNotification *)notification {
+//    
+//    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+//    [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+//    
+//    menuArray = notification.object;
+//    self.contentTypeArray = [[NSMutableArray alloc]initWithArray:menuArray];
+////    for(FIMenu *menu in menuArray) {
+////        if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]){
+////            [self.contentTypeArray addObject:menu];
+////        } else {
+////            
+////        }
+////    }
+//    NSLog(@"content type array count :%d",self.contentTypeArray.count);
+//    //[self.contentCollectionView reloadData];
+//}
+
+
+
+-(void)textChangeNotification:(NSNotification *)notification {
+    NSLog(@"search notification");
+    [self searchRecordsAsPerText:self.searchTextField.text];
 }
--(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+
+-(void)searchRecordsAsPerText:(NSString *)string {
+    [searchArray removeAllObjects];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[cd] %@", string];
+    NSArray *filtered = [self.contentTypeArray filteredArrayUsingPredicate:predicate];
+    NSLog(@"filtered array :%@",filtered);
+    searchArray = [[NSMutableArray alloc]initWithArray:filtered];
+//    for (NSDictionary *obj in self.contentTypeArray){
+//        NSString *sTemp = [obj valueForKey:@"TEXT"];
+//        NSRange titleResultsRange = [sTemp rangeOfString:string options:NSCaseInsensitiveSearch];
+//        
+//        if (titleResultsRange.length > 0)
+//        {
+//            [searchArray addObject:obj];
+//        }
+//    }
+    //[searchTable reloadData];
+    [self.contentCollectionView reloadData];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return TRUE;
+}
+
+-(void)updateUnreadCount:(NSNotification*)notification {
+    NSArray  *unreadMenuArray = notification.object;
+    
+    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+    menuArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+    
+    for(FIMenu *unreadMenu in unreadMenuArray) {
+        for(FIMenu *menu in menuArray) {
+            NSLog(@"menu Id :%@ and %@",unreadMenu.nodeId,menu.nodeId);
+            if([unreadMenu.nodeId isEqualToNumber:menu.nodeId]) {
+                NSLog(@"list array :%@",unreadMenu.listArray);
+                menu.listArray = unreadMenu.listArray;
+                menu.articleCount = unreadMenu.articleCount;
+            }
+        }
+    }
+    NSLog(@"after");
+    
+//    unreadCnt = 0;
+//    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+//    NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"MenuList"];
+//    menuArray = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingSavedArray];
+//    for(FIMenu *menu in menuArray) {
+//        //NSLog(@"old count array:%@",unreadMenuArray);
+//        for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
+//            //NSLog(@"unread count:%@",unreadMenu.unreadCount);
+//            //NSLog(@"nodeid:%@:%@ and :%@",menu.name,menu.nodeId,unreadMenu.nodeId);
+//            if([menu.nodeId isEqualToNumber:unreadMenu.nodeId] && [menu.companyId isEqualToNumber:unreadMenu.companyId]) {
+//                menu.unreadCount = unreadMenu.unreadCount;
+//                if([menu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]] && [unreadMenu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+//                    [self setSubMenuArticleCount:menu.listArray with:unreadMenu.listArray];
+//                }
+//                else if(!unreadMenu.subListAvailable){
+//                    menu.subListAvailable = unreadMenu.subListAvailable;
+//                }
+//            }
+//        }
+//    }
+    [self loadMenus];
+}
+
+-(void)loadMenus {
+    self.menus = [[NSMutableArray alloc]initWithArray:menuArray];
+    [self test:self.menus];
+}
+
+
+-(void)test:(NSMutableArray *)array {
+    
+    NSMutableDictionary *contentCategoryJSON = [[NSMutableDictionary alloc] init];
+    [contentCategoryJSON setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+    [contentCategoryJSON setObject:[NSNumber numberWithBool:NO] forKey:@"updateCategory"];
+    
+    NSData *jsondata = [NSJSONSerialization dataWithJSONObject:contentCategoryJSON options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+    [[FISharedResources sharedResourceManager]manageContentCategoryWithDetails:resultStr withFlag:0];
     
     
+    //[self.contentCollectionView reloadData];
+}
+
+-(FIMenu *)recursiveDataObjectFrom:(FIMenu *)menu {
+    FIMenu *dataObj = [[FIMenu alloc]init];
+    if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:9]]) {
+        NSManagedObject *markedImpBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:1]];
+        NSString *markedImportantName = [NSString stringWithFormat:@"%@",[markedImpBrandingIdentity valueForKey:@"name"]];
+        dataObj.name = [markedImportantName uppercaseString];
+    } else if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:6]]) {
+        NSManagedObject *savedForLaterBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:2]];
+        NSString *savedForLaterName = [NSString stringWithFormat:@"%@",[savedForLaterBrandingIdentity valueForKey:@"name"]];
+        dataObj.name = [savedForLaterName uppercaseString];
+    } else {
+        dataObj.name = menu.name;
+    }
     
+    //    NSMutableArray *unreadMenuArray = [[FISharedResources sharedResourceManager]menuUnReadCountArray];
+    //    NSLog(@"unread menu array:%@ and selected item:%@",unreadMenuArray,data.name);
+    //    for(FIUnreadMenu *unreadMenu in unreadMenuArray) {
+    //        NSLog(@"%@ ----> %@",menu.nodeId,unreadMenu.nodeId);
+    //        if(menu.nodeId == unreadMenu.nodeId) {
+    //            dataObj.articleCount = unreadMenu.articleCount;
+    //        }
+    //
+    //
+    
+    //NSLog(@"aaaaaaa:%@",menu.articleCount);
+    dataObj.companyId = menu.companyId;
+    dataObj.nodeId = menu.nodeId;
+    dataObj.unreadCount = menu.unreadCount;
+    dataObj.subListAvailable = menu.subListAvailable;
+    dataObj.isParent = menu.isParent;
+    dataObj.articleCount = menu.articleCount;
+    dataObj.isSubscribed = menu.isSubscribed;
+   // dataObj.iconURL = menu.menuIconURL;
+    // menu.name = [dic objectForKey:@"Name"];
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    //if([menu.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+    //subListAvailabel TRUE
+    NSArray *menuArray = menu.listArray;
+    for(FIMenu *dict in menuArray) {
+        FIMenu *insideMenu = [self recursiveDataObjectFrom:dict];
+//        NSLog(@"inside menu name :%@",insideMenu.name);
+        if([insideMenu.isParent isEqualToNumber:[NSNumber numberWithInt:-1]] || (![insideMenu.isParent isEqualToNumber:[NSNumber numberWithInt:-1]] && ![insideMenu.articleCount isEqualToNumber:[NSNumber numberWithInt:0]])) {
+            [array addObject:insideMenu];
+        }
+    }
+    //    } else {
+    //        //subListAvailabel FALSE
+    //    }
+    
+    dataObj.children = array;
+    //menu.listArray = array;
+    return dataObj;
+}
+
+
+
+-(void) setSubMenuArticleCount:(NSMutableArray*)existMenu with:(NSMutableArray *)countMenu {
+    bool hasSub = false;
+    for(FIMenu *menu in existMenu) {
+        for(FIUnreadMenu *unreadMenu in countMenu) {
+            if([menu.nodeId isEqualToNumber:unreadMenu.nodeId] && [menu.companyId isEqualToNumber:unreadMenu.companyId ]) {
+                //NSLog(@"unread counttttttt:%@",unreadMenu.articleCount);
+                menu.articleCount = unreadMenu.articleCount;
+                if(unreadMenu.articleCount > 0){
+                    hasSub = true;
+                }
+            }
+        }
+        menu.subListAvailable = [NSNumber numberWithBool:hasSub];
+        if(NULL != menu.listArray && menu.listArray.count > 0){
+            [self setSubMenuArticleCount:menu.listArray with:countMenu];
+        }
+        
+    }
 }
 
 -(void)cancelButtonPress{
@@ -245,11 +440,11 @@
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
     // NSLog(@"device rotate is working:%ld",(long)fromInterfaceOrientation);
-    if(fromInterfaceOrientation == 1) {
-        layout.blockPixels = CGSizeMake(130,150);
-    }else {
-        layout.blockPixels = CGSizeMake(120,150);
-    }
+//    if(fromInterfaceOrientation == 1) {
+//        layout.blockPixels = CGSizeMake(130,150);
+//    }else {
+//        layout.blockPixels = CGSizeMake(120,150);
+//    }
     
 }
 
@@ -289,20 +484,84 @@
 
 
 -(void)loadContentCategory {
+    NSLog(@"self :%@",self.menus);
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isThirdLevelChanged"];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFourthLevelChanged"];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFifthLevelChanged"];
-    self.contentTypeArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentTypeList];
-    self.contentCategoryArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentCategoryList];
-    for(FIContentCategory *category in self.contentTypeArray) {
-        //if([category.categoryId isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        if(category.isSubscribed) {
+    NSMutableArray *contentTypeArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentTypeList];
+    NSMutableArray *contentCategoryArray = [[NSMutableArray alloc]initWithArray:[FISharedResources sharedResourceManager].contentCategoryList];
+    
+    
+    for(FIContentCategory *category in contentTypeArray) {
+        for(FIMenu *menu in self.contentTypeArray) {
+            //NSLog(@"menu id :%@ and %@",menu.nodeId,menu.subListAvailable);
+            if([category.categoryId isEqualToNumber:menu.nodeId]){
+                menu.contentTypeForCustomerId = category.contentTypeForCustomerId;
+            }
+        }
+    }
+    
+    for(FIMenu *menu in self.menus) {
+//        NSLog(@"menu article count :%@",menu.articleCount);
+        NSLog(@"menu Id :%@",menu.listArray);
+        for(FIMenu *insideMenu in menu.listArray) {
+            NSLog(@"inside menu %@",insideMenu.nodeId);
+            for(FIContentCategory *category in contentCategoryArray) {
+                if([insideMenu.nodeId isEqualToNumber:category.categoryId]){
+                    insideMenu.listArray = category.listArray;
+                    insideMenu.name = category.name;
+                    insideMenu.isSubscribed = [NSNumber numberWithBool:category.isSubscribed];
+                    break;
+                }
+            }
+        }
+        
+    }
+    NSLog(@"data :%@",self.menus);
+    self.data = [[NSMutableArray alloc]initWithArray:self.menus];
+    
+    
+    //self.contentTypeArray = [[NSMutableArray alloc]init];
+
+    
+    for(FIMenu *menu in self.menus) {
+        NSNumber *accountTypeIdStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
+        
+        // if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+        if([accountTypeIdStr isEqualToNumber:[NSNumber numberWithInt:3]]) {
+            //handle test user
+            if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:7]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:5]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:2]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:4]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+                [self.data removeObject:menu];
+            }
+//            else {
+//                FIMenu *dataObj = [self recursiveDataObjectFrom:menu];
+//                if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+//                    [self.contentTypeArray addObject:dataObj];
+//                }
+//            }
+        } else {
+//            FIMenu *dataObj = [self recursiveDataObjectFrom:menu];
+//            if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+//                [self.contentTypeArray addObject:dataObj];
+//            }
             
+        }
+        
+    }
+    
+    
+    
+    
+    
+    self.contentTypeArray = [[NSMutableArray alloc]initWithArray:self.data];
+    
+
+    for(FIContentCategory *category in contentTypeArray) {
+        if(category.isSubscribed) {
             NSMutableDictionary *dic =[[NSMutableDictionary alloc]init];
             [dic setValue:category.categoryId forKey:@"id"];
             [dic setValue:category.companyId forKey:@"companyId"];
             [dic setValue:category.contentTypeForCustomerId forKey:@"contentTypeForCustomerId"];
-            
             [self.checkedArray addObject:dic];
             [self.selectedIdArray addObject:category.categoryId];
         } else {
@@ -313,16 +572,9 @@
             [self.uncheckedArray addObject:dic];
             [self.selectedIdArray removeObject:category.categoryId];
         }
-        //}
     }
     [self.contentCollectionView reloadData];
     
-    
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"selectedCategory" object:nil userInfo:@{@"innerArray":self.contentCategoryArray,@"previousArray":self.selectedIdArray,@"title":@"Select Topic"}];
-    
-    
-    //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-    // [self collectionView:self.contentCollectionView didSelectItemAtIndexPath:indexPath];
 }
 
 - (void)secondLevelDidFinish:(AddContentSecondLevelView*)secondLevel {
@@ -486,6 +738,15 @@
 
 #pragma mark – RFQuiltLayoutDelegate
 
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionView *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+//{
+//    return 10; // This is the minimum inter item spacing, can be more
+//}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(10, 10, 10, 10);
+}
 
 -(CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout blockSizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return CGSizeMake(1, 1);
@@ -496,98 +757,57 @@
 }
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     // NSLog(@"imp collection view");
-    return self.contentTypeArray.count;
+    NSInteger rowCount = 0;
+    if(searchArray.count != 0) {
+        rowCount = searchArray.count;
+    } else {
+        rowCount = self.contentTypeArray.count;
+    }
+    return rowCount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    // NSLog(@"cell for item");
+    
     FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
-//    if (IS_IPHONE_5) {
-//        cell.bottomContentView.translatesAutoresizingMaskIntoConstraints = YES; //This part hung me up
-//        cell.bottomContentView.frame = CGRectMake(cell.bottomContentView.frame.origin.x, cell.bottomContentView.frame.origin.y-20, cell.bottomContentView.frame.size.width, cell.bottomContentView.frame.size.height);
-//        
-//        cell.checkMarkButton.translatesAutoresizingMaskIntoConstraints = YES;   //This part hung me up
-//        cell.checkMarkButton.frame = CGRectMake(cell.checkMarkButton.frame.origin.x-15, cell.checkMarkButton.frame.origin.y-20, cell.checkMarkButton.frame.size.width, cell.checkMarkButton.frame.size.height);
-//
-//        cell.imgBottomPart.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
-//        cell.imgBottomPart.frame = CGRectMake(cell.imgBottomPart.frame.origin.x, cell.imgBottomPart.frame.origin.y-20, cell.imgBottomPart.frame.size.width, cell.imgBottomPart.frame.size.height);
-//        
-//        cell.name.translatesAutoresizingMaskIntoConstraints = YES;     //This part hung me up
-//        cell.name.frame = CGRectMake(cell.name.frame.origin.x, cell.name.frame.origin.y, cell.name.frame.size.width, cell.name.frame.size.height-10);
-//
-//        [cell.name setFont:[UIFont systemFontOfSize:10]];
-//    }
-
-    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
-    FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
-    [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageWithContentsOfFile:path]];
-    [cell.image setContentMode:UIViewContentModeScaleAspectFit];
+    FIMenu *contentCategory;
+    if(searchArray.count != 0) {
+        contentCategory = [searchArray objectAtIndex:indexPath.row];
+    } else {
+        contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
+    }
     cell.name.text = contentCategory.name;
     cell.checkMarkButton.tag = indexPath.row;
+    cell.expandButton.tag = indexPath.row;
     
-    
-    if(contentCategory.isCompanySubscribed) {
-        //cell.gradientView.hidden = YES;
-        cell.upgradeButton.hidden = YES;
-        cell.checkMarkButton.hidden = NO;
-    } else {
-        NSNumber *accountTypeId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
-        //if([accountTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-       // cell.gradientView.hidden = NO;
-        cell.upgradeButton.hidden = NO;
-        cell.checkMarkButton.hidden = YES;
-        UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
-        cell.upgradeButton.tag = indexPath.row;
-        [cell.upgradeButton addGestureRecognizer:tapEvent];
-        //        } else {
-        //
-        //        }
-        
-    }
-    
-    
-    
-    //    if(self.contentTypeArray.count > 1) {
-    //        if(indexPath.row != 0) {
-    //            cell.gradientView.hidden = NO;
-    //            UITapGestureRecognizer *tapEvent = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(upgradeTap:)];
-    //            cell.upgradeButton.tag = indexPath.row;
-    //            [cell.upgradeButton addGestureRecognizer:tapEvent];
-    //        } else {
-    //            cell.gradientView.hidden = YES;
-    //        }
-    //    } else {
-    //        cell.gradientView.hidden = YES;
-    //    }
-    
-    if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
-        //[self.checkedArray addObject:contentCategory.categoryId];
-        //[self.selectedIdArray addObject:contentCategory.categoryId];
+    if([self.selectedIdArray containsObject:contentCategory.nodeId]) {
         [cell.checkMarkButton setSelected:YES];
     }else {
-        //[self.uncheckedArray addObject:contentCategory.categoryId];
-        //[self.selectedIdArray removeObject:contentCategory.categoryId];
         [cell.checkMarkButton setSelected:NO];
     }
     
     
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
-    if (coachMarksShown == NO) {
-        
-        if(indexPath.row==0){
-            cell.layer.borderWidth=1.0;
-            cell.layer.borderColor=[[UIColor redColor]CGColor];
-            
-            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
-        }else{
-            cell.layer.borderWidth=0.0;
-        }
-        
-    }else{
-        
-        cell.layer.borderWidth=0.0;
+    if([contentCategory.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+        cell.expandButton.hidden = NO;
+    } else {
+        cell.expandButton.hidden = YES;
     }
+    
+//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+//    if (coachMarksShown == NO) {
+//        
+//        if(indexPath.row==0){
+//            cell.layer.borderWidth=1.0;
+//            cell.layer.borderColor=[[UIColor redColor]CGColor];
+//            
+//            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
+//        }else{
+//            cell.layer.borderWidth=0.0;
+//        }
+//        
+//    }else{
+//        
+//        cell.layer.borderWidth=0.0;
+//    }
     cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
     cell.contentView.layer.borderWidth = 1.0f;
 
@@ -613,7 +833,7 @@
     
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"did select item");
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"CloseAddContentTutorial"];
     if (coachMarksShown == YES) {
         FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:indexPath.row];
@@ -666,15 +886,15 @@
 
 - (IBAction)checkMark:(id)sender {
     _isContentChanged=YES;
-    FIContentCategory *contentCategory = [self.contentTypeArray objectAtIndex:[sender tag]];
-    if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
-        [self.selectedIdArray removeObject:contentCategory.categoryId];
+    FIMenu *contentCategory = [self.contentTypeArray objectAtIndex:[sender tag]];
+    if([self.selectedIdArray containsObject:contentCategory.nodeId]) {
+        [self.selectedIdArray removeObject:contentCategory.nodeId];
         [sender setSelected:NO];
         
         NSLog(@"checked array dic:%@",self.checkedArray);
         NSDictionary *selectedDic;
         for(NSDictionary *dic in self.checkedArray) {
-            if([[dic objectForKey:@"id"] isEqual:contentCategory.categoryId]) {
+            if([[dic objectForKey:@"id"] isEqual:contentCategory.nodeId]) {
                 selectedDic = dic;
             } else {
                 
@@ -688,13 +908,13 @@
         // }
         
     } else {
-        [self.selectedIdArray addObject:contentCategory.categoryId];
+        [self.selectedIdArray addObject:contentCategory.nodeId];
         [sender setSelected:YES];
         
         NSLog(@"unchecked array dic:%@",self.uncheckedArray);
         NSDictionary *selectedDic;
         for(NSDictionary *dic in self.uncheckedArray) {
-            if([[dic objectForKey:@"id"] isEqual:contentCategory.categoryId]) {
+            if([[dic objectForKey:@"id"] isEqual:contentCategory.nodeId]) {
                 selectedDic = dic;
             } else {
                 
@@ -710,4 +930,33 @@
     
 }
 
+- (IBAction)expandButtonClick:(id)sender {
+    NSLog(@"expand button click :%ld",(long)[sender tag]);
+    
+    FIMenu *contentCategory;
+    if(searchArray.count != 0) {
+        contentCategory = [searchArray objectAtIndex:[sender tag]];
+    } else {
+        contentCategory = [self.contentTypeArray objectAtIndex:[sender tag]];
+    }
+    
+    //FIMenu *contentCategory = [self.contentTypeArray objectAtIndex:[sender tag]];
+    if(contentCategory.listArray.count != 0) {
+        UIStoryboard *storyboard;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            storyboard = [UIStoryboard storyboardWithName:@"AddContentPhone" bundle:nil];
+        } else if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+        }
+        AddContentSecondLevelView *secondLevel = [storyboard instantiateViewControllerWithIdentifier:@"SecondLevel"];
+        secondLevel.delegate = self;
+        secondLevel.innerArray = contentCategory.listArray;
+        secondLevel.title = contentCategory.name;
+        secondLevel.previousArray = self.selectedIdArray;
+        secondLevel.selectedId = contentCategory.nodeId;
+        NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"contentCategory":contentCategory.name};
+        [Localytics tagEvent:@"Addcontent Topic Change" attributes:dictionary];
+        [self.navigationController pushViewController:secondLevel animated:YES];
+    }
+}
 @end

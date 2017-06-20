@@ -16,6 +16,7 @@
     UILabel *testLabel;
 }
 - (IBAction)backButtonClicked:(id)sender;
+- (IBAction)expandButtonClick:(id)sender;
 @property (nonatomic, assign) id<ThirdLevelDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectTopicsLabel;

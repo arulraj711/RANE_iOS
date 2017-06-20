@@ -14,6 +14,9 @@
 //#import "Localytics.h"
 #import "pop.h"
 #import "FISharedResources.h"
+#import "FIMenu.h"
+#import "FirstLevelCell.h"
+#import "FIUnreadMenu.h"
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
@@ -43,16 +46,15 @@
     
     
     self.selectTopicsLabel.hidden = YES;
-    
-    self.navigationController.navigationBar.hidden = YES;
+    //self.navigationController.navigationBar.hidden = YES;
     //self.categoryCollectionView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     // self.categoryCollectionView.layer.borderWidth = 1.0f;
     self.selectedIdArray = [[NSMutableArray alloc]init];
     self.checkedArray = [[NSMutableArray alloc]init];
     self.uncheckedArray = [[NSMutableArray alloc]init];
     // Do any additional setup after loading the view.
-    layout = (id)[self.categoryCollectionView collectionViewLayout];
-    layout.direction = UICollectionViewScrollDirectionVertical;
+//    layout = (id)[self.categoryCollectionView collectionViewLayout];
+//    layout.direction = UICollectionViewScrollDirectionVertical;
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     //NSLog(@"current device orientation:%ld",(long)orientation);
     
@@ -89,9 +91,20 @@
         [self.view addSubview:testLabel];
     }
     //layout.blockPixels = CGSizeMake(180,200);
+    
+    NSMutableArray *intermediateArray = [[NSMutableArray alloc]initWithArray:self.innerArray];
+    
+    for(FIMenu *menu in self.innerArray) {
+        if(menu.name == NULL) {
+            [intermediateArray removeObject:menu];
+        }
+    }
+    
+    self.innerArray = [[NSMutableArray alloc]initWithArray:intermediateArray];
+    
     [self.categoryCollectionView reloadData];
-    //[self loadSelectedCategory];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSelectedCategory:) name:@"selectedCategory" object:nil];
+    [self loadSelectedCategory];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSelectedCategory:) name:@"selectedCategory" object:nil];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SecondLevelTutorialTrigger) name:@"SecondLevelTutorialTrigger" object:nil];
@@ -260,25 +273,25 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)loadSelectedCategory:(id)sender
+- (void)loadSelectedCategory
 {
     // NSLog(@"load seleced is working");
-    NSNotification *notification = sender;
-    NSDictionary *userInfo = notification.userInfo;
-    self.innerArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"innerArray"]];
-    self.previousArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"previousArray"]];
+    //NSNotification *notification = sender;
+    //NSDictionary *userInfo = notification.userInfo;
+    //self.innerArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"innerArray"]];
+    //self.previousArray = [[NSMutableArray alloc]initWithArray:[userInfo objectForKey:@"previousArray"]];
     // NSLog(@"second level previous array:%@ and selected id:%@",self.previousArray,self.selectedId);
     //if([self.previousArray containsObject:self.selectedId]) {
     NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"secondLevelSelection"];
     // NSLog(@"already selected array count:%d",alreadySelectedArray.count);
     if(alreadySelectedArray.count ==0) {
-        for(FIContentCategory *category in self.innerArray) {
-            if(category.isSubscribed) {
-                [self.checkedArray addObject:category.categoryId];
-                [self.selectedIdArray addObject:category.categoryId];
+        for(FIUnreadMenu *category in self.innerArray) {
+            if([category.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+                [self.checkedArray addObject:category.nodeId];
+                [self.selectedIdArray addObject:category.nodeId];
             } else {
-                [self.uncheckedArray addObject:category.categoryId];
-                [self.selectedIdArray removeObject:category.categoryId];
+                [self.uncheckedArray addObject:category.nodeId];
+                [self.selectedIdArray removeObject:category.nodeId];
             }
         }
     } else {
@@ -315,6 +328,10 @@
 
 #pragma mark – RFQuiltLayoutDelegate
 
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(10, 10, 10, 10);
+}
 
 -(CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout blockSizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return CGSizeMake(1, 1);
@@ -330,18 +347,18 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"cell for item");
-    SecondLevelCell *cell =(SecondLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
     
-    FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
+    FIMenu *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
     cell.name.text = contentCategory.name;
     
-    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
-    
-    [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageWithContentsOfFile:path]];
-    [cell.image setContentMode:UIViewContentModeScaleAspectFit];
-    
-    if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
+//    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"listPlaceholderImage.png"];
+//    
+//    [cell.image sd_setImageWithURL:[NSURL URLWithString:contentCategory.imageUrl] placeholderImage:[UIImage imageWithContentsOfFile:path]];
+//    [cell.image setContentMode:UIViewContentModeScaleAspectFit];
+    NSLog(@"selectedID array :%@",self.selectedIdArray);
+    if([self.selectedIdArray containsObject:contentCategory.nodeId]) {
         
         [cell.checkMarkButton setSelected:YES];
     }else {
@@ -349,6 +366,14 @@
         [cell.checkMarkButton setSelected:NO];
     }
     cell.checkMarkButton.tag = indexPath.row;
+    cell.expandButton.tag = indexPath.row;
+    
+    if(contentCategory.listArray.count != 0) {
+        cell.expandButton.hidden = NO;
+    } else {
+        cell.expandButton.hidden = YES;
+    }
+    
     cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
     cell.contentView.layer.borderWidth = 1.0f;
     
@@ -372,9 +397,9 @@
         
     }
     
-    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cellTap:)];
-    cell.tag = indexPath.row;
-    [cell addGestureRecognizer:cellTap];
+//    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cellTap:)];
+//    cell.tag = indexPath.row;
+//    [cell addGestureRecognizer:cellTap];
     
     
     
@@ -387,9 +412,7 @@
     if (coachMarksShown == NO) {
         NSLog(@"inside if");
         SecondLevelCell *cell = (SecondLevelCell *)tapGesture.view;
-       // SecondLevelCell *cell =(SecondLevelCell*)[self.categoryCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:[tapGesture.view tag] inSection:0]];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
-        
         FIContentCategory *contentCategory = [self.innerArray objectAtIndex:[tapGesture.view tag]];
         if(contentCategory.listArray.count != 0) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AddContentPhone" bundle:nil];
@@ -410,6 +433,37 @@
         }
     }
 }
+
+- (IBAction)expandButtonClick:(id)sender {
+    NSLog(@"expand button click :%ld",(long)[sender tag]);
+   // SecondLevelCell *cell = (SecondLevelCell *)tapGesture.view;
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
+    FIMenu *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
+    if(contentCategory.listArray.count != 0) {
+        UIStoryboard *storyboard;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+            storyboard = [UIStoryboard storyboardWithName:@"AddContentPhone" bundle:nil];
+        } else if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            storyboard = [UIStoryboard storyboardWithName:@"AddContent" bundle:nil];
+        }
+        AddContentThirdLevelView *thirdLevel = [storyboard instantiateViewControllerWithIdentifier:@"ThirdLevel"];
+        thirdLevel.delegate = self;
+        thirdLevel.innerArray = contentCategory.listArray;
+        thirdLevel.title = contentCategory.name;
+        thirdLevel.previousArray = self.selectedIdArray;
+        thirdLevel.previousUnCheckArray = self.uncheckedArray;
+        thirdLevel.selectedId = contentCategory.nodeId;
+//        if(cell.checkMarkButton.isSelected) {
+//            thirdLevel.isSelected = YES;
+//        } else {
+//            thirdLevel.isSelected = NO;
+//        }
+        
+        [self.navigationController pushViewController:thirdLevel animated:YES];
+    }
+}
+
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -458,25 +512,25 @@
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
     
-    FIContentCategory *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
-    if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
-        [self.selectedIdArray removeObject:contentCategory.categoryId];
+    FIMenu *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
+    if([self.selectedIdArray containsObject:contentCategory.nodeId]) {
+        [self.selectedIdArray removeObject:contentCategory.nodeId];
         [sender setSelected:NO];
-        [self.checkedArray removeObject:contentCategory.categoryId];
+        [self.checkedArray removeObject:contentCategory.nodeId];
         // } else {
-        [self.uncheckedArray addObject:contentCategory.categoryId];
+        [self.uncheckedArray addObject:contentCategory.nodeId];
         NSMutableArray *testArray = [[NSMutableArray alloc]init];
-        [[NSUserDefaults standardUserDefaults]setObject:testArray forKey:[contentCategory.categoryId stringValue]];
+        [[NSUserDefaults standardUserDefaults]setObject:testArray forKey:[contentCategory.nodeId stringValue]];
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isThirdLevelChanged"];
         
         // }
     } else {
-        [self.selectedIdArray addObject:contentCategory.categoryId];
+        [self.selectedIdArray addObject:contentCategory.nodeId];
         [sender setSelected:YES];
         //  if([self.checkedArray containsObject:contentCategory.categoryId]) {
-        [self.checkedArray addObject:contentCategory.categoryId];
+        [self.checkedArray addObject:contentCategory.nodeId];
         // } else {
-        [self.uncheckedArray removeObject:contentCategory.categoryId];
+        [self.uncheckedArray removeObject:contentCategory.nodeId];
         // }
         
     }

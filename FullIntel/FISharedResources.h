@@ -99,5 +99,6 @@
 -(void)getHorizontalLineBarChartArticleListFromField1:(NSString *)field_1 field2:(NSString *)field_2 value1:(NSString *)value_1 value2:(NSString *)value_2 fromDate:(NSNumber *)fromDate toDate:(NSNumber *)toDate withSize:(NSNumber *)size withModules:(NSString *)modules withTags:(NSString *)tags withPageNo:(NSNumber *)pageNo withFilterBy:(NSString *)filterBy withQuery:(NSString *)query withFlag:(NSString *)updownFlag withLastArticleId:(NSString *)lastArticleId;
 
 -(void)downloadReportForReportId:(NSNumber *)reportId;
+-(void)getAddContentMenuWithAccessToken:(NSString *)accessToken;
 
 @end
