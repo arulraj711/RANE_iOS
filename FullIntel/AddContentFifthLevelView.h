@@ -12,6 +12,7 @@
 @protocol FifthLevelDelegate;
 @interface AddContentFifthLevelView : UIViewController<RFQuiltLayoutDelegate> {
     UILabel *testLabel;
+    NSMutableArray *searchArray;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *categoryCollectionView;
 - (IBAction)checkMark:(id)sender;
@@ -26,6 +27,9 @@
 - (IBAction)backButtonClicked:(id)sender;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
 @property BOOL isSelected;
+@property NSMutableArray *firstLevelCheckedArray;
+@property NSMutableArray *firstLevelUnCheckedArray;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @end
 
 @protocol FifthLevelDelegate

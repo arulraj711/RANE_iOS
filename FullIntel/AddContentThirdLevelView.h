@@ -14,6 +14,7 @@
 @interface AddContentThirdLevelView : UIViewController<RFQuiltLayoutDelegate,FourthLevelDelegate> {
    // id<ThirdLevelDelegate> delegate;
     UILabel *testLabel;
+    NSMutableArray *searchArray;
 }
 - (IBAction)backButtonClicked:(id)sender;
 - (IBAction)expandButtonClick:(id)sender;
@@ -30,6 +31,9 @@
 @property (nonatomic,strong) NSMutableArray *checkedArray;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
 @property (nonatomic,strong) NSMutableArray *previousUnCheckArray;
+@property NSMutableArray *firstLevelCheckedArray;
+@property NSMutableArray *firstLevelUnCheckedArray;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @end
 
 @protocol ThirdLevelDelegate

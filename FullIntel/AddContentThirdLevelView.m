@@ -13,6 +13,10 @@
 #import "AddContentFourthLevelView.h"
 #import "FIMenu.h"
 #import "FirstLevelCell.h"
+#import "FISharedResources.h"
+#import "UIView+Toast.h"
+#import "MZFormSheetController.h"
+#import "FIUtils.h"
 
 @interface AddContentThirdLevelView ()
 
@@ -23,6 +27,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangeNotification:)
+                                                name:UITextFieldTextDidChangeNotification object:nil];
+    
+    UIBarButtonItem *addAcc = [[UIBarButtonItem alloc]
+                               initWithTitle:@"Save"
+                               style:UIBarButtonItemStylePlain
+                               target:self
+                               action:@selector(updateAddContent)];
+    NSArray *arrBtns = [[NSArray alloc]initWithObjects:addAcc, nil];
+    self.navigationItem.rightBarButtonItems = arrBtns;
+    
     self.selectTopicsLabel.hidden = YES;
     //self.titleLabel.text = self.title;
 //    self.selectedIdArray = [[NSMutableArray alloc]init];
@@ -79,6 +96,32 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+-(void)textChangeNotification:(NSNotification *)notification {
+    NSLog(@"search notification");
+    [self searchRecordsAsPerText:self.searchTextField.text];
+}
+
+-(void)searchRecordsAsPerText:(NSString *)string {
+    [searchArray removeAllObjects];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[cd] %@", string];
+    NSArray *filtered = [self.innerArray filteredArrayUsingPredicate:predicate];
+    NSLog(@"filtered array :%@",filtered);
+    searchArray = [[NSMutableArray alloc]initWithArray:filtered];
+    //    for (NSDictionary *obj in self.contentTypeArray){
+    //        NSString *sTemp = [obj valueForKey:@"TEXT"];
+    //        NSRange titleResultsRange = [sTemp rangeOfString:string options:NSCaseInsensitiveSearch];
+    //
+    //        if (titleResultsRange.length > 0)
+    //        {
+    //            [searchArray addObject:obj];
+    //        }
+    //    }
+    //[searchTable reloadData];
+    [self.categoryCollectionView reloadData];
+}
+
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
@@ -176,15 +219,27 @@
     return UIEdgeInsetsMake(5, 5, 5, 10);
 }
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-     //NSLog(@"imp collection view");
-    return self.innerArray.count;
+    NSInteger rowCount = 0;
+    if(searchArray.count != 0) {
+        rowCount = searchArray.count;
+    } else {
+        rowCount = self.innerArray.count;
+    }
+    return rowCount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"cell for item");
     FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
     
-    FIContentCategory *contentCategory = [self.innerArray objectAtIndex:indexPath.row];
+    
+    FIContentCategory *contentCategory;
+    if(searchArray.count != 0) {
+        contentCategory = [searchArray objectAtIndex:indexPath.row];
+    } else {
+        contentCategory = [self.innerArray objectAtIndex:indexPath.row];
+    }
+    
     cell.name.text = contentCategory.name;
     
 //    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -234,7 +289,12 @@
 }
 
 - (IBAction)expandButtonClick:(id)sender {
-    FIMenu *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
+    FIContentCategory *contentCategory;
+    if(searchArray.count != 0) {
+        contentCategory = [searchArray objectAtIndex:[sender tag]];
+    } else {
+        contentCategory = [self.innerArray objectAtIndex:[sender tag]];
+    }
     if(contentCategory.listArray.count != 0) {
         UIStoryboard *storyboard;
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -247,7 +307,9 @@
         thirdLevel.innerArray = contentCategory.listArray;
         thirdLevel.title = contentCategory.name;
         thirdLevel.previousArray = self.selectedIdArray;
-        thirdLevel.selectedId = contentCategory.nodeId;
+        thirdLevel.selectedId = contentCategory.categoryId;
+        thirdLevel.firstLevelCheckedArray = self.firstLevelCheckedArray;
+        thirdLevel.firstLevelUnCheckedArray = self.firstLevelUnCheckedArray;
 //        if(cell.checkMarkButton.isSelected) {
 //            thirdLevel.isSelected = YES;
 //        } else {
@@ -305,6 +367,129 @@
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:[self.selectedId stringValue]];
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"thirdLevelSelection"];
     [[NSUserDefaults standardUserDefaults]setObject:self.uncheckedArray forKey:@"thirdLevelUnSelection"];
+}
+
+-(void)updateAddContent {
+    [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"SaveChangesInAddContent"];
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"CloseAddContentTutorial"];
+    if (coachMarksShown == YES) {
+        
+        NSMutableArray *categoryArray = [[NSMutableArray alloc]init];
+        NSMutableArray *contentType = [[NSMutableArray alloc]init];
+        
+        NSMutableArray *secondLevelSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"secondLevelSelection"];
+        for(int i=0;i<secondLevelSelection.count;i++) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setObject:[secondLevelSelection objectAtIndex:i] forKey:@"id"];
+            [dic setObject:[NSNumber numberWithBool:YES] forKey:@"isSubscribed"];
+            [categoryArray addObject:dic];
+        }
+        
+        NSMutableArray *secondLevelUnSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"secondLevelUnSelection"];
+        for(int i=0;i<secondLevelUnSelection.count;i++) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setObject:[secondLevelUnSelection objectAtIndex:i] forKey:@"id"];
+            [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
+            [categoryArray addObject:dic];
+        }
+        
+        
+        NSMutableArray *thirdLevelSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"thirdLevelSelection"];
+        for(int i=0;i<thirdLevelSelection.count;i++) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setObject:[thirdLevelSelection objectAtIndex:i] forKey:@"id"];
+            [dic setObject:[NSNumber numberWithBool:YES] forKey:@"isSubscribed"];
+            [categoryArray addObject:dic];
+        }
+        
+        NSMutableArray *thirdLevelUnSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"thirdLevelUnSelection"];
+        for(int i=0;i<thirdLevelUnSelection.count;i++) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setObject:[thirdLevelUnSelection objectAtIndex:i] forKey:@"id"];
+            [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
+            [categoryArray addObject:dic];
+        }
+        
+        NSMutableArray *fourthLevelSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"fourthLevelSelection"];
+        for(int i=0;i<fourthLevelSelection.count;i++) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setObject:[fourthLevelSelection objectAtIndex:i] forKey:@"id"];
+            [dic setObject:[NSNumber numberWithBool:YES] forKey:@"isSubscribed"];
+            [categoryArray addObject:dic];
+        }
+        
+        NSMutableArray *fourthLevelUnSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"fourthLevelUnSelection"];
+        for(int i=0;i<fourthLevelUnSelection.count;i++) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setObject:[fourthLevelUnSelection objectAtIndex:i] forKey:@"id"];
+            [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
+            [categoryArray addObject:dic];
+        }
+        
+        NSMutableArray *fifthLevelSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"fifthLevelSelection"];
+        for(int i=0;i<fifthLevelSelection.count;i++) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setObject:[fifthLevelSelection objectAtIndex:i] forKey:@"id"];
+            [dic setObject:[NSNumber numberWithBool:YES] forKey:@"isSubscribed"];
+            [categoryArray addObject:dic];
+        }
+        
+        NSMutableArray *fifthLevelUnSelection = [[NSUserDefaults standardUserDefaults]objectForKey:@"fifthLevelUnSelection"];
+        for(int i=0;i<fifthLevelUnSelection.count;i++) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setObject:[fifthLevelUnSelection objectAtIndex:i] forKey:@"id"];
+            [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
+            [categoryArray addObject:dic];
+        }
+        
+        for(int i=0;i<self.firstLevelCheckedArray.count;i++) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            
+            NSDictionary *contentTypeDic = [self.firstLevelCheckedArray objectAtIndex:i];
+            
+            [dic setObject:[contentTypeDic objectForKey:@"id"] forKey:@"id"];
+            [dic setObject:[contentTypeDic objectForKey:@"companyId"] forKey:@"companyId"];
+            [dic setObject:[contentTypeDic objectForKey:@"contentTypeForCustomerId"] forKey:@"contentTypeForCustomerId"];
+            [dic setObject:[NSNumber numberWithBool:YES] forKey:@"isSubscribed"];
+            [contentType addObject:dic];
+        }
+        for(int i=0;i<self.firstLevelUnCheckedArray.count;i++) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            NSDictionary *contentTypeDic = [self.firstLevelUnCheckedArray objectAtIndex:i];
+            
+            [dic setObject:[contentTypeDic objectForKey:@"id"] forKey:@"id"];
+            [dic setObject:[contentTypeDic objectForKey:@"companyId"] forKey:@"companyId"];
+            [dic setObject:[contentTypeDic objectForKey:@"contentTypeForCustomerId"] forKey:@"contentTypeForCustomerId"];
+            [dic setObject:[NSNumber numberWithBool:NO] forKey:@"isSubscribed"];
+            [contentType addObject:dic];
+        }
+        // NSLog(@"content type %d and category:%d and checked array:%d and unchecked array:%@",contentType.count,categoryArray.count,self.checkedArray.count,contentType);
+        //        if(self.checkedArray.count == 0) {
+        //            NSManagedObject *addContentBrandingIdentity = [FIUtils getBrandFromBrandingIdentityForId:[NSNumber numberWithInt:35]];
+        //            NSString *message = [NSString stringWithFormat:@"%@",[addContentBrandingIdentity valueForKey:@"name"]];
+        //            [self.view makeToast:message duration:1 position:CSToastPositionCenter];
+        //        } else {
+        NSMutableDictionary *gradedetails = [[NSMutableDictionary alloc] init];
+        [gradedetails setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"] forKey:@"securityToken"];
+        [gradedetails setObject:[NSNumber numberWithBool:YES] forKey:@"updateCategory"];
+        [gradedetails setObject:categoryArray forKey:@"contentCategory"];
+        [gradedetails setObject:contentType forKey:@"contentType"];
+        NSData *jsondata = [NSJSONSerialization dataWithJSONObject:gradedetails options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *resultStr = [[NSString alloc]initWithData:jsondata encoding:NSUTF8StringEncoding];
+        NSLog(@"final json format:%@",resultStr);
+        
+        //if(_isContentChanged){
+        
+        [[FISharedResources sharedResourceManager]manageContentCategoryWithDetails:resultStr withFlag:1];
+        // }
+        
+        //[self.view makeToast:@"Content types and Content categories updated successfully" duration:2 position:CSToastPositionCenter];
+        [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        // }
+        
+    }
 }
 
 

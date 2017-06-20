@@ -20,6 +20,7 @@
     RFQuiltLayout* layout;
     UITapGestureRecognizer *tapEvent;
     NSTimer *popAnimationTimer;
+    NSMutableArray *searchArray;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *categoryCollectionView;
 - (IBAction)checkMark:(id)sender;
@@ -33,10 +34,13 @@
 @property (nonatomic,strong) NSNumber *selectedId;
 @property (nonatomic,weak) IBOutlet UIView *tutorialContentView;
 - (IBAction)expandButtonClick:(id)sender;
-
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 //@property (nonatomic, strong) AMPopTip *popTip;
 @property (nonatomic, strong) id currentPopTipViewTarget;
 @property (nonatomic, strong)	NSDictionary	*contents;
+
+@property NSMutableArray *firstLevelCheckedArray;
+@property NSMutableArray *firstLevelUnCheckedArray;
 
 @end
 

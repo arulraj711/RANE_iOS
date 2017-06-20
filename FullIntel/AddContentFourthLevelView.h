@@ -13,6 +13,7 @@
 @protocol FourthLevelDelegate;
 @interface AddContentFourthLevelView : UIViewController<RFQuiltLayoutDelegate,FifthLevelDelegate> {
     UILabel *testLabel;
+    NSMutableArray *searchArray;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *categoryCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -28,6 +29,9 @@
 - (IBAction)backButtonClicked:(id)sender;
 @property BOOL isSelected;
 @property (nonatomic,strong) NSMutableArray *uncheckedArray;
+@property NSMutableArray *firstLevelCheckedArray;
+@property NSMutableArray *firstLevelUnCheckedArray;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @end
 
 @protocol FourthLevelDelegate

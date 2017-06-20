@@ -70,6 +70,9 @@
                                                 name:UITextFieldTextDidChangeNotification object:nil];
     
     
+    
+    
+    
 //    layout = (id)[self.contentCollectionView collectionViewLayout];
 //    layout.direction = UICollectionViewScrollDirectionVertical;
 //    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
@@ -528,23 +531,14 @@
         NSNumber *accountTypeIdStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"userAccountTypeId"];
         
         // if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-        if([accountTypeIdStr isEqualToNumber:[NSNumber numberWithInt:3]]) {
+       // if([accountTypeIdStr isEqualToNumber:[NSNumber numberWithInt:3]]) {
             //handle test user
-            if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:7]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:5]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:2]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:4]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
-                [self.data removeObject:menu];
-            }
-//            else {
-//                FIMenu *dataObj = [self recursiveDataObjectFrom:menu];
-//                if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-//                    [self.contentTypeArray addObject:dataObj];
-//                }
+//            if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:7]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:5]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:2]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:4]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:8]]) {
+//                [self.data removeObject:menu];
 //            }
-        } else {
-//            FIMenu *dataObj = [self recursiveDataObjectFrom:menu];
-//            if([menu.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-//                [self.contentTypeArray addObject:dataObj];
-//            }
-            
+        
+        if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:9]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:6]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:35]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:36]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:37]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:38]]) {
+            [self.data removeObject:menu];
         }
         
     }
@@ -786,7 +780,7 @@
     }
     
     
-    if([contentCategory.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+    if(contentCategory.listArray.count != 0) {
         cell.expandButton.hidden = NO;
     } else {
         cell.expandButton.hidden = YES;
@@ -954,6 +948,8 @@
         secondLevel.title = contentCategory.name;
         secondLevel.previousArray = self.selectedIdArray;
         secondLevel.selectedId = contentCategory.nodeId;
+        secondLevel.firstLevelCheckedArray = self.checkedArray;
+        secondLevel.firstLevelUnCheckedArray = self.uncheckedArray;
         NSDictionary *dictionary = @{@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"userId"], @"userName":[[NSUserDefaults standardUserDefaults]objectForKey:@"firstName"],@"contentCategory":contentCategory.name};
         [Localytics tagEvent:@"Addcontent Topic Change" attributes:dictionary];
         [self.navigationController pushViewController:secondLevel animated:YES];
