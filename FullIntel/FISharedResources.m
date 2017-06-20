@@ -754,7 +754,7 @@
             [curatedNews setValue:[dic objectForKey:@"modifiedDate"] forKey:@"modifiedDate"];
             [curatedNews setValue:[dic objectForKey:@"publishedDate"] forKey:@"publishedDate"];
             [curatedNews setValue:[dic objectForKey:@"articleImage"] forKey:@"image"];
-            [curatedNews setValue:[dic objectForKey:@"articleURL"] forKey:@"articleUrl"];
+            [curatedNews setValue:NULL_TO_NIL([dic objectForKey:@"articleURL"]) forKey:@"articleUrl"];
             NSArray *articleTypeIdArray = [dic objectForKey:@"articleTypeId"];
             [curatedNews setValue:[articleTypeIdArray objectAtIndex:0] forKey:@"articleTypeId"];
             [curatedNews setValue:[dic objectForKey:@"articleType"] forKey:@"articleType"];

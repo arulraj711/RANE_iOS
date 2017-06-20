@@ -50,13 +50,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangeNotification:)
                                                 name:UITextFieldTextDidChangeNotification object:nil];
     
-    UIBarButtonItem *addAcc = [[UIBarButtonItem alloc]
-                               initWithTitle:@"Save"
-                               style:UIBarButtonItemStylePlain
-                               target:self
-                               action:@selector(updateAddContent)];
-    NSArray *arrBtns = [[NSArray alloc]initWithObjects:addAcc, nil];
-    self.navigationItem.rightBarButtonItems = arrBtns;
+    
     
 //    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
 //                                   initWithTitle:@"Back"
@@ -88,6 +82,18 @@
             testLabel.textAlignment = NSTextAlignmentLeft;
             testLabel.font = [UIFont fontWithName:@"OpenSans" size:20.0];
         [self.view addSubview:testLabel];
+        
+        UIBarButtonItem *addAcc = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Save"
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(updateAddContent)];
+        NSArray *arrBtns = [[NSArray alloc]initWithObjects:addAcc, nil];
+        self.navigationItem.rightBarButtonItems = arrBtns;
+        
+        
+        
+        
     } else {
         if(orientation == 1) {
             layout.blockPixels = CGSizeMake(170,200);
@@ -109,6 +115,22 @@
             
         }
         [self.view addSubview:testLabel];
+        
+        UIBarButtonItem *addAcc = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Save"
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(updateAddContent)];
+        NSArray *arrBtns = [[NSArray alloc]initWithObjects:addAcc, nil];
+        self.navigationItem.rightBarButtonItems = arrBtns;
+        
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
+                                         initWithTitle:@"Cancel"
+                                         style:UIBarButtonItemStyleBordered
+                                         target:self
+                                         action:@selector(cancelButtonPress)];
+        self.navigationItem.leftBarButtonItem = cancelButton;
+        
     }
     //layout.blockPixels = CGSizeMake(180,200);
     
@@ -737,7 +759,11 @@
 }
 
 -(void)cancelButtonPress{
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)backButtonClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

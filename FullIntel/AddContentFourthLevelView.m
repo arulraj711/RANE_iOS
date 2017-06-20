@@ -35,13 +35,7 @@
    // self.titleLabel.text = self.title;
     
     
-    UIBarButtonItem *addAcc = [[UIBarButtonItem alloc]
-                               initWithTitle:@"Save"
-                               style:UIBarButtonItemStylePlain
-                               target:self
-                               action:@selector(updateAddContent)];
-    NSArray *arrBtns = [[NSArray alloc]initWithObjects:addAcc, nil];
-    self.navigationItem.rightBarButtonItems = arrBtns;
+    
     
     
     NSMutableArray *firstArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"fourthLevelSelection"];
@@ -61,7 +55,13 @@
             testLabel.textAlignment = NSTextAlignmentCenter;
             testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
         [self.view addSubview:testLabel];
-        
+        UIBarButtonItem *addAcc = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Save"
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(updateAddContent)];
+        NSArray *arrBtns = [[NSArray alloc]initWithObjects:addAcc, nil];
+        self.navigationItem.rightBarButtonItems = arrBtns;
 
         
     } else {
@@ -84,7 +84,20 @@
         }
         [self.view addSubview:testLabel];
         
-
+        UIBarButtonItem *addAcc = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Save"
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(updateAddContent)];
+        NSArray *arrBtns = [[NSArray alloc]initWithObjects:addAcc, nil];
+        self.navigationItem.rightBarButtonItems = arrBtns;
+        
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
+                                         initWithTitle:@"Cancel"
+                                         style:UIBarButtonItemStyleBordered
+                                         target:self
+                                         action:@selector(cancelButtonPress)];
+        self.navigationItem.leftBarButtonItem = cancelButton;
     }
     [self.categoryCollectionView reloadData];
     [self loadSelectedCategory];
@@ -481,6 +494,11 @@
         // }
         
     }
+}
+
+-(void)cancelButtonPress{
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)backButtonClicked:(id)sender {

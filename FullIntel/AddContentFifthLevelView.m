@@ -32,13 +32,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangeNotification:)
                                                 name:UITextFieldTextDidChangeNotification object:nil];
     
-    UIBarButtonItem *addAcc = [[UIBarButtonItem alloc]
-                               initWithTitle:@"Save"
-                               style:UIBarButtonItemStylePlain
-                               target:self
-                               action:@selector(updateAddContent)];
-    NSArray *arrBtns = [[NSArray alloc]initWithObjects:addAcc, nil];
-    self.navigationItem.rightBarButtonItems = arrBtns;
+    
     
     NSMutableArray *firstArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"fifthLevelSelection"];
     NSMutableArray *secondArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"fifthLevelUnSelection"];
@@ -56,6 +50,13 @@
         testLabel.textAlignment = NSTextAlignmentCenter;
         testLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:18.0];
         [self.view addSubview:testLabel];
+        UIBarButtonItem *addAcc = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Save"
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(updateAddContent)];
+        NSArray *arrBtns = [[NSArray alloc]initWithObjects:addAcc, nil];
+        self.navigationItem.rightBarButtonItems = arrBtns;
     } else {
     //layout.blockPixels = CGSizeMake(180,180);
         UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
@@ -75,6 +76,20 @@
             //self.selectTopicsLabel.frame = CGRectMake((800-self.selectTopicsLabel.frame.size.width)/2, self.selectTopicsLabel.frame.origin.y, self.selectTopicsLabel.frame.size.width, self.selectTopicsLabel.frame.size.height);
         }
         [self.view addSubview:testLabel];
+        UIBarButtonItem *addAcc = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Save"
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(updateAddContent)];
+        NSArray *arrBtns = [[NSArray alloc]initWithObjects:addAcc, nil];
+        self.navigationItem.rightBarButtonItems = arrBtns;
+        
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
+                                         initWithTitle:@"Cancel"
+                                         style:UIBarButtonItemStyleBordered
+                                         target:self
+                                         action:@selector(cancelButtonPress)];
+        self.navigationItem.leftBarButtonItem = cancelButton;
     }
     
     
@@ -374,6 +389,11 @@
         // }
         
     }
+}
+
+-(void)cancelButtonPress{
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)backButtonClicked:(id)sender {

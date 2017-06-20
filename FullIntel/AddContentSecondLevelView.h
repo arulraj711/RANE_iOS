@@ -22,6 +22,7 @@
     NSTimer *popAnimationTimer;
     NSMutableArray *searchArray;
 }
+- (IBAction)backButtonClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *categoryCollectionView;
 - (IBAction)checkMark:(id)sender;
 @property (nonatomic, assign) id<SecondLevelDelegate> delegate;

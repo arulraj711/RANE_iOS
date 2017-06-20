@@ -393,20 +393,8 @@
 
 -(void)cancelButtonPress{
     [self dismissViewControllerAnimated:YES completion:nil];
-//    NSLog(@"back button press");
-//    if(self.revealController.state == PKRevealControllerShowsLeftViewControllerInPresentationMode) {
-//        NSLog(@"left view closed");
-//        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
-//        [Localytics tagEvent:@"MenuClosed" attributes:dictionary];
-//        [self.revealController showViewController:self.revealController.frontViewController];
-//    } else {
-//        NSLog(@"left view opened");
-//        NSDictionary *dictionary = @{@"email":[[NSUserDefaults standardUserDefaults]objectForKey:@"customerEmail"]};
-//        [Localytics tagEvent:@"MenuOpened" attributes:dictionary];
-//        [self.revealController showViewController:self.revealController.leftViewController];
-//    }    
-    
 }
+
 -(void)triggerSecondTutorial{
     
     
