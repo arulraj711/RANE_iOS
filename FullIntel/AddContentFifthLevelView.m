@@ -25,6 +25,18 @@
 @synthesize delegate;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.titleLabel.text = self.title;
+    self.title = @"Add Content";
+    UIImageView *envelopeView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 16, 15)];
+    envelopeView.image = [UIImage imageNamed:@"searchTextField"];
+    envelopeView.contentMode = UIViewContentModeScaleAspectFit;
+    UIView *test=  [[UIView alloc]initWithFrame:CGRectMake(5, 0, 26, 15)];
+    [test addSubview:envelopeView];
+    [self.searchTextField.leftView setFrame:envelopeView.frame];
+    self.searchTextField.leftView =test;
+    self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.searchTextField.layer.cornerRadius=5.0f;
+    
     // Do any additional setup after loading the view.
     self.selectTopicsLabel.hidden = YES;
     //self.titleLabel.text = self.title;
@@ -173,8 +185,12 @@
 //    }
     [self.categoryCollectionView reloadData];
 }
+-(void) viewWillAppear:(BOOL)animated {
+    self.navigationItem.title = @"Add Content";
+}
 
 -(void) viewWillDisappear:(BOOL)animated {
+    self.navigationItem.title = @"Back";
     if(self.selectedIdArray.count == 0) {
         //[self.previousArray removeObject:self.selectedId];
         //self.selectedIdArray = [[NSMutableArray alloc]init];
@@ -398,6 +414,19 @@
 
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)requestChange:(id)sender {
+    
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"CloseAddContentTutorial"];
+    if (coachMarksShown == YES) {
+        
+        [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"requestChange" object:nil userInfo:nil];
+        [[FISharedResources sharedResourceManager]saveDetailsInLocalyticsWithName:@"ResearchRequestChangeInAddContent"];
+    }
 }
 
 @end

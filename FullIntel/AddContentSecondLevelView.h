@@ -39,9 +39,12 @@
 //@property (nonatomic, strong) AMPopTip *popTip;
 @property (nonatomic, strong) id currentPopTipViewTarget;
 @property (nonatomic, strong)	NSDictionary	*contents;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property NSMutableArray *firstLevelCheckedArray;
 @property NSMutableArray *firstLevelUnCheckedArray;
+
+- (IBAction)requestChange:(id)sender;
 
 @end
 

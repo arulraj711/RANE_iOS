@@ -70,7 +70,22 @@
                                                 name:UITextFieldTextDidChangeNotification object:nil];
     
     
+    UIImageView *envelopeView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 16, 15)];
+    envelopeView.image = [UIImage imageNamed:@"searchTextField"];
+    envelopeView.contentMode = UIViewContentModeScaleAspectFit;
+    UIView *test=  [[UIView alloc]initWithFrame:CGRectMake(5, 0, 26, 15)];
+    [test addSubview:envelopeView];
+    [self.searchTextField.leftView setFrame:envelopeView.frame];
+    self.searchTextField.leftView =test;
+    self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
+     self.searchTextField.layer.cornerRadius=5.0f;
     
+    
+//    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 20)];
+//    self.searchTextField.leftView = paddingView;
+//    self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
+//    self.searchTextField.leftViewMode = UITextFieldViewModeUnlessEditing;
+//    self.searchTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search"]];
     
     
 //    layout = (id)[self.contentCollectionView collectionViewLayout];
@@ -167,9 +182,9 @@
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addContentButton,  nil]];
         
         
-        _requestChangeButton.layer.cornerRadius=5.0f;
-        _requestChangeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
-        _requestChangeButton.layer.borderWidth=1.0f;
+//        _requestChangeButton.layer.cornerRadius=5.0f;
+//        _requestChangeButton.layer.borderColor=[[UIColor darkGrayColor]CGColor];
+//        _requestChangeButton.layer.borderWidth=1.0f;
         
     }
     _tutorialDescriptionView.hidden=YES;
