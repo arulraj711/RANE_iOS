@@ -45,7 +45,7 @@
 @property NSMutableArray *firstLevelUnCheckedArray;
 
 - (IBAction)requestChange:(id)sender;
-
+@property (weak, nonatomic) IBOutlet UILabel *noSearchResultsFoundText;
 @end
 
 @protocol SecondLevelDelegate

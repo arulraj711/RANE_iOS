@@ -44,7 +44,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.noSearchResultsFoundText.hidden = YES;
     // Do any additional setup after loading the view.
     
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenusFromService:) name:@"MenuList" object:nil];
@@ -249,17 +249,31 @@
     NSArray *filtered = [self.contentTypeArray filteredArrayUsingPredicate:predicate];
     NSLog(@"filtered array :%@",filtered);
     searchArray = [[NSMutableArray alloc]initWithArray:filtered];
-//    for (NSDictionary *obj in self.contentTypeArray){
-//        NSString *sTemp = [obj valueForKey:@"TEXT"];
-//        NSRange titleResultsRange = [sTemp rangeOfString:string options:NSCaseInsensitiveSearch];
-//        
-//        if (titleResultsRange.length > 0)
-//        {
-//            [searchArray addObject:obj];
-//        }
+    
+    if(string.length != 0){
+        if(searchArray.count != 0) {
+            self.contentCollectionView.hidden = NO;
+            self.noSearchResultsFoundText.hidden = YES;
+            [self.contentCollectionView reloadData];
+        } else {
+            self.contentCollectionView.hidden = YES;
+            self.noSearchResultsFoundText.hidden = NO;
+        }
+    } else if(string.length == 0) {
+        self.contentCollectionView.hidden = NO;
+        self.noSearchResultsFoundText.hidden = YES;
+        [self.contentCollectionView reloadData];
+    }
+    
+//    if(string.length != 0 && searchArray.count != 0) {
+//        self.contentCollectionView.hidden = NO;
+//        self.noSearchResultsFoundText.hidden = YES;
+//        [self.contentCollectionView reloadData];
+//    } else {
+//        self.contentCollectionView.hidden = YES;
+//        self.noSearchResultsFoundText.hidden = NO;
 //    }
-    //[searchTable reloadData];
-    [self.contentCollectionView reloadData];
+    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

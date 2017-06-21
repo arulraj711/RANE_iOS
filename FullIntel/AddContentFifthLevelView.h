@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 //@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 - (IBAction)requestChange:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *noSearchResultsFoundText;
 
 @end
 

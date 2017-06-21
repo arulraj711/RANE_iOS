@@ -29,7 +29,7 @@
     [super viewDidLoad];
     self.titleLabel.text = self.title;
     self.title = @"Add Content";
-    
+    self.noSearchResultsFoundText.hidden = YES;
     
     self.navigationItem.backBarButtonItem =
     [[UIBarButtonItem alloc] initWithTitle:@"Custom Title"
@@ -140,17 +140,20 @@
     NSArray *filtered = [self.innerArray filteredArrayUsingPredicate:predicate];
     NSLog(@"filtered array :%@",filtered);
     searchArray = [[NSMutableArray alloc]initWithArray:filtered];
-    //    for (NSDictionary *obj in self.contentTypeArray){
-    //        NSString *sTemp = [obj valueForKey:@"TEXT"];
-    //        NSRange titleResultsRange = [sTemp rangeOfString:string options:NSCaseInsensitiveSearch];
-    //
-    //        if (titleResultsRange.length > 0)
-    //        {
-    //            [searchArray addObject:obj];
-    //        }
-    //    }
-    //[searchTable reloadData];
-    [self.categoryCollectionView reloadData];
+    if(string.length != 0){
+        if(searchArray.count != 0) {
+            self.categoryCollectionView.hidden = NO;
+            self.noSearchResultsFoundText.hidden = YES;
+            [self.categoryCollectionView reloadData];
+        } else {
+            self.categoryCollectionView.hidden = YES;
+            self.noSearchResultsFoundText.hidden = NO;
+        }
+    } else if(string.length == 0) {
+        self.categoryCollectionView.hidden = NO;
+        self.noSearchResultsFoundText.hidden = YES;
+        [self.categoryCollectionView reloadData];
+    }
 }
 
 

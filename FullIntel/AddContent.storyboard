@@ -173,11 +173,22 @@
                                     <outlet property="delegate" destination="ngJ-7S-5Ay" id="ZiH-6N-fbm"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWJ-kY-XTE">
+                                <rect key="frame" x="0.0" y="200" width="800" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="800" id="VLE-uZ-nE1"/>
+                                    <constraint firstAttribute="height" constant="40" id="fgd-wd-mxK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="1e2-gx-NDH" secondAttribute="trailing" id="1aN-xL-wSM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QIY-U0-NE2" secondAttribute="trailing" constant="-6" id="AHr-Wz-3qA"/>
+                            <constraint firstItem="tWJ-kY-XTE" firstAttribute="leading" secondItem="rWo-g7-aF9" secondAttribute="leadingMargin" constant="-20" id="Gjn-EE-EJ7"/>
                             <constraint firstItem="1e2-gx-NDH" firstAttribute="leading" secondItem="rWo-g7-aF9" secondAttribute="leadingMargin" id="KCs-Hg-Vfn"/>
                             <constraint firstItem="QIY-U0-NE2" firstAttribute="top" secondItem="SrL-Lq-UyM" secondAttribute="bottom" constant="59" id="M8v-vx-iD3"/>
                             <constraint firstItem="1e2-gx-NDH" firstAttribute="top" secondItem="VBJ-hb-sry" secondAttribute="bottom" id="UCW-rq-2Ei"/>
@@ -186,6 +197,8 @@
                             <constraint firstItem="VBJ-hb-sry" firstAttribute="leading" secondItem="rWo-g7-aF9" secondAttribute="leadingMargin" constant="-20" id="feY-ug-gZe"/>
                             <constraint firstItem="VBJ-hb-sry" firstAttribute="top" secondItem="SrL-Lq-UyM" secondAttribute="bottom" id="gzN-OB-a73"/>
                             <constraint firstAttribute="trailingMargin" secondItem="VBJ-hb-sry" secondAttribute="trailing" constant="-20" id="h4Q-uw-SjV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tWJ-kY-XTE" secondAttribute="trailing" constant="-20" id="ioe-b5-c48"/>
+                            <constraint firstItem="tWJ-kY-XTE" firstAttribute="top" secondItem="VBJ-hb-sry" secondAttribute="bottom" constant="140" id="jZR-fk-deC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BxM-fH-EpW"/>
@@ -194,6 +207,7 @@
                     <size key="freeformSize" width="800" height="650"/>
                     <connections>
                         <outlet property="contentCollectionView" destination="1e2-gx-NDH" id="k2P-ci-IvF"/>
+                        <outlet property="noSearchResultsFoundText" destination="tWJ-kY-XTE" id="jgN-uC-ti6"/>
                         <outlet property="requestChangeButton" destination="MGS-3Z-pV4" id="sEj-re-ubv"/>
                         <outlet property="searchTextField" destination="zNL-aE-j7V" id="0dl-QY-5WN"/>
                     </connections>
@@ -397,22 +411,36 @@
                                     <outlet property="delegate" destination="Xqp-Le-Ab0" id="5et-m1-bmY"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVn-r1-AzZ">
+                                <rect key="frame" x="0.0" y="200" width="600" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="Vae-1W-HJg"/>
+                                    <constraint firstAttribute="height" constant="40" id="ZfH-Jz-sPF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GTM-ig-2dz" firstAttribute="leading" secondItem="IeG-lG-xiz" secondAttribute="leadingMargin" id="51R-76-mIA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kVn-r1-AzZ" secondAttribute="trailing" constant="-20" id="5Uo-SN-4oO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GTM-ig-2dz" secondAttribute="trailing" id="AsS-Nt-Xca"/>
                             <constraint firstItem="GTM-ig-2dz" firstAttribute="top" secondItem="o2Z-c4-gS0" secondAttribute="bottom" id="Bbf-xT-fuo"/>
                             <constraint firstItem="o2Z-c4-gS0" firstAttribute="top" secondItem="uIN-F8-mSM" secondAttribute="bottom" id="ZT1-tm-NyY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="o2Z-c4-gS0" secondAttribute="trailing" constant="-20" id="ZrA-bU-v3J"/>
+                            <constraint firstItem="kVn-r1-AzZ" firstAttribute="leading" secondItem="IeG-lG-xiz" secondAttribute="leadingMargin" constant="-20" id="mVV-EY-f5h"/>
                             <constraint firstItem="o2Z-c4-gS0" firstAttribute="leading" secondItem="IeG-lG-xiz" secondAttribute="leadingMargin" constant="-20" id="sh9-zK-zgB"/>
                             <constraint firstItem="7aw-rl-Qbe" firstAttribute="top" secondItem="GTM-ig-2dz" secondAttribute="bottom" id="wZD-5J-TS2"/>
+                            <constraint firstItem="kVn-r1-AzZ" firstAttribute="top" secondItem="o2Z-c4-gS0" secondAttribute="bottom" constant="120" id="ysf-GM-Bs8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ld0-iU-yeX"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="categoryCollectionView" destination="GTM-ig-2dz" id="A9W-OK-pVp"/>
+                        <outlet property="noSearchResultsFoundText" destination="kVn-r1-AzZ" id="QED-8L-kS0"/>
                         <outlet property="searchTextField" destination="aFX-Fi-WbW" id="fxJ-SM-fDC"/>
                         <outlet property="titleLabel" destination="iNU-YG-tE1" id="Phx-ht-kUO"/>
                     </connections>
@@ -592,15 +620,28 @@
                                     <outlet property="delegate" destination="fh9-3V-y0o" id="eaM-Rl-Ylt"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ox4-la-tNb">
+                                <rect key="frame" x="0.0" y="200" width="600" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="dzK-Lm-lYE"/>
+                                    <constraint firstAttribute="width" constant="600" id="nGb-fl-ebs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ox4-la-tNb" firstAttribute="leading" secondItem="ymI-AJ-Fpv" secondAttribute="leadingMargin" constant="-20" id="7ZQ-IZ-vC8"/>
                             <constraint firstItem="WFI-Hp-FGR" firstAttribute="top" secondItem="ZOC-Ib-GO2" secondAttribute="bottom" id="OWp-W7-6zj"/>
                             <constraint firstItem="gGo-wX-dPu" firstAttribute="top" secondItem="WFI-Hp-FGR" secondAttribute="bottom" id="WwA-uH-JBb"/>
                             <constraint firstItem="gGo-wX-dPu" firstAttribute="leading" secondItem="ymI-AJ-Fpv" secondAttribute="leadingMargin" id="YQF-Q5-OMr"/>
                             <constraint firstItem="WFI-Hp-FGR" firstAttribute="leading" secondItem="ymI-AJ-Fpv" secondAttribute="leadingMargin" constant="-20" id="c8s-Nd-VHs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ox4-la-tNb" secondAttribute="trailing" constant="-20" id="cKR-gO-Qfp"/>
                             <constraint firstItem="wMs-4s-EtQ" firstAttribute="top" secondItem="gGo-wX-dPu" secondAttribute="bottom" id="f3n-QB-u4R"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gGo-wX-dPu" secondAttribute="trailing" id="ncw-zw-HCM"/>
+                            <constraint firstItem="ox4-la-tNb" firstAttribute="top" secondItem="WFI-Hp-FGR" secondAttribute="bottom" constant="120" id="sHP-wW-qph"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WFI-Hp-FGR" secondAttribute="trailing" constant="-20" id="zvh-q9-Qeb"/>
                         </constraints>
                     </view>
@@ -608,6 +649,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="categoryCollectionView" destination="gGo-wX-dPu" id="iYu-OM-cdF"/>
+                        <outlet property="noSearchResultsFoundText" destination="ox4-la-tNb" id="ItF-6y-ayB"/>
                         <outlet property="searchTextField" destination="mQj-It-AJe" id="MSb-0G-aVH"/>
                         <outlet property="titleLabel" destination="IMd-hz-X4V" id="wGI-sR-mX9"/>
                     </connections>
@@ -787,22 +829,36 @@
                                     <outlet property="delegate" destination="eSa-Ml-qoS" id="tgM-P3-6nr"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xxo-cb-wqx">
+                                <rect key="frame" x="0.0" y="200" width="600" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="xNQ-g8-gCt"/>
+                                    <constraint firstAttribute="height" constant="40" id="zRS-SG-l08"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FBx-gH-Ae5" firstAttribute="leading" secondItem="VPN-XL-bWv" secondAttribute="leadingMargin" constant="-20" id="CcP-Aw-yQq"/>
+                            <constraint firstItem="Xxo-cb-wqx" firstAttribute="top" secondItem="FBx-gH-Ae5" secondAttribute="bottom" constant="120" id="FcL-yD-VQV"/>
                             <constraint firstItem="uCC-Hq-vJD" firstAttribute="top" secondItem="FBx-gH-Ae5" secondAttribute="bottom" id="LOx-hl-Xab"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uCC-Hq-vJD" secondAttribute="trailing" id="My6-xg-9Bq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FBx-gH-Ae5" secondAttribute="trailing" constant="-20" id="jec-M1-Llj"/>
                             <constraint firstItem="6Ql-zv-cKS" firstAttribute="top" secondItem="uCC-Hq-vJD" secondAttribute="bottom" id="kTT-FY-ITj"/>
                             <constraint firstItem="FBx-gH-Ae5" firstAttribute="top" secondItem="WO8-Pf-YoM" secondAttribute="bottom" id="m5S-lx-gjF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Xxo-cb-wqx" secondAttribute="trailing" constant="-20" id="sJO-aY-f8T"/>
                             <constraint firstItem="uCC-Hq-vJD" firstAttribute="leading" secondItem="VPN-XL-bWv" secondAttribute="leadingMargin" id="td2-xY-RVb"/>
+                            <constraint firstItem="Xxo-cb-wqx" firstAttribute="leading" secondItem="VPN-XL-bWv" secondAttribute="leadingMargin" constant="-20" id="zFB-PS-Vap"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IVR-GG-Ki3"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="categoryCollectionView" destination="uCC-Hq-vJD" id="EUn-Ws-kdA"/>
+                        <outlet property="noSearchResultsFoundText" destination="Xxo-cb-wqx" id="ZQB-Kl-SC8"/>
                         <outlet property="searchTextField" destination="8hJ-nW-Qxd" id="TfO-Ka-ZHf"/>
                         <outlet property="titleLabel" destination="PxW-9W-Vzj" id="5EF-SB-DIb"/>
                     </connections>
@@ -979,12 +1035,25 @@
                                     <outlet property="delegate" destination="jBu-VK-C2g" id="Eww-Ye-KeX"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="867-7C-1VH">
+                                <rect key="frame" x="0.0" y="200" width="600" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="nGs-w5-6xF"/>
+                                    <constraint firstAttribute="height" constant="40" id="wMQ-Rp-WFn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="mEt-HX-1bP" firstAttribute="top" secondItem="al5-lI-IaZ" secondAttribute="bottom" id="7kn-kh-hwu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="867-7C-1VH" secondAttribute="trailing" constant="-20" id="Gtf-Ad-r2f"/>
                             <constraint firstItem="eBa-1m-zhx" firstAttribute="leading" secondItem="enA-PR-C1U" secondAttribute="leadingMargin" constant="-20" id="ICp-zW-iJM"/>
                             <constraint firstItem="al5-lI-IaZ" firstAttribute="leading" secondItem="enA-PR-C1U" secondAttribute="leadingMargin" id="M0n-56-BpQ"/>
+                            <constraint firstItem="867-7C-1VH" firstAttribute="top" secondItem="eBa-1m-zhx" secondAttribute="bottom" constant="120" id="OfW-0E-m7g"/>
+                            <constraint firstItem="867-7C-1VH" firstAttribute="leading" secondItem="enA-PR-C1U" secondAttribute="leadingMargin" constant="-20" id="Qfb-pz-fUj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eBa-1m-zhx" secondAttribute="trailing" constant="-20" id="SBX-X1-nkF"/>
                             <constraint firstItem="al5-lI-IaZ" firstAttribute="top" secondItem="eBa-1m-zhx" secondAttribute="bottom" id="YNu-ds-aXb"/>
                             <constraint firstItem="eBa-1m-zhx" firstAttribute="top" secondItem="P8G-hb-yxw" secondAttribute="bottom" id="fLU-Nn-SGF"/>
@@ -995,6 +1064,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="categoryCollectionView" destination="al5-lI-IaZ" id="9wD-gE-FF5"/>
+                        <outlet property="noSearchResultsFoundText" destination="867-7C-1VH" id="V2c-Y1-baO"/>
                         <outlet property="searchTextField" destination="Cqf-ed-prN" id="ska-FA-xGb"/>
                         <outlet property="titleLabel" destination="d3x-O7-SOK" id="VP7-Zi-UrQ"/>
                     </connections>

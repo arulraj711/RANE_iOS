@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (strong) NSMutableArray *menus;
 @property (strong, nonatomic) NSMutableArray *data;
+@property (weak, nonatomic) IBOutlet UILabel *noSearchResultsFoundText;
 - (IBAction)expandButtonClick:(id)sender;
 - (IBAction)closeAction:(id)sender;
 - (IBAction)requestChange:(id)sender;

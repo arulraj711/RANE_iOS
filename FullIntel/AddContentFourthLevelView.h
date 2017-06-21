@@ -33,6 +33,7 @@
 @property NSMutableArray *firstLevelUnCheckedArray;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 - (IBAction)requestChange:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *noSearchResultsFoundText;
 @end
 
 @protocol FourthLevelDelegate
