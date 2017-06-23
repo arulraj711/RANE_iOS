@@ -349,6 +349,7 @@
 		F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ECBC631ABFDA78004741A5 /* SavedListCell.m */; };
 		F7EDA00C1AC136CD00A5C601 /* influencer_list.json in Resources */ = {isa = PBXBuildFile; fileRef = F7EDA00B1AC136CD00A5C601 /* influencer_list.json */; };
 		F7F3C05B1AA42CC700E653CB /* menu.json in Resources */ = {isa = PBXBuildFile; fileRef = F7F3C05A1AA42CC700E653CB /* menu.json */; };
+		F7F662531EFCE7390012A2A5 /* FIAddContentMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F662521EFCE7390012A2A5 /* FIAddContentMenu.m */; };
 		F7F876B51AB976B00042404D /* influ_drillin.json in Resources */ = {isa = PBXBuildFile; fileRef = F7F876B41AB976B00042404D /* influ_drillin.json */; };
 		F8B6E95801708588BF812538 /* Pods_RANE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ED344A4788DCA43863F5BDD /* Pods_RANE.framework */; };
 /* End PBXBuildFile section */
@@ -846,6 +847,8 @@
 		F7ECBC631ABFDA78004741A5 /* SavedListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedListCell.m; sourceTree = "<group>"; };
 		F7EDA00B1AC136CD00A5C601 /* influencer_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = influencer_list.json; sourceTree = "<group>"; };
 		F7F3C05A1AA42CC700E653CB /* menu.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = menu.json; sourceTree = "<group>"; };
+		F7F662511EFCE7390012A2A5 /* FIAddContentMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIAddContentMenu.h; sourceTree = "<group>"; };
+		F7F662521EFCE7390012A2A5 /* FIAddContentMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIAddContentMenu.m; sourceTree = "<group>"; };
 		F7F876B41AB976B00042404D /* influ_drillin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = influ_drillin.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1823,6 +1826,8 @@
 				A088607F1B427B9500939D51 /* FIFolder.m */,
 				F554DFD11BB016180062EAC7 /* FINewsLetter.h */,
 				F554DFD21BB016180062EAC7 /* FINewsLetter.m */,
+				F7F662511EFCE7390012A2A5 /* FIAddContentMenu.h */,
+				F7F662521EFCE7390012A2A5 /* FIAddContentMenu.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -2306,6 +2311,7 @@
 				A0CF5C661B1DD98B00DED2D9 /* CompanyCell.m in Sources */,
 				F7ECBC651ABFDA78004741A5 /* SavedListCell.m in Sources */,
 				A0E06BF81C5A12E300C2AE17 /* CorporateDetailCell.m in Sources */,
+				F7F662531EFCE7390012A2A5 /* FIAddContentMenu.m in Sources */,
 				A0CF5C6B1B1DD98B00DED2D9 /* PersonalityExecutiveCell.m in Sources */,
 				F583CD161BA310590080C384 /* MainListTutorialViewController.m in Sources */,
 				A0AF674D1B16EC1C007EDD26 /* UIColor+CustomColors.m in Sources */,

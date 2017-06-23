@@ -8,10 +8,11 @@
 
 #import "AddContentFifthLevelView.h"
 #import "SecondLevelCell.h"
-#import "FIContentCategory.h"
+//#import "FIContentCategory.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FirstLevelCell.h"
-#import "FIMenu.h"
+//#import "FIMenu.h"
+#import "FIAddContentMenu.h"
 #import "FISharedResources.h"
 #import "UIView+Toast.h"
 #import "MZFormSheetController.h"
@@ -165,21 +166,21 @@
         
         if(isChanged) {
             if(alreadySelectedArray.count == 0){
-                for(FIContentCategory *category in self.innerArray) {
-                    [self.checkedArray addObject:category.categoryId];
-                    [self.selectedIdArray addObject:category.categoryId];
+                for(FIAddContentMenu *category in self.innerArray) {
+                    [self.checkedArray addObject:category.nodeId];
+                    [self.selectedIdArray addObject:category.nodeId];
                 }
             } else {
                 self.selectedIdArray = [[NSMutableArray alloc]initWithArray:alreadySelectedArray];
             }
         } else {
-            for(FIContentCategory *category in self.innerArray) {
+            for(FIAddContentMenu *category in self.innerArray) {
                 if(category.isSubscribed) {
-                    [self.checkedArray addObject:category.categoryId];
-                    [self.selectedIdArray addObject:category.categoryId];
+                    [self.checkedArray addObject:category.nodeId];
+                    [self.selectedIdArray addObject:category.nodeId];
                 } else {
-                    [self.uncheckedArray addObject:category.categoryId];
-                    [self.selectedIdArray removeObject:category.categoryId];
+                    [self.uncheckedArray addObject:category.nodeId];
+                    [self.selectedIdArray removeObject:category.nodeId];
                 }
             }
         }
@@ -235,7 +236,7 @@
     // NSLog(@"cell for item");
     FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
     
-    FIContentCategory *contentCategory;
+    FIAddContentMenu *contentCategory;
     if(searchArray.count != 0) {
         contentCategory = [searchArray objectAtIndex:indexPath.row];
     } else {
@@ -243,7 +244,7 @@
     }
     cell.name.text = contentCategory.name;
     
-    if([self.selectedIdArray containsObject:contentCategory.categoryId]) {
+    if([self.selectedIdArray containsObject:contentCategory.nodeId]) {
         //[self.selectedIdArray addObject:contentCategory.categoryId];
         [cell.checkMarkButton setSelected:YES];
     }else {
@@ -253,8 +254,8 @@
     cell.expandButton.hidden = YES;
     cell.checkMarkButton.tag = indexPath.row;
     cell.expandButton.tag = indexPath.row;
-    cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
-    cell.contentView.layer.borderWidth = 1.0f;
+//    cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
+//    cell.contentView.layer.borderWidth = 1.0f;
     return cell;
 }
 
@@ -263,7 +264,7 @@
 }
 
 - (IBAction)checkMark:(id)sender {
-    FIMenu *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
+    FIAddContentMenu *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
     if([self.selectedIdArray containsObject:contentCategory.nodeId]) {
         [self.selectedIdArray removeObject:contentCategory.nodeId];
         [sender setSelected:NO];

@@ -14,12 +14,14 @@
 //#import "Localytics.h"
 #import "pop.h"
 #import "FISharedResources.h"
-#import "FIMenu.h"
+//#import "FIMenu.h"
+#import "FIAddContentMenu.h"
 #import "FirstLevelCell.h"
-#import "FIUnreadMenu.h"
+//#import "FIUnreadMenu.h"
 #import "UIView+Toast.h"
 #import "MZFormSheetController.h"
 #import "FIUtils.h"
+
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
@@ -152,7 +154,7 @@
     
     NSMutableArray *intermediateArray = [[NSMutableArray alloc]initWithArray:self.innerArray];
     
-    for(FIMenu *menu in self.innerArray) {
+    for(FIAddContentMenu *menu in self.innerArray) {
         if(menu.name == NULL) {
             [intermediateArray removeObject:menu];
         }
@@ -373,8 +375,8 @@
     NSMutableArray *alreadySelectedArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"secondLevelSelection"];
     // NSLog(@"already selected array count:%d",alreadySelectedArray.count);
     if(alreadySelectedArray.count ==0) {
-        for(FIUnreadMenu *category in self.innerArray) {
-            if([category.isSubscribed isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+        for(FIAddContentMenu *category in self.innerArray) {
+            if(category.isSubscribed) {
                 [self.checkedArray addObject:category.nodeId];
                 [self.selectedIdArray addObject:category.nodeId];
             } else {
@@ -441,7 +443,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // NSLog(@"cell for item");
     FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
-    FIMenu *contentCategory;
+    FIAddContentMenu *contentCategory;
     if(searchArray.count != 0) {
         contentCategory = [searchArray objectAtIndex:indexPath.row];
     } else {
@@ -467,14 +469,14 @@
     cell.checkMarkButton.tag = indexPath.row;
     cell.expandButton.tag = indexPath.row;
     
-    if(contentCategory.listArray.count != 0) {
+    if(contentCategory.subList.count != 0) {
         cell.expandButton.hidden = NO;
     } else {
         cell.expandButton.hidden = YES;
     }
     
-    cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
-    cell.contentView.layer.borderWidth = 1.0f;
+//    cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
+//    cell.contentView.layer.borderWidth = 1.0f;
     
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"SecondTutorialShown"];
     if (coachMarksShown == YES) {
@@ -537,13 +539,13 @@
     NSLog(@"expand button click :%ld",(long)[sender tag]);
    // SecondLevelCell *cell = (SecondLevelCell *)tapGesture.view;
     [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
-    FIMenu *contentCategory;
+    FIAddContentMenu *contentCategory;
     if(searchArray.count != 0) {
         contentCategory = [searchArray objectAtIndex:[sender tag]];
     } else {
         contentCategory = [self.innerArray objectAtIndex:[sender tag]];
     }
-    if(contentCategory.listArray.count != 0) {
+    if(contentCategory.subList.count != 0) {
         UIStoryboard *storyboard;
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
             storyboard = [UIStoryboard storyboardWithName:@"AddContentPhone" bundle:nil];
@@ -552,7 +554,7 @@
         }
         AddContentThirdLevelView *thirdLevel = [storyboard instantiateViewControllerWithIdentifier:@"ThirdLevel"];
         thirdLevel.delegate = self;
-        thirdLevel.innerArray = contentCategory.listArray;
+        thirdLevel.innerArray = contentCategory.subList;
         thirdLevel.title = contentCategory.name;
         thirdLevel.previousArray = self.selectedIdArray;
         thirdLevel.previousUnCheckArray = self.uncheckedArray;
@@ -618,7 +620,7 @@
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"contentSelected" object:nil];
     
-    FIMenu *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
+    FIAddContentMenu *contentCategory = [self.innerArray objectAtIndex:[sender tag]];
     if([self.selectedIdArray containsObject:contentCategory.nodeId]) {
         [self.selectedIdArray removeObject:contentCategory.nodeId];
         [sender setSelected:NO];

@@ -25,6 +25,7 @@
     menu.menuIconURL = NULL_TO_NIL([dic objectForKey:@"iconUrl"]);
     menu.companyId = NULL_TO_NIL([dic objectForKey:@"companyId"]);
     menu.articleCount = [NSNumber numberWithInt:0];
+    menu.contentTypeForCustomerId =  NULL_TO_NIL([dic objectForKey:@"contentTypeForCustomerId"]);
     
     NSMutableArray *array = [[NSMutableArray alloc]init];
     NSArray *menuArray = [dic objectForKey:@"subList"];
@@ -50,6 +51,7 @@
     [coder encodeObject:self.subListAvailable forKey:@"subListAvailable"];
     [coder encodeObject:self.companyId forKey:@"companyId"];
     [coder encodeObject:self.articleCount forKey:@"articleCount"];
+    [coder encodeObject:self.contentTypeForCustomerId forKey:@"contentTypeForCustomerId"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -65,6 +67,7 @@
         self.subListAvailable = [coder decodeObjectForKey:@"subListAvailable"];
         self.companyId = [coder decodeObjectForKey:@"companyId"];
         self.articleCount = [coder decodeObjectForKey:@"articleCount"];
+        self.contentTypeForCustomerId = [coder decodeObjectForKey:@"contentTypeForCustomerId"];
     }
     return self;
 }

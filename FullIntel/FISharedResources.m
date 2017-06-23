@@ -21,6 +21,7 @@
 #import "FINewsLetter.h"
 #import "ReportListObject.h"
 #import "ReportObject.h"
+#import "FIAddContentMenu.h"
 #define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
 
 @implementation FISharedResources
@@ -1608,6 +1609,7 @@
 }
 
 -(void)getMenuUnreadCountWithAccessToken:(NSString *)accessToken {
+    NSLog(@"stpe1");
     if([self serviceIsReachable]) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         [FIWebService fetchMenuUnreadCountWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1628,6 +1630,33 @@
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         }];
         });
+    } else {
+        NSLog(@"windows :%@",[[UIApplication sharedApplication]windows]);
+        if([[UIApplication sharedApplication]windows].count != 0){
+            UIWindow *window = [[UIApplication sharedApplication]windows][0];
+            NSArray *subViewArray = [window subviews];
+            //NSLog(@"subview array count:%d",subViewArray.count);
+            if(subViewArray.count == 1) {
+                [self showBannerView];
+            }
+
+        }
+    }
+}
+
+
+-(void)getAddContentListWithAccessToken:(NSString *)accessToken {
+    if([self serviceIsReachable]) {
+        [FIWebService fetchAddContentWithAccessToken:accessToken onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSArray *addcontentArray = [responseObject objectForKey:@"contentTypes"];
+            NSMutableArray *addContentMenuArray = [[NSMutableArray alloc]init];
+            for(NSDictionary *dic in addcontentArray) {
+                FIAddContentMenu *menu = [FIAddContentMenu recursiveAddContentMenu:dic];
+                [addContentMenuArray addObject:menu];
+            }
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"AddContentAPI" object:addContentMenuArray];
+        } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        }];
     } else {
         UIWindow *window = [[UIApplication sharedApplication]windows][0];
         NSArray *subViewArray = [window subviews];

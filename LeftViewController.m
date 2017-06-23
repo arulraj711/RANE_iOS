@@ -603,6 +603,7 @@
 }
 
 -(void)updateUnreadCount:(NSNotification*)notification {
+    NSLog(@"step2");
     NSArray  *unreadMenuArray = notification.object;
     unreadCnt = 0;
     

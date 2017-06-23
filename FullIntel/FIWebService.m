@@ -394,6 +394,20 @@ NSString *url = @"http://54.210.166.32/3.6.4";
     }];
 }
 
++(void)fetchAddContentWithAccessToken:(NSString*)accessToken
+                                 onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                 onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *functionName = [NSString stringWithFormat:@"/api/v1/list/addcontent?security_token=%@",accessToken];
+    [self getQueryResultsForFunctionName:functionName onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"curated news response:%@",responseObject);
+        success(operation,responseObject);
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+        
+    }];
+}
+
+
 +(void)fetchFolderListWithAccessToken:(NSString*)accessToken
                           onSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                           onFailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {

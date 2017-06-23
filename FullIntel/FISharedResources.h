@@ -57,6 +57,7 @@
 -(void)showBannerView;
 -(void)closeBannerView;
 - (BOOL)serviceIsReachable;
+-(void)getAddContentListWithAccessToken:(NSString *)accessToken;
 @property (nonatomic,strong) NSMutableArray *menuList;
 @property (nonatomic,strong) NSMutableArray *menuUnReadCountArray;
 @property (nonatomic,strong) NSMutableArray *folderList;

@@ -21,6 +21,7 @@
 #import "pop.h"
 #import "UILabel+CustomHeaderLabel.h"
 #import "UIColor+CustomColor.h"
+#import "FIAddContentMenu.h"
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
@@ -50,9 +51,9 @@
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMenusFromService:) name:@"MenuList" object:nil];
     searchArray = [[NSMutableArray alloc]init];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnreadCount:) name:@"AddContentMenuAPI" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchedAddContentAPI:) name:@"AddContentAPI" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadContentCategory) name:@"contentCategory" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadContentCategory) name:@"contentCategory" object:nil];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddContentExpire) name:@"AddContentExpire" object:nil];
@@ -124,9 +125,9 @@
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedIdArray forKey:@"fourthLevelSelection"];
     
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    [[FISharedResources sharedResourceManager]getAddContentMenuWithAccessToken:accessToken];
+    //[[FISharedResources sharedResourceManager]getAddContentMenuWithAccessToken:accessToken];
     //[[FISharedResources sharedResourceManager]getMenuListWithAccessToken:accessToken];
-    
+    [[FISharedResources sharedResourceManager]getAddContentListWithAccessToken:accessToken];
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         
 //        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
@@ -236,6 +237,49 @@
 //    //[self.contentCollectionView reloadData];
 //}
 
+
+-(void) fetchedAddContentAPI:(NSNotification*)notification {
+    NSMutableArray *addContentArray = notification.object;
+    self.data = [[NSMutableArray alloc]init];
+    for(FIAddContentMenu *menu in addContentArray) {
+        if([menu.nodeId isEqualToNumber:[NSNumber numberWithInt:9]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:6]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:35]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:36]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:37]] || [menu.nodeId isEqualToNumber:[NSNumber numberWithInt:38]]) {
+            [self.data removeObject:menu];
+        } else {
+            [self.data addObject:menu];
+        }
+    }
+    
+    
+    NSLog(@"data :%@",self.data);
+    
+    self.contentTypeArray = [[NSMutableArray alloc]initWithArray:self.data];
+    
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isThirdLevelChanged"];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFourthLevelChanged"];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isFifthLevelChanged"];
+    
+    for(FIAddContentMenu *category in self.contentTypeArray) {
+        NSLog(@"content type ID :%@",category.contentTypeForCustomerId);
+        if(category.contentTypeForCustomerId != NULL) {
+            if(category.isSubscribed) {
+                NSMutableDictionary *dic =[[NSMutableDictionary alloc]init];
+                [dic setValue:category.nodeId forKey:@"id"];
+                [dic setValue:category.companyId forKey:@"companyId"];
+                [dic setValue:category.contentTypeForCustomerId forKey:@"contentTypeForCustomerId"];
+                [self.checkedArray addObject:dic];
+                [self.selectedIdArray addObject:category.nodeId];
+            } else {
+                NSMutableDictionary *dic =[[NSMutableDictionary alloc]init];
+                [dic setValue:category.nodeId forKey:@"id"];
+                [dic setValue:category.companyId forKey:@"companyId"];
+                [dic setValue:category.contentTypeForCustomerId forKey:@"contentTypeForCustomerId"];
+                [self.uncheckedArray addObject:dic];
+                [self.selectedIdArray removeObject:category.nodeId];
+            }
+        }
+    }    
+    [self.contentCollectionView reloadData];
+}
 
 
 -(void)textChangeNotification:(NSNotification *)notification {
@@ -502,6 +546,32 @@
     
 }
 
+-(NSMutableArray *)testRecursive:(NSMutableArray *)menulistArray with:(NSMutableArray *)unreadMenuArray {
+    for(FIContentCategory *menu in menulistArray) {
+        NSLog(@"node id %@ and name %@",menu.categoryId,menu.name);
+        for(FIMenu *unreadMenu in unreadMenuArray) {
+            //menu.subListAvailable = [NSNumber numberWithBool:NO];
+            if([menu.categoryId isEqualToNumber:unreadMenu.nodeId]) {
+                menu.subListAvailable = [NSNumber numberWithBool:YES];
+                menu.listArray = [self testRecursive:menu.listArray with:unreadMenuArray];
+            } else {
+                menu.subListAvailable = [NSNumber numberWithBool:NO];
+                menu.listArray = [self testRecursive:menu.listArray with:unreadMenuArray];
+            }
+        }
+    }
+    return menulistArray;
+}
+
+//-(FIMenu *)recursiveDataObjectFroms:(FIMenu *)menu totalArray:(){
+//    
+//    NSArray *menuArray = menu.listArray;
+//    for(FIMenu *dict in menuArray) {
+//        FIMenu *insideMenu = [self recursiveDataObjectFrom:dict];
+//    }
+//    return menu;
+//}
+
 
 -(void)loadContentCategory {
     NSLog(@"self :%@",self.menus);
@@ -528,8 +598,9 @@
             NSLog(@"inside menu %@",insideMenu.nodeId);
             for(FIContentCategory *category in contentCategoryArray) {
                 if([insideMenu.nodeId isEqualToNumber:category.categoryId]){
-                    insideMenu.listArray = category.listArray;
                     insideMenu.name = category.name;
+                    insideMenu.listArray = [self testRecursive:category.listArray with:menu.listArray];
+                    //insideMenu.subListAvailable = category.subListAvailable;
                     insideMenu.isSubscribed = [NSNumber numberWithBool:category.isSubscribed];
                     break;
                 }
@@ -780,7 +851,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     FirstLevelCell *cell =(FirstLevelCell*) [cv dequeueReusableCellWithReuseIdentifier:@"FirstLevelCell" forIndexPath:indexPath];
-    FIMenu *contentCategory;
+    FIAddContentMenu *contentCategory;
     if(searchArray.count != 0) {
         contentCategory = [searchArray objectAtIndex:indexPath.row];
     } else {
@@ -796,8 +867,7 @@
         [cell.checkMarkButton setSelected:NO];
     }
     
-    
-    if([contentCategory.subListAvailable isEqualToNumber:[NSNumber numberWithBool:YES]] && contentCategory.listArray.count != 0) {
+    if(contentCategory.subList.count != 0) {
         cell.expandButton.hidden = NO;
     } else {
         cell.expandButton.hidden = YES;
@@ -819,8 +889,8 @@
 //        
 //        cell.layer.borderWidth=0.0;
 //    }
-    cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
-    cell.contentView.layer.borderWidth = 1.0f;
+//    cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
+//    cell.contentView.layer.borderWidth = 1.0f;
 
     return cell;
 }
@@ -944,7 +1014,7 @@
 - (IBAction)expandButtonClick:(id)sender {
     NSLog(@"expand button click :%ld",(long)[sender tag]);
     
-    FIMenu *contentCategory;
+    FIAddContentMenu *contentCategory;
     if(searchArray.count != 0) {
         contentCategory = [searchArray objectAtIndex:[sender tag]];
     } else {
@@ -952,7 +1022,7 @@
     }
     
     //FIMenu *contentCategory = [self.contentTypeArray objectAtIndex:[sender tag]];
-    if(contentCategory.listArray.count != 0) {
+    if(contentCategory.subList.count != 0) {
         UIStoryboard *storyboard;
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
             storyboard = [UIStoryboard storyboardWithName:@"AddContentPhone" bundle:nil];
@@ -961,7 +1031,7 @@
         }
         AddContentSecondLevelView *secondLevel = [storyboard instantiateViewControllerWithIdentifier:@"SecondLevel"];
         secondLevel.delegate = self;
-        secondLevel.innerArray = contentCategory.listArray;
+        secondLevel.innerArray = contentCategory.subList;
         secondLevel.title = contentCategory.name;
         secondLevel.previousArray = self.selectedIdArray;
         secondLevel.selectedId = contentCategory.nodeId;

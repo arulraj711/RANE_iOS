@@ -17,6 +17,7 @@
 @property (nonatomic,strong) NSNumber *contentTypeForCustomerId;
 @property (assign) BOOL isSubscribed;
 @property (assign) BOOL isCompanySubscribed;
+@property (nonatomic,strong) NSNumber *subListAvailable;
 //-(void)createMenuFromDic:(NSDictionary *)dic;
 +(FIContentCategory *)recursiveMenu:(NSDictionary *)dic;
 @end
