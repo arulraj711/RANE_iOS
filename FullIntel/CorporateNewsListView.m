@@ -2507,7 +2507,11 @@
             if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
             {
                 // code for landscape orientation
-                
+                NSString *authorName = cell.authorName.text;
+                if (authorName.length == 0){
+                    cell.iconForAuthor.hidden = YES;
+                    
+                }
             }
             if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
             {

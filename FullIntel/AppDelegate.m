@@ -57,10 +57,13 @@
     
 //
     
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
-    if(accessToken.length > 0) {
-        [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
-    }
+
+    
+    
+//    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+//    if(accessToken.length > 0) {
+//        [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+//    }
     
     
 //    // Initialize Reachability
@@ -173,10 +176,40 @@
     
     [FISharedResources sharedResourceManager];
     
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isMenuCalled"];
+    
 //    [[ATAppUpdater sharedUpdater] forceOpenNewAppVersion:YES];
     
     
     return YES;
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+}
+
+-(void)applicationDidBecomeActive:(UIApplication *)application {
+    NSLog(@"application did become active");
+    
+    BOOL isMenuCalled = [[NSUserDefaults standardUserDefaults]boolForKey:@"isMenuCalled"];
+    if(!isMenuCalled) {
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+        if(accessToken.length > 0) {
+            [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+        }
+    }
+    
+//    NSUserDefaults *currentDefaults1 = [NSUserDefaults standardUserDefaults];
+//    NSData *dataRepresentingSavedArray1 = [currentDefaults1 objectForKey:@"UnReadMenuList"];
+//    if (dataRepresentingSavedArray1.length == 0) {
+//        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"accesstoken"];
+//        if(accessToken.length > 0) {
+//            [[FISharedResources sharedResourceManager]getMenuUnreadCountWithAccessToken:accessToken];
+//        }
+//    }
+    
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
@@ -401,8 +434,11 @@
 
 -(void)applicationWillEnterForeground:(UIApplication *)application {
     NSLog(@"app enter foreground");
+    
+    
+    
     //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        [FISharedResources sharedResourceManager];
+        //[FISharedResources sharedResourceManager];
    // });
 }
 
@@ -412,10 +448,7 @@
     [self saveContext];
 }
 
--(void)applicationDidBecomeActive:(UIApplication *)application {
-   // NSLog(@"application did become active");
-    
-}
+
 
 
 //-(void)getLastCuratedNewsArticleId{

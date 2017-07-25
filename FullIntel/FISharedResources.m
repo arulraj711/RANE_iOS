@@ -472,16 +472,18 @@
 //            }
         } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSError* error1;
-            NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
-            NSLog(@"error menu unread JSON:%@",errorJson);
-            if(errorJson == nil){
-                [FIUtils showErrorToast];
-            } else {
-                if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
-                    [self hideProgressView];
-                    [self showLoginView:[NSNumber numberWithInt:0]];
+            if(operation.responseData.length != 0) {
+                NSDictionary* errorJson = [NSJSONSerialization JSONObjectWithData:(NSData*)operation.responseObject options:kNilOptions error:&error1];
+                NSLog(@"error menu unread JSON:%@",errorJson);
+                if(errorJson == nil){
+                    [FIUtils showErrorToast];
                 } else {
-                    [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                    if([[errorJson objectForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]){
+                        [self hideProgressView];
+                        [self showLoginView:[NSNumber numberWithInt:0]];
+                    } else {
+                        [FIUtils showErrorWithMessage:NULL_TO_NIL([errorJson objectForKey:@"message"])];
+                    }
                 }
             }
         }];
@@ -1620,7 +1622,8 @@
                     FIUnreadMenu *menu = [FIUnreadMenu recursiveUnReadMenu:dic];
                     [_menuUnReadCountArray addObject:menu];
                 }
-                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuList] forKey:@"UnReadMenuList"];
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isMenuCalled"];
+//                [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:_menuUnReadCountArray] forKey:@"UnReadMenuList"];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"UnreadMenuAPI" object:_menuUnReadCountArray];
             } else if([responseObject isKindOfClass:[NSDictionary class]]){
                 if([[responseObject valueForKey:@"statusCode"]isEqualToNumber:[NSNumber numberWithInt:401]]) {

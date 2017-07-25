@@ -32,6 +32,7 @@
     CGFloat initialPositions;
 
 }
+@property (weak, nonatomic) IBOutlet UIImageView *topAuthorImageView;
 @property UICollectionView *tweetsLocalCollectionView;
 @property UICollectionView *socialcollectionView;
 @property UILabel *bioInfoLabel;
@@ -172,6 +173,7 @@
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *biolabelWidthConstraint;
 
-
+@property (strong,nonatomic) IBOutlet UILabel *aboutAuthorTitleView;
+@property (strong,nonatomic) IBOutlet UIImageView *aboutAuthorLineImage;
 
 @end

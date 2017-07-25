@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -119,7 +119,7 @@
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.39999999999999963" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AARON M. KESSLER and BRIAN X. CHEN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVI-Qx-ovZ">
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.39999999999999963" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVI-Qx-ovZ">
                                                     <rect key="frame" x="110" y="60" width="140" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="AMs-cC-RhF"/>
@@ -192,7 +192,7 @@
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.40000000596046448" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AARON M. KESSLER and BRIAN X. CHEN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymv-WM-Emg">
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.40000000596046448" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymv-WM-Emg">
                                                     <rect key="frame" x="15" y="80" width="250" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="250" id="btg-lu-851"/>
@@ -2311,7 +2311,9 @@
                                         </variation>
                                         <connections>
                                             <outlet property="aboutAuthorImageView" destination="rJk-3J-udP" id="1FD-py-Wyo"/>
+                                            <outlet property="aboutAuthorLineImage" destination="twN-fw-gRq" id="ssc-X6-f7Y"/>
                                             <outlet property="aboutAuthorName" destination="vDf-kY-77l" id="IgV-eX-X4d"/>
+                                            <outlet property="aboutAuthorTitleView" destination="owK-Wd-hGu" id="pf0-VZ-S0f"/>
                                             <outlet property="articleAuthor" destination="wpx-9B-H5F" id="oMO-3p-TEo"/>
                                             <outlet property="articleDate" destination="P2F-O8-eLy" id="FoN-JH-SWe"/>
                                             <outlet property="articleImageView" destination="EhG-wx-pfL" id="ebO-is-KPD"/>

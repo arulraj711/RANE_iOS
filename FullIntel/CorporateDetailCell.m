@@ -914,15 +914,8 @@
     webView.scrollView.scrollEnabled = NO;
     webView.scrollView.bounces = NO;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        CGRect newBounds = self.articleWebview.bounds;
-        NSLog(@"%@",NSStringFromCGRect(newBounds));
-        
+        CGRect newBounds = self.articleWebview.bounds;        
         newBounds.size.height =  self.articleWebview.scrollView.contentSize.height;
-        NSLog(@"%@",NSStringFromCGRect(newBounds));
-        NSLog(@"%@",NSStringFromCGSize(newBounds.size));
-        
-        NSLog(@"%f",self.webViewHeightConstraint.constant);
-        NSLog(@"%@",self.webViewHeightConstraint);
         CGFloat pointOfWebview = newBounds.size.height;
         NSLog(@"webview height-->%f",self.webViewHeightConstraint.constant);
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,pointOfWebview+750+self.bioLabel.frame.size.height);
@@ -942,6 +935,7 @@
             }
             
         } else {
+            
             self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+800);
         }
         
@@ -969,8 +963,33 @@
     //NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
     self.webViewHeightConstraint.constant = self.articleWebview.frame.size.height;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        //        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, 20);
         
+        
+        NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
+        [fetchRequest setPredicate:predicate];
+        NSArray *articleArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        NSMutableArray *authorArray;
+        if(articleArray.count != 0) {
+            NSManagedObject *curatedNews = [articleArray objectAtIndex:0];
+            NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
+            authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
+            
+        }
+        if(authorArray.count == 0) {
+            self.authorImageView.hidden = YES;
+            self.aboutAuthorTitleView.hidden = YES;
+            self.aboutAuthorLineImage.hidden = YES;
+            self.aboutAuthorImageView.hidden = YES;
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+500);
+        } else {
+            self.aboutAuthorTitleView.hidden = NO;
+            self.aboutAuthorLineImage.hidden = NO;
+            self.aboutAuthorImageView.hidden = NO;
+            self.authorImageView.hidden = NO;
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+800);
+        }
     }
     else{
         NSNumber *articleImageVisible = [[NSUserDefaults standardUserDefaults] objectForKey:@"articleImageVisible"];
@@ -987,7 +1006,29 @@
             }
             
         } else {
-            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+800);
+            NSManagedObjectContext *managedObjectContext = [[FISharedResources sharedResourceManager]managedObjectContext];
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CuratedNews"];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",self.selectedArticleId];
+            [fetchRequest setPredicate:predicate];
+            NSArray *articleArray =[[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+            NSMutableArray *authorArray;
+            if(articleArray.count != 0) {
+                NSManagedObject *curatedNews = [articleArray objectAtIndex:0];
+                NSSet *authorSet = [curatedNews valueForKey:@"authorDetails"];
+                authorArray = [[NSMutableArray alloc]initWithArray:[authorSet allObjects]];
+                
+            }
+            if(authorArray.count == 0) {
+                self.aboutAuthorTitleView.hidden = YES;
+                self.aboutAuthorLineImage.hidden = YES;
+                self.aboutAuthorImageView.hidden = YES;
+                self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+500);
+            } else {
+                self.aboutAuthorTitleView.hidden = NO;
+                self.aboutAuthorLineImage.hidden = NO;
+                self.aboutAuthorImageView.hidden = NO;
+                self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.webViewHeightConstraint.constant+800);
+            }
         }
         
     }

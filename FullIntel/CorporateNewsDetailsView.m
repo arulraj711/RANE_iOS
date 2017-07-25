@@ -185,6 +185,7 @@
                    ];
     coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
     coachMarksView.delegate=self;
+    //coachMarksView.backgroundColor = [UIColor redColor];
     [self.view addSubview:coachMarksView];
     [coachMarksView start];
     
@@ -1350,10 +1351,11 @@
                 cell.articleAuthor.text = [authorObject valueForKey:@"name"];
                 cell.overlayArticleAuthor.text = [authorObject valueForKey:@"name"];
             }
-            
-            
-            
         }
+        
+    } else {
+        cell.authorImageView.hidden = YES;
+        cell.topAuthorImageView.hidden = YES;
     }
     if (self.isSearching) {
         [self highlight:cell.articleOutlet withString:self.searchText];

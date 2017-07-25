@@ -475,8 +475,12 @@
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
     if (coachMarksShown == NO) {
         _tutorialDescriptionView.hidden=YES;
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"SecondTutorialShown"];
         
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"SecondLevelTutorialTrigger" object:nil];
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"CloseAddContentTutorial"];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"closeAddContentView" object:nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"MenuTutorialTrigger" object:nil];
+        //[[NSNotificationCenter defaultCenter]postNotificationName:@"SecondLevelTutorialTrigger" object:nil];
         
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"TutorialShown"];
         
@@ -873,22 +877,22 @@
         cell.expandButton.hidden = YES;
     }
     
-//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
-//    if (coachMarksShown == NO) {
-//        
-//        if(indexPath.row==0){
-//            cell.layer.borderWidth=1.0;
-//            cell.layer.borderColor=[[UIColor redColor]CGColor];
-//            
-//            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
-//        }else{
-//            cell.layer.borderWidth=0.0;
-//        }
-//        
-//    }else{
-//        
-//        cell.layer.borderWidth=0.0;
-//    }
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialShown"];
+    if (coachMarksShown == NO) {
+        
+        if(indexPath.row==0){
+            cell.layer.borderWidth=1.0;
+            cell.layer.borderColor=[[UIColor redColor]CGColor];
+            
+            popAnimationTimer=[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(permformAnimation:) userInfo:cell repeats:YES];
+        }else{
+            cell.layer.borderWidth=0.0;
+        }
+        
+    }else{
+        
+        cell.layer.borderWidth=0.0;
+    }
 //    cell.contentView.layer.borderColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0].CGColor;
 //    cell.contentView.layer.borderWidth = 1.0f;
 
